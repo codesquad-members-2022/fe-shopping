@@ -32,12 +32,46 @@ button {
     justify-content: space-between;
     line-height: 2rem; }
 
-.search-form .search-button {
-  width: 50px;
-  height: 39px; }
-.search-form .menu-icon {
-  width: 20px;
-  fill: #0000ee; }
+.search-bar-area {
+  height: 115px;
+  display: flex; }
+
+.category-button-area {
+  width: 110px;
+  background-color: #4285f4;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .category-button-area .category-button-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  .category-button-area .category-icon {
+    width: 40px;
+    height: 40px;
+    fill: #fff; }
+  .category-button-area .category-title {
+    margin-top: 0.5rem;
+    color: #fff; }
+
+.search-area {
+  display: flex; }
+
+.logo-area .logo-img {
+  width: 174px;
+  height: 41px; }
+
+.search-form {
+  width: 520px;
+  height: 40px; }
+  .search-form .search-input {
+    width: 100%; }
+  .search-form .search-button {
+    width: 50px;
+    height: 39px; }
+  .search-form .search-icon {
+    width: 20px;
+    fill: #4285f4; }
 
 .icon-menu-area .menu-icon {
   width: 30px;
