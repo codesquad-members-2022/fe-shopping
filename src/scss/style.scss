@@ -1,3 +1,184 @@
-body {
-  color: black;
+@import url(reset.css);
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.wrap {
+  width: 100%;
+  min-width: 1020px;
+}
+
+.header-container {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  min-width: 1020px;
+}
+
+.header-container header {
+  width: 1020px;
+  height: 115px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.top-nav {
+  width: 100%;
+  height: 32px;
+  background-color: #f0f0f0;
+  position: absoulte;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 11px;
+}
+
+.top-nav section {
+  width: 1020px;
+  margin: 0 auto;
+  line-height: 32px;
+  text-align: center;
+}
+
+.top-nav section li {
+  padding-right: 12px;
+
+  cursor: pointer;
+  z-index: 15;
+}
+
+.subscribe {
+  float: left;
+  display: flex;
+}
+
+.account {
+  float: right;
+  display: flex;
+}
+
+.category-btn {
+  width: 110px;
+  height: 115px;
+  background-image: url(../img/category-list.JPG);
+  position: absolute;
+  left: 0;
+  margin-right: 30px;
+}
+
+.header-main-wrap {
+  position: absolute;
+  width: 880px;
+  height: 91px;
+  margin: 25px 0 0 140px;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header-main {
+  display: flex;
+}
+
+.logo {
+  width: 175px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.search-form {
+  width: 520px;
+  height: 41px;
+  border: 2px solid #4285f4;
+  margin-right: 22px;
+  display: flex;
+}
+
+.select-category-wrap {
+  width: 135px;
+  height: 37px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.select-category {
+  width: 90px;
+  height: 37px;
+  line-height: 37px;
+  margin-left: 10px;
+}
+
+.select-toggle {
+  width: 30px;
+  height: 33px;
+}
+
+.search-input-wrap {
+  width: 330px;
+  height: 37px;
+}
+
+input {
+  border: none;
+  font-size: 13px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.search-input {
+  width: 100%;
+  height: 100%;
+  margin-left: 10px;
+}
+
+.search-btn {
+  width: 50px;
+  height: 37px;
+  background-color: bisque;
+  cursor: pointer;
+}
+
+.header-main li {
+  width: 50px;
+  height: 50px;
+  background-color: beige;
+  list-style: none;
+  margin-right: 20px;
+  font-size: 10px;
+}
+
+.header-main-nav {
+  display: flex;
+  width: 800px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-main-nav li {
+  flex: 1;
+  font-size: 12px;
+  text-align: center;
+}
+
+.main-banner {
+  width: 100%;
+  height: 450px;
 }
