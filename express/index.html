@@ -3,47 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <title>coupang</title>
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="style/scss/main.css" />
   </head>
   <body>
     <header class="header-box">
       <!-- 최상단 메뉴 -->
       <div class="header-top-bar">
         <menu class="top-bar-favorite">
-          <a href="#" class="header-link-item">즐겨찾기</a>
-          <a href="#" class="header-link-item">입점신청▼</a>
+          <a href="#">즐겨찾기</a>
+          <a href="#">입점신청▼</a>
         </menu>
         <menu class="top-bar-member">
-          <a href="#" class="header-link-item">로그인</a>
-          <a href="#" class="header-link-item">회원가입</a>
-          <a href="#" class="header-link-item">고객센터</a>
+          <a href="#">로그인</a>
+          <a href="#">회원가입</a>
+          <a href="#">고객센터</a>
         </menu>
       </div>
       <!-- 카테고리 -->
+      <section class="header-section">
       <div class="category">
-        <ul class="category-top-bar"></ul>
-        <ul class="category-middel-bar"></ul>
-        <ul class="category-bottom-bar"></ul>
+        <input type="checkbox" class="category-menu-icon">
+      <label for="category-menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <div class="category-text">카테고리</div>
       </div>
       <!-- 로고 및 검색창 -->
-      <section>
-        <div class="search">
         <div class="logo">
             <img
               src="https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png"
               alt="쿠팡 로고"
-              width="174"
-              height="41"
+              width="175"
+              height="40"
             />
           </div>
             <div class="search-bar">
               <div class="search-category">
                 <p>전체</p>
-                <button class="search-category-down">
+                <button class="search-category-dropdown">
                   <span>▼</span>
                 </button>
               </div>
-              <div class="search">
+              <div class="search-form">
                 <form>
                   <input
                     class="search-input"
@@ -52,29 +55,27 @@
                   />
                 </form>
                 <button class="search-voice-btn">
-                  <img src="https://cdn.pixabay.com/photo/2016/05/26/20/42/mic-1418319_1280.png" alt="마이크 이미지" width="10" height="15">
+                  <img src="https://cdn.pixabay.com/photo/2016/05/26/20/42/mic-1418319_1280.png" alt="마이크 이미지" width="15" height="20">
                 </button>
                 <button class="search-enter-btn">
-                  <img src="https://cdn-icons-png.flaticon.com/512/768/768031.png" alt="돋보기 이미지" width="10" height="15">
+                  <img src="https://cdn-icons-png.flaticon.com/512/768/768031.png" alt="돋보기 이미지" width="18" height="20">
                 </button>
               </div>
             </div>
           <ul class="icon-menus">
-            <li class="my-coupang">마이쿠팡</li>
-            <li class="cart">장바구니</li>
+            <li class="my-coupang">
+              <div>
+                👤
+              </div>
+              <div>마이쿠팡</div>
+            </li>
+            <li class="cart">
+              <div>
+                🧺
+              </div>
+              <div>장바구니</div>
+            </li>
           </ul>
-        </div>
         </section>
-    <!-- <section>-->
-      <!-- 이미지 6개 -->
-      <!-- <ul class="image-menu"> -->
-        <!-- <li class="image-menu-contents">냄비/후라이팬</li> -->
-        <!-- <li class="image-menu-contents">인기 생필품</li> -->
-        <!-- <li class="image-menu-contents">아모레퍼시픽</li> -->
-        <!-- <li class="image-menu-contents">글로벌 쇼핑데이</li> -->
-        <!-- <li class="image-menu-contents">과자</li> -->
-        <!-- <li class="image-menu-contents">켈로그</li> -->
-      <!-- </ul> -->
-    <!-- </section>  -->
   </body>
 </html>
