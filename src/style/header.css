@@ -1,63 +1,63 @@
-defaultDisplay {
-  width: 100%;
+rowDisplayAlignCenter, .header__main--contents .header__main--searchZone {
   display: flex;
-  justify-content: flex-start;
+  align-items: center; }
+
+rowDisplayJustifyCenter, .header__top, .header__main {
+  display: flex;
+  justify-content: center; }
+
+columnDisplay, .header, .header__main .header__main--card {
+  display: flex;
   flex-direction: column; }
 
+centerAlignment, .header__main .header__main--category {
+  justify-content: center;
+  align-items: center; }
+
 .header {
-  display: flex;
-  flex-direction: column;
   align-items: center; }
 
 .header__top {
-  display: flex;
-  justify-content: center;
   width: 100%;
   background-color: #f0f0f0; }
   .header__top ul {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     width: 1000px; }
   .header__top li {
     display: flex; }
     .header__top li div {
-      padding: 15px 10px; }
+      padding: 10px; }
 
 .header__main {
-  display: flex;
-  justify-content: center;
   width: 1000px; }
   .header__main .header__main--category {
-    display: flex;
     width: 110px;
     height: 115px;
-    justify-content: center;
-    align-items: center;
-    background-color: #4285f4; }
-  .header__main .header__main--card {
     display: flex;
-    flex-direction: column; }
-    .header__main .header__main--card .header__main--shoppingNav {
-      display: flex; }
-      .header__main .header__main--card .header__main--shoppingNav li {
-        padding-left: 25px; }
-    .header__main .header__main--card .header__main--searchZone {
-      display: flex;
-      align-items: center; }
-      .header__main .header__main--card .header__main--searchZone .header__main--logo {
-        width: 225px;
-        height: 70px;
-        background-image: url("https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center;
-        background-origin: content-box;
-        padding: 10px; }
-      .header__main .header__main--card .header__main--searchZone .header__main--searchInput {
-        width: 520px;
-        height: 40px; }
-      .header__main .header__main--card .header__main--searchZone .header__main--myShopping {
-        width: 50px;
-        height: 70px;
-        background-color: #f0f0f0; }
+    background-color: #4285f4; }
+
+.header__main--contents .header__main--shoppingNav {
+  display: flex; }
+  .header__main--contents .header__main--shoppingNav li {
+    padding-left: 25px; }
+
+.header__main--contents .header__main--searchZone .header__main--logo {
+  width: 225px;
+  height: 70px;
+  background-image: url("https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  background-origin: content-box;
+  padding: 10px; }
+
+.header__main--contents .header__main--searchZone .header__main--searchInput {
+  width: 520px;
+  height: 40px;
+  border: 1.5px solid #4285f4; }
+
+.header__main--contents .header__main--searchZone .header__main--myShopping {
+  width: 50px;
+  height: 70px;
+  background-color: #f0f0f0; }

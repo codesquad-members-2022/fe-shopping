@@ -2,29 +2,49 @@
 
 $contentsWidth: 1000px;
 $signatureColor: #4285f4;
+$searchZoneHeight: 70px;
+$defaultPadding: 10px;
 
-defaultDisplay {
-  width: 100%;
+rowDisplayAlignCenter {
   display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
-.header__top {
+rowDisplayJustifyCenter {
   display: flex;
   justify-content: center;
+}
+
+columnDisplay {
+  display: flex;
+  flex-direction: column;
+}
+
+centerAlignment {
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin getWH($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+////////////////////////////////////////////////////////
+.header {
+  @extend columnDisplay;
+  align-items: center;
+}
+
+//클래스를 통해 스타일을 주는것과 태그에 스타일을 주는것중 무엇이 좋을지? 고민하다 이부분은 태그명으로 짜두었습니다.
+.header__top {
+  //flex 가로 정렬
+  @extend rowDisplayJustifyCenter;
   width: 100%;
   background-color: #f0f0f0;
 
   ul {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     width: $contentsWidth;
   }
@@ -32,58 +52,57 @@ defaultDisplay {
   li {
     display: flex;
     div {
-      padding: 15px 10px;
+      padding: $defaultPadding;
     }
   }
 }
 
 .header__main {
-  display: flex;
-  justify-content: center;
+  @extend rowDisplayJustifyCenter;
   width: $contentsWidth;
 
   .header__main--category {
+    @extend centerAlignment;
+    @include getWH(110px, 115px);
     display: flex;
-    width: 110px;
-    height: 115px;
-    justify-content: center;
-    align-items: center;
+
     background-color: $signatureColor;
   }
+
   .header__main--card {
+    @extend columnDisplay;
+  }
+}
+
+.header__main--contents {
+  .header__main--shoppingNav {
     display: flex;
-    flex-direction: column;
 
-    .header__main--shoppingNav {
-      display: flex;
-      li {
-        padding-left: 25px;
-      }
+    li {
+      padding-left: 25px;
     }
-    .header__main--searchZone {
-      display: flex;
-      align-items: center;
+  }
+  .header__main--searchZone {
+    @extend rowDisplayAlignCenter;
 
-      .header__main--logo {
-        width: 225px;
-        height: 70px;
-        background-image: url("https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center;
-        background-origin: content-box;
-        padding: 10px;
-      }
-      .header__main--searchInput {
-        width: 520px;
-        height: 40px;
-      }
+    .header__main--logo {
+      @include getWH(225px, $searchZoneHeight);
+      background-image: url("https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center;
+      background-origin: content-box;
+      padding: $defaultPadding;
+    }
 
-      .header__main--myShopping {
-        width: 50px;
-        height: 70px;
-        background-color: #f0f0f0;
-      }
+    .header__main--searchInput {
+      @include getWH(520px, 40px);
+      border: 1.5px solid $signatureColor;
+    }
+
+    .header__main--myShopping {
+      @include getWH(50px, $searchZoneHeight);
+      background-color: #f0f0f0;
     }
   }
 }
