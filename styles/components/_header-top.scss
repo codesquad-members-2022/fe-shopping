@@ -1,0 +1,29 @@
+.header-top {
+  width: 100%;
+  background-color: $gray;
+}
+
+.header-menu-group {
+  @include flexbox(space-between);
+  width: $primary-width;
+  margin: 0 auto;
+
+  .subscribe-menu-list {
+    @include flexbox(start, center);
+    @include font-style($font-sm, $primary);
+  }
+
+  .auth-menu-list {
+    @include flexbox(end, center);
+    @include font-style($font-sm, $primary);
+  }
+
+  .subscribe-menu-item,
+  .auth-menu-item {
+    button,
+    a {
+      padding: 10px 6px;
+      color: $primary;
+    }
+  }
+}
