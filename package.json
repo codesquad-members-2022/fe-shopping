@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/godhyeongman/fe-shopping/issues"
   },
-  "homepage": "https://github.com/godhyeongman/fe-shopping#readme"
+  "homepage": "https://github.com/godhyeongman/fe-shopping#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }

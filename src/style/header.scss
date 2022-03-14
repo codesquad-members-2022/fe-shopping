@@ -65,7 +65,6 @@ centerAlignment {
     @extend centerAlignment;
     @include getWH(110px, 115px);
     display: flex;
-
     background-color: $signatureColor;
   }
 
