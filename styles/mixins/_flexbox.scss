@@ -1,0 +1,12 @@
+@mixin flexbox($main: center, $cross: center) {
+  display: flex;
+  align-items: $cross;
+  justify-content: $main;
+}
+
+@mixin col-flexbox($cross: center, $main: center) {
+  display: flex;
+  flex-direction: column;
+  align-items: $main;
+  justify-content: $cross;
+}
