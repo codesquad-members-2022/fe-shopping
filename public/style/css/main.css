@@ -1,0 +1,189 @@
+/* 쿠팡 전용 아이콘들 */
+.icon {
+  background-image: url("//static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
+}
+
+.ic {
+  display: inline-block;
+  margin-top: -2px;
+  margin-left: 4px;
+  padding-left: 10px;
+  width: 5px;
+  height: 3px;
+  background-position: -153px -36px;
+  vertical-align: middle;
+}
+
+.category-btn {
+  width: 110px;
+  height: 115px;
+  top: 32px;
+  left: 0;
+  margin-right: 30px;
+  background-position: 0 0;
+  text-align: center;
+}
+
+.select__category-btn {
+  background: url(//img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png) 6px -165px no-repeat;
+  height: 30px;
+  outline: 0;
+  right: 0;
+  top: 3px;
+  width: 30px;
+}
+
+.home-logo img {
+  width: 174px;
+  padding-right: 1.5rem;
+}
+
+.search-btn {
+  right: 0;
+  width: 50px;
+  height: 39px;
+  background-position: -112px -71px;
+  text-indent: -9em;
+}
+
+.my-coupang {
+  width: 29px;
+  height: 31px;
+  display: block;
+  margin: 0 auto;
+  background-position: -112px -42px;
+}
+
+.shopping-cart {
+  width: 40px;
+  height: 41px;
+  display: block;
+  margin: 0 auto;
+  background-position: -112px 0;
+}
+
+.icon-new {
+  width: 12px;
+}
+
+/*  */
+
+.flexbox-blank {
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  background-color: #f0f0f0;
+}
+
+.top-bar__container {
+  width: 1020px;
+  margin: 0 auto;
+}
+
+.top-bar__ul {
+  display: flex;
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.top-bar__li {
+  padding: 0.8rem 0.3rem;
+  cursor: pointer;
+}
+
+.header__container {
+  display: flex;
+  width: 1040px;
+  margin: 0 auto;
+}
+
+.category-btn__name {
+  font-size: 13px;
+  font-family: sans-serif;
+  color: white;
+  line-height: 10rem;
+}
+
+.header__contents {
+  display: flex;
+  flex-direction: column;
+  height: 115px;
+}
+
+.header__container {
+  height: 75%;
+  align-items: center;
+}
+
+.search-box {
+  display: flex;
+  border: 2px solid #4285f4;
+}
+
+.search-box__category {
+  display: flex;
+  text-align: center;
+  line-height: 2rem;
+  align-items: center;
+}
+
+.search-box__name {
+  font-size: 12px;
+  padding: 0.2rem 4rem 0.2rem 0.5rem;
+}
+
+.search__input {
+  width: 333px;
+  height: 39px;
+  padding-left: 1rem;
+  border: 0;
+}
+
+.search__input:focus {
+  outline: 0;
+}
+
+.icon__container {
+  display: flex;
+  padding: 1rem;
+  font-size: 12px;
+  align-items: flex-end;
+}
+
+.icon__li {
+  padding: 1rem;
+}
+
+.icon__name {
+  padding-top: 3rem;
+}
+
+.gnb {
+  font-size: 12px;
+  height: 20px;
+}
+
+.gnb__ul {
+  display: flex;
+}
+
+.gnb__li {
+  display: flex;
+  align-items: center;
+  padding: 0 0.3rem;
+  cursor: pointer;
+}
+
+.gnb__li img {
+  padding-right: 0.3rem;
+}
+
+.gnb__no-icon {
+  padding-left: 2rem;
+}
