@@ -1,0 +1,12 @@
+@import "variables";
+@import "header";
+
+div {
+  width: 100%;
+}
+
+main {
+  .test {
+    color: $red;
+  }
+}
