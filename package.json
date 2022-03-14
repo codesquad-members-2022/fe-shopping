@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scss": "sass public/stylesheet/scss/main.scss public/stylesheet/css/style.css",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

@@ -2,10 +2,105 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./public/stylesheet/css/style.css" />
     <title>쿠팡!</title>
   </head>
   <body>
-    body
-    <script type="module" src="/js/index.js"></script>
+    <header class="header-area">
+      <!-- 상단회원메뉴영역 -->
+      <div class="header-bar">
+        <div class="header-link-area container">
+          <div><a href="#" class="header-link-item">즐겨찾기</a></div>
+          <div class="member">
+            <a href="#" class="header-link-item">로그인</a>
+            <a href="#" class="header-link-item">회원가입</a>
+            <a href="#" class="header-link-item">고객센터</a>
+          </div>
+        </div>
+      </div>
+      <!-- // 상단회원메뉴영역 -->
+
+      <!-- 검색창영역 -->
+      <div class="container">
+        <div class="search-bar-area">
+          <div class="category-button"></div>
+          <div class="search-area">
+            <div class="logo-area">
+              <img
+                src="//image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png"
+                alt="쿠팡 로고"
+                class="logo-img"
+              />
+            </div>
+            <div class="search-bar">
+              <div class="category-dropdown"></div>
+              <div class="search-form">
+                <input type="text" />
+                <button>검색</button>
+              </div>
+            </div>
+            <div class="icon-menu-area">
+              <a href="#">
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="menu-img"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 2.5a5.5 5.5 0 00-3.096 10.047 9.005 9.005 0 00-5.9 8.18.75.75 0 001.5.045 7.5 7.5 0 0114.993 0 .75.75 0 101.499-.044 9.005 9.005 0 00-5.9-8.181A5.5 5.5 0 0012 2.5zM8 8a4 4 0 118 0 4 4 0 01-8 0z"
+                  />
+                </svg>
+                <span class="menu-title">마이쿠팡</span>
+              </a>
+              <a href="#">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="menu-img"
+                >
+                  <path
+                    d="M5 7H13H18.79C19.9733 7 20.8978 8.02164 20.7801 9.19901L20.1801 15.199C20.0779 16.2214 19.2175 17 18.19 17H8.63961C7.68625 17 6.86542 16.3271 6.67845 15.3922L5 7Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5 7L4.18937 3.75746C4.07807 3.3123 3.67809 3 3.21922 3H2"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M8 21H10"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 21H18"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <span class="menu-title">장바구니</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- //검색창영역 -->
+    </header>
+    <main></main>
+    <footer></footer>
+
+    <script type="module" src="./public/js/index.js"></script>
   </body>
 </html>
