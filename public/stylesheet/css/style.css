@@ -16,6 +16,7 @@ a {
 
 button {
   border: 0;
+  cursor: pointer;
   background-color: transparent;
   cursor: pointer; }
 
@@ -30,5 +31,17 @@ button {
     display: flex;
     justify-content: space-between;
     line-height: 2rem; }
+
+.search-form .search-button {
+  width: 50px;
+  height: 39px; }
+.search-form .menu-icon {
+  width: 20px;
+  fill: #0000ee; }
+
+.icon-menu-area .menu-icon {
+  width: 30px;
+  height: 30px;
+  fill: #555; }
 
 /*# sourceMappingURL=style.css.map */
