@@ -1,4 +1,3 @@
-console.log("indexs");
+import App from "./App";
 
-const a = 1;
-console.log(a);
+const app = new App(document.querySelector(".App"));
