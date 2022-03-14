@@ -1,0 +1,20 @@
+{
+  "promotion": [
+    {
+      "id": 1,
+      "src": "https://static.coupangcdn.com/va/cmg_paperboy/image/1646890839043/W1_PC.png"
+    },
+    {
+      "id": 2,
+      "src": "https://static.coupangcdn.com/ta/cmg_paperboy/image/1646903691985/W1_PC%281%29.png"
+    },
+    {
+      "id": 3,
+      "src": "https://image7.coupangcdn.com/image/displayitem/displayitem_8ad9b5e0-fd76-407b-b820-6494f03ffc31.jpg"
+    },
+    {
+      "id": 4,
+      "src": "https://image9.coupangcdn.com/image/displayitem/displayitem_5d0b20b7-43a8-424e-90cd-11864bbd9414.png"
+    }
+  ]
+}

@@ -1,6 +1,9 @@
 @import 'abstracts/variables';
 
+@import 'base/reset';
 @import 'base/base';
 @import 'base/animation';
 
 @import 'layout/header';
+@import 'layout/carousel';
+@import 'layout/discovery';

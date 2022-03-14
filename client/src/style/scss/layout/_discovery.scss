@@ -1,0 +1,22 @@
+.discovery {
+  max-width: 1020px;
+  margin: 0 auto;
+
+  &-header {
+    display: flex;
+    padding: 30px 0;
+
+    &--vertical {
+      display: inline-block;
+      margin: 0 10px;
+    }
+  }
+
+  &-list {
+    height: 600px;
+    border: 1px solid $color-grey-dark;
+  }
+
+  &-promotion {
+  }
+}

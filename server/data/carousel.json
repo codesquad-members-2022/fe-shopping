@@ -1,0 +1,28 @@
+{
+  "carouselImg": [
+    {
+      "id": 1,
+      "src": "https://static.coupangcdn.com/da/cmg_paperboy/image/1646897277067/C1-PC1.jpg"
+    },
+    {
+      "id": 2,
+      "src": "https://static.coupangcdn.com/ma/cmg_paperboy/image/1646985719092/220314_C1_%EC%A7%81%EA%B5%AC%EA%B8%80%EB%A1%9C%EB%B2%8C%EC%87%BC%ED%95%91%EB%8D%B0%EC%9D%B4_A_SMD-16057_PC.jpg"
+    },
+    {
+      "id": 3,
+      "src": "https://image8.coupangcdn.com/image/ccm/banner/a764f38840caee2a5065d11f187adbee.jpg"
+    },
+    {
+      "id": 4,
+      "src": "https://image7.coupangcdn.com/image/ccm/banner/8ca1b02adafa4b3529245270ac534827.png"
+    },
+    {
+      "id": 5,
+      "src": "https://static.coupangcdn.com/ua/cmg_paperboy/image/1646985671364/220314_C1_HPC%ED%8E%98%EC%96%B4_SMD-16056_PC.jpg"
+    },
+    {
+      "id": 6,
+      "src": "https://static.coupangcdn.com/ka/cmg_paperboy/image/1646902887926/1920_450.jpg"
+    }
+  ]
+}
