@@ -1,0 +1,24 @@
+defaultDisplay {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.header__top {
+  display: flex;
+  justify-content: center;
+  background-color: #8f8f8f;
+}
+.header__top ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1000px;
+}
+.header__top li {
+  display: flex;
+}
+.header__top li div {
+  padding: 5px 10px;
+}

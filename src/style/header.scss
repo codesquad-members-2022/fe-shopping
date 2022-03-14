@@ -1,0 +1,23 @@
+// node-sass [옵션] <입력파일경로> [출력파일경로]    !컴파일방법
+
+$contentsWidth: 1000px;
+
+.header__top {
+  display: flex;
+  justify-content: center;
+  background-color: #8f8f8f;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: $contentsWidth;
+  }
+
+  li {
+    display: flex;
+    div {
+      padding: 5px 10px;
+    }
+  }
+}

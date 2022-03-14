@@ -5,15 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./style/init.css" />
+    <link rel="stylesheet" href="./style/header.css" />
   </head>
   <body>
     <header class="header">
-      <nav class="header__top">
+      <section class="header__top">
         <ul class="header__top--greyNav">
-          <li><span>즐겨찾기</span><span>입점신청</span></li>
-          <li><span>로그인</span><span>회원가입</span><span>고객센터</span></li>
+          <!--중복-->>
+          <li>
+            <div>즐겨찾기</div>
+            <div>입점신청</div>
+          </li>
+          <li>
+            <!--중복-->>
+            <div>로그인</div>
+
+            <div>회원가입</div>
+            <div>고객센터</div>
+          </li>
         </ul>
-      </nav>
+      </section>
 
       <section class="header__main">
         <div class="header__main--category"></div>
@@ -30,6 +42,7 @@
           <div class="header__main--navZone"></div>
           <nav class="header__main--shoppingNav">
             <ul>
+              <!--중복-->
               <li data-header-shopping-nav="1">로켓배송</li>
               <li data-header-shopping-nav="2">로켓프레시</li>
               <li data-header-shopping-nav="3">쿠팡비즈</li>

@@ -1,0 +1,19 @@
+{
+  "name": "coupang_clone",
+  "version": "1.0.0",
+  "description": "for_practice_shoppingmall",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godhyeongman/fe-shopping.git"
+  },
+  "author": "dott",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/godhyeongman/fe-shopping/issues"
+  },
+  "homepage": "https://github.com/godhyeongman/fe-shopping#readme"
+}
