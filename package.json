@@ -1,0 +1,24 @@
+{
+  "name": "fe-shopping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass -w ./styles/main.scss:style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcad1591/fe-shopping.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcad1591/fe-shopping/issues"
+  },
+  "homepage": "https://github.com/bcad1591/fe-shopping#readme",
+  "devDependencies": {
+    "sass": "^1.49.9"
+  }
+}
