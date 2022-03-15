@@ -22,6 +22,7 @@
   margin-right: 30px;
   background-position: 0 0;
   text-align: center;
+  cursor: pointer;
 }
 
 .select__category-btn {
@@ -36,6 +37,7 @@
 .home-logo img {
   width: 174px;
   padding-right: 1.5rem;
+  cursor: pointer;
 }
 
 .search-btn {
@@ -131,6 +133,7 @@
   text-align: center;
   line-height: 2rem;
   align-items: center;
+  cursor: pointer;
 }
 
 .search-box__name {
@@ -158,6 +161,7 @@
 
 .icon__li {
   padding: 1rem;
+  cursor: pointer;
 }
 
 .icon__name {
