@@ -1,0 +1,33 @@
+@import './mixins';
+
+%myCoupang {
+  position: relative;
+  top: -10px;
+  display: block;
+
+  .text {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+  }
+}
+
+%gnbMenuWithIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 8px 0 5px;
+
+  a {
+    @include flex(flex-start, 4px);
+  }
+
+  a::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    display: inline-block;
+    background-image: url('https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png');
+    background-repeat: no-repeat;
+  }
+}
