@@ -7,17 +7,24 @@
     <title>fe-shopping</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="header">
       <div class="container">
         <article class="header-top">
-          <div class="header-menu-group">
+          <div class="menu-group">
             <div class="subscribe-menu">
               <ul class="subscribe-menu-list">
                 <li class="subscribe-menu-item"><a href="#">즐겨찾기</a></li>
                 <li class="subscribe-menu-item">
-                  <button type="button">입점신청</button>
+                  <button type="button">
+                    입점신청
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -30,7 +37,111 @@
             </div>
           </div>
         </article>
-        <article class="header-body"></article>
+        <article class="header-body">
+          <div class="wrapper">
+            <div class="category-group">
+              <div class="category-btn">
+                <img
+                  src="./assets/images/category-btn.png"
+                  alt="카테고리 버튼 이미지"
+                />
+                <h3>카테고리</h3>
+              </div>
+              <div class="category-layer"></div>
+            </div>
+            <div class="group-wrapper">
+              <div class="search-group">
+                <h1 class="logo">
+                  <a href="/">
+                    <img src="./assets/images/coopang.png" alt="쿠팡" />
+                  </a>
+                </h1>
+
+                <div class="search-bar">
+                  <div class="search-bar-category">
+                    <span>전체</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <ul class="search-bar-category-list">
+                      <li class="search-bar-category-item">ㅁㅁ</li>
+                      <li class="search-bar-category-item">ㄴㄴ</li>
+                      <li class="search-bar-category-item">ㅇㅇ</li>
+                      <li class="search-bar-category-item">ㅍㅍ</li>
+                      <li class="search-bar-category-item">ㅁㅁ</li>
+                      <li class="search-bar-category-item">ㄴㄴ</li>
+                      <li class="search-bar-category-item">ㅇㅇ</li>
+                      <li class="search-bar-category-item">ㅍㅍ</li>
+                    </ul>
+                  </div>
+                  <form action="#" class="search-bar-form">
+                    <input
+                      class="search-bar-input"
+                      type="text"
+                      placeholder="찾고 싶은 상품을 검색해보세요!"
+                    />
+                    <button class="search-bar-submit" type="sibmit">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <div class="auto-complete-wrapper">
+                      <div class="history hidden">
+                        <h3>최근 검색어</h3>
+                        <ol class="history-list">
+                          <li class="history-item">ㅇㅇ</li>
+                          <li class="history-item">ㅁㅁ</li>
+                          <li class="history-item">ㄴㄴ</li>
+                          <li class="history-item">ㅇㅇ</li>
+                          <li class="history-item">ㅁㅁ</li>
+                          <li class="history-item">ㄴㄴ</li>
+                          <li class="history-item">ㅇㅇ</li>
+                          <li class="history-item">ㅁㅁ</li>
+                          <li class="history-item">ㄴㄴ</li>
+                          <li class="history-item">ㄴㄴ</li>
+                        </ol>
+                        <div class="history-option">
+                          <span class="history-del-btn">전체삭제</span>
+                          <span class="history-onoff-btn">최근검색어끄기</span>
+                        </div>
+                      </div>
+
+                      <div class="auto-search">
+                        <ul class="auto-search-list">
+                          <li class="auto-search-item">
+                            ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                            ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                          </li>
+                          <li class="auto-search-item">ㅁㅁ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                          <li class="auto-search-item">ㄴㄴ</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <ul class="my-menu-list">
+                  <li class="my-menu-item">
+                    <button class="my-menu-button is-userinfo">
+                      <i class="fa-regular fa-user"></i>
+                      <span>마이쿠팡</span>
+                    </button>
+                  </li>
+                  <li class="my-menu-item">
+                    <button class="my-menu-button is-cart">
+                      <i class="fa-solid fa-cart-shopping"></i>
+                      <span>장바구니</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div class="gnb-group"></div>
+            </div>
+          </div>
+        </article>
       </div>
     </header>
   </body>

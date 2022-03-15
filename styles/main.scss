@@ -4,9 +4,11 @@
 
 @import './base/reset';
 @import './base/normalize';
+@import './base/hidden';
 
 @import './mixins/flexbox';
 @import './mixins/positions';
 @import './mixins/font-style';
 
 @import './components/header-top';
+@import './components/header-body';
