@@ -1,0 +1,13 @@
+@import './colors';
+
+.btn {
+  cursor: pointer;
+  background-color: $btn-bg;
+  border: 0;
+}
+
+.absolute-width-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
