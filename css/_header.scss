@@ -1,8 +1,23 @@
 
 $header-bg-color: #fff;
 $header-font: (small: 12px, medium: 24px, large: 36px);
-$header-width: (base: 1020px);
-$header-height: (top-bar: 32px, header: 115px);
+$header-font-color: (white: #fff, dark-gray: #555);
+$header-width: (base: 1020px, search-form: 518px);
+$header-height: (top-bar: 32px, header: 115px, search-form: 37px);
+
+@mixin bg-img-no-repeat($url) {
+  background: {
+    image: url($url);
+    repeat: no-repeat;
+  };
+}
+
+@mixin position-absolute($top:auto, $left:auto, $right:auto) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+}
 
 .header-container {
   background: {
@@ -14,37 +29,37 @@ $header-height: (top-bar: 32px, header: 115px);
 }
 
 .top-bar {
-  position: absolute;
+  @include position-absolute(0, 0, 0);
+  z-index: 1;
   background: #f0f0f0;
   height: map-get($header-height, top-bar);
-  top: 0;
-  left:0;
-  right:0;
 
   section {
     width: map-get($header-width, base);
-    font-size: 0.8rem;
+    font-size: 0.5em;
     margin: 0 auto;
   }
 }
 
-.header-menu {
+.top-bar__menu {
   float: right;
 
   li {
     float: left;
     padding-right: 12px;
     padding-top: 10px;
+    cursor: pointer;
   }
 }
 
-.header-submenu {
+.top-bar__sub-menu {
   float: left;
 
   li {
     float: left;
-    padding-right: 12px;
+    padding-left: 12px;
     padding-top: 10px;
+    cursor: pointer;
   }
 }
 
@@ -55,3 +70,102 @@ $header-height: (top-bar: 32px, header: 115px);
   padding-top: map-get($header-height, top-bar);
   position: relative;
 }
+
+.header__category-btn {
+  position: absolute;
+  width: 110px;
+  height: map-get($header-height, header);
+  @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
+
+  p {
+    display: block;
+    text-align: center;
+    font-size: 0.6em;
+    color: map-get($header-font-color, white);
+    margin-top: 73px;
+    cursor: pointer;
+  }
+}
+
+#header>section {
+  width: map-get($header-width, base) * 0.86;
+  height: map-get($header-height, header) * 0.79;
+  margin: 25px 0 0 140px;
+
+  h1 {
+    height: 41px;
+    width: 174px;
+    margin: 2px 20px 0 0;
+    float: left;
+
+    @include bg-img-no-repeat("https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png");
+    background: {
+      size: 100%;
+    };
+  }
+}
+
+.form-container {
+  width: map-get($header-width, search-form);
+  height: map-get($header-height, search-form);
+  background-color: $header-bg-color;
+  border: 2px solid #4285f4;
+  float: left;
+}
+
+.header__search-form {
+  height: 100%;
+}
+
+.header__form__select {
+  position: relative;
+  width: map-get($header-width, search-form) * 0.25;
+  height: 100%;
+  line-height: map-get($header-height, search-form);
+  border-right: 1px solid #ddd;
+  font-size: map-get($header-font, small);
+  text-indent: 10px;
+  color: map-get($header-font-color, dark-gray);
+
+  label {
+    display: block;
+    width: inherit;
+    height: inherit;
+    cursor: pointer;
+  }
+
+  button {
+    @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
+    background: {
+      position: 6px -165px;
+      color: $header-bg-color;
+    };
+
+    height: 30px;
+    width: 30px;
+    border: 0;
+    @include position-absolute(2px, 100px);
+    cursor: pointer;
+  }
+}
+
+.header__select--open {
+  max-height: 800px;
+  border: 1px solid #ddd;
+  background-color: $header-bg-color;
+  width: inherit;
+  @include position-absolute(map-get($header-height, search-form), -1px);
+  overflow-y: auto;
+  box-shadow: 0 5px 5px #ddd;
+
+  li {
+    color: black;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+      color: #008cff;
+    }
+  }
+}
+
+
