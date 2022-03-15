@@ -1,11 +1,11 @@
 import Category from '../components/Category.js';
 import HtmlElement from '../utils/HtmlElement.js';
 
-function Header(htmlTag) {
-  HtmlElement.call(this, htmlTag);
+function Header(htmlTag, $parent) {
+  HtmlElement.call(this, htmlTag, $parent);
   this.setTemplate();
   this.render();
-  this.setEvent();
+  // this.setEvent();
 }
 
 Header.prototype = Object.create(HtmlElement.prototype);
@@ -14,8 +14,7 @@ Header.prototype.constructor = Header;
 
 Header.prototype.setTemplate = function () {
   this.$element.id = 'header';
-  const category = new Category('div');
-  this.template = category.$element.innerHTML;
+  new Category('div', this.$element);
 };
 
 export default Header;

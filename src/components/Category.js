@@ -1,11 +1,11 @@
 import HtmlElement from '../utils/HtmlElement.js';
 import { findTargetIdElement } from '../utils/manuplateDOM.js';
 
-function Category(htmlTag) {
-  HtmlElement.call(this, htmlTag);
+function Category(htmlTag, $parent) {
+  HtmlElement.call(this, htmlTag, $parent);
   this.setTemplate();
   this.render();
-  this.setEvent();
+  // this.setEvent();
 }
 
 Category.prototype = Object.create(HtmlElement.prototype);
@@ -13,28 +13,24 @@ Category.prototype.constructor = Category;
 
 Category.prototype.setTemplate = function () {
   this.$element.classList.add('category');
-  this.template = template;
+  this.$element.innerHTML = template;
 };
 
 Category.prototype.setEvent = function () {
   const $categoryButton = findTargetIdElement(this.$element, 'category-button');
-  // console.log($categoryButton);
   $categoryButton.addEventListener('click', handleCategoryButton.bind(this));
-  debugger;
-  console.log($categoryButton);
 };
 
 function handleCategoryButton(event) {
-  console.log(event.target);
-  // const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
-  // const layerClassList = $categoryLayer.classList;
-  // if (layerClassList.contains('none')) {
-  //   $categoryLayer.classList.remove('none');
-  //   $categoryLayer.classList.add('show');
-  // } else {
-  //   $categoryLayer.classList.remove('show');
-  //   $categoryLayer.classList.add('none');
-  // }
+  const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
+  const layerClassList = $categoryLayer.classList;
+  if (layerClassList.contains('none')) {
+    $categoryLayer.classList.remove('none');
+    $categoryLayer.classList.add('show');
+  } else {
+    $categoryLayer.classList.remove('show');
+    $categoryLayer.classList.add('none');
+  }
 }
 
 const template = `<div class="category__button" id="category-button">

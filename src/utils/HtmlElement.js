@@ -1,14 +1,15 @@
-function HtmlElement(htmlTag) {
+function HtmlElement(htmlTag, $parent) {
+  this.$parent = $parent;
   this.$element = document.createElement(htmlTag);
-  this.template = '';
 }
 
 HtmlElement.prototype.setTemplate = function () {
-  // child요소.render한 데이터를 this.$element에 appendChild
+  this.$element.innerHTML = ``;
 };
 
 HtmlElement.prototype.render = function () {
-  this.$element.innerHTML = this.template;
+  this.$parent.appendChild(this.$element);
+  this.setEvent();
 };
 
 HtmlElement.prototype.setEvent = function () {};

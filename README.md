@@ -124,3 +124,16 @@ HtmlElement.prototype.setEvent = function () {};
 
 export default HtmlElement;
 ```
+
+그게 아니라 2번처럼 하면 안 됨. 1번처럼해야함
+
+```js
+const $root = findTargetIdElement(document, 'root');
+const main = document.createElement('main');
+main.innerHTML = `<div><div id="temp" style="width: 200px; height: 200px; background-color: tomato"></div></div>`;
+// 1번
+// $root.appendChild(main);
+// 2번
+$root.innerHTML = main.innerHTML;
+main.addEventListener('click', hello);
+```
