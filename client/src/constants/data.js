@@ -1,4 +1,24 @@
-export const category = [
+export const mainCategoryData = [
+  '패션의류/잡화',
+  '뷰티',
+  '출산/유아동',
+  '식품',
+  '주방용품',
+  '생활용품',
+  '홈인테리어',
+  '가전디지털',
+  '스포츠/레저',
+  '자동차용품',
+  '도서/음반/DVD',
+  '완구/취미',
+  '문구/오피스',
+  '반려동물용품',
+  '헬스/건강식품',
+  '여행/티켓',
+  '테마관',
+];
+
+export const searchCategoryData = [
   '전체',
   '여성패션',
   '남성패션',
@@ -31,3 +51,162 @@ export const category = [
   '홈카페',
   '실버스토어',
 ];
+
+export const keywords = {
+  Ahkeyword: [
+    {
+      keyword: '아이폰 13 pro',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이패드 에어4',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이폰 13',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이깨끗해',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이패드',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이폰13 미니',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이폰13 pro max',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이깨끗해 리필',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이스크림',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '아이폰',
+      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      travelKeyword: 'false',
+    },
+  ],
+  BaKeyword: [
+    {
+      keyword: '바나나',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '바디워시',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '바나나우유',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '방울토마토',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '바디로션',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '밥솥',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '스테비아 방울토마토',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: 'led 방등',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '빙그레 바나나우유',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '발레슈즈',
+      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
+      travelKeyword: 'false',
+    },
+  ],
+  GaKeyWord: [
+    {
+      keyword: '가습기',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '가히 멀티밤',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '가그린',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '감자',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '각티슈',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '가희 주름 케어 멀티밤',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '가글',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '가히',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '감동란',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '간 영양제',
+      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      travelKeyword: 'false',
+    },
+  ],
+};
