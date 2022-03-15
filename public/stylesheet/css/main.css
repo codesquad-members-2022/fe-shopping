@@ -93,9 +93,14 @@ button {
 }
 
 .search-area {
+  width: calc(100% - 110px);
+  padding: 25px 0 0 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .logo-area .logo-img {
@@ -106,6 +111,7 @@ button {
 .search-form {
   width: 520px;
   height: 40px;
+  border: 2px solid #4285f4;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -118,9 +124,9 @@ button {
 }
 
 .search-form .search-input {
-  -webkit-box-flex: 2;
-      -ms-flex-positive: 2;
-          flex-grow: 2;
+  -webkit-box-flex: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3;
   border: 0;
 }
 
@@ -138,6 +144,9 @@ button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .icon-menu-area .icon-menu-item {
@@ -151,6 +160,10 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.icon-menu-area .icon-menu-item:not(:first-child) {
+  margin-left: 25px;
 }
 
 .icon-menu-area .menu-icon {

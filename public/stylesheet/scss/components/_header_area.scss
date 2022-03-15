@@ -20,7 +20,7 @@
 }
 
 .category-button-area {
-  width: 110px;
+  width: $category-button-width;
   background-color: $color-blue;
   display: flex;
   justify-content: center;
@@ -45,7 +45,10 @@
 }
 
 .search-area {
+  width: calc(100% - #{$category-button-width});
+  padding: $default-whitespace 0 0 $default-whitespace;
   display: flex;
+  justify-content: space-between;
 }
 
 .logo-area {
@@ -58,9 +61,16 @@
 .search-form {
   width: 520px;
   height: 40px;
+  border: 2px solid $color-blue;
+  display: flex;
+
+  .search-category-dropdown {
+    flex-grow: 1;
+  }
 
   .search-input {
-    width: 100%;
+    flex-grow: 3;
+    border: 0;
   }
 
   .search-button {
@@ -75,6 +85,19 @@
 }
 
 .icon-menu-area {
+  display: flex;
+  justify-content: space-between;
+
+  .icon-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:not(:first-child) {
+      margin-left: $default-whitespace;
+    }
+  }
+
   .menu-icon {
     width: 30px;
     height: 30px;
