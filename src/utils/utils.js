@@ -23,3 +23,11 @@ export const createElement = (tagName, className) => {
   if (className) element.className = className;
   return element;
 };
+
+export const delay = (ms) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+};
