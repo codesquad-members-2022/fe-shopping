@@ -31,3 +31,35 @@ export const delay = (ms) => {
     }, ms);
   });
 };
+
+export const hasAscendant = ($ascendant, $element) => {
+  if (!$element) throw `Error: Unexpected $element Argument ${$element}`;
+  if (!$ascendant) return false;
+
+  let $curElement = $element;
+
+  while ($curElement) {
+    if ($curElement === $ascendant) {
+      return true;
+    }
+
+    $curElement = $curElement.parentNode;
+  }
+  return false;
+};
+
+// export const hasAscendant = (className, $element) => {
+//   if (!className) throw `Error: Unexpected className Argument ${className}`;
+//   if (!$element) throw `Error: Unexpected $element Argument ${$element}`;
+
+//   let $curElement = $element;
+
+//   while ($curElement !== document) {
+//     if ($curElement.classList.contains(className)) {
+//       return [true, $curElement];
+//     }
+
+//     $curElement = $curElement.parentNode;
+//   }
+//   return false;
+// };
