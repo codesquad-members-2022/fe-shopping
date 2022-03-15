@@ -30,10 +30,10 @@
     "no-restricted-syntax": ["off", "ForOfStatement"], // disallow specified syntax(ex. WithStatement)
     "prefer-arrow-callback": "error", // Require using arrow functions for callbacks
     "require-await": "error",
-    "arrow-parens": ["error", "as-needed"], // a => {}
+    "arrow-parens": "off", // a => {}
     "no-param-reassign": ["error", { "props": false }],
     "no-unused-expressions": [
-      "error",
+      "warn",
       {
         "allowTernary": true, // a || b
         "allowShortCircuit": true, // a ? b : 0
@@ -44,7 +44,7 @@
     "max-len": [
       "error",
       {
-        "code": 80,
+        "code": 120,
         "ignoreComments": true,
         "ignoreStrings": true,
         "ignoreTemplateLiterals": true

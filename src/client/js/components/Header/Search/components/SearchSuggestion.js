@@ -6,18 +6,25 @@ function SearchSuggestion(...params) {
 }
 createExtendsRelation(SearchSuggestion, Component);
 
+SearchSuggestion.prototype.mount = function () {
+  const { suggestionDatas } = this.$props;
+  if (suggestionDatas?.length) {
+    this.$target.style.display = "flex";
+  } else {
+    this.$target.style.display = "none";
+  }
+};
 SearchSuggestion.prototype.template = function () {
+  const { suggestionDatas } = this.$props;
   return `
-    <div class="suggestion__body">             
-        <span>아이폰 13 pro</span>
-        <span>아이패드 에어 4</span>
-        <span>아이깨끗해</span>
-        <span>아이깨끗해</span>
-        <span>아이깨끗해</span>
-        <span>아이깨끗해</span>
-        <span>아이깨끗해</span>
-        <span>아이깨끗해</span>
-        <span>아이깨끗해</span>
+    <div class="suggestion__body">
+        ${
+          suggestionDatas
+            ? suggestionDatas
+                .map(({ keyword }) => `<span>${keyword}</span>`)
+                .join("")
+            : ""
+        }
     </div>
   `;
 };

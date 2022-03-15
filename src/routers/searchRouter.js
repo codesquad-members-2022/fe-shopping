@@ -5,7 +5,8 @@ const searchRouter = express.Router();
 
 searchRouter.get("/autoComplete", (req, res) => {
   const { keyword } = req.query;
-  res.json({ results: Array.from(db[keyword]) });
+  const results = Array.from(db[keyword] || []);
+  res.json({ results });
 });
 
 export default searchRouter;
