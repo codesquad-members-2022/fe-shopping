@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --exec babel-node init.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,11 @@
   "homepage": "https://github.com/JinJeon/fe-shopping#readme",
   "dependencies": {
     "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.7",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
   }
 }
