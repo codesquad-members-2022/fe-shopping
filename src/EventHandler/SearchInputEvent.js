@@ -9,7 +9,7 @@ class SearchInputController {
     this.toggleView = new ToggleView(toggleParent);
   }
   initService() {
-    this.input.addEventListener("input", this.getSearchingData);
+    this.input.addEventListener("input", this.getSearchingData.bind(this));
   }
 
   getSearchingData({ target: { value } }) {
@@ -25,4 +25,5 @@ const test = new SearchInputController(
   domUtil.$(".header__main--searchZone"),
   domUtil.$(".header__main--searchInput")
 );
+console.log(test);
 test.initService();
