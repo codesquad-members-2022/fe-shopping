@@ -41,36 +41,6 @@ i {
           height: 41px;
         }
       }
-      .search {
-        @include flex();
-        border: 1.5px $baseBlue solid;
-        width: 400px;
-        height: 30px;
-        margin-top: 19px;
-        .search__category {
-          @include flex(space-around, center);
-          width: 100px;
-          color: $baseGray;
-          border-right: 1px $baseLightGray solid;
-        }
-        .search__input {
-          @include flex(space-around, center);
-          width: 300px;
-          input {
-            width: 220px;
-          }
-          .input__icon {
-            margin: 0px 3px;
-          }
-          i {
-            font-size: nth($fontSizes, 3);
-            color: $baseBlue;
-          }
-          .fa-microphone {
-            color: $baseGray;
-          }
-        }
-      }
     }
     .main__nav {
       @include flex(space-between, center);
@@ -87,61 +57,92 @@ i {
   }
 }
 
-.search__input {
+.search {
+  @include flex();
+  border: 1.5px $baseBlue solid;
+  width: 400px;
+  height: 30px;
+  margin-top: 19px;
   position: relative;
-  .search__layout {
-    @include position-abs(-1px, 30px);
-    width: 300px;
-    height: 250px;
-    background-color: $baseBgColor;
-    border: 1px $baseLightGray solid;
-    box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
-    font-size: nth($fontSizes, 1);
-  }
-  .layout__body {
-    @include flex();
+
+  .search__category {
+    @include flex(space-around, center);
+    width: 100px;
     color: $baseGray;
-    flex-direction: column;
-    padding: 10px;
-    height: 190px;
-    span {
-      margin: 7px 0px;
-    }
+    border-right: 1px $baseLightGray solid;
   }
-
-  .search__recent {
-    @extend .search__layout;
-    @include flex();
-    flex-direction: column;
-    display: none;
-
-    div {
-      border: 0.2px $baseLightGray solid;
+  .search__input {
+    @include flex(space-around, center);
+    width: 300px;
+    input {
+      width: 220px;
     }
-    .recent__title {
-      @include flex(normal, center);
-      font-weight: nth($fontWeights, 2);
-      height: 30px;
-      padding-left: 10px;
+    .input__icon {
+      margin: 0px 3px;
     }
-    .recent__body {
-      @extend .layout__body;
+    i {
+      font-size: nth($fontSizes, 3);
+      color: $baseBlue;
     }
-    .recent__footer {
-      @include flex(space-between, center);
-      height: 30px;
+    .fa-microphone {
       color: $baseGray;
-      background-color: $baseLightGray;
-      span {
-        margin: 0px 15px;
-      }
     }
   }
-  .search__suggestion {
-    @extend .search__layout;
-    display: none;
-    .suggestion__body {
-      @extend .layout__body;
+}
+
+.search__layout {
+  @include position-abs(99px, 30px);
+  width: 300px;
+  height: 250px;
+  background-color: $baseBgColor;
+  border: 1px $baseLightGray solid;
+  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+  font-size: nth($fontSizes, 1);
+}
+
+.layout__body {
+  @include flex();
+  color: $baseGray;
+  flex-direction: column;
+  padding: 10px;
+  height: 190px;
+  span {
+    margin: 7px 0px;
+  }
+}
+
+.search__recent {
+  @extend .search__layout;
+  @include flex();
+  flex-direction: column;
+  display: none;
+
+  div {
+    border: 0.2px $baseLightGray solid;
+  }
+  .recent__title {
+    @include flex(normal, center);
+    font-weight: nth($fontWeights, 2);
+    height: 30px;
+    padding-left: 10px;
+  }
+  .recent__body {
+    @extend .layout__body;
+  }
+  .recent__footer {
+    @include flex(space-between, center);
+    height: 30px;
+    color: $baseGray;
+    background-color: $baseLightGray;
+    span {
+      margin: 0px 15px;
     }
+  }
+}
+.search__suggestion {
+  @extend .search__layout;
+  display: none;
+  .suggestion__body {
+    @extend .layout__body;
   }
 }

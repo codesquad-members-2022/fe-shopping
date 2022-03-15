@@ -48,3 +48,9 @@ SearchInput.prototype.setEvent = function () {
   });
 };
 ```
+
+### SearchInput Re-render
+
+- Re-render 를 하면서 input 에 focus 를 다시 주는 과정이있음
+- 그 과정에서 data 를 받아오고 다시 focus 를 하게되면 input 이 자연스럽지 못하게 됨
+- input 을 별도의 컴포넌트로 분리하는게 좋을듯..

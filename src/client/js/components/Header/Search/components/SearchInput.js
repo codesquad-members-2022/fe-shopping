@@ -1,8 +1,6 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../core/oop-utils";
 import { delay, request } from "../../../../core/utils";
-import SearchRecent from "./SearchRecent";
-import SearchSuggestion from "./SearchSuggestion";
 
 function SearchInput(...params) {
   Component.call(this, ...params);
@@ -15,8 +13,31 @@ SearchInput.prototype.setup = function () {
   };
 };
 SearchInput.prototype.setEvent = function () {
-  this.addEvent("keyup", "input", ({ target }) => {
+  this.addEvent("focusout", "input[type='text']", () => {
+    const { searchSuggestion, searchRecent } = this.$props;
+    searchSuggestion.setState({ display: "none" });
+    searchRecent.setState({ display: "none" });
+  });
+  this.addEvent("focusin", "input[type='text']", () => {
+    const { inputData } = this.state;
+    const { searchRecent, searchSuggestion } = this.$props;
+    if (inputData) {
+      searchSuggestion.setState({ display: "flex" });
+      searchRecent.setState({ display: "none" });
+    } else {
+      searchSuggestion.setState({ display: "none" });
+      searchRecent.setState({ display: "flex" });
+    }
+  });
+  this.addEvent("keyup", "input[type='text']", ({ target }) => {
+    const { searchSuggestion, searchRecent } = this.$props;
+    if (target.value) {
+      searchRecent.setState({ display: "none" });
+    } else {
+      searchRecent.setState({ display: "flex" });
+    }
     this.state.inputData = target.value;
+    /* 5초 뒤에도 같은 값인지 확인 하기위한 변수 */
     const curValue = target.value;
     delay(500).then(async () => {
       if (this.state.inputData === curValue) {
@@ -29,30 +50,25 @@ SearchInput.prototype.setEvent = function () {
           "search/autoComplete",
           requestOptions
         );
-        if (suggestionDatas) {
-          this.setState({ suggestionDatas });
+        if (suggestionDatas?.length) {
+          searchSuggestion.setState({ suggestionDatas, display: "flex" });
+        } else {
+          searchSuggestion.setState({ display: "none" });
         }
       }
     });
   });
 };
 SearchInput.prototype.mount = function () {
-  const $searchRecent = this.$target.querySelector(".search__recent");
-  const $searchSuggestion = this.$target.querySelector(".search__suggestion");
   const $input = this.$target.querySelector("input");
-
-  const { suggestionDatas } = this.state;
-
-  const searchRecent = new SearchRecent($searchRecent);
-  const searchSuggestion = new SearchSuggestion($searchSuggestion, {
-    suggestionDatas,
-  });
-
-  $input.focus();
   const curInput = $input.value;
-  $input.value = "";
-  $input.value = curInput;
+  if (curInput) {
+    $input.focus();
+    $input.value = "";
+    $input.value = curInput;
+  }
 };
+
 SearchInput.prototype.template = function () {
   const { inputData } = this.state;
   return `
@@ -63,8 +79,7 @@ SearchInput.prototype.template = function () {
     <span class="input__icon">
         <i class="fas fa-search"></i>
     </span>
-    <div class="search__recent"></div>
-    <div class="search__suggestion"></div>
+
   `;
 };
 

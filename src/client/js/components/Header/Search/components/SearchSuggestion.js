@@ -6,16 +6,20 @@ function SearchSuggestion(...params) {
 }
 createExtendsRelation(SearchSuggestion, Component);
 
-SearchSuggestion.prototype.mount = function () {
-  const { suggestionDatas } = this.$props;
-  if (suggestionDatas?.length) {
-    this.$target.style.display = "flex";
-  } else {
-    this.$target.style.display = "none";
-  }
+SearchSuggestion.prototype.setup = function () {
+  this.state = {
+    suggestionDatas: [],
+    display: "none",
+  };
 };
+
+SearchSuggestion.prototype.mount = function () {
+  const { display } = this.state;
+  this.$target.style.display = display;
+};
+
 SearchSuggestion.prototype.template = function () {
-  const { suggestionDatas } = this.$props;
+  const { suggestionDatas } = this.state;
   return `
     <div class="suggestion__body">
         ${

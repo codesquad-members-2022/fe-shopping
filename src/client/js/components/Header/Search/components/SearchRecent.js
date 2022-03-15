@@ -6,9 +6,17 @@ function SearchRecent(...params) {
 }
 createExtendsRelation(SearchRecent, Component);
 
-SearchRecent.prototype.mount = function () {
-  //   this.$target.style.display = "flex";
+SearchRecent.prototype.setup = function () {
+  this.state = {
+    display: "none",
+  };
 };
+
+SearchRecent.prototype.mount = function () {
+  const { display } = this.state;
+  this.$target.style.display = display;
+};
+
 SearchRecent.prototype.template = function () {
   return `
     <div class="recent__title">
