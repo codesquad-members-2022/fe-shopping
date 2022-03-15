@@ -1,12 +1,17 @@
-const renderCarousel = (parentNode, carouselData) => {
-  parentNode.innerHTML = getMainCarouselTemplate();
-  carouselData.carouselImg.forEach(([url, alt]) => {
-    document.querySelector(".carousel__container").innerHTML += getCarouselItem(url, alt);
-  });
+const FIRST_INDEX = 0;
 
-  carouselData.navImg.forEach((url, ind) => {
-    document.querySelector(".carousel__snb").innerHTML += getSnbItem(url, carouselData.carouselImg[ind][1]);
+const renderCarousel = (parentNode, dataObj) => {
+  parentNode.innerHTML = getMainCarouselTemplate();
+  document.querySelector(".carousel__container").innerHTML += getCarouselItem(
+    dataObj.carouselData[FIRST_INDEX].imgData,
+    dataObj.carouselData[FIRST_INDEX].altData
+  );
+
+  dataObj.carouselData.forEach((data) => {
+    document.querySelector(".carousel__snb").innerHTML += getSnbItem(data.navData, data.altData);
   });
+  document.querySelector(".carousel__snb").firstElementChild.classList.remove("snb__item");
+  document.querySelector(".carousel__snb").firstElementChild.classList.add("snb__selected");
 };
 
 const getMainCarouselTemplate = () => {

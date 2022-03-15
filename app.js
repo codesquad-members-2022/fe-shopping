@@ -4,6 +4,6 @@ import renderCarousel from "./public/src/render/carousel.js";
 
 const carouselData = await fetchData("carouselData");
 renderCarousel(document.querySelector(".main"), carouselData);
-const carouselNode = document.querySelector(".carousel__container");
+const carouselImgNode = document.querySelector(".item__img");
 const carouselSNB = document.querySelector(".carousel__snb");
-setCarouselEvent(carouselData, carouselNode, carouselSNB);
+setCarouselEvent(carouselData, carouselImgNode, carouselSNB);

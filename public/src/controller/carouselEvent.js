@@ -1,15 +1,24 @@
 import { debounce } from "./util.js";
 
-const setCarouselEvent = (carouselData, carouselNode, carouselNavBarNode) => {
-  setCarouselNavBarEvent(carouselNavBarNode);
+const setCarouselEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
+  setCarouselNavBarEvent(carouselData, carouselImgNode, carouselNavBarNode);
 };
 
-const setCarouselNavBarEvent = (carouselNavBarNode) => {
+const setCarouselNavBarEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
   carouselNavBarNode.addEventListener(
-    "mousemove",
+    "mouseover",
     debounce((e) => {
       if (e.target.tagName === "IMG") {
-        changeBorder(e.target.parentNode.parentNode, e.target.parentNode);
+        const targetNode = e.target.parentNode;
+        const siblings = targetNode.parentNode.children;
+
+        for (let index = 0; index < siblings.length; index += 1) {
+          if (siblings[index] === targetNode) {
+            changeImg(carouselData, carouselImgNode, index);
+            break;
+          }
+        }
+        changeBorder(targetNode.parentNode, targetNode);
       }
     }, 500)
   );
@@ -24,6 +33,10 @@ const changeBorder = (parentNode, targetNode) => {
   });
   targetNode.classList.remove("snb__item");
   targetNode.classList.add("snb__selected");
+};
+
+const changeImg = (carouselData, carouselImgNode, index) => {
+  carouselImgNode.src = carouselData.carouselData[index].imgData;
 };
 
 export default setCarouselEvent;
