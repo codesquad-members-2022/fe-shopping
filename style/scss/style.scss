@@ -1,5 +1,12 @@
 @charset 'utf-8';
-@import 'common/base';
+@import 'common/reset';
 @import 'common/variable';
 @import 'layout/header';
 @import 'layout/top_bar';
+
+.none {
+  display: none;
+}
+.show {
+  display: show;
+}
