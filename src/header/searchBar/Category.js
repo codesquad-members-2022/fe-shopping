@@ -21,6 +21,7 @@ export class SearchBarCategory {
 
     this.$category.addEventListener('click', (e) => {
       this.toggle();
+
       if (!e.target.classList.contains(CATEGORY_ITEM)) return;
       this.$categoryName.textContent = e.target.textContent;
     });
