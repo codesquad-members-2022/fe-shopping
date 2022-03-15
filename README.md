@@ -67,10 +67,60 @@ react를 사용하면서 CRA와 api서버로 분리된 구조만 생각했었다
 - 쿠팡 이미지 서버 url
   <img width="727" alt="스크린샷 2022-03-14 오후 11 25 59" src="https://user-images.githubusercontent.com/71386219/158192650-8df90e04-a945-4951-90a6-2ea32eb7a25c.png">
 
-3. 카테고리
+3. 렌더링과 이벤트 등록 타이밍
 
-- hover할 때 딜레이 없이 보여준다면 html을 미리 짜두는게 좋을 거 같은데, hover 일정 시간 유지 혹은 클릭시 메뉴보여준다면 html미리 짜둘 필요 없을 듯?
+렌더링은 되는데 이벤트가 등록이 안 된다는 상태
 
-4. carousel
+> 돔에 렌더링 되기 전에 이벤트를 등록해서 안되는 건가?
 
-- 이미지를 한 번에 로드하지 않고, 하나만 로딩하고 나머지는 lazy로드해보기
+```js
+// index.js
+function init() {
+  const header = new Header('header');
+  const main = document.createElement('main');
+  main.innerHTML = `<div>메인</div>`;
+  $root.appendChild(header.$element);
+}
+// Header.js
+function Header(htmlTag) {
+  HtmlElement.call(this, htmlTag);
+  this.setTemplate();
+  this.render();
+  this.setEvent();
+}
+Header.prototype.setTemplate = function () {
+  this.$element.id = 'header';
+  const category = new Category('div');
+  this.template = category.$element.innerHTML;
+};
+//Category.js
+function Category(htmlTag) {
+  HtmlElement.call(this, htmlTag);
+  this.setTemplate();
+  this.render();
+  this.setEvent();
+}
+Category.prototype.setTemplate = function () {
+  this.$element.classList.add('category');
+  this.template = template;
+};
+Category.prototype.setEvent = function () {
+  const $categoryButton = findTargetIdElement(this.$element, 'category-button');
+  console.log($categoryButton);
+  $categoryButton.addEventListener('click', handleCategoryButton.bind(this));
+};
+// HtmlElement.js
+function HtmlElement(htmlTag) {
+  this.$element = document.createElement(htmlTag);
+  this.template = '';
+}
+HtmlElement.prototype.setTemplate = function () {
+  // child요소.render한 데이터를 this.$element에 appendChild
+};
+HtmlElement.prototype.render = function () {
+  this.$element.innerHTML = this.template;
+};
+HtmlElement.prototype.setEvent = function () {};
+
+export default HtmlElement;
+```

@@ -1,13 +1,12 @@
-import Category from './components/Category.js';
 import Header from './layout/Header.js';
 import { findTargetIdElement } from './utils/manuplateDOM.js';
 
-const $main = findTargetIdElement(document, 'main');
-const $header = findTargetIdElement(document, 'header');
+const $root = findTargetIdElement(document, 'root');
 
 function init() {
   const header = new Header('header');
-  console.log(header);
-  // header.render($main, handleCategoryButton);
+  const main = document.createElement('main');
+  main.innerHTML = `<div>메인</div>`;
+  $root.appendChild(header.$element);
 }
 window.addEventListener('DOMContentLoaded', init);

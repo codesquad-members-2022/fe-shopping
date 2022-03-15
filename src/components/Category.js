@@ -1,12 +1,85 @@
 import HtmlElement from '../utils/HtmlElement.js';
+import { findTargetIdElement } from '../utils/manuplateDOM.js';
 
 function Category(htmlTag) {
   HtmlElement.call(this, htmlTag);
+  this.setTemplate();
+  this.render();
+  this.setEvent();
 }
 
 Category.prototype = Object.create(HtmlElement.prototype);
 Category.prototype.constructor = Category;
 
-// Object.setPrototypeOf(Category.prototype, HtmlElement.prototype);
+Category.prototype.setTemplate = function () {
+  this.$element.classList.add('category');
+  this.template = template;
+};
+
+Category.prototype.setEvent = function () {
+  const $categoryButton = findTargetIdElement(this.$element, 'category-button');
+  // console.log($categoryButton);
+  $categoryButton.addEventListener('click', handleCategoryButton.bind(this));
+  debugger;
+  console.log($categoryButton);
+};
+
+function handleCategoryButton(event) {
+  console.log(event.target);
+  // const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
+  // const layerClassList = $categoryLayer.classList;
+  // if (layerClassList.contains('none')) {
+  //   $categoryLayer.classList.remove('none');
+  //   $categoryLayer.classList.add('show');
+  // } else {
+  //   $categoryLayer.classList.remove('show');
+  //   $categoryLayer.classList.add('none');
+  // }
+}
+
+const template = `<div class="category__button" id="category-button">
+    <i class="fas fa-bars"></i>
+    <span>카테고리</span>
+  </div>
+  <div class="none category__layer" id="category-layer">
+    <ul class="category__list">
+      <li><span>패션의류/잡화</span></li>
+      <li><span>뷰티</span></li>
+      <li><span>식품</span></li>
+      <li><span>출산/유아동</span></li>
+      <li><span>생활용품</span></li>
+      <li><span>주방용품</span></li>
+      <li><span>홈인테리어</span></li>
+      <li><span>도서/음반/DVD</span></li>
+      <li><span>스포츠/레저</span></li>
+      <li><span>문구/오피스</span></li>
+      <li><span>반려동물용품</span></li>
+      <li><span>헬스/건강식품</span></li>
+      <li><span>여행/티켓</span></li>
+    </ul>
+    <div class="category__depth">
+      <ul class="category__list-inner">
+        <li><span>유아/어린이</span></li>
+        <li><span>소설/에세이/시</span></li>
+        <li><span>초중고참고서</span></li>
+        <li><span>가정 살림</span></li>
+        <li><span>건강 취미</span></li>
+        <li><span>경제 경영</span></li>
+        <li><span>과학/공학</span></li>
+        <li><span>국어/외국어/사전</span></li>
+        <li><span>대학교재</span></li>
+        <li><span>만화/라이트노벨</span></li>
+      </ul>
+    </div>
+    <div class="category__depth">
+      <ul class="category__list-inner">
+        <li><span>유아/어린이</span></li>
+        <li><span>소설/에세이/시</span></li>
+        <li><span>초중고참고서</span></li>
+        <li><span>가정 살림</span></li>
+        <li><span>건강 취미</span></li>
+      </ul>
+    </div>
+  </div>`;
 
 export default Category;
