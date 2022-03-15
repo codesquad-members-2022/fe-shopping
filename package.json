@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass -w ./scss/main.scss:./css/main.css"
+    "sass": "sass -w ./public/scss/main.scss:./public/css/main.css",
+    "nodemon": "nodemon ./server.js",
+    "dev": "concurrently \"npm run sass\" \"npm run nodemon\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,8 @@
   },
   "homepage": "https://github.com/uBeom/fe-shopping#readme",
   "dependencies": {
+    "concurrently": "^7.0.0",
+    "express": "^4.17.3",
     "sass": "^1.49.9"
   }
 }
