@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec babel-node init.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "assets": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -18,12 +18,21 @@
   },
   "homepage": "https://github.com/JinJeon/fe-shopping#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "nodemon": "^2.0.15"
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "nodemon": "^2.0.15",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
   }
 }
