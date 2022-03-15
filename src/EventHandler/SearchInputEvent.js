@@ -1,6 +1,7 @@
 import * as domUtil from "/util/domutil.js";
 import { ToggleView } from "/View/ToggleView.js";
 import { Toggle } from "/Components/Toggle.js";
+import { fetch_use } from "/util/fetchutil.js";
 
 class SearchInputController {
   constructor(input, toggleParent) {
@@ -12,15 +13,11 @@ class SearchInputController {
   }
 
   getSearchingData({ target: { value } }) {
-    fetch(`search/${value}`)
-      .then((data) => data.json())
-      .then((jsonData) => {
-        const newHTML = new Toggle(
-          jsonData,
-          "search--toggle--li",
-          "search--toggle--ul"
-        ).dom;
-      });
+    fetch_use(
+      `search/${value}`,
+      (jsonData) =>
+        new Toggle(jsonData, "search--toggle--li", "search--toggle--ul").dom
+    ).then(this.toggleView.renderToggle);
   }
 }
 
