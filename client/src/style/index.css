@@ -353,6 +353,48 @@ table {
   margin: 0 5px;
 }
 
+.search-recent {
+  width: 100%;
+  position: absolute;
+  top: 42px;
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  box-sizing: 0 4px 5px #666;
+}
+.search-recent__header {
+  color: #191a1c;
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  font-weight: 700;
+}
+.search-recent__contents {
+  padding: 10px;
+}
+.search-recent__link {
+  text-decoration: none;
+  color: #666;
+}
+.search-recent__link:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+.search-recent__footer {
+  height: 30px;
+  padding: 0 10px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #191a1c;
+  background-color: #f0f0f0;
+}
+.search-recent--remove {
+  cursor: pointer;
+}
+.search-recent--off {
+  cursor: pointer;
+}
+
 .carousel {
   width: 100%;
   height: 450px;
