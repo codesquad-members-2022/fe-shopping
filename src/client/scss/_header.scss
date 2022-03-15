@@ -144,5 +144,8 @@ i {
   display: none;
   .suggestion__body {
     @extend .layout__body;
+    .matchedWord {
+      color: $baseBlue;
+    }
   }
 }

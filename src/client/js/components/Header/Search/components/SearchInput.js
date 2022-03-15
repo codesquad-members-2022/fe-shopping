@@ -43,7 +43,7 @@ SearchInput.prototype.setEvent = function () {
       if (this.state.inputData === curValue) {
         const requestOptions = {
           query: {
-            keyword: this.state.inputData,
+            keyword: curValue,
           },
         };
         const { results: suggestionDatas } = await request(
@@ -51,7 +51,11 @@ SearchInput.prototype.setEvent = function () {
           requestOptions
         );
         if (suggestionDatas?.length) {
-          searchSuggestion.setState({ suggestionDatas, display: "flex" });
+          searchSuggestion.setState({
+            suggestionDatas,
+            word: curValue,
+            display: "flex",
+          });
         } else {
           searchSuggestion.setState({ display: "none" });
         }
@@ -59,6 +63,7 @@ SearchInput.prototype.setEvent = function () {
     });
   });
 };
+
 SearchInput.prototype.mount = function () {
   const $input = this.$target.querySelector("input");
   const curInput = $input.value;
