@@ -3,10 +3,16 @@
 @import './mixins';
 @import './extends';
 
+body {
+  overflow: hidden;
+}
+
 .wrapper {
   width: 1020px;
   margin: 0 auto;
 }
+
+/* Top Banner */
 
 .top-banner {
   position: relative;
@@ -43,6 +49,8 @@
     @include flex(flex-start, 12px);
   }
 }
+
+/* Main Header */
 
 .main-header {
 
@@ -240,6 +248,63 @@
         right: 9px;
         color: $text-white;
         font-weight: 700;
+      }
+    }
+  }
+}
+
+/* Main Banner */
+
+.main-banner {
+  position: relative;
+  width: 1020px;
+  height: 450px;
+  margin: 0 auto;
+
+  .banner-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    img {
+      z-index: 1;
+    }
+  }
+
+  .banner-category {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    .category-item {
+      width: 180px;
+      height: 60px;
+      font-size: 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $border-lightgray;
+      }
+
+      .category-link {
+        position: absolute;
+        display: block;
+        width: 180px;
+        height: 60px;
+        z-index: 3;
+
+        &:hover {
+          border: 2px solid $bg-highlight;
+        }
+      }
+
+      img {
+        position: absolute;
+        display: block;
+        width: 180px;
+        height: 60px;
+        z-index: 2;
       }
     }
   }

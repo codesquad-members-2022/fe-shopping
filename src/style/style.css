@@ -50,10 +50,14 @@ button {
     background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
     background-repeat: no-repeat; }
 
+body {
+  overflow: hidden; }
+
 .wrapper {
   width: 1020px;
   margin: 0 auto; }
 
+/* Top Banner */
 .top-banner {
   position: relative;
   display: flex;
@@ -89,6 +93,7 @@ button {
     align-items: center;
     gap: 12px; }
 
+/* Main Header */
 .main-header .wrapper {
   display: flex; }
 
@@ -231,5 +236,44 @@ button {
       right: 9px;
       color: #fff;
       font-weight: 700; }
+
+/* Main Banner */
+.main-banner {
+  position: relative;
+  width: 1020px;
+  height: 450px;
+  margin: 0 auto; }
+  .main-banner .banner-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); }
+    .main-banner .banner-img img {
+      z-index: 1; }
+  .main-banner .banner-category {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%); }
+    .main-banner .banner-category .category-item {
+      width: 180px;
+      height: 60px;
+      font-size: 0; }
+      .main-banner .banner-category .category-item:not(:last-child) {
+        border-bottom: 1px solid #ddd; }
+      .main-banner .banner-category .category-item .category-link {
+        position: absolute;
+        display: block;
+        width: 180px;
+        height: 60px;
+        z-index: 3; }
+        .main-banner .banner-category .category-item .category-link:hover {
+          border: 2px solid #4285f4; }
+      .main-banner .banner-category .category-item img {
+        position: absolute;
+        display: block;
+        width: 180px;
+        height: 60px;
+        z-index: 2; }
 
 /*# sourceMappingURL=style.css.map */
