@@ -20,11 +20,15 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+ul,
+li {
+  list-style: none;
+}
+
 button {
   border: 0;
   cursor: pointer;
   background-color: transparent;
-  cursor: pointer;
 }
 
 .container {
@@ -92,9 +96,22 @@ button {
   color: #fff;
 }
 
-.search-area {
+.search-area-wrap {
   width: calc(100% - 110px);
   padding: 25px 0 0 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.search-area-wrap .search-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,5 +187,36 @@ button {
   width: 30px;
   height: 30px;
   fill: #555;
+}
+
+.gnb-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-right: 25px;
+}
+
+.gnb-area .gnb-item {
+  position: relative;
+  line-height: 2rem;
+}
+
+.new-icon::after {
+  width: 14px;
+  height: 14px;
+  display: block;
+  content: "N";
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  background-color: #dd6641;
+  position: absolute;
+  top: 30%;
+  right: -18px;
 }
 /*# sourceMappingURL=main.css.map */

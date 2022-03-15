@@ -20,9 +20,13 @@ a {
   }
 }
 
+ul,
+li {
+  list-style: none;
+}
+
 button {
   border: 0;
   cursor: pointer;
   background-color: transparent;
-  cursor: pointer;
 }

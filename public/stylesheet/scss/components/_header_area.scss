@@ -44,11 +44,17 @@
   }
 }
 
-.search-area {
+.search-area-wrap {
   width: calc(100% - #{$category-button-width});
   padding: $default-whitespace 0 0 $default-whitespace;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+
+  .search-area {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .logo-area {
@@ -103,4 +109,31 @@
     height: 30px;
     fill: $icon-color-gray;
   }
+}
+
+.gnb-area {
+  display: flex;
+  justify-content: space-between;
+  padding-right: $default-whitespace;
+
+  .gnb-item {
+    position: relative;
+    line-height: 2rem;
+  }
+}
+
+.new-icon::after {
+  width: 14px;
+  height: 14px;
+  display: block;
+  content: "N";
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  background-color: $color-red;
+  position: absolute;
+  top: 30%;
+  right: -18px;
 }
