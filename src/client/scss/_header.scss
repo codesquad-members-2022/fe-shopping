@@ -139,7 +139,7 @@ i {
   }
   .search__suggestion {
     @extend .search__layout;
-    // display: none;
+    display: none;
     .suggestion__body {
       @extend .layout__body;
     }
