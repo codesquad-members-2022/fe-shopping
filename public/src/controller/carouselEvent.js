@@ -1,8 +1,8 @@
 import { debounce } from "./util.js";
 
 const setCarouselEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
-  setInterval(() => setCarouselTimeEvent(carouselData, carouselImgNode, carouselNavBarNode), 2000);
-  setCarouselNavBarEvent(carouselData, carouselImgNode, carouselNavBarNode);
+  const timerId = setInterval(() => setCarouselTimeEvent(carouselData, carouselImgNode, carouselNavBarNode), 2000);
+  setCarouselNavBarEvent(carouselData, carouselImgNode, carouselNavBarNode, timerId);
 };
 
 const setCarouselTimeEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
@@ -15,10 +15,11 @@ const setCarouselTimeEvent = (carouselData, carouselImgNode, carouselNavBarNode)
   changeBorder(carouselNavBarNode, siblings[(index + 1) % siblings.length]);
 };
 
-const setCarouselNavBarEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
+const setCarouselNavBarEvent = (carouselData, carouselImgNode, carouselNavBarNode, timerId) => {
   carouselNavBarNode.addEventListener(
     "mouseover",
     debounce((e) => {
+      clearInterval(timerId);
       if (e.target.tagName === "IMG") {
         const targetNode = e.target.parentNode;
         const siblings = targetNode.parentNode.children;
