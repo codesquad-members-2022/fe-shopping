@@ -1,4 +1,4 @@
-const searchingData = require("../data/searchData.json");
+const searchingData = require("../..//data/searchData.json");
 
 // 단어를 통해서 데이터와 비교
 function checkKeyWord(keyWord) {
