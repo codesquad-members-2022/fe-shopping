@@ -17,6 +17,7 @@ const highlightWord = (string, word) => {
 
 SearchSuggestion.prototype.setup = function () {
   this.state = {
+    selected: -1,
     suggestionDatas: [],
     word: "",
     display: "none",

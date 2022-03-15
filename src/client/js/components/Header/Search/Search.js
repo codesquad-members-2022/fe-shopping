@@ -24,6 +24,7 @@ Search.prototype.mount = function () {
     searchRecent,
   });
 };
+
 Search.prototype.template = function () {
   return `
     <div class="search__category"></div>
