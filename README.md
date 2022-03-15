@@ -67,65 +67,40 @@ react를 사용하면서 CRA와 api서버로 분리된 구조만 생각했었다
 - 쿠팡 이미지 서버 url
   <img width="727" alt="스크린샷 2022-03-14 오후 11 25 59" src="https://user-images.githubusercontent.com/71386219/158192650-8df90e04-a945-4951-90a6-2ea32eb7a25c.png">
 
-3. 렌더링과 이벤트 등록 타이밍
+3. 렌더링과 이벤트 등록 타이밍 -> innerHTML 이벤트 등록문제였음
 
-렌더링은 되는데 이벤트가 등록이 안 된다는 상태
-
-> 돔에 렌더링 되기 전에 이벤트를 등록해서 안되는 건가?
+렌더링은 되는데 이벤트가 등록이 안 돼서 돔에 렌더링 되기 전에 이벤트를 등록해서 안되는 건가 싶었음. 그래서 아래와 같이 `setEvent()`를 render 이후에 실행시키는 로직으로 바꿨는데도 에러가 해결이 안 됨.
 
 ```js
-// index.js
-function init() {
-  const header = new Header('header');
-  const main = document.createElement('main');
-  main.innerHTML = `<div>메인</div>`;
-  $root.appendChild(header.$element);
-}
-// Header.js
-function Header(htmlTag) {
-  HtmlElement.call(this, htmlTag);
+// Category.js
+function Category(htmlTag, $parent) {
+  HtmlElement.call(this, htmlTag, $parent);
   this.setTemplate();
   this.render();
-  this.setEvent();
 }
-Header.prototype.setTemplate = function () {
-  this.$element.id = 'header';
-  const category = new Category('div');
-  this.template = category.$element.innerHTML;
-};
-//Category.js
-function Category(htmlTag) {
-  HtmlElement.call(this, htmlTag);
-  this.setTemplate();
-  this.render();
-  this.setEvent();
-}
-Category.prototype.setTemplate = function () {
-  this.$element.classList.add('category');
-  this.template = template;
-};
-Category.prototype.setEvent = function () {
-  const $categoryButton = findTargetIdElement(this.$element, 'category-button');
-  console.log($categoryButton);
-  $categoryButton.addEventListener('click', handleCategoryButton.bind(this));
-};
 // HtmlElement.js
-function HtmlElement(htmlTag) {
+function HtmlElement(htmlTag, $parent) {
+  this.$parent = $parent;
   this.$element = document.createElement(htmlTag);
-  this.template = '';
 }
+
 HtmlElement.prototype.setTemplate = function () {
-  // child요소.render한 데이터를 this.$element에 appendChild
+  this.$element.innerHTML = ``;
 };
 HtmlElement.prototype.render = function () {
-  this.$element.innerHTML = this.template;
+  this.$parent.innerHTML = this.$element.innerHTML;
+  // this.$parent.appendChild(this.$element);
+  this.setEvent();
 };
+
 HtmlElement.prototype.setEvent = function () {};
 
 export default HtmlElement;
 ```
 
-그게 아니라 2번처럼 하면 안 됨. 1번처럼해야함
+디버깅을 하다가 원인을 찾았는데, 렌더링과 이벤트 등록이 아니라 innerHTML에 이벤트 등록을 하고 있어서 에러가 발생한 것이었음. 아래 예시를 보면 2번처럼 하면 안 됨. 1번처럼해야함. 2번처럼하면 렌더링은 되는데 이벤트가 등록하지 않음.
+
+이유는?
 
 ```js
 const $root = findTargetIdElement(document, 'root');
