@@ -66,3 +66,11 @@ react를 사용하면서 CRA와 api서버로 분리된 구조만 생각했었다
 
 - 쿠팡 이미지 서버 url
   <img width="727" alt="스크린샷 2022-03-14 오후 11 25 59" src="https://user-images.githubusercontent.com/71386219/158192650-8df90e04-a945-4951-90a6-2ea32eb7a25c.png">
+
+3. 카테고리
+
+- hover할 때 딜레이 없이 보여준다면 html을 미리 짜두는게 좋을 거 같은데, hover 일정 시간 유지 혹은 클릭시 메뉴보여준다면 html미리 짜둘 필요 없을 듯?
+
+4. carousel
+
+- 이미지를 한 번에 로드하지 않고, 하나만 로딩하고 나머지는 lazy로드해보기

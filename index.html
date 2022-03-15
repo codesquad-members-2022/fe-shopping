@@ -6,12 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
   </head>
   <body>
-    <img
-      src="https://image10.coupangcdn.com/image/ccm/banner/3a5ce7b3eac22a5d5599393d890b9e05.png"
-      alt=""
-    />
+    <!-- 쿠팡 페이지 보다가 조원들이랑 공유하고 싶어서 카피해봄 -->
+    <div id="browserSupportWrap" style="display: none">
+      <div class="bs-wrap">
+        <p class="bs-message">
+          고객님의 브라우저에서는 쿠팡이 정상 동작하지 않습니다.<br />
+          인터넷 익스플로러 업데이트, 크롬 또는 파이어폭스 브라우저를
+          설치하세요.
+        </p>
+        <ul class="bs-browser-download">
+          <li class="ie">
+            <a
+              href="https://windows.microsoft.com/ko-kr/internet-explorer/download-ie"
+              target="_blank"
+              >인터넷 익스플로러<br />
+              <em>업데이트하기</em></a
+            >
+          </li>
+          <li class="chrome">
+            <a
+              href="https://www.google.com/chrome/browser/desktop/index.html"
+              target="_blank"
+              >크롬<br />
+              <em>설치하기</em></a
+            >
+          </li>
+          <li class="firefox">
+            <a href="https://www.mozilla.org/ko/firefox/new/" target="_blank"
+              >파이어폭스<br />
+              <em>설치하기</em></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      try {
+        const DEP_IE_VER = 10;
+        const uam = navigator.userAgent.match(/MSIE\s+(\d+)/);
+        console.log(navigator.userAgent);
+        if (uam && uam.length >= 2 && parseInt(uam[1]) <= DEP_IE_VER) {
+          document.getElementById('browserSupportWrap').style.display = 'block';
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    </script>
+    <article class="top-bar">
+      <div>
+        <menu class="headerSubscribe">
+          <li>즐겨찾기</li>
+          <li>입점신청 <i class="fas fa-caret-down"></i></li>
+        </menu>
+        <menu class="headerMenu">
+          <li>
+            <span>유저이름</span>
+            <span>님</span>
+          </li>
+          <li><button>로그아웃</button></li>
+          <li>고객센터</li>
+        </menu>
+      </div>
+    </article>
+    <header>
+      <div class="category">
+        <div class="category__button">
+          <i class="fas fa-bars"></i>
+          <span>카테고리</span>
+        </div>
+      </div>
+    </header>
     <script src="src/index.js"></script>
   </body>
 </html>
