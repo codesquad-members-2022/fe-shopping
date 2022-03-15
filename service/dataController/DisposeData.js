@@ -4,8 +4,8 @@ const searchingData = require("../../data/searchData.json");
 function checkKeyWord(keyWord) {
   const trimedKeyWord = keyWord.trim();
   const checkSpace = trimedKeyWord.split(" ");
-  const firstWordarray = checkSpace.map((word) => getFirstWord(word));
-  const filterdData = filteringData(firstWordarray);
+  const firstWordArray = checkSpace.map((word) => getFirstWord(word));
+  const filterdData = filteringData(firstWordArray);
   return checkMatchWord(trimedKeyWord, filterdData);
 }
 
@@ -14,14 +14,13 @@ function getDataByFirstWord(firstWord) {
   return searchingData[firstWord];
 }
 
-// 단어의 첫글자 리턴
 function getFirstWord(keyWord) {
   return keyWord.split("")[0];
 }
 
 // 입력에 띄어쓰기가 있을경우를 위해
-function filteringData(firstWordarray) {
-  return firstWordarray.reduce((filterd, firstWord) => {
+function filteringData(firstWordArray) {
+  return firstWordArray.reduce((filterd, firstWord) => {
     if (searchingData.hasOwnProperty(firstWord)) {
       filterd.push(getDataByFirstWord(firstWord));
     }
@@ -32,11 +31,11 @@ function filteringData(firstWordarray) {
 //검색어와 데이터가 동일한지 비교후 일치하는 단어들만 리턴
 function checkMatchWord(keyWord, data) {
   const splitSpace = data.map((el) => el.split(" "));
-  return splitSpace.reduce((check, splitedData) => {
+  return splitSpace.reduce((matchedData, splitedData) => {
     if (splitedData.includes(keyWord)) {
-      check.push(splitedData.join(" "));
+      matchedData.push(splitedData.join(" "));
     }
-    return check;
+    return matchedData;
   }, []);
 }
 

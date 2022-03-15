@@ -21,6 +21,7 @@ columnDisplay {
 }
 
 centerAlignment {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -64,7 +65,6 @@ centerAlignment {
   .header__main--category {
     @extend centerAlignment;
     @include getWH(110px, 115px);
-    display: flex;
     background-color: $signatureColor;
   }
 
@@ -97,6 +97,7 @@ centerAlignment {
     .header__main--searchInput {
       @include getWH(520px, 40px);
       border: 1.5px solid $signatureColor;
+      position: relative;
     }
 
     .header__main--myShopping {
@@ -104,4 +105,23 @@ centerAlignment {
       background-color: #f0f0f0;
     }
   }
+}
+
+.search--toggle--ul {
+  width: inherit;
+  border: 1px solid $signatureColor;
+  position: absolute;
+  left: 0;
+  //bottom: list갯수만큼 계산필요
+  li {
+    :lastchild {
+      border: none;
+    }
+  }
+}
+
+.search--toggle--li {
+  @extend centerAlignment;
+  @include getWH(inherit, 15px);
+  border-bottom: 0.5px solid #f0f0f0;
 }
