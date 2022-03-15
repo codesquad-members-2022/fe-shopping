@@ -1,0 +1,25 @@
+{
+  "name": "fe-shopping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "sass": "sass --watch ./client/styles/scss/style.scss ./client/styles/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiminKim-dev/fe-shopping.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JiminKim-dev/fe-shopping/issues"
+  },
+  "homepage": "https://github.com/JiminKim-dev/fe-shopping#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
