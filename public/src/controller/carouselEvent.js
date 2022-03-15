@@ -1,7 +1,18 @@
 import { debounce } from "./util.js";
 
 const setCarouselEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
+  setInterval(() => setCarouselTimeEvent(carouselData, carouselImgNode, carouselNavBarNode), 2000);
   setCarouselNavBarEvent(carouselData, carouselImgNode, carouselNavBarNode);
+};
+
+const setCarouselTimeEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
+  const siblings = carouselNavBarNode.children;
+  let index;
+  for (index = 0; index < siblings.length; index += 1) {
+    if (siblings[index].classList.contains("snb__selected")) break;
+  }
+  changeImg(carouselData, carouselImgNode, (index + 1) % siblings.length);
+  changeBorder(carouselNavBarNode, siblings[(index + 1) % siblings.length]);
 };
 
 const setCarouselNavBarEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
