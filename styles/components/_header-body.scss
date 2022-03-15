@@ -141,7 +141,7 @@ $category-width: 25%;
     top: 35px;
     left: -2px;
     width: 101%;
-    height: 310px;
+    height: 300px;
     background-color: $white;
     border: 1px solid $gray-dark;
   }
@@ -154,17 +154,22 @@ $category-width: 25%;
     }
 
     &-list {
-      padding: 5px 0;
+      padding: 3px 0;
     }
 
     &-item {
       @include font-style($font-sm);
-      padding: 5px 8px;
+      padding: 6px 8px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     &-option {
       @include flexbox(space-between);
-      @include font-style($font-sm);
+      @include font-style($font-sm, $dark-light);
       width: 100%;
       height: 32px;
       padding: 0 8px;
@@ -174,19 +179,23 @@ $category-width: 25%;
     &-del-btn,
     &-onoff-btn {
       cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
   .auto-search {
     &-list {
       width: 100%;
-      padding: 6px 0;
     }
 
     &-item {
+      @include font-style($font-sm, $primary);
       width: 100%;
       height: 30px;
-      padding: 7px 8px;
+      padding: 8px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
