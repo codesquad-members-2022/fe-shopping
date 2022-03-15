@@ -7,6 +7,21 @@
   "carousel-lnb": [
     {
       "src": "./img/carousel/carousel-lnb1.jpg"
+    },
+    {
+      "src": "./img/carousel/carousel-lnb2.jpg"
+    },
+    {
+      "src": "./img/carousel/carousel-lnb3.jpg"
+    },
+    {
+      "src": "./img/carousel/carousel-lnb4.jpg"
+    },
+    {
+      "src": "./img/carousel/carousel-lnb5.jpg"
+    },
+    {
+      "src": "./img/carousel/carousel-lnb6.jpg"
     }
   ]
 }
