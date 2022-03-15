@@ -11,8 +11,7 @@ const setCarouselNavBarEvent = (carouselNavBarNode) => {
       if (e.target.tagName === "IMG") {
         changeBorder(e.target.parentNode.parentNode, e.target.parentNode);
       }
-    }),
-    1000
+    }, 500)
   );
 };
 
