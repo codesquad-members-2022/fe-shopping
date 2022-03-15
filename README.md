@@ -54,7 +54,8 @@
         font-size: $main-font-size
 ```
 
-`.header`에 `font-size`를 줘서 `span`, `li`에 직접 `font-size`를 안사용하고 싶은데, 상속이 안된다..
+~~`.header`에 `font-size`를 줘서 `span`, `li`에 직접 `font-size`를 안사용하고 싶은데, 상속이 안된다..~~  
+최상위 루트 `html`에 font-size를 지정해야하는데 `*`에 font-size를 적용해서 생겼던 문제!
 
 ```
 .today-items

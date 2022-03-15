@@ -3,6 +3,9 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+html {
   font-size: 10px;
 }
 
@@ -133,13 +136,6 @@ h2 {
 .header {
   -ms-grid-columns: 1fr 9fr;
       grid-template-columns: 1fr 9fr;
-}
-
-.header span {
-  font-size: 1.2rem;
-}
-
-.header li {
   font-size: 1.2rem;
 }
 
