@@ -1,27 +1,54 @@
 {
   "carousel": [
     {
-      "src": "./img/carousel/carousel1.jpg"
+      "src": "./img/carousel/carousel1.jpg",
+      "alt": "피앤지 봄맞이 생필품"
+    },
+    {
+      "src": "./img/carousel/carousel2.jpg",
+      "alt": "쿠팡비즈"
+    },
+    {
+      "src": "./img/carousel/carousel3.png",
+      "alt": "수입식품관"
+    },
+    {
+      "src": "./img/carousel/carousel4.jpg",
+      "alt": "폴메디슨 트리트룸 무로 외"
+    },
+    {
+      "src": "./img/carousel/carousel5.jpg",
+      "alt": "주방 BEST"
+    },
+    {
+      "src": "./img/carousel/carousel6.jpg",
+      "alt": "브랜드 위크"
     }
   ],
-  "carousel-lnb": [
+  "carouselLnb": [
     {
-      "src": "./img/carousel/carousel-lnb1.jpg"
+      "src": "./img/carousel/carousel-lnb1.jpg",
+      "alt": "피앤지 봄맞이 생필품"
     },
     {
-      "src": "./img/carousel/carousel-lnb2.jpg"
+      "src": "./img/carousel/carousel-lnb2.jpg",
+      "alt": "쿠팡비즈"
     },
     {
-      "src": "./img/carousel/carousel-lnb3.jpg"
+      "src": "./img/carousel/carousel-lnb3.png",
+      "alt": "수입식품관"
     },
     {
-      "src": "./img/carousel/carousel-lnb4.jpg"
+      "src": "./img/carousel/carousel-lnb4.jpg",
+      "alt": "폴메디슨 트리트룸 무로 외"
     },
     {
-      "src": "./img/carousel/carousel-lnb5.jpg"
+      "src": "./img/carousel/carousel-lnb5.jpg",
+      "alt": "주방 BEST"
     },
     {
-      "src": "./img/carousel/carousel-lnb6.jpg"
+      "src": "./img/carousel/carousel-lnb6.jpg",
+      "alt": "브랜드 위크"
     }
   ]
 }

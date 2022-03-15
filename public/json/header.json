@@ -1,8 +1,10 @@
 {
   "menu": {
-    "src": "./img/header/menu.png"
+    "src": "./img/header/menu.png",
+    "alt": "메뉴"
   },
   "logo": {
-    "src": "./img/header/logo_coupang_w350.png"
+    "src": "./img/header/logo_coupang_w350.png",
+    "alt": "로고"
   }
 }
