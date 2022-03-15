@@ -1,3 +1,31 @@
-.hi {
-  background-color: aquamarine;
+.top-nav-wrapper {
+  background-color: #f0f0f0;
+}
+
+.top-nav {
+  background-color: #f0f0f0;
+  height: 32px;
+  display: block;
+  width: 1020px;
+  margin: 0 auto;
+}
+
+.top-nav li {
+  color: #333;
+  font-size: 11px;
+}
+
+.top-nav-left {
+  float: left;
+  height: 24px;
+}
+
+.top-nav-right {
+  float: right;
+  height: 24px;
+}
+
+.align-horizontal {
+  float: left;
+  padding: 10px 0 0 12px;
 }
