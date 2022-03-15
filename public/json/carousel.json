@@ -1,0 +1,12 @@
+{
+  "carousel": [
+    {
+      "src": "./img/carousel/carousel1.jpg"
+    }
+  ],
+  "carousel-lnb": [
+    {
+      "src": "./img/carousel/carousel-lnb1.jpg"
+    }
+  ]
+}
