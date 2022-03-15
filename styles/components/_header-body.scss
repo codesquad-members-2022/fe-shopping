@@ -178,11 +178,32 @@ $category-width: 25%;
 
     &-item {
       @include font-style($font-sm);
-      padding: 6px 8px;
+      @include flexbox(space-between);
+
+      padding: 0 10px;
+      white-space: nowrap;
       cursor: pointer;
 
-      &:hover {
-        text-decoration: underline;
+      &-link {
+        width: 90%;
+        padding: 6px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &-delete {
+        width: 10%;
+        padding: 6px 0;
+        color: $white;
+        text-align: end;
+
+        &:hover {
+          color: $border;
+        }
       }
     }
 
