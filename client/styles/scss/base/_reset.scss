@@ -1,0 +1,32 @@
+/* RESET CSS by dobby */
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+select {
+  border: none;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button, cursor {
+  cursor: pointer;
+}
