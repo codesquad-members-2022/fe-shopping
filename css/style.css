@@ -1,0 +1,49 @@
+@import "reset.css";
+.header-container {
+  background-color: #fff;
+  position: relative;
+  min-width: 1020px;
+  font-size: 24px;
+}
+
+.top-bar {
+  position: absolute;
+  background: #f0f0f0;
+  height: 32px;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.top-bar section {
+  width: 1020px;
+  font-size: 0.8rem;
+  margin: 0 auto;
+}
+
+.header-menu {
+  float: right;
+}
+.header-menu li {
+  float: left;
+  padding-right: 12px;
+  padding-top: 10px;
+}
+
+.header-submenu {
+  float: left;
+}
+.header-submenu li {
+  float: left;
+  padding-right: 12px;
+  padding-top: 10px;
+}
+
+#header {
+  width: 1020px;
+  height: 115px;
+  margin: 0 auto;
+  padding-top: 32px;
+  position: relative;
+}
+
+/*# sourceMappingURL=style.css.map */

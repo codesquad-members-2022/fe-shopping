@@ -1,0 +1,57 @@
+
+$header-bg-color: #fff;
+$header-font: (small: 12px, medium: 24px, large: 36px);
+$header-width: (base: 1020px);
+$header-height: (top-bar: 32px, header: 115px);
+
+.header-container {
+  background: {
+    color: $header-bg-color;
+  };
+  position: relative;
+  min-width: map-get($header-width, base);
+  font-size: map-get($header-font, medium)
+}
+
+.top-bar {
+  position: absolute;
+  background: #f0f0f0;
+  height: map-get($header-height, top-bar);
+  top: 0;
+  left:0;
+  right:0;
+
+  section {
+    width: map-get($header-width, base);
+    font-size: 0.8rem;
+    margin: 0 auto;
+  }
+}
+
+.header-menu {
+  float: right;
+
+  li {
+    float: left;
+    padding-right: 12px;
+    padding-top: 10px;
+  }
+}
+
+.header-submenu {
+  float: left;
+
+  li {
+    float: left;
+    padding-right: 12px;
+    padding-top: 10px;
+  }
+}
+
+#header {
+  width: map-get($header-width, base);
+  height: map-get($header-height, header);
+  margin: 0 auto;
+  padding-top: map-get($header-height, top-bar);
+  position: relative;
+}

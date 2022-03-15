@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/bangdler/fe-shopping/issues"
   },
-  "homepage": "https://github.com/bangdler/fe-shopping#readme",
-  "dependencies": {
-    "sass": "^1.49.9"
-  }
+  "homepage": "https://github.com/bangdler/fe-shopping#readme"
 }
