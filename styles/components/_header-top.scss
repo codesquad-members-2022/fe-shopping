@@ -3,7 +3,7 @@
   background-color: $gray;
 }
 
-.header-menu-group {
+.menu-group {
   @include flexbox(space-between);
   width: $primary-width;
   margin: 0 auto;
@@ -16,6 +16,7 @@
   .auth-menu-list {
     @include flexbox(end, center);
     @include font-style($font-sm, $primary);
+    margin-right: 40px;
   }
 
   .subscribe-menu-item,
