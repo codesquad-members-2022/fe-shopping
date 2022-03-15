@@ -51,6 +51,14 @@ button {
   line-height: 2rem;
 }
 
+.header-bar .header-link-item:not(:last-child)::after {
+  display: inline-block;
+  content: "";
+  margin: 0 10px 0 10px;
+  height: 0.6rem;
+  border-left: 1px solid #555;
+}
+
 .search-bar-area {
   height: 115px;
   display: -webkit-box;

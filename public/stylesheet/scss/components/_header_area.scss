@@ -12,6 +12,16 @@
     justify-content: space-between;
     line-height: 2rem;
   }
+
+  .header-link-item {
+    &:not(:last-child)::after {
+      display: inline-block;
+      content: "";
+      margin: 0 10px 0 10px;
+      height: 0.6rem;
+      border-left: 1px solid $color-gray;
+    }
+  }
 }
 
 .search-bar-area {
@@ -107,7 +117,7 @@
   .menu-icon {
     width: 30px;
     height: 30px;
-    fill: $icon-color-gray;
+    fill: $color-gray;
   }
 }
 
