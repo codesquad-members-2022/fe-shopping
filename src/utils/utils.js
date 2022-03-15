@@ -63,3 +63,17 @@ export const hasAscendant = ($ascendant, $element) => {
 //   }
 //   return false;
 // };
+
+export const webStorage = {
+  set(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+
+  get(key) {
+    return JSON.parse(localStorage.getItem(key));
+  },
+
+  clear(key) {
+    localStorage.removeItem(key);
+  },
+};
