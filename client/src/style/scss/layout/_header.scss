@@ -50,24 +50,54 @@
         width: 512px;
         border: 2px solid $color-blue-light;
       }
-      &-select {
+      &-selectBox {
         width: 134px;
         height: 38px;
         border-right: 1px solid #ddd;
+        font-size: $font-12;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      &--off {
+        background: url('/client/src/img/icon_trace_off.png') calc(100% - 7px) / 10px no-repeat;
+      }
+
+      &--on {
+        background: url('/client/src/img/icon_trace_on.png') calc(100% - 7px) / 10px no-repeat;
+      }
+
+      &--allBtn {
+        border: none;
+        outline: none;
+        padding: 12px 0 0 15px;
+        background: transparent;
+        color: $color-grey-dark;
         cursor: pointer;
       }
+
+      &-list {
+        margin-top: 12px;
+        background-color: $color-white;
+        border: 1px solid $color-grey-light;
+        box-shadow: 0 4px 5px $color-grey-slight-dark;
+      }
+
+      &-searchItem {
+        padding: 15px;
+      }
+
       &--input {
         width: 310px;
         padding-left: 20px;
         border: none;
+        outline: none;
       }
 
       &--btn {
         width: 50px;
         height: 40px;
-        background-position: 117px -71px;
-        background-repeat: no-repeat;
-        background-image: url('/client/src/img/pc_header_img_sprite.png');
+        background: url('/client/src/img/icon_search.png') center / 20px no-repeat;
         cursor: pointer;
       }
     }
