@@ -115,7 +115,6 @@ centerAlignment {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  //bottom: list갯수만큼 계산필요
   li {
     :lastchild {
       border: none;

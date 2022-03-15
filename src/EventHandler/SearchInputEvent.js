@@ -17,7 +17,7 @@ class SearchInputController {
       `search/${value}`,
       (jsonData) =>
         new Toggle(jsonData, "search--toggle--li", "search--toggle--ul").dom
-    ).then(this.toggleView.renderToggle);
+    ).then(this.toggleView.renderToggle.bind(this.toggleView));
   }
 }
 
@@ -25,5 +25,5 @@ const test = new SearchInputController(
   domUtil.$(".header__main--searchZone"),
   domUtil.$(".header__main--searchInput")
 );
-console.log(test);
+
 test.initService();
