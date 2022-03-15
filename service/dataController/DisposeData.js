@@ -1,4 +1,4 @@
-const searchingData = require("../..//data/searchData.json");
+const searchingData = require("../../data/searchData.json");
 
 // 단어를 통해서 데이터와 비교
 function checkKeyWord(keyWord) {
@@ -40,6 +40,4 @@ function checkMatchWord(keyWord, data) {
   }, []);
 }
 
-console.log(checkKeyWord(" 아식스"));
-
-// module.exports = { data };
+module.exports = { checkKeyWord };
