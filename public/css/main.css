@@ -292,6 +292,16 @@ table {
   display: block;
 }
 
+.carousel-inner {
+  overflow: hidden;
+}
+.carousel-inner__list {
+  display: flex;
+}
+.carousel-inner__img {
+  display: block;
+}
+
 .caroseul-lnb__item--active {
   border: 3px solid #4285f4;
 }

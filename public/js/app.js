@@ -7,4 +7,4 @@ wrap.insertAdjacentHTML('afterbegin', bar);
 
 const container = document.querySelector('.container');
 container.insertAdjacentHTML('afterbegin', header);
-// container.insertAdjacentHTML('afterend', carousel);
+container.insertAdjacentHTML('afterend', carousel);

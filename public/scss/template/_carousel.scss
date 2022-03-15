@@ -25,6 +25,18 @@
   }
 }
 
+.carousel-inner {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+  }
+
+  &__img {
+    display: block;
+  }
+}
+
 .caroseul-lnb__item--active {
   border: 3px solid $blue;
 }
