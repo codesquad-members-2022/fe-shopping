@@ -34,13 +34,13 @@ const carousel = () => {
 };
 
 const start = () => {
-  timer = setInterval(carousel, 2000);
+  timer = setInterval(carousel, 1700);
 };
 const stop = () => {
   clearInterval(timer);
 };
 
-let timer = setInterval(carousel, 2000);
+let timer = setInterval(carousel, 1700);
 carouselUlElement.addEventListener("mouseover", ({ target }) => {
   if (
     !target.parentElement.classList.contains("carousel-item") &&
