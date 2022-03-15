@@ -1,17 +1,17 @@
 @import '../colors';
 
-.header {
+.header-wrap {
   font-size: 13px;
+}
 
-  &-main {
-    display: flex;
-  }
+.header {
+  display: flex;
 
   &-gnb {
     width: 110px;
     height: 115px;
     color: $white;
-    background-color: $header-gnb-bg;
+    background-color: $white;
 
     &__link {
       position: relative;

@@ -161,16 +161,16 @@ table {
   .bar__item:last-child {
     margin-right: 20px; }
 
+.header-wrap {
+  font-size: 13px; }
+
 .header {
-  font-size: 13px;
-  color: #333; }
-  .header-main {
-    display: flex; }
+  display: flex; }
   .header-gnb {
     width: 110px;
     height: 115px;
     color: #fff;
-    background-color: #4285f4; }
+    background-color: #fff; }
     .header-gnb__link {
       position: relative;
       display: block;
@@ -231,6 +231,26 @@ table {
   .search-form .search-mic,
   .search-form .search-btn {
     margin-right: 5px; }
+
+.carousel-wrap {
+  background-color: #fafafa; }
+
+.carousel {
+  position: relative;
+  width: 1920px;
+  margin: 0 auto; }
+  .carousel-imgs {
+    background-size: cover; }
+  .carousel-lnb {
+    position: absolute;
+    top: 50px;
+    right: 450px;
+    background-color: #fff; }
+    .carousel-lnb__img {
+      display: block; }
+
+.caroseul-lnb__item--active {
+  border: 3px solid #4285f4; }
 
 .container {
   width: 1000px;

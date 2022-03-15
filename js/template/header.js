@@ -1,7 +1,7 @@
 export const header = `
   <header>
-    <div class="header">
-      <div class="header-main">
+    <div class="header-wrap">
+      <div class="header">
         <div class="header-left">
           <div class="header-gnb">
             <a href="#" class="header-gnb__link">
