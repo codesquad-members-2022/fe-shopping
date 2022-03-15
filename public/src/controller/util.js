@@ -8,4 +8,9 @@ function debounce(callback, limit = 100) {
   };
 }
 
-export { debounce };
+const fetchData = async (url) => {
+  const response = await fetch("./carouselData.json");
+  return response.json();
+};
+
+export { debounce, fetchData };

@@ -223,7 +223,7 @@
   position: absolute;
   top: 20%;
   right: 440px;
-  z-index: 1;
+  flex-direction: column;
 }
 
 .snb__item {

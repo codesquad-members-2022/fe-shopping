@@ -1,6 +1,6 @@
 import { debounce } from "./util.js";
 
-const setCarouselEvent = (carouselNode, carouselNavBarNode) => {
+const setCarouselEvent = (carouselData, carouselNode, carouselNavBarNode) => {
   setCarouselNavBarEvent(carouselNavBarNode);
 };
 
@@ -25,4 +25,5 @@ const changeBorder = (parentNode, targetNode) => {
   targetNode.classList.remove("snb__item");
   targetNode.classList.add("snb__selected");
 };
+
 export default setCarouselEvent;
