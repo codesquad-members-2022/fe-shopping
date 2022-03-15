@@ -1,4 +1,4 @@
-import { carouselData } from "../../data/data.js";
+import { carouselData } from "../data/data.js";
 
 const carouselUlElement = document.querySelector(".carousel-items");
 const carouselImgArea = document.querySelector(".carousel-img-area");
