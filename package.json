@@ -1,0 +1,28 @@
+{
+  "name": "fe-shopping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "node-sass": "^7.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+      "dev": "nodemon app.js -e js,json,hbs,css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlwnstjrzz/fe-shopping.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlwnstjrzz/fe-shopping/issues"
+  },
+  "homepage": "https://github.com/dlwnstjrzz/fe-shopping#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}

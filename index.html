@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="public/css/style.css">
-  <link rel="stylesheet" href="public/css/reset.css">
-  <link rel="stylesheet" href="public/css/carousel.css">
+  <link rel="stylesheet" href="/css/main.css">
+  
+
+  <!-- <link rel="stylesheet" href="public/css/style1.css"> -->
   <title>Document</title>
 </head>
 <body>
@@ -36,8 +37,26 @@
                 </div>
                 <input type="text" name="q" id="headerSearchKeyword" class="coupang-search" title="쿠팡 상품 검색" autocomplete="off" placeholder="찾고 싶은 상품을 검색해보세요!">
                 <a href="#" class="speech-content-mic">마이크</a>
-              <a href="#" class="search" title="검색">검색이미지</a>
+                <a href="#" class="search" title="검색">검색이미지</a>
               </form>
+              <div class="latest-search-keyword">
+                <h3>
+                  <span>최근</span>
+                  "검색어"
+                </h3>
+                <ol>
+                  <li></li>
+                  <li></li>
+                </ol>
+              </div>
+              <div class="history-btns">
+                <span class="delete-all-history-btn">
+                  전체삭제
+                </span>
+                <span class="history-onoff">
+                  최근검색어끄기
+                </span>
+              </div>
             </div>
             
           </div>
@@ -69,9 +88,6 @@
       </li>
     </ul>
 
-
-
-
-
+    <script type="module" src="/src/test.js"></script> 
 </body>
 </html>

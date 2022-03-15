@@ -1,0 +1,26 @@
+$inner_content_position: absolute;
+
+.container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+  
+.slider-container {
+    position: $inner_content_position;
+    width: 100%;
+}
+
+.slide {
+  position: $inner_content_position;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+  list-style: none;
+  // &::marker {
+  //   width: 0;
+  //   height: 0;
+  // }
+}
+

@@ -23,13 +23,10 @@ a {
   align-items: center;
 }
 
-/* .search-form {
-  display: flex;
-  justify-content: center;
-} */
-.headerSearchForm {
+.headerSearchForm {    /**/
   display: flex;
   align-items: center;
+  justify-content: center;
 
 }
 
@@ -89,11 +86,10 @@ a {
   display: block;
   height: 30px;
   width: 30px;
-  
 }
 
 /* 입력하는 부분(찾고 싶은~) */
-.headerSearchForm>input {  
+.headerSearchForm>input {   /**/
   width: 310px;
   padding-right: 23px;
   height: 37px;
