@@ -1,0 +1,79 @@
+:root {
+  --url: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+}
+
+header {
+  display: flex;
+  width: 1020px;
+  height: 115px;
+}
+
+.category-button {
+  display: flex;
+  justify-content: center;
+  width: 110px;
+  height: 115px;
+  margin-right: 30px;
+  background-image: var(--url);
+  background-repeat: no-repeat;
+}
+
+.category-button > .category-text {
+  margin-top: 73px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.main-menu {
+  display: flex;
+  margin-top: 25px;
+}
+
+.coupang-logo {
+  width: 174px;
+  height: 41px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 522px;
+  height: 41px;
+  margin: 0 22px 0 22px;
+  border: 2px solid #4285f4;
+}
+
+.search-category {
+  font-size: 12px;
+  font-weight: normal;
+  text-indent: 10px;
+}
+
+.search-category-button {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: var(--url) 6px -165px no-repeat;
+}
+
+.search-bar {
+  width: 380px;
+  height: 37px;
+  margin-right: 23px;
+  border: 0;
+}
+
+.search-button {
+  width: 50px;
+  height: 39px;
+  border: 0;
+  background: var(--url) -112px -71px no-repeat;
+}
+
+.popup-keywords {
+  position: relative;
+  height: 115px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
