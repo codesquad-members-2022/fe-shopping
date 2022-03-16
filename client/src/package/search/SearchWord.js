@@ -1,28 +1,36 @@
 import { $ } from '../../utils/util.js';
 import { RecentSearch } from '../../components/search/RecentSearch.js';
 import { SearchKeyWord } from '../../components/search/SearchKeyWord.js';
-import { keywordsData } from '../../constants/data.js';
 
 export default function SearchWord() {
   this.recentWords = [];
+  this.currentWord = '';
   this.turn = true;
-
-  this.removeAll = () => {
-    this.recentWords = [];
-  };
-
-  this.turnOff = () => {
-    this.turn = false;
-  };
-
-  this.turnOn = () => {
-    this.turn = true;
-  };
-
-  this.getTurn = () => {
-    return this.turn;
-  };
 }
+
+SearchWord.prototype.getCurrentWord = function () {
+  return this.currentWord;
+};
+
+SearchWord.prototype.setCurrentWord = function (currentWord) {
+  this.currentWord = currentWord;
+};
+
+SearchWord.prototype.turnOff = function () {
+  this.turn = false;
+};
+
+SearchWord.prototype.turnOn = function () {
+  this.turn = true;
+};
+
+SearchWord.prototype.getTurn = function () {
+  return this.turn;
+};
+
+SearchWord.prototype.removeAll = function () {
+  this.recentWords = [];
+};
 
 SearchWord.prototype.toggleRender = function (data) {
   // 최근검색어가 없으면 리턴.
@@ -39,6 +47,6 @@ SearchWord.prototype.toggleRender = function (data) {
     if (this.recentWords.length === 0) return;
     inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
   } else {
-    inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(data));
+    inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(this.getCurrentWord(), data));
   }
 };
