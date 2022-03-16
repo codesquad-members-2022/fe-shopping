@@ -1,0 +1,22 @@
+.slide__container {
+  margin: 0 auto;
+  overflow: hidden;
+  position: absolute;
+}
+.slide__container .slide__list {
+  display: flex;
+}
+.slide__container .slide__list .slide__item {
+  width: 100vw;
+}
+
+.banner__category {
+  position: relative;
+  cursor: pointer;
+  left: 72vw;
+  top: 3vw;
+  width: 182px;
+  box-shadow: 0 4px 5px #000001;
+}
+
+/*# sourceMappingURL=carousel.css.map */
