@@ -10,7 +10,7 @@ export class SearchCategoriesButton {
     this.$searchWrap.querySelector('.search-categories').classList.toggle('active');
   }
 
-  addSeachCategoriesButtonEvent() {
+  addSearchCategoriesButtonEvent() {
     this.$searchCategoriesButton.addEventListener('click', () => {
       this.$searchWrap.querySelector('.search-categories').classList.toggle('active');
       this.$searchWrap.querySelector('.search-recent-keywords').classList.remove('active');
@@ -18,6 +18,6 @@ export class SearchCategoriesButton {
   }
 
   addEventListener() {
-    this.addSeachCategoriesButtonEvent();
+    this.addSearchCategoriesButtonEvent();
   }
 }

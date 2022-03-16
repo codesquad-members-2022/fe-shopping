@@ -25,7 +25,7 @@ export class SearchBar {
   }
 
   addSearchInputEvent() {
-    this.$searchWrap.querySelector('.search-input').addEventListener('click', () => {
+    this.$searchWrap.querySelector('.search-input').addEventListener('focus', () => {
       if (!this.$recentKeywords.querySelectorAll('li').length) return;
       this.$recentKeywords.classList.add('active');
       this.$categories.classList.remove('active');

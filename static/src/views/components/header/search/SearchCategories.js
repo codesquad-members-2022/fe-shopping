@@ -18,7 +18,7 @@ export class SearchCategories {
     this.$categories.insertAdjacentHTML('afterbegin', categoriesTemplate);
   }
 
-  addSeachCategoriesEvent(updateCategory) {
+  addSearchCategoriesEvent(updateCategory) {
     this.$categories.addEventListener('click', ({ target }) => {
       const selectedCategory = target.dataset.category;
       updateCategory(selectedCategory);
@@ -26,6 +26,6 @@ export class SearchCategories {
   }
 
   addEventListener(updateCategory) {
-    this.addSeachCategoriesEvent(updateCategory);
+    this.addSearchCategoriesEvent(updateCategory);
   }
 }
