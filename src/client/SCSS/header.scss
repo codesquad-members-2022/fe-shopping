@@ -1,15 +1,14 @@
 header {
-  .header__small {
+  .small {
     font-size: 0.6rem;
-    display: flex;
     padding: 0.7rem;
     background-color: $gray;
-    :last-child {
+    > :last-child {
       margin-left: auto;
     }
     div {
       * {
-        margin: 0.2rem;
+        margin: 0.4rem;
       }
       :first-child {
         margin-left: 0;
@@ -19,20 +18,96 @@ header {
       }
     }
   }
+}
 
-  .header__main {
-    display: flex;
+header {
+  .main {
+    height: 8rem;
+    :nth-child(1) {
+      flex: 1;
+    }
+    :nth-child(2) {
+      flex: 6;
+    }
+    :nth-child(3) {
+      flex: 1.5;
+    }
   }
+}
 
-  .header__categories {
-    padding: 2rem;
-    padding-top: 4rem;
+header {
+  .categories {
     background-color: $blue-main;
+    color: $white;
+    i {
+      font-size: 2rem;
+    }
+    * {
+      margin: 0.2rem;
+    }
   }
+  .center {
+    .main {
+      > * {
+        height: 2.5rem;
+      }
+      height: 6rem;
+      .img {
+        padding: 1rem;
+      }
+      .search {
+        :nth-child(1) {
+          flex: 1;
+        }
+        :nth-child(2) {
+          flex: 3;
+        }
+        border: 0.25rem solid $blue-main;
+        .menu {
+          :nth-child(1) {
+            flex: 5;
+          }
+          :nth-child(2) {
+            flex: 1;
+          }
+          .menu-selected {
+            padding: 0.2rem;
+          }
+        }
+        .form {
+          :nth-child(1) {
+            flex: 10;
+          }
+          :nth-child(2) {
+            flex: 1;
+          }
+          > * {
+            height: 2.5rem;
+          }
+          button {
+            background-color: $white;
+            font-size: 0.8rem;
+            color: $blue-main;
+          }
+        }
+      }
+    }
+  }
+}
 
-  .header__center--main {
-    img {
-      width: 10rem;
+header {
+  .personal {
+    :nth-child(1) {
+      flex: 1;
+    }
+    :nth-child(2) {
+      flex: 1;
+    }
+    text-align: center;
+    padding: 0.5rem;
+    i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
   }
 }

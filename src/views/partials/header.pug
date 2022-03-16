@@ -1,6 +1,6 @@
 header
 
-  section.header__small
+  section.small.flex
     div
       span 즐겨찾기
       span 입점신청
@@ -9,14 +9,29 @@ header
       span 회원가입
       span 고객센터
 
-  section.header__main
-    div.header__categories 카테고리
-    div.header__center
-      div.header__center--main
-        img(src="/images/logo.png")
-      div.header__center--nav
-    div.header__personal
-      div.header__my
-      div.header__cart
+  section.main.flex
+    button.categories
+      i.fas.fa-bars
+      div 카테고리
+    div.center
+      div.main.flex
+        img.img(src="/images/logo.png")
+        div.search.flex
+          div.menu.flex
+            div.menu-selected 전체
+            div.menu-viewer
+              i.fas.fa-chevron-down
+          form.form.flex
+            input(name="search", type="text", placeholder="찾고 싶은 상품을 검색하세요!")
+            button
+              i.fas.fa-search
+      div.nav
+    div.personal.flex
+      div.my
+        i.fas.fa-user 
+        div 마이 쿠팡
+      div.cart 
+        i.fas.fa-shopping-cart
+        div 장바구니
       
     

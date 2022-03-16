@@ -1,8 +1,24 @@
 @import "./_variables";
 @import "./reset";
 @import "./header.scss";
+@font-face {
+  font-family: "gothic";
+  src: url("./gothic.ttf") format("truetype");
+}
 
 body {
-  font-size: 0.9rem;
+  font-family: "gothic";
+  font-weight: 100;
+  margin: 0 auto;
+  width: 1020px;
   min-height: 100vh;
+  font-size: 0.8rem;
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+  * {
+    align-items: center;
+  }
 }
