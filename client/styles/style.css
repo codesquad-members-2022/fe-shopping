@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -369,8 +370,41 @@ button, cursor {
   cursor: pointer;
 }
 
+.container, .recent-keyword .input__drop-down--options, .select__category, .header__search form, .header__user-menu, .search__input-box, .header__main, .header__wrapper .header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header__user-menu li, .header__category {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.input__drop-down, .select__drop-down {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #323232;
+  box-shadow: 0 4px 9px 0 rgba(28, 28, 28, 0.3);
+}
+
+.auto-complete li, .select__drop-down li {
+  padding: 8px 0;
+  font-size: 0.875rem;
+}
+
+.recent-keyword a:hover, .select__drop-down a:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+
 /* header */
-.header__category--btn {
+.header__category {
   width: 12%;
   margin-right: 30px;
   padding: 30px 0;
@@ -378,10 +412,10 @@ button, cursor {
   color: #fff;
   cursor: pointer;
 }
-.header__category--btn .material-icons {
+.header__category .material-icons {
   font-size: 2.75rem;
 }
-.header__category--btn span {
+.header__category span {
   font-size: 0.875rem;
 }
 
@@ -405,6 +439,37 @@ button, cursor {
   width: 100%;
 }
 
+.search__input-box {
+  position: relative;
+  width: 70%;
+  padding: 6px 8px;
+}
+.search__input-box .search__input {
+  width: 90%;
+}
+.search__input-box .material-icons {
+  padding: 0 6px;
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+.search__input-box .icon-mic {
+  color: #626262;
+}
+.search__input-box .icon-search {
+  color: #4285f4;
+}
+
+.header__user-menu li {
+  padding: 0 14px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.header__user-menu li .material-icons {
+  font-size: 2.75rem;
+  color: #626262;
+}
+
+/* search 관련 */
 .header__search {
   width: 60%;
 }
@@ -413,7 +478,9 @@ button, cursor {
   border: 3px solid #4285f4;
   font-size: 0.875rem;
 }
-.header__search .search__category {
+
+.select__category {
+  position: relative;
   align-items: center;
   width: 30%;
   padding: 6px 8px;
@@ -421,52 +488,50 @@ button, cursor {
   color: #626262;
   cursor: pointer;
 }
-.header__search .search__input-box {
-  width: 70%;
-  padding: 6px 8px;
-}
-.header__search .search__input-box .search__input {
-  width: 90%;
-}
-.header__search .search__input-box .material-icons {
-  padding: 0 6px;
-  font-size: 1.75rem;
-  cursor: pointer;
-}
-.header__search .search__input-box .icon-mic {
-  color: #626262;
-}
-.header__search .search__input-box .icon-search {
-  color: #4285f4;
+
+.input__drop-down {
+  height: 320px;
 }
 
-.header__user-menu .flex-col {
-  padding: 0 14px;
-  font-size: 0.75rem;
-  cursor: pointer;
+.auto-complete a:hover {
+  text-decoration: underline;
 }
-.header__user-menu .flex-col .material-icons {
-  font-size: 2.75rem;
+
+.recent-keyword {
+  padding: 0;
+}
+.recent-keyword p {
+  padding: 12px;
+  border-bottom: 1px solid #c8c8c8;
+  font-weight: 600;
+  font-size: 13px;
+}
+.recent-keyword ul {
+  height: 245px;
+  overflow: hidden;
+  padding: 12px 12px 0 12px;
+  border-bottom: 1px solid #c8c8c8;
+}
+.recent-keyword li {
+  padding-bottom: 12px;
+  font-size: 0.75rem;
+}
+.recent-keyword .input__drop-down--options {
+  background-color: #f0f0f0;
+}
+.recent-keyword .input__drop-down--options button {
+  padding: 10px 12px;
   color: #626262;
+  font-size: 13px;
+}
+.recent-keyword .input__drop-down--options button:hover {
+  text-decoration: underline;
 }
 
 .container {
   margin: auto;
   width: 1080px;
   font-size: 1rem;
-}
-
-/* flex */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */

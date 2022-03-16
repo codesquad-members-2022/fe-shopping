@@ -1,0 +1,25 @@
+%drop-down {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 8px 16px;
+  background-color: $background-color;
+  color: $main-text-color;
+  box-shadow: 0 4px 9px 0 rgba(28, 28, 28, 0.3);
+}
+
+%drop-down-list {
+  li {
+    padding: 8px 0;
+    font-size: $font-size-14;
+  }
+}
+
+%drop-down-hover {
+  a:hover {
+    color: $point-color;
+    text-decoration: underline;
+  }
+}
+

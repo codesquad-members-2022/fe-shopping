@@ -1,7 +1,9 @@
+@import './common/_dropdown';
+
 /* header */
 .header__category {
   @extend %flex-col;
-  
+
   width: 12%;
   margin-right: $container-margin;
   padding: 30px 0;
@@ -89,3 +91,90 @@
   }
 }
 
+/* search 관련 */
+
+.header__search {
+  width: 60%;
+  
+  form {
+    @extend %flex-row;
+
+    margin-right: 20px;
+    border: 3px solid $point-color; 
+    font-size: $font-size-14;
+  }
+}
+
+.select__category {
+  @extend %flex-row;
+
+  position: relative;
+  align-items: center;
+  width: 30%;
+  padding: 6px 8px;
+  border-right: 1px dotted $non-foucs-text-color;
+  color: $non-foucs-text-color;
+  cursor: pointer;
+}
+
+.select__drop-down {
+  @extend %drop-down;
+  @extend %drop-down-list;
+  @extend %drop-down-hover;
+}
+
+.input__drop-down {
+  @extend %drop-down;
+
+  height: 320px;
+}
+
+.auto-complete {
+  @extend %drop-down-list;
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.recent-keyword {
+  @extend %drop-down-hover;
+  $list-padding: 12px;
+
+  padding: 0;
+
+  p {
+    padding: $list-padding;
+    border-bottom: 1px solid $gray-color;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  ul {
+    height: 245px;
+    overflow: hidden;
+    padding: $list-padding $list-padding 0 $list-padding;
+    border-bottom: 1px solid $gray-color;
+  }
+  
+  li {
+    padding-bottom: $list-padding;
+    font-size: $font-size-12;
+  }
+
+  .input__drop-down--options {
+    @extend %flex-row;
+    
+    background-color: $light-gray-color;
+    
+    button {
+      padding: 10px $list-padding;
+      color: $non-foucs-text-color;
+      font-size: 13px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
