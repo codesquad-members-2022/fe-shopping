@@ -8,7 +8,7 @@
     "commonjs": true,
     "es2021": true
   },
-  "globals": { "_": true },
+  "globals": { "_": true, "DEPLOY": true },
   "plugins": ["import", "html"],
   "extends": ["airbnb-base", "prettier"],
   "rules": {

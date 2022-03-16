@@ -1,5 +1,5 @@
-const express = require("express");
-const db = require("../fakeDB/db");
+import express from "express";
+import db from "../fakeDB/db";
 
 const searchRouter = express.Router();
 
@@ -9,4 +9,4 @@ searchRouter.get("/autoComplete", (req, res) => {
   res.json({ results });
 });
 
-module.exports = searchRouter;
+export default searchRouter;

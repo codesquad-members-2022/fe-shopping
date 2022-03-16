@@ -1,6 +1,6 @@
-const express = require("express");
-const path = require("path");
-const searchRouter = require("./routers/searchRouter");
+import express from "express";
+import path from "path";
+import searchRouter from "./routers/searchRouter";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -6,10 +6,12 @@
     "node": "14.x"
   },
   "scripts": {
+    "prestart": "npm run build:prod",
     "start": "babel-node src/app.js",
     "start:dev": "nodemon --exec babel-node src/app.js --delay 1",
-    "build": "webpack",
-    "build:watch": "webpack --watch"
+    "build:dev": "webpack --env DEPLOY=false",
+    "build:prod": "webpack --env DEPLOY=true",
+    "build:watch": "webpack -w  --env DEPLOY=false"
   },
   "repository": {
     "type": "git",

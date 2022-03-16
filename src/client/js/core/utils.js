@@ -1,5 +1,5 @@
 const API_END_POINT =
-  process.NODE_ENV === "production"
+  DEPLOY === "production"
     ? "https://fe-shopping.herokuapp.com/"
     : "http://localhost:3000/";
 
