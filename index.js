@@ -7,7 +7,7 @@ const showNextSlide = (id) => {
   const remaindar = id % liCount;
   const moveNum = remaindar === 0 ? 0 : remaindar;
   console.log(moveNum);
-  $slideList.style.transform = `translateX(-${moveNum * 100}%)`;
+  $slideList.style.transform = `translateX(-${moveNum * 100}vw)`;
   count = id;
   count += 1;
 };
