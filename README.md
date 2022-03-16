@@ -1,5 +1,23 @@
 # fe-shopping
 
+## 구현한 것
+
+-[x] component를 상속해 반복되는 로직 만들어보기.
+
+-[x] 카테고리 mouse 이벤트 만들기
+
+-[x] 가능한 작은 기능으로 module 분리하기
+
+## 구현할 것
+
+-[ ] Express로 현재 js파일로 가져오는 data 서버에서 받아와 렌더링하기.
+
+-[ ] 검색창 기능
+
+-[ ] ES class를 이용해 instance를 2개 이상 만들어내는 class 만들기
+
+## 학습일지
+
 ## SCSS
 
 ### Partial
