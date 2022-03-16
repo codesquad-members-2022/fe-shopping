@@ -67,4 +67,15 @@ header {
   height: 40px;
 }
 
+.slide__container {
+  margin: 0 auto;
+  overflow: hidden;
+}
+.slide__container .slide__list {
+  display: flex;
+}
+.slide__container .slide__list .slide__item {
+  width: 100vw;
+}
+
 /*# sourceMappingURL=style.css.map */

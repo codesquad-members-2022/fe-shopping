@@ -66,3 +66,16 @@ header {
   width: 384px;
   height: 40px;
 }
+
+.slide__container {
+  margin: 0 auto;
+  overflow: hidden;
+
+  .slide__list {
+    display: flex;
+
+    .slide__item {
+      width: 100vw;
+    }
+  }
+}
