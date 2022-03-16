@@ -1,0 +1,204 @@
+$category-width: 25%;
+
+.search-group {
+  @include flexbox(center, start);
+
+  .search-bar {
+    @include flexbox(start);
+    position: relative;
+    width: 500px;
+    margin-right: 22px;
+    border: 2px solid $border;
+
+    &-form {
+      @include flexbox;
+      @include font-style($font-md, $primary);
+      width: 100% - $category-width;
+    }
+
+    &-input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+    }
+
+    &-submit {
+      padding: 8px 12px;
+
+      i {
+        font-size: 20px;
+        color: $border;
+      }
+    }
+  }
+
+  .my-menu-list {
+    @include flexbox;
+  }
+
+  .my-menu-button {
+    @include col-flexbox;
+    margin-right: 20px;
+
+    i {
+      @include font-style($ic-bg, $primary);
+    }
+
+    span {
+      @include font-style($font-md, $primary);
+      padding-top: 10px;
+    }
+  }
+}
+
+.search-bar-category {
+  @include font-style($font-md, $primary);
+  position: relative;
+  width: $category-width;
+  padding: 10px;
+  cursor: pointer;
+  border-right: 1px solid $gray-dark;
+
+  i {
+    @include pos-center-y;
+    right: 10px;
+    pointer-events: none;
+  }
+
+  &-name {
+    display: block;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-list {
+    position: absolute;
+    top: 34px;
+    left: -2px;
+    width: 103%;
+    height: 300px;
+    max-height: 300px;
+    padding: 8px;
+    overflow-y: scroll;
+    background-color: $white;
+    border: 1px solid $gray-dark;
+
+    transition: all 200ms;
+
+    &.close {
+      height: 0;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      border-width: 0;
+    }
+  }
+
+  &-item {
+    padding: 8px 0;
+
+    &:hover {
+      color: $border;
+    }
+  }
+}
+
+.search-bar-form {
+  position: relative;
+
+  .auto-complete-wrapper {
+    position: absolute;
+    top: 35px;
+    left: -2px;
+    width: 101%;
+    height: 300px;
+    background-color: $white;
+    border: 1px solid $gray-dark;
+  }
+
+  .history {
+    h3 {
+      @include font-style($font-md);
+      padding: 12px 0;
+      margin: 0 8px;
+      border-bottom: 1px solid $gray-dark;
+    }
+
+    &-list {
+      padding: 3px 0;
+    }
+
+    &-item {
+      @include font-style($font-sm);
+      @include flexbox(space-between);
+
+      padding: 0 10px;
+      white-space: nowrap;
+      cursor: pointer;
+
+      &-link {
+        width: 90%;
+        padding: 6px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &-delete {
+        width: 10%;
+        padding: 6px 0;
+        color: $white;
+        text-align: end;
+
+        &:hover {
+          color: $border;
+        }
+      }
+    }
+
+    &-option {
+      @include flexbox(space-between);
+      @include font-style($font-sm, $dark-light);
+
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 32px;
+      padding: 0 8px;
+      background-color: $gray;
+    }
+
+    &-clear-btn,
+    &-onoff-btn {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .auto-search {
+    &-list {
+      width: 100%;
+    }
+
+    &-item {
+      @include font-style($font-sm, $primary);
+      width: 100%;
+      height: 30px;
+      padding: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
