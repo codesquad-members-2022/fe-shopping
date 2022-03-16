@@ -10,7 +10,7 @@
     color: $color-grey-dark;
     padding: 10px;
     border-bottom: 1px solid $color-grey-light;
-    font-size: $font-14;
+    font-size: $font-12;
     font-weight: $font-700w;
   }
 
@@ -41,9 +41,15 @@
 
   &--remove {
     cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &--off {
     cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

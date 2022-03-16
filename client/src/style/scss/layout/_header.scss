@@ -87,7 +87,7 @@
       border: 1px solid $color-grey-light;
       box-shadow: 0 4px 5px $color-grey-slight-dark;
       overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+      transition: max-height 0.1s cubic-bezier(0, 1, 0, 1);
     }
 
     &-searchItem {
