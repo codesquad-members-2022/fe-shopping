@@ -11,7 +11,8 @@ HtmlElement.prototype.setTemplate = function () {
 };
 
 HtmlElement.prototype.render = function () {
-  this.$parent.appendChild(this.$element);
+  // prototype.directRender()할 때는 render가 호출되더라도 부모가 있을 때만 실행
+  this.$parent && this.$parent.appendChild(this.$element);
 };
 
 HtmlElement.prototype.setEvent = function () {};

@@ -160,3 +160,5 @@ https://developer.mozilla.org/en-US/docs/Web/API/Element/focusout_event
 요소가 초점을 얻었을 때 focusin 이벤트가 발생합니다. 이 이벤트와 focusin의 주요 차이점은 focusin은 버블링이 일어나지만 focus는 일어나지 않음.
 
 https://developer.mozilla.org/en-US/docs/Web/API/Element/focusin_event
+
+### input vs change
