@@ -1,26 +1,45 @@
 import { $ } from '../../utils/util.js';
 import { RecentSearch } from '../../components/search/RecentSearch.js';
+import { SearchKeyWord } from '../../components/search/SearchKeyWord.js';
+import { keywordsData } from '../../constants/data.js';
 
-export class SearchWord {
-  static recentWords = [];
-  turn;
-  constructor() {
-    this.turn = true;
-  }
+export default function SearchWord() {
+  this.recentWords = [];
+  this.turn = true;
 
-  removeAll() {}
+  this.removeAll = () => {
+    this.recentWords = [];
+  };
 
-  turnOff() {
+  this.turnOff = () => {
     this.turn = false;
-  }
+  };
+
+  this.turnOn = () => {
+    this.turn = true;
+  };
+
+  this.getTurn = () => {
+    return this.turn;
+  };
 }
 
-SearchWord.prototype.render = () => {
+SearchWord.prototype.toggleRender = function () {
   // 최근검색어가 없으면 리턴.
-  // 최근검색어가 있으면 최근검색어 컴포넌트 보여주기
-  if (SearchWord.recentWords.length === 0) return;
+  // turn 값이 true라면 최근검색어가 최근검색어 컴포넌트 보여주기
+  // turn 값이 false라면 자동완성된 결과 컴포넌트 보여주기
   const inputKeyWordBox = $('.main-header__input');
   const recentSearchBox = $('.search-recent');
+  const searchKeywordBox = $('.main-header__search-keyword');
+
   recentSearchBox?.remove();
-  inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(SearchWord.recentWords));
+
+  if (this.getTurn()) {
+    if (this.recentWords.length === 0) return;
+    searchKeywordBox?.remove();
+    inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
+  } else {
+    if (searchKeywordBox) return;
+    inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(keywordsData['Ahkeyword']));
+  }
 };

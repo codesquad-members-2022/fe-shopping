@@ -1,5 +1,5 @@
 import { $ } from '../utils/util.js';
-import { SearchWord } from '../classes/search/SearchWord.js';
+import SearchWord from '../classes/search/SearchWord.js';
 
 export const inputKeyWordEvent = () => {
   const searchWord = new SearchWord();
@@ -9,29 +9,33 @@ export const inputKeyWordEvent = () => {
   let saveValue = '';
 
   inputKeyWordBox.addEventListener('keyup', ({ target }) => {
+    if (searchWord.getTurn()) {
+      searchWord.turnOff();
+    }
+
     if (keyWordTimer) {
       clearTimeout(keyWordTimer);
     }
     keyWordTimer = setTimeout(function () {
       // fetch api
       // fetch 보내기전 임의로 클라이언트에서 더미데이터로 테스팅
-      const searchKeyWordBox = $('.main-header__search-keyword');
       if (target.value) {
-        // inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(keywords['Ahkeyword']));
+        searchWord.toggleRender();
         saveValue = target.value;
       }
+
+      // target.value가 비어있을때 처리
     }, 500);
   });
 
   inputKeyWordBox.addEventListener('focus', () => {
-    if (searchWord.turn) {
-      searchWord.render();
-    }
+    searchWord.turnOn();
+    searchWord.toggleRender();
   });
 
   inputKeyWordBtn.addEventListener('click', () => {
     if (saveValue) {
-      SearchWord.recentWords.push(saveValue);
+      searchWord.recentWords.push(saveValue);
       saveValue = '';
     }
   });
