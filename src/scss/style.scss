@@ -38,7 +38,7 @@ input:focus {
   min-width: $base-width;
 }
 
-.top-nav {
+.top-bar {
   width: 100%;
   height: 32px;
   background-color: $top-nav-gray;
@@ -170,7 +170,6 @@ input:focus {
     .select-category-list {
       width: 125px;
       max-height: 762px;
-      display: block;
       z-index: 1;
       padding: 10px 0 10px 10px;
       background-color: aliceblue;
