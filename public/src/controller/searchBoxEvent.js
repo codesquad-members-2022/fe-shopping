@@ -13,6 +13,11 @@ const setSearchBoxEvent = (searchBoxNode) => {
       category.classList.add("display-none");
     }
   });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || !category.classList.contains("display-none")) {
+      category.classList.add("display-none");
+    }
+  });
 };
 
 const changeCategory = (searchBoxNode, targetNode) => {
