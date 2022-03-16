@@ -1,9 +1,11 @@
-// import * as Ahkeyword from "../data/keywords.json";
-
-export const postSearch = (req, res) => {
-  console.log("post!!!");
-};
+import keywordData from "../data/keywords.json" assert { type: "json" };
 
 export const getSearch = (req, res) => {
-  console.log("get!!!");
+  try {
+    const keyword = req.params.keyword;
+    if (!keyword || !keywordData[keyword]) return;
+    return res.json(keywordData[keyword]);
+  } catch (err) {
+    console.error(err);
+  }
 };

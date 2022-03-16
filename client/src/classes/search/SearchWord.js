@@ -24,7 +24,7 @@ export default function SearchWord() {
   };
 }
 
-SearchWord.prototype.toggleRender = function () {
+SearchWord.prototype.toggleRender = function (data) {
   // 최근검색어가 없으면 리턴.
   // turn 값이 true라면 최근검색어가 최근검색어 컴포넌트 보여주기
   // turn 값이 false라면 자동완성된 결과 컴포넌트 보여주기
@@ -39,6 +39,6 @@ SearchWord.prototype.toggleRender = function () {
     if (this.recentWords.length === 0) return;
     inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
   } else {
-    inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(keywordsData['Ahkeyword']));
+    inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(data));
   }
 };

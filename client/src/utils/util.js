@@ -1,4 +1,7 @@
 export const $ = className => document.querySelector(className);
+const deploy = 'DEV';
+const serverURL = deploy === 'DEV' ? 'http://localhost:3000' : 'https://mupang.herokuapp.com';
+
 export const handleHeightBottomAnimate = obj => {
   (function animate() {
     obj.start += obj.value;
@@ -24,4 +27,16 @@ export const handleHeightTopAnimate = obj => {
       obj.parentElement.removeChild(obj.element);
     }
   })();
+};
+
+export const fetchPostData = (path, keyword) => {
+  const url = `${serverURL}/${path}/${keyword}`;
+
+  return fetch(url)
+    .then(response => {
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 };

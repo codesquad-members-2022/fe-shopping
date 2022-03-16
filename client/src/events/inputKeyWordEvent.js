@@ -1,4 +1,4 @@
-import { $ } from '../utils/util.js';
+import { $, fetchPostData } from '../utils/util.js';
 import SearchWord from '../classes/search/SearchWord.js';
 
 export const inputKeyWordEvent = () => {
@@ -16,11 +16,13 @@ export const inputKeyWordEvent = () => {
     if (keyWordTimer) {
       clearTimeout(keyWordTimer);
     }
-    keyWordTimer = setTimeout(function () {
+    keyWordTimer = setTimeout(async function () {
       // fetch api
       // fetch 보내기전 임의로 클라이언트에서 더미데이터로 테스팅
       if (target.value) {
-        searchWord.toggleRender();
+        // fetch!
+        const responseData = await fetchPostData('search', target.value);
+        searchWord.toggleRender(responseData);
         saveValue = target.value;
       } else {
         // target.value가 비어있을때 처리

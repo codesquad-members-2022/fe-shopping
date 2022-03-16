@@ -3,7 +3,6 @@ import { getSearch, postSearch } from "../controllers/searchController.js";
 
 const searchRouter = express.Router();
 
-searchRouter.get("/", getSearch);
-searchRouter.post("/", postSearch);
+searchRouter.get("/:keyword", getSearch);
 
 export default searchRouter;

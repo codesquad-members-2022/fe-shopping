@@ -53,159 +53,263 @@ export const searchCategoryData = [
 ];
 
 export const keywordsData = {
-  Ahkeyword: [
+  ㄱ: [
     {
-      keyword: '아이폰 13 pro',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      keyword: '계란',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '아이패드 에어4',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      keyword: '계란 30구',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '아이폰 13',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      keyword: '귤',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '아이깨끗해',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
+      keyword: '갤럭시 워치4',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '아이패드',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '아이폰13 미니',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '아이폰13 pro max',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '아이깨끗해 리필',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '아이스크림',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '아이폰',
-      requestId: '46f7da78-408d-4170-ac22-f9efcee3fd7c',
-      travelKeyword: 'false',
-    },
-  ],
-  BaKeyword: [
-    {
-      keyword: '바나나',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '바디워시',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '바나나우유',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '방울토마토',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '바디로션',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '밥솥',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '스테비아 방울토마토',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: 'led 방등',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '빙그레 바나나우유',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '발레슈즈',
-      requestId: 'f082d6b1-5a15-4bef-ac5b-22073955f92c',
-      travelKeyword: 'false',
-    },
-  ],
-  GaKeyWord: [
-    {
-      keyword: '가습기',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '가히 멀티밤',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '가그린',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
-      travelKeyword: 'false',
-    },
-    {
-      keyword: '감자',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      keyword: '고양이 사료',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
       keyword: '각티슈',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '가희 주름 케어 멀티밤',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      keyword: '고구마',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '가글',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      keyword: '감자',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '가히',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      keyword: '김치',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
       travelKeyword: 'false',
     },
     {
-      keyword: '감동란',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      keyword: '공기청정기',
+      requestId: 'a7697e3c-246a-4011-b670-3af43d050268',
+      travelKeyword: 'false',
+    },
+  ],
+  구: [
+    {
+      keyword: '구운계란',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
       travelKeyword: 'false',
     },
     {
-      keyword: '간 영양제',
-      requestId: '24452cdb-c823-4c19-8b39-417702b8a850',
+      keyword: '구연산',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '뉴케어 구수한맛',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '소고기 국거리',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '국거리',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '국대마스크 소형',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '국물용 다시팩',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '굴소스',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운란',
+      requestId: '8f5d3058-0552-41c6-b919-536c0ea822d3',
+      travelKeyword: 'false',
+    },
+  ],
+  구ㅇ: [
+    {
+      keyword: '구운계란',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구연산',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '소고기 구이용',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운감자',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운란',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란 30구',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구워먹는 치즈',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '한우 구이용',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운계란 30구',
+      requestId: 'd95d6ee6ea2045f3a02a8e0897eca0e2',
+      travelKeyword: 'false',
+    },
+  ],
+  구우: [
+    {
+      keyword: '구운계란',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란 30구',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운감자',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운란',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운계란 30구',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운계란 60구',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '오븐에 구운 도넛',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '임실 치즈 구워먹는 치즈',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운 아몬드 1kg',
+      requestId: 'b6143be5-b6ec-44e5-bf05-2728d180d1cf',
+      travelKeyword: 'false',
+    },
+  ],
+  구운: [
+    {
+      keyword: '구운계란',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운감자',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운란 30구',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운란',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운 아몬드',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운계란 60구',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운김',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '맥반석 구운계란',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
+      travelKeyword: 'false',
+    },
+    {
+      keyword: '구운 고구마',
+      requestId: 'fa37c83d9e794678b2c2c01057d42165',
       travelKeyword: 'false',
     },
   ],
