@@ -82,6 +82,7 @@
   transform: $center-sort-transform;
   left: 133px + 200px;
   z-index: 10;
+
   .search-category {
     position: relative;
     .selected-option {
@@ -101,13 +102,14 @@
         display: inline-block;
       }
     }
-    .search-category-dropdown.click {
+    .search-category-dropdown.opened-option-menu {
       &::after {
         content: '▲';
         display: inline-block;
       }
     }
   }
+
   .search-form {
     position: relative;
     .search-input {
@@ -123,12 +125,58 @@
   }
 }
 
+.input-popup-menu {
+  position: absolute;
+  width: 343px;
+  height: 270px;
+  top: 39px;
+  right: 0px;
+  background-color: $color-gray;
+
+  .input-popup-menu-title {
+    text-align: left;
+    width: 100%;
+
+    padding: 10px 0 10px 5px;
+    border-bottom: 1px solid $color-blue;
+  }
+  .input-popup-menu-list {
+    .input-popup-menu-item {
+      font-size: $font-size-12;
+      font-weight: $font-bold;
+      cursor: pointer;
+      padding: 10px 0 0 5px;
+      text-align: left;
+    }
+  }
+  .input-popup-menu-btn {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    border-top: 1px solid $color-blue;
+    .history-delete-btn {
+      float: left;
+      margin: 10px;
+      font-size: $font-size-14;
+      cursor: pointer;
+    }
+    .history-off-btn {
+      float: right;
+      margin: 10px;
+      font-size: $font-size-14;
+      cursor: pointer;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
 .option-menu {
   position: absolute;
-  width: 125px;
-  height: 170px;
+  width: 124px;
   top: 34px;
-  right: 344px;
   float: left;
 
   .dropdown-menus {
