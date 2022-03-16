@@ -383,6 +383,7 @@ button, cursor {
 }
 
 .input__drop-down, .select__drop-down {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -393,7 +394,7 @@ button, cursor {
   box-shadow: 0 4px 9px 0 rgba(28, 28, 28, 0.3);
 }
 
-.auto-complete li, .select__drop-down li {
+.auto-complete li {
   padding: 8px 0;
   font-size: 0.875rem;
 }
@@ -487,6 +488,19 @@ button, cursor {
   border-right: 1px dotted #626262;
   color: #626262;
   cursor: pointer;
+}
+.select__category .select__label {
+  width: 100%;
+}
+
+.select__drop-down a {
+  display: inline-block;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.select__drop-down.focus {
+  display: block;
 }
 
 .input__drop-down {

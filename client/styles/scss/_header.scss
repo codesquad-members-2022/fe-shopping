@@ -115,12 +115,25 @@
   border-right: 1px dotted $non-foucs-text-color;
   color: $non-foucs-text-color;
   cursor: pointer;
+
+  .select__label {
+    width: 100%
+  }
 }
 
 .select__drop-down {
   @extend %drop-down;
-  @extend %drop-down-list;
   @extend %drop-down-hover;
+
+  a {
+    display: inline-block;
+    padding: 8px 0;
+    width: 100%;
+  }
+}
+
+.select__drop-down.focus {
+  display: block;
 }
 
 .input__drop-down {
