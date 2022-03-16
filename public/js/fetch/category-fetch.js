@@ -8,7 +8,6 @@ export function fetchCategoryData() {
 
 function parseCategoryTitle(data) {
   const categoryTitles = document.querySelectorAll('.category__link');
-  console.log(categoryTitles);
   categoryTitles.forEach((e, i) => {
     e.insertAdjacentHTML('beforeend', data[i].title);
   });

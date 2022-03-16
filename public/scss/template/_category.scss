@@ -6,24 +6,27 @@
 
 .category {
   position: absolute;
-  top: 110;
-  left: 34;
+  top: 34.5px;
+  left: 0;
   z-index: 99999999999;
   box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
-  transition: all 1s;
 
   &__list {
+    width: 125px;
+    height: 0;
     background-color: $white;
+    transition: all 0.3s;
   }
 
   &__item {
     width: 110px;
-    height: 34px;
     padding-left: 10px;
     line-height: 34px;
+    visibility: hidden;
   }
 
   &__link {
+    display: block;
     cursor: pointer;
   }
 

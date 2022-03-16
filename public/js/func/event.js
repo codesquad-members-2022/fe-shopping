@@ -1,7 +1,8 @@
 import { moveCarousel } from './carousel.js';
+import { toggleDropdown, chooseCategory } from './input-category.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   moveCarousel();
-
-  const searchCategory = document.querySelector('.search-category');
+  toggleDropdown();
+  chooseCategory();
 });
