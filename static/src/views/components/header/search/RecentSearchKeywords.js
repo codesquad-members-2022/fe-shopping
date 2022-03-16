@@ -5,7 +5,8 @@ export class RecentSearchKeywords {
     this.STORAGE_KEY = STORAGE_KEY;
     this.searchStorage = searchStorage;
     this.render();
-    this.addAllDeleteButton();
+    this.addAllDeleteButtonEvent();
+    this.addSwitchButtonEvent();
   }
 
   render() {
@@ -24,11 +25,17 @@ export class RecentSearchKeywords {
     this.$recentKeywords.querySelector('ol').insertAdjacentHTML('afterbegin', recentKeywordsTemplate);
   }
 
-  addAllDeleteButton() {
+  addAllDeleteButtonEvent() {
     this.$recentKeywords.querySelector('.all-delete-button').addEventListener('click', () => {
       this.searchStorage.removeItem(this.STORAGE_KEY);
       this.$recentKeywords.classList.remove('active');
       this.render();
+    });
+  }
+
+  addSwitchButtonEvent() {
+    this.$recentKeywords.querySelector('.switch-button').addEventListener('click', () => {
+      this.$recentKeywords.classList.remove('active');
     });
   }
 }
