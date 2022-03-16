@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>coupang</title>
-    <link rel="stylesheet" href="./public/style/scss/main.css" />
+    <link rel="stylesheet" href="./style/scss/main.css" />
   </head>
   <body>
     <header class="header-box">
@@ -45,7 +45,7 @@
                 <button class="search-category-dropdown">
                 </button>
               </div>
-              
+              <!-- 검색창 -->
               <div class="search-form">
                 <form>
                   <input
@@ -60,6 +60,28 @@
                 <button class="search-enter-btn">
                   <img src="https://cdn-icons-png.flaticon.com/512/768/768031.png" alt="돋보기 이미지" width="20" height="20">
                 </button>
+                </div>
+                <!-- 최근검색어 -->
+                <div id="recent-words-menu" class="input-popup-menu hidden">
+                  <h3 class="input-popup-menu-title">최근 검색어</h3>
+                  <ul class="input-popup-menu-list">
+                    <li class="input-popup-menu-item">코드스쿼드</li>
+                    <li class="input-popup-menu-item">크롱</li>
+                    <li class="input-popup-menu-item">잘생겼다</li>
+                    <li class="input-popup-menu-item">인기쟁이</li>
+                    <li class="input-popup-menu-item">꿀보이스</li>
+                    <li class="input-popup-menu-item">크롱 웃음소리 ↙↙</li>
+                    <li class="input-popup-menu-item">허허허허 하하하하</li>
+                  </ul>
+                  <div class="input-popup-menu-btn">
+                    <span class="history-delete-btn">전체삭제</span>
+                    <span class="history-off-btn">최근검색어끄기</span>
+                  </div>
+                </div>
+              <!-- 자동완성 -->
+              <div id="autocomplete-menu"  class="input-popup-menu hidden">
+                <ul class="input-popup-menu-list">
+                </ul>
               </div>
               <div class="option-menu"></div>
             </div>
@@ -114,5 +136,5 @@
           </ul>
         </section>
   </body>
-  <script src="./public/js/main.js" type="module"></script>
+  <script src="./js/main.js" type="module"></script>
 </html>
