@@ -86,7 +86,13 @@
   position: relative;
   z-index: 999;
   border-top: color-line($color-lightgray);
+  $item-height: 2.2rem;
   @include box-shadow;
+
+  .inner,
+  &.inner {
+    padding: 15px;
+  }
 
   .title {
     font-weight: 800;
@@ -94,20 +100,13 @@
     margin-bottom: 10px;
     border-bottom: color-line($color-lightgray);
   }
-}
 
-.recent-search-area {
-  display: none;
-
-  .recent-search-list-wrap {
-    padding: 15px;
-  }
-  .recent-search-list {
-    min-height: calc(2.2rem * 10);
+  .list {
+    min-height: calc(#{$item-height} * 10);
   }
 
-  .recent-search-link {
-    line-height: 2.2rem;
+  .link {
+    line-height: $item-height;
     display: block;
 
     &:hover,
@@ -116,6 +115,10 @@
       @include hover-decoration;
     }
   }
+}
+
+.recent-search-area {
+  display: none;
 }
 
 .recent-search-menu {
@@ -134,4 +137,8 @@
       text-decoration: underline;
     }
   }
+}
+
+.recommend-search-area {
+  //   display: none;
 }
