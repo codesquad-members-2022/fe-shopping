@@ -4,12 +4,11 @@ import { Toggle } from "/Components/Toggle.js";
 import { fetch_use } from "/util/fetchutil.js";
 
 class SearchInputController {
-  constructor(input, toggleParent) {
-    this.input = input;
-    this.toggleView = new ToggleView(toggleParent); // 이걸 빼버릴까?
+  constructor(inputDom) {
+    this.inputDom = inputDom;
   }
   initService() {
-    this.input.addEventListener("input", this.getSearchingData.bind(this));
+    this.inputDom.addEventListener("input", this.getSearchingData.bind(this));
   }
 
   getSearchingData({ target: { value } }) {
@@ -17,13 +16,11 @@ class SearchInputController {
       `search/${value}`,
       (jsonData) =>
         new Toggle(jsonData, "search--toggle--li", "search--toggle--ul").dom
-    ).then(this.toggleView.renderToggle.bind(this.toggleView));
+    ).then(viewTest.renderToggle.bind(viewTest));
   }
 }
 
-const test = new SearchInputController(
-  domUtil.$(".header__main--searchZone"),
-  domUtil.$(".header__main--searchInput")
-);
+const test = new SearchInputController(domUtil.$(".header__main--searchZone"));
+const viewTest = new ToggleView(domUtil.$(".header__main--inputWrapper"));
 
 test.initService();

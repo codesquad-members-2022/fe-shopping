@@ -96,6 +96,7 @@ centerAlignment {
 
     .header__main--searchInput {
       @include getWH(520px, 40px);
+      display: inline-block;
       border: 1.5px solid $signatureColor;
       position: relative;
     }
@@ -111,19 +112,12 @@ centerAlignment {
   width: inherit;
   border: 1px solid $signatureColor;
   position: absolute;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  li {
-    :lastchild {
-      border: none;
-    }
-  }
-}
+  z-index: 1;
+  background-color: #f0f0f0;
 
-.search--toggle--li {
-  @extend centerAlignment;
-  @include getWH(inherit, 15px);
-  border-bottom: 0.5px solid #f0f0f0;
+  .search--toggle--li {
+    @extend centerAlignment;
+    height: 15px;
+    border-bottom: 0.5px solid #f0f0f0;
+  }
 }

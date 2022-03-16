@@ -30,20 +30,19 @@
       <section class="header__main">
         <div class="header__main--category">체크</div>
         <div class="header__main--contents">
-            <div class="header__main--searchZone">
-              <div class="header__main--logo"></div>
-              <input class="header__main--searchInput"/>
-              <div
-                class="header__main--myShopping"
-                data-myShopping="history"
-              ></div>
-              <div
-                class="header__main--myShopping"
-                data-myShopping="cart"
-              ></div>
-            </input>
+          <div class="header__main--searchZone">
+            <div class="header__main--logo"></div>
+            <form class="header__main--inputWrapper">
+              <input class="header__main--searchInput" />
+            </form>
+
+            <div
+              class="header__main--myShopping"
+              data-myShopping="history"
+            ></div>
+            <div class="header__main--myShopping" data-myShopping="cart"></div>
           </div>
-        <ul class="header__main--shoppingNav">
+          <ul class="header__main--shoppingNav">
             <!--중복-->
             <li data-header-shopping-nav="1">로켓배송</li>
             <li data-header-shopping-nav="2">로켓프레시</li>
@@ -54,8 +53,8 @@
             <li data-header-shopping-nav="7">이벤트/쿠폰</li>
             <li data-header-shopping-nav="8">기획전</li>
             <li data-header-shopping-nav="9">여행/티켓</li>
-        </ul>
-      </div>
+          </ul>
+        </div>
       </section>
     </header>
     <script type="module" src="./EventHandler/SearchInputEvent.js"></script>
