@@ -1,5 +1,4 @@
 import Component from '../../core/Component.js';
-import BottomWindow from '../common/BottomWindow.js';
 
 class InputBox extends Component {
 
@@ -21,8 +20,7 @@ class InputBox extends Component {
   setEvent() {
     this.addEvent('focus', '.input-box', () => {
       if (!this.$state.recentSearch.length) return;
-      const $inputBox = this.$target.querySelector('.input-box');
-      new BottomWindow($inputBox, {
+      this.$props.renderBottomWindow('.input-box', {
         isTitle: true,
         isBtnGroup: true,
         windowList: this.$state.recentSearch,
@@ -30,9 +28,7 @@ class InputBox extends Component {
     }, true);
 
     this.addEvent('blur', '.input-box', () => {
-      const $inputBox = this.$target.querySelector('.input-box');
-      const $bottomWindow = $inputBox.querySelector('.bottom-window');
-      if ($bottomWindow) $inputBox.removeChild($bottomWindow);
+      this.$props.removeBottomWindow('.input-box');
     }, true);
   }
 

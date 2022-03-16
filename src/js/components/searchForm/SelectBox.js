@@ -1,5 +1,4 @@
 import Component from '../../core/Component.js';
-import BottomWindow from '../common/BottomWindow.js';
 import { category } from '../../../data';
 
 class SelectBox extends Component {
@@ -20,16 +19,21 @@ class SelectBox extends Component {
 
   setEvent() {
     this.addEvent('click', '.select-btn', () => {
-      const $selectBox = this.$target.querySelector('.select-box');
-      new BottomWindow($selectBox, {
-        windowList: this.$state.category,
-      });
+      const $bottomWindow = this.$target.querySelector('.bottom-window');
+
+      if ($bottomWindow) {
+        this.$props.removeBottomWindow('.select-box');
+      }
+
+      else {
+        this.$props.renderBottomWindow('.select-box', {
+          windowList: this.$state.category,
+        });
+      }
     });
 
     this.addEvent('blur', '.select-box', () => {
-      const $selectBox = this.$target.querySelector('.select-box');
-      const $bottomWindow = $selectBox.querySelector('.bottom-window');
-      if ($bottomWindow) $selectBox.removeChild($bottomWindow);
+      this.$props.removeBottomWindow('.select-box');
     }, true);
   }
 
