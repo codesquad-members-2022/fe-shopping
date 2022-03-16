@@ -125,21 +125,27 @@
   @extend %drop-down;
   @extend %drop-down-hover;
 
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
   a {
     display: inline-block;
-    padding: 8px 0;
+    padding: 8px 16px;
     width: 100%;
   }
 }
 
 .select__drop-down.focus {
-  display: block;
+  max-height: 1000px;
+  padding: 8px 0;
 }
 
 .input__drop-down {
   @extend %drop-down;
 
   height: 320px;
+  padding: 8px 16px;
 }
 
 .auto-complete {
