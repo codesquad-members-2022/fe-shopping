@@ -21,126 +21,138 @@
       max-width: 1020px;
       margin: 0 auto;
     }
+  }
 
-    &-category {
-      position: relative;
-      width: 110px;
-      height: 120px;
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      background-image: url('/client/src/img/pc_header_img_sprite.png');
-      text-align: center;
+  &__category {
+    position: relative;
+    width: 110px;
+    height: 120px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-image: url('/client/src/img/pc_header_img_sprite.png');
+    text-align: center;
+    cursor: pointer;
+
+    &--text {
+      position: absolute;
+      top: 75px;
+      left: 28px;
+      color: $color-white;
+    }
+  }
+
+  &__contents {
+    margin: 30px 30px 5px 30px;
+  }
+
+  &__form {
+  }
+
+  &__form-inner {
+    width: 512px;
+    border: 2px solid $color-blue-light;
+  }
+
+  &__search {
+    margin-bottom: 20px;
+    &-selectBox {
+      width: 134px;
+      height: 38px;
+      border-right: 1px solid #ddd;
+      font-size: $font-12;
       cursor: pointer;
+      z-index: 10;
+    }
+    &--off {
+      background: url('/client/src/img/icon_trace_off.png') calc(100% - 7px) / 10px no-repeat;
+    }
 
-      &--text {
-        position: absolute;
-        top: 75px;
-        left: 28px;
-        color: $color-white;
+    &--on {
+      background: url('/client/src/img/icon_trace_on.png') calc(100% - 7px) / 10px no-repeat;
+    }
+
+    &--allBtn {
+      border: none;
+      outline: none;
+      padding: 12px 0 0 15px;
+      background: transparent;
+      color: $color-grey-dark;
+      cursor: pointer;
+    }
+
+    &-list {
+      max-height: 1px;
+      margin-top: 12px;
+      background-color: $color-white;
+      border: 1px solid $color-grey-light;
+      box-shadow: 0 4px 5px $color-grey-slight-dark;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+    }
+
+    &-searchItem {
+      padding: 15px;
+
+      &:hover {
+        color: $color-blue-light;
+        text-decoration: underline;
       }
     }
 
-    &-content {
-      margin: 30px 30px 5px 30px;
+    &-keyword {
+      width: 100%;
+      position: absolute;
+      top: 42px;
+      padding: 20px 27px 20px 20px;
+      background-color: $color-white;
+      border: 1px solid $color-grey-light;
+      box-sizing: 0 4px 5px $color-grey-slight-dark;
     }
 
-    &-search {
-      margin-bottom: 20px;
-      &-form {
-        width: 512px;
-        border: 2px solid $color-blue-light;
-      }
-      &-selectBox {
-        width: 134px;
-        height: 38px;
-        border-right: 1px solid #ddd;
-        font-size: $font-12;
-        cursor: pointer;
-        z-index: 10;
-      }
-
-      &--off {
-        background: url('/client/src/img/icon_trace_off.png') calc(100% - 7px) / 10px no-repeat;
-      }
-
-      &--on {
-        background: url('/client/src/img/icon_trace_on.png') calc(100% - 7px) / 10px no-repeat;
-      }
-
-      &--allBtn {
-        border: none;
-        outline: none;
-        padding: 12px 0 0 15px;
-        background: transparent;
-        color: $color-grey-dark;
-        cursor: pointer;
-      }
-
-      &-list {
-        max-height: 1px;
-        margin-top: 12px;
-        background-color: $color-white;
-        border: 1px solid $color-grey-light;
-        box-shadow: 0 4px 5px $color-grey-slight-dark;
-        overflow: hidden;
-        transition: max-height 0.1s cubic-bezier(1, 1, 1, 1);
-      }
-
-      &-searchItem {
-        padding: 15px;
-
-        &:hover {
-          color: $color-blue-light;
-          text-decoration: underline;
-        }
-      }
-
-      &-input-wrapper {
-        position: relative;
-        z-index: 10;
-      }
-
-      &-input {
-        width: 310px;
-        height: 40px;
-        padding-left: 20px;
-        border: none;
-        outline: none;
-      }
-
-      &-keyword {
-        width: 100%;
-        position: absolute;
-        top: 42px;
-        padding: 20px 27px 20px 20px;
-        background-color: $color-white;
-        border: 1px solid $color-grey-light;
-        box-sizing: 0 4px 5px $color-grey-slight-dark;
-      }
-
-      &--link {
-        padding: 10px 0;
-        font-size: $font-12;
-        color: $color-grey-dark;
-        text-decoration: none;
-      }
-
-      &--btn {
-        width: 50px;
-        height: 40px;
-        background: url('/client/src/img/icon_search.png') center / 20px no-repeat;
-        cursor: pointer;
-      }
+    &--link {
+      padding: 10px 0;
+      font-size: $font-12;
+      color: $color-grey-dark;
+      text-decoration: none;
     }
+  }
 
-    &-logo {
-      margin-right: 20px;
-      &--img {
-        width: 174px;
-        height: 41px;
-      }
+  &__logo {
+    margin-right: 20px;
+    &--img {
+      width: 174px;
+      height: 41px;
     }
+  }
 
+  &__link {
+    text-decoration: none;
+    color: $color-grey-dark;
+    margin: 0 5px;
+  }
+
+  &__input-wrapper {
+    position: relative;
+    z-index: 10;
+  }
+
+  &__input {
+    width: 310px;
+    height: 40px;
+    padding-left: 20px;
+    border: none;
+    outline: none;
+
+    &--btn {
+      width: 50px;
+      height: 40px;
+      background: url('/client/src/img/icon_search.png') center / 20px no-repeat;
+      cursor: pointer;
+    }
+  }
+
+  // Header Navigation
+  &__nav {
     &-item {
       margin-right: 10px;
       font-size: $font-12;
@@ -187,52 +199,46 @@
         margin-left: 2px;
       }
     }
-
-    &-myinfo {
-      margin: 30px 0;
-      &-inner {
-        position: relative;
-        cursor: pointer;
-        margin: 0 10px;
-      }
-
-      &--mypage {
-        width: 29px;
-        height: 30px;
-        margin-left: 5px;
-        background-position: -112px -42px;
-        background-repeat: no-repeat;
-        background-image: url('/client/src/img/pc_header_img_sprite.png');
-      }
-
-      &--cart {
-        width: 40px;
-        height: 40px;
-        margin-top: -10px;
-        background-position: -112px 0;
-        background-repeat: no-repeat;
-        background-image: url('/client/src/img/pc_header_img_sprite.png');
-      }
-
-      &--text {
-        margin-top: 10px;
-        color: $color-grey-dark;
-        font-size: $font-12;
-      }
-
-      &--count {
-        position: absolute;
-        top: -5px;
-        right: 10px;
-        font-size: $font-12;
-        color: $color-white;
-      }
-    }
   }
 
-  &__link {
-    text-decoration: none;
-    color: $color-grey-dark;
-    margin: 0 5px;
+  &__myinfo {
+    margin: 30px 0;
+    &-inner {
+      position: relative;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    &--mypage {
+      width: 29px;
+      height: 30px;
+      margin-left: 5px;
+      background-position: -112px -42px;
+      background-repeat: no-repeat;
+      background-image: url('/client/src/img/pc_header_img_sprite.png');
+    }
+
+    &--cart {
+      width: 40px;
+      height: 40px;
+      margin-top: -10px;
+      background-position: -112px 0;
+      background-repeat: no-repeat;
+      background-image: url('/client/src/img/pc_header_img_sprite.png');
+    }
+
+    &--text {
+      margin-top: 10px;
+      color: $color-grey-dark;
+      font-size: $font-12;
+    }
+
+    &--count {
+      position: absolute;
+      top: -5px;
+      right: 10px;
+      font-size: $font-12;
+      color: $color-white;
+    }
   }
 }

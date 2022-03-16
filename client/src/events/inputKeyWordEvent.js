@@ -3,8 +3,8 @@ import { SearchWord } from '../classes/search/SearchWord.js';
 
 export const inputKeyWordEvent = () => {
   const searchWord = new SearchWord();
-  const inputKeyWordBox = $('.main-header__bottom-search-input');
-  const inputKeyWordBtn = $('.main-header__bottom-search--btn');
+  const inputKeyWordBox = $('.main-header__input');
+  const inputKeyWordBtn = $('.main-header__input--btn');
   let keyWordTimer;
   let saveValue = '';
 
@@ -15,7 +15,7 @@ export const inputKeyWordEvent = () => {
     keyWordTimer = setTimeout(function () {
       // fetch api
       // fetch 보내기전 임의로 클라이언트에서 더미데이터로 테스팅
-      const searchKeyWordBox = $('.main-header__bottom-search-keyword');
+      const searchKeyWordBox = $('.main-header__search-keyword');
       if (target.value) {
         // inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(keywords['Ahkeyword']));
         saveValue = target.value;
@@ -30,7 +30,6 @@ export const inputKeyWordEvent = () => {
   });
 
   inputKeyWordBtn.addEventListener('click', () => {
-    console.log('search Icon');
     if (saveValue) {
       SearchWord.recentWords.push(saveValue);
       saveValue = '';
