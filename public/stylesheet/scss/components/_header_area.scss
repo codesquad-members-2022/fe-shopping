@@ -5,12 +5,12 @@
 
 .header-bar {
   background-color: $bg-color-header-link;
-  height: 2rem;
+  height: $gray-bar-height;
 
   .header-link-area {
     display: flex;
     justify-content: space-between;
-    line-height: 2rem;
+    line-height: $gray-bar-height;
   }
 
   .header-link-item {
@@ -18,8 +18,8 @@
       display: inline-block;
       content: "";
       margin: 0 10px 0 10px;
-      height: 0.6rem;
-      border-left: 1px solid $color-lightgray;
+      height: 0.8rem;
+      border-left: color-line($color-lightgray);
     }
   }
 }
@@ -56,7 +56,7 @@
 
 .search-area-wrap {
   width: calc(100% - #{$category-button-width});
-  padding: $default-whitespace 0 0 $default-whitespace;
+  margin: $default-margin 0 0 $default-margin;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -86,7 +86,7 @@
   position: relative;
 
   &:not(:first-child) {
-    margin-left: $default-whitespace;
+    margin-left: $default-margin;
   }
 
   .menu-icon {
@@ -115,11 +115,11 @@
 .gnb-area {
   display: flex;
   justify-content: space-between;
-  padding-right: $default-whitespace;
+  margin-bottom: 5px;
 
   .gnb-item {
     position: relative;
-    line-height: 2rem;
+    line-height: 2.5rem;
   }
 
   .gnb-link {
@@ -143,6 +143,6 @@
   color: #fff;
   background-color: $color-red;
   position: absolute;
-  top: 30%;
+  top: 25%;
   right: -18px;
 }

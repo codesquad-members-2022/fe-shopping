@@ -50,7 +50,7 @@
               <div class="search-form-area">
                 <form class="search-form">
                   <!-- .search-category-area에 .is-open추가로 열림, 닫힘 표시 -->
-                  <div class="search-category-area">
+                  <div class="search-category-area is-open">
                     <a class="search-category-item">
                       <span class="search-category-text">전체</span>
                     </a>
@@ -82,18 +82,56 @@
                       </li>
                     </ul>
                   </div>
-                  <input type="text" / class="search-input">
-                  <button class="search-button">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="search-icon"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  <div class="search-input-area">
+                    <div class="search-input-wrap">
+                      <input
+                        type="text"
+                        class="search-input"
+                        placeholder="찾고싶은 상품을 검색해보세요!"
+                        maxlength="30"
                       />
-                    </svg>
-                  </button>
+                      <button class="search-button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="search-icon"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="recent-search-area search-area-dropdown">
+                      <div class="recent-search-list-wrap">
+                        <p class="title">최근 검색어</p>
+                        <ul class="recent-search-list">
+                          <li class="recent-search-item">
+                            <a href="#" class="recent-search-link">초코송이</a>
+                          </li>
+                          <li class="recent-search-item">
+                            <a href="#" class="recent-search-link"
+                              >코드스쿼드</a
+                            >
+                          </li>
+                          <li class="recent-search-item">
+                            <a href="#" class="recent-search-link">한라봉</a>
+                          </li>
+                          <li class="recent-search-item">
+                            <a href="#" class="recent-search-link">아이폰</a>
+                          </li>
+                          <li class="recent-search-item">
+                            <a href="#" class="recent-search-link">아이폰</a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="recent-search-menu">
+                        <p class="remove-all menu-item">전체삭제</p>
+                        <p class="remove-off menu-item">최근 검색어 끄기</p>
+                      </div>
+                    </div>
+                  </div>
                 </form>
               </div>
               <div class="icon-menu-area">
