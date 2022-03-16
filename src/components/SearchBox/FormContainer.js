@@ -15,7 +15,7 @@ FormContainer.prototype.constructor = FormContainer;
 
 FormContainer.prototype.setTemplate = function () {
   this.$element.classList.add('search__container');
-  const recentSearchList = new RecentSearchList();
+  const recentSearchList = new RecentSearchList('ul', null);
   this.$element.innerHTML = template(recentSearchList);
 };
 

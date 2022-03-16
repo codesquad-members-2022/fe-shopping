@@ -47,16 +47,3 @@ const template = `
  <li>옵션10</li>
  </ul>
 </div>`;
-
-{
-  /* <li>옵션1</li>
-<li>옵션2</li>
-<li>옵션3</li>
-<li>옵션4</li>
-<li>옵션5</li>
-<li>옵션6</li>
-<li>옵션7</li>
-<li>옵션8</li>
-<li>옵션9</li>
-<li>옵션10</li> */
-}
