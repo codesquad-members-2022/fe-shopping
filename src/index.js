@@ -1,5 +1,6 @@
 import { addClickEventToElement } from "./utils/utils.js";
 
+//카테고리 클릭 이벤트
 const $selectCategoryWrap = document.querySelector(".select-category-wrap");
 const $selectCategoryList = document.querySelector(".select-category-list");
 const $selectToggle = document.querySelector(".select-toggle");
@@ -22,6 +23,7 @@ $selectCategoryList.addEventListener("click", (e) => {
   $selectCategory.textContent = e.target.textContent;
 });
 
+//seach 이벤트
 const fakeDB = fetch("./data/fakeDB.json").then((res) => res.json());
 
 const $searchInput = document.querySelector(".search-input");

@@ -1,7 +1,11 @@
-@import url(reset.css);
+@import "reset";
+@import "common";
+
+//scss로 만들고 style.css 하나만 두는 방식으로
 $base-width: 1020px;
 $top-nav-gray: #f0f0f0;
-@mixin flexCenter() {
+
+%flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,7 +104,7 @@ input:focus {
   flex-direction: column;
 
   .header-main-nav {
-    @include flexCenter();
+    @extend %flex-center;
     width: 800px;
     height: 40px;
 
@@ -143,7 +147,7 @@ input:focus {
     width: 135px;
     height: 37px;
     border-right: 1px solid #ddd;
-    @include flexCenter();
+    @extend %flex-center;
     flex-wrap: wrap;
     font-size: 13px;
 
@@ -160,8 +164,7 @@ input:focus {
     .select-toggle {
       width: 30px;
       height: 33px;
-      @include flexCenter();
-
+      @extend %flex-center;
       img {
         width: 50%;
         height: 50%;
