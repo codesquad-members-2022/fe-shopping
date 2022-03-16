@@ -1,7 +1,6 @@
-const API_END_POINT =
-  DEPLOY === "production"
-    ? "https://fe-shopping.herokuapp.com/"
-    : "http://localhost:3000/";
+const API_END_POINT = DEPLOY
+  ? "https://fe-shopping.herokuapp.com/"
+  : "http://localhost:3000/";
 
 const delay = (ms) =>
   new Promise((resolve, reject) => {
