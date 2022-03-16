@@ -2,12 +2,6 @@ header {
   padding: 0 250px;
 }
 
-.header__container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .header__column {
   display: flex;
   flex-direction: column;
@@ -17,15 +11,17 @@ header {
   align-items: center;
 }
 
-.header__row {
+.header__row, .header__member, .header__container {
   display: flex;
   align-items: center;
 }
 
+.header__container {
+  justify-content: space-between;
+}
+
 .header__member {
-  display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .category {
