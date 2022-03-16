@@ -8,21 +8,21 @@
   display: flex;
 
   &-gnb {
+    position: relative;
     width: 110px;
     height: 115px;
     color: $white;
     background-color: $white;
 
     &__link {
-      position: relative;
       display: block;
       cursor: default;
+    }
 
-      &--text {
-        top: 65%;
-        color: $white;
-        cursor: pointer;
-      }
+    &__text {
+      top: 65%;
+      color: $white;
+      cursor: pointer;
     }
   }
 
@@ -39,7 +39,7 @@
 
   &-logo {
     margin-top: 3.5px;
-    // cursor: pointer;
+    cursor: pointer;
   }
 
   &-bottom {
@@ -63,10 +63,10 @@
   &__link {
     display: flex;
     flex-direction: column;
+  }
 
-    &--text {
-      margin-top: 13px;
-    }
+  &__text {
+    margin-top: 13px;
   }
 }
 
@@ -84,8 +84,8 @@
 
 .search-form {
   display: flex;
+  height: 40px;
   margin-left: 15px;
-  line-height: 42px;
   border: 3px solid $blue;
 
   .search-category {

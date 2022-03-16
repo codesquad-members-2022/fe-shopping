@@ -1,2 +1,7 @@
 sass-cache
 node_modules
+
+.prettierrc
+.scss-lint.yml
+main.css.map
+package-lock.json

@@ -185,17 +185,17 @@ table {
   display: flex;
 }
 .header-gnb {
+  position: relative;
   width: 110px;
   height: 115px;
   color: #fff;
   background-color: #fff;
 }
 .header-gnb__link {
-  position: relative;
   display: block;
   cursor: default;
 }
-.header-gnb__link--text {
+.header-gnb__text {
   top: 65%;
   color: #fff;
   cursor: pointer;
@@ -211,6 +211,7 @@ table {
 }
 .header-logo {
   margin-top: 3.5px;
+  cursor: pointer;
 }
 .header-bottom {
   margin-top: 20px;
@@ -231,7 +232,7 @@ table {
   display: flex;
   flex-direction: column;
 }
-.header-top-gnb__link--text {
+.header-top-gnb__text {
   margin-top: 13px;
 }
 
@@ -247,8 +248,8 @@ table {
 
 .search-form {
   display: flex;
+  height: 40px;
   margin-left: 15px;
-  line-height: 42px;
   border: 3px solid #4285f4;
 }
 .search-form .search-category {

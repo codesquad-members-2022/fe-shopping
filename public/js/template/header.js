@@ -5,8 +5,8 @@ export const header = `
         <div class="header-left">
           <div class="header-gnb">
             <a href="#" class="header-gnb__link">
-              <img src="#" alt="#" class="header-gnb__link--img">
-              <span class="header-gnb__link--text absolute-width-center">카테고리</span>
+              <img src="#" alt="#" class="header-gnb__img">
+              <span class="header-gnb__text absolute-width-center">카테고리</span>
             </a>
           </div>
         </div>
@@ -28,13 +28,13 @@ export const header = `
                 <li class="header-top-gnb__item">
                   <a href="#" class="header-top-gnb__link">
                     <i class="fa-regular fa-user fa-2x"></i></i>
-                    <span class="header-top-gnb__link--text">마이쿠팡</span>
+                    <span class="header-top-gnb__text">마이쿠팡</span>
                   </a>
                 </li>
                 <li class="header-top-gnb__item">
                   <a href="#" class="header-top-gnb__link">
                     <i class="fa-solid fa-cart-shopping fa-2x"></i>
-                    <span class="header-top-gnb__link--text">장바구니</span>
+                    <span class="header-top-gnb__text">장바구니</span>
                   </a>
                 </li>
               </ul>
