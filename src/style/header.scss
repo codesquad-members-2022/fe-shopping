@@ -109,15 +109,15 @@ centerAlignment {
 }
 
 .search--toggle--ul {
-  width: inherit;
+  width: 520px;
   border: 1px solid $signatureColor;
   position: absolute;
-  z-index: 1;
-  background-color: #f0f0f0;
+  background-color: white;
 
   .search--toggle--li {
     @extend centerAlignment;
     height: 15px;
+    padding: 5px;
     border-bottom: 0.5px solid #f0f0f0;
   }
 }

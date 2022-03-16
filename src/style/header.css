@@ -65,11 +65,11 @@ centerAlignment, .header__main .header__main--category, .search--toggle--ul .sea
   background-color: #f0f0f0; }
 
 .search--toggle--ul {
-  width: inherit;
+  width: 520px;
   border: 1px solid #4285f4;
   position: absolute;
-  z-index: 1;
-  background-color: #f0f0f0; }
+  background-color: white; }
   .search--toggle--ul .search--toggle--li {
     height: 15px;
+    padding: 5px;
     border-bottom: 0.5px solid #f0f0f0; }

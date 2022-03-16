@@ -3,9 +3,9 @@ function ToggleView(parentDom) {
 }
 
 ToggleView.prototype.renderToggle = function (childDom) {
-  if (this.parentDom.firstChild) {
-    this.parentDom.firstChild.remove();
-  }
+  // if (this.parentDom.firstChild) {
+  //   this.parentDom.firstChild.remove();
+  // }
 
   this.parentDom.appendChild(childDom);
 };
