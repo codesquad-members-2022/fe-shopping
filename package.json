@@ -4,6 +4,7 @@
   "description": "## Webpack v4",
   "main": "webpack.config.js",
   "scripts": {
+    "start": "babel-node src/app.js",
     "start:dev": "nodemon --exec babel-node src/app.js --delay 1",
     "build": "webpack",
     "build:watch": "webpack --watch"
