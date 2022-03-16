@@ -1,4 +1,4 @@
-rowDisplayAlignCenter, .header__main--contents .header__main--searchZone {
+rowDisplayAlignCenter, .header__main--contents .header__main--searchZone, .banner--nav .banner__nav--ul li {
   display: flex;
   align-items: center; }
 
@@ -67,7 +67,8 @@ centerAlignment, .header__main .header__main--category, .search--toggle--ul .sea
 .search--toggle--ul {
   width: 520px;
   position: absolute;
-  background-color: white; }
+  background-color: white;
+  z-index: 1; }
   .search--toggle--ul .search--toggle--li {
     height: 15px;
     padding: 5px;
@@ -82,9 +83,24 @@ centerAlignment, .header__main .header__main--category, .search--toggle--ul .sea
   background-position: center;
   background-origin: content-box;
   position: relative; }
-  .banner .banner--nav {
-    width: 180px;
-    height: 360px;
-    position: absolute;
-    left: 1270px;
-    bottom: 45px; }
+
+.banner--nav {
+  position: absolute;
+  left: 75%;
+  bottom: 45px; }
+  .banner--nav .banner__nav--ul {
+    display: flex;
+    flex-direction: column; }
+    .banner--nav .banner__nav--ul li {
+      width: 180px;
+      height: 60px;
+      border: 0.5px solid lightgrey;
+      background-color: white;
+      border-bottom: none;
+      font-size: 10px;
+      padding-left: 10px; }
+    .banner--nav .banner__nav--ul :last-child {
+      border: 0.5px solid lightgrey; }
+    .banner--nav .banner__nav--ul :hover {
+      border: 0.5px solid #4285f4;
+      color: #4285f4; }

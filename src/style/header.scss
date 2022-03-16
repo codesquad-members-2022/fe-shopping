@@ -121,7 +121,7 @@ centerAlignment {
 
   position: absolute;
   background-color: white;
-
+  z-index: 1;
   .search--toggle--li {
     @extend centerAlignment;
     height: 15px;
@@ -137,11 +137,31 @@ centerAlignment {
     cover
   );
   position: relative;
+}
 
-  .banner--nav {
-    @include getWH(180px, 360px);
-    position: absolute;
-    left: 1270px;
-    bottom: 45px;
+.banner--nav {
+  position: absolute;
+  left: 75%;
+  bottom: 45px;
+  .banner__nav--ul {
+    display: flex;
+    flex-direction: column;
+    li {
+      @extend rowDisplayAlignCenter;
+      @include getWH(180px, 60px);
+      border: 0.5px solid lightgrey;
+      background-color: white;
+      border-bottom: none;
+      font-size: 10px;
+      padding-left: 10px;
+    }
+    :last-child {
+      border: 0.5px solid lightgrey;
+    }
+
+    :hover {
+      border: 0.5px solid $signatureColor;
+      color: $signatureColor;
+    }
   }
 }
