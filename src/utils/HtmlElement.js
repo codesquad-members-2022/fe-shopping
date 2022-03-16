@@ -12,7 +12,6 @@ HtmlElement.prototype.setTemplate = function () {
 
 HtmlElement.prototype.render = function () {
   this.$parent.appendChild(this.$element);
-  this.setEvent();
 };
 
 HtmlElement.prototype.setEvent = function () {};

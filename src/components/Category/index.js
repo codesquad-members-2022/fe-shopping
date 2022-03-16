@@ -1,5 +1,8 @@
 import HtmlElement from '../../utils/HtmlElement.js';
-import { findTargetIdElement } from '../../utils/manuplateDOM.js';
+import {
+  findTargetIdElement,
+  handleDisplayElement,
+} from '../../utils/manuplateDOM.js';
 
 function Category(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
@@ -20,21 +23,15 @@ Category.prototype.setEvent = function () {
 
 function handleCategoryButton(event) {
   const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
-  const layerClassList = $categoryLayer.classList;
-  if (layerClassList.contains('none')) {
-    $categoryLayer.classList.remove('none');
-    $categoryLayer.classList.add('show');
-  } else {
-    $categoryLayer.classList.remove('show');
-    $categoryLayer.classList.add('none');
-  }
+  handleDisplayElement($categoryLayer);
 }
 
 const template = `<div class="category__button" id="category-button">
     <i class="fas fa-bars"></i>
     <span>카테고리</span>
   </div>
-  <div class="none category__layer" id="category-layer">
+  <div class="none" id="category-layer">
+    <div class="category__layer">
     <ul class="category__list">
       <li><span>패션의류/잡화</span></li>
       <li><span>뷰티</span></li>
@@ -72,6 +69,7 @@ const template = `<div class="category__button" id="category-button">
         <li><span>가정 살림</span></li>
         <li><span>건강 취미</span></li>
       </ul>
+    </div>
     </div>
   </div>`;
 

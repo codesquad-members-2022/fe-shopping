@@ -143,5 +143,20 @@ export default HtmlElement;
 🤔 문제점
 
 1. html 탬플릿을 js에서 관리해서 프로젝트의 전체적인 구조가 잘 보이지 않음.
+
    - createElement(htmlTag)로 wrapper를 만들고, 그 안에 innerHTML로 탬플릿을 넣는 구조
    - 곧바로 InnerHTML로 만든게 아니라서 wrapper의 존재를 한 눈에 보기 어려움
+
+2. event
+
+### focusout vs blur
+
+요소가 초점을 잃었을 때 blur 이벤트가 발생합니다. 이 이벤트와 focusout의 주요 차이점은 focusout은 버블링이 일어나지만 blur는 일어나지 않음.
+
+https://developer.mozilla.org/en-US/docs/Web/API/Element/focusout_event
+
+### focusin vs focus
+
+요소가 초점을 얻었을 때 focusin 이벤트가 발생합니다. 이 이벤트와 focusin의 주요 차이점은 focusin은 버블링이 일어나지만 focus는 일어나지 않음.
+
+https://developer.mozilla.org/en-US/docs/Web/API/Element/focusin_event

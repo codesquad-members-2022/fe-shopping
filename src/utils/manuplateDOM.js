@@ -51,3 +51,14 @@ export function findTargetClassElementAll($target, className) {
   recursive($target);
   return result;
 }
+
+export function handleDisplayElement($element) {
+  const elementClassList = $element.classList;
+  if (elementClassList.contains('none')) {
+    $element.classList.remove('none');
+    $element.classList.add('show');
+  } else {
+    $element.classList.remove('show');
+    $element.classList.add('none');
+  }
+}
