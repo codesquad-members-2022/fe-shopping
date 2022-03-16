@@ -124,6 +124,8 @@
 }
 
 .search-category-list {
+  // display: none;
+  // min-height: calc(100vh - 250px);
   background-color: #fff;
   overflow-y: auto;
   border-top: 1px solid $color-lightgray;

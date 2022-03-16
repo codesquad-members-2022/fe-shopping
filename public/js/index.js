@@ -68,7 +68,3 @@ carouselUlElement.addEventListener("mouseout", ({ target }) => {
 
   start();
 });
-
-// 카테고리 펼침메뉴 스크롤 여부 자동 설정을 위한 maxHeight 지정
-document.querySelector(".search-category-list").style.maxHeight =
-  "calc(100vh - 200px)";
