@@ -7,3 +7,8 @@
 @mixin box-shadow {
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
 }
+
+@mixin hover-decoration {
+  color: $color-blue;
+  text-decoration: underline;
+}

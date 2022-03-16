@@ -125,9 +125,17 @@
 
 .search-category-list {
   background-color: #fff;
+  overflow-y: auto;
+  border-top: 1px solid $color-lightgray;
   position: relative;
   z-index: 999;
   @include box-shadow;
+
+  .search-category-text {
+    &:hover {
+      @include hover-decoration;
+    }
+  }
 }
 
 .search-category-item {

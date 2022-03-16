@@ -186,10 +186,17 @@ button {
 
 .search-category-list {
   background-color: #fff;
+  overflow-y: auto;
+  border-top: 1px solid #d6d6d6;
   position: relative;
   z-index: 999;
   -webkit-box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
           box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.search-category-list .search-category-text:hover {
+  color: #4285f4;
+  text-decoration: underline;
 }
 
 .search-category-item {
