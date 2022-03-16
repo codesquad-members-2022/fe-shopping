@@ -11,17 +11,22 @@ header {
   align-items: center;
 }
 
-.header__row, .header__member, .header__container {
+.header__row {
   display: flex;
+  justify-content: start;
   align-items: center;
 }
 
 .header__container {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header__member {
-  justify-content: center;
+  display: flex;
+  justify-content: space-center;
+  align-items: center;
 }
 
 .category {

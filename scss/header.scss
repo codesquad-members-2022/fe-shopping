@@ -11,19 +11,22 @@ header {
   align-items: center;
 }
 
-.header__row {
+@mixin flexbox($main-axis: start, $cross-axis: center) {
   display: flex;
-  align-items: center;
+  justify-content: $main-axis;
+  align-items: $cross-axis;
+}
+
+.header__row {
+  @include flexbox;
 }
 
 .header__container {
-  @extend .header__row;
-  justify-content: space-between;
+  @include flexbox($main-axis: space-between);
 }
 
 .header__member {
-  @extend .header__row;
-  justify-content: center;
+  @include flexbox($main-axis: space-center);
 }
 
 .category {
