@@ -6,7 +6,7 @@ import { fetch_use } from "/util/fetchutil.js";
 class SearchInputController {
   constructor(input, toggleParent) {
     this.input = input;
-    this.toggleView = new ToggleView(toggleParent);
+    this.toggleView = new ToggleView(toggleParent); // 이걸 빼버릴까?
   }
   initService() {
     this.input.addEventListener("input", this.getSearchingData.bind(this));
