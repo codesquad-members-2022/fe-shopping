@@ -1,4 +1,7 @@
-const API_END_POINT = "http://localhost:3000/";
+const API_END_POINT =
+  process.NODE_ENV === "production"
+    ? "https://fe-shopping.herokuapp.com/"
+    : "http://localhost:3000/";
 
 const delay = (ms) =>
   new Promise((resolve, reject) => {
