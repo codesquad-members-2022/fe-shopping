@@ -12,6 +12,10 @@ app.get('/carousel/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/carousel.json'));
 });
 
+app.get('/category/data', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/json/category.json'));
+});
+
 const port = 3000;
 app.listen(port, function () {
   console.log('server on!');

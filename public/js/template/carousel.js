@@ -38,34 +38,34 @@ export const carousel = `
       </div>
       <div class="carousel-lnb">
         <ul class="carousel-lnb__list">
-          <li class="carousel-lnb__item caroseul-lnb__item--active" data-num="1">
+          <li class="carousel-lnb__item carousel-lnb__item--active">
             <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" />
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="1"/>
             </a>
           </li>
-          <li class="carousel-lnb__item" data-num="2">
+          <li class="carousel-lnb__item">
             <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" />
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="2"/>
             </a>
           </li>
-          <li class="carousel-lnb__item" data-num="3">
+          <li class="carousel-lnb__item">
             <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" />
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="3"/>
             </a>
           </li>
-          <li class="carousel-lnb__item" data-num="4">
+          <li class="carousel-lnb__item">
             <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" />
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="4"/>
             </a>
           </li>
-          <li class="carousel-lnb__item" data-num="5">
+          <li class="carousel-lnb__item">
             <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" />
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="5"/>
             </a>
           </li>
-          <li class="carousel-lnb__item" data-num="6">
+          <li class="carousel-lnb__item">
             <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" />
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="6"/>
             </a>
           </li>
         </ul>

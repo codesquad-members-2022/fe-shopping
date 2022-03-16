@@ -8,16 +8,16 @@ export function fetchCarouselData() {
 }
 
 function parseCarouselImg(data) {
-  const carouselImg = document.querySelectorAll('.carousel-inner__img');
-  carouselImg.forEach((e, i) => {
+  const carouselImgs = document.querySelectorAll('.carousel-inner__img');
+  carouselImgs.forEach((e, i) => {
     e.src = data[i].src;
     e.alt = data[i].alt;
   });
 }
 
 function parseCarouselLnbImg(data) {
-  const carouselLnbImg = document.querySelectorAll('.carousel-lnb__img');
-  carouselLnbImg.forEach((e, i) => {
+  const carouselLnbImgs = document.querySelectorAll('.carousel-lnb__img');
+  carouselLnbImgs.forEach((e, i) => {
     e.src = data[i].src;
     e.alt = data[i].alt;
   });
