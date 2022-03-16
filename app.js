@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 
-const autoCompleteData = JSON.parse(fs.readFileSync("./autoCompleteData.json", "utf-8"));
+app.use("/src", express.static(__dirname + "/client/src"));
 
-app.use("/src", express.static(__dirname + "/src"));
+const autoCompleteData = JSON.parse(fs.readFileSync(__dirname + "/autoCompleteData.json", "utf-8"));
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/client/index.html");
 });
 
 app.get("/autoComplete", function (req, res) {
