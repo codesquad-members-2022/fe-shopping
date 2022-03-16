@@ -31,6 +31,14 @@ centerAlignment {
   height: $height;
 }
 
+@mixin backgroundSet($url, $size) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: $size;
+  background-position: center;
+  background-origin: content-box;
+}
+
 ////////////////////////////////////////////////////////
 .header {
   @extend columnDisplay;
@@ -86,11 +94,11 @@ centerAlignment {
 
     .header__main--logo {
       @include getWH(225px, $searchZoneHeight);
-      background-image: url("https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png");
-      background-repeat: no-repeat;
-      background-size: 100%;
-      background-position: center;
-      background-origin: content-box;
+      @include backgroundSet(
+        "https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png",
+        100%
+      );
+
       padding: $defaultPadding;
     }
 
@@ -110,7 +118,7 @@ centerAlignment {
 
 .search--toggle--ul {
   width: 520px;
-  border: 1px solid $signatureColor;
+
   position: absolute;
   background-color: white;
 
@@ -119,5 +127,21 @@ centerAlignment {
     height: 15px;
     padding: 5px;
     border-bottom: 0.5px solid #f0f0f0;
+  }
+}
+
+.banner {
+  @include getWH(100%, 450px);
+  @include backgroundSet(
+    "https://static.coupangcdn.com/la/cmg_paperboy/image/1647331453545/%5B%EC%88%98%EC%A0%95%5D220316_%EB%B7%B0%ED%8B%B0_%EB%8D%94%EB%A7%88%EB%A7%88%EC%8A%A4%ED%81%AC%ED%8C%A9_SMD-16103_PC.jpg",
+    cover
+  );
+  position: relative;
+
+  .banner--nav {
+    @include getWH(180px, 360px);
+    position: absolute;
+    left: 1270px;
+    bottom: 45px;
   }
 }
