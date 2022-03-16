@@ -1,8 +1,8 @@
-@import "./variables";
+@import "./_variables";
+@import "./reset";
+@import "./header.scss";
 
-h1 {
-  color: $pink;
-}
-p {
-  color: $pink;
+body {
+  font-size: 0.9rem;
+  min-height: 100vh;
 }

@@ -1,0 +1,38 @@
+header {
+  .header__small {
+    font-size: 0.6rem;
+    display: flex;
+    padding: 0.7rem;
+    background-color: $gray;
+    :last-child {
+      margin-left: auto;
+    }
+    div {
+      * {
+        margin: 0.2rem;
+      }
+      :first-child {
+        margin-left: 0;
+      }
+      :last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .header__main {
+    display: flex;
+  }
+
+  .header__categories {
+    padding: 2rem;
+    padding-top: 4rem;
+    background-color: $blue-main;
+  }
+
+  .header__center--main {
+    img {
+      width: 10rem;
+    }
+  }
+}
