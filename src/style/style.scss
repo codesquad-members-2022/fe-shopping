@@ -87,8 +87,9 @@ body {
     width: 72%;
     border: 2px solid $bg-highlight;
 
-    .select {
-      width: 26%;
+    .select-box {
+      position: relative;
+      width: 25%;
       border-right: 1px solid $border-lightgray;
 
       .select-btn {
@@ -118,10 +119,16 @@ body {
       }
     }
 
-    .input {
+    .input-box {
+      position: relative;
+      display: flex;
       flex-grow: 1;
       font-size: 1.1667rem;
-      padding: 10px;
+
+      .input {
+        flex-grow: 1;
+        padding: 10px;
+      }
     }
 
     .search-btn {
@@ -133,10 +140,6 @@ body {
       background-image: url('https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png');
       background-position: -112px -71px;
     }
-  }
-
-  .select ul {
-    display: none;
   }
 
   .gnb-menu {
@@ -170,7 +173,7 @@ body {
     }
 
     .rocket-delivery {
-    @extend %gnbMenuWithIcon;
+      @extend %gnbMenuWithIcon;
 
       a::before {
         position: static;
@@ -277,6 +280,7 @@ body {
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
 
     .category-item {
       width: 180px;
@@ -307,5 +311,70 @@ body {
         z-index: 2;
       }
     }
+  }
+}
+
+/* Bottom Window */
+
+.bottom-window {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  border: 1px solid $border-lightgray;
+  background-color: #fff;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+
+  .window-contents {
+    padding: 10px;
+  }
+
+  .window-list {
+    padding-top: 5px;
+
+    .list-item {
+      margin-bottom: 15px;
+
+      &:is(:last-child) {
+        margin-bottom: 5px;
+      }
+
+      a:hover {
+        color:$text-highlight;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+/* InputBox Bottom Window */
+
+.input-box .bottom-window {
+
+  .window-title {
+    border-bottom: 1px solid $border-lightgray;
+    padding: 2px 0 10px;
+    margin-bottom: 10px;
+  }
+
+  .window-list {
+    min-height: 250px;
+  }
+
+  .list-item:last-child {
+    margin-bottom: 15px;
+  }
+
+  .recent-search-btn-group {
+    position: absolute;
+    bottom: -25px;
+    left: -1px;
+    @include flex(space-between, 0);
+    width: calc(100% + 2px);
+    border: 1px solid $border-lightgray;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+    padding: 10px;
   }
 }
