@@ -11,19 +11,20 @@ export class DropDown {
       <ul class="select__drop-down">
         ${categoryData.reduce((acc, cur) => acc + this.templateDropDownItem(cur), '')}
       </ul>
-    `
-    this.$select.insertAdjacentHTML('beforeend', template) 
+    `;
+    this.$select.insertAdjacentHTML('beforeend', template);
   }
 
   templateDropDownItem(data) {
-    return `<li><a href="#">${data}</a></li>`
+    return `<li><a href="#">${data}</a></li>`;
   }
 
   showCategory() {
     const lastChild = this.$select.lastElementChild;
     lastChild.classList.toggle('focus');
     this.$select.querySelector('.material-icons').innerText = lastChild.classList.contains('focus')
-      ? 'arrow_drop_up' : 'arrow_drop_down';
+      ? 'arrow_drop_up'
+      : 'arrow_drop_down';
   }
 
   selectCategory(e) {

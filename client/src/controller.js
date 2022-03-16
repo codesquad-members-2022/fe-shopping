@@ -1,4 +1,4 @@
-import {DropDown} from './view/dropdown.js'
+import { DropDown } from './view/dropdown.js';
 
 export class Controller {
   constructor() {
