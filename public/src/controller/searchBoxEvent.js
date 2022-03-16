@@ -2,8 +2,9 @@ const setSearchBoxEvent = (searchBoxNode) => {
   const category = searchBoxNode.querySelector(".category__items");
   const searchBoxName = searchBoxNode.querySelector(".search-box__name");
   searchBoxNode.addEventListener("click", (e) => {
-    if (!category.classList.contains("display-none")) {
+    if (e.target !== searchBoxNode && !category.classList.contains("display-none")) {
       changeCategory(searchBoxName, e.target);
+      category.classList.add("display-none");
     } else {
       category.classList.remove("display-none");
     }
