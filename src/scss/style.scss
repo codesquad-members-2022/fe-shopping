@@ -158,8 +158,10 @@ img {
 }
 
 .search-input-wrap {
-  width: 330px;
+  width: 380px;
   height: 37px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 input {
@@ -172,7 +174,7 @@ input:focus {
 }
 
 .search-input {
-  width: 100%;
+  width: 320px;
   height: 100%;
   margin-left: 10px;
 }
@@ -182,6 +184,22 @@ input:focus {
   height: 37px;
   background-color: bisque;
   cursor: pointer;
+}
+
+.search-list {
+  width: 382px;
+  height: 330px;
+  background-color: antiquewhite;
+  z-index: 3;
+  padding: 20px 12px 6px 12px;
+}
+
+.search-list li {
+  width: 350px;
+  height: 30px;
+  padding-bottom: 16px;
+  background-color: white;
+  border: 1px solid gray;
 }
 
 .header-main-btn {
