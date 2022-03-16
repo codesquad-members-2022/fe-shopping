@@ -6,48 +6,52 @@ import {
   hasAscendant,
 } from '../../utils/utils.js';
 
+// classname
 const CATEGORY = 'search-bar-category';
 const CATEGORY_LIST = 'search-bar-category-list';
 const CATEGORY_ITEM = 'search-bar-category-item';
 const CATEGORY_NAME = 'search-bar-category-name';
-const CLOSE = 'close';
+const CATEGORY_HIDDEN = 'close';
 
 export class SearchBarCategory {
   constructor() {
     this.$category = selector(`.${CATEGORY}`);
     this.$categoryList = selector(`.${CATEGORY_LIST}`);
     this.$categoryName = selector(`.${CATEGORY_NAME}`);
-    this.open = false;
 
+    // state
+    this.isLayerOpen = false;
+
+    // init
+    this.init();
+  }
+
+  init() {
     this.$category.addEventListener('click', (e) => {
-      this.toggle();
+      this.toggleLayer();
 
       if (!e.target.classList.contains(CATEGORY_ITEM)) return;
       this.$categoryName.textContent = e.target.textContent;
     });
 
     document.body.addEventListener('click', (e) => {
-      if (!hasAscendant(this.$category, e.target)) this.close();
+      if (!hasAscendant(this.$category, e.target)) this.closeLayer();
     });
   }
 
-  isOpen() {
-    return this.open;
+  openLayer() {
+    this.isLayerOpen = true;
+    removeClass(CATEGORY_HIDDEN, this.$categoryList);
   }
 
-  open() {
-    this.open = true;
-    removeClass(CLOSE, this.$categoryList);
+  closeLayer() {
+    this.isLayerOpen = false;
+    addClass(CATEGORY_HIDDEN, this.$categoryList);
   }
 
-  close() {
-    this.open = false;
-    addClass(CLOSE, this.$categoryList);
-  }
-
-  toggle() {
-    this.open = this.open ? false : true;
-    toggleClass(CLOSE, this.$categoryList);
+  toggleLayer() {
+    this.isLayerOpen = this.isLayerOpen ? false : true;
+    toggleClass(CATEGORY_HIDDEN, this.$categoryList);
   }
 
   getCategoryName() {
