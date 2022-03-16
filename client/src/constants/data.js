@@ -52,7 +52,7 @@ export const searchCategoryData = [
   '실버스토어',
 ];
 
-export const keywords = {
+export const keywordsData = {
   Ahkeyword: [
     {
       keyword: '아이폰 13 pro',
