@@ -6,12 +6,13 @@
     "node": "14.x"
   },
   "scripts": {
-    "prestart": "npm run build:prod",
+    "prestart": "npm run build:dev",
     "start": "babel-node src/app.js",
     "start:dev": "nodemon --exec babel-node src/app.js --delay 1",
     "build:dev": "webpack --env DEPLOY=false",
     "build:prod": "webpack --env DEPLOY=true",
-    "build:watch": "webpack -w  --env DEPLOY=false"
+    "build:watch": "webpack -w  --env DEPLOY=false",
+    "heroku-postbuild": "npm run build:prod"
   },
   "repository": {
     "type": "git",
