@@ -1,6 +1,6 @@
 import Category from '../../components/Category.js';
 import HtmlElement from '../../utils/HtmlElement.js';
-import Section from '../section.js';
+import Section from './Section.js';
 
 function Header(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
