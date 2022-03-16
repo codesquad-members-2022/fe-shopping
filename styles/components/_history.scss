@@ -1,0 +1,64 @@
+.history {
+  h3 {
+    @include font-style($font-md);
+    padding: 12px 0;
+    margin: 0 8px;
+    border-bottom: 1px solid $gray-dark;
+  }
+
+  &-list {
+    padding: 3px 0;
+  }
+
+  &-item {
+    @include font-style($font-sm);
+    @include flexbox(space-between);
+
+    padding: 0 10px;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &-link {
+      width: 90%;
+      padding: 6px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-delete {
+      width: 10%;
+      padding: 6px 0;
+      color: $white;
+      text-align: end;
+
+      &:hover {
+        color: $border;
+      }
+    }
+  }
+
+  &-option {
+    @include flexbox(space-between);
+    @include font-style($font-sm, $dark-light);
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    background-color: $gray;
+  }
+
+  &-clear-btn,
+  &-onoff-btn {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

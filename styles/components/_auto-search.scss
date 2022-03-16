@@ -1,0 +1,20 @@
+.auto-search {
+  &-list {
+    width: 100%;
+  }
+
+  &-item {
+    @include font-style($font-sm, $primary);
+    width: 100%;
+    height: 30px;
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
