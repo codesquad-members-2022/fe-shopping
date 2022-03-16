@@ -72,3 +72,8 @@ SearchInput.prototype.setEvent = function () {
 <div class="search__suggestion"></div>
 <div class="search__recent"></div>
 ```
+
+- deploy 관련
+  - eslint 에서 error 로 지정한 것 없애주니 deploy 됐음
+  - 어떻게 알게되었는가? -> npm run build 할 때 에러가 뜸..
+  - watch 할 때는 이상없이 동작했는데 build 가 complete 됐다고 뜨지 않아서 eslint 부분을 조금 수정하니 deploy 됐다.
