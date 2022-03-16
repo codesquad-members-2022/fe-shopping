@@ -253,15 +253,26 @@ table {
   margin-left: 15px;
 }
 .search-form .search-category {
+<<<<<<< HEAD
+=======
+  width: 110px;
+>>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
   border-right: 1px solid #ddd;
   width: 125px;
 }
 .search-form .search-category__link {
   display: block;
+<<<<<<< HEAD
   height: 100%;
   line-height: 34px;
   padding-left: 10px;
   width: 100%;
+=======
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  line-height: 34px;
+>>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
 }
 .search-form .search-text {
   border: 0;
@@ -272,8 +283,15 @@ table {
 .search-form .search-text:focus {
   outline: none;
 }
+.search-form .search-text:focus {
+  outline: none;
+}
 .search-form .search-mic,
 .search-form .search-btn {
+<<<<<<< HEAD
+=======
+  margin-right: 5px;
+>>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
   font-size: 18px;
 }
 
@@ -313,6 +331,7 @@ table {
   border: 3px solid #4285f4;
 }
 
+<<<<<<< HEAD
 .btn {
   background-color: #fff;
   border: 0;
@@ -325,11 +344,14 @@ table {
   transform: translateX(-50%);
 }
 
+=======
+>>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
 .search-category {
   position: relative;
 }
 
 .category {
+<<<<<<< HEAD
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   left: 0;
   position: absolute;
@@ -351,12 +373,33 @@ table {
 .category__link {
   cursor: pointer;
   display: block;
+=======
+  position: absolute;
+  top: 110;
+  left: 34;
+  z-index: 99999999999;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  transition: all 1s;
+}
+.category__list {
+  background-color: #fff;
+}
+.category__item {
+  width: 110px;
+  height: 34px;
+  padding-left: 10px;
+  line-height: 34px;
+}
+.category__link {
+  cursor: pointer;
+>>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
 }
 .category__link:hover {
   color: #9cf;
   text-decoration: underline;
 }
 
+<<<<<<< HEAD
 .btn {
   background-color: #fff;
   border: 0;
@@ -451,6 +494,8 @@ table {
   font-weight: bold;
 }
 
+=======
+>>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
 .container {
   margin: 0 auto;
   width: 1000px;
