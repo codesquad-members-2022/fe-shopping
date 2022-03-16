@@ -2,7 +2,7 @@
   "name": "fe-shopping",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "scss": "sass public/stylesheet/scss/main.scss public/stylesheet/css/style.css",
     "start": "node app.js"
