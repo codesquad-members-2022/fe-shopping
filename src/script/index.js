@@ -1,0 +1,1 @@
+fetch('/autoComplete?keyword=aa').then(res => res.json()).then(data => console.log(data));
