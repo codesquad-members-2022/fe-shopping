@@ -1,7 +1,63 @@
 @import '../components/category';
+@import '../components/search';
 
 header {
   width: $main-width;
   height: $header-height;
   margin: 0 auto;
+  display: flex;
+  > section {
+    height: 100%;
+    width: 100%;
+    padding: 25px 0px 0px 35px;
+    box-sizing: border-box;
+  }
+}
+
+.logo-area {
+  height: 70%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  > img {
+    width: $logo-width;
+    height: $logo-height;
+  }
+  > .search {
+    width: 60%;
+    height: $search-height;
+  }
+  > .user-info {
+    width: 15%;
+  }
+}
+
+.gnb__container {
+  display: flex;
+  > li {
+    padding: 5px 15px 5px;
+    color: $main-black;
+  }
+  > li > a:hover {
+    color: $main-blue;
+  }
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $main-grey;
+    > i {
+      font-size: 2rem;
+    }
+    > span {
+      margin-top: 4px;
+    }
+  }
 }

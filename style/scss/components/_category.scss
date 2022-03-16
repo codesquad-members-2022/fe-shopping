@@ -1,7 +1,6 @@
 .category__button {
   height: $header-height;
-  width: 110px;
-  margin-right: 30px;
+  width: $category-width;
   background-color: $main-blue;
   display: flex;
   flex-direction: column;
