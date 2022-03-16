@@ -1,8 +1,7 @@
 {
-  "name": "frontend_dev_env",
+  "name": "fe-shopping",
   "version": "1.0.0",
-  "description": "## Webpack v4",
-  "main": "webpack.config.js",
+  "description": "",
   "engines": {
     "node": "14.x"
   },
@@ -14,14 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/healtheloper/frontend_dev_env.git"
+    "url": "git+https://github.com/healtheloper/fe-shopping.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/healtheloper/frontend_dev_env/issues"
+    "url": "https://github.com/healtheloper/fe-shopping/issues"
   },
-  "homepage": "https://github.com/healtheloper/frontend_dev_env#readme",
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
