@@ -1,7 +1,2 @@
-import {} from './category.js';
-import {
-  selector,
-  addClass,
-  removeClass,
-  toggleClass,
-} from '../../utils/utils.js';
+import {} from './Category.js';
+import {} from './Form.js';
