@@ -1,9 +1,9 @@
-export class DropDown {
+export class selectCategory {
   constructor() {
     this.$select = document.querySelector('.select__category');
+    this.renderSelectCategory();
   }
 
-  // render 메서드와 관련된 클래스 분리하기? 아니면 그대로 두기?
   renderSelectCategory() {
     // 카테고리 데이터는 나중에 json으로 받아올 수 있도록 수정하기
     const categoryData = ['전체', '여성패션', '남성패션', '남녀 공용 패션', '유아동패션'];
