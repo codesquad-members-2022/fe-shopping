@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "## Webpack v4",
   "main": "webpack.config.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "babel-node src/app.js",
     "start:dev": "nodemon --exec babel-node src/app.js --delay 1",
