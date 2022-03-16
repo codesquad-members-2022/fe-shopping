@@ -22,9 +22,17 @@ export const inputKeyWordEvent = () => {
       if (target.value) {
         searchWord.toggleRender();
         saveValue = target.value;
-      }
+      } else {
+        // target.value가 비어있을때 처리
+        const recentSearchBox = $('.search-recent');
+        const searchKeywordBox = $('.main-header__search-keyword');
+        searchKeywordBox?.remove();
 
-      // target.value가 비어있을때 처리
+        if (searchWord.recentWords.length !== 0) {
+          searchWord.turnOn();
+          searchWord.toggleRender();
+        } else recentSearchBox?.remove();
+      }
     }, 500);
   });
 

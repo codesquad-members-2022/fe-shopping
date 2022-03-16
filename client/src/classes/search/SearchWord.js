@@ -33,13 +33,12 @@ SearchWord.prototype.toggleRender = function () {
   const searchKeywordBox = $('.main-header__search-keyword');
 
   recentSearchBox?.remove();
+  searchKeywordBox?.remove();
 
   if (this.getTurn()) {
     if (this.recentWords.length === 0) return;
-    searchKeywordBox?.remove();
     inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
   } else {
-    if (searchKeywordBox) return;
     inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(keywordsData['Ahkeyword']));
   }
 };
