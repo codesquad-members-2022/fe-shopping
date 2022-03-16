@@ -121,5 +121,8 @@ header h1 img {
 .search-form-wrapper .search-auto-complete li {
   padding-bottom: 16px;
 }
+.search-form-wrapper .search-auto-complete .hilite {
+  color: blue;
+}
 
 /*# sourceMappingURL=style.css.map */

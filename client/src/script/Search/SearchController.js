@@ -12,6 +12,7 @@ export default class SearchController {
   addEvents() {
     this.input.$input.addEventListener('input', ({target}) => { 
       getAutoComplete(target.value).then(data => {
+        this.autoComplete.keyword = target.value;
         this.autoComplete.list = data;
       });
     });
