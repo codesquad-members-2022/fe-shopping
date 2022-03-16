@@ -185,6 +185,7 @@ button {
 }
 
 .search-category-list {
+  display: none;
   background-color: #fff;
   overflow-y: auto;
   border-top: 1px solid #d6d6d6;
@@ -279,13 +280,13 @@ button {
   line-height: 2rem;
 }
 
-.gnb-area .gnb-item:hover {
-  color: #4285f4;
-  text-decoration: underline;
-}
-
 .gnb-area .gnb-link {
   display: block;
+}
+
+.gnb-area .gnb-link:hover {
+  color: #4285f4;
+  text-decoration: underline;
 }
 
 .new-icon::after {

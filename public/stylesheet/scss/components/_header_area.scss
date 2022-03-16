@@ -124,8 +124,9 @@
 }
 
 .search-category-list {
-  // display: none;
+  display: none;
   // min-height: calc(100vh - 250px);
+  // 최소 높이 지정으로 자동 스크롤 되도록, 쿠팡은 창 높이에 따라서 최소높이가 달라짐
   background-color: #fff;
   overflow-y: auto;
   border-top: 1px solid $color-lightgray;
@@ -200,14 +201,14 @@
   .gnb-item {
     position: relative;
     line-height: 2rem;
-
-    &:hover {
-      @include hover-decoration;
-    }
   }
 
   .gnb-link {
     display: block;
+
+    &:hover {
+      @include hover-decoration;
+    }
   }
 }
 
