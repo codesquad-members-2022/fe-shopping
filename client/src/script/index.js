@@ -1,3 +1,1 @@
-import SearchController from "./Search/SearchController.js";
-
-new SearchController();
+import {} from "./Search/SearchController.js";
