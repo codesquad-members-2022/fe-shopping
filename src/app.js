@@ -4,7 +4,6 @@ import searchRouter from "./routers/searchRouter";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 app.use(express.static("build"));
 app.use("/search", searchRouter);
 
