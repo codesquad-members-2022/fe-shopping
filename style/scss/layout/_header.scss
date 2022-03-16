@@ -6,6 +6,10 @@ header {
   height: $header-height;
   margin: 0 auto;
   display: flex;
+  > .category {
+    height: $header-height;
+    width: $category-width;
+  }
   > section {
     height: 100%;
     width: 100%;

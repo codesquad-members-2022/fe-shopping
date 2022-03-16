@@ -1,5 +1,6 @@
-import Category from '../components/Category.js';
-import HtmlElement from '../utils/HtmlElement.js';
+import Category from '../../components/Category.js';
+import HtmlElement from '../../utils/HtmlElement.js';
+import Section from '../section.js';
 
 function Header(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
@@ -15,6 +16,7 @@ Header.prototype.constructor = Header;
 Header.prototype.setTemplate = function () {
   this.$element.id = 'header';
   new Category('div', this.$element);
+  new Section('section', this.$element);
 };
 
 export default Header;

@@ -1,4 +1,4 @@
-import Header from './layout/Header.js';
+import Header from './layout/Header/index.js';
 import { findTargetIdElement } from './utils/manuplateDOM.js';
 
 const $root = findTargetIdElement(document, 'root');
