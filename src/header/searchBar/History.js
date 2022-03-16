@@ -23,9 +23,10 @@ export class History {
     this.$form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const word = this.$input.value;
-      if (word === '') return;
+      const word = this.$input.value.trim();
       this.$input.value = '';
+
+      if (word === '') return;
       this.setHistory(Date.now(), word);
       console.log(this.getHistory());
     });
