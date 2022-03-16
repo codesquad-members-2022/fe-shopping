@@ -8,10 +8,10 @@ class SearchInputController {
     this.inputDom = inputDom;
   }
   initService() {
-    this.inputDom.addEventListener("input", this.getSearchingData.bind(this));
+    this.inputDom.addEventListener("input", this.onInputSearchZone.bind(this));
   }
 
-  getSearchingData({ target: { value } }) {
+  onInputSearchZone({ target: { value } }) {
     fetch_use(
       `search/${value}`,
       (jsonData) =>

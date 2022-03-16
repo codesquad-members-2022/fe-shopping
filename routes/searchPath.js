@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/:keyWord", (req, res) => {
   const keyWord = req.params.keyWord;
-  res.json(dataDisposer.checkKeyWord(keyWord));
+  res.json(dataDisposer.findMatchData(keyWord));
 });
 
 module.exports = router;

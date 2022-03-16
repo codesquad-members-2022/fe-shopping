@@ -1,21 +1,24 @@
 const searchingData = require("../../data/searchData.json");
 
 // 단어를 통해서 데이터와 비교
-function checkKeyWord(keyWord) {
-  const trimedKeyWord = keyWord.trim();
-  const checkSpace = trimedKeyWord.split(" ");
-  const firstWordArray = checkSpace.map((word) => getFirstWord(word));
+function findMatchData(keyWord) {
+  const firstWordArray = getFirstWordArr(keyWord);
   const filterdData = filteringData(firstWordArray);
-  return checkMatchWord(trimedKeyWord, filterdData);
+  return checkMatchWord(keyWord.trim(), filterdData);
+}
+
+function getFirstWordArr(keyWord) {
+  const trimed = keyWord.trim().split(" ");
+  return trimed.map((word) => getFirstWord(word));
+}
+
+function getFirstWord(keyWord) {
+  return keyWord.split("")[0];
 }
 
 // 첫번째 글자로 데이터보관중 -> 글자로 데이터 확인후 리턴
 function getDataByFirstWord(firstWord) {
   return searchingData[firstWord];
-}
-
-function getFirstWord(keyWord) {
-  return keyWord.split("")[0];
 }
 
 // 입력에 띄어쓰기가 있을경우를 위해
@@ -39,4 +42,4 @@ function checkMatchWord(keyWord, data) {
   }, []);
 }
 
-module.exports = { checkKeyWord };
+module.exports = { findMatchData };
