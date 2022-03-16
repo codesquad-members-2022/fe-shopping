@@ -1,9 +1,18 @@
 .history {
-  h3 {
+  &-title,
+  &-off-title {
     @include font-style($font-md);
+  }
+
+  &-title {
     padding: 12px 0;
     margin: 0 8px;
     border-bottom: 1px solid $gray-dark;
+  }
+
+  &-off-title {
+    padding: 30px 0;
+    text-align: center;
   }
 
   &-list {
