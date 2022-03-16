@@ -1,4 +1,4 @@
-export class selectCategory {
+export class SelectCategory {
   constructor() {
     this.$select = document.querySelector('.select__category');
     this.renderSelectCategory();
@@ -22,9 +22,10 @@ export class selectCategory {
   showCategory() {
     const lastChild = this.$select.lastElementChild;
     lastChild.classList.toggle('focus');
-    this.$select.querySelector('.material-icons').innerText = lastChild.classList.contains('focus')
+    const arrowText = lastChild.classList.contains('focus')
       ? 'arrow_drop_up'
       : 'arrow_drop_down';
+    this.$select.querySelector('.material-icons').innerText = arrowText;
   }
 
   selectCategory(e) {

@@ -1,15 +1,15 @@
-import { selectCategory } from './view/selectCategory.js';
+import { SelectCategory } from './view/selectCategory.js';
 
 export class Controller {
   constructor() {
-    this.selectCategory = new selectCategory();
+    this.selectCategory = new SelectCategory();
   }
 
   init() {
-    this.inputSelectCategoryEvent();
+    this.setSelectCategoryEvents();
   }
 
-  inputSelectCategoryEvent() {
+  setSelectCategoryEvents() {
     const $select = document.querySelector('.select__category');
     $select.addEventListener('click', (e) => {
       this.selectCategory.showCategory();
