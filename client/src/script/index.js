@@ -1,1 +1,7 @@
-fetch('/autoComplete?keyword=aa').then(res => res.json()).then(data => console.log(data));
+const getAutoComplete = (keyword) => {
+  return fetch(`/autoComplete?keyword=${keyword}`)
+    .then((res) => res.json())
+    .then((data) => data);
+};
+
+getAutoComplete('a').then(autoComplete => console.log(autoComplete));
