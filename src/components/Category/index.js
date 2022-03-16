@@ -1,5 +1,5 @@
-import HtmlElement from '../utils/HtmlElement.js';
-import { findTargetIdElement } from '../utils/manuplateDOM.js';
+import HtmlElement from '../../utils/HtmlElement.js';
+import { findTargetIdElement } from '../../utils/manuplateDOM.js';
 
 function Category(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);

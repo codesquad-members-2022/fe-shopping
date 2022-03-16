@@ -1,4 +1,4 @@
-import Category from '../../components/Category.js';
+import Category from '../../components/Category/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import Section from './Section.js';
 

@@ -1,5 +1,5 @@
-import Navigation from '../../components/Navigation.js';
-import SearchBox from '../../components/SearchBox.js';
+import Navigation from '../../components/Navigation/index.js';
+import SearchBox from '../../components/SearchBox/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 
 function Section(htmlTag, $parent) {
