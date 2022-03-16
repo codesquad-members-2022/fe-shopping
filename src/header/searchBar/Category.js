@@ -19,25 +19,26 @@ export class SearchBarCategory {
     this.$categoryList = selector(`.${CATEGORY_LIST}`);
     this.$categoryName = selector(`.${CATEGORY_NAME}`);
 
-    // state
     this.isLayerOpen = false;
 
-    // init
     this.init();
   }
 
   init() {
-    this.$category.addEventListener('click', (e) => {
-      this.toggleLayer();
-
-      if (!e.target.classList.contains(CATEGORY_ITEM)) return;
-      this.$categoryName.textContent = e.target.textContent;
-    });
-
+    this.$category.addEventListener('click', this.handleClickCategory);
     document.body.addEventListener('click', (e) => {
       if (!hasAscendant(this.$category, e.target)) this.closeLayer();
     });
   }
+
+  /* **리스너*** */
+  handleClickCategory = (e) => {
+    this.toggleLayer();
+
+    if (!e.target.classList.contains(CATEGORY_ITEM)) return;
+    this.$categoryName.textContent = e.target.textContent;
+  };
+  /* ********** */
 
   openLayer() {
     this.isLayerOpen = true;

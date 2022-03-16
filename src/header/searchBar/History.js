@@ -15,34 +15,43 @@ export class History {
     this.$input = $input;
     this.$clearBtn = $clearBtn;
     this.$list = $historyList;
-    this.delBtnClassName = delBtnClassName;
+
     this.key = storageKey;
     this.maxLength = maxHistoryLength;
     this.itemSelector = historyItemSelector;
+    this.delBtnClassName = delBtnClassName;
 
-    this.$form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const word = this.$input.value.trim();
-      this.$input.value = '';
-
-      if (word === '') return;
-      this.setHistory(Date.now(), word);
-      console.log(this.getHistory());
-    });
-
-    this.$clearBtn.addEventListener('click', () => {
-      this.clear();
-    });
-
-    this.$list.addEventListener('click', (e) => {
-      const $target = e.target;
-      if (!$target.classList.contains(this.delBtnClassName)) return;
-
-      const $item = $target.closest(this.itemSelector);
-      console.log($item);
-    });
+    this.init();
   }
+
+  init() {
+    this.$form.addEventListener('submit', this.handleSubmitForm);
+    this.$clearBtn.addEventListener('click', this.handleClickClearBtn);
+    this.$list.addEventListener('click', this.handleClickDelBtn);
+  }
+
+  /* **리스너*** */
+  handleSubmitForm = (e) => {
+    e.preventDefault();
+    const word = this.$input.value.trim();
+    this.$input.value = '';
+
+    if (word === '') return;
+    this.setHistory(Date.now(), word);
+  };
+
+  handleClickClearBtn = (e) => {
+    this.clear();
+  };
+
+  handleClickDelBtn = (e) => {
+    const $target = e.target;
+    if (!$target.classList.contains(this.delBtnClassName)) return;
+
+    const $item = $target.closest(this.itemSelector);
+    console.log($item);
+  };
+  /* ********** */
 
   setHistory(id, value) {
     let prevHistory = webStorage.get(this.key);
