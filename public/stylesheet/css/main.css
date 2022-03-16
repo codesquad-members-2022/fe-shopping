@@ -279,6 +279,15 @@ button {
   line-height: 2rem;
 }
 
+.gnb-area .gnb-item:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+
+.gnb-area .gnb-link {
+  display: block;
+}
+
 .new-icon::after {
   width: 14px;
   height: 14px;

@@ -198,6 +198,14 @@
   .gnb-item {
     position: relative;
     line-height: 2rem;
+
+    &:hover {
+      @include hover-decoration;
+    }
+  }
+
+  .gnb-link {
+    display: block;
   }
 }
 
