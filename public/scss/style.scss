@@ -1,0 +1,183 @@
+/* align center */
+
+/* top-nav */
+
+.top-nav-wrapper {
+  background-color: #f0f0f0;
+}
+
+.top-nav {
+  background-color: #f0f0f0;
+  height: 32px;
+  display: block;
+  width: 1020px;
+  margin: 0 auto;
+
+  li {
+    color: #333;
+    font-size: 11px;
+  }
+}
+
+.top-nav-left {
+  float: left;
+  height: 24px;
+}
+
+.top-nav-right {
+  float: right;
+  height: 24px;
+}
+
+.align-horizontal {
+  float: left;
+  padding: 10px 0 0 12px;
+}
+
+/* header */
+
+.my-coupang-icon,
+.my-cart-icon,
+.search-form-input-btn,
+.category-btn {
+  background-image: url(//static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+  background-repeat: no-repeat;
+}
+
+.header {
+  width: 1020px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+}
+
+.category-btn {
+  // position: absolute;
+  width: 110px;
+  height: 115px;
+  top: 32px;
+  left: 0;
+  margin-right: 30px;
+  background-position: 0 0;
+  text-align: center;
+
+  a {
+    display: block;
+    margin-top: 73px;
+    color: #fff;
+    font-size: 13px;
+  }
+}
+
+.header-top {
+  display: flex;
+  padding-top: 30px;
+
+  img {
+    margin-right: 20px;
+  }
+}
+
+.search-form {
+  height: 37px;
+  width: 518px;
+  border: 2px solid #4285f4;
+  display: flex;
+}
+
+.select-category {
+  width: 134px;
+  font-size: 12px;
+  font-weight: normal;
+  display: flex;
+  border-right: 1px solid #ddd;
+
+  a {
+    color: #555;
+    outline: 0;
+    text-decoration: none;
+  }
+}
+
+.select-category-content {
+  height: 38px;
+  width: 110px;
+  line-height: 38px;
+  text-indent: 10px;
+}
+
+.select-category-toggle {
+  background: url(//img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png)
+    6px -165px no-repeat;
+  display: block;
+  height: 30px;
+  outline: 0;
+  right: 0;
+  top: 3px;
+  width: 30px;
+}
+
+.search-form-input {
+  height: 34px;
+  width: 310px;
+  line-height: normal;
+  color: #333;
+  text-indent: 10px;
+  font-size: 14px;
+}
+
+input {
+  border: 0px solid #fff;
+}
+
+.search-form-input-btn {
+  position: absolute;
+  width: 50px;
+  height: 39px;
+  background-position: -112px -71px;
+}
+
+.my-coupang-icon-title {
+  width: 50px;
+  display: block;
+  padding-top: 7px;
+  text-align: center;
+  color: #333;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.my-coupang-icon {
+  width: 29px;
+  height: 31px;
+  display: block;
+  margin: 0 auto;
+  background-position: -112px -42px;
+}
+
+.my-cart-icon-title {
+  width: 50px;
+  display: block;
+  text-align: center;
+  padding-top: 3px;
+  color: #333;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.my-cart-icon {
+  width: 40px;
+  height: 41px;
+  display: block;
+  margin: 0 auto;
+  background-position: -112px 0;
+}
+
+.header-bottom {
+  color: #333;
+  font-size: 14px;
+  width: 700px;
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+}
