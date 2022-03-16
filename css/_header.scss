@@ -1,3 +1,4 @@
+@import "hidden";
 
 $header-bg-color: #fff;
 $header-font: (small: 12px, medium: 24px, large: 36px);
@@ -139,20 +140,30 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
     height: inherit;
     cursor: pointer;
   }
+}
 
-  button {
-    @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
-    background: {
-      position: 6px -165px;
-      color: $header-bg-color;
-    };
+#select-btn {
+  height: 30px;
+  width: 30px;
+  border: 0;
+  @include position-absolute(2px, 99px);
+  cursor: pointer;
+}
 
-    height: 30px;
-    width: 30px;
-    border: 0;
-    @include position-absolute(2px, 99px);
-    cursor: pointer;
-  }
+.btn-down {
+  @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
+  background: {
+    position: 6px -165px;
+    color: $header-bg-color;
+  };
+}
+
+.btn-up {
+  @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
+  background: {
+    position: 6px -142px;
+    color: $header-bg-color;
+  };
 }
 
 .header__select--open {
