@@ -89,38 +89,23 @@
   margin-left: 15px;
 
   .search-category {
-<<<<<<< HEAD
-=======
-    width: 110px;
-    // margin-left: 10px;
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
     border-right: 1px solid $search-category-border;
     width: 125px;
 
     &__link {
       display: block;
-<<<<<<< HEAD
       height: 100%;
       line-height: 34px;
       padding-left: 10px;
       width: 100%;
-=======
-      width: 100%;
-      height: 100%;
-      padding-left: 10px;
-      line-height: 34px;
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
     }
   }
 
   .search-text {
     border: 0;
-<<<<<<< HEAD
     color: $search-text;
     padding-left: 10px;
     width: 310px;
-=======
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
 
     &:focus {
       outline: none;
@@ -129,10 +114,6 @@
 
   .search-mic,
   .search-btn {
-<<<<<<< HEAD
-=======
-    margin-right: 5px;
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
     font-size: 18px;
   }
 }

@@ -1,15 +1,11 @@
 @import '../colors';
-<<<<<<< HEAD
 @import '../utils';
-=======
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
 
 .search-category {
   position: relative;
 }
 
 .category {
-<<<<<<< HEAD
   box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
   left: 0;
   position: absolute;
@@ -28,40 +24,14 @@
     padding-left: 10px;
     visibility: hidden;
     width: 110px;
-=======
-  position: absolute;
-  top: 110;
-  left: 34;
-  z-index: 99999999999;
-  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
-  transition: all 1s;
-
-  &__list {
-    background-color: $white;
-  }
-
-  &__item {
-    width: 110px;
-    height: 34px;
-    padding-left: 10px;
-    line-height: 34px;
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
   }
 
   &__link {
     cursor: pointer;
-<<<<<<< HEAD
     display: block;
   }
 
   &__link:hover {
     @include link-hover;
-=======
-  }
-
-  &__link:hover {
-    color: $category-text;
-    text-decoration: underline;
->>>>>>> fcce232 (style: 검색창 카테고리 마크업, 스타일링 완료)
   }
 }
