@@ -1,7 +1,3 @@
-const getAutoComplete = (keyword) => {
-  return fetch(`/autoComplete?keyword=${keyword}`)
-    .then((res) => res.json())
-    .then((data) => data);
-};
+import SearchController from "./Search/SearchController.js";
 
-getAutoComplete('a').then(autoComplete => console.log(autoComplete));
+new SearchController();
