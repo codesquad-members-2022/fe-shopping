@@ -124,21 +124,38 @@
 .icon-menu-area {
   display: flex;
   justify-content: space-between;
+}
 
-  .icon-menu-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.icon-menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 
-    &:not(:first-child) {
-      margin-left: $default-whitespace;
-    }
+  &:not(:first-child) {
+    margin-left: $default-whitespace;
   }
 
   .menu-icon {
     width: 30px;
     height: 30px;
     fill: $color-gray;
+  }
+
+  .cart-count {
+    content: "0";
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+    display: block;
+    background-color: $color-blue;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -2px;
   }
 }
 

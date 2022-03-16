@@ -195,7 +195,7 @@ button {
           justify-content: space-between;
 }
 
-.icon-menu-area .icon-menu-item {
+.icon-menu-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -206,16 +206,33 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
-.icon-menu-area .icon-menu-item:not(:first-child) {
+.icon-menu-item:not(:first-child) {
   margin-left: 25px;
 }
 
-.icon-menu-area .menu-icon {
+.icon-menu-item .menu-icon {
   width: 30px;
   height: 30px;
   fill: #555;
+}
+
+.icon-menu-item .cart-count {
+  content: "0";
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  font-weight: 800;
+  display: block;
+  background-color: #4285f4;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  right: -2px;
 }
 
 .gnb-area {
