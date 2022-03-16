@@ -18,7 +18,7 @@ const setSearchBoxEvent = (searchBoxNode) => {
     }
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" || !category.classList.contains("visibility-hidden")) {
+    if (e.key === "Escape" && !category.classList.contains("visibility-hidden")) {
       category.classList.add("visibility-hidden");
     }
   });
