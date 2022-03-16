@@ -4,8 +4,6 @@ import Selector from './Selector.js';
 
 function SearchBox(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
 }
 SearchBox.prototype = Object.create(HtmlElement.prototype);
 SearchBox.prototype.constructor = SearchBox;

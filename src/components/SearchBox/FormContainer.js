@@ -2,9 +2,6 @@ import HtmlElement from '../../utils/HtmlElement.js';
 
 function FormContainer(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
-  // this.setEvent();
 }
 
 FormContainer.prototype = Object.create(HtmlElement.prototype);

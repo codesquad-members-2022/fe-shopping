@@ -4,9 +4,6 @@ import Section from './Section.js';
 
 function Header(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
-  // this.setEvent();
 }
 
 Header.prototype = Object.create(HtmlElement.prototype);

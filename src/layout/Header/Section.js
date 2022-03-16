@@ -4,9 +4,6 @@ import HtmlElement from '../../utils/HtmlElement.js';
 
 function Section(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
-  // this.setEvent();
 }
 
 Section.prototype = Object.create(HtmlElement.prototype);

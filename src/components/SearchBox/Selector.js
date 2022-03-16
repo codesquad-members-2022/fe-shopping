@@ -2,9 +2,6 @@ import HtmlElement from '../../utils/HtmlElement.js';
 
 function Selector(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
-  // this.setEvent();
 }
 
 Selector.prototype = Object.create(HtmlElement.prototype);

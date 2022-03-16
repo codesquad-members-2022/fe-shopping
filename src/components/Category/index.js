@@ -3,9 +3,6 @@ import { findTargetIdElement } from '../../utils/manuplateDOM.js';
 
 function Category(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
-  // this.setEvent();
 }
 
 Category.prototype = Object.create(HtmlElement.prototype);

@@ -2,8 +2,6 @@ import HtmlElement from '../../utils/HtmlElement.js';
 
 function Navigation(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
-  this.setTemplate();
-  this.render();
 }
 Navigation.prototype = Object.create(HtmlElement.prototype);
 Navigation.prototype.constructor = Navigation;

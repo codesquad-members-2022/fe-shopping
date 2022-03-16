@@ -1,6 +1,9 @@
 function HtmlElement(htmlTag, $parent) {
   this.$parent = $parent;
   this.$element = document.createElement(htmlTag);
+  this.setTemplate();
+  this.render();
+  this.setEvent();
 }
 
 HtmlElement.prototype.setTemplate = function () {
