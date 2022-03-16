@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const fakeDB_router = require('./router/data');
 const path = require("path");
-app.use('/fakeDB',fakeDB_router);
+
 app.use(express.static(__dirname + '/public'));
+
+app.use('/fakeDB', fakeDB_router);
 
 app.get("/", (req, res) => {
   // res.sendFile(__dirname + "/index.html");

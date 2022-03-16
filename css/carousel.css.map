@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAEA,AAAA,UAAU,CAAC;EACT,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,IAAI;EACX,QAAQ,EAAE,MAAM;CACjB;;AAED,AAAA,iBAAiB,CAAC;EACd,QAAQ,EATa,QAAQ;EAU7B,KAAK,EAAE,IAAI;CACd;;AAED,AAAA,MAAM,CAAC;EACL,QAAQ,EAde,QAAQ;EAe/B,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,UAAU;EACtB,UAAU,EAAE,MAAM;EAClB,QAAQ,EAAE,MAAM;CACjB",
-    "sources": [
-        "../public/sass/carousel.scss"
-    ],
-    "names": [],
-    "file": "carousel.css"
-}
