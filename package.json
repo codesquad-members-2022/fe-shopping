@@ -31,6 +31,7 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
+    "dotenv": "^16.0.0",
     "error-overlay-webpack-plugin": "^1.1.0",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
