@@ -2,23 +2,13 @@
 @import './base/_normalize';
 @import './base/_reset';
 @import './_variables';
+@import './common/_flex';
 @import './_header';
 
 .container {
+  @extend %flex-row;
+  
   margin: auto;
   width: $container-width;
   font-size: $font-size-16;
-}
-
-/* flex */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
 }

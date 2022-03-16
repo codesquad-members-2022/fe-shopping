@@ -1,6 +1,7 @@
 /* header */
-
-.header__category--btn {
+.header__category {
+  @extend %flex-col;
+  
   width: 12%;
   margin-right: $container-margin;
   padding: 30px 0;
@@ -22,6 +23,8 @@
   margin-top: $container-margin;
 
   .header__nav {
+    @extend %flex-row;
+
     justify-content: flex-start;
     font-size: $font-size-14;
   
@@ -31,6 +34,9 @@
   }
 }
 
+.header__main {
+  @extend %flex-row;
+}
 
 .header__logo {
   width: 20%;
@@ -41,50 +47,37 @@
   }
 }
 
-.header__search {
-  width: 60%;
-  
-  form {
-    margin-right: 20px;
-    border: 3px solid $point-color; 
-    font-size: $font-size-14;
+.search__input-box {
+  @extend %flex-row;
+
+  position: relative;
+  width: 70%;
+  padding: 6px 8px;
+
+  .search__input {
+    width: 90%;
   }
 
-  .search__category {
-    align-items: center;
-    width: 30%;
-    padding: 6px 8px;
-    border-right: 1px dotted $non-foucs-text-color;
-    color: $non-foucs-text-color;
+  .material-icons {
+    padding: 0 6px;
+    font-size: $icon-size-small;
     cursor: pointer;
   }
 
-  .search__input-box {
-    width: 70%;
-    padding: 6px 8px;
+  .icon-mic {
+    color: $non-foucs-text-color;
+  }
 
-    .search__input {
-      width: 90%;
-    }
-
-    .material-icons {
-      padding: 0 6px;
-      font-size: $icon-size-small;
-      cursor: pointer;
-    }
-
-    .icon-mic {
-      color: $non-foucs-text-color;
-    }
-
-    .icon-search {
-      color: $point-color;
-    }
+  .icon-search {
+    color: $point-color;
   }
 }
 
 .header__user-menu {
-  .flex-col {
+  @extend %flex-row;
+
+  li {
+    @extend %flex-col;
     padding: 0 14px;
     font-size: $font-size-12;
     cursor: pointer;
