@@ -97,6 +97,8 @@
 }
 
 .recent-search-area {
+  display: none;
+
   .recent-search-list-wrap {
     padding: 15px;
   }
@@ -114,18 +116,22 @@
       @include hover-decoration;
     }
   }
+}
 
-  .recent-search-menu {
-    color: $color-gray;
-    display: flex;
-    padding: 0 10px;
-    justify-content: space-between;
-    background-color: $color-silver;
-    border-top: color-line($color-lightgray);
-    border-bottom: color-line($color-lightgray);
+.recent-search-menu {
+  color: $color-gray;
+  display: flex;
+  padding: 0 10px;
+  justify-content: space-between;
+  background-color: $color-silver;
+  border-top: color-line($color-lightgray);
+  border-bottom: color-line($color-lightgray);
 
-    .menu-item {
-      line-height: $gray-bar-height;
+  .menu-item {
+    line-height: $gray-bar-height;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

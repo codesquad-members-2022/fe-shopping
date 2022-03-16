@@ -337,6 +337,10 @@ input {
   border-bottom: 1px solid #d6d6d6;
 }
 
+.recent-search-area {
+  display: none;
+}
+
 .recent-search-area .recent-search-list-wrap {
   padding: 15px;
 }
@@ -356,7 +360,7 @@ input {
   text-decoration: underline;
 }
 
-.recent-search-area .recent-search-menu {
+.recent-search-menu {
   color: #555;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -370,8 +374,12 @@ input {
   border-bottom: 1px solid #d6d6d6;
 }
 
-.recent-search-area .recent-search-menu .menu-item {
+.recent-search-menu .menu-item {
   line-height: 2.8rem;
+}
+
+.recent-search-menu .menu-item:hover {
+  text-decoration: underline;
 }
 
 .carousel-img-area {
