@@ -62,8 +62,10 @@ centerAlignment, .header__main .header__main--category, .search--toggle--ul .sea
   background-color: #f0f0f0; }
 
 .header__main__searchInterFace .header__main--inputMenu {
-  width: 140px;
+  width: 130px;
   height: 42px;
+  padding-left: 10px;
+  font-size: 13px;
   position: relative;
   border-right: 1.5px solid #4285f4; }
 
@@ -85,12 +87,10 @@ centerAlignment, .header__main .header__main--category, .search--toggle--ul .sea
 
 .header__main--inputMenuButton .search--menu--ul {
   width: 140px;
-  height: 0px;
   position: absolute;
   background-color: white;
   overflow: hidden;
-  z-index: 1;
-  transition: 1s; }
+  z-index: 1; }
   .header__main--inputMenuButton .search--menu--ul .search--menu--li {
     font-size: 10px;
     height: 10px;

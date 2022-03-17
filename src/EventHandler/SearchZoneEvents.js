@@ -1,5 +1,8 @@
 import * as domUtil from "/util/domutil.js";
-import { ToggleView } from "/View/ToggleView.js";
+import {
+  SearchInputToggleView,
+  SearchMenuToggleView,
+} from "/View/HeaderView.js";
 import { Toggle } from "/Components/Toggle.js";
 import { fetch_use } from "/util/fetchutil.js";
 
@@ -34,7 +37,7 @@ const test = new SearchZoneController(
   ".header__main--searchZone",
   ".header__main--inputMenu"
 );
-const viewTest = new ToggleView(".header__main--inputWrapper");
-const menuView = new ToggleView(".header__main--inputMenuButton");
+const viewTest = new SearchInputToggleView(".header__main--inputWrapper");
+const menuView = new SearchMenuToggleView(".header__main--inputMenuButton");
 
 test.initService();

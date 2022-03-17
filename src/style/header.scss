@@ -119,8 +119,10 @@ centerAlignment {
 
 .header__main__searchInterFace {
   .header__main--inputMenu {
-    @include getWH(140px, 42px);
+    @include getWH(130px, 42px);
     @extend rowDisplayAlignCenter;
+    padding-left: 10px;
+    font-size: 13px;
     position: relative;
     border-right: 1.5px solid $signatureColor;
   }
@@ -150,21 +152,20 @@ centerAlignment {
 .header__main--inputMenuButton {
   .search--menu--ul {
     width: 140px;
-    height: 0px;
+    // height: 0px;
     position: absolute;
     background-color: white;
     overflow: hidden;
     z-index: 1;
-    transition: 1s;
+    // transition: 1s;
     .search--menu--li {
-      // @extend centerAlignment;
       font-size: 10px;
       height: 10px;
       padding: 10px;
       border-bottom: 0.5px solid #f0f0f0;
     }
-    .search--menu--ul[data-dropdown="checked"] {
-      height: auto;
-    }
+    // .search--menu--ul[data-dropdown="checked"] {
+    //   height: auto;
+    // }
   }
 }
