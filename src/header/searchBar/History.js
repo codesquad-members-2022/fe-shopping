@@ -164,6 +164,9 @@ export class History {
   }
 
   setHistory(id, value) {
+    const isHistoryActive = this.getHistoryActivationState();
+    if (!isHistoryActive) return;
+
     const prevHistory = this.getHistory();
 
     const prevIds = Object.keys(prevHistory).filter((_id) => {
