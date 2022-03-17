@@ -3,7 +3,7 @@ const Keyword = (currentWord, keyword, id) => {
   const keywordArr = Array.from(keyword);
 
   return /* html */ `
-        <a href="#" class="search--link" data-id="${id}">
+        <a href="#" class="search--link text-none" data-id="${id}">
           ${keywordArr.reduce((prev, cur, index) => {
             return (prev +=
               currentWordArr[index] === keywordArr[index]
