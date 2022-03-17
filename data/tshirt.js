@@ -37,4 +37,9 @@ const tshirt = [
     { keyword: "나이키 티셔츠" },
 ];
 
-export { t, tshir, tshirt };
+const database = new Map();
+database.set("티", t);
+database.set("티셔", tshir);
+database.set("티셔츠", tshirt);
+
+export { database };

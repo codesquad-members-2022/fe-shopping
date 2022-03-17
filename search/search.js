@@ -1,5 +1,5 @@
 import { SearchList } from "./search-list.js";
-import { t, tshir, tshirt } from "../data/tshirt.js";
+import { database } from "../data/tshirt.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchRecentList = document.querySelector(".search__recent-list");
@@ -38,12 +38,10 @@ searchbar.addEventListener("focus", () => {
 });
 
 const getRelatedWord = (word) => {
-    if (word === "티") {
-        relatedSearchList.searchItems = t.map((it) => it.keyword);
-    } else if (word === "티셔") {
-        relatedSearchList.searchItems = tshir.map((it) => it.keyword);
-    } else if (word === "티셔츠") {
-        relatedSearchList.searchItems = tshirt.map((it) => it.keyword);
+    if (database.has(word)) {
+        relatedSearchList.searchItems = database
+            .get(word)
+            .map((it) => it.keyword);
     } else {
         return;
     }
