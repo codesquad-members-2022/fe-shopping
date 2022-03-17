@@ -40,3 +40,5 @@ export const fetchPostData = (path, keyword) => {
       console.error('Error:', error);
     });
 };
+
+export const delay = time => new Promise(resolve => setTimeout(resolve, time));
