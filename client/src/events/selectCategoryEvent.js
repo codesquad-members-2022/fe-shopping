@@ -1,24 +1,30 @@
-import { $, handleHeightBottomAnimate, handleHeightTopAnimate } from '../utils/util.js';
+import { $, delay, toggleClass } from '../utils/util.js';
 import { SearchCategory } from '../components/search/SearchCategory.js';
-import { searchCategoryData } from '../constants/data.js';
+import { mainCategory } from '../components/category/mainCategory.js';
+import { searchCategoryData, mainCategoryData } from '../constants/data.js';
 
 export const selectCategoryEvent = () => {
-  const selectCategoryBox = $('.main-header__category');
+  const selectCategoryBox = $('.category');
   const selectSearchCategoryBox = $('.search-selectBox');
 
   selectCategoryBox.addEventListener('mouseover', () => {
     // categroySelectBox 보여주기
+    const categoryList = $('.category-list');
+    if (categoryList) return;
+    selectCategoryBox.insertAdjacentHTML('beforeend', mainCategory(mainCategoryData));
   });
 
-  selectCategoryBox.addEventListener('mouseout', () => {
+  selectCategoryBox.addEventListener('mouseout', e => {
     // categroySelectBox 가 열려있으면 닫히게 하자
+    const categoryList = $('.category-list');
+    categoryList?.remove();
   });
 
-  selectSearchCategoryBox.addEventListener('click', ({ target }) => {
+  selectSearchCategoryBox.addEventListener('click', async ({ target }) => {
     // selectListBox : 카테고리 메뉴 Ul 영역
     const selectListUlBox = $('.search-list');
 
-    if (target.classList.contains('search-searchItem')) {
+    if (target.classList.contains('search-item')) {
       const dataId = target.getAttribute('data-id');
       const allBtn = $('.search--allBtn');
       allBtn.innerText = searchCategoryData[dataId];
@@ -27,26 +33,14 @@ export const selectCategoryEvent = () => {
 
     if (selectListUlBox === null) {
       selectSearchCategoryBox.insertAdjacentHTML('beforeend', SearchCategory(searchCategoryData));
-      selectSearchCategoryBox.classList.remove('search--off');
-      selectSearchCategoryBox.classList.add('search--on');
-
-      handleHeightBottomAnimate({
-        start: 0,
-        value: 100,
-        element: $('.search-list'),
-        height: 2000,
-      });
+      toggleClass(selectSearchCategoryBox, 'search--off search--on');
+      await delay(1);
+      toggleClass($('.search-list'), 'heightExpanded');
     } else {
-      handleHeightTopAnimate({
-        start: parseInt(getComputedStyle(selectListUlBox).maxHeight),
-        value: -200,
-        element: $('.search-list'),
-        parentElement: $('.search-selectBox'),
-        height: 0,
-      });
-
-      selectSearchCategoryBox.classList.remove('search--on');
-      selectSearchCategoryBox.classList.add('search--off');
+      toggleClass($('.search-list'), 'heightExpanded');
+      // await delay(1000);
+      // selectSearchCategoryBox.removeChild(selectListUlBox);
+      toggleClass(selectSearchCategoryBox, 'search--off search--on');
     }
   });
 };

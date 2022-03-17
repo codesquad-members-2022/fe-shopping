@@ -28,7 +28,7 @@
 
   &-selectBox {
     width: 134px;
-    height: 38px;
+    height: 42px;
     border-right: 1px solid #ddd;
     font-size: $font-12;
     cursor: pointer;
@@ -36,18 +36,22 @@
   }
 
   &-list {
-    max-height: 1px;
+    overflow-y: hidden;
+    max-height: 0;
+    transition: max-height 1s ease-out;
     margin-top: 12px;
     background-color: $color-white;
-    border: 1px solid $color-grey-light;
-    box-shadow: 0 4px 5px $color-grey-slight-dark;
-    overflow: hidden;
-    transition: max-height 0.1s cubic-bezier(0, 1, 0, 1);
+    border-left: 1px solid $color-grey-light;
+    border-right: 1px solid $color-grey-light;
+    border-bottom: 1px solid $color-grey-light;
+
+    &.heightExpanded {
+      max-height: 2000px;
+    }
   }
 
-  &-searchItem {
+  &-item {
     padding: 15px;
-
     &:hover {
       color: $color-blue-light;
       text-decoration: underline;
@@ -58,7 +62,10 @@
     padding: 15px 10px;
     font-size: $font-12;
     color: $color-grey-dark;
-    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &--same {
