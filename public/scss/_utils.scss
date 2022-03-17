@@ -1,13 +1,18 @@
 @import './colors';
 
 .btn {
-  cursor: pointer;
   background-color: $white;
   border: 0;
+  cursor: pointer;
 }
 
 .absolute-width-center {
-  position: absolute;
   left: 50%;
+  position: absolute;
   transform: translateX(-50%);
+}
+
+@mixin link-hover {
+  color: $category-text;
+  text-decoration: underline;
 }

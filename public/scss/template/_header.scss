@@ -8,28 +8,28 @@
   display: flex;
 
   &-gnb {
+    background-color: $white;
+    color: $white;
+    height: 115px;
     position: relative;
     width: 110px;
-    height: 115px;
-    color: $white;
-    background-color: $white;
 
     &__link {
-      display: block;
       cursor: default;
+      display: block;
     }
 
     &__text {
-      top: 65%;
       color: $white;
       cursor: pointer;
+      top: 65%;
     }
   }
 
   &-right {
-    width: 100%;
-    margin-top: 22px;
     margin-left: 40px;
+    margin-top: 22px;
+    width: 100%;
   }
 
   &-top {
@@ -38,8 +38,8 @@
   }
 
   &-logo {
-    margin-top: 3.5px;
     cursor: pointer;
+    margin-top: 3.5px;
   }
 
   &-bottom {
@@ -83,30 +83,29 @@
 }
 
 .search-form {
+  border: 3px solid $blue;
   display: flex;
   height: 40px;
   margin-left: 15px;
-  border: 3px solid $blue;
 
   .search-category {
-    width: 125px;
-    // margin-left: 10px;
     border-right: 1px solid $search-category-border;
+    width: 125px;
 
     &__link {
       display: block;
-      width: 100%;
       height: 100%;
-      padding-left: 10px;
       line-height: 34px;
+      padding-left: 10px;
+      width: 100%;
     }
   }
 
   .search-text {
-    width: 310px;
-    padding-left: 10px;
-    color: $search-text;
     border: 0;
+    color: $search-text;
+    padding-left: 10px;
+    width: 310px;
 
     &:focus {
       outline: none;

@@ -1,16 +1,16 @@
 @import '../colors';
 
 .bar-wrap {
-  padding: 10px 0;
   background-color: $bar-bg;
+  padding: 10px 0;
 }
 
 .bar {
   display: flex;
-  justify-content: space-between;
-  width: 1000px;
-  margin: 0 auto;
   font-size: 12px;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 1000px;
 
   &__list {
     display: flex;

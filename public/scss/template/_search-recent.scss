@@ -1,0 +1,47 @@
+@import '../colors';
+@import '../utils';
+
+.search-form {
+  position: relative;
+}
+
+.search-recent {
+  background-color: $white;
+  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+  position: absolute;
+  right: 0;
+  top: 34.5px;
+  visibility: hidden;
+  width: 365.5px;
+  z-index: 99999999999;
+
+  &__title {
+    font-size: 13px;
+    font-weight: bold;
+    color: $search-recent-text;
+    padding: 10px;
+    border-bottom: 1px solid $search-category-border;
+  }
+
+  &__list {
+    padding: 0 10px;
+  }
+
+  &__item {
+    margin: 10px 0;
+  }
+
+  &__link:hover {
+    @include link-hover;
+  }
+
+  &__footer {
+    font-size: 12px;
+    color: $search-recent-footer-text;
+    background-color: $bar-bg;
+    border-top: 1px solid $search-category-border;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+  }
+}

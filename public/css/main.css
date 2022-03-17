@@ -3,10 +3,10 @@
    License: none (public domain)
 */
 * {
-  font-family: sans-serif;
-  color: #333;
-  text-decoration: none;
   box-sizing: border-box;
+  color: #333;
+  font-family: sans-serif;
+  text-decoration: none;
 }
 
 html,
@@ -141,28 +141,28 @@ table {
 }
 
 .btn {
-  cursor: pointer;
   background-color: #fff;
   border: 0;
+  cursor: pointer;
 }
 
 .absolute-width-center {
-  position: absolute;
   left: 50%;
+  position: absolute;
   transform: translateX(-50%);
 }
 
 .bar-wrap {
-  padding: 10px 0;
   background-color: #f0f0f0;
+  padding: 10px 0;
 }
 
 .bar {
   display: flex;
-  justify-content: space-between;
-  width: 1000px;
-  margin: 0 auto;
   font-size: 12px;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 1000px;
 }
 .bar__list {
   display: flex;
@@ -185,33 +185,33 @@ table {
   display: flex;
 }
 .header-gnb {
+  background-color: #fff;
+  color: #fff;
+  height: 115px;
   position: relative;
   width: 110px;
-  height: 115px;
-  color: #fff;
-  background-color: #fff;
 }
 .header-gnb__link {
-  display: block;
   cursor: default;
+  display: block;
 }
 .header-gnb__text {
-  top: 65%;
   color: #fff;
   cursor: pointer;
+  top: 65%;
 }
 .header-right {
-  width: 100%;
-  margin-top: 22px;
   margin-left: 40px;
+  margin-top: 22px;
+  width: 100%;
 }
 .header-top {
   display: flex;
   justify-content: space-around;
 }
 .header-logo {
-  margin-top: 3.5px;
   cursor: pointer;
+  margin-top: 3.5px;
 }
 .header-bottom {
   margin-top: 20px;
@@ -247,27 +247,27 @@ table {
 }
 
 .search-form {
+  border: 3px solid #4285f4;
   display: flex;
   height: 40px;
   margin-left: 15px;
-  border: 3px solid #4285f4;
 }
 .search-form .search-category {
-  width: 125px;
   border-right: 1px solid #ddd;
+  width: 125px;
 }
 .search-form .search-category__link {
   display: block;
-  width: 100%;
   height: 100%;
-  padding-left: 10px;
   line-height: 34px;
+  padding-left: 10px;
+  width: 100%;
 }
 .search-form .search-text {
-  width: 310px;
-  padding-left: 10px;
-  color: #555;
   border: 0;
+  color: #555;
+  padding-left: 10px;
+  width: 310px;
 }
 .search-form .search-text:focus {
   outline: none;
@@ -282,18 +282,18 @@ table {
 }
 
 .carousel {
+  margin: 0 auto;
   position: relative;
   width: 1920px;
-  margin: 0 auto;
 }
 .carousel-imgs {
   background-size: cover;
 }
 .carousel-lnb {
-  position: absolute;
-  top: 50px;
-  right: 450px;
   background-color: #fff;
+  position: absolute;
+  right: 450px;
+  top: 50px;
 }
 .carousel-lnb__img {
   display: block;
@@ -313,41 +313,106 @@ table {
   border: 3px solid #4285f4;
 }
 
+.btn {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+
+.absolute-width-center {
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
 .search-category {
   position: relative;
 }
 
 .category {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  left: 0;
   position: absolute;
   top: 34.5px;
-  left: 0;
   z-index: 99999999999;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
 }
 .category__list {
-  width: 125px;
-  height: 0;
   background-color: #fff;
+  height: 0;
   transition: all 0.3s;
+  width: 125px;
 }
 .category__item {
-  width: 110px;
-  padding-left: 10px;
   line-height: 34px;
+  padding-left: 10px;
   visibility: hidden;
+  width: 110px;
 }
 .category__link {
-  display: block;
   cursor: pointer;
+  display: block;
 }
 .category__link:hover {
   color: #9cf;
   text-decoration: underline;
 }
 
+.btn {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+
+.absolute-width-center {
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.search-form {
+  position: relative;
+}
+
+.search-recent {
+  background-color: #fff;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  right: 0;
+  top: 34.5px;
+  visibility: hidden;
+  width: 365.5px;
+  z-index: 99999999999;
+}
+.search-recent__title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.search-recent__list {
+  padding: 0 10px;
+}
+.search-recent__item {
+  margin: 10px 0;
+}
+.search-recent__link:hover {
+  color: #9cf;
+  text-decoration: underline;
+}
+.search-recent__footer {
+  font-size: 12px;
+  color: #888;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+}
+
 .container {
-  width: 1000px;
   margin: 0 auto;
+  width: 1000px;
 }
 
 /*# sourceMappingURL=main.css.map */

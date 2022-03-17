@@ -1,23 +1,23 @@
 @import '../colors';
 
 .carousel-wrap {
-  background-color: #fafafa;
+  background-color: $carousel-wrap;
 }
 
 .carousel {
+  margin: 0 auto;
   position: relative;
   width: 1920px;
-  margin: 0 auto;
 
   &-imgs {
     background-size: cover;
   }
 
   &-lnb {
-    position: absolute;
-    top: 50px;
-    right: 450px;
     background-color: $white;
+    position: absolute;
+    right: 450px;
+    top: 50px;
 
     &__img {
       display: block;

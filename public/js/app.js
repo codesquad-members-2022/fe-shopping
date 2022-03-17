@@ -2,6 +2,7 @@ import { bar } from './template/bar.js';
 import { header } from './template/header.js';
 import { carousel } from './template/carousel.js';
 import { category } from './template/category.js';
+import { recentSearch } from './template/search-recent.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.querySelector('.wrap');
@@ -13,4 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const searchCategory = document.querySelector('.search-category');
   searchCategory.insertAdjacentHTML('beforeend', category);
+  const searchForm = document.querySelector('.search-form');
+  searchForm.insertAdjacentHTML('beforeend', recentSearch);
 });
