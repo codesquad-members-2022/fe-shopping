@@ -1,5 +1,11 @@
 import { delay, request } from "../../../../core/utils";
 
+const moveCursorToEnd = ($input, len) => {
+  delay(0).then(() => {
+    $input.setSelectionRange(len, len);
+  });
+};
+
 function handleInputFocusOut() {
   const { searchSuggestion, searchRecent } = this.$props;
   searchSuggestion.setState({ display: "none" });
@@ -18,13 +24,43 @@ function handleInputFocusIn() {
   }
 }
 
-function handleKeyupWithFocus({ target }) {
+function handleArrowKeydown({ key }) {
+  const $input = this.$target.querySelector("input");
+  const { searchSuggestion, searchRecent } = this.$props;
+  const {
+    state: { display: sgDisplay },
+  } = searchSuggestion;
+  const curLayout = sgDisplay === "flex" ? searchSuggestion : searchRecent;
+  const { selectedIndex } = curLayout.state;
+  const MAX_SEARCH_DATA = 9;
+  if (key === "ArrowDown") {
+    if (selectedIndex === MAX_SEARCH_DATA) return;
+    curLayout.setState({ selectedIndex: selectedIndex + 1 });
+    const selectedData = curLayout.getSelectedData();
+    $input.value = selectedData;
+  } else if (key === "ArrowUp") {
+    if (selectedIndex === 0) return;
+    curLayout.setState({ selectedIndex: selectedIndex - 1 });
+    const selectedData = curLayout.getSelectedData();
+    const inputValue =
+      selectedIndex - 1 !== 0 ? selectedData : this.state.inputData;
+    $input.value = inputValue;
+    moveCursorToEnd($input, inputValue.length);
+  }
+}
+
+function handleKeyupWithFocus({ target, key }) {
+  if (key === "ArrowDown" || key === "ArrowUp") {
+    return;
+  }
   const { searchSuggestion, searchRecent } = this.$props;
   this.state.inputData = target.value;
   if (target.value) {
     searchRecent.setState({ display: "none" });
+    searchRecent.setState({ selectedIndex: 0 });
   } else {
     searchSuggestion.setState({ display: "none" });
+    searchSuggestion.setState({ selectedIndex: 0 });
     searchRecent.setState({ display: "flex" });
     return;
   }
@@ -55,4 +91,9 @@ function handleKeyupWithFocus({ target }) {
   });
 }
 
-export { handleInputFocusIn, handleInputFocusOut, handleKeyupWithFocus };
+export {
+  handleInputFocusIn,
+  handleInputFocusOut,
+  handleArrowKeydown,
+  handleKeyupWithFocus,
+};

@@ -1,6 +1,7 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../core/oop-utils";
 import {
+  handleArrowKeydown,
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
@@ -25,16 +26,7 @@ SearchInput.prototype.setEvent = function () {
   );
   this.addEvent("focusin", "input[type='text']", handleInputFocusIn.bind(this));
   this.addEvent("keyup", "input[type='text']", handleKeyupWithFocus.bind(this));
-};
-
-SearchInput.prototype.mount = function () {
-  const $input = this.$target.querySelector("input");
-  const curInput = $input.value;
-  if (curInput) {
-    $input.focus();
-    $input.value = "";
-    $input.value = curInput;
-  }
+  this.addEvent("keydown", "input[type='text']", handleArrowKeydown.bind(this));
 };
 
 SearchInput.prototype.template = function () {
@@ -47,7 +39,6 @@ SearchInput.prototype.template = function () {
     <span class="input__icon">
         <i class="fas fa-search"></i>
     </span>
-
   `;
 };
 

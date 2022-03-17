@@ -147,5 +147,8 @@ i {
     .matchedWord {
       color: $baseBlue;
     }
+    .selected {
+      text-decoration: underline;
+    }
   }
 }

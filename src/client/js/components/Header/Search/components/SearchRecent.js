@@ -9,6 +9,7 @@ createExtendsRelation(SearchRecent, Component);
 SearchRecent.prototype.setup = function () {
   this.state = {
     display: "none",
+    selectedIndex: 0,
   };
 };
 

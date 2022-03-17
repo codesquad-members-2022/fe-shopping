@@ -20,11 +20,17 @@ const highlightWord = (string, word) => {
 
 SearchSuggestion.prototype.setup = function () {
   this.state = {
-    selected: -1,
+    selectedIndex: 0,
     suggestionDatas: [],
     word: "",
     display: "none",
   };
+};
+
+SearchSuggestion.prototype.getSelectedData = function () {
+  const $suggestionBody = this.$target.querySelector(".suggestion__body");
+  const $selected = $suggestionBody.querySelector(".selected");
+  return $selected ? $selected.textContent : null;
 };
 
 SearchSuggestion.prototype.mount = function () {
@@ -33,10 +39,15 @@ SearchSuggestion.prototype.mount = function () {
 };
 
 SearchSuggestion.prototype.template = function () {
-  const { suggestionDatas, word } = this.state;
+  const { suggestionDatas, word, selectedIndex } = this.state;
   const suggestions = suggestionDatas
     ? suggestionDatas
-        .map(({ keyword }) => `<span>${highlightWord(keyword, word)}</span>`)
+        .map(
+          ({ keyword }, idx) =>
+            `<span ${
+              idx + 1 === selectedIndex ? "class='selected'" : ""
+            }>${highlightWord(keyword, word)}</span>`
+        )
         .join("")
     : "";
   return `
