@@ -45,11 +45,20 @@ export class History {
   }
 
   init() {
+    const isHistoryActive = this.getHistoryActivationState();
+    if (!isHistoryActive) {
+      selector(`.${this.HISTORY_ONOFF_BTN}`).textContent = '최근검색어켜기';
+      this.setHistoryItems();
+    }
+
     this.renderHistoryItems();
     this.$historyList.addEventListener('click', this.handleClickDelBtn);
 
     const $clearBtn = selector(`.${this.HISTORY_CLEAR_BTN}`);
     $clearBtn.addEventListener('click', this.handleClickClearBtn);
+
+    const $onoffBtn = selector(`.${this.HISTORY_ONOFF_BTN}`);
+    $onoffBtn.addEventListener('click', this.handleClickActivateBtn);
   }
 
   /* **리스너*** */
@@ -66,6 +75,21 @@ export class History {
     this.removeHistory(itemId);
     this.removeHistoryItemElement($item);
   };
+
+  handleClickActivateBtn = (e) => {
+    const isHistoryActive = this.getHistoryActivationState();
+    const $onoffBtn = e.currentTarget;
+
+    this.setHistoryItems();
+    if (isHistoryActive) {
+      $onoffBtn.textContent = '최근검색어켜기';
+      this.setHistoryActivationState(false);
+      return;
+    }
+
+    $onoffBtn.textContent = '최근검색어끄기';
+    this.setHistoryActivationState(true);
+  };
   /* ********** */
 
   // handleSubmitForm = (itemId, keyword) => {
@@ -74,6 +98,20 @@ export class History {
   //   const $historyItem = this.createHistoryItemElement(itemId, keyword);
   //   this.$historyList.appendChild($historyItem);
   // };
+
+  setHistoryItems() {
+    const $historyList = this.$historyList;
+    const $historyWrapper = $historyList.parentNode;
+    const $historyTitle = selector(`.${this.HISTORY_TITLE}`, $historyWrapper);
+    const $historyOffTitle = selector(
+      `.${this.HISTORY_OFF_TITLE}`,
+      $historyWrapper
+    );
+
+    toggleClass(HIDDEN, $historyList);
+    toggleClass(HIDDEN, $historyTitle);
+    toggleClass(HIDDEN, $historyOffTitle);
+  }
 
   renderHistoryItems() {
     const history = this.getHistory(this.historyListKey);
@@ -162,5 +200,15 @@ export class History {
 
   clearHistory() {
     webStorage.clear(this.historyListKey);
+  }
+
+  setHistoryActivationState(bool) {
+    if (![true, false].includes(bool)) throw new Error();
+    webStorage.set(this.historyActivationKey, bool);
+  }
+
+  getHistoryActivationState() {
+    const isHistoryActive = webStorage.get(this.historyActivationKey);
+    return isHistoryActive ?? true;
   }
 }
