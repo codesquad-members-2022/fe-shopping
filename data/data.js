@@ -23,4 +23,6 @@ const searchCategories = [
   "로켓설치",
 ];
 
-export { searchCategories };
+const searchData = ["초코송이", "포카칩", "바지", "자켓", "지우개"];
+
+export { searchCategories, searchData };

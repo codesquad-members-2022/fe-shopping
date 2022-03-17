@@ -3,7 +3,7 @@ import {
   htmlString2htmlElement,
   targetQuerySelector,
 } from "./util/util.js";
-import { searchCategories } from "./data/data.js";
+import { searchCategories, searchData } from "./data/data.js";
 
 const $categories = createLiListTemplate(searchCategories);
 const $search__categories__container = htmlString2htmlElement({
@@ -14,7 +14,12 @@ const $search__categories__container = htmlString2htmlElement({
 
 $search__categories__container.style.visibility = "hidden";
 
+const $latestSearch__data = createLiListTemplate(searchData);
+
 const htmlString = `
+  <ul>
+    ${$latestSearch__data}
+  </ul>
   <button class="search__delete">전체삭제</button>
   <button class="current__search__off">최근검색어끄기</button>
 `;
