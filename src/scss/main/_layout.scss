@@ -133,12 +133,17 @@
     .select-toggle {
       width: 30px;
       height: 33px;
+      transform: rotate(360deg);
       @extend %flex-center;
       img {
         width: 50%;
         height: 50%;
       }
+      &.is-opened {
+        transform: rotate(180deg);
+      }
     }
+
     .select-category-list {
       width: 125px;
       max-height: 762px;
@@ -151,6 +156,9 @@
         background-color: blanchedalmond;
         height: 30px;
         cursor: pointer;
+      }
+      &.is-opened {
+        display: block;
       }
     }
   }

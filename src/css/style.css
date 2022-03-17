@@ -238,11 +238,18 @@ input:focus {
 .search-form .select-category-wrap .select-toggle {
   width: 30px;
   height: 33px;
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 
 .search-form .select-category-wrap .select-toggle img {
   width: 50%;
   height: 50%;
+}
+
+.search-form .select-category-wrap .select-toggle.is-opened {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .search-form .select-category-wrap .select-category-list {
@@ -258,6 +265,10 @@ input:focus {
   background-color: blanchedalmond;
   height: 30px;
   cursor: pointer;
+}
+
+.search-form .select-category-wrap .select-category-list.is-opened {
+  display: block;
 }
 
 .search-form .search-input-wrap {
