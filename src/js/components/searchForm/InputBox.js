@@ -6,10 +6,10 @@ class InputBox extends Component {
   setup() {
     this.$state = {
       value: '',
-      recentSearch: LocalStorageController.getData('recentSearch') || [],
+      searchHistory: LocalStorageController.getData('searchHistory') || [],
       autoComplete: [],
     };
-    LocalStorageController.subscribe('recentSearch', this);
+    LocalStorageController.subscribe('searchHistory', this);
   }
 
   template() {
@@ -19,16 +19,17 @@ class InputBox extends Component {
   }
 
   setEvent() {
-    this.addEvent('focus', '.input-box', () => {
-      if (!this.$state.recentSearch.length) return;
+    this.addEvent('focus', '.input', () => {
+      if (!this.$state.searchHistory.length) return;
       this.$props.renderBottomWindow('.bottom-window', {
         isTitle: true,
         isBtnGroup: true,
       });
     }, true);
 
-    this.addEvent('blur', '.input-box', () => {
-      if (this.$target.querySelector('.bottom-window').classList.contains('open')) LocalStorageController.unsubscribe('recentSearch');
+    this.addEvent('blur', '.input', (event) => {
+      if (event.relatedTarget) return;
+      if (this.$target.querySelector('.bottom-window').classList.contains('open')) LocalStorageController.unsubscribe('searchHistory');
       this.$props.removeBottomWindow('.bottom-window');
     }, true);
   }

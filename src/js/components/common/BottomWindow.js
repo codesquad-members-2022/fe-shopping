@@ -5,9 +5,9 @@ class BottomWindow extends Component {
 
   setup() {
     this.$state = {
-      windowList: this.$props.windowList || LocalStorageController.getData('recentSearch') || [],
+      windowList: this.$props.windowList || LocalStorageController.getData('searchHistory') || [],
     };
-    if (!this.$props.windowList) LocalStorageController.subscribe('recentSearch', this);
+    if (!this.$props.windowList) LocalStorageController.subscribe('searchHistory', this);
   }
 
   template() {
@@ -19,12 +19,25 @@ class BottomWindow extends Component {
                       .join('')}
                 </ol>
                 ${this.$props.isBtnGroup ?
-                `<div class="recent-search-btn-group">
-                  <button type="button">전체삭제</button>
-                  <button type="button">최근검색어끄기</button>
+                `<div class="search-history-btn-group">
+                  <button type="button" class="clear-btn">전체삭제</button>
+                  <button type="button" class="toggle-history-btn">최근검색어끄기</button>
                 </div>` : ''}
               </div>`;
   }
+
+  setEvent() {
+    this.addEvent('click', '.clear-btn', () => {
+      LocalStorageController.clearData('searchHistory');
+    })
+
+    this.addEvent('focusout', '.bottom-window', () => {
+      if (this.$target.classList.contains('open')) LocalStorageController.unsubscribe('searchHistory');
+      this.$target.classList.remove('open');
+      this.$target.innerHTML = '';
+    }, true);
+  }
+
 
   mounted() {
     this.$target.classList.add('open');

@@ -285,7 +285,7 @@ body {
   left: 0;
   display: none;
   width: 100%;
-  z-index: 100;
+  z-index: 1;
   border: 1px solid #ddd;
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3); }
@@ -315,7 +315,7 @@ body {
 .input-box .bottom-window .list-item:last-child {
   margin-bottom: 15px; }
 
-.input-box .bottom-window .recent-search-btn-group {
+.input-box .bottom-window .search-history-btn-group {
   position: absolute;
   bottom: -25px;
   left: -1px;

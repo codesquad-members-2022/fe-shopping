@@ -322,7 +322,7 @@ body {
   left: 0;
   display: none;
   width: 100%;
-  z-index: 100;
+  z-index: 1;
   border: 1px solid $border-lightgray;
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
@@ -371,7 +371,7 @@ body {
     margin-bottom: 15px;
   }
 
-  .recent-search-btn-group {
+  .search-history-btn-group {
     position: absolute;
     bottom: -25px;
     left: -1px;

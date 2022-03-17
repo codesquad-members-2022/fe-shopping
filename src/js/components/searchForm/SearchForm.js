@@ -15,7 +15,7 @@ class SearchForm extends Component {
     this.addEvent('submit', '.search-form', (event) => {
       event.preventDefault();
       const inputValue = event.target.querySelector('.input').value;
-      LocalStorageController.addData('recentSearch', {
+      LocalStorageController.addData('searchHistory', {
         item: inputValue,
         link: '#',
       });
