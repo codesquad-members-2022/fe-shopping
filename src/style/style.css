@@ -47,7 +47,6 @@ button {
     position: absolute;
     left: -18px;
     display: inline-block;
-    background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
     background-repeat: no-repeat; }
 
 body {
@@ -284,11 +283,14 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
+  display: none;
   width: 100%;
   z-index: 100;
   border: 1px solid #ddd;
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3); }
+  .bottom-window.open {
+    display: block; }
   .bottom-window .window-contents {
     padding: 10px; }
   .bottom-window .window-list {

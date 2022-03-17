@@ -320,11 +320,16 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
+  display: none;
   width: 100%;
   z-index: 100;
   border: 1px solid $border-lightgray;
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+
+  &.open {
+    display: block;
+  }
 
   .window-contents {
     padding: 10px;

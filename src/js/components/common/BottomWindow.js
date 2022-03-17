@@ -3,8 +3,7 @@ import Component from '../../core/Component.js';
 class BottomWindow extends Component {
 
   template() {
-    return `<div class="bottom-window">
-              <div class="window-contents">
+    return `<div class="window-contents">
                 ${this.$props.isTitle ? '<h3 class="window-title">최근 검색어</h3>' : ''}
                 <ol class="window-list">
                   ${this.$props.windowList
@@ -16,10 +15,12 @@ class BottomWindow extends Component {
                   <button type="button">전체삭제</button>
                   <button type="button">최근검색어끄기</button>
                 </div>` : ''}
-              </div>
-            </div>`;
+              </div>`;
   }
 
+  mounted() {
+    this.$target.classList.add('open');
+  }
 }
 
 export default BottomWindow;

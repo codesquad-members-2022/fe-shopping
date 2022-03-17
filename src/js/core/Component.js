@@ -15,7 +15,7 @@ Component.prototype.template = function() {
 Component.prototype.mounted = function() {};
 
 Component.prototype.render = function() {
-  this.$target.insertAdjacentHTML('beforeend', this.template());
+  this.$target.innerHTML = this.template();
   this.mounted();
 };
 
