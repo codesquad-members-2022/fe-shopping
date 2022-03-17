@@ -1,25 +1,26 @@
 import { $ } from '../../utility/util.js';
 import { addEvent } from '../../utility/util.js';
-import History from './history.js';
-import AutoComplete from './autoComplete.js';
+import recentWords from './recent-words.js';
+import Autocomplete from './autocomplete.js';
 
 export default class InputEvent {
   constructor() {
-    this.history = new History();
-    this.autoComplete = new AutoComplete();
+    this.recentWords = new recentWords();
+    this.autoComplete = new Autocomplete();
   }
 
   addInputEvent() {
     const $searchInput = $('.search-input');
     addEvent($searchInput, 'focus', this.drawHistoryContents);
     addEvent($searchInput, 'blur', this.nodrawHistoryContents);
+    addEvent($searchInput, 'keyup', this.drawAutocomplete);
   }
 
-  drawHistoryContents = () => {
-    this.history.showRecentSearches();
-  };
+  drawHistoryContents = () => this.recentWords.showRecentSearches();
+  nodrawHistoryContents = () => this.recentWords.noShowRecentSearches();
 
-  nodrawHistoryContents = () => {
-    this.history.noShowRecentSearches();
+  drawAutocomplete = () => {
+    this.nodrawHistoryContents();
+    this.Autocomplete.showAutocomplete();
   };
 }
