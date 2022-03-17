@@ -81,3 +81,13 @@ export const webStorage = {
     localStorage.removeItem(key);
   },
 };
+
+export const debounce = (cb, delay) => {
+  let timerId;
+  return (event) => {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(cb, delay, event);
+  };
+};
