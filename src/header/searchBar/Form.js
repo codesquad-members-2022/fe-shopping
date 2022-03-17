@@ -1,4 +1,9 @@
-import { selector, removeClass, debounce } from '../../utils/utils.js';
+import {
+  selector,
+  addClass,
+  removeClass,
+  debounce,
+} from '../../utils/utils.js';
 
 import { History } from './History.js';
 import { AutoComplete } from './AutoComplete.js';
@@ -9,6 +14,7 @@ const SUBMIT = 'search-bar-submit';
 const FORM_POPUP_BOX = 'search-bar-form-popup-box';
 const HIDDEN = 'hidden';
 
+const HISTORY_BOX = 'history';
 const HISTORY_TITLE = 'history-title';
 const HISTORY_OFF_TITLE = 'history-off-title';
 const HISTORY_LIST = 'history-list';
@@ -18,9 +24,11 @@ const HISTORY_ITEM_DELETE_BTN = 'history-item-delete';
 const HISTORY_CLEAR_BTN = 'history-clear-btn';
 const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
+const AUTO_COMPLETE_BOX = 'auto-complete';
 const AUTO_COMPLETE_LIST = 'auto-complete-list';
 
-const debounceDelay = 500;
+const autoCompleteDelay = 500;
+const popupboxDelay = 500;
 
 export class SearchBarForm {
   constructor() {
@@ -32,7 +40,8 @@ export class SearchBarForm {
 
     this.history = this.initHistory();
     this.autoComplete = this.initAutoComplete();
-    this.debounceDelay = debounceDelay;
+    this.autoCompleteDelay = autoCompleteDelay;
+    this.popupboxDelay = popupboxDelay;
     this.init();
   }
 
@@ -44,7 +53,12 @@ export class SearchBarForm {
     this.$form.addEventListener('submit', this.handleSubmit);
     this.$input.addEventListener(
       'keyup',
-      debounce(this.handleKeyup, this.debounceDelay)
+      debounce(this.handleKeyup, this.autoCompleteDelay)
+    );
+
+    this.$input.addEventListener(
+      'keyup',
+      debounce(this.setPopupbox, this.popupboxDelay)
     );
   }
 
@@ -88,6 +102,19 @@ export class SearchBarForm {
   handleKeyup = (e) => {
     const inputKeyword = e.target.value;
     this.autoComplete.renderACKeywords(inputKeyword);
+  };
+
+  setPopupbox = (e) => {
+    const inputKeyword = e.target.value;
+    const $autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`, this.$form);
+    const $historyBox = selector(`.${HISTORY_BOX}`, this.$form);
+    if (inputKeyword.length < 1) {
+      addClass(HIDDEN, $autoCompleteBox);
+      removeClass(HIDDEN, $historyBox);
+      return;
+    }
+    addClass(HIDDEN, $historyBox);
+    removeClass(HIDDEN, $autoCompleteBox);
   };
   /* ********** */
 }

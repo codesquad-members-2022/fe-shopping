@@ -1,4 +1,16 @@
 {
+  "ㅇ": {
+    "0": { "keyword": "오뚜기밥" },
+    "1": { "keyword": "에어팟 프로" },
+    "2": { "keyword": "오뚜기밥" },
+    "3": { "keyword": "아이폰 13 pro" },
+    "4": { "keyword": "에어팟" },
+    "5": { "keyword": "아이폰 13" },
+    "6": { "keyword": "유산균" },
+    "7": { "keyword": "오메가3" },
+    "8": { "keyword": "아몬드브리즈" },
+    "9": { "keyword": "에어팟 3세대" }
+  },
   "아": {
     "0": { "keyword": "아이폰 13 pro" },
     "1": { "keyword": "아몬드브리즈" },
@@ -58,5 +70,137 @@
     "7": { "keyword": "아이폰13 필름" },
     "8": { "keyword": "아이폰 13 pro 필름" },
     "9": { "keyword": "아이폰13 128" }
+  },
+  "아이폰 13": {
+    "0": { "keyword": "아이폰 13 pro" },
+    "1": { "keyword": "아이폰13 미니" },
+    "2": { "keyword": "아이폰13 pro max" },
+    "3": { "keyword": "아이폰 13" },
+    "4": { "keyword": "아이폰13 자급제" },
+    "5": { "keyword": "아이폰 13 pro 케이스" },
+    "6": { "keyword": "아이폰13 케이스" },
+    "7": { "keyword": "아이폰13 필름" },
+    "8": { "keyword": "아이폰 13 pro 필름" },
+    "9": { "keyword": "아이폰13 128" }
+  },
+  "아이폰13 p": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰 13 pro" },
+    "2": { "keyword": "아이폰 13 pro 자급제" },
+    "3": { "keyword": "아이폰13 pro 카메라 보호필름" },
+    "4": { "keyword": "아이폰 13 pro 케이스" },
+    "5": { "keyword": "아이폰 13 pro 256" },
+    "6": { "keyword": "아이폰13 pro max 256" },
+    "7": { "keyword": "아이폰 13 pro 128" },
+    "8": { "keyword": "아이폰 13 pro 512" },
+    "9": { "keyword": "아이폰 13 pro 강화유리" }
+  },
+  "아이폰 13 p": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰 13 pro" },
+    "2": { "keyword": "아이폰 13 pro 자급제" },
+    "3": { "keyword": "아이폰13 pro 카메라 보호필름" },
+    "4": { "keyword": "아이폰 13 pro 케이스" },
+    "5": { "keyword": "아이폰 13 pro 256" },
+    "6": { "keyword": "아이폰13 pro max 256" },
+    "7": { "keyword": "아이폰 13 pro 128" },
+    "8": { "keyword": "아이폰 13 pro 512" },
+    "9": { "keyword": "아이폰 13 pro 강화유리" }
+  },
+  "아이폰13 pr": {
+    "0": { "keyword": "아이폰 13 pro" },
+    "1": { "keyword": "아이폰13 pro max" },
+    "2": { "keyword": "아이폰 13 pro 케이스" },
+    "3": { "keyword": "아이폰 13 pro 강화유리" },
+    "4": { "keyword": "아이폰 13 pro 필름" },
+    "5": { "keyword": "아이폰 13 pro 자급제" },
+    "6": { "keyword": "아이폰13 pro max 강화유리" },
+    "7": { "keyword": "아이폰 13 pro 256" },
+    "8": { "keyword": "아이폰13 pro max 256" },
+    "9": { "keyword": "아이폰 13 pro 128" }
+  },
+  "아이폰 13 pr": {
+    "0": { "keyword": "아이폰 13 pro" },
+    "1": { "keyword": "아이폰13 pro max" },
+    "2": { "keyword": "아이폰 13 pro 케이스" },
+    "3": { "keyword": "아이폰 13 pro 강화유리" },
+    "4": { "keyword": "아이폰 13 pro 필름" },
+    "5": { "keyword": "아이폰 13 pro 자급제" },
+    "6": { "keyword": "아이폰13 pro max 강화유리" },
+    "7": { "keyword": "아이폰 13 pro 256" },
+    "8": { "keyword": "아이폰13 pro max 256" },
+    "9": { "keyword": "아이폰 13 pro 128" }
+  },
+  "아이폰13 pro": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰 13 pro 256" },
+    "2": { "keyword": "아이폰 13 pro 자급제" },
+    "3": { "keyword": "아이폰 13 pro 케이스" },
+    "4": { "keyword": "아이폰 13 pro 강화유리" },
+    "5": { "keyword": "아이폰13 pro 카메라 보호필름" },
+    "6": { "keyword": "아이폰 13 pro 필름" },
+    "7": { "keyword": "아이폰 13 pro 512" },
+    "8": { "keyword": "아이폰 13 pro" },
+    "9": { "keyword": "아이폰13 pro max 케이스" }
+  },
+  "아이폰 13 pro": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰 13 pro 256" },
+    "2": { "keyword": "아이폰 13 pro 자급제" },
+    "3": { "keyword": "아이폰 13 pro 케이스" },
+    "4": { "keyword": "아이폰 13 pro 강화유리" },
+    "5": { "keyword": "아이폰13 pro 카메라 보호필름" },
+    "6": { "keyword": "아이폰 13 pro 필름" },
+    "7": { "keyword": "아이폰 13 pro 512" },
+    "8": { "keyword": "아이폰 13 pro" },
+    "9": { "keyword": "아이폰13 pro max 케이스" }
+  },
+  "아이폰13 pro m": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰13 pro max 케이스" },
+    "2": { "keyword": "아이폰13 pro max 256" },
+    "3": { "keyword": "아이폰13 pro max 강화유리" },
+    "4": { "keyword": "아이폰13 pro max 자급제" },
+    "5": { "keyword": "아이폰 13 promax 카메라필름" },
+    "6": { "keyword": "아이폰13 pro max 필름" },
+    "7": { "keyword": "아이폰13 pro max 128" },
+    "8": { "keyword": "아이폰13 pro max 512" },
+    "9": { "keyword": "아이폰13 pro max 카메라 보호필름" }
+  },
+  "아이폰 13 pro m": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰13 pro max 케이스" },
+    "2": { "keyword": "아이폰13 pro max 256" },
+    "3": { "keyword": "아이폰13 pro max 강화유리" },
+    "4": { "keyword": "아이폰13 pro max 자급제" },
+    "5": { "keyword": "아이폰 13 pro max 카메라필름" },
+    "6": { "keyword": "아이폰13 pro max 필름" },
+    "7": { "keyword": "아이폰13 pro max 128" },
+    "8": { "keyword": "아이폰13 pro max 512" },
+    "9": { "keyword": "아이폰13 pro max 카메라 보호필름" }
+  },
+  "아이폰13 pro ma": {
+    "0": { "keyword": "아이폰13 pro max" },
+    "1": { "keyword": "아이폰13 pro max 케이스" },
+    "2": { "keyword": "아이폰13 pro max 256" },
+    "3": { "keyword": "아이폰13 pro max 필름" },
+    "4": { "keyword": "아이폰13 pro max 자급제" },
+    "5": { "keyword": "아이폰 13 pro max 카메라필름" },
+    "6": { "keyword": "아이폰13 pro max 128" },
+    "7": { "keyword": "아이폰13 pro max 512" },
+    "8": { "keyword": "아이폰13 pro max 강화유리" },
+    "9": { "keyword": "아이폰13 pro max 카메라 보호필름" }
+  },
+  "아이폰13 pro max": {
+    "0": { "keyword": "아이폰13 pro max 256" },
+    "1": { "keyword": "아이폰13 pro max 자급제" },
+    "2": { "keyword": "아이폰13 pro max 케이스" },
+    "3": { "keyword": "아이폰13 pro max 강화유리" },
+    "4": { "keyword": "아이폰13 pro max 128" },
+    "5": { "keyword": "아이폰13 pro max 필름" },
+    "6": { "keyword": "아이폰 13 promax 카메라필름" },
+    "7": { "keyword": "아이폰13 pro max 512" },
+    "8": { "keyword": "아이폰13 pro max" },
+    "9": { "keyword": "아이폰13 pro max 카메라 보호필름" }
   }
 }
