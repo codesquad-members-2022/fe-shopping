@@ -19,6 +19,90 @@
   list-style: none;
 }
 
+.latest-search-keyword > .latest-search-contents > h3, .latest-search-keyword > .searched-items > a {
+  color: #333;
+}
+
+.latest-search-keyword {
+  position: absolute;
+  width: 376px;
+  height: 328px;
+  display: block;
+  top: 107px;
+  left: 478px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
+          box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
+  overflow: hidden;
+  padding-right: 0;
+  background: #fff;
+  border-left: 1px solid #ccc;
+}
+
+.latest-search-keyword > .latest-search-contents > h3 {
+  width: 360px;
+  height: 11px;
+  display: block;
+  padding: 14px 0 13px 4px;
+  margin: 0 6px;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.latest-search-keyword > .searched-items {
+  padding: 20px 12px 6px 12px;
+  margin: 0;
+}
+
+.latest-search-keyword > .searched-items > a {
+  display: block;
+  line-height: 200%;
+}
+
+.latest-search-keyword > .searched-items > a > .related-word {
+  color: rgba(5, 5, 255, 0.767);
+}
+
+.history-btns > .delete-all-history-btn, .history-btns > .history-onoff {
+  color: #888;
+  line-height: 30px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.history-btns {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: absolute;
+  width: 378px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 435px;
+  left: 478px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
+          box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
+  padding: 0 12px;
+  margin: 0;
+  background-color: #f5f5f5;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.up {
+  display: block;
+}
+
+.down {
+  display: none;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -55,14 +139,22 @@ body, .select-category {
 
 .header {
   width: 1020px;
-  position: relative;
   height: 115px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
   padding-top: 32px;
   background: #fff;
   margin: auto auto;
 }
 
 .sticky-wrapper-content > h1 {
+  width: 41px;
+  height: 174px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   height: 41px;
   width: 174px;
   margin: 2px 20px 0 0;
@@ -70,8 +162,11 @@ body, .select-category {
 
 .headerSearchForm > input {
   width: 310px;
-  padding-right: 23px;
   height: 37px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-right: 23px;
   background: #fff;
   padding: 0;
   border: 0;
@@ -84,6 +179,9 @@ body, .select-category {
 .headerSearchForm > .speech-content-mic {
   width: 26px;
   height: 26px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   background: url("//img1a.coupangcdn.com/image/coupang/common/ic_mic.png") 3px 1px no-repeat;
   background-size: 20px 48px;
   text-indent: -99px;
@@ -148,10 +246,15 @@ body, .select-category {
   width: 30px;
 }
 
+.latest-search-keyword > .latest-search-contents > h3, .latest-search-keyword > .searched-items > a {
+  color: #333;
+}
+
 .latest-search-keyword {
   position: absolute;
   width: 376px;
   height: 328px;
+  display: block;
   top: 107px;
   left: 478px;
   border: 1px solid #ddd;
@@ -160,24 +263,33 @@ body, .select-category {
           box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
   overflow: hidden;
   padding-right: 0;
-  display: block;
   background: #fff;
   border-left: 1px solid #ccc;
 }
 
-.latest-search-keyword > h3 {
+.latest-search-keyword > .latest-search-contents > h3 {
+  width: 360px;
   height: 11px;
-  margin: 0 6px;
+  display: block;
   padding: 14px 0 13px 4px;
-  color: #333;
+  margin: 0 6px;
   position: relative;
   border-bottom: 1px solid #ddd;
   font-size: 12px;
-  display: block;
 }
 
 .latest-search-keyword > .searched-items {
   padding: 20px 12px 6px 12px;
+  margin: 0;
+}
+
+.latest-search-keyword > .searched-items > a {
+  display: block;
+  line-height: 200%;
+}
+
+.latest-search-keyword > .searched-items > a > .related-word {
+  color: rgba(5, 5, 255, 0.767);
 }
 
 .history-btns > .delete-all-history-btn, .history-btns > .history-onoff {
@@ -191,7 +303,11 @@ body, .select-category {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   position: absolute;
+  width: 378px;
   height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   top: 435px;
   left: 478px;
   border: 1px solid #ddd;
@@ -199,13 +315,18 @@ body, .select-category {
   -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
           box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
   padding: 0 12px;
+  margin: 0;
   background-color: #f5f5f5;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 378px;
+}
+
+.up {
+  display: block;
+}
+
+.down {
+  display: none;
 }
 /*# sourceMappingURL=main.css.map */
