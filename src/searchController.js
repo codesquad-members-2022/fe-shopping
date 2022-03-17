@@ -1,11 +1,14 @@
-import { createStrongLists } from "./templates.js";
-import { renderFormSearchLists } from "./render.js";
+import { createStrongList } from "./templates.js";
+import { renderFormSearchList } from "./render.js";
 
 export class SearchController {
     constructor() {
         this.$input = document.querySelector('.header__form__search')
         this.$searchList = document.querySelector('.header__search__list')
         this.timer = null
+        this.state = null
+        this.prefixListElements = null
+        this.prefixListIndex = null
     }
 
     initSearchController() {
@@ -14,10 +17,75 @@ export class SearchController {
 
     setEvent() {
         this.$input.addEventListener('input', (e) => this.searchInputHandler(e))
+        this.$input.addEventListener('click', (e) => this.searchClickHandler(e))
         this.$input.addEventListener('focusout', (e) => this.searchFocusoutHandler(e))
+        this.$input.addEventListener('keydown', (e) => this.searchKeydownHandler(e))
+    }
+
+    setState(state) {
+        this.state = state
+    }
+
+    setPrefixListElements() {
+        const $headerSearchList = document.querySelector('.header__search__list')
+        this.prefixListElements = [...$headerSearchList.children]
+    }
+
+    searchKeydownHandler(e) {
+        console.log(this.state)
+        if(!this.state) return
+        if(e.key === 'ArrowDown') {
+            this.downPrefixList()
+        }
+        else if(e.key === 'ArrowUp') {
+            this.upPrefixList()
+        }
+        else {
+            this.prefixListIndex = null
+        }
+    }
+
+    upPrefixList() {
+        if(this.prefixListIndex === null) {
+            this.prefixListIndex = this.prefixListElements.length
+        }
+        this.prefixListIndex -= 1
+        if(this.prefixListIndex < 0) {
+            this.prefixListIndex = this.prefixListElements.length - 1
+        }
+
+        this.removeKeyOn()
+        this.addKeyOn(this.prefixListIndex)
+    }
+
+    downPrefixList() {
+        if(this.prefixListIndex === null) {
+            this.prefixListIndex = -1
+        }
+        this.prefixListIndex += 1
+        if(this.prefixListIndex > this.prefixListElements.length - 1) {
+            this.prefixListIndex = 0
+        }
+
+        this.removeKeyOn()
+        this.addKeyOn(this.prefixListIndex)
+    }
+
+    addKeyOn(index) {
+        const targetElement = this.prefixListElements[index]
+        targetElement.classList.add('key-on')
+    }
+
+    removeKeyOn() {
+        this.prefixListElements.forEach(element => {
+            if(element.classList.contains('key-on')){
+                element.classList.remove('key-on')
+            }
+        })
     }
 
     searchFocusoutHandler(e) {
+        this.setState(false)
         this.addVisibilityHidden()
     }
 
@@ -25,31 +93,48 @@ export class SearchController {
         this.$searchList.classList.add('visibility-hidden')
     }
 
-    searchFocusHandler(e) {
+    searchClickHandler(e) {
+        this.setState(true)
+        this.reRenderPrefixList()
+    }
+
+    reRenderPrefixList() {
+        if(!this.prefixListElements) return;
+        const searchListsTemplate = this.prefixListElements.reduce((acc, cur) => {
+            return acc + cur.outerHTML}, ``)
+        renderFormSearchList(searchListsTemplate)
         this.removeVisibilityHidden()
+        this.setPrefixListElements()
     }
 
     searchInputHandler(e) {
+        this.setState(true)
         const inputWord = e.target.value
         if(inputWord.length > 0) {
-            this.showPrefixLists(inputWord)
+            this.searchPrefixLists(inputWord)
             this.removeVisibilityHidden()
         }
         else this.addVisibilityHidden()
     }
 
-    showPrefixLists(word) {
+    searchPrefixLists(word) {
         const highlightLength = word.length
-        this.fetchPrefixLists(word)
+        this.fetchPrefixList(word)
             .then((prefixArr) => {
-                console.log(prefixArr)
-                const splitPrefixArr = prefixArr.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
-                const searchListsTemplate = createStrongLists(splitPrefixArr)
-                renderFormSearchLists(searchListsTemplate)
+                if(prefixArr.length === 0) return this.addVisibilityHidden()
+
+                this.highlightPrefixList(prefixArr, highlightLength)
+                this.setPrefixListElements()
             })
     }
 
-    fetchPrefixLists(word) {
+    highlightPrefixList(prefixList, highlightLength) {
+        const splitPrefixArr = prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
+        const searchListsTemplate = createStrongList(splitPrefixArr)
+        renderFormSearchList(searchListsTemplate)
+    }
+
+    fetchPrefixList(word) {
         if(this.timer) {
             clearTimeout(this.timer)
         }
@@ -60,7 +145,6 @@ export class SearchController {
             .then((res) => res.json())
             .then((data) => data.suggestions.map((v) => v.value))
     }
-
 
     removeVisibilityHidden(e) {
         this.$searchList.classList.remove('visibility-hidden')

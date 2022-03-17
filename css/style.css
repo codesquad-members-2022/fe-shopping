@@ -229,6 +229,10 @@
   font-weight: bold;
 }
 
+.key-on {
+  background-color: blanchedalmond;
+}
+
 .icon-menus {
   font-size: 12px;
   float: left;

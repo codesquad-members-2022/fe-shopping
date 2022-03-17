@@ -1,7 +1,7 @@
 
 function createTopBar(menu, submenu) {
-    const menuTemplate = createLists(menu)
-    const submenuTemplate = createLists(submenu)
+    const menuTemplate = createList(menu)
+    const submenuTemplate = createList(submenu)
     return `<article class="top-bar">
             <section>
                 <menu class="top-bar__menu">
@@ -14,19 +14,19 @@ function createTopBar(menu, submenu) {
         </article>`
 }
 
-function createLists(listArray) {
+function createList(listArray) {
     return listArray.reduce((acc, cur) => {
         return acc + `<li><a>${cur}</a></li>`
     }, ``)
 }
 
-function createStrongLists(listArray) {
+function createStrongList(listArray) {
     return listArray.reduce((acc, cur) => {
         return acc + `<li><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
 }
 
 function createHeader(navMenu) {
-    const navigationList = createLists(navMenu)
+    const navigationList = createList(navMenu)
     return `<header id="header">
         <div class="header__category-btn"><p>카테고리</p></div>
         <section>
@@ -66,7 +66,7 @@ function createHeader(navMenu) {
 }
 
 function createSelectList(list) {
-    const selectList = createLists(list)
+    const selectList = createList(list)
     return `<ul class="header__select__list visibility-hidden">
             ${selectList}
             </ul>`
@@ -77,5 +77,5 @@ function createSearchListContainer() {
             </ul>`
 }
 
-export { createLists, createTopBar, createSelectList, createHeader, createSearchListContainer, createStrongLists }
+export { createList, createTopBar, createSelectList, createHeader, createSearchListContainer, createStrongList }
 

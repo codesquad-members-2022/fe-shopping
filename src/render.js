@@ -35,10 +35,10 @@ function renderFormSearchContainer() {
 
 }
 
-function renderFormSearchLists(template) {
+function renderFormSearchList(template) {
     const $formSearchList = document.querySelector('.header__search__list')
 
     $formSearchList.innerHTML = template
 }
 
-export { renderHeader, renderFormSearchContainer, renderFormSearchLists }
+export { renderHeader, renderFormSearchContainer, renderFormSearchList }

@@ -241,6 +241,10 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
   }
 }
 
+.key-on {
+  background-color: blanchedalmond;
+}
+
 .icon-menus {
   font-size: map-get($header-font, small);
   float: left;
