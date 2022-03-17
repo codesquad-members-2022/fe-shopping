@@ -1,12 +1,20 @@
 import Component from '../../core/Component.js';
+import LocalStorageController from '../../localStorageController.js';
 
 class BottomWindow extends Component {
+
+  setup() {
+    this.$state = {
+      windowList: this.$props.windowList || LocalStorageController.getData('recentSearch') || [],
+    };
+    if (!this.$props.windowList) LocalStorageController.subscribe('recentSearch', this);
+  }
 
   template() {
     return `<div class="window-contents">
                 ${this.$props.isTitle ? '<h3 class="window-title">최근 검색어</h3>' : ''}
                 <ol class="window-list">
-                  ${this.$props.windowList
+                  ${this.$state.windowList
                       .map((item) => `<li class="list-item"><a href="${item.link}">${item.item}</a></li>`)
                       .join('')}
                 </ol>

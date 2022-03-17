@@ -2,12 +2,24 @@ import Component from '../../core/Component.js';
 import SelectBox from './SelectBox.js';
 import InputBox from './InputBox.js';
 import BottomWindow from '../common/BottomWindow.js';
+import LocalStorageController from '../../localStorageController.js';
 
 class SearchForm extends Component {
 
   template() {
     return `<div class="select-box"></div>
             <div class="input-box"></div>`;
+  }
+
+  setEvent() {
+    this.addEvent('submit', '.search-form', (event) => {
+      event.preventDefault();
+      const inputValue = event.target.querySelector('.input').value;
+      LocalStorageController.addData('recentSearch', {
+        item: inputValue,
+        link: '#',
+      });
+    });
   }
 
   mounted() {

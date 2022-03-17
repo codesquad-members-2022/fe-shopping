@@ -1,13 +1,15 @@
 import Component from '../../core/Component.js';
+import LocalStorageController from '../../localStorageController.js';
 
 class InputBox extends Component {
 
   setup() {
     this.$state = {
       value: '',
-      recentSearch: [{ item: '아이폰', link: '#' }, { item: '갤럭시', link: '#' }],
+      recentSearch: LocalStorageController.getData('recentSearch') || [],
       autoComplete: [],
     };
+    LocalStorageController.subscribe('recentSearch', this);
   }
 
   template() {
@@ -22,11 +24,11 @@ class InputBox extends Component {
       this.$props.renderBottomWindow('.bottom-window', {
         isTitle: true,
         isBtnGroup: true,
-        windowList: this.$state.recentSearch,
       });
     }, true);
 
     this.addEvent('blur', '.input-box', () => {
+      if (this.$target.querySelector('.bottom-window').classList.contains('open')) LocalStorageController.unsubscribe('recentSearch');
       this.$props.removeBottomWindow('.bottom-window');
     }, true);
   }
