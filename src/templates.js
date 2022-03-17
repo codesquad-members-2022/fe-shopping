@@ -29,12 +29,11 @@ function createHeader(navMenu) {
                 <h1 title="coupang"></h1>
                 <div class="form-container">
                     <form class="header__search-form">
-                        <div class="header__form__select">
-                            <label for="select-btn">전체</label>
-                            <button type="button" id="select-btn" class="btn-down"></button>   
+                        <div class="header__form__select">                  
+                            <button type="button" id="select-btn" class="btn-down"><span>전체</span></button>   
                         </div>
                         <div class="header__form__search">
-                            <input type="text">
+                            <input type="text" class="search-input">
                                 <a class="search-btn"></a>
                         </div>
                     </form>
@@ -63,10 +62,15 @@ function createHeader(navMenu) {
 
 function createSelectList(list) {
     const selectList = createLists(list)
-    return `<ul class="header__select--open hidden">
+    return `<ul class="header__select__list visibility-hidden">
             ${selectList}
             </ul>`
 }
 
-export { createLists, createTopBar, createSelectList, createHeader }
+function createSearchListContainer() {
+    return `<ul class="header__search__list hidden">
+            </ul>`
+}
+
+export { createLists, createTopBar, createSelectList, createHeader, createSearchListContainer }
 

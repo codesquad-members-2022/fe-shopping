@@ -8,14 +8,27 @@ function initSelectCategoryEvent() {
 
 function focusoutSelectBtnHandler(e) {
     const $selectBtn = e.target
-    const $selectOpenList = document.querySelector('.header__select--open')
+    const $selectOpenList = document.querySelector('.header__select__list')
 
-    addHidden($selectOpenList)
     changeBtnDownImg($selectBtn)
+    removeTransition($selectOpenList)
 }
 
-function addHidden(target) {
-    target.classList.add('hidden')
+function clickSelectBtnHandler(e) {
+    const $selectBtn = e.target
+    const $selectOpenList = document.querySelector('.header__select__list')
+
+    toggleTransition($selectOpenList)
+    toggleBtnImage($selectBtn)
+
+}
+
+function toggleVisibilityHidden(target) {
+    target.classList.toggle('visibility-hidden')
+}
+
+function addVisibilityHidden(target) {
+    target.classList.add('visibility-hidden')
 }
 
 function changeBtnDownImg(target) {
@@ -23,33 +36,17 @@ function changeBtnDownImg(target) {
     target.classList.add('btn-down')
 }
 
-function clickSelectBtnHandler(e) {
-    const $selectBtn = e.target
-    const $selectOpenList = document.querySelector('.header__select--open')
-
-    toggleHidden($selectOpenList)
-    toggleBtnImage($selectBtn)
+function removeTransition(target) {
+    target.classList.remove('header__select--slide-down')
 }
 
-
-function toggleHidden(target) {
-    if(target.classList.contains('hidden')) {
-        target.classList.remove('hidden')
-    }
-    else {
-        target.classList.add('hidden')
-    }
+function toggleTransition(target) {
+    target.classList.toggle('header__select--slide-down')
 }
 
 function toggleBtnImage(target) {
-    if(target.classList.contains('btn-down')) {
-        target.classList.remove('btn-down')
-        target.classList.add('btn-up')
-    }
-    else {
-        target.classList.remove('btn-up')
-        target.classList.add('btn-down')
-    }
+    target.classList.toggle('btn-down')
+    target.classList.toggle('btn-up')
 }
 
 export { initSelectCategoryEvent }
