@@ -7,11 +7,15 @@ const INPUT = 'search-bar-input';
 const SUBMIT = 'search-bar-submit';
 const AUTO_COMPLETE_WRAPPER = 'auto-complete-wrapper';
 const HIDDEN = 'hidden';
+
+const HISTORY_TITLE = 'history-title';
+const HISTORY_OFF_TITLE = 'history-off-title';
 const HISTORY_LIST = 'history-list';
 const HISTORY_ITEM = 'history-item';
 const HISTORY_ITEM_LINK = 'history-item-link';
 const HISTORY_ITEM_DELETE_BTN = 'history-item-delete';
 const HISTORY_CLEAR_BTN = 'history-clear-btn';
+const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
 export class SearchBarForm {
   constructor() {
@@ -34,18 +38,23 @@ export class SearchBarForm {
   }
 
   initHistory() {
-    const storageKey = 'SearchFormHistory';
+    const historyListKey = 'HistoryList';
+    const historyActivationKey = 'isHistoryActive';
     const maxHistoryLength = 9;
 
     return new History({
       $form: this.$form,
       $input: this.$input,
-      storageKey: storageKey,
+      historyListKey: historyListKey,
+      historyActivationKey: historyActivationKey,
       maxHistoryLength: maxHistoryLength,
+      HISTORY_TITLE: HISTORY_TITLE,
+      HISTORY_OFF_TITLE: HISTORY_OFF_TITLE,
       HISTORY_LIST: HISTORY_LIST,
       HISTORY_ITEM: HISTORY_ITEM,
       HISTORY_ITEM_LINK: HISTORY_ITEM_LINK,
       HISTORY_CLEAR_BTN: HISTORY_CLEAR_BTN,
+      HISTORY_ONOFF_BTN: HISTORY_ONOFF_BTN,
       HISTORY_ITEM_DEL_BTN: HISTORY_ITEM_DELETE_BTN,
     });
   }

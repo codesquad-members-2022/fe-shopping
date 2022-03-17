@@ -1,28 +1,44 @@
-import { webStorage, createElement, selector } from '../../utils/utils.js';
+import {
+  webStorage,
+  createElement,
+  selector,
+  toggleClass,
+} from '../../utils/utils.js';
+
+const HIDDEN = 'hidden';
 
 export class History {
   constructor({
     $form,
     $input,
-    storageKey,
+    historyListKey,
+    historyActivationKey,
     maxHistoryLength,
+    HISTORY_TITLE,
+    HISTORY_OFF_TITLE,
     HISTORY_LIST,
     HISTORY_ITEM,
     HISTORY_ITEM_LINK,
     HISTORY_ITEM_DEL_BTN,
     HISTORY_CLEAR_BTN,
+    HISTORY_ONOFF_BTN,
   }) {
     this.$form = $form;
     this.$input = $input;
     this.$historyList = selector(`.${HISTORY_LIST}`);
 
-    this.key = storageKey;
+    this.historyListKey = historyListKey;
+    this.historyActivationKey = historyActivationKey;
+
     this.maxLength = maxHistoryLength;
 
+    this.HISTORY_TITLE = HISTORY_TITLE;
+    this.HISTORY_OFF_TITLE = HISTORY_OFF_TITLE;
     this.HISTORY_LIST = HISTORY_LIST;
     this.HISTORY_ITEM = HISTORY_ITEM;
     this.HISTORY_ITEM_LINK = HISTORY_ITEM_LINK;
     this.HISTORY_CLEAR_BTN = HISTORY_CLEAR_BTN;
+    this.HISTORY_ONOFF_BTN = HISTORY_ONOFF_BTN;
     this.HISTORY_ITEM_DEL_BTN = HISTORY_ITEM_DEL_BTN;
 
     this.init();
@@ -38,7 +54,7 @@ export class History {
 
   /* **리스너*** */
   handleClickClearBtn = (e) => {
-    this.clear();
+    this.clearHistory();
     this.$historyList.innerHTML = '';
   };
 
@@ -60,7 +76,7 @@ export class History {
   // };
 
   renderHistoryItems() {
-    const history = this.getHistory(this.key);
+    const history = this.getHistory(this.historyListKey);
     const $$historyItem = Object.entries(history).map(([id, value]) =>
       this.createHistoryItemElement(id, value)
     );
@@ -127,24 +143,24 @@ export class History {
 
     // { ...prevHistory, [id]: value }
     prevHistory[id] = value;
-    webStorage.set(this.key, prevHistory);
+    webStorage.set(this.historyListKey, prevHistory);
     return true;
   }
 
   getHistory() {
-    return webStorage.get(this.key) ?? {};
+    return webStorage.get(this.historyListKey) ?? {};
   }
 
   removeHistory(id) {
-    const prevHistory = webStorage.get(this.key);
+    const prevHistory = webStorage.get(this.historyListKey);
     if (!prevHistory) return false;
 
     delete prevHistory[id];
-    webStorage.set(this.key, prevHistory);
+    webStorage.set(this.historyListKey, prevHistory);
     return true;
   }
 
-  clear() {
-    webStorage.clear(this.key);
+  clearHistory() {
+    webStorage.clear(this.historyListKey);
   }
 }
