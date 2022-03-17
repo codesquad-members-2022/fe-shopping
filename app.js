@@ -5,7 +5,7 @@ import renderCarousel from "./public/src/render/carousel.js";
 
 const searchBoxNode = document.querySelector(".search-box__category");
 setSearchBoxEvent(searchBoxNode);
-const carouselData = await fetchData("carouselData");
+const carouselData = await fetchData("./carouselData.json");
 renderCarousel(document.querySelector(".main"), carouselData);
 const carouselImgNode = document.querySelector(".item__img");
 const carouselNavBarNode = document.querySelector(".carousel__snb");

@@ -7,12 +7,9 @@ const setCarouselEvent = (carouselData, carouselImgNode, carouselNavBarNode) => 
 
 const setCarouselTimeEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
   const siblings = carouselNavBarNode.children;
-  let index;
-  for (index = 0; index < siblings.length; index += 1) {
-    if (siblings[index].classList.contains("snb__selected")) break;
-  }
-  changeImg(carouselData, carouselImgNode, (index + 1) % siblings.length);
-  changeBorder(carouselNavBarNode, siblings[(index + 1) % siblings.length]);
+  const siblingIndex = [...siblings].findIndex((sibling) => sibling.classList.contains("snb__selected"));
+  changeImg(carouselData, carouselImgNode, (siblingIndex + 1) % siblings.length);
+  changeBorder(carouselNavBarNode, siblings[(siblingIndex + 1) % siblings.length]);
 };
 
 const setCarouselNavBarEvent = (carouselData, carouselImgNode, carouselNavBarNode, timerId) => {
@@ -24,12 +21,12 @@ const setCarouselNavBarEvent = (carouselData, carouselImgNode, carouselNavBarNod
         const targetNode = e.target.parentNode;
         const siblings = targetNode.parentNode.children;
 
-        for (let index = 0; index < siblings.length; index += 1) {
-          if (siblings[index] === targetNode) {
-            changeImg(carouselData, carouselImgNode, index);
-            break;
+        [...siblings].find((sibling, siblingIndex) => {
+          if (sibling === targetNode) {
+            changeImg(carouselData, carouselImgNode, siblingIndex);
           }
-        }
+        });
+
         changeBorder(targetNode.parentNode, targetNode);
       }
     }, 500)
