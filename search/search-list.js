@@ -16,6 +16,10 @@ class SearchList {
         this.searchListNode.style.display = "none";
     }
 
+    reset() {
+        this.searchItems = [];
+    }
+
     addSearchWord(word) {
         this.searchItems.unshift(word);
         if (this.searchItems.length > 10) {

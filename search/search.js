@@ -44,6 +44,8 @@ const getRelatedWord = (word) => {
         relatedSearchList.searchItems = tshir.map((it) => it.keyword);
     } else if (word === "티셔츠") {
         relatedSearchList.searchItems = tshirt.map((it) => it.keyword);
+    } else {
+        return;
     }
 
     relatedSearchList.show();
@@ -58,6 +60,12 @@ const delay = (time) => {
 };
 
 searchbar.addEventListener("input", ({ target }) => {
+    if (!target.value) {
+        clearTimeout(timer);
+        relatedSearchList.reset();
+        relatedSearchList.hide();
+    }
+
     if (timer) {
         clearTimeout(timer);
     }
@@ -69,6 +77,9 @@ searchbar.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         event.preventDefault();
         updateRecentSearchList();
+
+        relatedSearchList.hide();
+        relatedSearchList.reset();
     }
 });
 
