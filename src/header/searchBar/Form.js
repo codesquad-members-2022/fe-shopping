@@ -6,7 +6,7 @@ import { AutoComplete } from './AutoComplete.js';
 const FORM = 'search-bar-form';
 const INPUT = 'search-bar-input';
 const SUBMIT = 'search-bar-submit';
-const AUTO_COMPLETE_WRAPPER = 'auto-complete-wrapper';
+const FORM_POPUP_BOX = 'search-bar-form-popup-box';
 const HIDDEN = 'hidden';
 
 const HISTORY_TITLE = 'history-title';
@@ -25,7 +25,7 @@ export class SearchBarForm {
     this.state = {};
     this.$form = selector(`.${FORM}`);
     this.$input = selector(`.${INPUT}`);
-    this.$acWrapper = selector(`.${AUTO_COMPLETE_WRAPPER}`);
+    this.$popupBox = selector(`.${FORM_POPUP_BOX}`);
     this.$submit = selector(`.${SUBMIT}`);
 
     this.history = this.initHistory();
@@ -36,7 +36,7 @@ export class SearchBarForm {
 
   init() {
     this.$input.addEventListener('focusin', () => {
-      removeClass(HIDDEN, this.$acWrapper);
+      removeClass(HIDDEN, this.$popupBox);
     });
 
     this.$form.addEventListener('submit', this.handleSubmit);

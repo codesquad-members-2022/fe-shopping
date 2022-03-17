@@ -107,7 +107,7 @@ $category-width: 25%;
   &-form {
     position: relative;
 
-    .auto-complete-wrapper {
+    &-popup-box {
       position: absolute;
       top: 35px;
       left: -2px;

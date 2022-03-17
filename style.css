@@ -589,7 +589,7 @@ template {
 .search-bar-form {
   position: relative;
 }
-.search-bar-form .auto-complete-wrapper {
+.search-bar-form-popup-box {
   position: absolute;
   top: 35px;
   left: -2px;
