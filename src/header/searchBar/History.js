@@ -60,6 +60,35 @@ export class History {
   };
   /* ********** */
 
+  createHistoryItemElement(id, keyword) {
+    const $historyItem = createElement('li', this.HISTORY_ITEM, null, {
+      'data-id': id,
+    });
+
+    const $historyItemLink = createElement(
+      'a',
+      this.HISTORY_ITEM_LINK,
+      keyword,
+      {
+        href: './',
+      }
+    );
+
+    const $historyDelBtn = createElement(
+      'span',
+      this.HISTORY_ITEM_DEL_BTN,
+      '삭제'
+    );
+
+    const $fragment = new DocumentFragment();
+
+    $historyItem.appendChild($historyItemLink);
+    $historyItem.appendChild($historyDelBtn);
+    $fragment.appendChild($historyItem);
+
+    return $fragment;
+  }
+
   setHistory(id, value) {
     let prevHistory = webStorage.get(this.key);
     if (!prevHistory) {
