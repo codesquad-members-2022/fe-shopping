@@ -60,7 +60,16 @@ export class History {
   // };
 
   renderHistoryItems() {
-    const $$historyItem = this.getHistory(this.key);
+    const history = this.getHistory(this.key);
+    const $$historyItem = Object.entries(history).map(([id, value]) =>
+      this.createHistoryItemElement(id, value)
+    );
+
+    const $fragment = new DocumentFragment();
+
+    $$historyItem.reverse();
+    $fragment.append(...$$historyItem);
+    this.$historyList.appendChild($fragment);
   }
 
   createHistoryItemElement(id, keyword) {
@@ -73,7 +82,7 @@ export class History {
       this.HISTORY_ITEM_LINK,
       keyword,
       {
-        href: './',
+        href: `./search.html?q=${keyword}`,
       }
     );
 
@@ -83,13 +92,9 @@ export class History {
       '삭제'
     );
 
-    const $fragment = new DocumentFragment();
-
     $historyItem.appendChild($historyItemLink);
     $historyItem.appendChild($historyDelBtn);
-    $fragment.appendChild($historyItem);
-
-    return $fragment;
+    return $historyItem;
   }
 
   removeHistoryItemElement($item) {
