@@ -68,7 +68,7 @@ function createSelectList(list) {
 }
 
 function createSearchListContainer() {
-    return `<ul class="header__search__list hidden">
+    return `<ul class="header__search__list visibility-hidden">
             </ul>`
 }
 

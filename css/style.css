@@ -176,7 +176,7 @@
 }
 
 .header__form__search {
-  width: 80%;
+  width: 75%;
   height: 100%;
   position: absolute;
   top: 0;
@@ -203,11 +203,11 @@
   cursor: pointer;
 }
 
-.header__search--open {
+.header__search__list {
   max-height: 800px;
   border: 1px solid #ddd;
   background-color: #fff;
-  width: inherit;
+  width: 80%;
   position: absolute;
   top: 37px;
   left: -1px;
@@ -215,12 +215,12 @@
   overflow-y: auto;
   box-shadow: 0 5px 5px #ddd;
 }
-.header__search--open li {
+.header__search__list li {
   color: black;
   font-size: 14.4px;
   padding: 7px;
 }
-.header__search--open li:hover {
+.header__search__list li:hover {
   text-decoration: underline;
   color: #008cff;
 }

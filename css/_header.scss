@@ -1,4 +1,4 @@
-@import "hidden";
+@import "utils";
 
 $header-bg-color: #fff;
 $header-font: (small: 12px, medium: 24px, large: 36px);
@@ -191,7 +191,7 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
 }
 
 .header__form__search {
-  width: 80%;
+  width: 75%;
   height: 100%;
   @include position-absolute(0, 131px);
 
@@ -215,11 +215,11 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
   }
 }
 
-.header__search--open {
+.header__search__list {
   max-height: 800px;
   border: 1px solid #ddd;
   background-color: $header-bg-color;
-  width: inherit;
+  width: 80%;
   @include position-absolute(map-get($header-height, search-form), -1px);
   overflow-y: auto;
   box-shadow: 0 5px 5px #ddd;
