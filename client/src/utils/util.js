@@ -1,33 +1,7 @@
 export const $ = className => document.querySelector(className);
+export const $$ = className => document.querySelectorAll(className);
 const deploy = 'DEV';
 const serverURL = deploy === 'DEV' ? 'http://localhost:3000' : 'https://mupang.herokuapp.com';
-
-export const handleHeightBottomAnimate = obj => {
-  (function animate() {
-    obj.start += obj.value;
-    const maxHeight = parseInt(getComputedStyle(obj.element).maxHeight);
-    obj.element.style.maxHeight = `${parseInt(maxHeight * obj.start)}px`;
-    if (obj.start < obj.height) {
-      obj.raf = requestAnimationFrame(animate);
-    } else {
-      cancelAnimationFrame(obj.raf);
-    }
-  })();
-};
-
-export const handleHeightTopAnimate = obj => {
-  let raf = null;
-  (function animate() {
-    obj.start += obj.value;
-    obj.element.style.maxHeight = `${parseInt(obj.start)}px`;
-    if (obj.start >= 0) {
-      raf = requestAnimationFrame(animate);
-    } else {
-      cancelAnimationFrame(raf);
-      obj.parentElement.removeChild(obj.element);
-    }
-  })();
-};
 
 export const fetchPostData = (path, keyword) => {
   const url = `${serverURL}/${path}/${keyword}`;
@@ -42,3 +16,22 @@ export const fetchPostData = (path, keyword) => {
 };
 
 export const delay = time => new Promise(resolve => setTimeout(resolve, time));
+
+export const checkElementClass = obj => {
+  if (!obj.target) return false;
+
+  const isExistClass = obj.checkClasses.some(className => {
+    if (obj.target.classList.contains(className)) return true;
+  });
+
+  if (isExistClass) return true;
+  else false;
+};
+
+export const toggleClass = (element, classes) => {
+  if (!element) return;
+  const classList = classes.split(' ');
+  classList.forEach(className => {
+    element.classList.toggle(className);
+  });
+};
