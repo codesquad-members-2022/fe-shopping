@@ -48,7 +48,7 @@ ImgSlider.prototype = {
     return sliderItemsTag;
   },
 
-  findAllsliderItems() {
+  setSliderItems() {
     this.sliderItems = document.querySelectorAll("[data-carousel-idx]");
   },
 
@@ -107,13 +107,13 @@ ImgSlider.prototype = {
     this.onMouseOut();
   },
 
-  setSliderItems() {
+  fillSliderUlElement() {
     this.slideUlElement.innerHTML = this.createSliderItems();
-    this.findAllsliderItems();
+    this.setSliderItems();
   },
 
   init() {
-    this.setSliderItems();
+    this.fillSliderUlElement();
     this.setCurSlider();
     this.runSlider();
     this.onEvents();
