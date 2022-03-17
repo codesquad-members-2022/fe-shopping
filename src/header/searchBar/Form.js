@@ -55,7 +55,7 @@ export class SearchBarForm {
     const keyword = this.$input.value.trim();
     if (keyword === '') {
       e.preventDefault();
-      this.$input.value = '';
+      return;
     }
 
     this.history.setHistory(Date.now(), keyword);
