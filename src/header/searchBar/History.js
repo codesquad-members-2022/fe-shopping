@@ -1,33 +1,40 @@
-import { webStorage } from '../../utils/utils.js';
+import { webStorage, createElement, selector } from '../../utils/utils.js';
 
 export class History {
   constructor({
     $form,
     $input,
-    $clearBtn,
-    $historyList,
-    delBtnClassName,
     storageKey,
     maxHistoryLength,
-    historyItemSelector,
+    HISTORY_LIST,
+    HISTORY_ITEM,
+    HISTORY_ITEM_LINK,
+    HISTORY_ITEM_DEL_BTN,
+    HISTORY_CLEAR_BTN,
   }) {
     this.$form = $form;
     this.$input = $input;
-    this.$clearBtn = $clearBtn;
-    this.$list = $historyList;
+    this.$historyList = selector(`.${HISTORY_LIST}`);
 
     this.key = storageKey;
     this.maxLength = maxHistoryLength;
-    this.itemSelector = historyItemSelector;
-    this.delBtnClassName = delBtnClassName;
+
+    this.HISTORY_LIST = HISTORY_LIST;
+    this.HISTORY_ITEM = HISTORY_ITEM;
+    this.HISTORY_ITEM_LINK = HISTORY_ITEM_LINK;
+    this.HISTORY_CLEAR_BTN = HISTORY_CLEAR_BTN;
+    this.HISTORY_ITEM_DEL_BTN = HISTORY_ITEM_DEL_BTN;
 
     this.init();
   }
 
   init() {
     this.$form.addEventListener('submit', this.handleSubmitForm);
-    this.$clearBtn.addEventListener('click', this.handleClickClearBtn);
-    this.$list.addEventListener('click', this.handleClickDelBtn);
+
+    this.$historyList.addEventListener('click', this.handleClickDelBtn);
+
+    const $clearBtn = selector(`.${this.HISTORY_CLEAR_BTN}`);
+    $clearBtn.addEventListener('click', this.handleClickClearBtn);
   }
 
   /* **리스너*** */
