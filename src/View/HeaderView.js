@@ -17,8 +17,6 @@ SearchMenuToggleView.prototype.renderToggle = function (childDom) {
     this.parentDom.children[1].remove();
     return;
   } // 문제점: 자식요소 탐색이 어색해서 기능적으로 동작하게만 구현함 해결방안 필요
-  console.log(childDom);
-  console.log(this.parentDom);
 
   this.parentDom.appendChild(childDom);
 };

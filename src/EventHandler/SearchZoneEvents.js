@@ -10,12 +10,14 @@ class SearchZoneController {
   constructor(inputDom, menuDom) {
     this.inputDom = domUtil.$(inputDom);
     this.menuDom = domUtil.$(menuDom);
+    this.searched = [];
   }
   initService() {
     // console.log(domUtil.$(".header__main--inputWrapper").event);
     this.inputDom.addEventListener("input", this.onInputSearchInput);
-    this.inputDom.addEventListener("keydown", this.onKeyDownEnter);
+    this.inputDom.addEventListener("keydown", this.onKeyDownEnter.bind(this));
     this.menuDom.addEventListener("click", this.onClickSearchMenu);
+    document.body.addEventListener("click", this.removeSearchMenu.bind(this));
   }
 
   onInputSearchInput({ target: { value } }) {
@@ -37,6 +39,17 @@ class SearchZoneController {
   onKeyDownEnter(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
+
+      this.searched = new Set([
+        ...this.searched,
+        domUtil.$(".header__main--searchInput").value,
+      ]);
+    }
+  }
+
+  removeSearchMenu() {
+    if (this.menuDom.parentNode.children.length > 1) {
+      this.menuDom.parentNode.children[1].remove();
     }
   }
 }
