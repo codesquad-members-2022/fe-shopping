@@ -89,6 +89,18 @@ export class History {
     return $fragment;
   }
 
+  removeHistoryItemElement($item) {
+    this.$historyList.removeChild($item);
+  }
+
+  removeHistoryItemElementById(id) {
+    const $item = selector(`.${this.HISTORY_ITEM}[data-id='${id}']`);
+
+    if (!$item) return false;
+    this.$historyList.removeChild($item);
+    return true;
+  }
+
   setHistory(id, value) {
     let prevHistory = webStorage.get(this.key);
     if (!prevHistory) {
