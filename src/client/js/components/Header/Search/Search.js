@@ -23,6 +23,11 @@ Search.prototype.mount = function () {
     searchSuggestion,
     searchRecent,
   });
+  [searchCategory, searchRecent, searchSuggestion, searchInput].forEach(
+    (component) => {
+      component.initRender();
+    }
+  );
 };
 
 Search.prototype.template = function () {

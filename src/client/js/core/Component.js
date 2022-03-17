@@ -1,12 +1,15 @@
 export default function Component($target, $props) {
   this.$target = $target;
   this.$props = $props;
-  this.setup();
-  this.render();
-  this.setEvent();
 }
 
 Component.prototype = {
+  constructor: Component,
+  initRender() {
+    this.setup();
+    this.render();
+    this.setEvent();
+  },
   setup() {
     // this.state 초기 셋업
   },

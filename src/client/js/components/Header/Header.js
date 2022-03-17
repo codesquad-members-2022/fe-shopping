@@ -10,6 +10,7 @@ createExtendsRelation(Header, Component);
 Header.prototype.mount = function () {
   const $search = this.$target.querySelector(".search");
   const search = new Search($search);
+  search.initRender();
 };
 
 Header.prototype.template = function () {
