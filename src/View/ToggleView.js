@@ -1,6 +1,7 @@
 import * as domUtil from "/util/domutil.js";
 function ToggleView(parentDom) {
-  this.parentDom = parentDom;
+  this.parentDom = domUtil.$(parentDom);
+  console.log(this.parentDom);
 }
 
 ToggleView.prototype.renderToggle = function (childDom) {

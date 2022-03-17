@@ -1,10 +1,14 @@
 const searchingData = require("../../data/searchData.json");
-
+console.log(searchingData);
 // 단어를 통해서 데이터와 비교
 function findMatchData(keyWord) {
   const firstWordArray = getFirstWordArr(keyWord);
   const filterdData = filteringData(firstWordArray);
   return checkMatchWord(keyWord.trim(), filterdData);
+}
+
+function findSearchMenu() {
+  return searchingData;
 }
 
 function getFirstWordArr(keyWord) {
@@ -18,6 +22,7 @@ function getFirstWord(keyWord) {
 
 // 첫번째 글자로 데이터보관중 -> 글자로 데이터 확인후 리턴
 function getDataByFirstWord(firstWord) {
+  console.log(searchingData);
   return searchingData[firstWord];
 }
 
@@ -42,4 +47,4 @@ function checkMatchWord(keyWord, data) {
   }, []);
 }
 
-module.exports = { findMatchData };
+module.exports = { findMatchData, findSearchMenu };

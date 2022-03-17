@@ -1,0 +1,47 @@
+rowDisplayAlignCenter, .banner--nav .banner__nav--ul li {
+  display: flex;
+  align-items: center; }
+
+rowDisplayJustifyCenter {
+  display: flex;
+  justify-content: center; }
+
+columnDisplay {
+  display: flex;
+  flex-direction: column; }
+
+centerAlignment {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.banner {
+  width: 100%;
+  height: 450px;
+  background-image: url("https://static.coupangcdn.com/la/cmg_paperboy/image/1647331453545/%5B%EC%88%98%EC%A0%95%5D220316_%EB%B7%B0%ED%8B%B0_%EB%8D%94%EB%A7%88%EB%A7%88%EC%8A%A4%ED%81%AC%ED%8C%A9_SMD-16103_PC.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-origin: content-box;
+  position: relative; }
+
+.banner--nav {
+  position: absolute;
+  left: 75%;
+  bottom: 45px; }
+  .banner--nav .banner__nav--ul {
+    display: flex;
+    flex-direction: column; }
+    .banner--nav .banner__nav--ul li {
+      width: 180px;
+      height: 60px;
+      border: 0.5px solid lightgrey;
+      background-color: white;
+      border-bottom: none;
+      font-size: 10px;
+      padding-left: 10px; }
+    .banner--nav .banner__nav--ul :last-child {
+      border: 0.5px solid lightgrey; }
+    .banner--nav .banner__nav--ul :hover {
+      border: 0.5px solid #4285f4;
+      color: #4285f4; }

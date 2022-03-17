@@ -7,4 +7,8 @@ router.get("/:keyWord", (req, res) => {
   res.json(dataDisposer.findMatchData(keyWord));
 });
 
+router.get("/menu", (req, res) => {
+  res.json(dataDisposer.findSearchMenu());
+});
+
 module.exports = router;
