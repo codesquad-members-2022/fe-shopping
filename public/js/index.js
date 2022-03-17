@@ -1,14 +1,12 @@
 import ImgSlider from "./component/ImgSlider.js";
+import { $ } from "./util/util.js";
 import { sliderData } from "../data/data.js";
-
-const slideUlElement = document.querySelector(".carousel-items");
-const imgAreaNode = document.querySelector(".carousel-img-area");
 
 const imgSlider = new ImgSlider({
   data: sliderData,
   sec: 1.7,
-  slideUlElement,
-  imgAreaNode,
+  slideUlElement: $(".carousel-items"),
+  imgAreaNode: $(".carousel-img-area"),
 });
 
 imgSlider.init();
