@@ -106,41 +106,41 @@
   position: relative;
   width: 129.5px;
   height: 100%;
-  line-height: 37px;
   border-right: 1px solid #ddd;
   font-size: 12px;
   text-indent: 10px;
+  line-height: 37px;
   color: #555;
-}
-.header__form__select label {
-  display: block;
-  width: inherit;
-  height: inherit;
-  cursor: pointer;
+  text-align: left;
 }
 
 #select-btn {
-  height: 30px;
-  width: 30px;
+  height: 100%;
+  width: 100%;
   border: 0;
   position: absolute;
-  top: 2px;
-  left: 99px;
+  top: 0;
+  left: 0;
   right: auto;
   cursor: pointer;
+  font-size: 12px;
+  text-indent: 10px;
+  line-height: 37px;
+  color: #555;
+  text-align: left;
 }
 
 .btn-down {
   background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
   background-repeat: no-repeat;
-  background-position: 6px -165px;
+  background-position: 109px -163px;
   background-color: #fff;
 }
 
 .btn-up {
   background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
   background-repeat: no-repeat;
-  background-position: 6px -142px;
+  background-position: 109px -141px;
   background-color: #fff;
 }
 
@@ -180,7 +180,7 @@
   outline: none;
   text-indent: 10px;
 }
-.header__form__search a {
+.header__form__search > a {
   width: 50px;
   height: 37px;
   background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
