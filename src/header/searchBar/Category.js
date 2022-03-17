@@ -27,7 +27,8 @@ export class SearchBarCategory {
   init() {
     this.$category.addEventListener('click', this.handleClickCategory);
     document.body.addEventListener('click', (e) => {
-      if (!hasAscendant(this.$category, e.target)) this.closeLayer();
+      // if (!hasAscendant(this.$category, e.target)) this.closeLayer();
+      if (!e.target.closest(`.${CATEGORY}`)) this.closeLayer();
     });
   }
 
