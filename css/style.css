@@ -185,6 +185,26 @@ h2 {
   margin-top: 10px;
 }
 
+.search__list--item:hover {
+  color: #228be6;
+  text-decoration: underline;
+}
+
+.search__bottom-bar {
+  position: absolute;
+  left: -1px;
+  bottom: 0;
+  width: 100%;
+  padding: 7px 10px;
+  color: #868e96;
+  background-color: #f1f3f5;
+  border-top: 1.5px solid #ced4da;
+}
+
+.search__bottom-bar p:hover {
+  text-decoration: underline;
+}
+
 .contents-header {
   margin-top: 30px;
   margin-bottom: 20px;
