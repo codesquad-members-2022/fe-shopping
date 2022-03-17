@@ -100,6 +100,9 @@ $search-height: 36px;
         flex: 1 0 0;
         text-indent: 6px;
         line-height: 30px;
+        &.active {
+          @extend .search-pop__hover;
+        }
         &:hover span {
           @extend .search-pop__hover;
         }

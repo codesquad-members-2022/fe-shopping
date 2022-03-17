@@ -190,6 +190,7 @@ ul {
 
 .search-pop__hover,
 .header__search-wrap .search-categories li:hover span,
+.header__search-wrap .search-recent-keywords a.active,
 .header__search-wrap .search-recent-keywords a:hover span {
   color: #4285f4;
   text-decoration: underline;

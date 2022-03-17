@@ -15,8 +15,8 @@ export class RecentSearchKeywords {
     const recentKeywordsTemplate = recentKeywordsData
       .split(',')
       .map(
-        (keyword) => `<li>
-                        <a href="javascript:;"><span>${keyword}</span></a>
+        (keyword, idx) => `<li>
+                        <a href="javascript:;" class="${idx === 0 ? 'active' : ''}"><span>${keyword}</span></a>
                         <button type="button" class="delete-button">삭제</button>
                       </li>`
       )

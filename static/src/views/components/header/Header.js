@@ -16,7 +16,6 @@ export class Header {
     const recentSearchKeywords = new RecentSearchKeywords([this.STORAGE_KEY, this.searchStorage]);
     const searchBar = new SearchBar([
       recentSearchKeywords.$recentKeywords,
-      recentSearchKeywords.render,
       searchCategories.$categories,
       this.STORAGE_KEY,
       this.searchStorage,
