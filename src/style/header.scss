@@ -136,7 +136,6 @@ centerAlignment {
 
 .search--toggle--ul {
   width: 400px;
-
   position: absolute;
   background-color: white;
   z-index: 1;
@@ -148,15 +147,24 @@ centerAlignment {
   }
 }
 
-.search--menu--ul {
-  width: 140px;
-  position: absolute;
-  background-color: white;
-  z-index: 1;
-  .search--menu--li {
-    @extend centerAlignment;
-    height: 10px;
-    padding: 5px;
-    border-bottom: 0.5px solid #f0f0f0;
+.header__main--inputMenuButton {
+  .search--menu--ul {
+    width: 140px;
+    height: 0px;
+    position: absolute;
+    background-color: white;
+    overflow: hidden;
+    z-index: 1;
+    transition: 1s;
+    .search--menu--li {
+      // @extend centerAlignment;
+      font-size: 10px;
+      height: 10px;
+      padding: 10px;
+      border-bottom: 0.5px solid #f0f0f0;
+    }
+    .search--menu--ul[data-dropdown="checked"] {
+      height: auto;
+    }
   }
 }

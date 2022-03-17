@@ -82,3 +82,17 @@ centerAlignment, .header__main .header__main--category, .search--toggle--ul .sea
     height: 15px;
     padding: 5px;
     border-bottom: 0.5px solid #f0f0f0; }
+
+.header__main--inputMenuButton .search--menu--ul {
+  width: 140px;
+  height: 0px;
+  position: absolute;
+  background-color: white;
+  overflow: hidden;
+  z-index: 1;
+  transition: 1s; }
+  .header__main--inputMenuButton .search--menu--ul .search--menu--li {
+    font-size: 10px;
+    height: 10px;
+    padding: 10px;
+    border-bottom: 0.5px solid #f0f0f0; }

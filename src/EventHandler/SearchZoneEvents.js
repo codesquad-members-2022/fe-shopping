@@ -23,7 +23,7 @@ class SearchZoneController {
 
   onClickSearchMenu() {
     fetch_use(
-      "search/menu",
+      "search/menu/toggle",
       (jsonData) =>
         new Toggle(jsonData, "search--menu--li", "search--menu--ul").dom
     ).then(menuView.renderToggle.bind(menuView));
@@ -35,6 +35,6 @@ const test = new SearchZoneController(
   ".header__main--inputMenu"
 );
 const viewTest = new ToggleView(".header__main--inputWrapper");
-const menuView = new ToggleView(".header__main--inputMenu");
+const menuView = new ToggleView(".header__main--inputMenuButton");
 
 test.initService();
