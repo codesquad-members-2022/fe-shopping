@@ -51,7 +51,12 @@ $searchInput.addEventListener("keyup", (e) => {
 });
 
 $searchInput.addEventListener("click", () => {
+  if (keywordStorage.length === 0) {
+    localStorage.clear();
+    return;
+  }
   if (!$searchInput.value) {
+    $searchList.classList.toggle("is-opened");
     $searchList.innerHTML = "";
     $searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
 
@@ -65,6 +70,9 @@ $searchInput.addEventListener("click", () => {
     }
   }
 });
+
+const $searchBtn = document.querySelector(".search-btn");
+$searchBtn.addEventListener("click", storageClear);
 
 function storageClear() {
   keywordStorage = [];

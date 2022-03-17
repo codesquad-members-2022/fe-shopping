@@ -301,6 +301,11 @@ input:focus {
   z-index: 3;
   padding: 15px 12px 6px 12px;
   border: 1px solid lightgray;
+  display: none;
+}
+
+.search-form .search-input-wrap .search-list.is-opened {
+  display: block;
 }
 
 .search-form .search-input-wrap .search-list__auto {
