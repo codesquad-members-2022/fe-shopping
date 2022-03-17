@@ -1,9 +1,5 @@
 /* align center */
 /* top-nav */
-.top-nav-wrapper {
-  background-color: #f0f0f0;
-}
-
 .top-nav {
   background-color: #f0f0f0;
   height: 32px;
@@ -12,9 +8,8 @@
   margin: 0 auto;
 }
 
-.top-nav li {
-  color: #333;
-  font-size: 11px;
+.top-nav-wrapper {
+  background-color: #f0f0f0;
 }
 
 .top-nav-left {
@@ -25,6 +20,11 @@
 .top-nav-right {
   float: right;
   height: 24px;
+}
+
+.top-nav li {
+  color: #333;
+  font-size: 11px;
 }
 
 .align-horizontal {
@@ -72,6 +72,7 @@
   display: -ms-flexbox;
   display: flex;
   padding-top: 30px;
+  height: 50px;
 }
 
 .header-top img {
@@ -187,4 +188,9 @@ input {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.banner {
+  width: 1920px;
+  height: 420px;
 }
