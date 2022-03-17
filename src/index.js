@@ -23,7 +23,7 @@ $selectCategoryList.addEventListener("click", (e) => {
 });
 
 document.addEventListener("click", (e) => {
-  if (e.target.className !== "select-category") {
+  if (e.target.parentNode.className !== "select-category-wrap is-opened") {
     if (categoryPop) {
       $selectCategoryWrap.classList.toggle("is-opened");
       $selectToggle.classList.toggle("is-opened");
