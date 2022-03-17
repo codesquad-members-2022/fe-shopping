@@ -18,6 +18,8 @@ const HISTORY_ITEM_DELETE_BTN = 'history-item-delete';
 const HISTORY_CLEAR_BTN = 'history-clear-btn';
 const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
+const AUTO_COMPLETE_LIST = 'auto-complete-list';
+
 const debounceDelay = 500;
 
 export class SearchBarForm {
@@ -69,7 +71,7 @@ export class SearchBarForm {
   }
 
   initAutoComplete() {
-    return new AutoComplete();
+    return new AutoComplete({ AUTO_COMPLETE_LIST: AUTO_COMPLETE_LIST });
   }
 
   /* **리스너*** */
