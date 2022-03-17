@@ -4,7 +4,8 @@ import { fetchData } from "./public/src/controller/util.js";
 import renderCarousel from "./public/src/render/carousel.js";
 
 const searchBoxNode = document.querySelector(".search-box");
-setSearchBoxEvent(searchBoxNode);
+const searchData = await fetchData("./searchData.json");
+setSearchBoxEvent(searchBoxNode, searchData);
 const carouselData = await fetchData("./carouselData.json");
 renderCarousel(document.querySelector(".main"), carouselData);
 const carouselImgNode = document.querySelector(".item__img");

@@ -1,9 +1,9 @@
-import { renderRecentSearchBox, renderRelatedSearchBox } from "../render/searchBox.js";
+import { renderRecentSearchBox, renderRelatedSearchBox, renderRelatedSearchWord } from "../render/searchBox.js";
 import { debounce } from "./util.js";
 
-const setSearchBoxEvent = (searchBoxNode) => {
+const setSearchBoxEvent = (searchBoxNode, searchData) => {
   setCategoryEvent(searchBoxNode);
-  setSearchEvent(searchBoxNode);
+  setSearchEvent(searchBoxNode, searchData);
 };
 
 const setCategoryEvent = (searchBoxNode) => {
@@ -38,7 +38,7 @@ const changeCategory = (searchBoxNode, targetNode) => {
   searchBoxNode.firstChild.textContent = targetNode.firstChild.textContent;
 };
 
-const setSearchEvent = (searchBoxNode) => {
+const setSearchEvent = (searchBoxNode, searchData) => {
   const searchInput = searchBoxNode.querySelector(".search__input");
   const recentSearchBox = searchBoxNode.querySelector(".recent-search-container");
   const relatedSearchBox = searchBoxNode.querySelector(".related-search-container");
@@ -57,12 +57,22 @@ const setSearchEvent = (searchBoxNode) => {
     "input",
     debounce((e) => {
       relatedSearchBox.innerHTML = "";
-      console.log(searchInput.value);
       if (searchInput.value.length !== 0) {
         renderRelatedSearchBox(relatedSearchBox);
+        fillRelatedSearchBox(relatedSearchBox.querySelector(".related-search-word-container"), searchData, searchInput.value);
       }
     }, 100)
   );
+};
+
+const fillRelatedSearchBox = (parentNode, searchData, typeWord) => {
+  Object.entries(searchData).forEach(([searchWord, searchResult]) => {
+    if (searchWord === typeWord) {
+      searchResult.forEach((word) => {
+        renderRelatedSearchWord(parentNode, word);
+      });
+    }
+  });
 };
 
 export default setSearchBoxEvent;
