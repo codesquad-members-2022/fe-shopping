@@ -61,11 +61,36 @@ header {
   width: 136px;
   height: 42px;
   border: 0.5px solid black;
+  position: relative;
 }
 
 .search {
   width: 384px;
   height: 40px;
+}
+
+.search__dropbox {
+  overflow-y: scroll;
+  position: absolute;
+  z-index: 1;
+  top: 3rem;
+  width: 136px;
+  background-color: #fff;
+  box-shadow: 0 4px 5px #000001;
+}
+
+.search__word__dropbox {
+  width: 390px;
+  height: 330px;
+  top: 5.5rem;
+  left: 53rem;
+  position: absolute;
+  z-index: 1;
+  background-color: #bebbbb;
+}
+
+.visible {
+  visibility: hidden;
 }
 
 /*# sourceMappingURL=header.css.map */

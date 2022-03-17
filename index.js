@@ -1,3 +1,86 @@
+import {
+  createLiListTemplate,
+  htmlString2htmlElement,
+  targetQuerySelector,
+} from "./util/util.js";
+import { searchCategories } from "./data/data.js";
+
+const $categories = createLiListTemplate(searchCategories);
+const $search__categories__container = htmlString2htmlElement({
+  tag: "ul",
+  htmlString: $categories,
+  className: "search__dropbox",
+});
+
+$search__categories__container.style.visibility = "hidden";
+
+const htmlString = `
+  <button class="search__delete">전체삭제</button>
+  <button class="current__search__off">최근검색어끄기</button>
+`;
+
+const $search__word__dropbox = htmlString2htmlElement({
+  htmlString,
+  className: "search__word__dropbox",
+});
+
+const $search__category = targetQuerySelector({
+  className: "search__category",
+});
+
+const $all__category = targetQuerySelector({
+  className: "all__category",
+});
+
+const $search = targetQuerySelector({
+  className: "search",
+});
+
+const $search__bar = targetQuerySelector({
+  className: "search__bar",
+});
+
+$search__bar.insertAdjacentElement("afterend", $search__word__dropbox);
+$search__word__dropbox.style.visibility = "hidden";
+
+$search.addEventListener("focus", (event) => {
+  $search__word__dropbox.style.visibility = "visible";
+});
+
+const $search__delete = targetQuerySelector({
+  className: "search__delete",
+});
+
+const $current__search__off = targetQuerySelector({
+  className: "current__search__off",
+});
+
+$all__category.insertAdjacentElement(
+  "afterend",
+  $search__categories__container
+);
+
+document.addEventListener("click", ({ target }) => {
+  const { visibility } = $search__categories__container.style;
+  if (visibility === "visible") {
+    $search__categories__container.style.visibility = "hidden";
+  } else if (target === $search__category) {
+    $search__categories__container.style.visibility = "visible";
+  }
+});
+
+document.addEventListener("click", ({ target }) => {
+  if (
+    target === $search ||
+    target === $search__delete ||
+    target === $current__search__off
+  ) {
+    return;
+  } else {
+    $search__word__dropbox.style.visibility = "hidden";
+  }
+});
+
 const $slideList = document.querySelector(".slide__list");
 const $banner__category = document.querySelector(".banner__category");
 const liCount = $slideList.childElementCount;
