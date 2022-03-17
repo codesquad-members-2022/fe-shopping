@@ -102,15 +102,24 @@ export class History {
   }
 
   setHistory(id, value) {
-    let prevHistory = webStorage.get(this.key);
-    if (!prevHistory) {
-      prevHistory = {};
+    const prevHistory = webStorage.get(this.key) ?? {};
+
+    const prevIds = Object.keys(prevHistory).filter((_id) => {
+      if (prevHistory[_id] !== value) return true;
+      delete prevHistory[_id];
+      this.removeHistoryItemElementById(_id);
+      return false;
+    });
+
+    if (prevIds.length === this.maxLength) {
+      const firstId = prevIds[0];
+      delete prevHistory[firstId];
+      this.removeHistoryItemElementById(firstId);
     }
 
-    const ids = Object.keys(prevHistory);
-    if (ids.length === this.maxLength) delete prevHistory[ids[0]];
-
-    webStorage.set(this.key, { ...prevHistory, [id]: value });
+    // { ...prevHistory, [id]: value }
+    prevHistory[id] = value;
+    webStorage.set(this.key, prevHistory);
     return true;
   }
 
@@ -124,6 +133,7 @@ export class History {
 
     delete prevHistory[id];
     webStorage.set(this.key, prevHistory);
+    return true;
   }
 
   clear() {
