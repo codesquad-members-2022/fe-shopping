@@ -48,14 +48,15 @@ function showRecord() {
 function template(recentSearchList) {
   return `<form class="search__form" id="searhForm">
 <input
+class="pop-up-container"
   id="searchInput"
   type="text"
   placeholder="찾고 싶은 상품을 검색해보세요!"
   autocomplete="off"
 />
 <div>
-  <button><i class="fas fa-microphone"></i></button>
-  <button><i class="fas fa-search"></i></button>
+  <span><i class="fas fa-microphone"></i></span>
+  <span><i class="fas fa-search"></i></span>
 </div>
 </form>
 <div class="${POP_UP.hidden} search__record" id="searchRecord">

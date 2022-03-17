@@ -7,5 +7,6 @@ const $root = findTargetIdElement(document, 'root');
 function init() {
   new Header('header', $root);
   new Main('main', $root);
+  // document.body.addEventListener('click', hidePopUp);
 }
 window.addEventListener('DOMContentLoaded', init);

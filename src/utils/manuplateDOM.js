@@ -54,13 +54,32 @@ export function findTargetClassElementAll($target, className) {
   return result;
 }
 
+function closePopUp($element) {
+  $element.classList.remove(POP_UP.show);
+  $element.classList.add(POP_UP.hidden);
+}
+
+function showPopUp($element) {
+  $element.classList.remove(POP_UP.hidden);
+  $element.classList.add(POP_UP.show);
+}
+
 export function handleDisplayElement($element) {
   const elementClassList = $element.classList;
   if (elementClassList.contains(POP_UP.hidden)) {
-    $element.classList.remove(POP_UP.hidden);
-    $element.classList.add(POP_UP.show);
+    showPopUp($element);
   } else {
-    $element.classList.remove(POP_UP.show);
-    $element.classList.add(POP_UP.hidden);
+    closePopUp($element);
   }
 }
+
+// export function hidePopUp({ target }) {
+//   const $openPopUpElement = findTargetClassElementAll(
+//     document.body,
+//     POP_UP.show
+//   );
+//   $openPopUpElement.forEach(
+//     ($element) =>
+//       !target.classList.contains('pop-up-container') && closePopUp($element)
+//   );
+// }

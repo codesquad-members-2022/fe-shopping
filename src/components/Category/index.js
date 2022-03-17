@@ -27,7 +27,7 @@ function handleCategoryButton(event) {
   handleDisplayElement($categoryLayer);
 }
 
-const template = `<div class="category__button" id="category-button">
+const template = `<div class="category__button pop-up-container" id="category-button">
     <i class="fas fa-bars"></i>
     <span>카테고리</span>
   </div>

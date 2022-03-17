@@ -1,8 +1,9 @@
 @charset 'utf-8';
 @import 'common/reset';
 @import 'common/variable';
-@import 'layout/header';
 @import 'layout/top_bar';
+@import 'layout/header';
+@import 'layout/main';
 
 .pop-up-hidden {
   display: none;
