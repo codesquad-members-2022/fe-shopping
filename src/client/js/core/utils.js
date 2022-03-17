@@ -13,10 +13,9 @@ const delay = (ms) =>
 
 const request = async (url, options) => {
   try {
-    const { query } = options;
     const fullUrl = `${API_END_POINT}${url}${
-      query
-        ? `?${Object.entries(query)
+      options?.query
+        ? `?${Object.entries(options.query)
             .map(([key, value]) => `${key}=${value}`)
             .join("&")}`
         : ""

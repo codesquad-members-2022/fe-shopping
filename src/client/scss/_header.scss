@@ -71,6 +71,21 @@ i {
     color: $baseGray;
     border-right: 1px $baseLightGray solid;
   }
+  .search__category-list {
+    position: absolute;
+    left: -1px;
+    top: 30px;
+    width: 100px;
+    background-color: $baseBgColor;
+    border: 1px $baseLightGray solid;
+    font-size: nth($fontSizes, 1);
+    color: $baseGray;
+    box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+    li {
+      padding: 5px;
+      margin: 5px 0px;
+    }
+  }
   .search__input {
     @include flex(space-around, center);
     width: 300px;

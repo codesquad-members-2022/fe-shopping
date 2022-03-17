@@ -5,9 +5,9 @@ export default function Component($target, $props) {
 
 Component.prototype = {
   constructor: Component,
-  initRender() {
+  async initRender() {
     this.setup();
-    this.render();
+    await this.render();
     this.setEvent();
   },
   setup() {
@@ -17,12 +17,12 @@ Component.prototype = {
     this.state = { ...this.state, ...newState };
     this.render();
   },
-  mount() {
+  async mount() {
     // render 이후 로직 실행
   },
-  render() {
+  async render() {
     this.$target.innerHTML = this.template();
-    this.mount();
+    await this.mount();
   },
   template() {
     // html 태그 templating
