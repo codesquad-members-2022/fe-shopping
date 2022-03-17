@@ -28,8 +28,8 @@ const $search__category = targetQuerySelector({
   className: "search__category",
 });
 
-const $all__category = targetQuerySelector({
-  className: "all__category",
+const $selected__category = targetQuerySelector({
+  className: "selected__category",
 });
 
 const $search = targetQuerySelector({
@@ -55,7 +55,7 @@ const $current__search__off = targetQuerySelector({
   className: "current__search__off",
 });
 
-$all__category.insertAdjacentElement(
+$selected__category.insertAdjacentElement(
   "afterend",
   $search__categories__container
 );
@@ -64,7 +64,14 @@ document.addEventListener("click", ({ target }) => {
   const { visibility } = $search__categories__container.style;
   if (visibility === "visible") {
     $search__categories__container.style.visibility = "hidden";
-  } else if (target === $search__category) {
+    const $currentCategory = target.closest("li");
+
+    // Todo : 함수화하여 이중if문을 if문 하나만 사용하도록 리팩토링
+    if ($currentCategory?.parentNode === $search__categories__container) {
+      const selectedCategoryText = $currentCategory.textContent;
+      $selected__category.innerText = selectedCategoryText;
+    }
+  } else if (target === $search__category || target === $selected__category) {
     $search__categories__container.style.visibility = "visible";
   }
 });
