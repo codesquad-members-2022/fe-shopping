@@ -16,7 +16,6 @@ class SearchZoneController {
     this.searched = [];
   }
   initService() {
-    // console.log(domUtil.$(".header__main--inputWrapper").event);
     this.inputDom.addEventListener("input", this.onInputSearchInput);
     this.inputDom.addEventListener("keydown", this.onKeyDownEnter.bind(this));
     this.menuDom.addEventListener("click", this.onClickSearchMenu);
@@ -29,7 +28,7 @@ class SearchZoneController {
       (jsonData) => new SearchInputToggle(jsonData).dom
     )
       .then(viewTest.renderToggle.bind(viewTest))
-      .then(() => viewTest.renderHistroy.bind(viewTest));
+      .then(() => viewTest.renderHistroy);
   }
 
   onClickSearchMenu() {
@@ -38,7 +37,6 @@ class SearchZoneController {
       (jsonData) => new SearchMenuToggle(jsonData).dom
     ).then(menuView.renderToggle.bind(menuView));
   }
-
   onKeyDownEnter(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -63,5 +61,4 @@ const test = new SearchZoneController(
 );
 const viewTest = new SearchInputToggleView(".header__main--inputWrapper");
 const menuView = new SearchMenuToggleView(".header__main--inputMenuButton");
-
 test.initService();
