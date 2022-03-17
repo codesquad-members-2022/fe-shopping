@@ -1,4 +1,5 @@
 import { SearchList } from "./search-list.js";
+import { t, tshir, tshirt } from "../data/tshirt.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchRecentList = document.querySelector(".search__recent-list");
@@ -36,6 +37,34 @@ searchbar.addEventListener("focus", () => {
     recentSearchList.show();
 });
 
+const getRelatedWord = (word) => {
+    if (word === "티") {
+        relatedSearchList.searchItems = t.map((it) => it.keyword);
+    } else if (word === "티셔") {
+        relatedSearchList.searchItems = tshir.map((it) => it.keyword);
+    } else if (word === "티셔츠") {
+        relatedSearchList.searchItems = tshirt.map((it) => it.keyword);
+    }
+
+    relatedSearchList.show();
+    relatedSearchList.renderSearchList();
+};
+
+let timer;
+const delay = (time) => {
+    return new Promise((resolve) => {
+        timer = setTimeout(resolve, time);
+    });
+};
+
+searchbar.addEventListener("input", ({ target }) => {
+    if (timer) {
+        clearTimeout(timer);
+    }
+
+    delay(500).then(() => getRelatedWord(target.value));
+});
+
 searchbar.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -45,7 +74,7 @@ searchbar.addEventListener("keydown", (event) => {
 
 document.body.addEventListener("click", ({ target }) => {
     if (!target.closest(".search")) {
-        searchRecentList.style.display = "none";
         recentSearchList.hide();
+        relatedSearchList.hide();
     }
 });
