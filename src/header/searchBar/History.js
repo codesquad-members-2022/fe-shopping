@@ -40,15 +40,21 @@ export class History {
   /* **리스너*** */
   handleSubmitForm = (e) => {
     e.preventDefault();
-    const word = this.$input.value.trim();
+    const keyword = this.$input.value.trim();
     this.$input.value = '';
 
-    if (word === '') return;
-    this.setHistory(Date.now(), word);
+    if (keyword === '') return;
+
+    const itemId = Date.now();
+    this.setHistory(itemId, keyword);
+
+    const $historyItem = this.createHistoryItemElement(itemId, keyword);
+    this.$historyList.appendChild($historyItem);
   };
 
   handleClickClearBtn = (e) => {
     this.clear();
+    this.$historyList.innerHTML = '';
   };
 
   handleClickDelBtn = (e) => {
