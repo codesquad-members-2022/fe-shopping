@@ -12,7 +12,9 @@ class SearchZoneController {
     this.menuDom = domUtil.$(menuDom);
   }
   initService() {
+    // console.log(domUtil.$(".header__main--inputWrapper").event);
     this.inputDom.addEventListener("input", this.onInputSearchInput);
+    this.inputDom.addEventListener("keydown", this.onKeyDownEnter);
     this.menuDom.addEventListener("click", this.onClickSearchMenu);
   }
 
@@ -30,6 +32,12 @@ class SearchZoneController {
       (jsonData) =>
         new Toggle(jsonData, "search--menu--li", "search--menu--ul").dom
     ).then(menuView.renderToggle.bind(menuView));
+  }
+
+  onKeyDownEnter(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
   }
 }
 
