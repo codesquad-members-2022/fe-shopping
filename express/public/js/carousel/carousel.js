@@ -1,6 +1,8 @@
+import { $ } from '../utility/util.js';
+import { addEvent } from '../utility/util.js';
 import { fetchData } from '../utility/util.js';
 import { makeImageSlide } from '../utility/util.js';
-import { $ } from '../utility/util.js';
+import { makeSideTeb } from '../utility/util.js';
 export default class Carousel {
   constructor() {
     this.intervalID = 0;
@@ -10,17 +12,33 @@ export default class Carousel {
       './public/data/carousel/carousel.json'
     );
 
+    const $imageContainer = this.renderMainImage(carouselData);
+    this.renderSubMenu(carouselData);
+
+    this.addSubMenuEvent();
+    this.initInterval($imageContainer, carouselData);
+  }
+
+  renderMainImage(carouselData) {
     const $imageContainer = $('.image-container');
     const slideTemplates = carouselData.slideData.reduce(
       (pre, curList) => (pre += makeImageSlide(curList)),
       ''
     );
     $imageContainer.innerHTML = slideTemplates;
-    this.initInterval($imageContainer, carouselData);
+    return $imageContainer;
+  }
+
+  renderSubMenu(carouselData) {
+    const $slideTeb = $('.slide-teb-container');
+    const slideTebTemplates = carouselData.slideData.reduce(
+      (pre, curList) => (pre += makeSideTeb(curList)),
+      ''
+    );
+    $slideTeb.innerHTML = slideTebTemplates;
   }
 
   initInterval($imageContainer, carouselData) {
-    console.log(carouselData);
     this.intervalID = setInterval(
       () =>
         this.translateContainer(
@@ -33,22 +51,25 @@ export default class Carousel {
   }
 
   translateContainer(direction, container, totalSlide) {
-    const selectedBtn = direction === 1 ? 'back' : 'next';
     container.style.transitionDuration = '1ms';
     container.style.transform = `translateY(${
-      direction * (600 / totalSlide)
+      direction * ((totalSlide * 100) / totalSlide)
     }%)`;
-    container.ontransitionend = () =>
-      this.changeLocationEl(container, selectedBtn);
+    container.ontransitionend = () => this.changeLocationEl(container);
   }
 
-  changeLocationEl(container, selectedBtn) {
+  changeLocationEl(container) {
     container.removeAttribute('style');
-    selectedBtn === 'back'
-      ? container.insertBefore(
-          container.lastElementChild,
-          container.firstElementChild
-        )
-      : container.appendChild(container.firstElementChild);
+    container.appendChild(container.firstElementChild);
   }
+
+  addSubMenuEvent() {
+    const $slideTeb = $('.slide-teb-container');
+    addEvent($slideTeb, 'mouseover', this.changeImage);
+  }
+
+  changeImage = ({ target }) => {
+    if (!target.closest('li')) return;
+    else if (target.closest('img')) return;
+  };
 }

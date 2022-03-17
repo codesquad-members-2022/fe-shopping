@@ -316,30 +316,40 @@ input:focus {
 }
 
 .slide-section .image-box {
-  overflow: hidden;
   position: relative;
-  left: 50%;
+  overflow: hidden;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  height: 330px;
+  height: 400px;
   width: 950px;
+  left: 50%;
 }
 
 .slide-section .image-box .image-container {
   position: absolute;
-  height: 330px;
-  width: 950px;
-  top: -330px;
-  white-space: nowrap;
-  list-style: none;
+  top: -400px;
 }
 
 .slide-section .image-box .image-container .image-element {
-  text-decoration: none;
-  width: 950px;
-  height: 330px;
   float: left;
+}
+
+.slide-tab-box {
+  position: absolute;
+  height: 330px;
+  width: 200px;
+  right: 30px;
+  top: 30px;
+}
+
+.slide-tab-box .slide-teb-container {
+  position: absolute;
+}
+
+.slide-tab-box .slide-teb-container .side-teb-element {
+  border: 1px solid #000;
+  border-bottom: 0.5px solid #000;
 }
 /*# sourceMappingURL=main.css.map */

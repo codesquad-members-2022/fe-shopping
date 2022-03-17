@@ -4,26 +4,34 @@
   margin: 0 auto;
   margin-top: 130px;
   .image-box {
-    overflow: hidden;
     position: relative;
-    left: 50%;
+    overflow: hidden;
     transform: translateY(-50%);
     transform: translateX(-50%);
-    height: 330px;
+    height: 400px;
     width: 950px;
+    left: 50%;
     .image-container {
       position: absolute;
-      height: 330px;
-      width: 950px;
-      top: -330px;
-      white-space: nowrap;
-      list-style: none;
+      top: -400px;
       .image-element {
-        text-decoration: none;
-        width: 950px;
-        height: 330px;
         float: left;
       }
+    }
+  }
+}
+
+.slide-tab-box {
+  position: absolute;
+  height: 330px;
+  width: 200px;
+  right: 30px;
+  top: 30px;
+  .slide-teb-container {
+    position: absolute;
+    .side-teb-element {
+      border: 1px solid $color-black;
+      border-bottom: 0.5px solid $color-black;
     }
   }
 }
