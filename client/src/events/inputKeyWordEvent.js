@@ -1,33 +1,43 @@
-import { $, fetchPostData, delay } from '../utils/util.js';
+import { $, $$, fetchPostData, delay } from '../utils/util.js';
+import { KEY_UP_CODE, KEY_DOWN_CODE } from '../constants/constant.js';
 import SearchWord from '../package/search/SearchWord.js';
 
 export const inputKeyWordEvent = () => {
   const searchWord = new SearchWord();
   const inputKeyWordBox = $('.main-header__input');
   const inputKeyWordBtn = $('.main-header__input--btn');
-  let id = 0;
 
-  inputKeyWordBox.addEventListener('keyup', async ({ target, keyCode }) => {
+  const toggleElementClassByKey = (element, className) => {
+    element.forEach(element => {
+      parseInt(element.getAttribute('data-id')) === searchWord.index
+        ? element.classList.remove(className)
+        : element.classList.add(className);
+    });
+  };
+
+  const keyupEvent = () => {
+    const searchLinks = $$('.search--link');
+    searchWord.index--;
+    if (searchWord.index < 0) searchWord.index = searchLinks.length - 1;
+    toggleElementClassByKey(searchLinks, 'text-none');
+  };
+
+  const keydownEvent = () => {
+    const searchLinks = $$('.search--link');
+    searchWord.index++;
+    if (searchWord.index >= searchLinks.length) searchWord.index = 0;
+    toggleElementClassByKey(searchLinks, 'text-none');
+  };
+
+  inputKeyWordBox.addEventListener('keyup', async ({ target: { value }, keyCode }) => {
     const searchKeywordBox = $('.search-keyword');
-    if (keyCode === 38 && searchKeywordBox) {
-      const searchLinks = document.querySelectorAll('.search--link');
-      id--;
-      if (id < 0) id = 9;
-      searchLinks.forEach(element => {
-        if (parseInt(element.getAttribute('data-id')) === id) element.style.textDecoration = 'underline';
-        else element.style.textDecoration = 'none';
-      });
+    if (keyCode === KEY_UP_CODE && searchKeywordBox) {
+      keyupEvent();
       return;
     }
 
-    if (keyCode === 40 && searchKeywordBox) {
-      const searchLinks = document.querySelectorAll('.search--link');
-      id++;
-      if (id >= 10) id = 0;
-      searchLinks.forEach(element => {
-        if (parseInt(element.getAttribute('data-id')) === id) element.style.textDecoration = 'underline';
-        else element.style.textDecoration = 'none';
-      });
+    if (keyCode === KEY_DOWN_CODE && searchKeywordBox) {
+      keydownEvent();
       return;
     }
 
@@ -37,9 +47,9 @@ export const inputKeyWordEvent = () => {
 
     await delay(500);
 
-    if (target.value) {
-      const responseData = await fetchPostData('search', target.value);
-      searchWord.setCurrentWord(target.value);
+    if (value) {
+      const responseData = await fetchPostData('search', value);
+      searchWord.setCurrentWord(value);
       searchWord.toggleRender(responseData);
     } else {
       const recentSearchBox = $('.search-recent');
