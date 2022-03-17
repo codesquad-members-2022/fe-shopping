@@ -59,7 +59,9 @@ export class History {
   //   this.$historyList.appendChild($historyItem);
   // };
 
-  renderHistoryItems() {}
+  renderHistoryItems() {
+    const $$historyItem = this.getHistory(this.key);
+  }
 
   createHistoryItemElement(id, keyword) {
     const $historyItem = createElement('li', this.HISTORY_ITEM, null, {
@@ -103,7 +105,7 @@ export class History {
   }
 
   setHistory(id, value) {
-    const prevHistory = webStorage.get(this.key) ?? {};
+    const prevHistory = this.getHistory();
 
     const prevIds = Object.keys(prevHistory).filter((_id) => {
       if (prevHistory[_id] !== value) return true;
@@ -125,7 +127,7 @@ export class History {
   }
 
   getHistory() {
-    return webStorage.get(this.key);
+    return webStorage.get(this.key) ?? {};
   }
 
   removeHistory(id) {
