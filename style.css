@@ -663,10 +663,10 @@ template {
   text-decoration: underline;
 }
 
-.auto-search-list {
+.auto-complete-list {
   width: 100%;
 }
-.auto-search-item {
+.auto-complete-item {
   font-size: 11px;
   color: #333;
   width: 100%;
@@ -677,7 +677,7 @@ template {
   white-space: nowrap;
   cursor: pointer;
 }
-.auto-search-item:hover {
+.auto-complete-item:hover {
   text-decoration: underline;
 }
 
