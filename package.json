@@ -20,5 +20,8 @@
   "homepage": "https://github.com/bcad1591/fe-shopping#readme",
   "devDependencies": {
     "sass": "^1.49.9"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
   }
 }
