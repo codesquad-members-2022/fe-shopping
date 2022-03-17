@@ -680,5 +680,9 @@ template {
 .auto-complete-item:hover {
   text-decoration: underline;
 }
+.auto-complete-item strong {
+  font-weight: 700;
+  color: #4285f4;
+}
 
 /*# sourceMappingURL=style.css.map */
