@@ -18,18 +18,21 @@ function handleInputFocusIn() {
   }
 }
 
-function handleKeyupWithFocus({ target, key }) {
+function handleKeyupWithFocus({ target }) {
   const { searchSuggestion, searchRecent } = this.$props;
+  this.state.inputData = target.value;
   if (target.value) {
     searchRecent.setState({ display: "none" });
   } else {
+    searchSuggestion.setState({ display: "none" });
     searchRecent.setState({ display: "flex" });
+    return;
   }
-  this.state.inputData = target.value;
   /* 5초 뒤에도 같은 값인지 확인 하기위한 변수 */
   const curValue = target.value;
   delay(500).then(async () => {
-    if (this.state.inputData === curValue) {
+    const isFinishInput = this.state.inputData === curValue;
+    if (isFinishInput) {
       const requestOptions = {
         query: {
           keyword: curValue,

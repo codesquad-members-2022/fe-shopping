@@ -10,9 +10,12 @@ const highlightWord = (string, word) => {
   const regex = new RegExp(`(?<front>.+)?(?<matchedWord>${word})(?<back>.+)?`);
   const { groups } = string.match(regex) || { groups: {} };
   const { front, matchedWord, back } = groups;
-  return `${front || ""}${
-    matchedWord ? `<span class="matchedWord">${matchedWord}</span>` : ""
-  }${back || ""}`;
+
+  return matchedWord
+    ? `${front || ""}<span class="matchedWord">${matchedWord}</span>${
+        back || ""
+      }`
+    : string;
 };
 
 SearchSuggestion.prototype.setup = function () {
