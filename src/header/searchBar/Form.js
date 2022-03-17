@@ -29,6 +29,8 @@ export class SearchBarForm {
     this.$input.addEventListener('focusin', () => {
       removeClass(HIDDEN, this.$acWrapper);
     });
+
+    this.$form.addEventListener('submit', this.handleSubmitForm);
   }
 
   initHistory() {
@@ -47,4 +49,16 @@ export class SearchBarForm {
       HISTORY_ITEM_DEL_BTN: HISTORY_ITEM_DELETE_BTN,
     });
   }
+
+  /* **리스너*** */
+  handleSubmitForm = (e) => {
+    const keyword = this.$input.value.trim();
+    if (keyword === '') {
+      e.preventDefault();
+      this.$input.value = '';
+    }
+
+    this.history.setHistory(Date.now(), keyword);
+  };
+  /* ********** */
 }

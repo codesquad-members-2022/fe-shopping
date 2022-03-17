@@ -29,8 +29,7 @@ export class History {
   }
 
   init() {
-    this.$form.addEventListener('submit', this.handleSubmitForm);
-
+    this.renderHistoryItems();
     this.$historyList.addEventListener('click', this.handleClickDelBtn);
 
     const $clearBtn = selector(`.${this.HISTORY_CLEAR_BTN}`);
@@ -38,20 +37,6 @@ export class History {
   }
 
   /* **리스너*** */
-  handleSubmitForm = (e) => {
-    e.preventDefault();
-    const keyword = this.$input.value.trim();
-    this.$input.value = '';
-
-    if (keyword === '') return;
-
-    const itemId = Date.now();
-    this.setHistory(itemId, keyword);
-
-    const $historyItem = this.createHistoryItemElement(itemId, keyword);
-    this.$historyList.appendChild($historyItem);
-  };
-
   handleClickClearBtn = (e) => {
     this.clear();
     this.$historyList.innerHTML = '';
@@ -66,6 +51,15 @@ export class History {
     this.removeHistoryItemElement($item);
   };
   /* ********** */
+
+  // handleSubmitForm = (itemId, keyword) => {
+  //   this.setHistory(itemId, keyword);
+
+  //   const $historyItem = this.createHistoryItemElement(itemId, keyword);
+  //   this.$historyList.appendChild($historyItem);
+  // };
+
+  renderHistoryItems() {}
 
   createHistoryItemElement(id, keyword) {
     const $historyItem = createElement('li', this.HISTORY_ITEM, null, {
