@@ -124,5 +124,8 @@ header h1 img {
 .search-form-wrapper .search-auto-complete .hilite {
   color: blue;
 }
+.search-form-wrapper .search-auto-complete .selected {
+  text-decoration: underline;
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -23,3 +23,12 @@ input.$input.addEventListener('focusin', () => {
 input.$input.addEventListener('focusout', () => {
   history.show = false;
 });
+document.addEventListener('keyup', ({code}) => {
+  const [next, before] = [1, -1];
+  if (code === 'ArrowUp') {
+    autoComplete.selectItem(before);
+  }
+  else if (code === 'ArrowDown') {
+    autoComplete.selectItem(next);
+  }
+});
