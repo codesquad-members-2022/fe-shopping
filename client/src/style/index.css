@@ -139,8 +139,8 @@ table {
   display: none;
 }
 
-.text_underline {
-  text-decoration: underline;
+.text-none {
+  text-decoration: none;
 }
 
 .r-flex {
@@ -170,22 +170,6 @@ table {
   height: 115px;
   max-width: 1020px;
   margin: 0 auto;
-}
-.main-header__category {
-  position: relative;
-  width: 110px;
-  height: 120px;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
-  text-align: center;
-  cursor: pointer;
-}
-.main-header__category--text {
-  position: absolute;
-  top: 75px;
-  left: 28px;
-  color: #fff;
 }
 .main-header__contents {
   margin: 30px 30px 5px 30px;
@@ -301,6 +285,37 @@ table {
   color: #fff;
 }
 
+.category {
+  position: relative;
+  width: 110px;
+  height: 120px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  text-align: center;
+  cursor: pointer;
+}
+.category-list {
+  width: 160px;
+  position: absolute;
+  top: 110px;
+  border: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+.category-item {
+  padding: 10px;
+}
+.category-item:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+.category--text {
+  position: absolute;
+  top: 75px;
+  left: 28px;
+  color: #fff;
+}
+
 .search {
   margin-bottom: 20px;
 }
@@ -327,25 +342,29 @@ table {
 }
 .search-selectBox {
   width: 134px;
-  height: 38px;
+  height: 42px;
   border-right: 1px solid #ddd;
   font-size: 12px;
   cursor: pointer;
   z-index: 10;
 }
 .search-list {
-  max-height: 1px;
+  overflow-y: hidden;
+  max-height: 0;
+  transition: max-height 1s ease-out;
   margin-top: 12px;
   background-color: #fff;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 4px 5px #666;
-  overflow: hidden;
-  transition: max-height 0.1s cubic-bezier(0, 1, 0, 1);
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
 }
-.search-searchItem {
+.search-list.heightExpanded {
+  max-height: 2000px;
+}
+.search-item {
   padding: 15px;
 }
-.search-searchItem:hover {
+.search-item:hover {
   color: #4285f4;
   text-decoration: underline;
 }
@@ -353,7 +372,9 @@ table {
   padding: 15px 10px;
   font-size: 12px;
   color: #191a1c;
-  text-decoration: none;
+}
+.search--link:hover {
+  text-decoration: underline;
 }
 .search--same {
   color: #4285f4;
