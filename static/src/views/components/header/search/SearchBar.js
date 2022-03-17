@@ -1,9 +1,9 @@
 export class SearchBar {
-  constructor([$recentKeywords, $categories, STORAGE_KEY, searchStorage]) {
+  constructor([$recentKeywords, $categories, RECENT_SEARCH_KEYWORDS, searchStorage]) {
     this.$searchWrap = document.querySelector('.header__search-wrap');
     this.$recentKeywords = $recentKeywords;
     this.$categories = $categories;
-    this.STORAGE_KEY = STORAGE_KEY;
+    this.RECENT_SEARCH_KEYWORDS = RECENT_SEARCH_KEYWORDS;
     this.searchStorage = searchStorage;
     this.addEventListener();
   }
@@ -11,10 +11,10 @@ export class SearchBar {
   saveRecentSearchKeyword() {
     const searchValue = this.$searchWrap.querySelector('.search-input').value;
     if (!searchValue) return;
-    const searchValues = this.searchStorage.getItem(this.STORAGE_KEY)
-      ? `${this.searchStorage.getItem(this.STORAGE_KEY)},${searchValue}`
+    const searchValues = this.searchStorage.getItem(this.RECENT_SEARCH_KEYWORDS)
+      ? `${this.searchStorage.getItem(this.RECENT_SEARCH_KEYWORDS)},${searchValue}`
       : searchValue;
-    this.searchStorage.setItem(this.STORAGE_KEY, searchValues);
+    this.searchStorage.setItem(this.RECENT_SEARCH_KEYWORDS, searchValues);
     this.$searchWrap.querySelector('.search-input').value = '';
   }
 

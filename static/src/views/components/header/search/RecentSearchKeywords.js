@@ -1,8 +1,8 @@
 export class RecentSearchKeywords {
-  constructor([STORAGE_KEY, searchStorage]) {
+  constructor([RECENT_SEARCH_KEYWORDS, searchStorage]) {
     this.$searchWrap = document.querySelector('.header__search-wrap');
     this.$recentKeywords = this.$searchWrap.querySelector('.search-recent-keywords');
-    this.STORAGE_KEY = STORAGE_KEY;
+    this.RECENT_SEARCH_KEYWORDS = RECENT_SEARCH_KEYWORDS;
     this.searchStorage = searchStorage;
     this.render();
     this.addEventListener();
@@ -10,7 +10,7 @@ export class RecentSearchKeywords {
 
   render() {
     this.$recentKeywords.querySelector('ol').innerHTML = '';
-    const recentKeywordsData = this.searchStorage.getItem(this.STORAGE_KEY);
+    const recentKeywordsData = this.searchStorage.getItem(this.RECENT_SEARCH_KEYWORDS);
     if (!recentKeywordsData) return;
     const recentKeywordsTemplate = recentKeywordsData
       .split(',')
@@ -26,7 +26,7 @@ export class RecentSearchKeywords {
 
   addAllDeleteButtonEvent() {
     this.$recentKeywords.querySelector('.all-delete-button').addEventListener('click', () => {
-      this.searchStorage.removeItem(this.STORAGE_KEY);
+      this.searchStorage.removeItem(this.RECENT_SEARCH_KEYWORDS);
       this.$recentKeywords.classList.remove('active');
       this.render();
     });

@@ -5,7 +5,7 @@ import { RecentSearchKeywords } from './search/RecentSearchKeywords.js';
 
 export class Header {
   constructor() {
-    this.STORAGE_KEY = 'recentSearchKeywords';
+    this.RECENT_SEARCH_KEYWORDS = 'recentSearchKeywords';
     this.searchStorage = localStorage;
     this.renderSearchArea();
   }
@@ -13,11 +13,11 @@ export class Header {
   renderSearchArea() {
     const searchCategoriesButton = new SearchCategoriesButton();
     const searchCategories = new SearchCategories(searchCategoriesButton.updateCategory.bind(searchCategoriesButton));
-    const recentSearchKeywords = new RecentSearchKeywords([this.STORAGE_KEY, this.searchStorage]);
-    const searchBar = new SearchBar([
+    const recentSearchKeywords = new RecentSearchKeywords([this.RECENT_SEARCH_KEYWORDS, this.searchStorage]);
+    new SearchBar([
       recentSearchKeywords.$recentKeywords,
       searchCategories.$categories,
-      this.STORAGE_KEY,
+      this.RECENT_SEARCH_KEYWORDS,
       this.searchStorage,
     ]);
   }
