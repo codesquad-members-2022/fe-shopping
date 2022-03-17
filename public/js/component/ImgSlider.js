@@ -1,13 +1,17 @@
-export default function ImgSlider({ data, sec, slideUlElement, imgAreaNode }) {
+export default function ImgSlider({
+  data,
+  sec,
+  slideUlElement,
+  imgAreaElement,
+}) {
   this.curIdx = 0;
   this.slideUlElement = slideUlElement;
-  this.imgAreaNode = imgAreaNode;
+  this.imgAreaElement = imgAreaElement;
   this.data = data;
   this.dataCount = data.length;
-  this.timer = null;
-  this.ms = sec * 1000;
-  this.sliderItems = null;
+  this.millisecond = sec * 1000;
 }
+
 ImgSlider.prototype = {
   setCurSlider() {
     this.setCurSlideImg();
@@ -21,7 +25,10 @@ ImgSlider.prototype = {
   },
 
   runSlider() {
-    this.timer = setInterval(this.SlidercallBackFunc.bind(this), this.ms);
+    this.timer = setInterval(
+      this.SlidercallBackFunc.bind(this),
+      this.millisecond
+    );
   },
 
   stopSlider() {
@@ -46,7 +53,7 @@ ImgSlider.prototype = {
   },
 
   setCurSlideImg() {
-    this.imgAreaNode.style.backgroundImage = `url(${
+    this.imgAreaElement.style.backgroundImage = `url(${
       this.data[this.curIdx]["backgroundImg"]
     })`;
   },

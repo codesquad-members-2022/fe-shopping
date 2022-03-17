@@ -6,7 +6,7 @@ const imgSlider = new ImgSlider({
   data: sliderData,
   sec: 1.7,
   slideUlElement: $(".carousel-items"),
-  imgAreaNode: $(".carousel-img-area"),
+  imgAreaElement: $(".carousel-img-area"),
 });
 
 imgSlider.init();
