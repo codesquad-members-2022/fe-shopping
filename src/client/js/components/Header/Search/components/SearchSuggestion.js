@@ -31,18 +31,14 @@ SearchSuggestion.prototype.mount = function () {
 
 SearchSuggestion.prototype.template = function () {
   const { suggestionDatas, word } = this.state;
+  const suggestions = suggestionDatas
+    ? suggestionDatas
+        .map(({ keyword }) => `<span>${highlightWord(keyword, word)}</span>`)
+        .join("")
+    : "";
   return `
     <div class="suggestion__body">
-        ${
-          suggestionDatas
-            ? suggestionDatas
-                .map(
-                  ({ keyword: string }) =>
-                    `<span>${highlightWord(string, word)}</span>`
-                )
-                .join("")
-            : ""
-        }
+        ${suggestions}
     </div>
   `;
 };
