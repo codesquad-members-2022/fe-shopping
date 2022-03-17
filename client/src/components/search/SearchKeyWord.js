@@ -1,9 +1,9 @@
-const Keyword = (currentWord, keyword) => {
+const Keyword = (currentWord, keyword, id) => {
   const currentWordArr = Array.from(currentWord);
   const keywordArr = Array.from(keyword);
 
   return /* html */ `
-        <a href="#" class="search--link">
+        <a href="#" class="search--link" data-id="${id}">
           ${keywordArr.reduce((prev, cur, index) => {
             return (prev +=
               currentWordArr[index] === keywordArr[index]
@@ -16,8 +16,8 @@ const Keyword = (currentWord, keyword) => {
 export const SearchKeyWord = (currentWord, data) => {
   return /* html */ `
     <div class="l-flex search-keyword">
-        ${data.reduce((prev, cur) => {
-          return (prev += Keyword(currentWord, cur));
+        ${data.reduce((prev, cur, index) => {
+          return (prev += Keyword(currentWord, cur, index));
         }, '')}
     </div>
     `;

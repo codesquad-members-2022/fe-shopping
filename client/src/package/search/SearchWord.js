@@ -8,6 +8,11 @@ export default function SearchWord() {
   this.turn = true;
 }
 
+SearchWord.prototype.pushRecentWords = function () {
+  if (this.recentWords.includes(this.currentWord)) return;
+  this.recentWords.push(this.currentWord);
+};
+
 SearchWord.prototype.getCurrentWord = function () {
   return this.currentWord;
 };
@@ -32,6 +37,14 @@ SearchWord.prototype.removeAll = function () {
   this.recentWords = [];
 };
 
+SearchWord.prototype.addRemoveEventListener = function () {
+  const recentRemoveBtn = $('.search-recent--remove');
+  recentRemoveBtn.addEventListener('click', () => {
+    this.removeAll();
+    this.toggleRender();
+  });
+};
+
 SearchWord.prototype.toggleRender = function (data) {
   // 최근검색어가 없으면 리턴.
   // turn 값이 true라면 최근검색어가 최근검색어 컴포넌트 보여주기
@@ -46,6 +59,7 @@ SearchWord.prototype.toggleRender = function (data) {
   if (this.getTurn()) {
     if (this.recentWords.length === 0) return;
     inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
+    this.addRemoveEventListener();
   } else {
     inputKeyWordBox.insertAdjacentHTML(
       'afterend',
