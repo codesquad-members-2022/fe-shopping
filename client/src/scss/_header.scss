@@ -20,22 +20,24 @@ header {
     margin: 2px 20px 0 0;
   }
 }
-.search-form-wrapper {
-  position: relative;
-  .search-form {
+.search {
+  &-form-wrapper {
+    position: relative;
+  }
+  &-form {
     border: 2px solid #4285f4;
     width: 518px;
     height: 38px;
     margin-right: 22px;
     display: flex;
   }  
-  .search-category {
+  &-category {
     position: relative;
     width: 134px;
     border-right: 1px solid #ddd;
     display: flex;
   }
-  .search-category__selected {
+  &-category__selected {
     width: 110px;
     height: 38px;
     line-height: 38px;
@@ -43,13 +45,13 @@ header {
     font-size: 12px;
     color: #555;
   }
-  .search-category-button {
+  &-category-button {
     background: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png") 6px -165px no-repeat;
     width: 30px;
     height: 30px;
   }
 
-  .search-input {
+  &-input {
     top: 0;
     width: 310px;
     height: 37px;
@@ -59,7 +61,7 @@ header {
     font-size: 14px;
     outline: 0;
   }
-  .search-popup {
+  &-popup {
     position: absolute;
     left: 134px;
     width: 384px;
@@ -67,10 +69,10 @@ header {
     height: auto;
     box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
   }
-  .search-mic, .search-button {
+  &-mic, &-button {
     padding: 12px;
   }
-  .search-auto-complete {
+  &-auto-complete {
     padding: 20px 12px 6px 12px;
 
     li {
