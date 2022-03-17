@@ -7,6 +7,9 @@ export default class SearchInput {
     this._value = newValue;
     this.render();
   }
+  get value() {
+    return this._value;
+  }
   render() {
     this.$input.value = this._value;
   }

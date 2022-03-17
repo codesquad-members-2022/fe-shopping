@@ -3,12 +3,15 @@ export default class SearchAutoComplete {
     this.$searchPopup = document.querySelector('.search-popup');
     this._list = [];
     this.selectedItemIndex = -1;
-    this.keyword = '';
+    this._keyword = '';
   }
   set list(newList) {
     this._list = newList;
     this.selectedItemIndex = -1;
     this.render();
+  }
+  set keyword(newKeyword) {
+    this._keyword = newKeyword;
   }
   selectItem(direction) {
     this.selectedItemIndex += direction;
@@ -20,8 +23,12 @@ export default class SearchAutoComplete {
     }
     this.render();
   }
+  get selectedItem() {
+    if (this.selectedItemIndex === -1) return this._keyword;
+    return this._list[this.selectedItemIndex];
+  }
   hiliteWord(word) {
-    return word.split(this.keyword).join(`<span class="hilite">${this.keyword}</span>`);
+    return word.split(this._keyword).join(`<span class="hilite">${this._keyword}</span>`);
   }
   render() {
     if (this._list.length === 0) {
