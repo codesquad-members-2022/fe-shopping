@@ -1,3 +1,5 @@
+import { POP_UP } from '../constant/htmlSelector.js';
+
 export function assignStyles($element, styleObj) {
   Object.assign($element.style, styleObj);
 }
@@ -54,11 +56,11 @@ export function findTargetClassElementAll($target, className) {
 
 export function handleDisplayElement($element) {
   const elementClassList = $element.classList;
-  if (elementClassList.contains('none')) {
-    $element.classList.remove('none');
-    $element.classList.add('show');
+  if (elementClassList.contains(POP_UP.hidden)) {
+    $element.classList.remove(POP_UP.hidden);
+    $element.classList.add(POP_UP.show);
   } else {
-    $element.classList.remove('show');
-    $element.classList.add('none');
+    $element.classList.remove(POP_UP.show);
+    $element.classList.add(POP_UP.hidden);
   }
 }

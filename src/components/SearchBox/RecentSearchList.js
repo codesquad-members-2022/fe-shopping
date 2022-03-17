@@ -17,7 +17,6 @@ RecentSearchList.prototype.setTemplate = function () {
 };
 
 RecentSearchList.prototype.directRender = function () {
-  console.log('search', this.$element);
   return this.$element.innerHTML;
 };
 

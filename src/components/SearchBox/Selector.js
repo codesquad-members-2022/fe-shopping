@@ -1,3 +1,4 @@
+import { POP_UP } from '../../constant/htmlSelector.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import {
   findTargetIdElement,
@@ -33,7 +34,7 @@ const template = `
 <div id="searchSelector">
   <span>전체</span> <i class="fas fa-caret-down"></i>
 </div>
-<div class="none search__options" id="searchOptions">
+<div class="${POP_UP.hidden} search__options" id="searchOptions">
  <ul>
  <li>옵션1</li>
  <li>옵션2</li>

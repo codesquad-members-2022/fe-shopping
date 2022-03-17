@@ -1,3 +1,4 @@
+import { POP_UP } from '../../constant/htmlSelector.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import {
   findTargetIdElement,
@@ -22,10 +23,10 @@ FormContainer.prototype.setTemplate = function () {
 FormContainer.prototype.setEvent = function () {
   const $form = findTargetIdElement(this.$element, 'searhForm');
   const $input = findTargetIdElement($form, 'searchInput');
-  $form.addEventListener('submit', handleSubmit.bind(this));
+  $form.addEventListener('submit', handleSubmit);
   $input.addEventListener('focus', showRecord.bind(this));
-  $input.addEventListener('focusout', showRecord.bind(this));
-  $input.addEventListener('input', handleInput.bind(this));
+  // $input.addEventListener('focus', showRecord.bind(this));
+  $input.addEventListener('input', handleInput);
 };
 
 export default FormContainer;
@@ -57,7 +58,7 @@ function template(recentSearchList) {
   <button><i class="fas fa-search"></i></button>
 </div>
 </form>
-<div class="none search__record" id="searchRecord">
+<div class="${POP_UP.hidden} search__record" id="searchRecord">
 <h5>최근 검색어</h5>
 ${recentSearchList.directRender()}
 <div>

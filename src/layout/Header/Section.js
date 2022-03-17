@@ -13,7 +13,7 @@ Section.prototype.constructor = Section;
 Section.prototype.setTemplate = function () {
   const logoArea = document.createElement('div');
   logoArea.classList.add('logo-area');
-  logoArea.insertAdjacentHTML('afterbegin', imgTemplate);
+  logoArea.insertAdjacentHTML('beforeend', imgTemplate);
   new SearchBox('div', logoArea);
   logoArea.insertAdjacentHTML('beforeend', userInfoTemplate);
   this.$element.appendChild(logoArea);

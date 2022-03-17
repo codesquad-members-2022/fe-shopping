@@ -1,3 +1,4 @@
+import { POP_UP } from '../../constant/htmlSelector.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import {
   findTargetIdElement,
@@ -30,7 +31,7 @@ const template = `<div class="category__button" id="category-button">
     <i class="fas fa-bars"></i>
     <span>카테고리</span>
   </div>
-  <div class="none" id="category-layer">
+  <div class="${POP_UP.hidden}" id="category-layer">
     <div class="category__layer">
     <ul class="category__list">
       <li><span>패션의류/잡화</span></li>
