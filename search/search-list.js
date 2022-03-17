@@ -13,8 +13,8 @@ class SearchList {
         this.isVisible = false;
     }
 
-    getSearchListTemplate() {
-        // return
+    addSearchWord(word) {
+        this.searchList.unshift(word);
     }
 }
 
