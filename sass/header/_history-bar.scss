@@ -23,6 +23,15 @@
   background: #fff;
   border-left: 1px solid #ccc;
   
+  > .latest-search-contents > .history-off-msg {
+    padding: 12px 0;
+    line-height: 43px;
+    text-align: center;
+    font-weight: bold;
+    @include nodeSize(376px, 43px, block);
+    
+  }
+
   > .latest-search-contents > h3 {
     @include nodeSize( 360px, 11px, block);
     @include whiteSpace(14px 0 13px 4px, 0 6px); 
@@ -30,7 +39,14 @@
     position: relative;
     border-bottom: 1px solid #ddd;
     font-size: 12px;
+  }    
+  
+  > .latest-search-contents > ol {
+    line-height: 200%;
+    @extend %basic_font_color;
+    @include whiteSpace( 10px 12px 6px 12px );
   }
+  
   > .searched-items {
     @include whiteSpace( 20px 12px 6px 12px );
 
@@ -81,4 +97,12 @@
 }
 .down {
   display: none;
+}
+
+.fixTop {
+  top: 174px;
+}
+
+.size-auto {
+  height: auto;
 }

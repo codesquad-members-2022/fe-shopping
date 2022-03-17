@@ -12,12 +12,18 @@ const $searchedItems = document.querySelector('.searched-items');
 const $latestSearch = document.querySelector('.latest-search');
 const $headerSearchForm = document.querySelector('.headerSearchForm');
 const $latestSearchList = document.querySelector('ol');
+const $deleteAllBtn = document.querySelector('.delete-all-history-btn');
+const $historyBtns = document.querySelector('.history-btns');
+const $historyOnOff = document.querySelector('.history-onoff');
 //연관 기능 검색
 
-document.addEventListener('click', (e) => {  
-  if (e.target.className === 'coupang-search') {    
+document.addEventListener('click', ( e ) => {  
+  console.log(e.target);
+  if (e.target === $input) {
     $latestSearch.classList.remove('down');
     $latestSearch.classList.add('up');
+  } else if(e.target.closest('.latest-search')) { //부모요소에 latest Search가 있으면 true 리턴
+    return;
   } else {
     $latestSearch.classList.remove('up');
     $latestSearch.classList.add('down');
@@ -29,9 +35,11 @@ $input.addEventListener('input', (word) => {
   if (!$input.value) {
     $searchedItems.classList.add('down');
     $latestSearchContent.classList.remove('down');
+    $historyBtns.classList.remove('down');
   } else {
     $searchedItems.classList.remove('down');
     $latestSearchContent.classList.add('down');
+    $historyBtns.classList.add('down');
   }
   
   const userInput = $input.value;
@@ -52,29 +60,51 @@ $input.addEventListener('input', (word) => {
 
 //submit한 데이터를 localStorage에 저장했다가 받아와서 출력
 function latestSearch() {
-  const searchedItems = [];
-
+  
+  let searchedItems = [];
   $headerSearchForm.addEventListener('submit', (search) => {
     //최근 검색어 저장
     search.preventDefault();
     $searchedItems.classList.add('down');
     $latestSearchContent.classList.add('up');
     $latestSearchContent.classList.remove('down');
-    // $latestSearch.classList.remove('up');
-    // $latestSearch.classList.add('down');
-
+    $historyBtns.classList.remove('down');
     
-    searchedItems.unshift($input.value);
-    localStorage.setItem('searchedItems', searchedItems);
-
-
-    const searchedList = Json.parse(localStorage.getItem('searchedItems')).reduce((acc, el, idx) => {
-      return acc + `<li>${el}</li>`;
-    },'')
-    $latestSearchList.innerHTML = searchedList;
-
-
+    if(!$historyOnOff.classList.contains('off')) {
+      searchedItems.unshift($input.value);
+      localStorage.setItem('searchedItems', JSON.stringify(searchedItems));
+      
+      const searchedList = JSON.parse(localStorage.getItem('searchedItems')).reduce((acc, el, idx) => {
+        return acc + `<li>${el}</li>`;
+      }, '');
+      const $latestSearchList = document.querySelector('ol');
+      $latestSearchList.innerHTML = searchedList;
+    }
   });
+  $deleteAllBtn.addEventListener('click', (e) => {
+    localStorage.removeItem('searchedItems');
+    $latestSearchList.innerHTML = '';
+    searchedItems = [];
+  })
+  $historyOnOff.addEventListener('click', (e) => {
+
+    if ($historyOnOff.classList.contains('off')) {
+      $historyOnOff.classList.remove('off');
+      $latestSearchKeywd.classList.remove('size-auto');
+      $historyBtns.classList.remove('fixTop');
+      $latestSearchContent.innerHTML = `<h3><span>최근</span> 검색어</h3><ol><li></li></ol>`
+    } else {
+      searchedItems = [];  
+      $latestSearchContent.innerHTML = `<span class="history-off-msg">최근 검색어 저장 기능이 꺼져 있습니다.</span>`
+        $latestSearchKeywd.classList.add('size-auto');
+        $searchedItems.classList.add('down');
+        $historyBtns.classList.add('fixTop');
+        $historyOnOff.innerHTML = '최근검색어켜기';
+        $historyOnOff.classList.add('off');
+    }
+    
+  })
 }
 
 latestSearch()
+
