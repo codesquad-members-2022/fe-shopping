@@ -164,7 +164,7 @@ h2 {
   outline: none;
 }
 
-.search__list {
+.search__recent-list {
   display: none;
   border: 1.5px solid #ced4da;
   -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
@@ -176,7 +176,7 @@ h2 {
   height: 320px;
 }
 
-.search__list--name {
+.search__recent-list--name {
   padding: 10px 0px;
   border-bottom: 1px solid #ced4da;
 }
@@ -203,6 +203,18 @@ h2 {
 
 .search__bottom-bar p:hover {
   text-decoration: underline;
+}
+
+.search__related-list {
+  display: none;
+  border: 1.5px solid #ced4da;
+  -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  position: absolute;
+  background-color: #fff;
+  width: 500px;
+  height: 320px;
 }
 
 .contents-header {

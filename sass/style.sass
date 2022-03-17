@@ -6,6 +6,16 @@
 @mixin box-shadow
     box-shadow: 2px 5px 5px rgba(0,0,0,0.1)
 
+@mixin search-list
+    display: none
+    @include border
+    @include box-shadow
+    padding: 5px 10px
+    position: absolute
+    background-color: $main-white
+    width: 500px
+    height: 320px
+
 .main-header 
     padding: 30px 0px 0px 30px
     
@@ -31,23 +41,16 @@
         padding: 10px
         &:link, &:visited, &:hover, &:active, &:focus
             outline: none
-    &__list
-        display: none
-        @include border
-        @include box-shadow
-        padding: 5px 10px
-        position: absolute
-        background-color: $main-white
-        width: 500px
-        height: 320px
+    &__recent-list
+        @include search-list
         &--name
             padding: 10px 0px 
             border-bottom: 1px solid $main-dark-gray 
-        &--item
-            margin-top: $margin-l
-            &:hover
-                color: $main-blue
-                text-decoration: underline
+    &__list--item
+        margin-top: $margin-l
+        &:hover
+            color: $main-blue
+            text-decoration: underline
     &__bottom-bar
         position: absolute
         left: -1px
@@ -59,6 +62,8 @@
         border-top: 1.5px solid $main-dark-gray
         p:hover
             text-decoration: underline
+    &__related-list
+        @include search-list
 
 .contents-header
     margin-top: 30px
