@@ -3,7 +3,7 @@ import setSearchBoxEvent from "./public/src/controller/searchBoxEvent.js";
 import { fetchData } from "./public/src/controller/util.js";
 import renderCarousel from "./public/src/render/carousel.js";
 
-const searchBoxNode = document.querySelector(".search-box__category");
+const searchBoxNode = document.querySelector(".search-box");
 setSearchBoxEvent(searchBoxNode);
 const carouselData = await fetchData("./carouselData.json");
 renderCarousel(document.querySelector(".main"), carouselData);

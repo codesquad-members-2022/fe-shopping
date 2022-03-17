@@ -1,0 +1,16 @@
+.flexbox-blank {
+  flex-grow: 1;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  transition: all 0.3s;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.visibility-visible {
+  visibility: visible;
+  transition: all 0.3s;
+  transform-origin: top;
+}
