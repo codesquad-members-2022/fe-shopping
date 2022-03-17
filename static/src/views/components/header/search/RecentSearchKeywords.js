@@ -5,8 +5,7 @@ export class RecentSearchKeywords {
     this.STORAGE_KEY = STORAGE_KEY;
     this.searchStorage = searchStorage;
     this.render();
-    this.addAllDeleteButtonEvent();
-    this.addSwitchButtonEvent();
+    this.addEventListener();
   }
 
   render() {
@@ -37,5 +36,10 @@ export class RecentSearchKeywords {
     this.$recentKeywords.querySelector('.switch-button').addEventListener('click', () => {
       this.$recentKeywords.classList.remove('active');
     });
+  }
+
+  addEventListener() {
+    this.addAllDeleteButtonEvent();
+    this.addSwitchButtonEvent();
   }
 }

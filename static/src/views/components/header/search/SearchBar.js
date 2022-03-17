@@ -12,7 +12,9 @@ export class SearchBar {
   saveRecentSearchKeyword() {
     const searchValue = this.$searchWrap.querySelector('.search-input').value;
     if (!searchValue) return;
-    const searchValues = `${this.searchStorage.getItem(this.STORAGE_KEY)},${searchValue}`;
+    const searchValues = this.searchStorage.getItem(this.STORAGE_KEY)
+      ? `${this.searchStorage.getItem(this.STORAGE_KEY)},${searchValue}`
+      : searchValue;
     this.searchStorage.setItem(this.STORAGE_KEY, searchValues);
     this.$searchWrap.querySelector('.search-input').value = '';
   }
