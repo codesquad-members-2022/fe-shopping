@@ -53,10 +53,11 @@ export class History {
 
   handleClickDelBtn = (e) => {
     const $target = e.target;
-    if (!$target.classList.contains(this.delBtnClassName)) return;
-
-    const $item = $target.closest(this.itemSelector);
-    console.log($item);
+    if (!$target.classList.contains(this.HISTORY_ITEM_DEL_BTN)) return;
+    const $item = $target.closest(`.${this.HISTORY_ITEM}`);
+    const itemId = $item.dataset.id;
+    this.removeHistory(itemId);
+    this.removeHistoryItemElement($item);
   };
   /* ********** */
 
