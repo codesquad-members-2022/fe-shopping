@@ -19,7 +19,7 @@ export const inputKeyWordEvent = () => {
       searchWord.toggleRender(responseData);
     } else {
       const recentSearchBox = $('.search-recent');
-      const searchKeywordBox = $('.main-header__search-keyword');
+      const searchKeywordBox = $('.search-keyword');
       searchKeywordBox?.remove();
 
       if (searchWord.recentWords.length !== 0) {

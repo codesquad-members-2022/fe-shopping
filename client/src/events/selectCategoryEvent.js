@@ -4,7 +4,7 @@ import { searchCategoryData } from '../constants/data.js';
 
 export const selectCategoryEvent = () => {
   const selectCategoryBox = $('.main-header__category');
-  const selectSearchCategoryBox = $('.main-header__search-selectBox');
+  const selectSearchCategoryBox = $('.search-selectBox');
 
   selectCategoryBox.addEventListener('mouseover', () => {
     // categroySelectBox 보여주기
@@ -16,37 +16,37 @@ export const selectCategoryEvent = () => {
 
   selectSearchCategoryBox.addEventListener('click', ({ target }) => {
     // selectListBox : 카테고리 메뉴 Ul 영역
-    const selectListUlBox = $('.main-header__search-list');
+    const selectListUlBox = $('.search-list');
 
-    if (target.classList.contains('main-header__search-searchItem')) {
+    if (target.classList.contains('search-searchItem')) {
       const dataId = target.getAttribute('data-id');
-      const allBtn = $('.main-header__search--allBtn');
+      const allBtn = $('.search--allBtn');
       allBtn.innerText = searchCategoryData[dataId];
       return;
     }
 
     if (selectListUlBox === null) {
       selectSearchCategoryBox.insertAdjacentHTML('beforeend', SearchCategory(searchCategoryData));
-      selectSearchCategoryBox.classList.remove('main-header__search--off');
-      selectSearchCategoryBox.classList.add('main-header__search--on');
+      selectSearchCategoryBox.classList.remove('search--off');
+      selectSearchCategoryBox.classList.add('search--on');
 
       handleHeightBottomAnimate({
         start: 0,
         value: 100,
-        element: $('.main-header__search-list'),
+        element: $('.search-list'),
         height: 2000,
       });
     } else {
       handleHeightTopAnimate({
         start: parseInt(getComputedStyle(selectListUlBox).maxHeight),
         value: -200,
-        element: $('.main-header__search-list'),
-        parentElement: $('.main-header__search-selectBox'),
+        element: $('.search-list'),
+        parentElement: $('.search-selectBox'),
         height: 0,
       });
 
-      selectSearchCategoryBox.classList.remove('main-header__search--on');
-      selectSearchCategoryBox.classList.add('main-header__search--off');
+      selectSearchCategoryBox.classList.remove('search--on');
+      selectSearchCategoryBox.classList.add('search--off');
     }
   });
 };

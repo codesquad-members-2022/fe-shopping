@@ -38,7 +38,7 @@ SearchWord.prototype.toggleRender = function (data) {
   // turn 값이 false라면 자동완성된 결과 컴포넌트 보여주기
   const inputKeyWordBox = $('.main-header__input');
   const recentSearchBox = $('.search-recent');
-  const searchKeywordBox = $('.main-header__search-keyword');
+  const searchKeywordBox = $('.search-keyword');
 
   recentSearchBox?.remove();
   searchKeywordBox?.remove();
@@ -47,6 +47,12 @@ SearchWord.prototype.toggleRender = function (data) {
     if (this.recentWords.length === 0) return;
     inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
   } else {
-    inputKeyWordBox.insertAdjacentHTML('afterend', SearchKeyWord(this.getCurrentWord(), data));
+    inputKeyWordBox.insertAdjacentHTML(
+      'afterend',
+      SearchKeyWord(
+        this.getCurrentWord(),
+        data.map(element => element.keyword)
+      )
+    );
   }
 };
