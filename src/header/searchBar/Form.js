@@ -1,6 +1,7 @@
-import { selector, removeClass } from '../../utils/utils.js';
+import { selector, removeClass, debounce } from '../../utils/utils.js';
 
 import { History } from './History.js';
+import { AutoComplete } from './AutoComplete.js';
 
 const FORM = 'search-bar-form';
 const INPUT = 'search-bar-input';
@@ -17,6 +18,8 @@ const HISTORY_ITEM_DELETE_BTN = 'history-item-delete';
 const HISTORY_CLEAR_BTN = 'history-clear-btn';
 const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
+const debounceDelay = 500;
+
 export class SearchBarForm {
   constructor() {
     this.state = {};
@@ -26,6 +29,8 @@ export class SearchBarForm {
     this.$submit = selector(`.${SUBMIT}`);
 
     this.history = this.initHistory();
+    this.autoComplete = this.initAutoComplete();
+    this.debounceDelay = debounceDelay;
     this.init();
   }
 
@@ -34,7 +39,11 @@ export class SearchBarForm {
       removeClass(HIDDEN, this.$acWrapper);
     });
 
-    this.$form.addEventListener('submit', this.handleSubmitForm);
+    this.$form.addEventListener('submit', this.handleSubmit);
+    this.$input.addEventListener(
+      'keyup',
+      debounce(this.handleKeyup, this.debounceDelay)
+    );
   }
 
   initHistory() {
@@ -59,8 +68,12 @@ export class SearchBarForm {
     });
   }
 
+  initAutoComplete() {
+    return new AutoComplete();
+  }
+
   /* **리스너*** */
-  handleSubmitForm = (e) => {
+  handleSubmit = (e) => {
     const keyword = this.$input.value.trim();
     if (keyword === '') {
       e.preventDefault();
@@ -68,6 +81,11 @@ export class SearchBarForm {
     }
 
     this.history.setHistory(Date.now(), keyword);
+  };
+
+  handleKeyup = (e) => {
+    const inputKeyword = e.target.value;
+    this.autoComplete.renderACKeywords(inputKeyword);
   };
   /* ********** */
 }
