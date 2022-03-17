@@ -3,7 +3,10 @@ import {
   SearchInputToggleView,
   SearchMenuToggleView,
 } from "/View/HeaderView.js";
-import { Toggle } from "/Components/Toggle.js";
+import {
+  SearchInputToggle,
+  SearchMenuToggle,
+} from "../Components/headerToggle.js";
 import { fetch_use } from "/util/fetchutil.js";
 
 class SearchZoneController {
@@ -23,16 +26,16 @@ class SearchZoneController {
   onInputSearchInput({ target: { value } }) {
     fetch_use(
       `search/${value}`,
-      (jsonData) =>
-        new Toggle(jsonData, "search--toggle--li", "search--toggle--ul").dom
-    ).then(viewTest.renderToggle.bind(viewTest));
+      (jsonData) => new SearchInputToggle(jsonData).dom
+    )
+      .then(viewTest.renderToggle.bind(viewTest))
+      .then(() => viewTest.renderHistroy.bind(viewTest));
   }
 
   onClickSearchMenu() {
     fetch_use(
       "search/menu/toggle",
-      (jsonData) =>
-        new Toggle(jsonData, "search--menu--li", "search--menu--ul").dom
+      (jsonData) => new SearchMenuToggle(jsonData).dom
     ).then(menuView.renderToggle.bind(menuView));
   }
 

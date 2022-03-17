@@ -1,4 +1,4 @@
-import { ToggleView } from "./toggleView.js";
+import { ToggleView } from "./AbstractToggleView.js";
 import * as domUtil from "/util/domutil.js";
 
 function SearchInputToggleView(parentDom) {
