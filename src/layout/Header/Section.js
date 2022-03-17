@@ -1,8 +1,9 @@
 import Navigation from '../../components/Navigation/index.js';
 import SearchBox from '../../components/SearchBox/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
+import { findTargetIdElement } from '../../utils/manuplateDOM.js';
 
-function Section(htmlTag, $parent) {
+export default function Section(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
 }
 
@@ -20,9 +21,18 @@ Section.prototype.setTemplate = function () {
   new Navigation('nav', this.$element);
 };
 
-export default Section;
+Section.prototype.setEvent = function () {
+  const $logo = findTargetIdElement(this.$element, 'main-logo');
+  $logo.addEventListener('click', BackToHome);
+};
+
+function BackToHome() {
+  history.pushState(null, null, '/');
+  location.reload();
+}
 
 const imgTemplate = `<img
+id="main-logo"
 src="https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png"
 alt="coupang-logo"
 />`;
