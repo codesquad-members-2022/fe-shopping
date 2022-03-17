@@ -1,4 +1,4 @@
-import { createLists } from "./templates.js";
+import { createStrongLists } from "./templates.js";
 import { renderFormSearchLists } from "./render.js";
 
 export class SearchController {
@@ -32,22 +32,24 @@ export class SearchController {
     searchInputHandler(e) {
         const inputWord = e.target.value
         if(inputWord.length > 0) {
-            this.searchPrefixLists(inputWord)
+            this.showPrefixLists(inputWord)
             this.removeVisibilityHidden()
         }
         else this.addVisibilityHidden()
     }
 
-    searchPrefixLists(word) {
-        this.fetchInput(word)
+    showPrefixLists(word) {
+        const highlightLength = word.length
+        this.fetchPrefixLists(word)
             .then((prefixArr) => {
                 console.log(prefixArr)
-                const searchListsTemplate = createLists(prefixArr)
+                const splitPrefixArr = prefixArr.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
+                const searchListsTemplate = createStrongLists(splitPrefixArr)
                 renderFormSearchLists(searchListsTemplate)
             })
     }
 
-    fetchInput(word) {
+    fetchPrefixLists(word) {
         if(this.timer) {
             clearTimeout(this.timer)
         }

@@ -2,7 +2,7 @@
 
 $header-bg-color: #fff;
 $header-font: (small: 12px, medium: 24px, large: 36px);
-$header-font-color: (white: #fff, dark-gray: #555);
+$header-font-color: (white: #fff, dark-gray: #555, blue: #008cff);
 $header-width: (base: 1020px, search-form: 518px);
 $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
 
@@ -120,7 +120,7 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
   position: relative;
 }
 
-.header__search-form {
+.header__form {
   height: 100%;
 }
 
@@ -212,6 +212,7 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
     };
     @include position-absolute(auto, auto, 0);
     cursor: pointer;
+
   }
 }
 
@@ -226,11 +227,16 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
 
   li {
     color: black;
-    font-size: map-get($header-font, small) * 1.2;
+    font-size: map-get($header-font, small);
     padding: 7px;
     &:hover {
       text-decoration: underline;
       color: #008cff;
+    }
+
+    strong {
+      color: map-get($header-font-color, blue);
+      font-weight: bold;
     }
   }
 }

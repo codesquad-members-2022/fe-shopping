@@ -20,6 +20,11 @@ function createLists(listArray) {
     }, ``)
 }
 
+function createStrongLists(listArray) {
+    return listArray.reduce((acc, cur) => {
+        return acc + `<li><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
+}
+
 function createHeader(navMenu) {
     const navigationList = createLists(navMenu)
     return `<header id="header">
@@ -28,7 +33,7 @@ function createHeader(navMenu) {
             <div class="header__inner-container">
                 <h1 title="coupang"></h1>
                 <div class="form-container">
-                    <form class="header__search-form">
+                    <form class="header__form">
                         <div class="header__form__select">                  
                             <button type="button" id="select-btn" class="btn-down"><span>전체</span></button>   
                         </div>
@@ -72,5 +77,5 @@ function createSearchListContainer() {
             </ul>`
 }
 
-export { createLists, createTopBar, createSelectList, createHeader, createSearchListContainer }
+export { createLists, createTopBar, createSelectList, createHeader, createSearchListContainer, createStrongLists }
 

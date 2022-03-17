@@ -102,7 +102,7 @@
   position: relative;
 }
 
-.header__search-form {
+.header__form {
   height: 100%;
 }
 
@@ -217,12 +217,16 @@
 }
 .header__search__list li {
   color: black;
-  font-size: 14.4px;
+  font-size: 12px;
   padding: 7px;
 }
 .header__search__list li:hover {
   text-decoration: underline;
   color: #008cff;
+}
+.header__search__list li strong {
+  color: #008cff;
+  font-weight: bold;
 }
 
 .icon-menus {
