@@ -1,8 +1,23 @@
-export const SearchKeyWord = data => {
+const Keyword = (currentWord, keyword, id) => {
+  const currentWordArr = Array.from(currentWord);
+  const keywordArr = Array.from(keyword);
+
   return /* html */ `
-    <div class="l-flex main-header__search-keyword">
-        ${data.reduce((prev, cur) => {
-          return (prev += `<a href="#" class="main-header__search--link">${cur.keyword}</a>`);
+        <a href="#" class="search--link text-none" data-id="${id}">
+          ${keywordArr.reduce((prev, cur, index) => {
+            return (prev +=
+              currentWordArr[index] === keywordArr[index]
+                ? `<strong class="search--same">${cur}</strong>`
+                : `<span>${cur}</span>`);
+          }, '')}
+        </a>`;
+};
+
+export const SearchKeyWord = (currentWord, data) => {
+  return /* html */ `
+    <div class="l-flex search-keyword">
+        ${data.reduce((prev, cur, index) => {
+          return (prev += Keyword(currentWord, cur, index));
         }, '')}
     </div>
     `;

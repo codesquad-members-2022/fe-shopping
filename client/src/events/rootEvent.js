@@ -1,20 +1,39 @@
-import { $ } from '../utils/util.js';
+import { $, checkElementClass } from '../utils/util.js';
 
 export const rootEvent = () => {
-  const body = $('body');
-  body.addEventListener('click', ({ target }) => {
-    const selectListBox = $('.main-header__search-list');
-    const selectSearchCategoryBox = $('.main-header__search-selectBox');
+  document.body.addEventListener('click', ({ target }) => {
+    const selectListBox = $('.search-list');
+    const searchKeywordBox = $('.search-keyword');
+    const searchRecentBox = $('.search-recent');
 
-    if (
-      (selectListBox && target.classList.contains('main-header__search--allBtn')) ||
-      (selectListBox && target.classList.contains('main-header__search-selectBox'))
-    ) {
+    if (selectListBox && checkElementClass({ target, checkClasses: ['search-selectBox', 'search--allBtn'] })) {
       return;
     } else {
+      const selectSearchCategoryBox = $('.search-selectBox');
       selectListBox?.remove();
-      selectSearchCategoryBox.classList.remove('main-header__search--on');
-      selectSearchCategoryBox.classList.add('main-header__search--off');
+      selectSearchCategoryBox.classList.remove('search--on');
+      selectSearchCategoryBox.classList.add('search--off');
     }
+
+    if (
+      searchKeywordBox &&
+      checkElementClass({ target, checkClasses: ['search-keyword', 'main-header__input', 'main-header__input--btn'] })
+    ) {
+      return;
+    } else searchKeywordBox?.remove();
+
+    if (
+      searchRecentBox &&
+      checkElementClass({ target, checkClasses: ['search-recent', 'main-header__input', 'main-header__input--btn'] })
+    ) {
+      return;
+    } else searchRecentBox?.remove();
+  });
+
+  document.body.addEventListener('mouseover', ({ target }) => {
+    const categoryListBox = $('.category-list');
+    if (categoryListBox && checkElementClass({ target, checkClasses: ['category', 'category-item', 'category--text'] }))
+      return;
+    else categoryListBox?.remove();
   });
 };

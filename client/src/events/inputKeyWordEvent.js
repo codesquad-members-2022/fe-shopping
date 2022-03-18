@@ -1,41 +1,65 @@
-import { $, fetchPostData } from '../utils/util.js';
-import SearchWord from '../classes/search/SearchWord.js';
+import { $, $$, fetchPostData, delay } from '../utils/util.js';
+import { KEY_UP_CODE, KEY_DOWN_CODE } from '../constants/constant.js';
+import SearchWord from '../package/search/SearchWord.js';
 
 export const inputKeyWordEvent = () => {
   const searchWord = new SearchWord();
   const inputKeyWordBox = $('.main-header__input');
   const inputKeyWordBtn = $('.main-header__input--btn');
-  let keyWordTimer;
-  let saveValue = '';
 
-  inputKeyWordBox.addEventListener('keyup', ({ target }) => {
+  const toggleElementClassByKeyEvent = (element, className) => {
+    element.forEach(element => {
+      parseInt(element.getAttribute('data-id')) === searchWord.index
+        ? element.classList.remove(className)
+        : element.classList.add(className);
+    });
+  };
+
+  const keyupEvent = () => {
+    const searchLinks = $$('.search--link');
+    searchWord.index--;
+    if (searchWord.index < 0) searchWord.index = searchLinks.length - 1;
+    toggleElementClassByKeyEvent(searchLinks, 'text-none');
+  };
+
+  const keydownEvent = () => {
+    const searchLinks = $$('.search--link');
+    searchWord.index++;
+    if (searchWord.index >= searchLinks.length) searchWord.index = 0;
+    toggleElementClassByKeyEvent(searchLinks, 'text-none');
+  };
+
+  inputKeyWordBox.addEventListener('keyup', async ({ target: { value }, keyCode }) => {
+    const searchKeywordBox = $('.search-keyword');
+    if (keyCode === KEY_UP_CODE && searchKeywordBox) {
+      keyupEvent();
+      return;
+    }
+
+    if (keyCode === KEY_DOWN_CODE && searchKeywordBox) {
+      keydownEvent();
+      return;
+    }
+
     if (searchWord.getTurn()) {
       searchWord.turnOff();
     }
 
-    if (keyWordTimer) {
-      clearTimeout(keyWordTimer);
-    }
-    keyWordTimer = setTimeout(async function () {
-      // fetch api
-      // fetch 보내기전 임의로 클라이언트에서 더미데이터로 테스팅
-      if (target.value) {
-        // fetch!
-        const responseData = await fetchPostData('search', target.value);
-        searchWord.toggleRender(responseData);
-        saveValue = target.value;
-      } else {
-        // target.value가 비어있을때 처리
-        const recentSearchBox = $('.search-recent');
-        const searchKeywordBox = $('.main-header__search-keyword');
-        searchKeywordBox?.remove();
+    await delay(500); // fetch 보내기 전 딜레이 함수로 0.5초 blocking
 
-        if (searchWord.recentWords.length !== 0) {
-          searchWord.turnOn();
-          searchWord.toggleRender();
-        } else recentSearchBox?.remove();
-      }
-    }, 500);
+    if (value) {
+      const responseData = await fetchPostData('search', value);
+      searchWord.setCurrentWord(value);
+      searchWord.toggleRender(responseData);
+    } else {
+      const recentSearchBox = $('.search-recent');
+      searchKeywordBox?.remove();
+
+      if (searchWord.recentWords.length !== 0) {
+        searchWord.turnOn();
+        searchWord.toggleRender();
+      } else recentSearchBox?.remove();
+    }
   });
 
   inputKeyWordBox.addEventListener('focus', () => {
@@ -44,9 +68,16 @@ export const inputKeyWordEvent = () => {
   });
 
   inputKeyWordBtn.addEventListener('click', () => {
-    if (saveValue) {
-      searchWord.recentWords.push(saveValue);
-      saveValue = '';
+    const currentWord = searchWord.getCurrentWord();
+    if (currentWord) {
+      searchWord.pushRecentWords();
+      searchWord.setCurrentWord('');
+
+      inputKeyWordBox.value = '';
+      inputKeyWordBox.focus();
+
+      searchWord.turnOn();
+      searchWord.toggleRender();
     }
   });
 };
