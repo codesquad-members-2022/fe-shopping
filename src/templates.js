@@ -1,7 +1,7 @@
 
 function createTopBar(menu, submenu) {
-    const menuTemplate = createLists(menu)
-    const submenuTemplate = createLists(submenu)
+    const menuTemplate = createList(menu)
+    const submenuTemplate = createList(submenu)
     return `<article class="top-bar">
             <section>
                 <menu class="top-bar__menu">
@@ -14,27 +14,31 @@ function createTopBar(menu, submenu) {
         </article>`
 }
 
-function createLists(listArray) {
+function createList(listArray) {
     return listArray.reduce((acc, cur) => {
         return acc + `<li><a>${cur}</a></li>`
     }, ``)
 }
 
+function createStrongList(listArray) {
+    return listArray.reduce((acc, cur, idx) => {
+        return acc + `<li data-index="${idx}"><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
+}
+
 function createHeader(navMenu) {
-    const navigationList = createLists(navMenu)
+    const navigationList = createList(navMenu)
     return `<header id="header">
         <div class="header__category-btn"><p>카테고리</p></div>
         <section>
             <div class="header__inner-container">
                 <h1 title="coupang"></h1>
                 <div class="form-container">
-                    <form class="header__search-form">
-                        <div class="header__form__select">
-                            <label for="select-btn">전체</label>
-                            <button type="button" id="select-btn" class="btn-down"></button>   
+                    <form class="header__form">
+                        <div class="header__form__select">                  
+                            <button type="button" id="select-btn" class="btn-down"><span>전체</span></button>   
                         </div>
                         <div class="header__form__search">
-                            <input type="text">
+                            <input type="text" class="search-input">
                                 <a class="search-btn"></a>
                         </div>
                     </form>
@@ -62,11 +66,16 @@ function createHeader(navMenu) {
 }
 
 function createSelectList(list) {
-    const selectList = createLists(list)
-    return `<ul class="header__select--open hidden">
+    const selectList = createList(list)
+    return `<ul class="header__select__list visibility-hidden">
             ${selectList}
             </ul>`
 }
 
-export { createLists, createTopBar, createSelectList, createHeader }
+function createSearchListContainer() {
+    return `<ul class="header__search__list visibility-hidden">
+            </ul>`
+}
+
+export { createList, createTopBar, createSelectList, createHeader, createSearchListContainer, createStrongList }
 

@@ -1,10 +1,15 @@
 import { renderHeader } from "./render.js";
-import { addSelectEvent } from "./selectController.js";
+import { initSelectCategoryEvent } from "./selectCategoryController.js";
+import { SearchController } from "./searchController.js";
+
 
 function init() {
     renderHeader()
-    addSelectEvent()
+    initSelectCategoryEvent()
 
+    const searchController = new SearchController()
+    searchController.initSearchController()
 }
+
 
 init();

@@ -17,6 +17,7 @@ function renderHeader() {
     headerContainer.innerHTML = `${topBar}${header}`
     $body.prepend(headerContainer)
     renderFormSelectList(selectList)
+    renderFormSearchContainer()
 }
 
 function renderFormSelectList(list) {
@@ -26,4 +27,18 @@ function renderFormSelectList(list) {
     $formSelect.innerHTML += $selectList
 }
 
-export { renderHeader }
+function renderFormSearchContainer() {
+    const $formSearch = document.querySelector('.header__form__search')
+    const $searchList = Templates.createSearchListContainer()
+
+    $formSearch.innerHTML += $searchList
+
+}
+
+function renderFormSearchList(template) {
+    const $formSearchList = document.querySelector('.header__search__list')
+
+    $formSearchList.innerHTML = template
+}
+
+export { renderHeader, renderFormSearchContainer, renderFormSearchList }
