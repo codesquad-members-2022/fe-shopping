@@ -16,6 +16,18 @@ app.get('/category/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/category.json'));
 });
 
+app.get('/search/data', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/json/search.json'));
+});
+
+app.get('/search/eeung/data', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/json/search-eeung.json'));
+});
+
+app.get('/search/ah/data', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/json/search-ah.json'));
+});
+
 const port = 3000;
 app.listen(port, function () {
   console.log('server on!');

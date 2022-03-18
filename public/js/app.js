@@ -3,6 +3,7 @@ import { header } from './template/header.js';
 import { carousel } from './template/carousel.js';
 import { category } from './template/category.js';
 import { recentSearch } from './template/search-recent.js';
+import { autoSearch } from './template/search-auto.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.querySelector('.wrap');
@@ -16,4 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
   searchCategory.insertAdjacentHTML('beforeend', category);
   const searchForm = document.querySelector('.search-form');
   searchForm.insertAdjacentHTML('beforeend', recentSearch);
+  searchForm.insertAdjacentHTML('beforeend', autoSearch);
 });

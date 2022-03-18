@@ -12,7 +12,7 @@ export class RecentSearch {
     searchText.addEventListener('focus', () => {
       recentSearch.style.visibility = 'visible';
       this.loadData();
-      this.parseData();
+      this.renderData();
     });
   }
 
@@ -54,8 +54,7 @@ export class RecentSearch {
       this.data.push(localStorage.getItem(`${localStorageIndex}`));
   }
 
-  parseData() {
-    document.querySelector;
+  renderData() {
     const dataOverlapDeletion = new Set([...this.data]);
 
     const list = document.createElement('div');
@@ -64,7 +63,7 @@ export class RecentSearch {
         'beforeend',
         `<li class="search-recent__item">
           <a href="#" class="search-recent__link">${e}</a>
-          </li>`
+        </li>`
       );
     });
 
