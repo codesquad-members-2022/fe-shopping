@@ -31,8 +31,15 @@ export default class {
     this.onFocusOutInput();
   }
 
+  onFormSubmit() {
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault(); // 현재 검색 기능이 동작하지 않으므로 페이지 reload 동작하지 않도록 함
+    });
+  }
+
   onEvent() {
     this.onFocusInput();
+    this.onFormSubmit();
   }
 
   init() {
