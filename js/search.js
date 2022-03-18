@@ -1,4 +1,6 @@
-let animals = [
+import { dummyDic } from "./mini.js";
+
+const animals = [ // 배열 형태
     "Cat",
     "Dog",
     "Elephant",
@@ -12,7 +14,7 @@ let animals = [
     "Horse"
 ] 
 
-let a = {
+const a = { // json 형태
     "animals":"Cat",
     "animals":"Dog",
     "animals":"Elephant",
@@ -26,32 +28,48 @@ let a = {
     "animals":"Horse"
 }
 
-const result = document.querySelector('.result');
-const showResultOnScreen = (word) => {
-    return result.innerHTML += `<div>${word}</div>`
+
+// 검색기능
+const searchBar = document.querySelector('.search-bar');
+
+// 사전 데이터
+const newDummyDic = Object.keys(dummyDic);
+
+const stylingResultList = (result) => {
+    return result.map(x => '<li class="search-list-item">'+x+'</li>');
+}
+
+// 검색결과를 자동완성 목록으로 띄워주는 함수
+const drawSearchResultDiv = (result) => {
+    searchBar.children[2] ? searchBar.removeChild(searchBar.children[2]):'';
+
+    const resultDiv = document.createElement('div');
+    resultDiv.className = 'search-result-list';
+    
+    searchBar.appendChild(resultDiv);
+  
+    console.log(result); // 개발자도구도 이용하고 있지만 아직 콘솔에서 벗어날 수 업다..
+
+    const organizedResultList = stylingResultList(result);
+    return resultDiv.innerHTML = `${organizedResultList}`;
+
 };
 
-
-function searchAnimals(e) {
-    console.log('searchAnimals function worked!');
-    // console.log(e); // Object 형태이다.
-    let input = e.key; // 입력받은 값.
-
-    // console.log(input);
-    // console.log(typeof input);
-
-
-    for (let i = 0; i < animals.length; i++) {
-        // console.log(animals[i]);
-        // console.log(typeof animals[i]) // string 형태임
-
-        animals[i].includes(input) ? showResultOnScreen(animals[i]) : '';
-
-        // 콘솔에 목록 찍혀나오게 해놓음.
-        // console.log(animals[i].includes(input) ? animals[i] : '');
+// 검색함수
+function searchDictionary(e) {
+    const searchInput = document.querySelector('.search-input').value.replaceAll(/\s/g, '');
+    let result = []; // 검색결과가 들어감.
+    if(searchInput.length > 0) {
+        for (let i = 0; i < newDummyDic.length; i++) {
+            newDummyDic[i].includes(searchInput) ? result.push(newDummyDic[i]) : '';
+        }
+    } else {
+        result.push('검색결과가 없습니다.');
     }
+    
+    return drawSearchResultDiv(result);
+
 }
 
 
-
-export {searchAnimals};
+export {searchDictionary};
