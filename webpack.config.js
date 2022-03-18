@@ -2,7 +2,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: "./src/client/JS/main.js",
+  entry: "./src/client/JS/app.js",
   mode: "development",
   watch: true,
   plugins: [
@@ -11,7 +11,7 @@ module.exports = {
     }),
   ],
   output: {
-    filename: "JS/main.js",
+    filename: "JS/app.js",
     path: path.resolve(__dirname, "assets"),
     clean: true,
   },

@@ -1,29 +1,9 @@
-import "../SCSS/style.scss";
-import regeneratorRuntime from "regenerator-runtime";
-import { selector, delay } from "./util.js";
+import { delay } from "../util";
+import { SearchBox } from "./SearchBox";
 
-class FocusBlur {
-  constructor(target, transformer) {
-    this.target = target;
-    this.transformer = transformer;
-  }
-
-  toggleTransformerHidden = () => {
-    this.transformer.classList.toggle("hidden");
-  };
-
-  getFocusBlurEvent = () => {
-    this.target.addEventListener("focus", this.toggleTransformerHidden);
-    this.target.addEventListener("blur", this.toggleTransformerHidden);
-  };
-}
-
-class CenterSearchBox extends FocusBlur {
+class SearchBoxKeyup extends SearchBox {
   constructor(target, transformer) {
     super(target, transformer);
-    this.relativeTitle = selector("h3", transformer);
-    this.relativeList = selector("ul", transformer);
-    this.relativeOption = selector("div", transformer);
     this.delayCount = 0;
   }
 
@@ -64,11 +44,14 @@ class CenterSearchBox extends FocusBlur {
 
   showRelativeData = async (value) => {
     if (await this.checkDelay()) return;
+
     const address = "keyword";
     const refinedData = await this.getRefinedData(address, value);
+
     !refinedData.length
       ? this.transformer.classList.add("hidden")
       : this.transformer.classList.remove("hidden");
+
     this.changeRelativeList(refinedData);
     this.getRelativeListForm();
   };
@@ -76,6 +59,7 @@ class CenterSearchBox extends FocusBlur {
   showRecentData = async () => {
     const address = "recent";
     const refinedData = await this.getRefinedData(address);
+
     this.changeRelativeList(refinedData);
     this.transformer.append(
       this.relativeTitle,
@@ -145,38 +129,13 @@ class CenterSearchBox extends FocusBlur {
       : await this.showRelativeData(value);
   };
 
-  handleListMouseEvent = (target) => {
-    const { selectedList } = this.getSelectedInChildren();
-    if (selectedList && selectedList !== target)
-      selectedList.classList.remove("selected");
-    target.classList.toggle("selected");
-  };
-
-  handleMouseEvent = ({ target: { tagName }, target }) => {
-    if (tagName === "LI") this.handleListMouseEvent(target);
-  };
-
-  getKeydownEvent = () => {
+  getKeyupEvent = () => {
     this.target.addEventListener("keyup", this.handleKeyupEvent);
   };
 
-  getMouseEvent = () => {
-    this.transformer.addEventListener("mouseover", this.handleMouseEvent);
-    this.transformer.addEventListener("mouseout", this.handleMouseEvent);
-  };
-
   init = () => {
-    this.getMouseEvent();
-    this.getKeydownEvent();
-    this.getFocusBlurEvent();
+    this.getKeyupEvent();
   };
 }
 
-const centerSearchInput = selector("input", selector(".center-search"));
-const centerRelativeInfo = selector(".center-relative-info");
-const centerSearchBoxHandler = new CenterSearchBox(
-  centerSearchInput,
-  centerRelativeInfo
-);
-
-centerSearchBoxHandler.init();
+export { SearchBoxKeyup };
