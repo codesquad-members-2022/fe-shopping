@@ -1,0 +1,37 @@
+@import '../colors';
+@import '../utils';
+
+.search-category {
+  position: relative;
+}
+
+.category {
+  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+  left: 0;
+  position: absolute;
+  top: 34.5px;
+  z-index: 99999999999;
+
+  &__list {
+    background-color: $white;
+    height: 0;
+    transition: all 0.3s;
+    width: 125px;
+  }
+
+  &__item {
+    line-height: 34px;
+    padding-left: 10px;
+    visibility: hidden;
+    width: 110px;
+  }
+
+  &__link {
+    cursor: pointer;
+    display: block;
+  }
+
+  &__link:hover {
+    @include link-hover;
+  }
+}

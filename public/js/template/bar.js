@@ -7,8 +7,7 @@ export const bar = `
         </li>
         <li class="bar__item">
           <a href="#" class="bar__link"
-            >입점신청 <i class="fa-solid fa-caret-down"></i
-          ></a>
+            >입점신청 <i class="fa-solid fa-caret-down"></i></a>
         </li>
       </ul>
       <ul class="bar__list">
