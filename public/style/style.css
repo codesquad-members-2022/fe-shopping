@@ -234,6 +234,7 @@ input:focus {
 .search__result--list {
   padding: 0 10px 10px 10px;
   flex-grow: 2;
+  overflow-y: scroll;
 }
 .search__result--item {
   padding-top: 15px;
