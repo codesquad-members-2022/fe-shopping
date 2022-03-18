@@ -136,10 +136,6 @@
             @include flex;
             width: 100%;
             height: 35px;
-
-            img {
-                width: 50px;
-            }
         }
 
         &--input {
@@ -147,6 +143,10 @@
             height: 35px;
             border: none;
             padding-left: 8px;
+        }
+
+        &--submit {
+            width: 50px;
         }
     }
 
