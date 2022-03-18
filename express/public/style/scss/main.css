@@ -250,6 +250,11 @@ input:focus {
   margin-top: 5px;
 }
 
+.option-menu .dropdown-menus li:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+
 .icon-menus {
   position: absolute;
   width: 130px;

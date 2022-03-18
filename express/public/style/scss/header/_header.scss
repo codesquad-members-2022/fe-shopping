@@ -187,6 +187,10 @@
       cursor: pointer;
       margin-top: 5px;
     }
+    li:hover {
+      color: #4285f4;
+      text-decoration: underline;
+    }
   }
 }
 
