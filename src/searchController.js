@@ -6,7 +6,7 @@ export class SearchController {
         this.$input = document.querySelector('.header__form__search')
         this.$searchList = document.querySelector('.header__search__list')
         this.timer = null
-        this.state = null
+        this.prefixListState = false
         this.prefixListElements = null
         this.prefixListIndex = null
     }
@@ -27,10 +27,6 @@ export class SearchController {
         this.$searchList.addEventListener('mouseover', (e) => this.searchListMouseoverHandler(e))
     }
 
-    setState(state) {
-        this.state = state
-    }
-
     searchListMouseoverHandler(e) {
         if(e.target.tagName === 'LI') {
             this.prefixListIndex = Number(e.target.dataset.index)
@@ -40,12 +36,11 @@ export class SearchController {
     }
 
     setPrefixListElements() {
-        const $headerSearchList = document.querySelector('.header__search__list')
-        this.prefixListElements = [...$headerSearchList.children]
+        this.prefixListElements = [...this.$searchList.children]
     }
 
     searchKeydownHandler(e) {
-        if(!this.state) return
+        if(!this.prefixListState) return;
         if(e.key === 'ArrowDown') {
             this.downPrefixList()
         }
@@ -65,7 +60,6 @@ export class SearchController {
         if(this.prefixListIndex < 0) {
             this.prefixListIndex = this.prefixListElements.length - 1
         }
-
         this.removeKeyOn()
         this.addKeyOn(this.prefixListIndex)
     }
@@ -97,7 +91,6 @@ export class SearchController {
     }
 
     searchFocusoutHandler(e) {
-        this.setState(false)
         this.addVisibilityHidden()
     }
 
@@ -105,8 +98,7 @@ export class SearchController {
         this.$searchList.classList.add('visibility-hidden')
     }
 
-    searchClickHandler(e) {
-        this.setState(true)
+    searchClickHandler(e){
         this.reRenderPrefixList()
     }
 
@@ -120,11 +112,9 @@ export class SearchController {
     }
 
     searchInputHandler(e) {
-        this.setState(true)
         const inputWord = e.target.value
         if(inputWord.length > 0) {
             this.searchPrefixLists(inputWord)
-            this.removeVisibilityHidden()
         }
         else this.addVisibilityHidden()
     }
@@ -137,6 +127,8 @@ export class SearchController {
 
                 this.highlightPrefixList(prefixArr, highlightLength)
                 this.setPrefixListElements()
+                this.removeVisibilityHidden()
+                this.prefixListState = true
             })
     }
 
@@ -149,6 +141,7 @@ export class SearchController {
     fetchPrefixList(word) {
         if(this.timer) {
             clearTimeout(this.timer)
+            this.prefixListState = false
         }
         return this.delay(500)
             .then(() => fetch(
