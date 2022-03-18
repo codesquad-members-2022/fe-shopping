@@ -42,11 +42,10 @@ export class SearchBarForm {
     this.autoComplete = this.initAutoComplete();
     this.autoCompleteDelay = autoCompleteDelay;
     this.popupboxDelay = popupboxDelay;
-    this.init();
   }
 
   init() {
-    this.$input.addEventListener('focusin', () => {
+    this.$input.addEventListener('mousedown', () => {
       removeClass(HIDDEN, this.$popupBox);
     });
 
@@ -117,4 +116,8 @@ export class SearchBarForm {
     removeClass(HIDDEN, $autoCompleteBox);
   };
   /* ********** */
+
+  closePopupbox() {
+    addClass(HIDDEN, this.$popupBox);
+  }
 }
