@@ -28,7 +28,9 @@ class SearchZoneController {
     fetch_use(
       `search/${value}`,
       (jsonData) => new SearchInputToggle(jsonData).dom
-    ).then(this.inputView.renderToggle.bind(this.inputView));
+    )
+      .then(this.inputView.renderToggle.bind(this.inputView))
+      .then(() => this.inputView.renderHistory());
   }
 
   onClickSearchMenu() {

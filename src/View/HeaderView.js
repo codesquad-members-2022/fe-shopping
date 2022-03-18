@@ -23,6 +23,9 @@ SearchMenuToggleView.prototype.renderToggle = function (childDom) {
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
+  if (!domUtil.$(".search--toggle--ul").innerHTML === "") {
+    return;
+  }
   if (this.searchHistory.length === 0) {
     this.renderNoHistory();
     return;
