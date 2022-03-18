@@ -1,29 +1,25 @@
 export class RecentSearchController {
-  constructor(data, view) {
-    this.recentSearchData = data;
+  constructor(model, view) {
+    this.recentSearchModel = model;
     this.recentSearchView = view;
-    this.$input = document.querySelector('.search-bar');
+    this.$input = document.querySelector('.search-bar-input');
     this.$popupKeywords = document.querySelector('.popup-keywords');
   }
   addInputFocusEvent () {
     this.$input.addEventListener('focus', () => {
-      this.$popupKeywords.classList.toggle('hidden');
-      this.recentSearchData.createKeywordList();
-      this.recentSearchView.renderSearchHistory(this.recentSearchData.keywordList);
+      if (!this.recentSearchModel.isEmpty()) {
+        this.$popupKeywords.classList.remove('hidden');
+      }
+      this.recentSearchModel.createKeywordList();
+      this.recentSearchView.renderRecentSearch(this.recentSearchModel.keywordList);
     });
   }
 
-  addInputFocusOutEvent () {
-    this.$input.addEventListener('focusout', () => {
-      this.$popupKeywords.classList.toggle('hidden');
-    });
-  }
-
-  addInputKeyupEvent () {
+  addInputKeyDownEvent () {
     this.$input.addEventListener('keydown', (event) => {
+      this.$popupKeywords.classList.add('hidden');
       if (event.key === 'Enter') {
-        this.recentSearchData.addKeyword(event.target.value);
-        this.recentSearchView.renderSearchHistory(this.recentSearchData.keywordList);
+        this.recentSearchModel.addKeyword(event.target.value);
         event.target.value = '';
       }
     });
