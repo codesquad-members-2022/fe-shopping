@@ -71,23 +71,25 @@ export default class {
     return this.sortDatasDesc(dataArr, sortKey).slice(1);
   }
 
+  handleSubmitForm(e) {
+    e.preventDefault(); // 현재 검색 기능이 동작하지 않으므로 페이지 reload 동작하지 않도록 함
+    if (this.isInputEmpty()) return;
+
+    const firstIdx = 0;
+    const inputTxt = this.inputEl.value;
+    const currentData = { no: firstIdx, data: inputTxt };
+    const currentDataCnt = 1;
+    this.clearInput();
+    let storedDatas = this.setStoredDatasIdx(inputTxt);
+
+    if (storedDatas.length > this.localStorageDataSize - currentDataCnt) {
+      storedDatas = this.removeLeastUsedData(storedDatas, "no");
+    }
+    storage.setLocalStorage("recent-search", [...storedDatas, currentData]);
+  }
+
   onFormSubmit() {
-    this.form.addEventListener("submit", (e) => {
-      e.preventDefault(); // 현재 검색 기능이 동작하지 않으므로 페이지 reload 동작하지 않도록 함
-      if (this.isInputEmpty()) return;
-
-      const firstIdx = 0;
-      const inputTxt = this.inputEl.value;
-      const currentData = { no: firstIdx, data: inputTxt };
-      const currentDataCnt = 1;
-      this.clearInput();
-      let storedDatas = this.setStoredDatasIdx(inputTxt);
-
-      if (storedDatas.length > this.localStorageDataSize - currentDataCnt) {
-        storedDatas = this.removeLeastUsedData(storedDatas, "no");
-      }
-      storage.setLocalStorage("recent-search", [...storedDatas, currentData]);
-    });
+    this.form.addEventListener("submit", (e) => this.handleSubmitForm(e));
   }
 
   onKeyUpInput() {
