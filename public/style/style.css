@@ -176,13 +176,15 @@ input:focus {
   align-items: center;
 }
 .search__category--list {
-  width: 134px;
   z-index: 1;
+  width: 134px;
+  height: 100%;
   padding-top: 10px;
+  overflow-y: auto;
+  transition: all 0.2s;
   font-size: 0.8rem;
   background-color: #FFF;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
-  overflow-y: auto;
 }
 .search__category--item {
   display: flex;
@@ -283,7 +285,8 @@ input:focus {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+  height: 0%;
 }
 
 /*# sourceMappingURL=style.css.map */

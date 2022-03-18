@@ -108,9 +108,12 @@
         }
 
         &--list {
-            width: 134px;
             z-index: 1;
+            width: 134px;
+            height: 100%;
             padding-top: 10px;
+            overflow-y: auto;
+            transition: all 0.2s;
             font-size: $font-middle;
             background-color: $color-white;
             box-shadow: 0 4px 5px $color-shadow;
