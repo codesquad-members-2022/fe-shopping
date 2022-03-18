@@ -6,6 +6,8 @@ export default function SearchWord() {
   this.recentWords = [];
   this.currentWord = '';
   this.turn = true;
+  this.onRecent = true;
+  this.index = 0;
 }
 
 SearchWord.prototype.pushRecentWords = function () {
@@ -37,9 +39,33 @@ SearchWord.prototype.removeAll = function () {
   this.recentWords = [];
 };
 
-SearchWord.prototype.addRemoveEventListener = function () {
+SearchWord.prototype.offRecentComponent = function () {
+  this.onRecent = false;
+  this.toggleRender();
+};
+
+SearchWord.prototype.onRecentComponent = function () {
+  this.onRecent = true;
+  this.toggleRender();
+};
+
+SearchWord.prototype.addOnRecentBtnEventListener = function () {
+  const onRecentButton = $('.search-recent--on');
+  onRecentButton.addEventListener('click', () => {
+    this.onRecentComponent();
+  });
+};
+
+SearchWord.prototype.addOffRecentBtnEventListener = function () {
+  const offRecentButton = $('.search-recent--off');
+  offRecentButton.addEventListener('click', () => {
+    this.offRecentComponent();
+  });
+};
+
+SearchWord.prototype.addRemoveBtnEventListener = function () {
   const recentRemoveBtn = $('.search-recent--remove');
-  recentRemoveBtn.addEventListener('click', () => {
+  recentRemoveBtn.addEventListener('click', ({ target }) => {
     this.removeAll();
     this.toggleRender();
   });
@@ -58,8 +84,9 @@ SearchWord.prototype.toggleRender = function (data) {
 
   if (this.getTurn()) {
     if (this.recentWords.length === 0) return;
-    inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords));
-    this.addRemoveEventListener();
+    inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords, this.onRecent));
+    this.addRemoveBtnEventListener();
+    this.onRecent ? this.addOffRecentBtnEventListener() : this.addOnRecentBtnEventListener();
   } else {
     inputKeyWordBox.insertAdjacentHTML(
       'afterend',
