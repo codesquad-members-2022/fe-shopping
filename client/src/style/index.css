@@ -204,7 +204,7 @@ table {
 .main-header__input--btn {
   width: 50px;
   height: 40px;
-  background: url("/client/src/img/icon_search.png") center/20px no-repeat;
+  background: url("/img/icon_search.png") center/20px no-repeat;
   cursor: pointer;
 }
 .main-header__nav-item {
@@ -217,7 +217,7 @@ table {
   margin-top: -7px;
   background-position: 0 -118px;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
 }
 .main-header__nav-item--fresh {
   width: 30px;
@@ -225,7 +225,7 @@ table {
   margin-top: -7px;
   background-position: 0 -118px;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
 }
 .main-header__nav-item--business {
   width: 30px;
@@ -233,7 +233,7 @@ table {
   margin-top: -7px;
   background-position: 0 -118px;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
 }
 .main-header__nav-item--direct {
   width: 30px;
@@ -241,7 +241,7 @@ table {
   margin-top: -7px;
   background-position: 0 -118px;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
 }
 .main-header__nav-item--new {
   width: 12px;
@@ -262,7 +262,7 @@ table {
   margin-left: 5px;
   background-position: -112px -42px;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
 }
 .main-header__myinfo--cart {
   width: 40px;
@@ -270,7 +270,7 @@ table {
   margin-top: -10px;
   background-position: -112px 0;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
 }
 .main-header__myinfo--text {
   margin-top: 10px;
@@ -291,7 +291,7 @@ table {
   height: 120px;
   background-position: 0 0;
   background-repeat: no-repeat;
-  background-image: url("/client/src/img/pc_header_img_sprite.png");
+  background-image: url("/img/pc_header_img_sprite.png");
   text-align: center;
   cursor: pointer;
 }
@@ -327,10 +327,10 @@ table {
   box-sizing: 0 4px 5px #666;
 }
 .search--off {
-  background: url("/client/src/img/icon_trace_off.png") calc(100% - 7px)/10px no-repeat;
+  background: url("/img/icon_trace_off.png") calc(100% - 7px)/10px no-repeat;
 }
 .search--on {
-  background: url("/client/src/img/icon_trace_on.png") calc(100% - 7px)/10px no-repeat;
+  background: url("/img/icon_trace_on.png") calc(100% - 7px)/10px no-repeat;
 }
 .search--allBtn {
   border: none;
