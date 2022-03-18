@@ -6,6 +6,10 @@ import SearchCategoryList from "./components/SearchCategoryList";
 import SearchInput from "./components/SearchInput";
 import SearchRecent from "./components/SearchRecent";
 import SearchSuggestion from "./components/SearchSuggestion";
+import {
+  handleBodyClick,
+  handleSearchCategoryClick,
+} from "./controllers/search";
 
 function Search(...params) {
   Component.call(this, ...params);
@@ -13,9 +17,12 @@ function Search(...params) {
 createExtendsRelation(Search, Component);
 
 Search.prototype.setEvent = function () {
-  this.addEvent("click", ".search__category", ({ target }) => {
-    console.log(target);
-  });
+  document.body.addEventListener("click", handleBodyClick.bind(this));
+  this.addEvent(
+    "click",
+    ".search__category",
+    handleSearchCategoryClick.bind(this)
+  );
 };
 Search.prototype.mount = async function () {
   const $searchCategory = this.$target.querySelector(".search__category");

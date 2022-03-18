@@ -67,24 +67,36 @@ i {
 
   .search__category {
     @include flex(space-around, center);
+    cursor: pointer;
     width: 100px;
     color: $baseGray;
     border-right: 1px $baseLightGray solid;
   }
+
   .search__category-list {
+    cursor: pointer;
+    visibility: hidden;
     position: absolute;
     left: -1px;
     top: 30px;
+    max-height: 0px;
     width: 100px;
     background-color: $baseBgColor;
     border: 1px $baseLightGray solid;
     font-size: nth($fontSizes, 1);
     color: $baseGray;
     box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+    transition: all 0.2s;
     li {
+      cursor: pointer;
+      visibility: hidden;
       padding: 5px;
       margin: 5px 0px;
     }
+  }
+  .list-act {
+    visibility: visible;
+    max-height: 1000px;
   }
   .search__input {
     @include flex(space-around, center);
