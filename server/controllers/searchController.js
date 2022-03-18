@@ -1,4 +1,4 @@
-import keywordData from "../data/keywords.json" assert { type: "json" };
+import { keywordData } from "../data/keywords.js";
 
 export const getSearch = (req, res) => {
   try {
