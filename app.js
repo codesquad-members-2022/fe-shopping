@@ -14,4 +14,4 @@ app.get("/autoComplete", function (req, res) {
   res.send(JSON.stringify(autoCompleteData[req.query.keyword]) || []);
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
