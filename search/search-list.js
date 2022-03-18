@@ -9,13 +9,13 @@ class SearchList {
 
     show() {
         this.isVisible = true;
-        this.curIdx = -1;
         this.searchListNode.style.display = "block";
     }
 
     hide() {
         this.isVisible = false;
         this.searchListNode.style.display = "none";
+        this.curIdx = -1;
     }
 
     reset() {
@@ -27,6 +27,7 @@ class SearchList {
         if (this.searchItems.length > 10) {
             this.searchItems = this.searchItems.slice(0, 10);
         }
+        this.curIdx = -1;
     }
 
     getSearchListItem = (item, idx) => {
@@ -39,6 +40,10 @@ class SearchList {
             ""
         );
         this.listContainer.innerHTML = searchList;
+
+        if (this.curIdx !== -1) {
+            this.focusItem();
+        }
     }
 
     focusItem() {
