@@ -1,16 +1,17 @@
 import { $ } from '../utility/util.js';
+import { addEvent } from '../utility/util.js';
+import { categoryData } from '../../data/search-category/category.js';
 export default class Dropdown {
-  btnAddEvent() {
+  addBtnEvent() {
     const $dropdownBtn = $('.search-category-dropdown');
-
-    $dropdownBtn.addEventListener('click', this.changeArrow);
+    addEvent($dropdownBtn, 'click', this.changeArrowKey);
   }
 
-  changeArrow = ({ target }) => {
+  changeArrowKey = ({ target }) => {
     const $optionMenu = $('.option-menu');
 
     if (target.closest('button')) {
-      target.classList.toggle('click');
+      target.classList.toggle('opened-option-menu');
     }
 
     if (target.classList.value === 'search-category-dropdown') {
@@ -20,19 +21,24 @@ export default class Dropdown {
 
   showOptionMenu($optionMenu) {
     $optionMenu.innerHTML = `
-    <ul class = "dropdown-menus">
-      <li>전체</li>
-      <li>뷰티</li>
-      <li>식품</li>
-      <li>여성패션</li>
-      <li>남성패션</li>
-      <li>주방용품</li>
-      <li>생활용품</li>
-    </ul>
+    <ul class="dropdown-menus">
+      ${categoryData.reduce(
+        (pre, curData) =>
+          pre +
+          `
+      <li>
+        <a href="#">${curData}</a>
+      </li>`,
+        ''
+      )}
+      </ul>
     `;
+    this.addClickEvent();
+  }
 
+  addClickEvent() {
     const $dropdownMenus = $('.dropdown-menus');
-    $dropdownMenus.addEventListener('click', this.changeOption);
+    addEvent($dropdownMenus, 'click', this.changeOption);
   }
 
   changeOption({ target }) {
