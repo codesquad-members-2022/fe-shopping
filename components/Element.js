@@ -5,6 +5,7 @@ class Element {
 
   setState(state) {
     this.state = state;
+    this.render();
   }
 
   appendElement() {}
