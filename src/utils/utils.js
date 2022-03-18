@@ -18,9 +18,13 @@ export const toggleClass = (className, element) => {
   element.classList.toggle(className);
 };
 
-export const createElement = (tagName, className) => {
+export const createElement = (tagName, className, textContent, attrs = {}) => {
   const element = document.createElement(tagName);
   if (className) element.className = className;
+  if (textContent) element.textContent = textContent;
+  Object.entries(attrs).forEach(([key, value]) => {
+    element.setAttribute(key, value);
+  });
   return element;
 };
 
@@ -76,4 +80,14 @@ export const webStorage = {
   clear(key) {
     localStorage.removeItem(key);
   },
+};
+
+export const debounce = (cb, delay) => {
+  let timerId;
+  return (event) => {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(cb, delay, event);
+  };
 };

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass -w ./styles/main.scss:style.css"
+    "sass": "sass -w ./styles/main.scss:style.css",
+    "start": "node ./server/app"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "homepage": "https://github.com/bcad1591/fe-shopping#readme",
   "devDependencies": {
     "sass": "^1.49.9"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
   }
 }
