@@ -81,35 +81,32 @@ class CenterSearchBox extends FocusBlur {
     const selectedListIndex = childLists.findIndex((list) =>
       list.classList.contains("selected")
     );
-    console.log(key, childLists, selectedListIndex);
+    const isSelectedListIndex = selectedListIndex > -1;
+    let nextListIndex;
 
-    if (selectedListIndex > -1) {
-      let nextChildListIndex;
-      switch (key) {
-        case "ArrowDown":
-          nextChildListIndex = childLists[selectedListIndex + 1]
+    switch (key) {
+      case "ArrowDown":
+        if (!isSelectedListIndex) {
+          nextListIndex = 0;
+        } else {
+          nextListIndex = childLists[selectedListIndex + 1]
             ? selectedListIndex + 1
             : 0;
-
-          break;
-        case "ArrowUp":
-          nextChildListIndex = childLists[selectedListIndex - 1]
+          childLists[selectedListIndex].classList.remove("selected");
+        }
+        break;
+      case "ArrowUp":
+        if (!isSelectedListIndex) {
+          nextListIndex = childLists.length - 1;
+        } else {
+          nextListIndex = childLists[selectedListIndex - 1]
             ? selectedListIndex - 1
             : childLists.length - 1;
-          break;
-      }
-      childLists[selectedListIndex].classList.remove("selected");
-      childLists[nextChildListIndex].classList.add("selected");
-    } else {
-      switch (key) {
-        case "ArrowDown":
-          childLists[0].classList.add("selected");
-          break;
-        case "ArrowUp":
-          childLists[childLists.length - 1].classList.add("selected");
-          break;
-      }
+          childLists[selectedListIndex].classList.remove("selected");
+        }
+        break;
     }
+    childLists[nextListIndex].classList.add("selected");
   };
 
   handleKeyupEvent = async ({ target: { value }, key }) => {
