@@ -1,7 +1,7 @@
 import Header from "./components/Header/Header";
 import Body from "./components/Body/Body";
 import Component from "./core/Component";
-import { createExtendsRelation } from "./core/oop-utils";
+import { createExtendsRelation } from "./oop-utils";
 
 function App(...params) {
   Component.call(this, ...params);
@@ -13,6 +13,9 @@ App.prototype.mount = function () {
   const $body = this.$target.querySelector(".body");
   const header = new Header($header);
   const body = new Body($body);
+  [header, body].forEach((component) => {
+    component.initRender();
+  });
 };
 App.prototype.template = function () {
   return `

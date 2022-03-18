@@ -1,12 +1,15 @@
 export default function Component($target, $props) {
   this.$target = $target;
   this.$props = $props;
-  this.setup();
-  this.render();
-  this.setEvent();
 }
 
 Component.prototype = {
+  constructor: Component,
+  async initRender() {
+    this.setup();
+    await this.render();
+    this.setEvent();
+  },
   setup() {
     // this.state 초기 셋업
   },
@@ -14,12 +17,12 @@ Component.prototype = {
     this.state = { ...this.state, ...newState };
     this.render();
   },
-  mount() {
+  async mount() {
     // render 이후 로직 실행
   },
-  render() {
+  async render() {
     this.$target.innerHTML = this.template();
-    this.mount();
+    await this.mount();
   },
   template() {
     // html 태그 templating

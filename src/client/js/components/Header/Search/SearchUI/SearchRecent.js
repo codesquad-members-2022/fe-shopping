@@ -1,5 +1,5 @@
 import Component from "../../../../core/Component";
-import { createExtendsRelation } from "../../../../core/oop-utils";
+import { createExtendsRelation } from "../../../../oop-utils";
 
 function SearchRecent(...params) {
   Component.call(this, ...params);
@@ -9,6 +9,7 @@ createExtendsRelation(SearchRecent, Component);
 SearchRecent.prototype.setup = function () {
   this.state = {
     display: "none",
+    selectedIndex: 0,
   };
 };
 

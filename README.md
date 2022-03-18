@@ -1,79 +1,44 @@
 # fe-shopping
 
-## 1주차 - 1
+## 1주차 - 2
 
-### Core Component 생성
+task list
 
-### autoComplete 데이터 생성
+- [ ] +) 최근 검색어는 localStorage 에 저장해서 저장하고, 불러오기
+- [x] 키보드 방향키 위/아래 이동시에 이동하기
+- [x] 전체 를 클릭하면 하단에 카테고리 펼치기
+- [x] 선택시 검색 진행(실제 동작 X)
+- [ ] 캐러셀
 
-### Header 만들기
+### 키보드 위/아래 이동시에 이동
 
-    - 검색창
-    - 카테고리
+- 쿠팡에서는 맨 아래에서 아래 이동시 아무 이동효과가 없음
 
-### 검색창 API 요청
+  - 맨 위에서 위로 이동시 원래 입력했던 키워드로 돌아옴
 
-    - input 이벤트가 없다고 판단했을 때 요청보내기
-    - 없다고 판단하는 것을 어떻게 해야할지?
-        - keyup 이벤트 후 `delay(3000)` 을 주기
-        - 만약 다시 keyup 이벤트가 생기면 delay 초기화하기
-            - 어떻게 초기화?
-            - setState 함수를 통해서 해당 컴포넌트를 re-rendering (X)
-                - setState 함수 쓰면 re-rendering 이 일어나서 검색행위가 매끄럽지 못하게됨
-            - delay 를 하는 시점의 target.value 를 저장(=curValue)해서, 3 초후 curValue 와 target.value 를 비교해서 진행
+- 위 처럼 동작하게 하려면 `SearchInput` 과 `SearchSuggestion` 이 위/아래 이벤트를 통한 이동값을 공유해야 한다고 생각했음
 
-### keyup Event
+- 현재 `keyup` 이벤트시 `최근검색어` 혹은 `추천검색어` 를 보이게 하는 로직이 있어서 키보드 위/아래 이벤트는 따로 `keydown` 이벤트에서 진행하려고 했음
 
-- keyup 이벤트 시
-  - input 에 focus 하기
-  - input 에 있는 value 유지하기
-- 생긴 문제점
-  - setState 를 통해 re-rendering 하면 타자 텀이 길게되면 글자가 끊김
-    - ex) ㅇㅏㅇㅣ
-- 해결해보려고 시도한것
-  - setState 메서드 대신 this.state 에 직접 넣기
-  - 현재 value 를 저장한 변수를 사용해서 3초 후 비교하기
+  - 한번에 key 입력시 keydown-keyup 이벤트가 동시에 일어나서 특정 키보드입력을 예외처리하지 않으면 `setState` 가 두 번 일어나는 현상이 생김
+  - keyup 이벤트 내부에서 `ArrowDown`, `ArrowUp` 키보드 이벤트를 제외하고 진행하기로 예외처리함
+  - ?) 실제 keyboard 이벤트를 핸들링할 때, 다양한 키보드 이벤트상황(keyup, keydown, keypress..)에 맞춰서 이벤트를 나눠서 달아주는지가 궁금했습니다. 하나의 이벤트(keyup) 에서만 핸들링한다면 핸들링 함수가 처리하는 로직이 너무 많아진다고 생각해서 분리해보았는데 분리했을 때 일어나는 부수효과가 더 치명적이지 않을까 란 생각도 들었습니다.
 
-```js
-SearchInput.prototype.setEvent = function () {
-  this.addEvent("keyup", "input", ({ target }) => {
-    // this.setState({ inputLoading: true });
-    this.state.inputData = target.value;
-    const curValue = target.value;
-    delay(3000).then(() => {
-      if (this.state.inputData === curValue) {
-        console.log(this.state.inputData, target.value);
-        console.log("hi");
-      } else {
-        console.log("bye");
-      }
+- 아래 이벤트 시에는 커서가 맨 오른쪽으로 가는데, 위 이벤트 시에는 커서가 맨 왼쪽으로 감??
+
+  - 딜레이를 줘서 해결
+  - DOM 에 range 설정을 해주는 해당 코드와 DOM 이 실제로 뿌려지는 시점이 차이가 있어서 delay 를 사용하지 않으면 해당 코드가 무시되는것 처럼 보이는걸로 예상이 되는데 자세하게는 모르겠어서 찾아볼 생각입니다..
+
+  ```js
+  // 전
+  $input.setSelectionRange(len, len);
+  // 후
+  const moveCursorToEnd = ($input, len) => {
+    delay(0).then(() => {
+      $input.setSelectionRange(len, len);
     });
-  });
-};
-```
+  };
+  ```
 
-### SearchInput Re-render
-
-- Re-render 를 하면서 input 에 focus 를 다시 주는 과정이있음
-- 그 과정에서 data 를 받아오고 다시 focus 를 하게되면 input 이 자연스럽지 못하게 됨
-- input 을 별도의 컴포넌트로 분리하는게 좋을듯..
-
-```html
-<!-- 전 -->
-<div class="search__input">
-  <div class="search__recent"></div>
-  <div class="search__suggestion"></div>
-</div>
-```
-
-```html
-<!-- 후 -->
-<div class="search__input"></div>
-<div class="search__suggestion"></div>
-<div class="search__recent"></div>
-```
-
-- deploy 관련
-  - eslint 에서 error 로 지정한 것 없애주니 deploy 됐음
-  - 어떻게 알게되었는가? -> npm run build 할 때 에러가 뜸..
-  - watch 할 때는 이상없이 동작했는데 build 가 complete 됐다고 뜨지 않아서 eslint 부분을 조금 수정하니 deploy 됐다.
+- `전체` 버튼을 눌렀을 때 촤르륵 내려오는 효과를 클릭 이벤트와 transition 을 활용해서 해보고 싶었고 안에 li 태그가 많을 때에 각 요소가 시간차로 visibility 가 바뀌게 보여야 자연스러워 보일 것 같아서 delay 함수를 활용해서 구현해보았는데 delay 로직이 많은게 자연스럽진 않은 것 같아서 다른 분들 코드를 참고해서 고쳐볼 생각입니다.
+  - 자연스럽지 않다고 느낀것은 많은 delay 로직 이후 실행되는 코드가 있다면 delay 를 await 한 이후 코드의 실행이 자연스러운 흐름으로 동작하지 않을 것이라 생각했습니다.

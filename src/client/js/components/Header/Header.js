@@ -1,5 +1,5 @@
 import Component from "../../core/Component";
-import { createExtendsRelation } from "../../core/oop-utils";
+import { createExtendsRelation } from "../../oop-utils";
 import Search from "./Search/Search";
 
 function Header(...params) {
@@ -10,6 +10,7 @@ createExtendsRelation(Header, Component);
 Header.prototype.mount = function () {
   const $search = this.$target.querySelector(".search");
   const search = new Search($search);
+  search.initRender();
 };
 
 Header.prototype.template = function () {
