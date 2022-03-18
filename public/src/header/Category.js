@@ -11,6 +11,7 @@ export class CategorySelector {
     init() {
         this.render();
         this.setTarget();
+        this.setEvents();
     }
 
     render() {
@@ -33,6 +34,31 @@ export class CategorySelector {
     setTarget() {
         this.$target = !this.$target ? document.querySelector('.search__category') : this.$target;
         this.categoryList.setTarget(document.querySelector('.search__category--list'));
+    }
+
+    setEvents() {
+        this.setClickEvent();
+    }
+
+    setClickEvent() {
+        this.$target.addEventListener('click', this.handleClickEvent.bind(this));
+    }
+
+    handleClickEvent(event) {
+        const target = event.target;
+
+        if (target.className === 'search__category--item') {
+            this.selectCategory(target);
+            return;
+        }
+
+        this.categoryList.toggle();
+    }
+
+    selectCategory(target) {
+        const titleTag = document.querySelector('.search__category--title');
+        titleTag.innerText = target.innerText;
+        this.categoryList.toggle();
     }
 }
 
