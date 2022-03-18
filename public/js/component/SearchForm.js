@@ -14,10 +14,21 @@ export default class {
     this.inputEl = this.findElementFromArea(".search-input");
   }
 
-  onFocusInput() {
+  onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
       $(".recent-search-area").style.display = "block";
     });
+  }
+
+  onFocusOutInput() {
+    this.inputEl.addEventListener("blur", ({ target }) => {
+      $(".recent-search-area").style.display = "none";
+    });
+  }
+
+  onFocusInput() {
+    this.onFocusInInput();
+    this.onFocusOutInput();
   }
 
   onEvent() {
