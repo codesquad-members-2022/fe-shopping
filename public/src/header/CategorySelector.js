@@ -6,14 +6,8 @@ export default class CategorySelector {
         this.defaultCategory = (categories[0].name || '전체');
     }
 
-    init() {
-        this.render();
-        this.setTarget();
-        this.setEvents();
-    }
-
     render() {
-        this.$parent.innerHTML = this.createHTML();
+        this.$parent.innerHTML += this.createHTML();
     }
 
     createHTML() {
@@ -29,13 +23,14 @@ export default class CategorySelector {
         `
     }
 
+    setEvents() {
+        this.setTarget();
+        this.setClickEvent();
+    }
+
     setTarget() {
         this.$target = !this.$target ? document.querySelector('.search__category') : this.$target;
         this.categoryList.setTarget(document.querySelector('.search__category--list'));
-    }
-
-    setEvents() {
-        this.setClickEvent();
     }
 
     setClickEvent() {
