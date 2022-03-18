@@ -18,6 +18,7 @@ ImgSlider.prototype = {
     this.removeAllSlidesSelectedStatus();
     this.setCurSlideSelected();
   },
+
   SlidercallBackFunc() {
     this.curIdx++;
     if (this.curIdx >= this.dataCount) this.curIdx = 0;
@@ -41,7 +42,7 @@ ImgSlider.prototype = {
         prev +
         `
       <li class="carousel-item" data-carousel-idx="${idx}">
-      <img src="${cur["thumbnail"]}" alt="${cur["alt"]}" class="img">
+        ${cur["title"]}
       </li>`
       );
     }, "");
@@ -53,9 +54,7 @@ ImgSlider.prototype = {
   },
 
   setCurSlideImg() {
-    this.imgAreaElement.style.backgroundImage = `url(${
-      this.data[this.curIdx]["backgroundImg"]
-    })`;
+    this.imgAreaElement.src = `${this.data[this.curIdx]["imgUrl"]}`;
   },
 
   setCurSlideSelected() {
