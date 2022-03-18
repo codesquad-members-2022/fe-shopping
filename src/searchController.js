@@ -9,6 +9,8 @@ export class SearchController {
         this.prefixListState = false
         this.prefixListElements = null
         this.prefixListIndex = null
+        this.keydownState = false
+        this.originInputValue = null
     }
 
     initSearchController() {
@@ -42,39 +44,57 @@ export class SearchController {
     searchKeydownHandler(e) {
         if(!this.prefixListState) return;
         if(e.key === 'ArrowDown') {
-            this.downPrefixList()
+            this.keydownState = true
+            this.downPrefixList(e)
         }
         else if(e.key === 'ArrowUp') {
-            this.upPrefixList()
+            this.keydownState = true
+            this.upPrefixList(e)
         }
         else {
             this.prefixListIndex = null
         }
     }
 
-    upPrefixList() {
+    upPrefixList(e) {
         if(this.prefixListIndex === null) {
             this.prefixListIndex = this.prefixListElements.length
         }
         this.prefixListIndex -= 1
         if(this.prefixListIndex < 0) {
-            this.prefixListIndex = this.prefixListElements.length - 1
+           return this.setOriginInputState(e)
         }
-        this.removeKeyOn()
-        this.addKeyOn(this.prefixListIndex)
+        this.onKeyDownEffect(e, this.prefixListIndex)
     }
 
-    downPrefixList() {
+    downPrefixList(e) {
         if(this.prefixListIndex === null) {
             this.prefixListIndex = -1
         }
         this.prefixListIndex += 1
         if(this.prefixListIndex > this.prefixListElements.length - 1) {
-            this.prefixListIndex = 0
+            return this.setOriginInputState(e)
         }
+        this.onKeyDownEffect(e, this.prefixListIndex)
+    }
 
+    setOriginInputState(e) {
+        e.target.value = this.originInputValue
+        this.keydownState = false
+        this.prefixListIndex = null
         this.removeKeyOn()
-        this.addKeyOn(this.prefixListIndex)
+    }
+
+    onKeyDownEffect(e, index) {
+        this.removeKeyOn()
+        this.addKeyOn(index)
+        this.changeInputValue(e, index)
+    }
+
+
+    changeInputValue(e, index) {
+        const targetElement = this.prefixListElements[index]
+        e.target.value = targetElement.innerText
     }
 
     addKeyOn(index) {
@@ -92,6 +112,7 @@ export class SearchController {
 
     searchFocusoutHandler(e) {
         this.addVisibilityHidden()
+        this.prefixListIndex = null
     }
 
     addVisibilityHidden() {
@@ -113,22 +134,28 @@ export class SearchController {
 
     searchInputHandler(e) {
         const inputWord = e.target.value
-        if(inputWord.length > 0) {
+        if(inputWord.length >= 0) {
             this.searchPrefixLists(inputWord)
         }
         else this.addVisibilityHidden()
     }
 
     searchPrefixLists(word) {
+        if(this.keydownState) return
         const highlightLength = word.trim().length
         this.fetchPrefixList(word)
             .then((prefixArr) => {
-                if(prefixArr.length === 0) return this.addVisibilityHidden()
+                if(prefixArr.length === 0) {
+                    this.prefixListElements = null
+                    this.addVisibilityHidden()
+                    return
+                }
 
                 this.highlightPrefixList(prefixArr, highlightLength)
                 this.setPrefixListElements()
                 this.removeVisibilityHidden()
                 this.prefixListState = true
+                this.originInputValue = word
             })
     }
 
@@ -142,6 +169,7 @@ export class SearchController {
         if(this.timer) {
             clearTimeout(this.timer)
             this.prefixListState = false
+            this.originInputValue = null
         }
         return this.delay(500)
             .then(() => fetch(
