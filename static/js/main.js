@@ -1,11 +1,14 @@
-import {RecentSearchModel} from './model/recentSearchModel.js';
-import {RecentSearchView} from './view/recentSearchView.js';
 import {RecentSearchController} from './controller/recentSearchController.js';
+import {RelativeSearchController} from './controller/relativeSearchController.js';
+import {keywordsData} from './data/relativeSearchData.js';
 
-const localStorage = window.localStorage;
-const recentSearchModel = new RecentSearchModel(localStorage);
-const recentSearchView = new RecentSearchView();
-const recentSearchController = new RecentSearchController(recentSearchModel, recentSearchView);
-recentSearchController.addInputFocusEvent();
-recentSearchController.addInputFocusOutEvent();
-recentSearchController.addInputKeyupEvent();
+init();
+
+function init() {
+  window.localStorage.clear();
+  const recentSearchController = new RecentSearchController();
+  const relativeSearchController = new RelativeSearchController(keywordsData);
+  recentSearchController.addInputFocusEvent();
+  recentSearchController.addInputKeyDownEvent();
+  relativeSearchController.addInputKeyUpEvent();
+}
