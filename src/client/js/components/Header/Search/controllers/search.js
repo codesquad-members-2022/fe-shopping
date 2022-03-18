@@ -23,7 +23,9 @@ async function handleBodyClick({ target }) {
     $searchCategoryList.classList.remove("list-act");
     const lists = [...$searchCategoryList.querySelectorAll("li")];
     lists.reverse();
-    await delayVisible(4, lists);
+    const TRANSITION_TIME = 200;
+    const TIME_CORRECTION = 2;
+    await delayVisible(TRANSITION_TIME / lists.length - TIME_CORRECTION, lists);
   }
 }
 
@@ -36,7 +38,9 @@ async function handleSearchCategoryClick() {
   if (!$searchCategoryList.classList.contains("list-act")) {
     lists.reverse();
   }
-  await delayVisible(4, lists);
+  const TRANSITION_TIME = 200;
+  const TIME_CORRECTION = 2;
+  await delayVisible(TRANSITION_TIME / lists.length - TIME_CORRECTION, lists);
 }
 
 export { handleBodyClick, handleSearchCategoryClick };
