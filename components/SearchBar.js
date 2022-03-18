@@ -9,20 +9,19 @@ class SearchBar extends Element {
   constructor() {
     super();
     this.$search = null;
-    this.$search__bar = null;
     this.$search__word__dropbox = null;
   }
 
-  createElement({ data }) {
+  appendElement({ data = "" }) {
     this.$search = targetQuerySelector({
       className: "search",
     });
 
-    this.$search__bar = targetQuerySelector({
+    const $search__bar = targetQuerySelector({
       className: "search__bar",
     });
 
-    const $latestSearch__data = createLiListTemplate(data); //searchData
+    const $latestSearch__data = createLiListTemplate(data);
 
     const htmlString = `
             <ul>
@@ -37,10 +36,7 @@ class SearchBar extends Element {
       className: "search__word__dropbox",
     });
 
-    this.$search__bar.insertAdjacentElement(
-      "afterend",
-      this.$search__word__dropbox
-    );
+    $search__bar.insertAdjacentElement("afterend", this.$search__word__dropbox);
   }
 
   handleFocusInput() {

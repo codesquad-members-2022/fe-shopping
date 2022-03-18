@@ -7,7 +7,7 @@ class Element {
     this.state = state;
   }
 
-  createElement() {}
+  appendElement() {}
 
   render() {}
 }

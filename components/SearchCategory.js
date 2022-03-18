@@ -13,7 +13,7 @@ class SearchCategory extends Element {
     this.$search__category = null;
   }
 
-  createElement({ data }) {
+  appendElement({ data = "전체" }) {
     const $categories = createLiListTemplate(data);
     this.$search__categories__container = htmlString2htmlElement({
       tag: "ul",
