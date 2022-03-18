@@ -94,6 +94,23 @@ header h1 img {
   width: 30px;
   height: 30px;
 }
+.search-category-list {
+  position: absolute;
+  top: 40px;
+  max-height: 380px;
+  width: 125px;
+  padding: 10px 0 10px 10px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  overflow: auto;
+  transition: height 2s;
+}
+.search-category-list a {
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+  display: block;
+  padding: 7px 0 7px 3px;
+}
 .search-input {
   top: 0;
   width: 310px;

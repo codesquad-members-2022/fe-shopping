@@ -50,6 +50,24 @@ header {
     width: 30px;
     height: 30px;
   }
+  &-category-list {
+    position: absolute;
+    top: 40px;
+    max-height: 380px;
+    width: 125px;
+    padding: 10px 0 10px 10px;
+    box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+    overflow: auto;
+    transition: height 2s;
+
+    a {
+      color: #000;
+      text-decoration: none;
+      font-size: 12px;
+      display: block;
+      padding: 7px 0 7px 3px;
+    }
+  }
 
   &-input {
     top: 0;

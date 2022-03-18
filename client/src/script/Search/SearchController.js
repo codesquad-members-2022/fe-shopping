@@ -2,12 +2,15 @@ import { getAutoComplete } from "../api.js";
 import SearchInput from "./SearchInput.js";
 import SearchAutoComplete from "./SearchAutoComplete.js";
 import SearchHistory from "./SearchHistory.js";
+import SearchCategory from "./SearchCategory.js";
 import { delay } from "../util.js";
+import { categories } from "../data.js";
 
 const [NEXT, BEFORE] = [1, -1];
 const input = new SearchInput();
 const autoComplete = new SearchAutoComplete();
 const history = new SearchHistory();
+const category = new SearchCategory(categories);
 
 input.$input.addEventListener('input', ({target}) => {
   input.value = target.value;
@@ -36,4 +39,10 @@ document.addEventListener('keyup', ({code}) => {
     autoComplete.selectItem(NEXT);
     input.value = autoComplete.selectedItem;
   }
+});
+
+category.$category.addEventListener('click', ({target}) => {
+  const selectedItemElement = target.closest('a');
+  if (!selectedItemElement) return;
+  category.selectItem(selectedItemElement);
 });
