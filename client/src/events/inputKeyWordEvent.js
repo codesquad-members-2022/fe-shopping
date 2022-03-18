@@ -7,7 +7,7 @@ export const inputKeyWordEvent = () => {
   const inputKeyWordBox = $('.main-header__input');
   const inputKeyWordBtn = $('.main-header__input--btn');
 
-  const toggleElementClassByKey = (element, className) => {
+  const toggleElementClassByKeyEvent = (element, className) => {
     element.forEach(element => {
       parseInt(element.getAttribute('data-id')) === searchWord.index
         ? element.classList.remove(className)
@@ -19,14 +19,14 @@ export const inputKeyWordEvent = () => {
     const searchLinks = $$('.search--link');
     searchWord.index--;
     if (searchWord.index < 0) searchWord.index = searchLinks.length - 1;
-    toggleElementClassByKey(searchLinks, 'text-none');
+    toggleElementClassByKeyEvent(searchLinks, 'text-none');
   };
 
   const keydownEvent = () => {
     const searchLinks = $$('.search--link');
     searchWord.index++;
     if (searchWord.index >= searchLinks.length) searchWord.index = 0;
-    toggleElementClassByKey(searchLinks, 'text-none');
+    toggleElementClassByKeyEvent(searchLinks, 'text-none');
   };
 
   inputKeyWordBox.addEventListener('keyup', async ({ target: { value }, keyCode }) => {
@@ -45,7 +45,7 @@ export const inputKeyWordEvent = () => {
       searchWord.turnOff();
     }
 
-    await delay(500);
+    await delay(500); // fetch 보내기 전 딜레이 함수로 0.5초 blocking
 
     if (value) {
       const responseData = await fetchPostData('search', value);
