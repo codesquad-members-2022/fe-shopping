@@ -1,4 +1,3 @@
-import { $ } from "../util/util.js";
 import storage from "../util/storage.js";
 
 export default class {
