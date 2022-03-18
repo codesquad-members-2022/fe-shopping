@@ -20,4 +20,28 @@ export default class SearchController {
         </div>
         `
     }
+
+    setTarget() {
+        this.$target = document.querySelector('.search__form')
+        this.resultList.setTarget(document.querySelector('.search__result'));
+    }
+
+    setEvents() {
+        this.setTarget();
+        this.setFocusEvent();
+    }
+
+    setFocusEvent() {
+        const inputTextForm = document.querySelector('.search__form--input');
+        inputTextForm.addEventListener('focusin', this.handleFocusInEvent.bind(this));
+        inputTextForm.addEventListener('focusout', this.handleFocusOutEvent.bind(this));
+    }
+
+    handleFocusInEvent(event) {
+        this.resultList.toggle();
+    }
+
+    handleFocusOutEvent(event) {
+        this.resultList.toggle();
+    }
 }
