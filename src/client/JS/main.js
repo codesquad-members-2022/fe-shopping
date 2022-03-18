@@ -76,6 +76,10 @@ class CenterSearchBox extends FocusBlur {
     );
   };
 
+  changeSearchKeyword = (selectedKeyword) => {
+    this.target.value = selectedKeyword;
+  };
+
   moveWithUpDown = (key) => {
     const childLists = [...this.relativeList.children];
     const selectedListIndex = childLists.findIndex((list) =>
@@ -107,6 +111,8 @@ class CenterSearchBox extends FocusBlur {
         break;
     }
     childLists[nextListIndex].classList.add("selected");
+    const selectedKeyword = childLists[nextListIndex].innerText;
+    this.changeSearchKeyword(selectedKeyword);
   };
 
   handleKeyupEvent = async ({ target: { value }, key }) => {
