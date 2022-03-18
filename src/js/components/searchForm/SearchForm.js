@@ -2,7 +2,7 @@ import Component from '../../core/Component.js';
 import SelectBox from './SelectBox.js';
 import InputBox from './InputBox.js';
 import BottomWindow from '../common/BottomWindow.js';
-import LocalStorageController from '../../localStorageController.js';
+import SearchHistoryStore from '../../store/searchHistoryStore.js'
 
 class SearchForm extends Component {
 
@@ -14,11 +14,12 @@ class SearchForm extends Component {
   setEvent() {
     this.addEvent('submit', '.search-form', (event) => {
       event.preventDefault();
-      const inputValue = event.target.querySelector('.input').value;
-      LocalStorageController.addData('searchHistory', {
-        item: inputValue,
+      const input = event.target.querySelector('.input');
+      SearchHistoryStore.addHistory('searchHistory', {
+        item: input.value,
         link: '#',
       });
+      input.value = '';
     });
   }
 
