@@ -4,6 +4,7 @@ export class SearchCategory extends Core {
   constructor() {
     super();
     this.template = this.getTemplate();
+    this.categoryPop = false;
   }
   getTemplate() {
     return `

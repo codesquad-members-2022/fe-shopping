@@ -265,6 +265,7 @@ input:focus {
 .search-wrap .select-category-wrap .select-category-list li {
   height: 30px;
   cursor: pointer;
+  z-index: 10;
 }
 
 .search-wrap .select-category-wrap .select-category-list.is-opened {

@@ -156,6 +156,7 @@
       li {
         height: 30px;
         cursor: pointer;
+        z-index: 10;
       }
       &.is-opened {
         display: block;
