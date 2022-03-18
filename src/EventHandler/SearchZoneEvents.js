@@ -10,15 +10,17 @@ import {
 import { fetch_use } from "/util/fetchutil.js";
 
 class SearchZoneController {
-  constructor(inputDom, menuDom) {
+  constructor(inputDom, menuDom, inputView, menuView) {
     this.inputDom = domUtil.$(inputDom);
     this.menuDom = domUtil.$(menuDom);
+    this.inputView = inputView;
+    this.menuView = menuView;
     this.searched = [];
   }
   initService() {
-    this.inputDom.addEventListener("input", this.onInputSearchInput);
+    this.inputDom.addEventListener("input", this.onInputSearchInput.bind(this));
     this.inputDom.addEventListener("keydown", this.onKeyDownEnter.bind(this));
-    this.menuDom.addEventListener("click", this.onClickSearchMenu);
+    this.menuDom.addEventListener("click", this.onClickSearchMenu.bind(this));
     document.body.addEventListener("click", this.removeSearchMenu.bind(this));
   }
 
@@ -26,16 +28,14 @@ class SearchZoneController {
     fetch_use(
       `search/${value}`,
       (jsonData) => new SearchInputToggle(jsonData).dom
-    )
-      .then(viewTest.renderToggle.bind(viewTest))
-      .then(() => viewTest.renderHistory());
+    ).then(this.inputView.renderToggle.bind(this.inputView));
   }
 
   onClickSearchMenu() {
     fetch_use(
       "search/menu/toggle",
       (jsonData) => new SearchMenuToggle(jsonData).dom
-    ).then(menuView.renderToggle.bind(menuView));
+    ).then(this.menuView.renderToggle.bind(this.menuView));
   }
   onKeyDownEnter(event) {
     if (event.keyCode === 13) {
@@ -55,10 +55,4 @@ class SearchZoneController {
   }
 }
 
-const test = new SearchZoneController(
-  ".header__main--searchZone",
-  ".header__main--inputMenu"
-);
-const viewTest = new SearchInputToggleView(".header__main--inputWrapper");
-const menuView = new SearchMenuToggleView(".header__main--inputMenuButton");
-test.initService();
+export { SearchZoneController };
