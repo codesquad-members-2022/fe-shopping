@@ -12,7 +12,7 @@ export default class Toggler {
         this.toggleKey = toggleKey;
     }
 
-    toggle(event) {
-        this.$target.classList.toggle(this.toggleKey);
+    toggle(toggleKey) {
+        this.$target.classList.toggle(toggleKey || this.toggleKey);
     }
 }
