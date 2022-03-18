@@ -8,6 +8,13 @@ export const fetchData = async (url) => {
   return successData.json();
 };
 
+export async function getCompleteData(name) {
+  const completeData = await fetchData(
+    `./public/data/auto-complete/${name}.json`
+  );
+  return completeData.data;
+}
+
 export function makeImageSlide(list) {
   return `
   <li class="image-element">
