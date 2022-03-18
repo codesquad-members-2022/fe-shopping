@@ -23,7 +23,7 @@
             <a href="#"><img src="https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png" alt="#" /></a>
           </h1>
           <div class="header__search">
-            <form action="">
+            <form action="" class="search__form">
               <div class="select__category">
                 <span class="select__label">전체</span>
                 <span class="material-icons select__category--btn">arrow_drop_down</span>
@@ -32,6 +32,14 @@
                 <input type="text" placeholder="찾고 싶은 상품을 검색해보세요!" class="search__input"/>
                 <a href="#" class="icon-mic"><span class="material-icons">mic_none</span></a>
                 <a href="#" class="icon-search"><span class="material-icons">search</span></a>
+                <div class="input__drop-down recent-search"> 
+                  <p>최근검색어</p>
+                  <ul class="drop-down__list"></ul>
+                  <div class="input__drop-down--options">
+                    <button type="button" class="options--clear-keyword">전체삭제</button>
+                    <button type="button" class="options--off-keyword">최근검색어 끄기</button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
