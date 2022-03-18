@@ -1,11 +1,11 @@
 import { $ } from '../../utility/util.js';
 import { addEvent } from '../../utility/util.js';
-import recentWords from './recent-words.js';
+import RecentWord from './recent-words.js';
 import Autocomplete from './autocomplete.js';
 
 export default class InputEvent {
   constructor() {
-    this.recentWords = new recentWords();
+    this.recentWords = new RecentWord();
     this.autoComplete = new Autocomplete();
   }
 
@@ -21,6 +21,6 @@ export default class InputEvent {
 
   drawAutocomplete = () => {
     this.nodrawHistoryContents();
-    this.Autocomplete.showAutocomplete();
+    this.autoComplete.checkInputText();
   };
 }
