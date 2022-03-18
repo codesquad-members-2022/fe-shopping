@@ -1,7 +1,7 @@
 import Toggler from "../components/Toggler.js";
 import {
     getLocalData
-} from "../util/LocalStorage.js";
+} from "../util/localStorage.js";
 
 export default class SearchResultList extends Toggler {
     constructor() {

@@ -1,6 +1,6 @@
 import {
     addLocalData
-} from "../util/LocalStorage.js";
+} from "../util/localStorage.js";
 
 export default class SearchController {
     constructor($parent, resultList) {
