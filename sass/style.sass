@@ -3,6 +3,19 @@
 @mixin border($color: $main-dark-gray, $width: 1.5px)
     border: $width solid $color
 
+@mixin box-shadow
+    box-shadow: 2px 5px 5px rgba(0,0,0,0.1)
+
+@mixin search-list
+    display: none
+    @include border
+    @include box-shadow
+    padding: 5px 10px
+    position: absolute
+    background-color: $main-white
+    width: 500px
+    height: 320px
+
 .main-header 
     padding: 30px 0px 0px 30px
     
@@ -18,14 +31,43 @@
         &--mini-img
             margin-right: $margin-s
 
-.search-input
-    @include border($main-blue, 2px)
-    width: 500px
-    height: 40px
-    font-size: 1.4rem
-    padding: 10px
-    &:hover
-        outline: none
+.search
+    position: relative
+    &__input
+        @include border($main-blue, 2px)
+        width: 500px
+        height: 40px
+        font-size: 1.4rem
+        padding: 10px
+        &:link, &:visited, &:hover, &:active, &:focus
+            outline: none
+    &__recent-list
+        @include search-list
+        &--name
+            padding: 10px 0px 
+            border-bottom: 1px solid $main-dark-gray 
+    &__list--item
+        font-size: 1.2rem
+        margin-top: $margin-l
+        &:hover
+            color: $main-blue
+            text-decoration: underline
+    &__bottom-bar
+        position: absolute
+        left: 0
+        bottom: 0
+        width: 100%
+        padding: 7px 10px
+        color: #868e96
+        background-color: #f1f3f5
+        border-top: 1.5px solid $main-dark-gray
+        p:hover
+            text-decoration: underline
+    &__related-list
+        @include search-list
+
+.match-word
+    color: $main-blue
 
 .contents-header
     margin-top: 30px
@@ -35,9 +77,9 @@
     background-color: $main-gray
     height: 450px
     &__menu
+        @include box-shadow
         background-color: $main-white
         width: 200px
-        box-shadow: 2px 5px 5px rgba(0,0,0,0.1)
         &--item
             @include border($main-gray, 1px)
             padding: 15px

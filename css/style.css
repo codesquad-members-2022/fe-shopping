@@ -148,7 +148,11 @@ h2 {
   margin-right: 3px;
 }
 
-.search-input {
+.search {
+  position: relative;
+}
+
+.search__input {
   border: 2px solid #228be6;
   width: 500px;
   height: 40px;
@@ -156,8 +160,66 @@ h2 {
   padding: 10px;
 }
 
-.search-input:hover {
+.search__input:link, .search__input:visited, .search__input:hover, .search__input:active, .search__input:focus {
   outline: none;
+}
+
+.search__recent-list {
+  display: none;
+  border: 1.5px solid #ced4da;
+  -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  position: absolute;
+  background-color: #fff;
+  width: 500px;
+  height: 320px;
+}
+
+.search__recent-list--name {
+  padding: 10px 0px;
+  border-bottom: 1px solid #ced4da;
+}
+
+.search__list--item {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.search__list--item:hover {
+  color: #228be6;
+  text-decoration: underline;
+}
+
+.search__bottom-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 7px 10px;
+  color: #868e96;
+  background-color: #f1f3f5;
+  border-top: 1.5px solid #ced4da;
+}
+
+.search__bottom-bar p:hover {
+  text-decoration: underline;
+}
+
+.search__related-list {
+  display: none;
+  border: 1.5px solid #ced4da;
+  -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  position: absolute;
+  background-color: #fff;
+  width: 500px;
+  height: 320px;
+}
+
+.match-word {
+  color: #228be6;
 }
 
 .contents-header {
@@ -171,10 +233,10 @@ h2 {
 }
 
 .banner__menu {
-  background-color: #fff;
-  width: 200px;
   -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 200px;
 }
 
 .banner__menu--item {
