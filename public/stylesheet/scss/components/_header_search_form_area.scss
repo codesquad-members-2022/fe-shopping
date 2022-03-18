@@ -119,6 +119,10 @@
 
 .recent-search-area {
   display: none;
+
+  &:hover {
+    display: block;
+  }
 }
 
 .recent-search-menu {

@@ -7,4 +7,8 @@ export default {
     if (!localStorage.getItem(key)) return;
     return JSON.parse(localStorage.getItem(key));
   },
+
+  removeFromLocalStorage(key) {
+    localStorage.removeItem(key);
+  },
 };

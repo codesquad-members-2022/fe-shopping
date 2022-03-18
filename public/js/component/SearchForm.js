@@ -18,10 +18,13 @@ export default class {
   }
 
   fillRecentSearchWords() {
-    const storedDatas = storage.getLocalStorage("recent-search");
-    const DataSortByAsc = this.sortDataAsc(storedDatas, "no");
-
     const recentSearchList = this.recentSearchArea.querySelector(".list");
+    const storedDatas = storage.getLocalStorage("recent-search");
+    if (!storedDatas) {
+      recentSearchList.innerHTML = "";
+      return;
+    }
+    const DataSortByAsc = this.sortDataAsc(storedDatas, "no");
     recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
   }
 
@@ -54,16 +57,46 @@ export default class {
     el.style.display = "none";
   }
 
+  handleRemoveRecentSearch(e) {
+    e.preventDefault();
+
+    const confirmMsg = `저장된 최근 검색어를 모두 삭제하시겠습니까?`;
+    const completeMsg = `삭제 되었습니다.`;
+    const cancelMsg = `취소 되었습니다.`;
+
+    if (!confirm(confirmMsg)) {
+      e.stopPropagation();
+      alert(cancelMsg);
+      return;
+    }
+    storage.removeFromLocalStorage("recent-search");
+    this.fillRecentSearchWords();
+    alert(completeMsg);
+  }
+
+  onRecentSearchMenu() {
+    const recentSearchMenu = this.recentSearchArea.querySelector(
+      ".recent-search-menu"
+    );
+
+    recentSearchMenu.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("remove-all")) return;
+      this.handleRemoveRecentSearch(e);
+    });
+  }
+
   onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
       this.setElDisplayBlock(this.recentSearchArea);
       this.fillRecentSearchWords();
+      this.onRecentSearchMenu();
     });
   }
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
-      this.setElDisplayNone(this.recentSearchArea);
+      //   this.setElDisplayNone(this.recentSearchArea);
+      // TODO: 최근검색어를 조작중일 때에는 사라지지 않도록 해야함
     });
   }
 
