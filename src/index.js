@@ -49,13 +49,12 @@ $searchInput.addEventListener("keyup", (e) => {
 });
 
 $searchInput.addEventListener("click", () => {
-  $searchList.classList.toggle("is-opened");
-  if (keywordStorage.length === 0) {
-    $searchList.classList.toggle("is-opened");
-    localStorage.clear();
-    return;
-  }
+  $searchList.classList.add("is-opened");
   if (!$searchInput.value) {
+    if (keywordStorage.length === 0) {
+      $searchList.classList.remove("is-opened");
+      return;
+    }
     $searchList.innerHTML = "";
     $searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
 
