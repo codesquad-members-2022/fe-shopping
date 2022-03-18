@@ -28,17 +28,13 @@ export default class SearchResultList extends Toggler {
         `;
     }
 
-    isSearching() {
-        return this.isSearching;
-    }
-
     toggleState() {
         const recentTitle = document.querySelector('.search__result--title');
         const recentButtons = document.querySelector('.search__button');
         recentTitle.classList.toggle('hidden');
         recentButtons.classList.toggle('hidden');
         this.isTyping = !this.isTyping;
-        setListData();
+        this.setListData();
     }
 
     updateData(type, data) {
