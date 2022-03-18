@@ -1,4 +1,4 @@
-export class selectCategory {
+export class SelectCategory {
   constructor() {
     this.$select = document.querySelector('.select__category');
     this.renderSelectCategory();
@@ -9,22 +9,21 @@ export class selectCategory {
     const categoryData = ['전체', '여성패션', '남성패션', '남녀 공용 패션', '유아동패션'];
     const template = `
       <ul class="select__drop-down">
-        ${categoryData.reduce((acc, cur) => acc + this.templateDropDownItem(cur), '')}
+        ${this.templateDropDownItem(categoryData)}
       </ul>
     `;
     this.$select.insertAdjacentHTML('beforeend', template);
   }
 
   templateDropDownItem(data) {
-    return `<li><a href="#">${data}</a></li>`;
+    return data.reduce((acc, cur) => acc + `<li><a href="#">${cur}</a></li>`, '');
   }
 
   showCategory() {
     const lastChild = this.$select.lastElementChild;
     lastChild.classList.toggle('focus');
-    this.$select.querySelector('.material-icons').innerText = lastChild.classList.contains('focus')
-      ? 'arrow_drop_up'
-      : 'arrow_drop_down';
+    const arrowText = lastChild.classList.contains('focus') ? 'arrow_drop_up' : 'arrow_drop_down';
+    this.$select.querySelector('.material-icons').innerText = arrowText;
   }
 
   selectCategory(e) {

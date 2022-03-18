@@ -370,7 +370,7 @@ button, cursor {
   cursor: pointer;
 }
 
-.container, .recent-keyword .input__drop-down--options, .select__category, .header__search form, .header__user-menu, .search__input-box, .header__main, .header__wrapper .header__nav {
+.container, .input__drop-down--options, .recent-search li, .select__category, .header__search form, .header__user-menu, .search__input-box, .header__main, .header__wrapper .header__nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -397,7 +397,7 @@ button, cursor {
   font-size: 0.875rem;
 }
 
-.recent-keyword a:hover, .select__drop-down a:hover {
+.recent-search a:hover, .select__drop-down a:hover {
   color: #4285f4;
   text-decoration: underline;
 }
@@ -508,43 +508,72 @@ button, cursor {
 }
 
 .input__drop-down {
-  height: 320px;
+  height: 330px;
   padding: 8px 16px;
 }
 
+.auto-complete {
+  display: none;
+}
+.auto-complete li {
+  font-size: 0.75rem;
+}
 .auto-complete a:hover {
   text-decoration: underline;
 }
 
-.recent-keyword {
+.auto-complete.focus {
+  display: block;
+}
+
+.recent-search {
+  display: none;
   padding: 0;
 }
-.recent-keyword p {
+.recent-search p {
   padding: 12px;
   border-bottom: 1px solid #c8c8c8;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 0.75rem;
 }
-.recent-keyword ul {
-  height: 245px;
+.recent-search ul {
+  height: 260px;
   overflow: hidden;
   padding: 12px 12px 0 12px;
   border-bottom: 1px solid #c8c8c8;
 }
-.recent-keyword li {
+.recent-search li {
+  width: 100%;
   padding-bottom: 12px;
   font-size: 0.75rem;
 }
-.recent-keyword .input__drop-down--options {
+.recent-search li a {
+  width: 90%;
+}
+.recent-search li button {
+  width: 10%;
+  color: #fff;
+}
+.recent-search li button:hover {
+  color: #4285f4;
+  text-decoration: underline;
+  transition: color 0.05s ease-in;
+}
+
+.input__drop-down--options {
   background-color: #f0f0f0;
 }
-.recent-keyword .input__drop-down--options button {
+.input__drop-down--options button {
   padding: 10px 12px;
   color: #626262;
   font-size: 13px;
 }
-.recent-keyword .input__drop-down--options button:hover {
+.input__drop-down--options button:hover {
   text-decoration: underline;
+}
+
+.recent-search.focus {
+  display: block;
 }
 
 .container {
