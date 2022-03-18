@@ -24,6 +24,7 @@ class CenterSearchBox extends FocusBlur {
     this.relativeTitle = selector("h3", transformer);
     this.relativeList = selector("ul", transformer);
     this.relativeOption = selector("div", transformer);
+    this.searchedKeyword;
   }
 
   getRefinedData = async (address, value = "") => {
@@ -47,10 +48,10 @@ class CenterSearchBox extends FocusBlur {
   };
 
   changeRelativeList = (refinedData) => {
-    const innerList = refinedData.reduce((pre, post) => {
-      post = `<li>${post}</li>`;
-      return pre + post;
-    }, "");
+    const innerList = refinedData.reduce(
+      (pre, post) => pre + `<li>${post}</li>`,
+      ""
+    );
     this.relativeList.innerHTML = innerList;
   };
 
@@ -75,7 +76,19 @@ class CenterSearchBox extends FocusBlur {
     );
   };
 
-  handleKeyupEvent = async ({ target: { value } }) => {
+  moveWithUpDown = () => {
+    const childLists = [...this.relativeList.children];
+    console.log(this.relativeList);
+    const selectedList = childLists.find((list) =>
+      list.classList.contains("selected")
+    );
+  };
+
+  handleKeyupEvent = async ({ target: { value }, key }) => {
+    const upDownKey = ["ArrowDown", "ArrowUp"].find(
+      (direction) => direction === key
+    );
+    if (upDownKey) return this.moveWithUpDown(upDownKey);
     value === ""
       ? await this.showRecentData()
       : await this.showRelativeData(value);
@@ -93,9 +106,9 @@ class CenterSearchBox extends FocusBlur {
 
 const centerSearchInput = selector("input", selector(".center-search"));
 const centerRelativeInfo = selector(".center-relative-info");
-const centerSearchFocusBlur = new CenterSearchBox(
+const centerSearchBoxHandler = new CenterSearchBox(
   centerSearchInput,
   centerRelativeInfo
 );
 
-centerSearchFocusBlur.init();
+centerSearchBoxHandler.init();
