@@ -1,4 +1,4 @@
-import { MAX_RECENT_SEARCH_SIZE } from '../constants';
+import { MAX_RECENT_SEARCH_SIZE } from '../constants/index.js';
 import Store from './store.js';
 
 class SearchHistoryStore extends Store {

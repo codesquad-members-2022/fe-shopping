@@ -1,5 +1,5 @@
 import Component from '../../core/Component.js';
-import { category } from '../../../data';
+import { category } from '../../../data/index.js';
 
 class SelectBox extends Component {
 
