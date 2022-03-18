@@ -76,19 +76,45 @@ class CenterSearchBox extends FocusBlur {
     );
   };
 
-  moveWithUpDown = () => {
+  moveWithUpDown = (key) => {
     const childLists = [...this.relativeList.children];
-    console.log(this.relativeList);
-    const selectedList = childLists.find((list) =>
+    const selectedListIndex = childLists.findIndex((list) =>
       list.classList.contains("selected")
     );
+    console.log(key, childLists, selectedListIndex);
+
+    if (selectedListIndex > -1) {
+      let nextChildListIndex;
+      switch (key) {
+        case "ArrowDown":
+          nextChildListIndex = childLists[selectedListIndex + 1]
+            ? selectedListIndex + 1
+            : 0;
+
+          break;
+        case "ArrowUp":
+          nextChildListIndex = childLists[selectedListIndex - 1]
+            ? selectedListIndex - 1
+            : childLists.length - 1;
+          break;
+      }
+      childLists[selectedListIndex].classList.remove("selected");
+      childLists[nextChildListIndex].classList.add("selected");
+    } else {
+      switch (key) {
+        case "ArrowDown":
+          childLists[0].classList.add("selected");
+          break;
+        case "ArrowUp":
+          childLists[childLists.length - 1].classList.add("selected");
+          break;
+      }
+    }
   };
 
   handleKeyupEvent = async ({ target: { value }, key }) => {
-    const upDownKey = ["ArrowDown", "ArrowUp"].find(
-      (direction) => direction === key
-    );
-    if (upDownKey) return this.moveWithUpDown(upDownKey);
+    const upDownKey = ["ArrowDown", "ArrowUp"].includes(key);
+    if (upDownKey) return this.moveWithUpDown(key);
     value === ""
       ? await this.showRecentData()
       : await this.showRelativeData(value);

@@ -93,6 +93,10 @@ header {
       @include info-padding-margin;
       color: $gray2;
     }
+    &-list > .selected {
+      color: $blue-main;
+      text-decoration: underline;
+    }
     &-option {
       @include info-padding-margin;
       @include divideFlex(1, 1);
