@@ -20,18 +20,6 @@ export class AutoComplete {
       autoComplete.style.visibility = 'visible';
       this.str += e.data;
     });
-
-    searchText.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        console.log(this.recentSquence);
-        this.recentSquence < this.data.createAutoComplete.length
-          ? this.recentSquence++
-          : (this.recentSquence = 0);
-      }
-      //  else if (e.key === 'ArrowDown') {
-      //   this.recentSquence ? (this.recentSquence = 0) : this.recentSquence--;
-      // }
-    });
   }
 
   destroyAutoComplete() {
