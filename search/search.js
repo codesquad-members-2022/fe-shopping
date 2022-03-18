@@ -30,14 +30,13 @@ const getSearchWord = () => {
 const updateRecentSearchList = () => {
     const word = getSearchWord();
     recentSearchList.addSearchWord(word);
-    recentSearchList.renderSearchList();
 };
 
 searchbar.addEventListener("focus", () => {
     recentSearchList.show();
 });
 
-const getRelatedWord = (word) => {
+const getRelatedWords = (word) => {
     if (database.has(word)) {
         relatedSearchList.searchItems = database
             .get(word)
@@ -57,33 +56,55 @@ const delay = (time) => {
     });
 };
 
-searchbar.addEventListener("input", ({ target }) => {
-    if (!target.value) {
-        clearTimeout(timer);
-        relatedSearchList.reset();
-        relatedSearchList.hide();
-    }
-
+const requestRelatedWordsNoMoreInput = (word) => {
     if (timer) {
         clearTimeout(timer);
     }
 
-    delay(500).then(() => getRelatedWord(target.value));
-});
+    delay(500).then(() => getRelatedWords(word));
+};
 
-searchbar.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        updateRecentSearchList();
-
-        relatedSearchList.hide();
+const inputEventHandler = ({ target }) => {
+    const word = target.value;
+    if (!word) {
         relatedSearchList.reset();
+        relatedSearchList.hide();
     }
-});
+
+    requestRelatedWordsNoMoreInput(word);
+};
+
+searchbar.addEventListener("input", inputEventHandler);
+
+const reRenderSearchList = (event) => {
+    event.preventDefault();
+    updateRecentSearchList();
+    recentSearchList.renderSearchList();
+
+    clearTimeout(timer);
+    relatedSearchList.reset();
+    relatedSearchList.hide();
+};
+
+const keyDownEventHandler = (event) => {
+    if (event.key === "Enter") {
+        reRenderSearchList(event);
+    }
+};
+
+searchbar.addEventListener("keydown", keyDownEventHandler);
+
+const isSearchBlock = (target) => {
+    return target.closest(".search");
+};
+
+const hideSearchList = () => {
+    recentSearchList.hide();
+    relatedSearchList.hide();
+};
 
 document.body.addEventListener("click", ({ target }) => {
-    if (!target.closest(".search")) {
-        recentSearchList.hide();
-        relatedSearchList.hide();
+    if (!isSearchBlock(target)) {
+        hideSearchList();
     }
 });
