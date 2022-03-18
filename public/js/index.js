@@ -10,7 +10,10 @@ const mainBanner = new MainBanner({
   imgAreaElement: $(".carousel-img-area"),
 });
 
-const searchForm = new SearchForm({ searchFormArea: $(".search-form-area") });
+const searchForm = new SearchForm({
+  searchFormArea: $(".search-form-area"),
+  localStorageDataSize: 10,
+});
 searchForm.init();
 
 mainBanner.init();
