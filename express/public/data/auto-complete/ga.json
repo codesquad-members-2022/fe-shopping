@@ -1,5 +1,5 @@
 {
-  "gaData": [
+  "data": [
     {
       "keyword": "가습기",
       "id": "ga-1"
@@ -27,6 +27,18 @@
     {
       "keyword": "가글",
       "id": "ga-7"
+    },
+    {
+      "keyword": "가리비",
+      "id": "ga-8"
+    },
+    {
+      "keyword": "간장",
+      "id": "ga-9"
+    },
+    {
+      "keyword": "가구 모음",
+      "id": "ga-10"
     }
   ]
 }

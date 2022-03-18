@@ -1,5 +1,5 @@
 {
-  "baData": [
+  "data": [
     {
       "keyword": "바나나",
       "id": "ba-1"
@@ -27,6 +27,18 @@
     {
       "keyword": "밥솥",
       "id": "ba-7"
+    },
+    {
+      "keyword": "바지",
+      "id": "ba-8"
+    },
+    {
+      "keyword": "반지",
+      "id": "ba-9"
+    },
+    {
+      "keyword": "배추",
+      "id": "ba-10"
     }
   ]
 }
