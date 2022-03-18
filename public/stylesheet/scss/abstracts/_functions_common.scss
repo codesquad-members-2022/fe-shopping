@@ -1,0 +1,3 @@
+@function color-line($color) {
+  @return 1px solid $color;
+}

@@ -1,8 +1,10 @@
 @import "./abstracts/variables";
 @import "./abstracts/variables_color";
 @import "./abstracts/mixin_common";
+@import "./abstracts/functions_common";
 
 @import "./base/reset";
 
 @import "./components/header_area";
+@import "./components/header_search_form_area";
 @import "./components/carousel_area";

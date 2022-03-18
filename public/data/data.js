@@ -1,4 +1,4 @@
-export const carouselData = [
+export const sliderData = [
   {
     alt: "피앤지 봄맞이 생필품",
     thumbnail:
