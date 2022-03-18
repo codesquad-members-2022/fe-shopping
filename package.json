@@ -19,7 +19,8 @@
   "homepage": "https://github.com/JinJeon/fe-shopping#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",

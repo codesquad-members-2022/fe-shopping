@@ -60,19 +60,20 @@ header {
     position: relative;
   }
 
-  .center-input {
+  .center-search-box {
     @include divideFlex(10, 1);
     > * {
       height: 2.5rem;
-    }
-    input {
-      margin-left: 0.4rem;
     }
     button {
       background-color: $white;
       font-size: 0.8rem;
       color: $blue-main;
     }
+  }
+
+  .center-search-input {
+    margin-left: 0.4rem;
   }
 
   .center-relative-info {
