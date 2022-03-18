@@ -14,15 +14,23 @@ export default class {
     this.inputEl = this.findElementFromArea(".search-input");
   }
 
+  setElDisplayBlock(el) {
+    el.style.display = "block";
+  }
+
+  setElDisplayNone(el) {
+    el.style.display = "none";
+  }
+
   onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
-      $(".recent-search-area").style.display = "block";
+      this.setElDisplayBlock($(".recent-search-area"));
     });
   }
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
-      $(".recent-search-area").style.display = "none";
+      this.setElDisplayNone($(".recent-search-area"));
     });
   }
 
@@ -37,8 +45,15 @@ export default class {
     });
   }
 
+  onKeyUpInput() {
+    this.inputEl.addEventListener("keyup", ({ target }) => {
+      this.setElDisplayNone($(".recent-search-area"));
+    });
+  }
+
   onEvent() {
     this.onFocusInput();
+    this.onKeyUpInput();
     this.onFormSubmit();
   }
 
