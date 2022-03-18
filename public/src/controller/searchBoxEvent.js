@@ -47,11 +47,14 @@ const setSearchEvent = (searchBoxNode, searchData) => {
     renderRecentSearchBox(recentSearchBox);
     if (searchInput.value.length !== 0) {
       renderRelatedSearchBox(relatedSearchBox);
+      fillRelatedSearchBox(relatedSearchBox.querySelector(".related-search-word-container"), searchData, searchInput.value);
     }
   });
   searchInput.addEventListener("focusout", (e) => {
-    recentSearchBox.innerHTML = "";
-    relatedSearchBox.innerHTML = "";
+    setTimeout(() => {
+      recentSearchBox.innerHTML = "";
+      relatedSearchBox.innerHTML = "";
+    }, 200);
   });
   searchInput.addEventListener(
     "input",
@@ -59,7 +62,9 @@ const setSearchEvent = (searchBoxNode, searchData) => {
       relatedSearchBox.innerHTML = "";
       if (searchInput.value.length !== 0) {
         renderRelatedSearchBox(relatedSearchBox);
-        fillRelatedSearchBox(relatedSearchBox.querySelector(".related-search-word-container"), searchData, searchInput.value);
+        const relatedSearchWordBox = relatedSearchBox.querySelector(".related-search-word-container");
+        fillRelatedSearchBox(relatedSearchWordBox, searchData, searchInput.value);
+        setRelatedSearchWordEvent(relatedSearchWordBox, searchInput);
       }
     }, 100)
   );
@@ -72,6 +77,12 @@ const fillRelatedSearchBox = (parentNode, searchData, typeWord) => {
         renderRelatedSearchWord(parentNode, word);
       });
     }
+  });
+};
+
+const setRelatedSearchWordEvent = (relatedSearchBox, searchInput) => {
+  relatedSearchBox.addEventListener("click", (e) => {
+    searchInput.value = e.target.firstChild.textContent;
   });
 };
 
