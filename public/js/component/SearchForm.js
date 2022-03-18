@@ -58,7 +58,6 @@ export default class {
 
   handleRemoveRecentSearch(e) {
     e.preventDefault();
-    e.stopImmediatePropagation();
 
     const confirmMsg = `저장된 최근 검색어를 모두 삭제하시겠습니까?`;
     const completeMsg = `삭제 되었습니다.`;
@@ -73,12 +72,9 @@ export default class {
     alert(completeMsg);
   }
 
-  onRecentSearchMenu() {
-    const recentSearchMenu = this.recentSearchArea.querySelector(
-      ".recent-search-menu"
-    );
-
-    recentSearchMenu.addEventListener("click", (e) => {
+  onSearchFormClick() {
+    this.searchFormArea.addEventListener("click", (e) => {
+      // 현재 searchFromClick 이벤트는 최근 검색어 전체 삭제만 작동
       if (!e.target.classList.contains("remove-all")) return;
       this.handleRemoveRecentSearch(e);
     });
@@ -88,7 +84,6 @@ export default class {
     this.inputEl.addEventListener("focus", ({ target }) => {
       this.setElDisplayBlock(this.recentSearchArea);
       this.fillRecentSearchWords();
-      this.onRecentSearchMenu();
     });
   }
 
@@ -145,6 +140,7 @@ export default class {
       storedDatas = this.removeLeastUsedData(storedDatas, "no");
     }
     storage.setLocalStorage("recent-search", [...storedDatas, currentData]);
+    this.fillRecentSearchWords();
   }
 
   onFormSubmit() {
@@ -153,7 +149,8 @@ export default class {
 
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", ({ target }) => {
-      this.setElDisplayNone(this.recentSearchArea);
+      //   this.setElDisplayNone(this.recentSearchArea);
+      // TODO: 입력시 최근검색어란이 사라지게 하여야 함(현재 최근검색어 동작 확인을 위해 주석처리)
     });
   }
 
@@ -161,6 +158,7 @@ export default class {
     this.onFocusInput();
     this.onKeyUpInput();
     this.onFormSubmit();
+    this.onSearchFormClick();
   }
 
   init() {
