@@ -1,10 +1,14 @@
+import {RecentSearchModel} from '../model/recentSearchModel.js';
+import {RecentSearchView} from '../view/recentSearchView.js';
+
 export class RecentSearchController {
-  constructor(model, view) {
-    this.recentSearchModel = model;
-    this.recentSearchView = view;
+  constructor() {
+    this.recentSearchModel = new RecentSearchModel(window.localStorage);
+    this.recentSearchView = new RecentSearchView();
     this.$input = document.querySelector('.search-bar-input');
     this.$popupKeywords = document.querySelector('.popup-keywords');
   }
+  
   addInputFocusEvent () {
     this.$input.addEventListener('focus', () => {
       if (!this.recentSearchModel.isEmpty()) {
