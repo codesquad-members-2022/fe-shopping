@@ -11,6 +11,9 @@ const searchRelatedListContainer = document.querySelector(
     ".search__related-list--container"
 );
 
+const DIRECTION_UP = "up";
+const DIRECTION_DOWN = "down";
+
 const recentSearchList = new SearchList(
     searchRecentList,
     searchRecentListContainer
@@ -31,10 +34,6 @@ const updateRecentSearchList = () => {
     const word = getSearchWord();
     recentSearchList.addSearchWord(word);
 };
-
-searchbar.addEventListener("focus", () => {
-    recentSearchList.show();
-});
 
 const getRelatedWords = (word) => {
     if (database.has(word)) {
@@ -64,7 +63,16 @@ const requestRelatedWordsNoMoreInput = (word) => {
     delay(500).then(() => getRelatedWords(word));
 };
 
+const blurRecentSearchList = () => {
+    if (recentSearchList.curIdx !== -1) {
+        recentSearchList.curIdx = -1;
+        recentSearchList.renderSearchList();
+    }
+};
+
 const inputEventHandler = ({ target }) => {
+    blurRecentSearchList();
+
     const word = target.value;
     if (!word) {
         relatedSearchList.reset();
@@ -73,8 +81,6 @@ const inputEventHandler = ({ target }) => {
 
     requestRelatedWordsNoMoreInput(word);
 };
-
-searchbar.addEventListener("input", inputEventHandler);
 
 const reRenderSearchList = (event) => {
     event.preventDefault();
@@ -90,6 +96,14 @@ const changeInputWord = (focusingItem) => {
     searchbar.value = focusingItem.dataset.name;
 };
 
+const focusItem = (direction, searchList) => {
+    const focusingItem =
+        direction === DIRECTION_UP
+            ? searchList.focusPreviousItem()
+            : searchList.focusNextItem();
+    changeInputWord(focusingItem);
+};
+
 const keyDownEventHandler = (event) => {
     if (event.key === "Enter") {
         reRenderSearchList(event);
@@ -97,29 +111,19 @@ const keyDownEventHandler = (event) => {
 
     if (event.key === "ArrowDown") {
         if (relatedSearchList.isVisible) {
-            const focusingItem = relatedSearchList.focusNextItem();
-            changeInputWord(focusingItem);
+            focusItem(DIRECTION_DOWN, relatedSearchList);
         } else if (recentSearchList.isVisible) {
-            const focusingItem = recentSearchList.focusNextItem();
-            changeInputWord(focusingItem);
+            focusItem(DIRECTION_DOWN, recentSearchList);
         }
     }
 
     if (event.key === "ArrowUp") {
         if (relatedSearchList.isVisible) {
-            const focusingItem = relatedSearchList.focusPreviousItem();
-            changeInputWord(focusingItem);
+            focusItem(DIRECTION_UP, relatedSearchList);
         } else if (recentSearchList.isVisible) {
-            const focusingItem = recentSearchList.focusPreviousItem();
-            changeInputWord(focusingItem);
+            focusItem(DIRECTION_UP, recentSearchList);
         }
     }
-};
-
-searchbar.addEventListener("keydown", keyDownEventHandler);
-
-const isSearchBlock = (target) => {
-    return target.closest(".search");
 };
 
 const hideSearchList = () => {
@@ -127,8 +131,13 @@ const hideSearchList = () => {
     relatedSearchList.hide();
 };
 
-document.body.addEventListener("click", ({ target }) => {
-    if (!isSearchBlock(target)) {
-        hideSearchList();
-    }
-});
+const onSearchEvent = () => {
+    searchbar.addEventListener("focus", () => {
+        recentSearchList.show();
+    });
+    searchbar.addEventListener("blur", hideSearchList);
+    searchbar.addEventListener("keydown", keyDownEventHandler);
+    searchbar.addEventListener("input", inputEventHandler);
+};
+
+export { onSearchEvent };
