@@ -21,8 +21,8 @@ function createList(listArray) {
 }
 
 function createStrongList(listArray) {
-    return listArray.reduce((acc, cur) => {
-        return acc + `<li><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
+    return listArray.reduce((acc, cur, idx) => {
+        return acc + `<li data-index="${idx}"><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
 }
 
 function createHeader(navMenu) {

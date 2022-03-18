@@ -12,18 +12,31 @@ export class SearchController {
     }
 
     initSearchController() {
-        this.setEvent()
+        this.setSearchBoxEvent()
+        this.setSearchListEvent()
     }
 
-    setEvent() {
+    setSearchBoxEvent() {
         this.$input.addEventListener('input', (e) => this.searchInputHandler(e))
         this.$input.addEventListener('click', (e) => this.searchClickHandler(e))
         this.$input.addEventListener('focusout', (e) => this.searchFocusoutHandler(e))
         this.$input.addEventListener('keydown', (e) => this.searchKeydownHandler(e))
     }
 
+    setSearchListEvent() {
+        this.$searchList.addEventListener('mouseover', (e) => this.searchListMouseoverHandler(e))
+    }
+
     setState(state) {
         this.state = state
+    }
+
+    searchListMouseoverHandler(e) {
+        if(e.target.tagName === 'LI') {
+            this.prefixListIndex = Number(e.target.dataset.index)
+            this.removeKeyOn()
+            this.addKeyOn(this.prefixListIndex)
+        }
     }
 
     setPrefixListElements() {
@@ -32,7 +45,6 @@ export class SearchController {
     }
 
     searchKeydownHandler(e) {
-        console.log(this.state)
         if(!this.state) return
         if(e.key === 'ArrowDown') {
             this.downPrefixList()
@@ -118,7 +130,7 @@ export class SearchController {
     }
 
     searchPrefixLists(word) {
-        const highlightLength = word.length
+        const highlightLength = word.trim().length
         this.fetchPrefixList(word)
             .then((prefixArr) => {
                 if(prefixArr.length === 0) return this.addVisibilityHidden()
