@@ -69,7 +69,11 @@ export class SearchInput {
   }
 
   resetRecentSearchList() {
-    this.$dropDownList.innerHTML = null;
+    const $dropDownList = document.querySelector('.drop-down__list');
+    $dropDownList.innerHTML = '';
+
+    // 왜 안될까???????
+    // this.$dropDownList.innerHTML = '';
   }
 
   toggleInputFocusClass() {

@@ -84,7 +84,6 @@ export class Controller {
     if (e.target.classList.contains('options--clear-keyword')) {
       this.localStorage.clearKeywordList();
       this.searchInput.resetRecentSearchList();
-      this.searchInput.toggleInputFocusClass();
     }
   }
 }
