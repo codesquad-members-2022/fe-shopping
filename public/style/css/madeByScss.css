@@ -1,0 +1,105 @@
+.flexbox-blank {
+  flex-grow: 1;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  transition: all 0.3s;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.visibility-visible {
+  visibility: visible;
+  transition: all 0.3s;
+  transform-origin: top;
+}
+
+.flexbox-blank {
+  flex-grow: 1;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  transition: all 0.3s;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.visibility-visible {
+  visibility: visible;
+  transition: all 0.3s;
+  transform-origin: top;
+}
+
+.search-box {
+  position: relative;
+}
+
+.recent-search-container {
+  left: 130px;
+  top: 40px;
+  width: 392px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  font-size: 0.75rem;
+  background-color: white;
+  z-index: 10;
+}
+.recent-search-container .recent-search-word-container {
+  padding: 0.8rem 8px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-weight: 700;
+}
+.recent-search-container .recent-search-list {
+  padding: 0.8rem 8px;
+  height: 300px;
+}
+.recent-search-container .recent-search-word {
+  padding: 0.3rem;
+  cursor: pointer;
+}
+.recent-search-container .recent-search-word:hover {
+  color: blue;
+  text-decoration: underline;
+}
+.recent-search-container .recent-search-footer {
+  display: flex;
+  padding: 0.8rem 8px;
+  background-color: #f5f5f5;
+  color: #888;
+}
+.recent-search-container .recent-search-footer .recent-search-delete-button {
+  cursor: pointer;
+}
+.recent-search-container .recent-search-footer .recent-search-onoff-button {
+  cursor: pointer;
+}
+
+.related-search-container {
+  left: 130px;
+  top: 40px;
+  width: 392px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  font-size: 0.75rem;
+  background-color: white;
+  z-index: 100;
+}
+.related-search-container .related-search-word-container {
+  padding: 0.8rem 8px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-weight: 700;
+  padding: 0.8rem 8px;
+  height: 375px;
+}
+.related-search-container .related-search-word {
+  padding: 0.7rem 0.3rem;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=madeByScss.css.map */

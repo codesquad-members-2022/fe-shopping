@@ -9,7 +9,7 @@ function debounce(callback, limit = 100) {
 }
 
 const fetchData = async (url) => {
-  const response = await fetch("./carouselData.json");
+  const response = await fetch(url);
   return response.json();
 };
 
