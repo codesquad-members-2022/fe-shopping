@@ -508,12 +508,22 @@ button, cursor {
 }
 
 .input__drop-down {
-  height: 320px;
+  height: 330px;
   padding: 8px 16px;
 }
 
+.auto-complete {
+  display: none;
+}
+.auto-complete li {
+  font-size: 0.75rem;
+}
 .auto-complete a:hover {
   text-decoration: underline;
+}
+
+.auto-complete.focus {
+  display: block;
 }
 
 .recent-search {
@@ -524,10 +534,10 @@ button, cursor {
   padding: 12px;
   border-bottom: 1px solid #c8c8c8;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 0.75rem;
 }
 .recent-search ul {
-  height: 245px;
+  height: 260px;
   overflow: hidden;
   padding: 12px 12px 0 12px;
   border-bottom: 1px solid #c8c8c8;
