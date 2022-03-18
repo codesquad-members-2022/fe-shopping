@@ -90,6 +90,22 @@ const keyDownEventHandler = (event) => {
     if (event.key === "Enter") {
         reRenderSearchList(event);
     }
+
+    if (event.key === "ArrowDown") {
+        if (relatedSearchList.isVisible) {
+            relatedSearchList.focusNextItem();
+        } else if (recentSearchList.isVisible) {
+            recentSearchList.focusNextItem();
+        }
+    }
+
+    if (event.key === "ArrowUp") {
+        if (relatedSearchList.isVisible) {
+            relatedSearchList.focusPreviousItem();
+        } else if (recentSearchList.isVisible) {
+            recentSearchList.focusPreviousItem();
+        }
+    }
 };
 
 searchbar.addEventListener("keydown", keyDownEventHandler);
