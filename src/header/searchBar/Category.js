@@ -3,7 +3,6 @@ import {
   addClass,
   removeClass,
   toggleClass,
-  hasAscendant,
 } from '../../utils/utils.js';
 
 // classname
@@ -20,16 +19,10 @@ export class SearchBarCategory {
     this.$categoryName = selector(`.${CATEGORY_NAME}`);
 
     this.isLayerOpen = false;
-
-    this.init();
   }
 
   init() {
     this.$category.addEventListener('click', this.handleClickCategory);
-    document.body.addEventListener('click', (e) => {
-      // if (!hasAscendant(this.$category, e.target)) this.closeLayer();
-      if (!e.target.closest(`.${CATEGORY}`)) this.closeLayer();
-    });
   }
 
   /* **리스너*** */

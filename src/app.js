@@ -1,6 +1,4 @@
-import {} from './header/searchBar/searchBar.js';
-import { SearchBarCategory } from './header/searchBar/Category.js';
-import { SearchBarForm } from './header/searchBar/Form.js';
+import { SearchBar } from './header/searchBar/SearchBar.js';
 
-const searchBarCategory = new SearchBarCategory();
-const searchBarForm = new SearchBarForm();
+const searchBar = new SearchBar();
+searchBar.init();
