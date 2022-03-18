@@ -5,7 +5,7 @@ import {
   targetQuerySelector,
 } from "../util/util.js";
 
-class CategoriesDropBox extends Element {
+class SearchCategoryDropBox extends Element {
   constructor() {
     super();
     this.$selected__category = null;
@@ -51,4 +51,4 @@ class CategoriesDropBox extends Element {
   }
 }
 
-export default CategoriesDropBox;
+export default SearchCategoryDropBox;
