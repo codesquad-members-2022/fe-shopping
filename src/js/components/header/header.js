@@ -1,7 +1,7 @@
 const fakeDB = fetch("http://localhost:3000/fakeDB")
   .then((res) => res.json());
 
-const $input = document.querySelector('.coupang-search');
+// const $('.coupang-search') = document.querySelector('.coupang-search');
 const $historyList = document.querySelector('.latest-search-keyword')
 
 
@@ -84,7 +84,7 @@ appendText(span, '최근 검색어');
 appendnode(div, [h3, ol]);
 
 
-$input.addEventListener('keyup', (e) => {
+$('.coupang-search').addEventListener('keyup', (e) => {
   // let historyBarTpl = new historyBar("latest-search-contents");
   // let historyBarTpl2 = new historyBar("searched-items");
   
@@ -100,7 +100,7 @@ $input.addEventListener('keyup', (e) => {
   fakeDB.then((json) => {
 
     const filteredItems = json.items
-      .filter(v => v["name"].includes($input.value))
+      .filter(v => v["name"].includes($('.coupang-search').value))
       .sort((a, b) => b.views - a.views);
     console.log(filteredItems)
     filteredItems.forEach(node => {

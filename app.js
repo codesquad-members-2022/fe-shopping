@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const fakeDB_router = require('./router/data');
+const fakeDB_router = require('./server/routes/data');
 const path = require("path");
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/src'));
 
 app.use('/fakeDB', fakeDB_router);
 
