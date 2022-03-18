@@ -49,7 +49,7 @@
         @include flex-center;
         width: 1100px;
         height: 100%;
-        justify-content: space-between; // 요기..궁금
+        justify-content: space-between;
     }
 
     &__menu {
@@ -75,11 +75,15 @@
 
 .search {
     @include flex;
+    width: 518px;
     height: 37px;
+    border: $color-blue 2px solid;
 
     &__category {
         @include flex(column);
+        position: relative;
         width: 137px;
+        height: 387px;
 
         &--contents {
             @include flex;
@@ -100,36 +104,90 @@
             height: 37px;
             padding-left: 10px;
             font-size: $font-middle;
+            align-items: center;
         }
 
         &--list {
-            width: 300px;
-            overflow: hidden;
-
-            &--hide {
-                display: none;
-            }
+            width: 134px;
+            z-index: 1;
+            padding-top: 10px;
+            font-size: $font-middle;
+            background-color: $color-white;
+            box-shadow: 0 4px 5px $color-shadow;
         }
 
         &--item {
-            height: 0px;
+            display: flex;
+            align-items: center;
+            height: 30px;
+            padding-left: 13px;
         }
     }
-}
-
-.search {
-    border: $color-blue 2px solid;
-    width: 518px;
-    height: 37px;
-
+ 
     &__form {
-        @include flex;
+        @include flex(column);
         width: 100%;
+        height: 387px;
+
+        &--main {
+            @include flex;
+            width: 100%;
+            height: 35px;
+
+            img {
+                width: 50px;
+            }
+        }
 
         &--input {
             width: 100%;
+            height: 35px;
             border: none;
             padding-left: 8px;
+        }
+    }
+
+    &__result {
+        @include flex(column);
+        height: 350px;
+        margin-top: 2px;
+        padding-top: 10px;
+        z-index: 1;
+        font-size: $font-middle;
+        background-color: $color-white;
+        box-shadow: 0 4px 5px $color-shadow;
+        border: $color-deep-gray 1px solid;
+
+        strong {
+            height: 10px;
+            line-height: 5px;
+            border-bottom: $color-deep-gray 1px solid;
+            padding: 10px;
+        }
+
+        &--list {
+            padding: 0 10px 10px 10px;
+            flex-grow: 2;
+        }
+
+        &--item {
+            padding-top: 15px
+        }
+    }
+
+    &__button {
+        display: flex;
+        justify-content: space-between;
+        background-color: $color-gray;
+        height: 30px;
+        border: $color-deep-gray 1px solid;
+
+        button {
+            background: none;
+            border: none;
+            color: $color-dark-gray;
+            padding: 0px 10px;
+            font-size: $font-middle;
         }
     }
 }
