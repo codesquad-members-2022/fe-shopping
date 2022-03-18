@@ -1,0 +1,39 @@
+.search-bar {
+  @include flexbox;
+  
+  .search-bar-input {
+    width: 350px;
+    height: 37px;
+    padding: 0 10px;
+    border: 0;
+  }
+
+  .search-bar-button {
+    @include button-background(-112px, -71px);
+    width: 50px;
+    height: 39px;
+    border: 0;
+  }
+
+  .popup-keywords {
+    position: absolute;
+    top: 70px;
+    left: 438px;
+    width: 401px;
+    height: auto;
+    padding: 10px;
+    margin: 0 auto;
+    border: 1px solid $font-gray;
+    box-shadow: 0 2px 3px $font-gray;
+
+    .recent-search-text {
+      position: relative;
+      height: 11px;
+      padding: 5px;
+      margin: 6px;
+      border-bottom: 1px solid $font-gray;
+      line-height: 0;
+      font-size: 14px;
+    }
+  }
+}

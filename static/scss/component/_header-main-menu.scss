@@ -6,4 +6,12 @@
     width: 174px;
     height: 41px;
   }
+
+  .search-box {
+    @include flexbox(space-between, center);
+    width: 522px;
+    height: 41px;
+    margin: 0 22px;
+    border: 2px solid $font-blue;
+  }
 }
