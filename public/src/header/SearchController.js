@@ -32,7 +32,7 @@ export default class SearchController {
     }
 
     setFocusEvent() {
-        const inputTextForm = document.querySelector('.search__form--input');
+        const inputTextForm = document.querySelector('.search__form--main');
         inputTextForm.addEventListener('focusin', this.handleFocusInEvent.bind(this));
         inputTextForm.addEventListener('focusout', this.handleFocusOutEvent.bind(this));
     }
