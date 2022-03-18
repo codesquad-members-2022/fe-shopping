@@ -1,4 +1,4 @@
-import { delay, request } from "../../../../core/utils";
+import { delay, request } from "../../../../utils";
 
 const moveCursorToEnd = ($input, len) => {
   delay(0).then(() => {

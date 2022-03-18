@@ -1,4 +1,4 @@
-import { delay } from "../../../../core/utils";
+import { delay } from "../../../../utils";
 
 const delayVisible = async (ms, lists) => {
   for (const li of lists) {

@@ -1,7 +1,7 @@
 import Header from "./components/Header/Header";
 import Body from "./components/Body/Body";
 import Component from "./core/Component";
-import { createExtendsRelation } from "./core/oop-utils";
+import { createExtendsRelation } from "./oop-utils";
 
 function App(...params) {
   Component.call(this, ...params);

@@ -1,11 +1,11 @@
 import Component from "../../../core/Component";
-import { createExtendsRelation } from "../../../core/oop-utils";
-import { request } from "../../../core/utils";
-import SearchCategory from "./components/SearchCategory";
-import SearchCategoryList from "./components/SearchCategoryList";
-import SearchInput from "./components/SearchInput";
-import SearchRecent from "./components/SearchRecent";
-import SearchSuggestion from "./components/SearchSuggestion";
+import { createExtendsRelation } from "../../../oop-utils";
+import { request } from "../../../utils";
+import SearchCategory from "./SearchUI/SearchCategory";
+import SearchCategoryList from "./SearchUI/SearchCategoryList";
+import SearchInput from "./SearchUI/SearchInput";
+import SearchRecent from "./SearchUI/SearchRecent";
+import SearchSuggestion from "./SearchUI/SearchSuggestion";
 import {
   handleBodyClick,
   handleSearchCategoryClick,
