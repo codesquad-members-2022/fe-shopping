@@ -11,9 +11,31 @@ export default class {
     return this.searchFormArea.querySelector(selector);
   }
 
-  setElements() {
+  setSearchFormElements() {
     this.form = this.findElementFromArea(".search-form");
     this.inputEl = this.findElementFromArea(".search-input");
+    this.recentSearchArea = this.findElementFromArea(".recent-search-area");
+  }
+
+  fillRecentSearchWords() {
+    const storedDatas = storage.getLocalStorage("recent-search");
+    const DataSortByAsc = this.sortDataAsc(storedDatas, "no");
+
+    const recentSearchList = this.recentSearchArea.querySelector(".list");
+    recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
+  }
+
+  createRecentSearchElements(data) {
+    const recentSearchElTag = data.reduce((prev, cur) => {
+      return (
+        prev +
+        `<li class="recent-search-item">
+            <a href="#" class="link">${cur["data"]}</a>
+        </li>`
+      );
+    }, "");
+
+    return recentSearchElTag;
   }
 
   isInputEmpty() {
@@ -34,19 +56,24 @@ export default class {
 
   onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
-      this.setElDisplayBlock($(".recent-search-area"));
+      this.setElDisplayBlock(this.recentSearchArea);
+      this.fillRecentSearchWords();
     });
   }
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
-      this.setElDisplayNone($(".recent-search-area"));
+      this.setElDisplayNone(this.recentSearchArea);
     });
   }
 
   onFocusInput() {
     this.onFocusInInput();
     this.onFocusOutInput();
+  }
+
+  sortDataAsc(dataArr, key) {
+    return dataArr.sort((a, b) => a[key] - b[key]);
   }
 
   sortDatasDesc(dataArr, key) {
@@ -94,7 +121,7 @@ export default class {
 
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", ({ target }) => {
-      this.setElDisplayNone($(".recent-search-area"));
+      this.setElDisplayNone(this.recentSearchArea);
     });
   }
 
@@ -105,7 +132,7 @@ export default class {
   }
 
   init() {
-    this.setElements();
+    this.setSearchFormElements();
     this.onEvent();
   }
 }
