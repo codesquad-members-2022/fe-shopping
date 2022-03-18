@@ -12,7 +12,6 @@ const getSearchBoxEvent = (target, transformer) => {
   const searchBoxFocusBlur = new FocusBlur(target, transformer);
   const searchBoxKeyup = new SearchBoxKeyup(target, transformer);
   const searchBoxMouse = new SearchBoxMouse(target, transformer);
-  console.log(searchBoxFocusBlur);
   searchBoxFocusBlur.init();
   searchBoxMouse.init();
   searchBoxKeyup.init();
