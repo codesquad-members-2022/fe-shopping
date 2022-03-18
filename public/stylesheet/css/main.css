@@ -291,6 +291,11 @@ input {
           box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
+.search-category-list .search-category-text:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+
 .search-category-item {
   width: 100%;
   line-height: calc(40px - 4px);
@@ -303,11 +308,6 @@ input {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-
-.search-category-item .search-category-text:hover {
-  color: #4285f4;
-  text-decoration: underline;
 }
 
 .search-input-wrap {
