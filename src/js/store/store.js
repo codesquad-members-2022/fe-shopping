@@ -17,7 +17,6 @@ class Store {
   }
 
   unsubscribe(key) {
-    console.log('unsubscribe');
     this.subscribers[key].pop();
   }
 

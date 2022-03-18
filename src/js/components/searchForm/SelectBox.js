@@ -22,7 +22,7 @@ class SelectBox extends Component {
 
       if ($bottomWindow.classList.contains('open')) {
         $bottomWindow.classList.remove('open');
-        $bottomWindow.innerHTML = '';
+        setTimeout(() => $bottomWindow.innerHTML = '', 250)
       }
 
       else {
