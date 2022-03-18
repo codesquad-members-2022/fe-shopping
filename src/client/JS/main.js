@@ -113,11 +113,17 @@ class CenterSearchBox extends FocusBlur {
     this.target.value = selectedKeyword;
   };
 
-  moveWithUpDown = (key) => {
+  getSelectedInChildren = () => {
     const childLists = [...this.relativeList.children];
     const selectedListIndex = childLists.findIndex((list) =>
       list.classList.contains("selected")
     );
+    const selectedList = childLists[selectedListIndex];
+    return { childLists, selectedListIndex, selectedList };
+  };
+
+  moveWithUpDown = (key) => {
+    const { childLists, selectedListIndex } = this.getSelectedInChildren();
     const nextListIndex = this.getNextListIndex(
       key,
       childLists,
@@ -139,11 +145,28 @@ class CenterSearchBox extends FocusBlur {
       : await this.showRelativeData(value);
   };
 
+  handleListMouseEvent = (target) => {
+    const { selectedList } = this.getSelectedInChildren();
+    if (selectedList && selectedList !== target)
+      selectedList.classList.remove("selected");
+    target.classList.toggle("selected");
+  };
+
+  handleMouseEvent = ({ target: { tagName }, target }) => {
+    if (tagName === "LI") this.handleListMouseEvent(target);
+  };
+
   getKeydownEvent = () => {
     this.target.addEventListener("keyup", this.handleKeyupEvent);
   };
 
+  getMouseEvent = () => {
+    this.transformer.addEventListener("mouseover", this.handleMouseEvent);
+    this.transformer.addEventListener("mouseout", this.handleMouseEvent);
+  };
+
   init = () => {
+    this.getMouseEvent();
     this.getKeydownEvent();
     this.getFocusBlurEvent();
   };
