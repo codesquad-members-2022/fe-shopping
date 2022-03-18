@@ -1,7 +1,6 @@
 let start = null;
 let xCoordi = 0;
-let slideCnt = 0;
-export let raf;
+let slideIndex = 0;
 
 function setBackCarousel() {
   const carousel = document.querySelector('.carousel-inner__list');
@@ -12,15 +11,15 @@ function setBackCarousel() {
 function checkCarouselLast() {
   const carouselNum = document.querySelectorAll('.carousel-inner__item');
 
-  if (slideCnt === carouselNum.length - 1) {
-    slideCnt = 0;
+  if (slideIndex === carouselNum.length - 1) {
+    slideIndex = 0;
     xCoordi = 0;
     return true;
   }
 }
 
 function cntCarousel() {
-  slideCnt++;
+  slideIndex++;
 }
 
 export function moveCarousel(timestamp) {

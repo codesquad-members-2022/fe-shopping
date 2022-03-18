@@ -131,7 +131,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -253,12 +253,8 @@ table {
   margin-left: 15px;
 }
 .search-form .search-category {
-<<<<<<< HEAD
-=======
   width: 125px;
->>>>>>> 49ea395 (feat: 카테고리 드롭다운 구현)
   border-right: 1px solid #ddd;
-  width: 125px;
 }
 .search-form .search-category__link {
   display: block;
@@ -272,9 +268,6 @@ table {
   color: #555;
   padding-left: 10px;
   width: 310px;
-}
-.search-form .search-text:focus {
-  outline: none;
 }
 .search-form .search-text:focus {
   outline: none;
@@ -337,25 +330,16 @@ table {
 }
 
 .category {
-<<<<<<< HEAD
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   left: 0;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 34.5px;
   z-index: 99999999999;
-=======
-  position: absolute;
-  top: 34.5px;
-  left: 0;
-  z-index: 99999999999;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
->>>>>>> 49ea395 (feat: 카테고리 드롭다운 구현)
 }
 .category__list {
   width: 125px;
   height: 0;
   background-color: #fff;
-<<<<<<< HEAD
   height: 0;
   transition: all 0.3s;
   width: 125px;
@@ -365,15 +349,6 @@ table {
   padding-left: 10px;
   visibility: hidden;
   width: 110px;
-=======
-  transition: all 0.3s;
-}
-.category__item {
-  width: 110px;
-  padding-left: 10px;
-  line-height: 34px;
-  visibility: hidden;
->>>>>>> 49ea395 (feat: 카테고리 드롭다운 구현)
 }
 .category__link {
   display: block;

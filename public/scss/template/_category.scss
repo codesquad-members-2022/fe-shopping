@@ -6,25 +6,16 @@
 }
 
 .category {
-<<<<<<< HEAD
-  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
   left: 0;
+  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
   position: absolute;
   top: 34.5px;
   z-index: 99999999999;
-=======
-  position: absolute;
-  top: 34.5px;
-  left: 0;
-  z-index: 99999999999;
-  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
->>>>>>> 49ea395 (feat: 카테고리 드롭다운 구현)
 
   &__list {
     width: 125px;
     height: 0;
     background-color: $white;
-<<<<<<< HEAD
     height: 0;
     transition: all 0.3s;
     width: 125px;
@@ -35,16 +26,6 @@
     padding-left: 10px;
     visibility: hidden;
     width: 110px;
-=======
-    transition: all 0.3s;
-  }
-
-  &__item {
-    width: 110px;
-    padding-left: 10px;
-    line-height: 34px;
-    visibility: hidden;
->>>>>>> 49ea395 (feat: 카테고리 드롭다운 구현)
   }
 
   &__link {

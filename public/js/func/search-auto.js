@@ -3,7 +3,7 @@ import { fetchAutoCompleteDataAh } from '../fetch/search-fetch-ah.js';
 
 export class AutoComplete {
   constructor() {
-    this.data;
+    this.data = '';
     this.str = '';
     this.recentSquence = 0;
   }
@@ -22,7 +22,7 @@ export class AutoComplete {
     });
   }
 
-  destroyAutoComplete() {
+  hideAutoComplete() {
     const searchText = document.querySelector('.search-text');
     const autoComplete = document.querySelector('.search-auto');
 
@@ -40,6 +40,8 @@ export class AutoComplete {
   }
 
   renderData() {
+    if (!this.data.autoCompletion) return;
+
     const list = document.createElement('div');
 
     this.data.autoCompletion.forEach((e) => {
