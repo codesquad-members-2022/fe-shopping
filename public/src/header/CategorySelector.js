@@ -1,6 +1,4 @@
-import Toggler from "../components/Toggler.js";
-
-export class CategorySelector {
+export default class CategorySelector {
     constructor($parent, categoryList, categories = []) {
         this.$parent = $parent;
         this.$target = null;
@@ -59,24 +57,5 @@ export class CategorySelector {
         const titleTag = document.querySelector('.search__category--title');
         titleTag.innerText = target.innerText;
         this.categoryList.toggle();
-    }
-}
-
-export class CategoryList extends Toggler {
-    constructor(categories = []) {
-        super();
-        this.categories = categories;
-    }
-
-    createHTML() {
-        return /* html */ `
-            <ul class="search__category--list hidden">
-            ${this.categories.reduce((text, category) => text += `<li class="search__category--item">${category.name}</li>`, '')}
-            </ul>
-        `
-    }
-
-    setClickEvent(handleFunc) {
-        this.$target.addEventListener('click', handleFunc);
     }
 }
