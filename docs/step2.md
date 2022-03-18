@@ -24,6 +24,9 @@
 - [ ] search 영역 최근검색 기능
 - [ ] banner carousel
 
+#### 데모
+https://bangdler.github.io/fe-shopping/
+
 #### 어려웠던 점
 - 구조화가 아직 어려워서 일단 기능 구현 중심으로 진행하였습니다.
 - searchController 로 탐색창 내의 이벤트를 모두 구현하고 있는데, 이벤트가 많고 한 영역에 여러 이벤트가 걸리다보니 함수가 많아지고 분리가 어려워지고 있습니다.

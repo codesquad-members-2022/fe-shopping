@@ -2,10 +2,6 @@
 
 ### 쿠팡 클론
 
-#### 구현 사항
-
-![image](https://user-images.githubusercontent.com/90082464/158507573-27cad74c-1d76-426a-a322-c198b77bb80c.png)
-
 #### 구현 checklist
 - [ ] HTML 만들기
     - [x] top-bar
@@ -20,64 +16,129 @@
     - [x] @mixin 사용해보기
 - [ ] js 동적 생성
     - [x] header rendering
+    - [ ] banner rendering
 - [x] 전체 카테고리 클릭 시 하위 영역 hidden on-off
-       
+    - [x] transition 효과
+- [x] search 영역 자동완성 기능
+    - [x] 동일 문자 highlight
+    - [x] 방향키 이동 시 해당 list 선택
+    - [ ] 선택된 글자 input 창에 반영
+    - [x] mouseover 시 해당 list 선택
+- [ ] search 영역 최근검색 기능
+- [ ] banner carousel
 
-#### 궁금한 점
-- 쿠팡은 element 위치를 float, absolute 를 통해 잡던데, 이 방식이 일반적인지 궁금합니다.
-- image tag 대신 background-img 를 사용해서 대부분의 그림을 넣었는데 실제로 사용하는 방식인지 궁금합니다.
+#### 데모
+https://bangdler.github.io/fe-shopping/
 
-#### 구현과정
+#### 어려웠던 점
+- 구조에 대한 감이 잘 오지 않아서 일단 기능 구현 중심으로 진행하였습니다.
+- searchController 로 탐색창 내의 이벤트를 모두 구현하고 있는데, 이벤트가 많고 한 영역에 여러 이벤트가 걸리다보니 함수가 많아지고 분리가 어려워지고 있습니다.
+- 자동완성과 방향키이동, 마우스오버 등 이벤트들이 서로 영향을 주는 상태가 되어 디버깅이 어려웠습니다.
+- 여전히 변수명, 함수명 짓기가 어려웠습니다...
 
-1. HTML, CSS 만들기
-    - 공부한다는 마음으로 쿠팡 홈페이지의 엘리먼트 구조, css 를 보고 따라해보았다.
-        - 구조가 생각보다 복잡하고, 엘리먼트 위치를 잡을 때 float 과 absolute 를 많이 사용했는데, 평소에 잘 쓰지 않던 방식이어서 이해하는데 오래걸렸다.
-        - 그룹 리뷰 때 조원들이 쿠팡 구조 별로인 것 같다고...하여 바꾸려고 하였으나 이미 늦어서 header 까지는 그대로 하기로 했다.
-        - 쿠팡을 따라해서도 있지만 여전히 css 는 어렵다. 어떤 스타일을 써서 어떻게 배치하는게 좋은지, 감이 바로 오지 않는다.
-    - Sass
-        - 최신이라고 하는 dart sass 설치
-        - scss 가 css 와 비슷한 문법이라 scss 사용
-        - style.scss 만 css 로 만들고, 나머지는 _part.scss 로 만들어 import 만 하는 구조 만들어보기
-        - 변수 map 사용 : 더 체계화해서 사용한다면 좋을 것 
-            ```scss
-            $header-width: (base: 1020px, search-form: 518px);
-            $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
-            ```
-        - @mixin 사용 : 매개변수 받기
-            ```scss
-            @mixin bg-img-no-repeat($url) {
-              background: {
-                image: url($url);
-                repeat: no-repeat;
-              };
+#### 구현 과정
+- select category click 이벤트 시 하위 영역이 노출되도록 구현하는 중 문제 발생
+    - select-btn 에만 click, focusout 이벤트를 걸어, 형제요소인 라벨에 이벤트가 발생해도 버튼에도 동일한 이벤트 발생하는 점을 이용하려고 했다.
+    - 라벨 부분 클릭 시 한번 클릭에도 여러번 클릭이 발생한 것처럼 하위 영역이 unhidden 됨.
+    - label 문제인 것으로 판단되어 label 제거
+    ```html
+    // 변경 전
+    <div class="header__form__select">
+        <label for="select-btn">전체</label>                
+        <button type="button" id="select-btn" class="btn-down"></button>   
+    </div>
+    
+    // 변경 후 
+    <div class="header__form__select">                  
+        <button type="button" id="select-btn" class="btn-down"><span>전체</span></button>   
+    </div>
+    ```
+  
+- select btn click 이벤트 시 하위 영역이 transition 되면서 노출
+    - max-height 0 과 800px 사이를 class 추가를 통해 구현하려고 했으나 잘 되지 않았다.
+    - 찾아보니 display: none; 은 DOM Tree 에서 생략되어 transition 이 적용되지 않는다고 한다.
+    - visibility: hidden 과 visible 을 이용하여 구현.
+    - transition 시 max-height 가 아닌 all 로 해야 다시 hidden 되는 과정에서도 transition 이 적용된다.
+    ```css
+    .header__select__list {
+      max-height: 0;
+      transition: all 1s ease-in-out;
+    }
+ 
+    .header__select--slide-down {
+      max-height: 800px;
+      visibility: visible;
+    }
+    ```
+
+- input 시 자동완성 기능
+    - 조원이 알려준 방식을 사용해서 아마존 데이터를 fetch. 별도의 json 을 만들지 않아도 돼서 다행이다.
+    - timer 500ms 를 주기 위해, debouncing 을 사용했다.
+    ```javascript
+    fetchPrefixLists(word) {
+            if(this.timer) {
+                clearTimeout(this.timer)
             }
-            ```
-
-2. render 
-    - header template 를 사용하여 body 에 header 붙이기.
-    - template 은 innerHTML 로 넣어야하다보니 render 시 template 을 넣을 element 가 필요한 상황이 발생..
-    - template 구성 시 고려해야겠다.
+            return this.delay(500)
+                .then(() => fetch(
+                        `https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${word}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`
+                    ))
+                .then((res) => res.json())
+                .then((data) => data.suggestions.map((v) => v.value))
+    }
     
+    delay(ms) {
+            return new Promise((res) => {
+                return this.timer = setTimeout(() => res(), ms);
+            });
+        }
+    ```    
 
-#### 1. 설계
+- input 시 하위 영역의 동일한 글자에 하이라이트
+    - 별다른 방법이 떠오르지 않아 입력값의 길이만큼 검색한 단어를 잘라 해당 부분에 strong tag 를 넣어주었다.
+    - 앞의 공백도 글자수로 인식되어 trim 으로 앞 뒤 공백 제거.
+    
+- input 후 방향키로 하위 list 선택
+    - keydown 을 사용하여 이벤트 추가
+    - 방향키 이동을 위해 2가지 생성자 추가
+        - 동일한 글자를 가진 노드 리스트를 fetch 시마다 배열로 바꾸어 prefixListElements 로 지정
+        - 
+        ```javascript
+        this.prefixListElements = null
+        this.prefixListIndex = null
+        ```
+    
+    - ArrowDown 과 ArrowUp 시 index 를 바꿔주면서 prefixListElements[index] 의 class 를 바꿔준다.
+    
+    - 처음 검색 후 아래 방향키를 누르면 keydown 이벤트가 두번 실행되는 문제가 발생...
+        - 정확한 원인은 찾지 못했으나 하위 영역이 fetch 후 렌더링되기 전에 keydown 이 실행되면 prefixLisElements 가 미반영된 상태이므로 이 부분에서 로직이 꼬인 것 같다.
+        
+    - 해결을 위해 keydown 이벤트는 fetch 로 하위 영역이 rendering 된 이후에만 실행할 수 있도록 prefixListState 를 추가했다.
+       ```javascript
+        searchKeydownHandler(e) {
+                if(!this.prefixListState) return;
+                if(e.key === 'ArrowDown') {
+                    this.downPrefixList()
+                }
+                else if(e.key === 'ArrowUp') {
+                    this.upPrefixList()
+                }
+                else {
+                    this.prefixListIndex = null
+                }
+            }
+       ```
 
-- 카카오 페이지 때 내가 사용한 방식 : 한 컴포넌트 js 파일마다 엘리먼트 생성, render, 이벤트 추가를 하였다. 
-    - 컴포넌트를 잘못하여 크게 나눌 경우에 함수가 너무 많아지거나, 지저분해지는 경향이 있다.
-    - 컴포넌트의 위치를 배치할 때 각 컴포넌트의 render 함수들을 다 불러와야 한다.
-    - 이벤트를 추가할 때 다른 컴포넌트의 함수를 가져와서 사용해야 하는 경우 많았다. 
-    
-- 렌더 / 이벤트컨트롤러 / 템플릿생성 등 각각을 별도 모듈로 구성한다면?
-
-1. 기능별로 모듈 구분하기
-    - TemplateCreator : HTML 템플릿 생성하여 반환하는 함수들 모음.
-    - Viewer : template 을 조합하여 render 단위 함수로 만듦.
-        - templateCreator 받음.
-    - Controller : 이벤트 추가, 조작 시 Model 에 데이터 요청, Viewer 에 넘겨주기.
-        - 이벤트 추가
-            - 전체 탭에 마우스오버 시 애니메이션, 아래 영역 표시
-            - 검색에 글자 입력 시 아래 영역에 자동완성 목록 표시, 입력 시마다 반영
-    - Model : controller 요청 시 서버에 데이터를 요청하고 받는다. 받은 데이터를 viewer || controller 에 넘긴다.
-    
-2. 무엇을 class 로 구현할까?
-    - 아직은 잘 모르겠으니 일단 모듈을 나눠가며 구현해보기.
-    
+- input 시 하위 영역 mouseover 
+    - mouseover 는 이벤트 버블링이 적용되므로 ul tag 에 이벤트를 걸었다.
+    - e.target 이 list tag 일 경우에 실행.
+    - keydown 의 index 와 맞춰주기 위해 list 에 data-index 를 추가했다.
+    ```javascript
+    searchListMouseoverHandler(e) {
+            if(e.target.tagName === 'LI') {
+                this.prefixListIndex = Number(e.target.dataset.index)
+                this.removeKeyOn()
+                this.addKeyOn(this.prefixListIndex)
+            }
+        }
+    ```
