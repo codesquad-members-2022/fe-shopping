@@ -118,8 +118,9 @@
   margin-bottom: 5px;
 
   .gnb-item {
-    position: relative;
-    line-height: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
   }
 
   .gnb-link {
@@ -134,6 +135,7 @@
 .new-icon::after {
   width: 14px;
   height: 14px;
+  margin-left: 3px;
   display: block;
   content: "N";
   font-size: 10px;
@@ -142,7 +144,4 @@
   font-weight: 800;
   color: #fff;
   background-color: $color-red;
-  position: absolute;
-  top: 25%;
-  right: -18px;
 }
