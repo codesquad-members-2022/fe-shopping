@@ -1,5 +1,11 @@
-export class TopBar {
-  createTemplate() {
+import { Core } from "../core.js";
+
+export class TopBar extends Core {
+  constructor() {
+    super();
+    this.template = this.getTemplate();
+  }
+  getTemplate() {
     return `
   <div class="top-bar">
     <section>
