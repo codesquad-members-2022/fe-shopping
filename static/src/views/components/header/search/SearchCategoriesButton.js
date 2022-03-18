@@ -1,23 +1,29 @@
 export class SearchCategoriesButton {
   constructor() {
     this.$searchWrap = document.querySelector('.header__search-wrap');
-    this.$searchCategoriesButton = this.$searchWrap.querySelector('.search-categories-button');
-    this.addEventListener();
+    this.$categoriesButton = this.$searchWrap.querySelector('.search-categories-button');
   }
 
-  updateCategory(selectedCategory) {
-    this.$searchCategoriesButton.textContent = selectedCategory;
-    this.$searchWrap.querySelector('.search-categories').classList.toggle('active');
+  conntect(searchCategories) {
+    this.searchCategories = searchCategories;
+  }
+
+  render(selectedCategory = '전체') {
+    this.$categoriesButton.textContent = selectedCategory;
   }
 
   addSearchCategoriesButtonEvent() {
-    this.$searchCategoriesButton.addEventListener('click', () => {
-      this.$searchWrap.querySelector('.search-categories').classList.toggle('active');
-      this.$searchWrap.querySelector('.search-recent-keywords').classList.remove('active');
+    this.$categoriesButton.addEventListener('click', () => {
+      this.searchCategories.toggle();
     });
   }
 
   addEventListener() {
     this.addSearchCategoriesButtonEvent();
+  }
+
+  innit(searchCategories) {
+    this.conntect(searchCategories);
+    this.addEventListener();
   }
 }

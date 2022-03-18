@@ -1,16 +1,18 @@
 export class SearchCategories {
-  constructor(updateCategory) {
+  constructor() {
     this.$searchWrap = document.querySelector('.header__search-wrap');
     this.$categories = this.$searchWrap.querySelector('.search-categories');
-    this.render();
-    this.addEventListener(updateCategory);
+  }
+
+  connect(categoriesButton) {
+    this.categoriesButton = categoriesButton;
   }
 
   render() {
     const categories = ['전체', '여성패션', '남성패션', '뷰티', '식품', '주방용품', '생활용품'];
     const categoriesTemplate = categories
       .map(
-        (category) => `<li data-category="${category}">
+        category => `<li data-category="${category}">
                         <span>${category}</span>
                       </li>`
       )
@@ -18,14 +20,36 @@ export class SearchCategories {
     this.$categories.insertAdjacentHTML('afterbegin', categoriesTemplate);
   }
 
-  addSearchCategoriesEvent(updateCategory) {
+  hide() {
+    this.$categories.classList.remove('active');
+  }
+
+  toggle() {
+    this.$categories.classList.toggle('active');
+  }
+
+  addSearchCategoriesEvent() {
     this.$categories.addEventListener('click', ({ target }) => {
       const selectedCategory = target.dataset.category;
-      updateCategory(selectedCategory);
+      this.categoriesButton.render(selectedCategory);
+      this.toggle();
     });
   }
 
-  addEventListener(updateCategory) {
-    this.addSearchCategoriesEvent(updateCategory);
+  addEventListener() {
+    this.addSearchCategoriesEvent();
+  }
+
+  moveFocus() {
+    document.addEventListener('click', ({ target }) => {
+      if (!target.closest('.search-categories-wrap')) this.hide();
+    });
+  }
+
+  innit(categoriesButton) {
+    this.connect(categoriesButton);
+    this.render();
+    this.addEventListener();
+    this.moveFocus();
   }
 }

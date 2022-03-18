@@ -1,7 +1,7 @@
-import { Header } from './components/header/Header.js';
+import { renderPage } from './views/render.js';
 
 const main = () => {
-  new Header();
+  renderPage();
 };
 
 main();
