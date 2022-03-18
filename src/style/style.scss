@@ -360,6 +360,7 @@ body {
 /* InputBox Bottom Window */
 
 .input-box .bottom-window {
+  overflow: visible;
 
   .window-title {
     border-bottom: 1px solid $border-lightgray;

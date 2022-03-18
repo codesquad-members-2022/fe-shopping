@@ -5,32 +5,31 @@ class Store {
     this.subscribers = {};
   }
 
-  subscribe(key, subscriber) {
-    if (!this.subscribers[key]) {
-      this.subscribers[key] = [];
-      this.observe(key);
+  subscribe(state, subscriber) {
+    if (!this.subscribers[state]) {
+      this.subscribers[state] = [];
+      this.observe(state);
     }
     this.subscribers = {
       ...this.subscribers,
-      [key]: [...this.subscribers[key], subscriber],
+      [state]: [...this.subscribers[state], subscriber],
     };
   }
 
-  unsubscribe(key) {
-    this.subscribers[key].pop();
+  unsubscribe(state) {
+    this.subscribers[state].pop();
   }
 
-  observe(key) {
-    let _value = this.state[key];
-    Object.defineProperty(this.state, key, {
+  observe(state) {
+    let _value = this.state[state];
+    Object.defineProperty(this.state, state, {
       get() {
         return _value;
       },
       set: function(value) {
         _value = value;
-        this.subscribers[key].forEach(subscriber => {
-          console.log(subscriber);
-          subscriber.setState({ [key]: this.state[key] })
+        this.subscribers[state].forEach(subscriber => {
+          subscriber.setState({ [state]: this.state[state] })
         })
       }.bind(this)
     });
