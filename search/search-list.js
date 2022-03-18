@@ -30,28 +30,29 @@ class SearchList {
         this.curIdx = -1;
     }
 
-    getInnerText(item, word) {
-        let innerText = item;
-        const re = new RegExp(`${word}`);
-        const matchWord = re.exec(item);
+    getInnerText(itemName, input) {
+        let innerText = itemName;
+        const re = new RegExp(`${input}`);
+        const matchWord = re.exec(itemName);
         if (matchWord) {
             innerText =
-                item.slice(0, matchWord.index) +
-                `<strong class="match-word">${word}</strong>` +
-                item.slice(matchWord.index + word.length);
+                itemName.slice(0, matchWord.index) +
+                `<strong class="match-word">${input}</strong>` +
+                itemName.slice(matchWord.index + input.length);
         }
 
         return innerText;
     }
 
-    getSearchListItem = (item, idx, word) => {
-        const innerText = this.getInnerText(item, word);
-        return `<li class="search__list--item" data-idx="${idx}" data-name="${item}">${innerText}</li>`;
+    getSearchListItem = (itemName, idx, input) => {
+        const innerText = this.getInnerText(itemName, input);
+        return `<li class="search__list--item" data-idx="${idx}" data-name="${itemName}">${innerText}</li>`;
     };
 
-    renderSearchList(word = "") {
+    renderSearchList(input = "") {
         const searchList = this.searchItems.reduce(
-            (acc, item, idx) => acc + this.getSearchListItem(item, idx, word),
+            (acc, itemName, idx) =>
+                acc + this.getSearchListItem(itemName, idx, input),
             ""
         );
         this.listContainer.innerHTML = searchList;
@@ -105,6 +106,13 @@ class SearchList {
         const focusingItem = this.focusItem();
 
         return focusingItem;
+    }
+
+    removeFocus() {
+        if (this.curIdx !== -1) {
+            this.curIdx = -1;
+            this.renderSearchList();
+        }
     }
 }
 

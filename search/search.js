@@ -1,5 +1,6 @@
 import { SearchList } from "./search-list.js";
 import { database } from "../data/tshirt.js";
+import { SearchInput } from "./search-input.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchRecentList = document.querySelector(".search__recent-list");
@@ -14,6 +15,8 @@ const searchRelatedListContainer = document.querySelector(
 const DIRECTION_UP = "up";
 const DIRECTION_DOWN = "down";
 
+const searchInput = new SearchInput(searchbar);
+
 const recentSearchList = new SearchList(
     searchRecentList,
     searchRecentListContainer
@@ -23,19 +26,8 @@ const relatedSearchList = new SearchList(
     searchRelatedListContainer
 );
 
-const getSearchWord = () => {
-    const word = searchbar.value;
-    searchbar.value = "";
-
-    return word;
-};
-
-const updateRecentSearchList = () => {
-    const word = getSearchWord();
-    recentSearchList.addSearchWord(word);
-};
-
-const getRelatedWords = (word) => {
+const getRelatedWords = () => {
+    const word = searchInput.getSearchWord();
     if (database.has(word)) {
         relatedSearchList.searchItems = database
             .get(word)
@@ -55,31 +47,35 @@ const delay = (time) => {
     });
 };
 
-const requestRelatedWordsNoMoreInput = (word) => {
+const requestRelatedWordsNoMoreInput = () => {
     if (timer) {
         clearTimeout(timer);
     }
 
-    delay(500).then(() => getRelatedWords(word));
+    delay(500).then(() => getRelatedWords());
 };
 
-const blurRecentSearchList = () => {
-    if (recentSearchList.curIdx !== -1) {
-        recentSearchList.curIdx = -1;
-        recentSearchList.renderSearchList();
-    }
+const removeHighlightOnSearchListItem = () => {
+    recentSearchList.removeFocus();
+    relatedSearchList.removeFocus();
 };
 
-const inputEventHandler = ({ target }) => {
-    blurRecentSearchList();
+const inputEventHandler = () => {
+    removeHighlightOnSearchListItem();
 
-    const word = target.value;
+    const word = searchInput.getSearchWord();
     if (!word) {
         relatedSearchList.reset();
         relatedSearchList.hide();
     }
 
-    requestRelatedWordsNoMoreInput(word);
+    requestRelatedWordsNoMoreInput();
+};
+
+const updateRecentSearchList = () => {
+    const word = searchInput.getSearchWord();
+    searchInput.clearSearchInput();
+    recentSearchList.addSearchWord(word);
 };
 
 const reRenderSearchList = (event) => {
@@ -92,16 +88,12 @@ const reRenderSearchList = (event) => {
     relatedSearchList.hide();
 };
 
-const changeInputWord = (focusingItem) => {
-    searchbar.value = focusingItem.dataset.name;
-};
-
 const focusItem = (direction, searchList) => {
     const focusingItem =
         direction === DIRECTION_UP
             ? searchList.focusPreviousItem()
             : searchList.focusNextItem();
-    changeInputWord(focusingItem);
+    searchInput.setInputWord(focusingItem);
 };
 
 const keyDownEventHandler = (event) => {
@@ -132,12 +124,15 @@ const hideSearchList = () => {
 };
 
 const onSearchEvent = () => {
-    searchbar.addEventListener("focus", () => {
+    searchInput.searchInputNode.addEventListener("focus", () => {
         recentSearchList.show();
     });
-    searchbar.addEventListener("blur", hideSearchList);
-    searchbar.addEventListener("keydown", keyDownEventHandler);
-    searchbar.addEventListener("input", inputEventHandler);
+    searchInput.searchInputNode.addEventListener("blur", hideSearchList);
+    searchInput.searchInputNode.addEventListener(
+        "keydown",
+        keyDownEventHandler
+    );
+    searchInput.searchInputNode.addEventListener("input", inputEventHandler);
 };
 
 export { onSearchEvent };
