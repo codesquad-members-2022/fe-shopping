@@ -1,4 +1,18 @@
+import { HeaderMain } from "./model/header/header-main.js";
+import { SearchInput } from "./model/header/search-input.js";
+import { SearchCategory } from "./model/header/search.-category.js";
+import { TopBar } from "./model/header/TopBar.js";
 import { addClickEventToElement, delay } from "./utils/utils.js";
+
+//렌더 테스트
+const topbar = new TopBar();
+topbar.render(topbar.template, ".header-container");
+const headerMain = new HeaderMain();
+headerMain.render(headerMain.template, ".header-container");
+const searchCategory = new SearchCategory();
+searchCategory.render(searchCategory.template, ".search-wrap");
+const searchInput = new SearchInput();
+searchInput.render(searchInput.template, ".search-wrap");
 
 //카테고리 클릭 이벤트
 const $selectCategoryWrap = document.querySelector(".select-category-wrap");
