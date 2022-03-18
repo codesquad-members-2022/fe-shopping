@@ -1,6 +1,6 @@
 import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
-import { selector } from "./util.js";
+import { selector, delay } from "./util.js";
 
 class FocusBlur {
   constructor(target, transformer) {
@@ -24,7 +24,7 @@ class CenterSearchBox extends FocusBlur {
     this.relativeTitle = selector("h3", transformer);
     this.relativeList = selector("ul", transformer);
     this.relativeOption = selector("div", transformer);
-    this.searchedKeyword;
+    this.delayCount = 0;
   }
 
   getRefinedData = async (address, value = "") => {
@@ -55,7 +55,15 @@ class CenterSearchBox extends FocusBlur {
     this.relativeList.innerHTML = innerList;
   };
 
+  checkDelay = async () => {
+    this.delayCount++;
+    await delay(500);
+    this.delayCount--;
+    if (this.delayCount) return true;
+  };
+
   showRelativeData = async (value) => {
+    if (await this.checkDelay()) return;
     const address = "keyword";
     const refinedData = await this.getRefinedData(address, value);
     !refinedData.length
@@ -122,10 +130,11 @@ class CenterSearchBox extends FocusBlur {
   };
 
   handleKeyupEvent = async ({ target: { value }, key }) => {
-    const upDownKey = ["ArrowDown", "ArrowUp"].includes(key);
-    if (upDownKey) return this.moveWithUpDown(key);
+    const isUpDown = ["ArrowDown", "ArrowUp"].includes(key);
+    if (isUpDown) return this.moveWithUpDown(key);
 
-    value === ""
+    const isValueEmpty = value === "";
+    isValueEmpty
       ? await this.showRecentData()
       : await this.showRelativeData(value);
   };
