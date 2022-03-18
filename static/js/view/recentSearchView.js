@@ -1,14 +1,13 @@
 export class RecentSearchView {
-  constructor(data) {
-    this.recentSearchStorage = data;
+  constructor() {
+    this.$popupKeywords = document.querySelector('.popup-keywords');
   }
-  renderSearchHistory() {
-    const $popupKeywords = document.querySelector('.popup-keywords');
-    let popupKeywordsTemplate = this.recentSearchStorage.reduce((template, recentSearch) => {
-      template += `<li>${recentSearch}</li>`;
+  renderSearchHistory(keywordList) {
+    let popupKeywordsTemplate = keywordList.reduce((template, keyword) => {
+      template += `<li>${keyword}</li>`;
       return template;
     }, '<ul>');
     popupKeywordsTemplate += '</ul>'
-    $popupKeywords.innerHTML = popupKeywordsTemplate;
+    this.$popupKeywords.innerHTML = popupKeywordsTemplate;
   }
 }
