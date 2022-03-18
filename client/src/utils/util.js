@@ -1,6 +1,6 @@
 export const $ = className => document.querySelector(className);
 export const $$ = className => document.querySelectorAll(className);
-const deploy = 'DEV';
+const deploy = 'PROD';
 const serverURL = deploy === 'DEV' ? 'http://localhost:3000' : 'https://mupang.herokuapp.com';
 
 export const fetchPostData = (path, keyword) => {
