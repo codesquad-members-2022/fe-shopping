@@ -30,13 +30,28 @@ class SearchList {
         this.curIdx = -1;
     }
 
-    getSearchListItem = (item, idx) => {
-        return `<li class="search__list--item" data-idx="${idx}" data-name="${item}">${item}</li>`;
+    getInnerText(item, word) {
+        let innerText = item;
+        const re = new RegExp(`${word}`);
+        const matchWord = re.exec(item);
+        if (matchWord) {
+            innerText =
+                item.slice(0, matchWord.index) +
+                `<strong class="match-word">${word}</strong>` +
+                item.slice(matchWord.index + word.length);
+        }
+
+        return innerText;
+    }
+
+    getSearchListItem = (item, idx, word) => {
+        const innerText = this.getInnerText(item, word);
+        return `<li class="search__list--item" data-idx="${idx}" data-name="${item}">${innerText}</li>`;
     };
 
-    renderSearchList() {
+    renderSearchList(word = "") {
         const searchList = this.searchItems.reduce(
-            (acc, item, idx) => acc + this.getSearchListItem(item, idx),
+            (acc, item, idx) => acc + this.getSearchListItem(item, idx, word),
             ""
         );
         this.listContainer.innerHTML = searchList;

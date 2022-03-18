@@ -217,6 +217,10 @@ h2 {
   height: 320px;
 }
 
+.match-word {
+  color: #228be6;
+}
+
 .contents-header {
   margin-top: 30px;
   margin-bottom: 20px;

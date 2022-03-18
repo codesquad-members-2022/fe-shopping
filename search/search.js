@@ -46,7 +46,7 @@ const getRelatedWords = (word) => {
     }
 
     relatedSearchList.show();
-    relatedSearchList.renderSearchList();
+    relatedSearchList.renderSearchList(word);
 };
 
 let timer;
