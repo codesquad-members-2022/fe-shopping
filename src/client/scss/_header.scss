@@ -71,6 +71,7 @@ i {
     width: 100px;
     color: $baseGray;
     border-right: 1px $baseLightGray solid;
+    font-size: nth($fontSizes, 1);
   }
 
   .search__category-list {
@@ -92,6 +93,10 @@ i {
       visibility: hidden;
       padding: 5px;
       margin: 5px 0px;
+      &:hover {
+        color: $baseBlue;
+        text-decoration: underline;
+      }
     }
   }
   .list-act {

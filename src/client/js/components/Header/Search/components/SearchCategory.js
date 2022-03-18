@@ -6,10 +6,17 @@ function SearchCategory(...params) {
 }
 createExtendsRelation(SearchCategory, Component);
 
+SearchCategory.prototype.setup = function () {
+  this.state = {
+    categoryTitle: "전체",
+  };
+};
 SearchCategory.prototype.template = function () {
+  const { categoryTitle } = this.state;
+
   return `
-    <span>전체</span>
-    <span>▼</span>
+    <span class="category__title">${categoryTitle}</span>
+    <span class="category__arrow">▼</span>
   `;
 };
 

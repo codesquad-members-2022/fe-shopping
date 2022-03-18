@@ -38,6 +38,7 @@ Search.prototype.mount = async function () {
   const searchCategory = new SearchCategory($searchCategory);
   const searchCategoryList = new SearchCategoryList($searchCategoryList, {
     categoryData,
+    searchCategory,
   });
   const searchRecent = new SearchRecent($searchRecent);
   const searchSuggestion = new SearchSuggestion($searchSuggestion);
@@ -54,6 +55,14 @@ Search.prototype.mount = async function () {
   ].forEach((component) => {
     component.initRender();
   });
+
+  this.state = {
+    searchCategory,
+    searchCategoryList,
+    searchRecent,
+    searchSuggestion,
+    searchInput,
+  };
 };
 
 Search.prototype.template = function () {
