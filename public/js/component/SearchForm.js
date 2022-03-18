@@ -58,13 +58,13 @@ export default class {
 
   handleRemoveRecentSearch(e) {
     e.preventDefault();
+    e.stopImmediatePropagation();
 
     const confirmMsg = `저장된 최근 검색어를 모두 삭제하시겠습니까?`;
     const completeMsg = `삭제 되었습니다.`;
     const cancelMsg = `취소 되었습니다.`;
 
     if (!confirm(confirmMsg)) {
-      e.stopPropagation();
       alert(cancelMsg);
       return;
     }
