@@ -8,12 +8,11 @@ export default class SearchResultList extends Toggler {
         super();
         this.listData = null;
         this.isTyping = false;
-        this.recentKeywords = getLocalData()['recent'];
+        this.recentKeywords = getLocalData()['recent'] || [];
         this.relatedKeywords = ['아', '아이', '아이폰', '아이폰13', '아이폰 충전기'];
     }
 
     createHTML() {
-        if (this.recentKeywords.length === 0) return '';
         return /* html */ `
             <div class="search__result hidden">
                 <strong class="search__result--title">최근 검색어</strong>
