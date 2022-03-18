@@ -30,7 +30,7 @@ class SearchList {
     }
 
     getSearchListItem = (item, idx) => {
-        return `<li class="search__list--item" data-idx="${idx}">${item}</li>`;
+        return `<li class="search__list--item" data-idx="${idx}" data-name="${item}">${item}</li>`;
     };
 
     renderSearchList() {
@@ -45,9 +45,11 @@ class SearchList {
         const listItems = this.listContainer.querySelectorAll(
             ".search__list--item"
         );
+        let focusingItem;
 
         listItems.forEach((item) => {
             if (item.dataset.idx === this.curIdx.toString()) {
+                focusingItem = item;
                 Object.assign(item.style, {
                     textDecoration: "underline",
                     color: "#228be6",
@@ -59,6 +61,8 @@ class SearchList {
                 });
             }
         });
+
+        return focusingItem;
     }
 
     focusNextItem() {
@@ -67,7 +71,9 @@ class SearchList {
             this.curIdx = 0;
         }
 
-        this.focusItem();
+        const focusingItem = this.focusItem();
+
+        return focusingItem;
     }
 
     focusPreviousItem() {
@@ -76,7 +82,9 @@ class SearchList {
             this.curIdx = this.searchItems.length - 1;
         }
 
-        this.focusItem();
+        const focusingItem = this.focusItem();
+
+        return focusingItem;
     }
 }
 

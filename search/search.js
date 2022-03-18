@@ -86,6 +86,10 @@ const reRenderSearchList = (event) => {
     relatedSearchList.hide();
 };
 
+const changeInputWord = (focusingItem) => {
+    searchbar.value = focusingItem.dataset.name;
+};
+
 const keyDownEventHandler = (event) => {
     if (event.key === "Enter") {
         reRenderSearchList(event);
@@ -93,17 +97,21 @@ const keyDownEventHandler = (event) => {
 
     if (event.key === "ArrowDown") {
         if (relatedSearchList.isVisible) {
-            relatedSearchList.focusNextItem();
+            const focusingItem = relatedSearchList.focusNextItem();
+            changeInputWord(focusingItem);
         } else if (recentSearchList.isVisible) {
-            recentSearchList.focusNextItem();
+            const focusingItem = recentSearchList.focusNextItem();
+            changeInputWord(focusingItem);
         }
     }
 
     if (event.key === "ArrowUp") {
         if (relatedSearchList.isVisible) {
-            relatedSearchList.focusPreviousItem();
+            const focusingItem = relatedSearchList.focusPreviousItem();
+            changeInputWord(focusingItem);
         } else if (recentSearchList.isVisible) {
-            recentSearchList.focusPreviousItem();
+            const focusingItem = recentSearchList.focusPreviousItem();
+            changeInputWord(focusingItem);
         }
     }
 };
