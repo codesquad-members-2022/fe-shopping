@@ -16,7 +16,6 @@ SearchMenuToggleView.prototype = Object.create(ToggleView.prototype);
 
 SearchMenuToggleView.prototype.renderToggle = function (childDom) {
   if (this.parentDom.children.length > 1) {
-    console.log(1);
     this.parentDom.children[1].remove();
     return;
   }
@@ -24,11 +23,18 @@ SearchMenuToggleView.prototype.renderToggle = function (childDom) {
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
-  // 만약 ul 태그가 없다면??
-  if (this.renderHistory === []) {
-    this.renderHistory = ["검색 기록이 없습니다."];
+  if (this.searchHistory.length === 0) {
+    this.renderNoHistory();
+    return;
   }
-  const historyToggle = new SearchInputToggle(this.searchHistory).dom;
-  this.renderToggle(historyToggle);
+
+  const historyDom = new SearchInputToggle(this.historyDom).dom;
+  this.renderToggle(historyDom);
 };
+
+SearchInputToggleView.prototype.renderNoHistory = function () {
+  const childDom = new SearchInputToggle(["검색 기록이 없습니다."]).dom;
+  this.renderToggle(childDom);
+};
+
 export { SearchInputToggleView, SearchMenuToggleView };

@@ -1,4 +1,4 @@
-import { Toggle } from "./Toggle.js";
+import { Toggle } from "./AbstractToggle.js";
 
 function SearchInputToggle(liContents) {
   this.liContents = liContents;

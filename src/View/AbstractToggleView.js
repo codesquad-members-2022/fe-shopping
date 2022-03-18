@@ -4,7 +4,10 @@ function ToggleView(parentDom) {
 }
 
 ToggleView.prototype.renderToggle = function (childDom) {
-  console.log(this.parentDom.children);
+  if (!childDom.hasChildNodes()) {
+    return;
+  }
+
   if (this.parentDom.children[1]) {
     this.parentDom.children[1].remove();
     return;

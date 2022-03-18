@@ -28,7 +28,7 @@ class SearchZoneController {
       (jsonData) => new SearchInputToggle(jsonData).dom
     )
       .then(viewTest.renderToggle.bind(viewTest))
-      .then(() => viewTest.renderHistroy);
+      .then(() => viewTest.renderHistory());
   }
 
   onClickSearchMenu() {

@@ -10,8 +10,7 @@ Toggle.prototype.getHTML = function () {
   return /*html*/ `${this.liContents.reduce((liHtml, contents) => {
     liHtml += `<li class="${this.liClassName}">${contents}</li>`;
     return liHtml;
-  }, "")}
-    `;
+  }, "")}`;
 };
 
 export { Toggle };
