@@ -3,7 +3,7 @@ import { SearchInputController } from "./controller/header/search-input-controll
 import { HeaderMain } from "./model/header/header-main.js";
 import { SearchInput } from "./model/header/search-input.js";
 import { SearchCategory } from "./model/header/search.-category.js";
-import { TopBar } from "./model/header/TopBar.js";
+import { TopBar } from "./model/header/topbar.js";
 
 const topbar = new TopBar();
 const headerMain = new HeaderMain();
