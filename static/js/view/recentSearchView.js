@@ -8,7 +8,7 @@ export class RecentSearchView {
       template += `<li>${recentSearch}</li>`;
       return template;
     }, '<ul>');
-    popupKeywordsTemplate+= '</ul>'
+    popupKeywordsTemplate += '</ul>'
     $popupKeywords.innerHTML = popupKeywordsTemplate;
   }
 }
