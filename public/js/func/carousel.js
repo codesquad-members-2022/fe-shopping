@@ -1,6 +1,6 @@
 let start = null;
 let xCoordi = 0;
-let cnt = 0;
+let slideCnt = 0;
 export let raf;
 
 function setBackCarousel() {
@@ -9,18 +9,18 @@ function setBackCarousel() {
   carousel.style.transform = `translateX(0px)`;
 }
 
-function checkCarousel() {
+function checkCarouselLast() {
   const carouselNum = document.querySelectorAll('.carousel-inner__item');
 
-  if (cnt === carouselNum.length - 1) {
-    cnt = 0;
+  if (slideCnt === carouselNum.length - 1) {
+    slideCnt = 0;
     xCoordi = 0;
     return true;
   }
 }
 
 function cntCarousel() {
-  cnt++;
+  slideCnt++;
 }
 
 export function moveCarousel(timestamp) {
@@ -35,7 +35,7 @@ export function moveCarousel(timestamp) {
     xCoordi -= carouselElWidth.offsetWidth;
     carousel.style.transform = `translateX(${xCoordi}px)`;
     cntCarousel();
-    if (checkCarousel()) setBackCarousel();
+    if (checkCarouselLast()) setBackCarousel();
     start = null;
   }
 

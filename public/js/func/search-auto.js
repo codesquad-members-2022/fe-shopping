@@ -5,6 +5,7 @@ export class AutoComplete {
   constructor() {
     this.data;
     this.str = '';
+    this.recentSquence = 0;
   }
 
   createAutoComplete() {
@@ -20,7 +21,17 @@ export class AutoComplete {
       this.str += e.data;
     });
 
-    // searchText.addEventListener('keypress', (e) => {});
+    searchText.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        console.log(this.recentSquence);
+        this.recentSquence < this.data.createAutoComplete.length
+          ? this.recentSquence++
+          : (this.recentSquence = 0);
+      }
+      //  else if (e.key === 'ArrowDown') {
+      //   this.recentSquence ? (this.recentSquence = 0) : this.recentSquence--;
+      // }
+    });
   }
 
   destroyAutoComplete() {
