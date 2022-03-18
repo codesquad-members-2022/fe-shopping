@@ -7,7 +7,7 @@ export default function SearchWord() {
   this.currentWord = '';
   this.turn = true;
   this.onRecent = true;
-  this.index = 0;
+  this.index = -1;
 }
 
 SearchWord.prototype.pushRecentWords = function () {
