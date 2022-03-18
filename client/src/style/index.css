@@ -397,6 +397,12 @@ table {
 .search-recent__contents {
   min-height: 150px;
 }
+.search-recent__contents--off {
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #666;
+}
 .search-recent__link {
   text-decoration: none;
   color: #666;
@@ -421,10 +427,10 @@ table {
 .search-recent--remove:hover {
   text-decoration: underline;
 }
-.search-recent--off {
+.search-recent--on, .search-recent--off {
   cursor: pointer;
 }
-.search-recent--off:hover {
+.search-recent--on:hover, .search-recent--off:hover {
   text-decoration: underline;
 }
 
