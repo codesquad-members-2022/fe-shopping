@@ -1,5 +1,8 @@
+import data from "../data/recent.json";
+
 const mainController = (req, res) => {
-  res.render("base");
+  const recentData = data.map(({ keyword }) => keyword);
+  res.render("base", { recentData });
 };
 
 export { mainController };
