@@ -9,15 +9,9 @@ export const selectCategoryEvent = () => {
 
   selectCategoryBox.addEventListener('mouseover', () => {
     // categroySelectBox 보여주기
-    const categoryList = $('.category-list');
-    if (categoryList) return;
+    const categoryListBox = $('.category-list');
+    if (categoryListBox) return;
     selectCategoryBox.insertAdjacentHTML('beforeend', mainCategory(mainCategoryData));
-  });
-
-  selectCategoryBox.addEventListener('mouseout', e => {
-    // categroySelectBox 가 열려있으면 닫히게 하자
-    const categoryList = $('.category-list');
-    categoryList?.remove();
   });
 
   selectSearchCategoryBox.addEventListener('click', async ({ target }) => {
