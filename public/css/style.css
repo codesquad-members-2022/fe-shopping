@@ -141,7 +141,7 @@
   padding: 7px 0 7px 3px;
 }
 
-.select-category-option li:hover {
+.select-category-option a:hover {
   color: #4285f4;
   text-decoration: underline;
 }
