@@ -76,6 +76,31 @@ class CenterSearchBox extends FocusBlur {
     );
   };
 
+  getNextListIndex = (key, childLists, selectedListIndex) => {
+    const isSelectedListIndex = selectedListIndex > -1;
+    const keyIndex = {
+      ArrowDown: {
+        noTarget: 0,
+        isTarget: selectedListIndex + 1,
+      },
+      ArrowUp: {
+        noTarget: childLists.length - 1,
+        isTarget: selectedListIndex - 1,
+      },
+    };
+    const { noTarget, isTarget } = keyIndex[key];
+    let nextListIndex;
+
+    if (!isSelectedListIndex) {
+      nextListIndex = noTarget;
+    } else {
+      nextListIndex = childLists[isTarget] ? isTarget : noTarget;
+      childLists[selectedListIndex].classList.remove("selected");
+    }
+
+    return nextListIndex;
+  };
+
   changeSearchKeyword = (selectedKeyword) => {
     this.target.value = selectedKeyword;
   };
@@ -85,31 +110,12 @@ class CenterSearchBox extends FocusBlur {
     const selectedListIndex = childLists.findIndex((list) =>
       list.classList.contains("selected")
     );
-    const isSelectedListIndex = selectedListIndex > -1;
-    let nextListIndex;
+    const nextListIndex = this.getNextListIndex(
+      key,
+      childLists,
+      selectedListIndex
+    );
 
-    switch (key) {
-      case "ArrowDown":
-        if (!isSelectedListIndex) {
-          nextListIndex = 0;
-        } else {
-          nextListIndex = childLists[selectedListIndex + 1]
-            ? selectedListIndex + 1
-            : 0;
-          childLists[selectedListIndex].classList.remove("selected");
-        }
-        break;
-      case "ArrowUp":
-        if (!isSelectedListIndex) {
-          nextListIndex = childLists.length - 1;
-        } else {
-          nextListIndex = childLists[selectedListIndex - 1]
-            ? selectedListIndex - 1
-            : childLists.length - 1;
-          childLists[selectedListIndex].classList.remove("selected");
-        }
-        break;
-    }
     childLists[nextListIndex].classList.add("selected");
     const selectedKeyword = childLists[nextListIndex].innerText;
     this.changeSearchKeyword(selectedKeyword);
@@ -118,6 +124,7 @@ class CenterSearchBox extends FocusBlur {
   handleKeyupEvent = async ({ target: { value }, key }) => {
     const upDownKey = ["ArrowDown", "ArrowUp"].includes(key);
     if (upDownKey) return this.moveWithUpDown(key);
+
     value === ""
       ? await this.showRecentData()
       : await this.showRelativeData(value);
