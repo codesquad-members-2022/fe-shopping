@@ -1,7 +1,7 @@
 const localStorageKey = 'HemPang';
 
 export const addLocalData = (key, arrayData) => {
-    const storedData = getLocalStorageData() || {
+    const storedData = getLocalData() || {
         [key]: []
     };
     storedData[key].push(...arrayData);

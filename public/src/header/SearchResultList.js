@@ -1,11 +1,14 @@
 import Toggler from "../components/Toggler.js";
+import {
+    getLocalData
+} from "../util/LocalStorage.js";
 
 export default class SearchResultList extends Toggler {
     constructor() {
         super();
         this.listData = null;
         this.isTyping = false;
-        this.recentKeywords = ['코코아', '코드스쿼드', '아이스 아메리카노', '딸기우유', '배고프다'];
+        this.recentKeywords = getLocalData()['recent'];
         this.relatedKeywords = ['아', '아이', '아이폰', '아이폰13', '아이폰 충전기'];
     }
 
@@ -36,6 +39,15 @@ export default class SearchResultList extends Toggler {
         recentButtons.classList.toggle('hidden');
         this.isTyping = !this.isTyping;
         setListData();
+    }
+
+    updateData(type, data) {
+        if (type === 'recent') {
+            this.recentKeywords = getLocalData()[type];
+            return;
+        }
+
+        this.relatedKeywords = data;
     }
 
     setListData() {

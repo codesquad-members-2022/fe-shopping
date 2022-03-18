@@ -1,3 +1,7 @@
+import {
+    addLocalData
+} from "../util/LocalStorage.js";
+
 export default class SearchController {
     constructor($parent, resultList) {
         this.$parent = $parent;
@@ -29,6 +33,7 @@ export default class SearchController {
     setEvents() {
         this.setTarget();
         this.setFocusEvent();
+        this.setSubmitEvent();
     }
 
     setFocusEvent() {
@@ -43,5 +48,23 @@ export default class SearchController {
 
     handleFocusOutEvent(event) {
         this.resultList.toggle();
+    }
+
+    setSubmitEvent() {
+        this.$target.addEventListener('submit', this.handleSubmitEvent.bind(this));
+    }
+
+    handleSubmitEvent(event) {
+        event.preventDefault();
+        const $textInput = document.querySelector('.search__form--input');
+        const inputText = $textInput.value;
+
+        if (inputText === '') return;
+
+        $textInput.value = '';
+
+        addLocalData('recent', [inputText]);
+        this.resultList.updateData('recent');
+        this.resultList.setListData();
     }
 }
