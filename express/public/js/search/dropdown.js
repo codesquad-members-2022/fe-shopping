@@ -33,8 +33,6 @@ export default class Dropdown {
       )}
       </ul>
     `;
-
-    console.log($optionMenu);
     this.addClickEvent();
   }
 
