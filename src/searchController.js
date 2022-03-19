@@ -1,5 +1,5 @@
 import { createStrongList } from "./templates.js";
-import { renderFormSearchList } from "./render.js";
+import { renderSearchList } from "./render.js";
 
 export class SearchController {
     constructor() {
@@ -160,7 +160,7 @@ export class SearchController {
     highlightPrefixList(prefixList, highlightLength) {
         const splitPrefixArr = prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
         const searchListsTemplate = createStrongList(splitPrefixArr)
-        renderFormSearchList(searchListsTemplate)
+        renderSearchList(searchListsTemplate)
     }
 
     fetchPrefixList(word) {
