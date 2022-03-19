@@ -1,8 +1,8 @@
 import { ToggleView } from "./AbstractToggleView.js";
 import { SearchInputToggle } from "../Components/headerToggle.js";
 import * as domUtil from "/util/domutil.js";
-import { Toggle } from "../Components/AbstractToggle.js";
 import * as fetchUtil from "../util/fetchutil.js";
+import { Toggle } from "../Components/AbstractToggle.js";
 
 function SearchInputToggleView() {
   ToggleView.apply(this, arguments);
@@ -16,22 +16,21 @@ function SearchMenuToggleView() {
 SearchInputToggleView.prototype = Object.create(ToggleView.prototype);
 SearchMenuToggleView.prototype = Object.create(ToggleView.prototype);
 
-// SearchMenuToggleView.prototype.renderToggle = function (childDom) {
-//   if (this.parentDom.children.length > 1) {
-//     this.parentDom.children[1].remove();
-//     return;
-//   }
-//   this.parentDom.appendChild(childDom);
-// };
+SearchMenuToggleView.prototype.renderToggle = function (childDom) {
+  const childDomClassName = ".search--menu--li";
+  const childDom = domUtil.target$(this.parentDom, childDomClassName);
+  if (domUtil.target$(this.parentDom, childDomClassName)) {
+    childDom.remove();
+    return;
+  }
+  this.parentDom.appendChild(childDom);
+};
 
 SearchInputToggleView.prototype.renderAutoComplete = async function (
   inputValue
 ) {
-  const autocompleteToggle = await fetchUtil.fetch_use(
-    `search/${inputValue}`,
-    SearchInputToggle
-  );
-  this.generateSearchContents(autocompleteToggle.dom);
+  const autocompleteToggle = await fetchUtil.fetchData(`search/${inputValue}`);
+  this.generateSearchContents(autocompleteToggle);
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
@@ -79,5 +78,23 @@ SearchInputToggleView.prototype.hasHistoryZone = function () {
 
   return false;
 };
+
+// SearchInputToggleView.prototype.renderHistory = function () {
+//   if (!domUtil.$(".search--toggle--ul").innerHTML === "") {
+//     return;
+//   }
+//   if (this.searchHistory.length === 0) {
+//     this.renderNoHistory();
+//     return;
+//   }
+
+//   const historyDom = new SearchInputToggle(this.historyDom).dom;
+//   this.renderToggle(historyDom);
+// };
+
+// SearchInputToggleView.prototype.renderNoHistory = function () {
+//   const childDom = new SearchInputToggle(["검색 기록이 없습니다."]).dom;
+//   this.renderToggle(childDom);
+// };
 
 export { SearchInputToggleView, SearchMenuToggleView };

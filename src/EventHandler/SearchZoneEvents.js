@@ -54,10 +54,7 @@ class SearchZoneController {
   }
 
   onClickSearchMenu() {
-    fetch_use(
-      "search/menu/toggle",
-      (jsonData) => new SearchMenuToggle(jsonData).dom
-    ).then(() => this.menuView.renderToggle());
+    this.menuView.renderToggle();
   }
 
   onKeyDownEnter(event) {

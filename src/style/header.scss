@@ -138,11 +138,13 @@ centerAlignment {
 
 .search--toggle--ul {
   width: 400px;
+  height: 200px;
   position: absolute;
   background-color: white;
   z-index: 1;
   .search--toggle--li {
-    @extend centerAlignment;
+    // @extend centerAlignment;
+    font-size: 10px;
     height: 15px;
     padding: 5px;
     border-bottom: 0.5px solid #f0f0f0;
@@ -152,6 +154,7 @@ centerAlignment {
 .header__main--inputMenuButton {
   .search--menu--ul {
     width: 140px;
+
     // height: 0px;
     position: absolute;
     background-color: white;
@@ -164,7 +167,7 @@ centerAlignment {
       padding: 10px;
       border-bottom: 0.5px solid #f0f0f0;
     }
-    // .search--menu--ul[data-dropdown="checked"] {
+    // .search--menu--ul[data-dropdown="checked"] { // 애니메이션 시도용
     //   height: auto;
     // }
   }
