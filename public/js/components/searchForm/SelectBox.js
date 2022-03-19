@@ -1,5 +1,5 @@
 import Component from '../../core/Component.js';
-import { category } from '../../../data';
+import { category } from '../../../data/index.js';
 
 class SelectBox extends Component {
 
@@ -12,28 +12,28 @@ class SelectBox extends Component {
   }
 
   template() {
-    return `<div class="select-box">
-              <button type="button" class="select-btn">전체</button>
-            </div>`;
+    return `<button type="button" class="select-btn">전체</button>
+            <div class="bottom-window"></div>`;
   }
 
   setEvent() {
     this.addEvent('click', '.select-btn', () => {
       const $bottomWindow = this.$target.querySelector('.bottom-window');
 
-      if ($bottomWindow) {
-        this.$props.removeBottomWindow('.select-box');
+      if ($bottomWindow.classList.contains('open')) {
+        $bottomWindow.classList.remove('open');
+        setTimeout(() => $bottomWindow.innerHTML = '', 250)
       }
 
       else {
-        this.$props.renderBottomWindow('.select-box', {
+        this.$props.renderBottomWindow('.bottom-window', {
           windowList: this.$state.category,
         });
       }
     });
 
     this.addEvent('blur', '.select-box', () => {
-      this.$props.removeBottomWindow('.select-box');
+      this.$props.removeBottomWindow('.bottom-window');
     }, true);
   }
 
