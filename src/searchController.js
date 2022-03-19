@@ -20,6 +20,7 @@ export class SearchController {
         this.setSearchBoxEvent()
         this.setPrefixListEvent()
         this.setSearchFormEvent()
+        this.setHistoryListEvent()
     }
 
     setSearchBoxEvent() {
@@ -35,6 +36,8 @@ export class SearchController {
 
     setHistoryListEvent() {
         this.$historyList.addEventListener('click', (e) => this.historyListClickHandler(e))
+        //this.$historyList.addEventListener('focusout', (e) => this.historyListFocusoutHandler(e))
+
     }
 
     setSearchFormEvent() {
@@ -42,9 +45,30 @@ export class SearchController {
     }
 
     historyListClickHandler(e) {
+        e.stopPropagation()
         this.deleteHistoryList(e)
         this.deleteAllHistoryList(e)
-        this.toggleHistoryList(e)
+        //this.toggleHistoryList(e)
+    }
+
+    deleteHistoryList(e) {
+        if(e.target.className !== 'history-delete') return
+        const historyElem = e.target.closest('li')
+        const historyWord = historyElem.firstElementChild.innerText
+        this.historyManager.deleteItem(historyWord)
+        this.onHistoryList()
+        // 삭제 버튼 클릭 시 포커스 대상이 사라져서 그런가? 어딜 눌러도 포커스아웃이 안되는 현상이 발생하여 억지로 포커스를 인풋에 줌.
+        document.querySelector('.search-input').focus()
+    }
+
+    deleteAllHistoryList(e) {
+        if(e.target.className !== 'history-deleteAll') return
+        this.historyManager.clearItem()
+        this.onHistoryList()
+    }
+
+    historyListFocusoutHandler(e) {
+        this.addVisibilityHidden(this.$historyList)
     }
 
     prefixListMouseoverHandler(e) {
@@ -90,15 +114,18 @@ export class SearchController {
     }
 
     searchFocusoutHandler(e) {
+        if(e.relatedTarget !== null) return
+
         this.addVisibilityHidden(this.$prefixList)
         this.addVisibilityHidden(this.$historyList)
-        if(e.target.value.length !== 0) return
+
+        if(e.target.value.length === 0)
         this.prefixListIndex = null
     }
 
     searchClickHandler(e){
         if(e.target.className === 'search-btn') return
-        if(e.target.value.length === 0) {
+        if(e.target.className === 'search-input' && e.target.value.length === 0) {
             return this.onHistoryList()
         }
         if(this.prefixListElements.length === 0) return;
