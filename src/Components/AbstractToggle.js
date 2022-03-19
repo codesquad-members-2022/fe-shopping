@@ -7,10 +7,20 @@ function Toggle(liContents, liClassName, ulClassName) {
 }
 
 Toggle.prototype.getHTML = function () {
+  if (this.isEmptyArr(this.liContents)) {
+    return;
+  } // 컨텐츠 없으면 return undefined
+
   return /*html*/ `${this.liContents.reduce((liHtml, contents) => {
     liHtml += `<li class="${this.liClassName}">${contents}</li>`;
     return liHtml;
   }, "")}`;
+};
+
+Toggle.prototype.isEmptyArr = function (arr) {
+  if (!Array.isArray(arr) || arr.length <= 0) {
+    return true;
+  }
 };
 
 export { Toggle };

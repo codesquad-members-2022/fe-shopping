@@ -5,11 +5,12 @@ import { Toggle } from "../Components/AbstractToggle.js";
 import * as fetchUtil from "../util/fetchutil.js";
 
 function SearchInputToggleView() {
-  Toggle.apply(this, arguments);
+  ToggleView.apply(this, arguments);
+  this.emptyHistoryContents = ["검색 결과 없음"];
 }
 
 function SearchMenuToggleView() {
-  Toggle.apply(this, arguments);
+  ToggleView.apply(this, arguments);
 }
 
 SearchInputToggleView.prototype = Object.create(ToggleView.prototype);
@@ -23,12 +24,14 @@ SearchMenuToggleView.prototype = Object.create(ToggleView.prototype);
 //   this.parentDom.appendChild(childDom);
 // };
 
-SearchInputToggleView.prototype.renderAutoComplete = function () {
-  const autocompleteToggle = fetchUtil.fetch_use(
-    `search/${value}`,
-    new SearchInputToggle()
+SearchInputToggleView.prototype.renderAutoComplete = async function (
+  inputValue
+) {
+  const autocompleteToggle = await fetchUtil.fetch_use(
+    `search/${inputValue}`,
+    SearchInputToggle
   );
-  this.generateHistoryZone(autocompleteToggle.dom);
+  this.generateSearchContents(autocompleteToggle.dom);
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
@@ -36,29 +39,37 @@ SearchInputToggleView.prototype.renderHistory = function () {
     return;
   }
   const searchHistory = this.checkHistory();
-  this.generateHistoryZone(searchHistory);
+  this.generateSearchContents(searchHistory);
 };
 
 SearchInputToggleView.prototype.checkHistory = function () {
-  const searchHistory = [...localStorage.getItem("localSearchHistory")];
-  if (!this.isEmptyArr(searchHistory)) {
-    return ["검색결과 없음"];
+  const localHistoryObj = localStorage.getItem("localSearchHistory");
+  const searchHistory = Array.from(localHistoryObj); // 나중에 Set으로? 로컬히스토리 자체에서 Set실패
+
+  if (this.isEmptyArr(searchHistory)) {
+    return this.emptyHistoryContents;
   }
+
   return searchHistory;
 };
 
 SearchInputToggleView.prototype.isEmptyArr = function (arr) {
   if (!Array.isArray(arr) || arr.length <= 0) {
-    return false;
+    return true;
   }
-
-  return true;
 };
 
-SearchInputToggleView.prototype.generateHistoryZone = function (data) {
+SearchInputToggleView.prototype.generateSearchContents = function (data) {
+  if (this.isEmptyArr(data)) {
+    return;
+  }
+  const prevSearchData = domUtil.$(".search--toggle--ul");
+  if (prevSearchData) {
+    prevSearchData.remove();
+  }
   const searchZoneToggle = new SearchInputToggle(data);
   this.parentDom.appendChild(searchZoneToggle.dom);
-};
+}; // 필요할 경우 searchHitoryZone 비슷한 방식으로 구현해야함
 
 SearchInputToggleView.prototype.hasHistoryZone = function () {
   const childDomClassName = ".search--toggle--ul";
@@ -68,23 +79,5 @@ SearchInputToggleView.prototype.hasHistoryZone = function () {
 
   return false;
 };
-
-// SearchInputToggleView.prototype.renderHistory = function () {
-//   if (!domUtil.$(".search--toggle--ul").innerHTML === "") {
-//     return;
-//   }
-//   if (this.searchHistory.length === 0) {
-//     this.renderNoHistory();
-//     return;
-//   }
-
-//   const historyDom = new SearchInputToggle(this.historyDom).dom;
-//   this.renderToggle(historyDom);
-// };
-
-// SearchInputToggleView.prototype.renderNoHistory = function () {
-//   const childDom = new SearchInputToggle(["검색 기록이 없습니다."]).dom;
-//   this.renderToggle(childDom);
-// };
 
 export { SearchInputToggleView, SearchMenuToggleView };

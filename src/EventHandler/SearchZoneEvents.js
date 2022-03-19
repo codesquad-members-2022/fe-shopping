@@ -46,7 +46,7 @@ class SearchZoneController {
     // )
     //   .then(() => this.inputView.renderToggle())
     //   .then(() => this.inputView.renderHistory());
-    this.inputView.renderAutoComplete();
+    this.inputView.renderAutoComplete(value);
   }
 
   onFocusSearchinput() {
