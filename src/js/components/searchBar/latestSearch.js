@@ -23,15 +23,17 @@ class latestSearchBar extends Element {
     addClass(this.latestSearchContents, 'up');
     removeClass(this.latestSearchContents, 'down');
     removeClass(this.historyBtns, 'down');
+    console.log(this.onOffState)
     
     if(!this.onOffState) {
-      this.searchedItemsArr.unshift(this.coupangSearch.value);
-      webStorage.set('searchedItems', searchedItems);
-      
+      const userInput = this.coupangSearch.value;
+      this.searchedItemsArr.unshift(userInput);
+      webStorage.set('searchedItems', this.searchedItemsArr);
       const searchedList = JSON.parse(webStorage.get('searchedItems')).reduce((acc, el, idx) => {
         return acc + `<li>${el}</li>`;
       }, '');
-      template(this.latestList, searchedList);
+      console.log(searchedList)
+      template($('ol'), searchedList); //template에 this를 쓰면 전에 기억하고있는 node가 됨
     }
   }
 

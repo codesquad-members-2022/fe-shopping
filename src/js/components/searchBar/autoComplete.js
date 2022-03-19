@@ -7,7 +7,7 @@ class AutoComplete extends Element {
   }
 
   init() {
-    addEvent(this.coupangSearch, 'input', this.inputEventHandler)
+    addEvent(this.coupangSearch, 'input', this.inputEventHandler);
   }
   
   inputEventHandler = (e) => {
