@@ -184,14 +184,16 @@
     text-indent: 10px;
   }
 
-  >a {
+  >button {
     width: 50px;
     height: 37px;
+    border: 0;
+    background-color: map-get($header-bg-color, white);
     @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
     background: {
       position: -112px -71px;
     };
-    @include position-absolute(auto, auto, 0);
+    @include position-absolute(auto, auto, 2px);
     cursor: pointer;
 
   }

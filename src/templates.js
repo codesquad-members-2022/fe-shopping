@@ -39,7 +39,7 @@ function createHeader(navMenu) {
                         </div>
                         <div class="header__form__search">
                             <input type="text" class="search-input">
-                                <a class="search-btn"></a>
+                                <button class="search-btn"></button>
                         </div>
                     </form>
                 </div>

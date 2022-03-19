@@ -190,16 +190,18 @@
   outline: none;
   text-indent: 10px;
 }
-.header__form__search > a {
+.header__form__search > button {
   width: 50px;
   height: 37px;
+  border: 0;
+  background-color: #fff;
   background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
   background-repeat: no-repeat;
   background-position: -112px -71px;
   position: absolute;
   top: auto;
   left: auto;
-  right: 0;
+  right: 2px;
   cursor: pointer;
 }
 
