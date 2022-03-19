@@ -101,5 +101,10 @@
     color: $main-grey;
     margin-top: 12px;
     padding: 8px 6px;
+    button:hover {
+      text-decoration: underline;
+      color: $main-blue;
+      cursor: pointer;
+    }
   }
 }

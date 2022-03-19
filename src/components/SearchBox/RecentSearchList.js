@@ -3,6 +3,9 @@ import { POP_UP } from '../../constant/htmlSelector.js';
 import { moveToSearchTermPage } from '../../router.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import { myLocalStorage } from '../../utils/util.js';
+import { SEARCH_BOX } from '../../constant/constant.js';
+
+const { RECENT__DELETE, RECENT__TERM, RECENT__DELETE__ALL } = SEARCH_BOX;
 
 export default function RecentSearchList(htmlTag, $parent) {
   this.state = {
@@ -23,18 +26,18 @@ RecentSearchList.prototype.setTemplate = function () {
 <ul id="recentSearchList">
     ${
       recentSearchList.length === 0
-        ? `<li>최근검색어가 없습니다.</li>`
+        ? `<span>최근검색어가 없습니다.</span>`
         : recentSearchList
             .map(
               (term, idx) =>
-                `<li data-term-id=${idx}>${term}<span>X</span></li>`
+                `<li class=${RECENT__TERM} data-term-id=${idx}>${term}<span class=${RECENT__DELETE}>X</span></li>`
             )
             .join('')
     }
   </ul>
 <div>
-  <button>전체삭제</button>
-  <button>최근 검색어 끄기</button>
+  <button class=${RECENT__DELETE__ALL}>전체삭제</button>
+  <button class="">최근 검색어 끄기</button>
 </div>
 </div>`;
 };
@@ -50,16 +53,23 @@ RecentSearchList.prototype.setState = function (newState) {
 };
 
 function handleClick({ target }) {
-  switch (target.nodeName) {
-    case 'SPAN':
+  switch (target.className) {
+    case RECENT__DELETE:
       deleteTargetTerm.call(this, target);
       break;
-    case 'LI':
+    case RECENT__TERM:
       moveToSearchTermPage(target.innerText.slice(0, -1));
       break;
+    case RECENT__DELETE__ALL:
+      deleteAllTerm.apply(this);
     default:
       break;
   }
+}
+
+function deleteAllTerm() {
+  myLocalStorage.set(RECENT_SEARCH_LIST, []);
+  this.setState({ recentSearchList: [] });
 }
 
 function deleteTargetTerm(target) {

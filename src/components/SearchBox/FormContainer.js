@@ -67,7 +67,7 @@ function handleSubmit(event) {
 function handleInput({ target }) {
   const { value: inputValue } = target;
   this.setState({ inputValue });
-  target.focus();
+  // target.focus();
 }
 
 function showRecord() {
