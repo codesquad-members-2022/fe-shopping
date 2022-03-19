@@ -40,12 +40,13 @@ class SearchZoneController {
   }
 
   onInputSearchInput({ target: { value } }) {
-    fetch_use(
-      `search/${value}`,
-      (jsonData) => new SearchInputToggle(jsonData).dom
-    )
-      .then(() => this.inputView.renderToggle())
-      .then(() => this.inputView.renderHistory());
+    // fetch_use(
+    //   `search/${value}`,
+    //   (jsonData) => new SearchInputToggle(jsonData).dom
+    // )
+    //   .then(() => this.inputView.renderToggle())
+    //   .then(() => this.inputView.renderHistory());
+    this.inputView.renderAutoComplete();
   }
 
   onFocusSearchinput() {
