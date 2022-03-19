@@ -40,7 +40,7 @@ class SearchBarDropBox extends Element {
     this.$search__word__dropbox.style.visibility = "hidden";
   }
 
-  handleClickWhenDropDown() {
+  handleClickDocumentWhenDropDown() {
     const $search__delete = targetQuerySelector({
       className: "search__delete",
     });
@@ -60,6 +60,10 @@ class SearchBarDropBox extends Element {
         this.$search__word__dropbox.style.visibility = "hidden";
       }
     });
+  }
+
+  render() {
+    this.$search__word__dropbox.style.visibility = "visible";
   }
 }
 

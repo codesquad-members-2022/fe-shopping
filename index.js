@@ -12,12 +12,16 @@ categoriesDropBox.handleClickSearchCategory();
 categoriesDropBox.appendElement({ data: searchCategories });
 
 const searchBar = new SearchBar();
-searchBar.appendElement();
-
 const searchBarDropBox = new SearchBarDropBox();
 searchBarDropBox.appendElement({ data: searchData });
-searchBarDropBox.handleClickWhenDropDown();
-searchBar.handleFocusInput();
-searchBar.handleClickWhenDropDown();
+searchBarDropBox.handleClickDocumentWhenDropDown();
+
+searchBar.handleFocusInput({
+  dropDown: (hasDropBox) => {
+    if (hasDropBox) {
+      searchBarDropBox.render();
+    }
+  },
+});
 
 carousel();
