@@ -1,43 +1,71 @@
-import { POP_UP } from '../../constant/htmlSelector.js';
+import {
+  MAX_LOCAL_STORAGE,
+  RECENT_SEARCH_LIST,
+} from '../../constant/constant.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import {
   findTargetIdElement,
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
+import { myLocalStorage } from '../../utils/util.js';
 import RecentSearchList from './RecentSearchList.js';
 
-function FormContainer(htmlTag, $parent) {
+export default function FormContainer(htmlTag, $parent) {
+  this.$ul = null;
+  this.state = {
+    inputValue: '',
+    recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
+  };
   HtmlElement.call(this, htmlTag, $parent);
 }
 
 FormContainer.prototype = Object.create(HtmlElement.prototype);
 FormContainer.prototype.constructor = FormContainer;
-// Object.setPrototypeOf(FormContainer.prototype, HtmlElement.prototype);
 
 FormContainer.prototype.setTemplate = function () {
   this.$element.classList.add('search__container');
-  const recentSearchList = new RecentSearchList('ul', null);
-  this.$element.innerHTML = template(recentSearchList);
+  this.$element.innerHTML = template;
+  this.$ul = new RecentSearchList('ul', this.$element, this.state);
 };
 
 FormContainer.prototype.setEvent = function () {
   const $form = findTargetIdElement(this.$element, 'searhForm');
   const $input = findTargetIdElement($form, 'searchInput');
-  $form.addEventListener('submit', handleSubmit);
+  this.$input = $input;
+  $form.addEventListener('submit', handleSubmit.bind(this));
   $input.addEventListener('focus', showRecord.bind(this));
-  // $input.addEventListener('focus', showRecord.bind(this));
-  $input.addEventListener('input', handleInput);
+  $input.addEventListener('input', handleInput.bind(this));
 };
 
-export default FormContainer;
+FormContainer.prototype.setState = function (newState) {
+  this.state = { ...this.state, ...newState };
+};
+
+function handleRecentSearchList(recentSearchList, inputValue) {
+  if (recentSearchList.length >= MAX_LOCAL_STORAGE) {
+    return [inputValue, ...recentSearchList.slice(0, -1)];
+  }
+  return [inputValue, ...recentSearchList];
+}
 
 function handleSubmit(event) {
   event.preventDefault();
-  history.pushState(null, null, `/?search=${'검색어'}`);
+  const { inputValue, recentSearchList } = this.state;
+  const updatedRecentSearchList = handleRecentSearchList(
+    recentSearchList,
+    inputValue
+  );
+  myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
+  this.setState({ inputValue: '', recentSearchList: updatedRecentSearchList });
+  this.$ul.setState({ recentSearchList: updatedRecentSearchList });
+  this.$input.value = '';
+  // history.pushState(null, null, `/?search=${searchTerm}`);
 }
 
-function handleInput(event) {
-  console.log(event.target.value);
+function handleInput({ target }) {
+  const { value: inputValue } = target;
+  this.setState({ inputValue });
+  target.focus();
 }
 
 function showRecord() {
@@ -45,8 +73,7 @@ function showRecord() {
   handleDisplayElement($record);
 }
 
-function template(recentSearchList) {
-  return `<form class="search__form" id="searhForm">
+const template = `<form class="search__form" id="searhForm">
 <input
 class="pop-up-container"
   id="searchInput"
@@ -59,12 +86,4 @@ class="pop-up-container"
   <span><i class="fas fa-search"></i></span>
 </div>
 </form>
-<div class="${POP_UP.hidden} search__record" id="searchRecord">
-<h5>최근 검색어</h5>
-${recentSearchList.directRender()}
-<div>
-  <button>전체삭제</button>
-  <button>최근 검색어 끄기</button>
-</div>
-</div>`;
-}
+`;

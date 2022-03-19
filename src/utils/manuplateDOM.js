@@ -73,13 +73,13 @@ export function handleDisplayElement($element) {
   }
 }
 
-// export function hidePopUp({ target }) {
-//   const $openPopUpElement = findTargetClassElementAll(
-//     document.body,
-//     POP_UP.show
-//   );
-//   $openPopUpElement.forEach(
-//     ($element) =>
-//       !target.classList.contains('pop-up-container') && closePopUp($element)
-//   );
-// }
+export function hidePopUp({ target }) {
+  const $openPopUpElement = findTargetClassElementAll(
+    document.body,
+    POP_UP.show
+  );
+  $openPopUpElement.forEach(
+    ($element) =>
+      !target.classList.contains('pop-up-container') && closePopUp($element)
+  );
+}

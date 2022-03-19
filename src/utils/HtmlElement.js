@@ -15,6 +15,11 @@ HtmlElement.prototype.render = function () {
   this.$parent && this.$parent.appendChild(this.$element);
 };
 
+HtmlElement.prototype.setState = function (newState) {
+  this.state = { ...this.state, ...newState };
+  this.render();
+};
+
 HtmlElement.prototype.setEvent = function () {};
 
 export default HtmlElement;
