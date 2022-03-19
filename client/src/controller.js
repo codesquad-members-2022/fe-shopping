@@ -1,12 +1,12 @@
 import { SelectCategory } from './view/selectCategory.js';
 import { SearchInput } from './view/searchInput.js';
-import { LocalStorage } from './model/localStorage.js';
+import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
 
 export class Controller {
   constructor() {
-    this.localStorage = new LocalStorage();
+    this.KeywordLocalStorage = new KeywordLocalStorage();
     this.selectCategory = new SelectCategory();
-    this.searchInput = new SearchInput(this.localStorage.keywordList);
+    this.searchInput = new SearchInput(this.KeywordLocalStorage.keywordList);
 
     this.selector = {
       form: document.querySelector('.search__form'),
@@ -47,15 +47,15 @@ export class Controller {
   }
 
   focusInputHandle() {
-    if (!this.selector.input.value && !this.localStorage.keywordList.length) return;
+    if (!this.selector.input.value && !this.KeywordLocalStorage.keywordList.length) return;
 
     if (this.selector.input.value) {
       this.searchInput.updateAutoComplete();
       this.searchInput.toggleInputFocusClass();
-    } else if (this.localStorage.keywordList.length > 0) {
+    } else if (this.KeywordLocalStorage.keywordList.length > 0) {
       this.selector.inputDropDown.classList.remove('auto-complete');
       this.selector.inputDropDown.classList.add('recent-search');
-      this.searchInput.updateRecentSearchList(this.localStorage.keywordList);
+      this.searchInput.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
     }
     this.searchInput.toggleInputFocusClass();
   }
@@ -70,19 +70,20 @@ export class Controller {
     e.preventDefault();
 
     if (!this.selector.input.value) return;
-    this.localStorage.addKeywordList(this.selector.input.value);
+    this.KeywordLocalStorage.addKeywordList(this.selector.input.value);
     this.searchInput.toggleInputFocusClass();
     this.searchInput.resetInputText();
   }
 
   clickDropDownHandle(e) {
     if (e.target.classList.contains('delete__btn')) {
-      this.localStorage.removeKeywordList(e);
-      this.searchInput.updateRecentSearchList(this.localStorage.keywordList);
+      const keyword = e.target.previousElementSibling.innerText;
+      this.KeywordLocalStorage.removeKeywordList(keyword);
+      this.searchInput.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
     }
 
     if (e.target.classList.contains('options--clear-keyword')) {
-      this.localStorage.clearKeywordList();
+      this.KeywordLocalStorage.clearKeywordList();
       this.searchInput.resetRecentSearchList();
     }
   }
