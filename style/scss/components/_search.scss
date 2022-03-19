@@ -78,6 +78,21 @@
     width: 100%;
     border-bottom: 1px solid $main-grey;
   }
+  > ul {
+    li > span {
+      color: transparent;
+      position: absolute;
+      right: 8px;
+    }
+    li:hover {
+      text-decoration: underline;
+      color: $main-blue;
+      cursor: pointer;
+      span {
+        color: inherit;
+      }
+    }
+  }
   > div {
     display: flex;
     align-items: center;

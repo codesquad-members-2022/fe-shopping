@@ -2,6 +2,7 @@ import {
   MAX_LOCAL_STORAGE,
   RECENT_SEARCH_LIST,
 } from '../../constant/constant.js';
+import { moveToSearchTermPage } from '../../router.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import {
   findTargetIdElement,
@@ -14,7 +15,6 @@ export default function FormContainer(htmlTag, $parent) {
   this.$ul = null;
   this.state = {
     inputValue: '',
-    recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
   };
   HtmlElement.call(this, htmlTag, $parent);
 }
@@ -25,7 +25,7 @@ FormContainer.prototype.constructor = FormContainer;
 FormContainer.prototype.setTemplate = function () {
   this.$element.classList.add('search__container');
   this.$element.innerHTML = template;
-  this.$ul = new RecentSearchList('ul', this.$element, this.state);
+  this.$ul = new RecentSearchList('ul', this.$element);
 };
 
 FormContainer.prototype.setEvent = function () {
@@ -50,16 +50,18 @@ function handleRecentSearchList(recentSearchList, inputValue) {
 
 function handleSubmit(event) {
   event.preventDefault();
-  const { inputValue, recentSearchList } = this.state;
+  const { inputValue } = this.state;
+  const searchTerm = inputValue;
+  const { recentSearchList } = this.$ul.state;
   const updatedRecentSearchList = handleRecentSearchList(
     recentSearchList,
     inputValue
   );
   myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
-  this.setState({ inputValue: '', recentSearchList: updatedRecentSearchList });
+  this.setState({ inputValue: '' });
   this.$ul.setState({ recentSearchList: updatedRecentSearchList });
   this.$input.value = '';
-  // history.pushState(null, null, `/?search=${searchTerm}`);
+  moveToSearchTermPage(searchTerm);
 }
 
 function handleInput({ target }) {
