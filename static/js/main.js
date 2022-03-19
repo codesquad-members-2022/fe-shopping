@@ -1,6 +1,10 @@
 import {RecentSearchController} from './controller/recentSearchController.js';
 import {RelativeSearchController} from './controller/relativeSearchController.js';
-import {keywordsData} from './data/relativeSearchData.js';
+import {fetchData} from './util/util.js';
+
+const goodsData = await fetchData('goodsData');
+const firstKeyword = '아';
+const keywordsData = goodsData[firstKeyword];
 
 init();
 

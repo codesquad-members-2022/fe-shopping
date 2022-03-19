@@ -1,8 +1,15 @@
-export async function fetchData(dataName) {
-  const url = `http://localhost:3000/${dataName}`;
-  const response = await fetch(url);
-  const data = response.json();
-  return data;
+export function fetchData(dataName) {
+  const DATA_URL = `http://localhost:3000/${dataName}`;
+  return fetch(DATA_URL)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 export function debounce(func, delay) {
