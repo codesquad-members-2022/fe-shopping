@@ -10,9 +10,11 @@ header
       span 고객센터
 
   section.main.flex
+
     button.categories
       i.fas.fa-bars
       div 카테고리
+
     div.center
       div.center-main.flex
         img.img(src="/images/logo.png")
@@ -21,11 +23,25 @@ header
             div.menu-selected 전체
             div.menu-viewer
               i.fas.fa-chevron-down
-          form.form.flex
-            input(name="search", type="text", placeholder="찾고 싶은 상품을 검색하세요!")
-            button
-              i.fas.fa-search
+          form.center-form
+            div.center-search-box.flex
+              input.center-search-input(name="search", type="text", placeholder="찾고 싶은 상품을 검색하세요!")
+              button
+                i.fas.fa-search
+            div.center-relative-info.hidden
+              h3.center-relative-info-name 최근 검색어
+              ul.center-relative-info-list
+                each data in recentData 
+                  li=data
+              div.center-relative-info-option.flex
+                div 전체삭제
+                div 최근 검색어 끄기
+
+              
+
+
       div.center-nav
+
     div.personal.flex
       div.my
         i.fas.fa-user 

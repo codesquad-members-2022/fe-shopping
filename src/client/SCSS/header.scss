@@ -47,22 +47,65 @@ header {
 
   .center-search {
     @include divideFlex(1, 3);
-    border: 0.25rem solid $blue-main;
+    border: solid $border-main $blue-main;
     .menu {
       @include divideFlex(5, 1);
       .menu-selected {
         padding: 0.2rem;
       }
     }
-    .form {
-      @include divideFlex(10, 1);
-      > * {
-        height: 2.5rem;
-      }
-      button {
-        background-color: $white;
-        font-size: 0.8rem;
-        color: $blue-main;
+  }
+
+  .center-form {
+    position: relative;
+  }
+
+  .center-search-box {
+    @include divideFlex(10, 1);
+    > * {
+      height: 2.5rem;
+    }
+    button {
+      background-color: $white;
+      font-size: 0.8rem;
+      color: $blue-main;
+    }
+  }
+
+  .center-search-input {
+    margin-left: 0.4rem;
+  }
+
+  .center-relative-info {
+    width: calc(100% - $border-main);
+    border: solid $gray $border-main;
+    position: absolute;
+    box-shadow: 5px, 5px, 5px;
+    @mixin info-padding-margin {
+      padding: 0.5rem 0;
+      margin: 0 0.5rem;
+    }
+    &-name {
+      @include info-padding-margin;
+      border-bottom: solid $gray $border-main / 2;
+    }
+    &-list > li {
+      @include info-padding-margin;
+      color: $gray2;
+    }
+    &-list > .selected {
+      color: $blue-main;
+      text-decoration: underline;
+    }
+    &-option {
+      @include info-padding-margin;
+      @include divideFlex(1, 1);
+      margin: 0;
+      padding: 0.5rem;
+      background-color: $gray;
+      justify-content: space-between;
+      :last-child {
+        text-align: right;
       }
     }
   }
@@ -71,6 +114,7 @@ header {
     @include divideFlex(1, 1);
     text-align: center;
     padding: 0.5rem;
+    color: $gray2;
     i {
       font-size: 2rem;
       margin-bottom: 1rem;
