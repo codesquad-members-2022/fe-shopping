@@ -64,7 +64,7 @@ export class SearchController {
         this.prefixListState = false
         this.historyListState = false
         this.originInputValue = inputWord
-        this.searchPrefixLists(inputWord)
+        this.searchPrefixList(inputWord)
     }
 
     searchFocusoutHandler(e) {
@@ -157,16 +157,17 @@ export class SearchController {
     //     this.setPrefixListElements()
     // }
 
-    searchPrefixLists(word) {
+    searchPrefixList(word) {
         const highlightLength = word.trim().length
         this.fetchPrefixList(word)
-            .then((prefixArr) => {
-                prefixArr.length === 0? this.addVisibilityHidden(this.$prefixList) : this.removeVisibilityHidden(this.$prefixList);
+            .then((prefixArr) => this.openPrefixList(prefixArr, highlightLength))
+    }
 
-                this.highlightPrefixList(prefixArr, highlightLength)
-                this.setPrefixListElements()
-                this.prefixListState = true
-            })
+    openPrefixList(prefixArr, highlightLength) {
+        prefixArr.length === 0? this.addVisibilityHidden(this.$prefixList) : this.removeVisibilityHidden(this.$prefixList);
+        this.highlightPrefixList(prefixArr, highlightLength)
+        this.setPrefixListElements()
+        this.prefixListState = true
     }
 
     highlightPrefixList(prefixList, highlightLength) {
