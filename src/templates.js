@@ -88,7 +88,7 @@ function createSearchHistoryContainer() {
                 </div>
                 <div class="history-bottom">
                     <button type="button" class="history-deleteAll">전체삭제</button>
-                    <button type="button" class="history-off">최근검색어끄기</button>
+                    <button type="button" class="history-switch">최근검색어끄기</button>
                 </div>
             </div>`
 }
@@ -101,7 +101,11 @@ function createHistoryList(listArray) {
                       </li>`}, ``)
 }
 
+function createHistoryOff() {
+    return `<div class="history-off">최근검색어 기능이 꺼져있습니다.</div>`
+}
+
 export { createList, createTopBar, createSelectList, createHeader,
     createPrefixListContainer, createStrongList, createSearchHistoryContainer,
-    createHistoryList }
+    createHistoryList, createHistoryOff }
 

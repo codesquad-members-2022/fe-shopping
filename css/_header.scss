@@ -237,7 +237,7 @@
   flex-flow: column;
   overflow-y: auto;
 
-  div:nth-child(1) {
+  >div:nth-child(1) {
     font-weight: bold;
     border-bottom: 1px solid #ddd;
     height: 30px;
@@ -279,6 +279,12 @@
       text-decoration: underline;
     }
   }
+}
+
+.history-off {
+  text-align: center;
+  font-size: map-get($header-font, medium);
+  line-height: 100px;
 }
 
 .history-bottom {

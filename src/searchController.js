@@ -1,4 +1,4 @@
-import { createStrongList, createHistoryList } from "./templates.js";
+import { createStrongList, createHistoryList, createHistoryOff } from "./templates.js";
 import {renderHistoryList, renderPrefixList} from "./render.js";
 
 export class SearchController {
@@ -14,6 +14,7 @@ export class SearchController {
         this.keydownState = false
         this.originInputValue = null
         this.historyManager = historyManager
+        this.historyState = true
     }
 
     initSearchController() {
@@ -36,8 +37,6 @@ export class SearchController {
 
     setHistoryListEvent() {
         this.$historyList.addEventListener('click', (e) => this.historyListClickHandler(e))
-        //this.$historyList.addEventListener('focusout', (e) => this.historyListFocusoutHandler(e))
-
     }
 
     setSearchFormEvent() {
@@ -46,9 +45,13 @@ export class SearchController {
 
     historyListClickHandler(e) {
         e.stopPropagation()
-        this.deleteHistoryList(e)
-        this.deleteAllHistoryList(e)
-        //this.toggleHistoryList(e)
+
+        this.toggleHistoryList(e)
+
+        if(this.historyState){
+            this.deleteHistoryList(e)
+            this.deleteAllHistoryList(e)
+        }
     }
 
     deleteHistoryList(e) {
@@ -65,6 +68,23 @@ export class SearchController {
         if(e.target.className !== 'history-deleteAll') return
         this.historyManager.clearItem()
         this.onHistoryList()
+    }
+
+    toggleHistoryList(e) {
+        if(e.target.className !== 'history-switch') return
+        const $historySwitch = document.querySelector('.history-switch')
+        const $historyListOuter = document.querySelector('.history-list')
+
+        if(this.historyState) {
+            this.historyState = false
+            $historySwitch.innerText = '최근검색어켜기'
+            this.offHistoryList()
+        }
+        else {
+            this.historyState = true
+            $historySwitch.innerText = '최근검색어끄기'
+            this.onHistoryList()
+        }
     }
 
     historyListFocusoutHandler(e) {
@@ -125,18 +145,29 @@ export class SearchController {
 
     searchClickHandler(e){
         if(e.target.className === 'search-btn') return
-        if(e.target.className === 'search-input' && e.target.value.length === 0) {
+        if(this.historyState && e.target.value.length === 0) {
             return this.onHistoryList()
+        }
+        if(!this.historyState && e.target.value.length === 0) {
+            return this.offHistoryList()
         }
         if(this.prefixListElements.length === 0) return;
         this.removeVisibilityHidden(this.$prefixList)
     }
 
     onHistoryList() {
-        const $historyListOuter = document.querySelector('.history-list')
         const historyStorage = this.historyManager.getStorage()
-        const historyTemplate = createHistoryList([...historyStorage])
-        renderHistoryList($historyListOuter, historyTemplate)
+        const historyOnTemplate = createHistoryList([...historyStorage])
+        this.openHistoryList(historyOnTemplate)
+    }
+
+    offHistoryList() {
+        const historyOffTemplate = createHistoryOff()
+        this.openHistoryList(historyOffTemplate)
+    }
+    openHistoryList(template) {
+        const $historyListOuter = document.querySelector('.history-list')
+        renderHistoryList($historyListOuter, template)
         this.removeVisibilityHidden(this.$historyList)
     }
 

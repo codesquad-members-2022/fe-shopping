@@ -247,7 +247,7 @@
   flex-flow: column;
   overflow-y: auto;
 }
-.history-top div:nth-child(1) {
+.history-top > div:nth-child(1) {
   font-weight: bold;
   border-bottom: 1px solid #ddd;
   height: 30px;
@@ -283,6 +283,12 @@
 }
 .history-main .history-delete:hover {
   text-decoration: underline;
+}
+
+.history-off {
+  text-align: center;
+  font-size: 24px;
+  line-height: 100px;
 }
 
 .history-bottom {
