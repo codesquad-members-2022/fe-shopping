@@ -37,23 +37,50 @@ export class SearchController {
         }
     }
 
-    setPrefixListElements() {
-        this.prefixListElements = [...this.$searchList.children]
-    }
-
     searchKeydownHandler(e) {
-        if(!this.prefixListState) return;
-        if(e.key === 'ArrowDown') {
+        if(e.key === 'ArrowDown' && this.prefixListState) {
             this.keydownState = true
             this.downPrefixList(e)
         }
-        else if(e.key === 'ArrowUp') {
+        else if(e.key === 'ArrowUp' && this.prefixListState) {
             this.keydownState = true
             this.upPrefixList(e)
         }
         else {
             this.prefixListIndex = null
+            this.keydownState = false
         }
+    }
+
+    searchInputHandler(e) {
+        if(this.keydownState) return
+
+        this.prefixListState = false
+        const inputWord = e.target.value
+        this.originInputValue = inputWord
+        this.searchPrefixLists(inputWord)
+    }
+
+    searchFocusoutHandler(e) {
+        this.addVisibilityHidden()
+        if(e.target.value.length !== 0) return
+        this.prefixListIndex = null
+    }
+
+    searchClickHandler(e){
+        if(!this.prefixListElements || this.prefixListElements.length === 0) return;
+        this.removeVisibilityHidden()
+    }
+
+    setPrefixListElements() {
+        this.prefixListElements = [...this.$searchList.children]
+    }
+
+    setOriginInputState(e) {
+        e.target.value = this.originInputValue
+        this.keydownState = false
+        this.prefixListIndex = null
+        this.removeKeyOn()
     }
 
     upPrefixList(e) {
@@ -78,19 +105,11 @@ export class SearchController {
         this.onKeyDownEffect(e, this.prefixListIndex)
     }
 
-    setOriginInputState(e) {
-        e.target.value = this.originInputValue
-        this.keydownState = false
-        this.prefixListIndex = null
-        this.removeKeyOn()
-    }
-
     onKeyDownEffect(e, index) {
         this.removeKeyOn()
         this.addKeyOn(index)
         this.changeInputValue(e, index)
     }
-
 
     changeInputValue(e, index) {
         const targetElement = this.prefixListElements[index]
@@ -110,52 +129,31 @@ export class SearchController {
         })
     }
 
-    searchFocusoutHandler(e) {
-        this.addVisibilityHidden()
-        this.prefixListIndex = null
-    }
-
     addVisibilityHidden() {
         this.$searchList.classList.add('visibility-hidden')
     }
 
-    searchClickHandler(e){
-        this.reRenderPrefixList()
+    removeVisibilityHidden() {
+        this.$searchList.classList.remove('visibility-hidden')
     }
 
-    reRenderPrefixList() {
-        if(!this.prefixListElements) return;
-        const searchListsTemplate = this.prefixListElements.reduce((acc, cur) => {
-            return acc + cur.outerHTML}, ``)
-        renderFormSearchList(searchListsTemplate)
-        this.removeVisibilityHidden()
-        this.setPrefixListElements()
-    }
-
-    searchInputHandler(e) {
-        const inputWord = e.target.value
-        if(inputWord.length >= 0) {
-            this.searchPrefixLists(inputWord)
-        }
-        else this.addVisibilityHidden()
-    }
+    // reRenderPrefixList() {
+    //     const searchListsTemplate = this.prefixListElements.reduce((acc, cur) => {
+    //         return acc + cur.outerHTML}, ``)
+    //     renderFormSearchList(searchListsTemplate)
+    //     this.removeVisibilityHidden()
+    //     this.setPrefixListElements()
+    // }
 
     searchPrefixLists(word) {
-        if(this.keydownState) return
         const highlightLength = word.trim().length
         this.fetchPrefixList(word)
             .then((prefixArr) => {
-                if(prefixArr.length === 0) {
-                    this.prefixListElements = null
-                    this.addVisibilityHidden()
-                    return
-                }
+                prefixArr.length === 0? this.addVisibilityHidden() : this.removeVisibilityHidden();
 
                 this.highlightPrefixList(prefixArr, highlightLength)
                 this.setPrefixListElements()
-                this.removeVisibilityHidden()
                 this.prefixListState = true
-                this.originInputValue = word
             })
     }
 
@@ -168,24 +166,19 @@ export class SearchController {
     fetchPrefixList(word) {
         if(this.timer) {
             clearTimeout(this.timer)
-            this.prefixListState = false
-            this.originInputValue = null
         }
-        return this.delay(500)
-            .then(() => fetch(
-                    `https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${word}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`
-                ))
-            .then((res) => res.json())
-            .then((data) => data.suggestions.map((v) => v.value))
-    }
-
-    removeVisibilityHidden(e) {
-        this.$searchList.classList.remove('visibility-hidden')
+        return this.delay(500).then(() => this.fetchPrefixListArray(word))
     }
 
     delay(ms) {
         return new Promise((res) => {
             return this.timer = setTimeout(() => res(), ms);
         });
+    }
+
+    fetchPrefixListArray(word) {
+        return fetch(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${word}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`)
+            .then((res) => res.json())
+            .then((prefixData) => prefixData.suggestions.map((v) => v.value))
     }
 }
