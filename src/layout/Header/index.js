@@ -1,5 +1,6 @@
 import Category from '../../components/Category/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
+import { hidePopUp } from '../../utils/manuplateDOM.js';
 import Section from './Section.js';
 
 function Header(htmlTag, $parent) {
@@ -14,6 +15,7 @@ Header.prototype.setTemplate = function () {
   this.$element.id = 'header';
   new Category('div', this.$element);
   new Section('section', this.$element);
+  document.body.addEventListener('click', hidePopUp);
 };
 
 export default Header;

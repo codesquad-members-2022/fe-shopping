@@ -79,7 +79,6 @@ export function hidePopUp({ target }) {
     POP_UP.show
   );
   $openPopUpElement.forEach(
-    ($element) =>
-      !target.classList.contains('pop-up-container') && closePopUp($element)
+    ($element) => !target.closest('.pop-up-container') && closePopUp($element)
   );
 }

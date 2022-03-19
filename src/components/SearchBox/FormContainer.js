@@ -33,7 +33,7 @@ FormContainer.prototype.setEvent = function () {
   const $input = findTargetIdElement($form, 'searchInput');
   this.$input = $input;
   $form.addEventListener('submit', handleSubmit.bind(this));
-  $input.addEventListener('focus', showRecord.bind(this));
+  $input.addEventListener('click', showRecord.bind(this));
   $input.addEventListener('input', handleInput.bind(this));
 };
 

@@ -18,11 +18,15 @@ Category.prototype.setTemplate = function () {
 };
 
 Category.prototype.setEvent = function () {
-  const $categoryButton = findTargetIdElement(this.$element, 'category-button');
-  $categoryButton.addEventListener('click', handleCategoryButton.bind(this));
+  this.$element.addEventListener('click', handleClick.bind(this));
 };
 
-function handleCategoryButton(event) {
+function handleClick({ target }) {
+  const $categoryButton = target.closest('.category__button');
+  $categoryButton.addEventListener('click', handleCategoryButton.apply(this));
+}
+
+function handleCategoryButton() {
   const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
   handleDisplayElement($categoryLayer);
 }
