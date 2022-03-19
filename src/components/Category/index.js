@@ -5,7 +5,7 @@ import {
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
 
-function Category(htmlTag, $parent) {
+export default function Category(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
 }
 
@@ -31,6 +31,43 @@ function handleCategoryButton() {
   handleDisplayElement($categoryLayer);
 }
 
+const mainCategoryList = [
+  '패션의류/잡화',
+  '뷰티',
+  '식품',
+  '출산/유아동',
+  '생활용품',
+  '주방용품',
+  '홈인테리어',
+  '도서/음반/DVD',
+  '스포츠/레저',
+  '문구/오피스',
+  '반려동물용품',
+  '헬스/건강식품',
+  '여행/티켓',
+];
+
+const subCategoryList = [
+  '유아/어린이',
+  '소설/에세이/시',
+  '초중고참고서',
+  '가정 살림',
+  '건강 취미',
+  '경제 경영',
+  '과학/공학',
+  '국어/외국어/사전',
+  '대학교재',
+  '만화/라이트노벨',
+];
+
+const thirdCategoryList = [
+  '유아/어린이',
+  '소설/에세이/시',
+  '초중고참고서',
+  '가정 살림',
+  '건강 취미',
+];
+
 const template = `<div class="category__button pop-up-container" id="category-button">
     <i class="fas fa-bars"></i>
     <span>카테고리</span>
@@ -38,44 +75,23 @@ const template = `<div class="category__button pop-up-container" id="category-bu
   <div class="${POP_UP.hidden}" id="category-layer">
     <div class="category__layer">
     <ul class="category__list">
-      <li><span>패션의류/잡화</span></li>
-      <li><span>뷰티</span></li>
-      <li><span>식품</span></li>
-      <li><span>출산/유아동</span></li>
-      <li><span>생활용품</span></li>
-      <li><span>주방용품</span></li>
-      <li><span>홈인테리어</span></li>
-      <li><span>도서/음반/DVD</span></li>
-      <li><span>스포츠/레저</span></li>
-      <li><span>문구/오피스</span></li>
-      <li><span>반려동물용품</span></li>
-      <li><span>헬스/건강식품</span></li>
-      <li><span>여행/티켓</span></li>
+    ${mainCategoryList
+      .map((mainCategory) => `<li><span>${mainCategory}</span></li>`)
+      .join('')}
     </ul>
     <div class="category__depth">
-      <ul class="category__list-inner">
-        <li><span>유아/어린이</span></li>
-        <li><span>소설/에세이/시</span></li>
-        <li><span>초중고참고서</span></li>
-        <li><span>가정 살림</span></li>
-        <li><span>건강 취미</span></li>
-        <li><span>경제 경영</span></li>
-        <li><span>과학/공학</span></li>
-        <li><span>국어/외국어/사전</span></li>
-        <li><span>대학교재</span></li>
-        <li><span>만화/라이트노벨</span></li>
-      </ul>
+    <ul class="category__list-inner">
+    ${subCategoryList
+      .map((subCategory) => `<li><span>${subCategory}</span></li>`)
+      .join('')}
+    </ul>
     </div>
     <div class="category__depth">
-      <ul class="category__list-inner">
-        <li><span>유아/어린이</span></li>
-        <li><span>소설/에세이/시</span></li>
-        <li><span>초중고참고서</span></li>
-        <li><span>가정 살림</span></li>
-        <li><span>건강 취미</span></li>
-      </ul>
+    <ul class="category__list-inner">
+    ${thirdCategoryList
+      .map((thirdCategory) => `<li><span>${thirdCategory}</span></li>`)
+      .join('')}
+    </ul>
     </div>
     </div>
   </div>`;
-
-export default Category;
