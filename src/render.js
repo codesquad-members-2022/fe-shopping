@@ -10,7 +10,7 @@ function renderHeader() {
     const $headerContainer = document.querySelector('.header-container')
     renderTopBar($headerContainer, topBarMenu, topBarSubMenu)
     renderHeaderWithNavBar($headerContainer, headerNavMenu)
-    renderFormOfHeader(selectList)
+    renderFormInHeader(selectList)
 }
 
 function renderHeaderContainer() {
@@ -29,12 +29,13 @@ function renderHeaderWithNavBar(elem, navMenu) {
     elem.innerHTML += header
 }
 
-function renderFormOfHeader(selectList) {
+function renderFormInHeader(selectList) {
     const $formSelect = document.querySelector('.header__form__select')
     const $formSearch = document.querySelector('.header__form__search')
 
     renderSelectList($formSelect, selectList)
-    renderSearchContainer($formSearch)
+    renderPrefixListContainer($formSearch)
+    renderSearchHistoryContainer($formSearch)
 }
 
 function renderSelectList(elem, list) {
@@ -42,15 +43,22 @@ function renderSelectList(elem, list) {
     elem.innerHTML += $selectList
 }
 
-function renderSearchContainer(elem) {
-    const $searchList = Templates.createSearchListContainer()
-    elem.innerHTML += $searchList
-
+function renderPrefixListContainer(elem) {
+    const $prefixList = Templates.createPrefixListContainer()
+    elem.innerHTML += $prefixList
 }
 
-function renderSearchList(template) {
-    const $formSearchList = document.querySelector('.header__search__list')
-    $formSearchList.innerHTML = template
+function renderPrefixList(elem, template) {
+    elem.innerHTML = template
 }
 
-export { renderHeader, renderSearchList }
+function renderSearchHistoryContainer(elem) {
+    const $searchHistory = Templates.createSearchHistoryContainer()
+    elem.innerHTML += $searchHistory
+}
+
+function renderHistoryList(elem, template) {
+    elem.innerHTML = template
+}
+
+export { renderHeader, renderPrefixList, renderHistoryList }

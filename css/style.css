@@ -203,11 +203,11 @@
   cursor: pointer;
 }
 
-.header__search__list {
+.header__search__prefix-container {
   max-height: 800px;
   border: 1px solid #ddd;
   background-color: #fff;
-  width: 80%;
+  width: 100%;
   position: absolute;
   top: 37px;
   left: -1px;
@@ -215,14 +215,89 @@
   overflow-y: auto;
   box-shadow: 0 5px 5px #ddd;
 }
-.header__search__list li {
+.header__search__prefix-container li {
   color: black;
   font-size: 12px;
   padding: 7px;
 }
-.header__search__list li strong {
+.header__search__prefix-container li strong {
   color: #008cff;
   font-weight: bold;
+}
+
+.header__search__history-container {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  top: 37px;
+  left: -1px;
+  right: auto;
+  display: flex;
+  flex-flow: column;
+}
+
+.history-top {
+  height: 300px;
+  font-size: 13.2px;
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+  overflow-y: auto;
+}
+.history-top div:nth-child(1) {
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  height: 30px;
+  line-height: 30px;
+}
+
+.history-main {
+  flex-grow: 1;
+  padding: 10px 0;
+  line-height: 30px;
+}
+.history-main li {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  font-size: 13.2px;
+}
+.history-main li a {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.history-main li a:hover {
+  text-decoration: underline;
+}
+.history-main .history-delete {
+  cursor: pointer;
+  width: 12%;
+  background-color: #fff;
+  border: 0;
+  outline: 0;
+  font-size: 12px;
+}
+.history-main .history-delete:hover {
+  text-decoration: underline;
+}
+
+.history-bottom {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #e1e1e1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.history-bottom button {
+  cursor: pointer;
+  background-color: #e1e1e1;
+  font-size: 12px;
+  border: 0;
+  outline: 0;
 }
 
 .key-on {

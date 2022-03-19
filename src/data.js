@@ -32,5 +32,7 @@ export const selectList = ['전체',
     '실버스토어']
 
 export const topBarMenu = ['로그인', '회원가입', '고객센터']
+
 export const topBarSubMenu = ['즐겨찾기', '가입신청']
+
 export const headerNavMenu = ['로켓배송', '로켓프레시', '쿠팡비즈', '로켓직구', '골드박스', '와우회원할인', '이벤트/쿠폰', '기획전', '여행/티켓']

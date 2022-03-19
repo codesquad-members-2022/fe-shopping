@@ -72,10 +72,36 @@ function createSelectList(list) {
             </ul>`
 }
 
-function createSearchListContainer() {
-    return `<ul class="header__search__list visibility-hidden">
+function createPrefixListContainer() {
+    return `<ul class="header__search__prefix-container visibility-hidden">
             </ul>`
 }
 
-export { createList, createTopBar, createSelectList, createHeader, createSearchListContainer, createStrongList }
+function createSearchHistoryContainer() {
+    return `<div class="header__search__history-container visibility-hidden">
+                <div class="history-top">
+                    <div><p>최근 검색어</p></div>
+                    <div class="history-main">
+                        <ul class="history-list">                 
+                        </ul>
+                    </div>
+                </div>
+                <div class="history-bottom">
+                    <button type="button" class="history-deleteAll">전체삭제</button>
+                    <button type="button" class="history-off">최근검색어끄기</button>
+                </div>
+            </div>`
+}
+
+function createHistoryList(listArray) {
+    return listArray.reduce((acc, cur) => {
+        return acc + `<li>
+                        <a>${cur}</a>
+                        <button type="button" class="history-delete">삭제</button>
+                      </li>`}, ``)
+}
+
+export { createList, createTopBar, createSelectList, createHeader,
+    createPrefixListContainer, createStrongList, createSearchHistoryContainer,
+    createHistoryList }
 
