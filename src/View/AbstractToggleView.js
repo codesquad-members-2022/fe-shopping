@@ -16,4 +16,18 @@ ToggleView.prototype.renderToggle = function (childDom) {
   this.parentDom.appendChild(childDom);
 };
 
+ToggleView.prototype.isEmptyArr = function (arr) {
+  if (!Array.isArray(arr) || arr.length <= 0) {
+    return true;
+  }
+};
+
+ToggleView.prototype.removePrevView = function (prevClassName) {
+  const prevSearchData = domUtil.$(prevClassName);
+  if (prevSearchData) {
+    prevSearchData.remove();
+    return true;
+  }
+};
+
 export { ToggleView };

@@ -1,5 +1,8 @@
 import { ToggleView } from "./AbstractToggleView.js";
-import { SearchInputToggle } from "../Components/headerToggle.js";
+import {
+  SearchInputToggle,
+  SearchMenuToggle,
+} from "../Components/headerToggle.js";
 import * as domUtil from "/util/domutil.js";
 import * as fetchUtil from "../util/fetchutil.js";
 import { Toggle } from "../Components/AbstractToggle.js";
@@ -16,21 +19,42 @@ function SearchMenuToggleView() {
 SearchInputToggleView.prototype = Object.create(ToggleView.prototype);
 SearchMenuToggleView.prototype = Object.create(ToggleView.prototype);
 
-SearchMenuToggleView.prototype.renderToggle = function (childDom) {
-  const childDomClassName = ".search--menu--li";
-  const childDom = domUtil.target$(this.parentDom, childDomClassName);
-  if (domUtil.target$(this.parentDom, childDomClassName)) {
-    childDom.remove();
+SearchMenuToggleView.prototype.renderToggle = async function (inputValue) {
+  const searchMenuToggleData = await fetchUtil.fetchData("search/menu/toggle");
+  this.generateMenuContents(searchMenuToggleData);
+};
+
+SearchMenuToggleView.prototype.generateMenuContents = function (data) {
+  const prevMenuClassName = ".search--menu--ul";
+  if (this.removePrevView(prevMenuClassName)) {
     return;
   }
-  this.parentDom.appendChild(childDom);
+
+  const searchZoneToggle = new SearchMenuToggle(data);
+  this.parentDom.appendChild(searchZoneToggle.dom);
+};
+
+SearchMenuToggleView.prototype.clickedOutMenu = function (className) {
+  const menuClass = [
+    "search--menu--ul",
+    "search--menu--li",
+    "header__main--inputMenuButton",
+    "header__main--inputMenu",
+  ];
+  if (menuClass.includes(className)) {
+    return;
+  }
+
+  this.removePrevView(".search--menu--ul");
 };
 
 SearchInputToggleView.prototype.renderAutoComplete = async function (
   inputValue
 ) {
-  const autocompleteToggle = await fetchUtil.fetchData(`search/${inputValue}`);
-  this.generateSearchContents(autocompleteToggle);
+  const autocompleteToggleData = await fetchUtil.fetchData(
+    `search/${inputValue}`
+  );
+  this.generateSearchContents(autocompleteToggleData);
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
@@ -62,10 +86,10 @@ SearchInputToggleView.prototype.generateSearchContents = function (data) {
   if (this.isEmptyArr(data)) {
     return;
   }
-  const prevSearchData = domUtil.$(".search--toggle--ul");
-  if (prevSearchData) {
-    prevSearchData.remove();
-  }
+
+  const prevClassName = ".search--toggle--ul";
+  this.removePrevView(prevClassName);
+
   const searchZoneToggle = new SearchInputToggle(data);
   this.parentDom.appendChild(searchZoneToggle.dom);
 }; // 필요할 경우 searchHitoryZone 비슷한 방식으로 구현해야함

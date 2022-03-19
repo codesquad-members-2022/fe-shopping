@@ -35,7 +35,7 @@ class SearchZoneController {
       this.onClickSearchMenu(event)
     );
     document.body.addEventListener("click", (event) =>
-      this.removeSearchMenu(event)
+      this.onClickOutSearchMenu(event)
     );
   }
 
@@ -68,10 +68,8 @@ class SearchZoneController {
     }
   }
 
-  removeSearchMenu() {
-    if (this.menuDom.parentNode.children.length > 1) {
-      this.menuDom.parentNode.children[1].remove();
-    }
+  onClickOutSearchMenu({ target: { className } }) {
+    this.menuView.clickedOutMenu(className);
   }
 }
 
