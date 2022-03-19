@@ -10,18 +10,33 @@ import {
 import { fetch_use } from "/util/fetchutil.js";
 
 class SearchZoneController {
-  constructor(inputDom, menuDom, inputView, menuView) {
+  constructor(inputDom, menuDom, inputView, menuView, inputSearch) {
     this.inputDom = domUtil.$(inputDom);
     this.menuDom = domUtil.$(menuDom);
-    this.inputView = inputView;
-    this.menuView = menuView;
+    this.inputView = inputView; // view컨트롤러를 외부에서 변수 저장하고 사용할까 프로퍼티로 사용할까?
+    this.menuView = menuView; // new ViewController()
+    this.inputSearch = domUtil.$(inputSearch);
     this.searched = [];
   }
+
   initService() {
-    this.inputDom.addEventListener("input", this.onInputSearchInput.bind(this));
-    this.inputDom.addEventListener("keydown", this.onKeyDownEnter.bind(this));
-    this.menuDom.addEventListener("click", this.onClickSearchMenu.bind(this));
-    document.body.addEventListener("click", this.removeSearchMenu.bind(this));
+    this.inputDom.addEventListener("input", (event) =>
+      this.onInputSearchInput(event)
+    );
+
+    this.inputSearch.addEventListener("focus", (event) =>
+      this.onFocusSearchinput(event)
+    );
+
+    this.inputDom.addEventListener("keydown", (event) =>
+      this.onKeyDownEnter(event)
+    );
+    this.menuDom.addEventListener("click", (event) =>
+      this.onClickSearchMenu(event)
+    );
+    document.body.addEventListener("click", (event) =>
+      this.removeSearchMenu(event)
+    );
   }
 
   onInputSearchInput({ target: { value } }) {
@@ -29,16 +44,21 @@ class SearchZoneController {
       `search/${value}`,
       (jsonData) => new SearchInputToggle(jsonData).dom
     )
-      .then(this.inputView.renderToggle.bind(this.inputView))
+      .then(() => this.inputView.renderToggle())
       .then(() => this.inputView.renderHistory());
+  }
+
+  onFocusSearchinput() {
+    this.inputView.renderHistory();
   }
 
   onClickSearchMenu() {
     fetch_use(
       "search/menu/toggle",
       (jsonData) => new SearchMenuToggle(jsonData).dom
-    ).then(this.menuView.renderToggle.bind(this.menuView));
+    ).then(() => this.menuView.renderToggle());
   }
+
   onKeyDownEnter(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
