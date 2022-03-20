@@ -1,5 +1,6 @@
-export default function HtmlElement($element) {
+export default function HtmlElement($element, args) {
   this.$element = $element;
+  this.args = args;
   this.state;
   this.init();
   this.render();

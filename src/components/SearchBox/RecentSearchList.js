@@ -7,8 +7,8 @@ import { SEARCH_BOX } from '../../constant/constant.js';
 
 const { RECENT__DELETE, RECENT__TERM, RECENT__DELETE__ALL } = SEARCH_BOX;
 
-export default function RecentSearchList($element) {
-  HtmlElement.call(this, $element);
+export default function RecentSearchList($element, args) {
+  HtmlElement.call(this, $element, args);
 }
 
 RecentSearchList.prototype = Object.create(HtmlElement.prototype);
@@ -16,12 +16,12 @@ RecentSearchList.prototype.constructor = RecentSearchList;
 
 RecentSearchList.prototype.init = function () {
   this.state = {
-    recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
+    ...this.args,
   };
 };
 
 RecentSearchList.prototype.setTemplate = function () {
-  const recentSearchList = this.state.recentSearchList;
+  const { recentSearchList } = this.state;
   return `
 <h5>최근 검색어</h5>
 <ul id="recentSearchList">
