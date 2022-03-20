@@ -150,6 +150,7 @@ h2 {
 
 .search {
   position: relative;
+  cursor: pointer;
 }
 
 .search__input {

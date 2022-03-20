@@ -133,16 +133,30 @@ const hideSearchList = () => {
     relatedSearchList.hide();
 };
 
+const clearRecentSearchList = () => {
+    recentSearchList.reset();
+    recentSearchList.renderSearchList();
+};
+
 const onSearchEvent = () => {
+    document.body.addEventListener("click", ({ target }) => {
+        if (!target.closest(".search")) {
+            hideSearchList();
+        }
+    });
+
     searchInput.searchInputNode.addEventListener("focus", () => {
         recentSearchList.show();
     });
-    searchInput.searchInputNode.addEventListener("blur", hideSearchList);
     searchInput.searchInputNode.addEventListener(
         "keydown",
         keyDownEventHandler
     );
     searchInput.searchInputNode.addEventListener("input", inputEventHandler);
+
+    recentSearchList.searchListNode
+        .querySelector(".clear-all")
+        .addEventListener("click", clearRecentSearchList);
 };
 
 export { onSearchEvent };
