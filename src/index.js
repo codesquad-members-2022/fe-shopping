@@ -14,7 +14,7 @@ const searchZoneControllerParm = {
   menuDom: ".header__main--inputMenu",
   historyRemoveBtn: ".header__main--deleteHistoryBtn",
   inputView: viewTest,
-  menutView: menuView,
+  menuView: menuView,
   inputSearch: ".header__main--searchInput",
 };
 

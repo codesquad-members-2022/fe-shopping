@@ -62,9 +62,9 @@ SearchInputToggleView.prototype.renderAutoComplete = async function (
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
-  if (this.hasHistoryZone()) {
-    return;
-  }
+  // if (this.hasHistoryZone()) {
+  //   return;
+  // }
   const searchHistory = this.checkHistory();
 
   this.generateSearchContents(searchHistory);
@@ -99,6 +99,7 @@ SearchInputToggleView.prototype.generateSearchContents = function (data) {
   this.removePrevView(prevClassName);
 
   const searchZoneToggle = new SearchInputToggle(data);
+  this.addReomoveHisoryEvent(searchZoneToggle.dom);
   this.parentDom.appendChild(searchZoneToggle.dom);
 };
 

@@ -28,19 +28,12 @@ class SearchZoneController {
   }
 
   initService() {
-    this.inputDom.addEventListener("input", (event) =>
-      this.onInputSearchInput(event)
-    );
+    this.inputDom.addEventListener("input", (event) => {
+      this.onInputSearchInput(event);
+    });
 
     this.inputSearch.addEventListener("focus", (event) => {
       this.onFocusSearchinput(event);
-      this.historyRemoveBtn = domUtil.$(this.historyRemoveBtn);
-      this.historyRemoveBtn.addEventListener(
-        "click",
-        function () {
-          this.onClickRemoveBtn();
-        }.bind(this)
-      );
     });
 
     this.inputDom.addEventListener("keydown", (event) =>
