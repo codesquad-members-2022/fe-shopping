@@ -1,24 +1,27 @@
-const $slideList = document.querySelector(".slide__list");
-const $banner__category = document.querySelector(".banner__category");
-const liCount = $slideList.childElementCount;
-let count = 1;
+import { searchCategories, searchData } from "./data/data.js";
+import carousel from "./carousel.js";
+import SearchCategory from "./components/SearchCategory.js";
+import SearchBar from "./components/SearchBar.js";
+import SearchCategoryDropBox from "./components/SearchCategoryDropBox.js";
+import SearchBarDropBox from "./components/SearchBarDropBox.js";
 
-const showNextSlide = (id) => {
-  const remaindar = id % liCount;
-  const moveNum = remaindar === 0 ? 0 : remaindar;
-  console.log(moveNum);
-  $slideList.style.transform = `translateX(-${moveNum * 100}vw)`;
-  count = id;
-  count += 1;
-};
+const category = new SearchCategory();
+const categoriesDropBox = new SearchCategoryDropBox();
+category.handleClickSearchCategory();
+categoriesDropBox.handleClickSearchCategory();
+categoriesDropBox.appendElement({ data: searchCategories });
 
-const sec = 3000;
-setInterval(() => {
-  showNextSlide(count);
-}, sec);
+const searchBar = new SearchBar();
+const searchBarDropBox = new SearchBarDropBox();
+searchBarDropBox.appendElement({ data: searchData });
+searchBarDropBox.handleClickDocumentWhenDropDown();
 
-$banner__category.addEventListener("mouseover", (event) => {
-  const $category = event.target.closest("li");
-  const currentId = $category.dataset.id - 1;
-  showNextSlide(currentId);
+searchBar.handleFocusInput({
+  dropDown: (hasDropBox) => {
+    if (hasDropBox) {
+      searchBarDropBox.render();
+    }
+  },
 });
+
+carousel();
