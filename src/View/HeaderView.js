@@ -55,6 +55,11 @@ SearchMenuToggleView.prototype.clickedOutMenu = function (className) {
 SearchInputToggleView.prototype.renderAutoComplete = async function (
   inputValue
 ) {
+  if (inputValue === "") {
+    this.renderHistory();
+    return;
+  }
+
   const autocompleteToggleData = await fetchUtil.fetchData(
     `search/${inputValue}`
   );
@@ -62,12 +67,10 @@ SearchInputToggleView.prototype.renderAutoComplete = async function (
 };
 
 SearchInputToggleView.prototype.renderHistory = function () {
-  // if (this.hasHistoryZone()) {
-  //   return;
-  // }
+  // 현재 검증이 없음 만약 문제생기면 의심 필요
   const searchHistory = this.checkHistory();
 
-  this.generateSearchContents(searchHistory);
+  this.generateSearchContents(searchHistory.reverse());
 };
 
 SearchInputToggleView.prototype.removeHistory = function () {
