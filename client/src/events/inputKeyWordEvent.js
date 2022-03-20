@@ -9,7 +9,7 @@ export const inputKeyWordEvent = () => {
 
   const toggleElementClassByKeyEvent = (element, className) => {
     element.forEach(element => {
-      parseInt(element.getAttribute('data-id')) === searchWord.index
+      parseInt(element.getAttribute('data-id')) === searchWord.position
         ? element.classList.remove(className)
         : element.classList.add(className);
     });
@@ -17,15 +17,15 @@ export const inputKeyWordEvent = () => {
 
   const keyupEvent = () => {
     const searchLinks = $$('.search--link');
-    searchWord.index--;
-    if (searchWord.index < 0) searchWord.index = searchLinks.length - 1;
+    searchWord.minusPosition();
+    if (searchWord.position < 0) searchWord.setPosition(searchLinks.length - 1);
     toggleElementClassByKeyEvent(searchLinks, 'text-none');
   };
 
   const keydownEvent = () => {
     const searchLinks = $$('.search--link');
-    searchWord.index++;
-    if (searchWord.index >= searchLinks.length) searchWord.index = 0;
+    searchWord.addPosition();
+    if (searchWord.position >= searchLinks.length) searchWord.setPosition(0);
     toggleElementClassByKeyEvent(searchLinks, 'text-none');
   };
 

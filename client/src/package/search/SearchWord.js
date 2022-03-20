@@ -7,7 +7,7 @@ export default function SearchWord() {
   this.currentWord = '';
   this.turn = true;
   this.onRecent = true;
-  this.index = -1;
+  this.position = -1;
 }
 
 SearchWord.prototype.pushRecentWords = function () {
@@ -33,6 +33,18 @@ SearchWord.prototype.turnOn = function () {
 
 SearchWord.prototype.getTurn = function () {
   return this.turn;
+};
+
+SearchWord.prototype.setPosition = function (position) {
+  this.position = position;
+};
+
+SearchWord.prototype.addPosition = function () {
+  this.position++;
+};
+
+SearchWord.prototype.minusPosition = function () {
+  this.position--;
 };
 
 SearchWord.prototype.removeAll = function () {
