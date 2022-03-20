@@ -26,15 +26,15 @@
   background-color: map-get($header-bg-color, white);
   box-shadow: 0 4px 5px map-get($header-bg-color, gray);
 
-  li {
-    border: 2px solid #fff;
-
-    &:hover {
-      border: 2px solid #008cff;
-    }
-  }
-
   img {
     display: block;
   }
+}
+
+.banner__smallImg-basicBorder {
+  border: 2px solid #fff;
+}
+
+.banner__smallImg-blueBorder {
+  border: 2px solid #008cff;
 }

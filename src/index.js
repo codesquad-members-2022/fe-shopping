@@ -3,6 +3,7 @@ import { renderBanner } from "./renderBanner.js";
 import { initSelectCategoryEvent } from "./selectCategoryController.js";
 import { SearchController } from "./searchController.js";
 import { StorageManager } from "./storageManager.js";
+import { BannerController } from "./bannerController.js";
 
 function init() {
     renderHeader()
@@ -13,6 +14,8 @@ function init() {
     searchController.initSearchController()
 
     renderBanner()
+    const bannerController = new BannerController()
+    bannerController.initBannerController()
 }
 
 init();

@@ -405,14 +405,16 @@
   background-color: #fff;
   box-shadow: 0 4px 5px #e1e1e1;
 }
-.banner__smallImg-container li {
-  border: 2px solid #fff;
-}
-.banner__smallImg-container li:hover {
-  border: 2px solid #008cff;
-}
 .banner__smallImg-container img {
   display: block;
+}
+
+.banner__smallImg-basicBorder {
+  border: 2px solid #fff;
+}
+
+.banner__smallImg-blueBorder {
+  border: 2px solid #008cff;
 }
 
 /*# sourceMappingURL=style.css.map */

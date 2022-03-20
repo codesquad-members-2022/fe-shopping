@@ -12,7 +12,7 @@ function renderBanner() {
     const $bigImgContainer = document.querySelector('.banner__bigImg-container')
     const $smallImgContainer = document.querySelector('.banner__smallImg-container')
     renderBannerSmallImg($smallImgContainer, bannerSmallImages)
-    renderBannerBigImg($bigImgContainer, 0)
+    renderBannerBigImg($bigImgContainer, bannerBigImages)
 }
 
 function renderBannerContainer() {
@@ -33,18 +33,18 @@ function renderSmallImgContainer(parentElem) {
     parentElem.appendChild(smallImgContainer)
 }
 
-function renderBannerBigImg(target, urlIndex) {
-    const url = bannerBigImages[urlIndex]
-    const template = `<a>
-                        <img src="${url}">
-                      </a>`
+function renderBannerBigImg(target, urlList) {
+    const template = urlList.reduce((acc, cur) => {
+        return acc + `<a class="visibility-hidden">
+                        <img src="${cur}">
+                      </a>`}, ``)
     target.innerHTML = template
 }
 
 function renderBannerSmallImg(target, urlList) {
     const template = urlList.reduce((acc, cur, idx) => {
-        return acc + `<li>
-               <a><img data-index="${idx}" src="${cur}"></a>
+        return acc + `<li class="banner__smallImg-basicBorder" data-index="${idx}">
+               <a><img src="${cur}"></a>
             </li>`}, ``)
     target.innerHTML = template
 }
