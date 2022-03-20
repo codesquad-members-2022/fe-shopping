@@ -1,14 +1,14 @@
-export class RecentSearchView {
-  constructor(data) {
-    this.recentSearchStorage = data;
+import {SearchView} from './searchView.js'
+
+export class RecentSearchView extends SearchView {
+  constructor() {
+    super();
+    this.$popupKeywords = document.querySelector('.popup-keywords');
   }
-  renderSearchHistory() {
-    const $popupKeywords = document.querySelector('.popup-keywords');
-    let popupKeywordsTemplate = this.recentSearchStorage.reduce((template, recentSearch) => {
-      template += `<li>${recentSearch}</li>`;
-      return template;
-    }, '<ul>');
-    popupKeywordsTemplate+= '</ul>'
-    $popupKeywords.innerHTML = popupKeywordsTemplate;
+  renderRecentSearch(keywordList) {
+    let popupKeywordsTemplate = '<h3 class="recent-search-text">최근 검색어</h3>';
+    let keywordsTemplate = super.createKeywordsTemplate(keywordList, 'recent-search-list');
+    popupKeywordsTemplate += keywordsTemplate;
+    this.$popupKeywords.innerHTML = popupKeywordsTemplate;
   }
 }
