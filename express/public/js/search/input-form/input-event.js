@@ -1,11 +1,13 @@
 import { $ } from '../../utility/util.js';
 import RecentWord from './recent-words.js';
 import Autocomplete from './autocomplete.js';
+import AutoKeyword from './auto-keyword.js';
 
 export default class InputEvent {
   constructor() {
     this.recentWords = new RecentWord();
     this.autoComplete = new Autocomplete();
+    this.autoKeyword = new AutoKeyword();
   }
 
   addInputEvent() {
@@ -19,7 +21,9 @@ export default class InputEvent {
   nodrawHistoryContents = () => this.recentWords.noShowRecentSearches();
 
   drawAutocomplete = ({ code }) => {
-    if (code === 'ArrowDown') console.log(1);
+    if (code === 'ArrowDown' || code === 'ArrowUp') {
+      this.autoKeyword.findList(code);
+    }
 
     this.nodrawHistoryContents();
     this.autoComplete.checkInputText();
