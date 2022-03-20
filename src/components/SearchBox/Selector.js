@@ -14,9 +14,7 @@ Selector.prototype.constructor = Selector;
 // Object.setPrototypeOf(Selector.prototype, HtmlElement.prototype);
 
 Selector.prototype.setTemplate = function () {
-  const elementClassList = ['search__selector', 'pop-up-container'];
-  this.$element.classList.add(...elementClassList);
-  this.$element.innerHTML = template;
+  return template;
 };
 
 Selector.prototype.setEvent = function () {

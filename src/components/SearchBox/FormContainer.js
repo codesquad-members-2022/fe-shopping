@@ -2,30 +2,35 @@ import {
   MAX_LOCAL_STORAGE,
   RECENT_SEARCH_LIST,
 } from '../../constant/constant.js';
+import { POP_UP } from '../../constant/htmlSelector.js';
 import { moveToSearchTermPage } from '../../router.js';
 import HtmlElement from '../../utils/HtmlElement.js';
 import {
+  findTargetClassElement,
   findTargetIdElement,
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
 import { myLocalStorage } from '../../utils/util.js';
 import RecentSearchList from './RecentSearchList.js';
 
-export default function FormContainer(htmlTag, $parent) {
+export default function FormContainer($element) {
   this.$RecentSearchList = null;
   this.state = {
     inputValue: '',
   };
-  HtmlElement.call(this, htmlTag, $parent);
+  HtmlElement.call(this, $element);
 }
 
 FormContainer.prototype = Object.create(HtmlElement.prototype);
 FormContainer.prototype.constructor = FormContainer;
 
 FormContainer.prototype.setTemplate = function () {
-  this.$element.classList.add('search__container');
-  this.$element.innerHTML = template;
-  this.$RecentSearchList = new RecentSearchList('div', this.$element);
+  return template;
+};
+
+FormContainer.prototype.renderChild = function () {
+  const $searchRecord = findTargetClassElement(this.$element, 'search__record');
+  this.$RecentSearchList = new RecentSearchList($searchRecord);
 };
 
 FormContainer.prototype.setEvent = function () {
@@ -73,8 +78,7 @@ function handleInput({ target }) {
 }
 
 function showRecord() {
-  const $record = findTargetIdElement(this.$element, 'searchRecord');
-  handleDisplayElement($record);
+  handleDisplayElement(this.$RecentSearchList.$element);
 }
 
 const template = `<form class="search__form" id="searhForm">
@@ -90,4 +94,5 @@ class="pop-up-container"
   <span><i class="fas fa-search"></i></span>
 </div>
 </form>
+<div class="search__record ${POP_UP.hidden}" id="searchRecord"></div>
 `;

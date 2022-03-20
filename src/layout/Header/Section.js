@@ -1,10 +1,13 @@
 import Navigation from '../../components/Navigation/index.js';
 import SearchBox from '../../components/SearchBox/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
-import { findTargetIdElement } from '../../utils/manuplateDOM.js';
+import {
+  findTargetClassElement,
+  findTargetIdElement,
+} from '../../utils/manuplateDOM.js';
 
-export default function Section(htmlTag, $parent) {
-  HtmlElement.call(this, htmlTag, $parent);
+export default function Section($element) {
+  HtmlElement.call(this, $element);
 }
 
 Section.prototype = Object.create(HtmlElement.prototype);
@@ -12,13 +15,21 @@ Section.prototype.constructor = Section;
 // Object.setPrototypeOf(Section.prototype, HtmlElement.prototype);
 
 Section.prototype.setTemplate = function () {
-  const logoArea = document.createElement('div');
-  logoArea.classList.add('logo-area');
-  logoArea.insertAdjacentHTML('beforeend', imgTemplate);
-  new SearchBox('div', logoArea);
-  logoArea.insertAdjacentHTML('beforeend', userInfoTemplate);
-  this.$element.appendChild(logoArea);
-  new Navigation('nav', this.$element);
+  return `
+    <div class="logo-area">
+      ${imgTemplate}
+      <div class="search"></div>
+      ${userInfoTemplate}
+    </div>
+    <div class="gnb"></div>
+  `;
+};
+
+Section.prototype.renderChild = function () {
+  const $gnb = findTargetClassElement(this.$element, 'gnb');
+  const $searchBox = findTargetClassElement(this.$element, 'search');
+  new SearchBox($searchBox);
+  new Navigation($gnb);
 };
 
 Section.prototype.setEvent = function () {

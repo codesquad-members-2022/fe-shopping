@@ -1,17 +1,14 @@
 import HtmlElement from '../../utils/HtmlElement.js';
 
-function Navigation(htmlTag, $parent) {
+export default function Navigation(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
 }
 Navigation.prototype = Object.create(HtmlElement.prototype);
 Navigation.prototype.constructor = Navigation;
 
 Navigation.prototype.setTemplate = function () {
-  this.$element.classList.add('gnb');
-  this.$element.innerHTML = template;
+  return template;
 };
-
-export default Navigation;
 
 const template = `
 <ul class="gnb__container">

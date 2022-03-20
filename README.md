@@ -162,3 +162,30 @@ https://developer.mozilla.org/en-US/docs/Web/API/Element/focusout_event
 https://developer.mozilla.org/en-US/docs/Web/API/Element/focusin_event
 
 ### input vs change
+
+5. htmlElement 로직 수정
+
+현재
+
+- HtmlElement을 선언할 때 해당 html tag자체를 생성해서 id값과 class를 setTemplate에서 선언해야함. 그러다보니 템플릿 구조가 한 눈에 보이지 않고, id,class를 수정할 때 찾기 어려움.
+- 3단계(탬플릿 만들기, 렌더링하기, 이벤트 달기)로 되어 있어, 각 단계별로 처리하는 일이 많아짐.
+
+```js
+Section.prototype.setTemplate = function () {
+  return `
+    <div class="logo-area">
+      ${imgTemplate}
+      <div class="search"></div>
+      ${userInfoTemplate}
+    </div>
+    <div class="gnb"></div>
+  `;
+  // const logoArea = document.createElement('div');
+  // logoArea.classList.add('logo-area');
+  // logoArea.insertAdjacentHTML('beforeend', imgTemplate);
+  // new SearchBox('div', logoArea);
+  // logoArea.insertAdjacentHTML('beforeend', userInfoTemplate);
+  // this.$element.appendChild(logoArea);
+  // new Navigation('nav', this.$element);
+};
+```

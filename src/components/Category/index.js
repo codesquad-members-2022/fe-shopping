@@ -5,17 +5,15 @@ import {
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
 
-export default function Category(htmlTag, $parent) {
-  HtmlElement.call(this, htmlTag, $parent);
+export default function Category($element) {
+  HtmlElement.call(this, $element);
 }
 
 Category.prototype = Object.create(HtmlElement.prototype);
 Category.prototype.constructor = Category;
 
 Category.prototype.setTemplate = function () {
-  const elementClassList = ['category', 'pop-up-container'];
-  this.$element.classList.add(...elementClassList);
-  this.$element.innerHTML = template;
+  return template;
 };
 
 Category.prototype.setEvent = function () {
