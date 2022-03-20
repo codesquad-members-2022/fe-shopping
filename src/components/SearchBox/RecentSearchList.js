@@ -32,7 +32,7 @@ RecentSearchList.prototype.setTemplate = function () {
   </ul>
 <div>
   <button class=${RECENT__DELETE__ALL}>전체삭제</button>
-  <button class="">최근 검색어 끄기</button>
+  <button id="">최근 검색어 끄기</button>
 </div>`;
 };
 

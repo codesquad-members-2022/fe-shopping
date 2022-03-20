@@ -36,7 +36,7 @@ SearchBox.prototype.setTemplate = function () {
 SearchBox.prototype.renderChild = function () {
   const $selector = findTargetClassElement(this.$element, 'search__selector');
   const $searchRecord = findTargetClassElement(this.$element, 'search__record');
-  new Selector($selector);
+  new Selector($selector, { scope: this.state.scope });
   this.$RecentSearchList = new RecentSearchList($searchRecord, {
     recentSearchList: this.state.recentSearchList,
   });
@@ -64,7 +64,7 @@ function handleRecentSearchList(recentSearchList, inputValue) {
 
 function handleSubmit(event) {
   event.preventDefault();
-  const { inputValue } = this.state;
+  const { scope, inputValue } = this.state;
   const searchTerm = inputValue;
   const { recentSearchList } = this.$RecentSearchList.state;
   const updatedRecentSearchList = handleRecentSearchList(
@@ -77,7 +77,7 @@ function handleSubmit(event) {
     recentSearchList: updatedRecentSearchList,
   });
   this.$input.value = '';
-  moveToSearchTermPage(searchTerm);
+  moveToSearchTermPage(scope, searchTerm);
 }
 
 function handleInput({ target }) {
