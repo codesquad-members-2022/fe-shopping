@@ -1,5 +1,5 @@
 import { $, $$, fetchPostData, delay } from '../utils/util.js';
-import { KEY_UP_CODE, KEY_DOWN_CODE } from '../constants/constant.js';
+import { KEY_ARROW_UP, KEY_ARROW_DOWN } from '../constants/constant.js';
 import SearchWord from '../package/search/SearchWord.js';
 
 export const inputKeyWordEvent = () => {
@@ -29,14 +29,14 @@ export const inputKeyWordEvent = () => {
     toggleElementClassByKeyEvent(searchLinks, 'text-none');
   };
 
-  inputKeyWordBox.addEventListener('keyup', async ({ target: { value }, keyCode }) => {
+  inputKeyWordBox.addEventListener('keyup', async ({ target: { value }, key }) => {
     const searchKeywordBox = $('.search-keyword');
-    if (keyCode === KEY_UP_CODE && searchKeywordBox) {
+    if (key === KEY_ARROW_UP && searchKeywordBox) {
       keyupEvent();
       return;
     }
 
-    if (keyCode === KEY_DOWN_CODE && searchKeywordBox) {
+    if (key === KEY_ARROW_DOWN && searchKeywordBox) {
       keydownEvent();
       return;
     }
