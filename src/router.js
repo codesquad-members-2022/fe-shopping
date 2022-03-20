@@ -1,4 +1,4 @@
-export function moveToSearchTermPage(scope, term) {
-  history.pushState(null, null, `/search?scope=${scope}&text=${term}`);
+export function moveToSearchTermPage(option, term) {
+  history.pushState(null, null, `/search?option=${option}&text=${term}`);
   // location.reload();
 }

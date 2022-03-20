@@ -23,7 +23,7 @@ SearchBox.prototype.constructor = SearchBox;
 SearchBox.prototype.init = function () {
   this.state = {
     showHistroy: true,
-    scope: 'all',
+    option: '전체',
     inputValue: '',
     recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
   };
@@ -34,11 +34,15 @@ SearchBox.prototype.setTemplate = function () {
 };
 
 SearchBox.prototype.renderChild = function () {
+  const { option, recentSearchList } = this.state;
   const $selector = findTargetClassElement(this.$element, 'search__selector');
   const $searchRecord = findTargetClassElement(this.$element, 'search__record');
-  new Selector($selector, { scope: this.state.scope });
+  this.$Selector = new Selector($selector, {
+    option,
+    changeSearchOption: changeSearchOption.bind(this),
+  });
   this.$RecentSearchList = new RecentSearchList($searchRecord, {
-    recentSearchList: this.state.recentSearchList,
+    recentSearchList,
   });
 };
 
@@ -55,6 +59,11 @@ SearchBox.prototype.setState = function (newState) {
   this.state = { ...this.state, ...newState };
 };
 
+function changeSearchOption(option) {
+  this.setState({ option });
+  this.$Selector.setState({ option });
+}
+
 function handleRecentSearchList(recentSearchList, inputValue) {
   if (recentSearchList.length >= MAX_LOCAL_STORAGE) {
     return [inputValue, ...recentSearchList.slice(0, -1)];
@@ -64,7 +73,7 @@ function handleRecentSearchList(recentSearchList, inputValue) {
 
 function handleSubmit(event) {
   event.preventDefault();
-  const { scope, inputValue } = this.state;
+  const { option, inputValue } = this.state;
   const searchTerm = inputValue;
   const { recentSearchList } = this.$RecentSearchList.state;
   const updatedRecentSearchList = handleRecentSearchList(
@@ -77,7 +86,7 @@ function handleSubmit(event) {
     recentSearchList: updatedRecentSearchList,
   });
   this.$input.value = '';
-  moveToSearchTermPage(scope, searchTerm);
+  moveToSearchTermPage(option, searchTerm);
 }
 
 function handleInput({ target }) {

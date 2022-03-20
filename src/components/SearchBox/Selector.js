@@ -5,16 +5,16 @@ import {
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
 
-export default function Selector(htmlTag, $parent) {
-  HtmlElement.call(this, htmlTag, $parent);
+export default function Selector($element, args) {
+  HtmlElement.call(this, $element, args);
 }
 
 Selector.prototype = Object.create(HtmlElement.prototype);
 Selector.prototype.constructor = Selector;
-// Object.setPrototypeOf(Selector.prototype, HtmlElement.prototype);
 
 Selector.prototype.setTemplate = function () {
-  return template;
+  const { option } = this.state;
+  return template(option);
 };
 
 Selector.prototype.setEvent = function () {
@@ -23,9 +23,9 @@ Selector.prototype.setEvent = function () {
 
 function handleClick({ target }) {
   const $searchSelector = target.closest('#searchSelector');
-  if ($searchSelector) {
-    showCategory.apply(this);
-  }
+  if ($searchSelector) return showCategory.apply(this);
+  if (target.dataset?.option)
+    return this.state.changeSearchOption(target.dataset.option);
 }
 
 function showCategory() {
@@ -33,21 +33,26 @@ function showCategory() {
   handleDisplayElement($options);
 }
 
-const template = `
+const options = [
+  '전체',
+  '옵션1',
+  '옵션2',
+  '옵션3',
+  '옵션4',
+  '옵션5',
+  '옵션6',
+  '옵션7',
+  '옵션8',
+  '옵션9',
+  '옵션10',
+];
+
+const template = (option) => `
 <div id="searchSelector">
-  <span>전체</span> <i class="fas fa-caret-down"></i>
+  <span>${option}</span> <i class="fas fa-caret-down"></i>
 </div>
 <div class="${POP_UP.hidden} search__options" id="searchOptions">
  <ul>
- <li>옵션1</li>
- <li>옵션2</li>
- <li>옵션3</li>
- <li>옵션4</li>
- <li>옵션5</li>
- <li>옵션6</li>
- <li>옵션7</li>
- <li>옵션8</li>
- <li>옵션9</li>
- <li>옵션10</li>
+ ${options.map((option) => `<li data-option=${option}>${option}</li>`).join('')}
  </ul>
 </div>`;
