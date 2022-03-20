@@ -13,7 +13,8 @@ Category.prototype = Object.create(HtmlElement.prototype);
 Category.prototype.constructor = Category;
 
 Category.prototype.setTemplate = function () {
-  this.$element.classList.add('category');
+  const elementClassList = ['category', 'pop-up-container'];
+  this.$element.classList.add(...elementClassList);
   this.$element.innerHTML = template;
 };
 
@@ -23,7 +24,9 @@ Category.prototype.setEvent = function () {
 
 function handleClick({ target }) {
   const $categoryButton = target.closest('.category__button');
-  $categoryButton.addEventListener('click', handleCategoryButton.apply(this));
+  if ($categoryButton) {
+    handleCategoryButton.apply(this);
+  }
 }
 
 function handleCategoryButton() {
@@ -68,7 +71,7 @@ const thirdCategoryList = [
   '건강 취미',
 ];
 
-const template = `<div class="category__button pop-up-container" id="category-button">
+const template = `<div class="category__button" id="category-button">
     <i class="fas fa-bars"></i>
     <span>카테고리</span>
   </div>
