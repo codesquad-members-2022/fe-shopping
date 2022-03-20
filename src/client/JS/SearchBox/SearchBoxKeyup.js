@@ -1,13 +1,15 @@
 import { delay } from "../util";
 import { SearchBox } from "./SearchBox";
+import { delayTime } from "../constant";
+import { async } from "regenerator-runtime";
 
 class SearchBoxKeyup extends SearchBox {
   constructor(target, transformer) {
     super(target, transformer);
-    this.delayCount = 0;
+    this.inputDelayController = null;
   }
 
-  getRefinedData = async (address, value = "") => {
+  findRefinedData = async (address, value = "") => {
     const dataAddress = __dirname + `data/${address}`;
     const data = await fetch(dataAddress, {
       method: "POST",
@@ -20,47 +22,44 @@ class SearchBoxKeyup extends SearchBox {
     return refinedData;
   };
 
-  getRelativeListForm = () => {
+  drawRelativeListForm = () => {
     if (this.relativeTitle) {
       this.relativeTitle.remove();
       this.relativeOption.remove();
     }
   };
 
+  drawListFromData = (data) => {
+    return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
+  };
+
   changeRelativeList = (refinedData) => {
-    const innerList = refinedData.reduce(
-      (pre, post) => pre + `<li>${post}</li>`,
-      ""
-    );
+    const innerList = this.drawListFromData(refinedData);
     this.relativeList.innerHTML = innerList;
   };
 
-  checkDelay = async () => {
-    this.delayCount++;
-    await delay(500);
-    this.delayCount--;
-    if (this.delayCount) return true;
+  waitInputDelay = async (delayTime) => {
+    if (this.inputDelayController) this.inputDelayController.abort();
+
+    this.inputDelayController = new AbortController();
+    const inputDelaySignal = this.inputDelayController.signal;
+    await delay({ time: delayTime, signal: inputDelaySignal });
+
+    this.inputDelayController = null;
   };
 
-  showRelativeData = async (value) => {
-    if (await this.checkDelay()) return;
-
+  showRelativeList = async (value) => {
     const address = "keyword";
-    const refinedData = await this.getRefinedData(address, value);
+    const refinedData = await this.findRefinedData(address, value);
+    const isRefinedData = refinedData.length;
 
-    !refinedData.length
-      ? this.transformer.classList.add("hidden")
-      : this.transformer.classList.remove("hidden");
-
+    this.transformer.classList[isRefinedData ? "remove" : "add"]("hidden");
     this.changeRelativeList(refinedData);
-    this.getRelativeListForm();
+    this.drawRelativeListForm();
   };
 
-  showRecentData = async () => {
-    const address = "recent";
-    const refinedData = await this.getRefinedData(address);
-
-    this.changeRelativeList(refinedData);
+  drawRecentListForm = () => {
+    this.transformer.classList.remove("hidden");
     this.transformer.append(
       this.relativeTitle,
       this.relativeList,
@@ -68,7 +67,15 @@ class SearchBoxKeyup extends SearchBox {
     );
   };
 
-  getNextListIndex = (key, childLists, selectedListIndex) => {
+  showRecentList = async () => {
+    const address = "recent";
+    const refinedData = await this.findRefinedData(address);
+
+    this.changeRelativeList(refinedData);
+    this.drawRecentListForm();
+  };
+
+  findNextListIndex = (key, childLists, selectedListIndex) => {
     const isSelectedListIndex = selectedListIndex > -1;
     const keyIndex = {
       ArrowDown: {
@@ -97,7 +104,7 @@ class SearchBoxKeyup extends SearchBox {
     this.target.value = selectedKeyword;
   };
 
-  getSelectedInChildren = () => {
+  findSelectedInChildren = () => {
     const childLists = [...this.relativeList.children];
     const selectedListIndex = childLists.findIndex((list) =>
       list.classList.contains("selected")
@@ -107,8 +114,8 @@ class SearchBoxKeyup extends SearchBox {
   };
 
   moveWithUpDown = (key) => {
-    const { childLists, selectedListIndex } = this.getSelectedInChildren();
-    const nextListIndex = this.getNextListIndex(
+    const { childLists, selectedListIndex } = this.findSelectedInChildren();
+    const nextListIndex = this.findNextListIndex(
       key,
       childLists,
       selectedListIndex
@@ -119,22 +126,21 @@ class SearchBoxKeyup extends SearchBox {
     this.changeSearchKeyword(selectedKeyword);
   };
 
-  handleKeyupEvent = async ({ target: { value }, key }) => {
-    const isUpDown = ["ArrowDown", "ArrowUp"].includes(key);
-    if (isUpDown) return this.moveWithUpDown(key);
-
+  showDataByInput = async (value) => {
+    await this.waitInputDelay(delayTime);
     const isValueEmpty = value === "";
     isValueEmpty
-      ? await this.showRecentData()
-      : await this.showRelativeData(value);
+      ? await this.showRecentList()
+      : await this.showRelativeList(value);
   };
 
-  getKeyupEvent = () => {
-    this.target.addEventListener("keyup", this.handleKeyupEvent);
+  handleKeyupEvent = async ({ target: { value }, key }) => {
+    const isUpDown = ["ArrowDown", "ArrowUp"].includes(key);
+    isUpDown ? this.moveWithUpDown(key) : this.showDataByInput(value);
   };
 
   init = () => {
-    this.getKeyupEvent();
+    this.target.addEventListener("keyup", this.handleKeyupEvent);
   };
 }
 
