@@ -1,48 +1,21 @@
-import { addClickEventToElement } from "./utils/utils.js";
+import { SearchCategoryController } from "./controller/header/search-category-controller.js";
+import { SearchInputController } from "./controller/header/search-input-controller.js";
+import { HeaderMain } from "./model/header/header-main.js";
+import { SearchInput } from "./model/header/search-input.js";
+import { SearchCategory } from "./model/header/search.-category.js";
+import { TopBar } from "./model/header/topbar.js";
 
-const $selectCategoryWrap = document.querySelector(".select-category-wrap");
-const $selectCategoryList = document.querySelector(".select-category-list");
-const $selectToggle = document.querySelector(".select-toggle");
-const $selectCategory = document.querySelector(".select-category");
+const topbar = new TopBar();
+const headerMain = new HeaderMain();
+const searchCategory = new SearchCategory();
+const searchInput = new SearchInput();
 
-$selectCategoryWrap.addEventListener("click", () => {
-  if ($selectCategoryWrap.classList.contains("is-opned")) {
-    $selectCategoryWrap.classList.remove("is-opned");
-    $selectToggle.style.transform = "rotate(360deg)";
-    $selectCategoryList.style.display = "none";
-    return;
-  }
+topbar.render(topbar.template, ".header-container");
+headerMain.render(headerMain.template, ".header-container");
+searchCategory.render(searchCategory.template, ".search-wrap");
+searchInput.render(searchInput.template, ".search-wrap");
 
-  $selectCategoryWrap.classList.add("is-opned");
-  $selectToggle.style.transform = "rotate(180deg)";
-  $selectCategoryList.style.display = "block";
-});
-
-$selectCategoryList.addEventListener("click", (e) => {
-  $selectCategory.textContent = e.target.textContent;
-});
-
-const fakeDB = fetch("./data/fakeDB.json").then((res) => res.json());
-
-const $searchInput = document.querySelector(".search-input");
-const $searchList = document.querySelector(".search-list");
-
-$searchInput.addEventListener("keydown", (e) => {
-  if (e.keyCode === 13) {
-    $searchList.innerHTML = "";
-
-    fakeDB.then((json) => {
-      const searchList = json.products
-        .filter((v) => v["search-keyword"].includes($searchInput.value))
-        .sort((a, b) => b.views - a.views);
-
-      for (let i = 0; i < 10; i++) {
-        if (!searchList[i]) break;
-
-        const content = document.createElement("li");
-        content.textContent = searchList[i]["search-keyword"];
-        $searchList.appendChild(content);
-      }
-    });
-  }
-});
+const categoryController = new SearchCategoryController();
+const inputController = new SearchInputController();
+categoryController.addEvents();
+inputController.addEvents();
