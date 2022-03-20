@@ -76,12 +76,13 @@ const tshirt = [
     { keyword: "나이키 티셔츠" },
 ];
 
-const database = new Map();
-database.set("ㅌ", t);
-database.set("티", ti);
-database.set("팃", ts);
-database.set("티셔", tshir);
-database.set("티셫", tshirx);
-database.set("티셔츠", tshirt);
+const dataOfTshirt = {
+    ㅌ: t,
+    티: ti,
+    팃: ts,
+    티셔: tshir,
+    티셫: tshirx,
+    티셔츠: tshirt,
+};
 
-export { database };
+module.exports = dataOfTshirt;

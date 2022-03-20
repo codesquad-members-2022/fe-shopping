@@ -1,5 +1,4 @@
 import { SearchList } from "./search-list.js";
-import { database } from "../data/tshirt.js";
 import { SearchInput } from "./search-input.js";
 
 const searchbar = document.querySelector(".search__input");
@@ -26,13 +25,24 @@ const relatedSearchList = new SearchList(
     searchRelatedListContainer
 );
 
-const getRelatedWords = () => {
+const getRelatedWords = async () => {
     const word = searchInput.getSearchWord();
-    if (database.has(word)) {
-        relatedSearchList.searchItems = database
-            .get(word)
-            .map((it) => it.keyword);
-    } else {
+    try {
+        const response = await fetch(
+            "../search?" +
+                new URLSearchParams({
+                    keyword: word,
+                })
+        );
+
+        if (!response.ok) {
+            const error = response.status;
+            throw Error(error);
+        }
+
+        const searchItems = await response.json();
+        relatedSearchList.searchItems = searchItems.map((it) => it.keyword);
+    } catch (error) {
         return;
     }
 
