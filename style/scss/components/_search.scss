@@ -65,7 +65,26 @@
       &:not(:last-child) {
         padding-bottom: 6px;
       }
+      &:hover {
+        text-decoration: underline;
+        color: $main-blue;
+        cursor: pointer;
+        span {
+          color: inherit;
+        }
+      }
     }
+  }
+}
+.search__options {
+  transition: transform 0.2s ease-in-out;
+  transform-origin: top center;
+  transform: scaleY(0);
+  &.pop-up-hidden {
+    display: block;
+  }
+  &.pop-up-show {
+    transform: scaleY(1);
   }
 }
 
@@ -83,14 +102,6 @@
       color: transparent;
       position: absolute;
       right: 8px;
-    }
-    li:hover {
-      text-decoration: underline;
-      color: $main-blue;
-      cursor: pointer;
-      span {
-        color: inherit;
-      }
     }
   }
   > div {

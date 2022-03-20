@@ -14,7 +14,8 @@ Selector.prototype.constructor = Selector;
 // Object.setPrototypeOf(Selector.prototype, HtmlElement.prototype);
 
 Selector.prototype.setTemplate = function () {
-  this.$element.classList.add('search__selector');
+  const elementClassList = ['search__selector', 'pop-up-container'];
+  this.$element.classList.add(...elementClassList);
   this.$element.innerHTML = template;
 };
 
@@ -23,8 +24,10 @@ Selector.prototype.setEvent = function () {
 };
 
 function handleClick({ target }) {
-  const $searchSelector = target.closest('.searchSelector');
-  console.log($searchSelector);
+  const $searchSelector = target.closest('#searchSelector');
+  if ($searchSelector) {
+    showCategory.apply(this);
+  }
 }
 
 function showCategory() {
