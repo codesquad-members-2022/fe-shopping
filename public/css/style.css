@@ -174,11 +174,10 @@ h2 {
   position: absolute;
   background-color: #fff;
   width: 500px;
-  height: 320px;
 }
 
 .search__recent-list--name {
-  padding: 10px 0px;
+  padding: 6px 0px 10px 0px;
   border-bottom: 1px solid #ced4da;
 }
 
@@ -216,7 +215,20 @@ h2 {
   position: absolute;
   background-color: #fff;
   width: 500px;
-  height: 320px;
+  height: 330px;
+  font-size: 1.3rem;
+}
+
+.record-on {
+  height: 310px;
+}
+
+.record-off {
+  display: none;
+  height: 80px;
+  line-height: 50px;
+  text-align: center;
+  color: #495057;
 }
 
 .match-word {

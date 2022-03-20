@@ -14,7 +14,6 @@
     position: absolute
     background-color: $main-white
     width: 500px
-    height: 320px
 
 .main-header 
     padding: 30px 0px 0px 30px
@@ -45,7 +44,7 @@
     &__recent-list
         @include search-list
         &--name
-            padding: 10px 0px 
+            padding: 6px 0px 10px 0px 
             border-bottom: 1px solid $main-dark-gray 
     &__list--item
         font-size: 1.2rem
@@ -66,6 +65,18 @@
             text-decoration: underline
     &__related-list
         @include search-list
+        height: 330px
+        font-size: 1.3rem
+
+.record
+    &-on
+        height: 310px
+    &-off
+        display: none
+        height: 80px
+        line-height: 50px
+        text-align: center
+        color: #495057
 
 .match-word
     color: $main-blue

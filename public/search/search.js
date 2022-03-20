@@ -134,8 +134,27 @@ const hideSearchList = () => {
 };
 
 const clearRecentSearchList = () => {
-    recentSearchList.reset();
-    recentSearchList.renderSearchList();
+    if (recentSearchList.isRecording) {
+        recentSearchList.reset();
+        recentSearchList.renderSearchList();
+    }
+};
+
+const toggleRecord = ({ target }) => {
+    const recordOnBlock = document.querySelector(".record-on");
+    const recordOffBlock = document.querySelector(".record-off");
+
+    if (recentSearchList.isRecording) {
+        recordOnBlock.style.display = "none";
+        recordOffBlock.style.display = "block";
+        target.innerText = "최근검색어켜기";
+    } else {
+        recordOnBlock.style.display = "block";
+        recordOffBlock.style.display = "none";
+        target.innerText = "최근검색어끄기";
+    }
+
+    recentSearchList.isRecording = !recentSearchList.isRecording;
 };
 
 const onSearchEvent = () => {
@@ -157,6 +176,10 @@ const onSearchEvent = () => {
     recentSearchList.searchListNode
         .querySelector(".clear-all")
         .addEventListener("click", clearRecentSearchList);
+
+    recentSearchList.searchListNode
+        .querySelector(".record-btn")
+        .addEventListener("click", toggleRecord);
 };
 
 export { onSearchEvent };

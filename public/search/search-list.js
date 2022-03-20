@@ -1,5 +1,5 @@
 class SearchList {
-    MAX_ITEM = 10;
+    MAX_ITEM = 9;
 
     constructor(searchList, listContainer) {
         this.searchListNode = searchList;
@@ -7,6 +7,7 @@ class SearchList {
         this.searchItems = [];
         this.isVisible = false;
         this.curIdx = -1;
+        this.isRecording = true;
     }
 
     show() {
@@ -25,9 +26,11 @@ class SearchList {
     }
 
     addSearchWord(word) {
-        this.searchItems.unshift(word);
-        if (this.searchItems.length > this.MAX_ITEM) {
-            this.searchItems = this.searchItems.slice(0, this.MAX_ITEM);
+        if (this.isRecording) {
+            this.searchItems.unshift(word);
+            if (this.searchItems.length > this.MAX_ITEM) {
+                this.searchItems = this.searchItems.slice(0, this.MAX_ITEM);
+            }
         }
         this.curIdx = -1;
     }
