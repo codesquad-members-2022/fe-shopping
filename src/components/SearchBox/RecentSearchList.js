@@ -18,10 +18,11 @@ RecentSearchList.prototype = Object.create(HtmlElement.prototype);
 RecentSearchList.prototype.constructor = RecentSearchList;
 
 RecentSearchList.prototype.setTemplate = function () {
-  this.$element.id = 'RecentSearchList';
+  this.$element.id = 'searchRecord';
+  const elementClassList = ['search__record', POP_UP.hidden];
+  this.$element.classList.add(...elementClassList);
   const recentSearchList = this.state.recentSearchList;
   this.$element.innerHTML = `
-  <div class="${POP_UP.hidden} search__record" id="searchRecord">
 <h5>최근 검색어</h5>
 <ul id="recentSearchList">
     ${
@@ -38,7 +39,6 @@ RecentSearchList.prototype.setTemplate = function () {
 <div>
   <button class=${RECENT__DELETE__ALL}>전체삭제</button>
   <button class="">최근 검색어 끄기</button>
-</div>
 </div>`;
 };
 

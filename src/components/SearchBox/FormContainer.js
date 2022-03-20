@@ -12,7 +12,7 @@ import { myLocalStorage } from '../../utils/util.js';
 import RecentSearchList from './RecentSearchList.js';
 
 export default function FormContainer(htmlTag, $parent) {
-  this.$ul = null;
+  this.$RecentSearchList = null;
   this.state = {
     inputValue: '',
   };
@@ -25,7 +25,7 @@ FormContainer.prototype.constructor = FormContainer;
 FormContainer.prototype.setTemplate = function () {
   this.$element.classList.add('search__container');
   this.$element.innerHTML = template;
-  this.$ul = new RecentSearchList('ul', this.$element);
+  this.$RecentSearchList = new RecentSearchList('div', this.$element);
 };
 
 FormContainer.prototype.setEvent = function () {
@@ -59,7 +59,9 @@ function handleSubmit(event) {
   );
   myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
   this.setState({ inputValue: '' });
-  this.$ul.setState({ recentSearchList: updatedRecentSearchList });
+  this.$RecentSearchList.setState({
+    recentSearchList: updatedRecentSearchList,
+  });
   this.$input.value = '';
   moveToSearchTermPage(searchTerm);
 }

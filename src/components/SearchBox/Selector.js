@@ -5,7 +5,7 @@ import {
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
 
-function Selector(htmlTag, $parent) {
+export default function Selector(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);
 }
 
@@ -19,11 +19,13 @@ Selector.prototype.setTemplate = function () {
 };
 
 Selector.prototype.setEvent = function () {
-  const $searchSelector = findTargetIdElement(this.$element, 'searchSelector');
-  $searchSelector.addEventListener('click', showCategory.bind(this));
+  this.$element.addEventListener('click', handleClick.bind(this));
 };
 
-export default Selector;
+function handleClick({ target }) {
+  const $searchSelector = target.closest('.searchSelector');
+  console.log($searchSelector);
+}
 
 function showCategory() {
   const $options = findTargetIdElement(this.$element, 'searchOptions');
