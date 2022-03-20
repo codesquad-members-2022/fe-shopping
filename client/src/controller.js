@@ -51,13 +51,10 @@ export class Controller {
 
     if (this.selector.input.value) {
       this.searchInput.updateAutoComplete();
-      this.searchInput.toggleInputFocusClass();
     } else if (this.KeywordLocalStorage.keywordList.length > 0) {
-      this.selector.inputDropDown.classList.remove('auto-complete');
-      this.selector.inputDropDown.classList.add('recent-search');
       this.searchInput.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      this.searchInput.toggleInputFocusClass();
     }
-    this.searchInput.toggleInputFocusClass();
   }
 
   typingInputHandle() {
