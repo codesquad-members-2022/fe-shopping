@@ -10,7 +10,9 @@ import { Toggle } from "../Components/AbstractToggle.js";
 function SearchInputToggleView() {
   ToggleView.apply(this, arguments);
   this.emptyHistoryContents = ["검색 결과 없음"];
-  this.searchHistoryData = new Set();
+  this.searchHistoryData = new Set(
+    JSON.parse(localStorage.getItem("localSearchHistory"))
+  );
 }
 
 function SearchMenuToggleView() {
@@ -63,18 +65,16 @@ SearchInputToggleView.prototype.renderHistory = function () {
     return;
   }
   const searchHistory = this.checkHistory();
+
   this.generateSearchContents(searchHistory);
 };
 
 SearchInputToggleView.prototype.checkHistory = function () {
-  const localHistoryObj = localStorage.getItem("localSearchHistory");
-  const searchHistory = Array.from(localHistoryObj); // 나중에 Set으로? 로컬히스토리 자체에서 Set실패
-
-  if (this.isEmptyArr(searchHistory)) {
+  if (this.searchHistoryData.size <= 0) {
     return this.emptyHistoryContents;
   }
 
-  return searchHistory;
+  return [...this.searchHistoryData];
 };
 
 SearchInputToggleView.prototype.isEmptyArr = function (arr) {
@@ -111,43 +111,34 @@ SearchInputToggleView.prototype.saveSearchingData = function (event) {
   } = event;
 
   // keyCode === 13 ? event.preventDefault() : return 삼항연산자좀 써볼걸... 안되네
-  if (this.checkEnter(keyCode)) {
+  if (this.isNotEnter(keyCode, event)) {
     return;
   }
-
-  this.searchHistoryData.add(value);
-  this.Save2LocalStorage(this.searchHistoryData);
+  this.checkHistorySize();
+  this.Save2LocalStorage(value);
 };
 
-SearchInputToggleView.prototype.checkEnter = function (keyCode) {
-  if (keyCode === 13) {
+SearchInputToggleView.prototype.isNotEnter = function (keyCode, event) {
+  if (keyCode !== 13) {
     return true;
+  } else {
+    event.preventDefault();
+  }
+};
+
+SearchInputToggleView.prototype.checkHistorySize = function () {
+  const localHistoryArr = [...this.searchHistoryData];
+  const MAX_SIZE = 10;
+
+  if (this.searchHistoryData.size >= MAX_SIZE) {
+    this.searchHistoryData.delete(localHistoryArr[0]);
   }
 };
 
 SearchInputToggleView.prototype.Save2LocalStorage = function (data) {
-  localStorage.setItem(
-    "localSearchHistory",
-    JSON.stringify(Array.from(data)) // 왜 ... 스프레드 문법은 안될까?
-  );
+  this.searchHistoryData.add(data);
+  const reverseData = Array.from(this.searchHistoryData).reverse();
+  localStorage.setItem("localSearchHistory", JSON.stringify(reverseData));
 };
-
-// SearchInputToggleView.prototype.renderHistory = function () {
-//   if (!domUtil.$(".search--toggle--ul").innerHTML === "") {
-//     return;
-//   }
-//   if (this.searchHistory.length === 0) {
-//     this.renderNoHistory();
-//     return;
-//   }
-
-//   const historyDom = new SearchInputToggle(this.historyDom).dom;
-//   this.renderToggle(historyDom);
-// };
-
-// SearchInputToggleView.prototype.renderNoHistory = function () {
-//   const childDom = new SearchInputToggle(["검색 기록이 없습니다."]).dom;
-//   this.renderToggle(childDom);
-// };
 
 export { SearchInputToggleView, SearchMenuToggleView };
