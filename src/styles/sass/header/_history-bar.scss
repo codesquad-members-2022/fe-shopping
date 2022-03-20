@@ -1,0 +1,108 @@
+%basic_font_color {
+  color: #333;
+}
+@mixin whiteSpace($padding, $margin:0) {
+  padding: $padding;
+  margin: $margin;
+}
+@mixin nodeSize( $width, $height, $display) {
+  width: $width;
+  height: $height;
+  display: $display;
+}
+.latest-search-keyword {
+  position: absolute;
+  @include nodeSize(376px, 328px, block);
+  top: 107px;
+  left: 478px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
+  overflow: hidden;
+  padding-right: 0;
+  background: #fff;
+  border-left: 1px solid #ccc;
+  
+  > .latest-search-contents > .history-off-msg {
+    padding: 12px 0;
+    line-height: 43px;
+    text-align: center;
+    font-weight: bold;
+    @include nodeSize(376px, 43px, block);
+    
+  }
+
+  > .latest-search-contents > h3 {
+    @include nodeSize( 360px, 11px, block);
+    @include whiteSpace(14px 0 13px 4px, 0 6px); 
+    @extend %basic_font_color;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+  }    
+  
+  > .latest-search-contents > ol {
+    line-height: 200%;
+    @extend %basic_font_color;
+    @include whiteSpace( 10px 12px 6px 12px );
+  }
+  
+  > .searched-items {
+    @include whiteSpace( 20px 12px 6px 12px );
+
+    > a {
+      display: block;
+      line-height: 200%;
+      @extend %basic_font_color;
+      
+      > .related-word {
+        color: rgba(5, 5, 255, 0.767);
+      }
+    }
+  }
+}
+
+%button-standard {
+  color: #888;
+  line-height: 30px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.history-btns {
+  box-sizing: border-box;
+  position: absolute;
+  @include nodeSize( 378px, 30px, flex);
+  top:435px;
+  left: 478px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.801);
+  @include whiteSpace(0 12px);
+  background-color: #f5f5f5;
+  justify-content: space-between;
+
+
+  > .delete-all-history-btn {
+    @extend %button-standard;
+  }
+
+  > .history-onoff {
+    @extend %button-standard;
+  }
+}
+
+.up {
+  display: block;
+}
+.down {
+  display: none;
+}
+
+.fixTop {
+  top: 174px;
+}
+
+.size-auto {
+  height: auto;
+}

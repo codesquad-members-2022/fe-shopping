@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-const data = JSON.parse(fs.readFileSync("./public/data/fakeDB.json", "utf8"));
+const data = JSON.parse(fs.readFileSync("server/data/fakeDB.json", "utf8"));
 
 router.get("/", (req, res, next) => {
   res.json(data);
