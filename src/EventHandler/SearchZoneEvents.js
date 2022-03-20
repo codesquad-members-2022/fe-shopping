@@ -1,26 +1,9 @@
 import * as domUtil from "/util/domutil.js";
-import {
-  SearchInputToggleView,
-  SearchMenuToggleView,
-} from "/View/HeaderView.js";
-import {
-  SearchInputToggle,
-  SearchMenuToggle,
-} from "../Components/headerToggle.js";
-import { fetch_use } from "/util/fetchutil.js";
 
 class SearchZoneController {
-  constructor({
-    inputDom,
-    menuDom,
-    inputView,
-    menuView,
-    inputSearch,
-    historyRemoveBtn,
-  }) {
+  constructor({ inputDom, menuDom, inputView, menuView, inputSearch }) {
     this.inputDom = domUtil.$(inputDom);
     this.menuDom = domUtil.$(menuDom);
-    this.historyRemoveBtn = historyRemoveBtn;
     this.inputView = inputView; // view컨트롤러를 외부에서 변수 저장하고 사용할까 프로퍼티로 사용할까?
     this.menuView = menuView; // new ViewController()
     this.inputSearch = domUtil.$(inputSearch);
@@ -36,9 +19,8 @@ class SearchZoneController {
       this.onFocusSearchinput(event);
     });
 
-    this.inputDom.addEventListener("keydown", (event) =>
-      this.onKeyDownEnter(event)
-    );
+    this.inputDom.addEventListener("keydown", (event) => this.onKeyDown(event));
+
     this.menuDom.addEventListener("click", (event) =>
       this.onClickSearchMenu(event)
     );
@@ -59,8 +41,20 @@ class SearchZoneController {
     this.menuView.renderToggle();
   }
 
-  onKeyDownEnter(event) {
-    this.inputView.saveSearchingData(event);
+  onKeyDown(event) {
+    const { keyCode } = event;
+
+    const ENTER = 13;
+    const KEY_UP = 38;
+    const KEY_DOWN = 40;
+    if (keyCode === ENTER) {
+      this.inputView.saveSearchingData(event);
+      return;
+    }
+
+    if (keyCode === KEY_UP || keyCode === KEY_DOWN) {
+      this.inputView.hilightSearchList(keyCode);
+    }
   }
 
   onClickOutSearchMenu({ target: { className } }) {

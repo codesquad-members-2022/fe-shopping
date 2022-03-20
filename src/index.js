@@ -12,7 +12,6 @@ const menuView = new SearchMenuToggleView(".header__main--inputMenuButton");
 const searchZoneControllerParm = {
   inputDom: ".header__main--searchZone",
   menuDom: ".header__main--inputMenu",
-  historyRemoveBtn: ".header__main--deleteHistoryBtn",
   inputView: viewTest,
   menuView: menuView,
   inputSearch: ".header__main--searchInput",
