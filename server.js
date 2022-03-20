@@ -18,6 +18,10 @@ app.get("/searchData", (req, res) => {
   res.sendFile(path.resolve() + "/searchData.json");
 });
 
+app.get("/carouselData", (req, res) => {
+  res.sendFile(path.resolve() + "/carouselData.json");
+});
+
 app.listen(PORT, () => {
   console.log("서버 시작 : " + app.get("port"));
 });

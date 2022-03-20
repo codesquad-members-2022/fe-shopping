@@ -1,6 +1,9 @@
+import { fetchData } from "../controller/util.js";
+
 const FIRST_INDEX = 0;
 
-const renderCarousel = (parentNode, dataObj) => {
+const renderCarousel = async (parentNode) => {
+  const dataObj = await fetchData("http://localhost:3000/carouselData");
   parentNode.innerHTML = getMainCarouselTemplate();
   document.querySelector(".carousel__container").innerHTML += getCarouselItem(
     dataObj.carouselData[FIRST_INDEX].imgData,

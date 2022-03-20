@@ -1,6 +1,7 @@
-import { debounce } from "./util.js";
+import { debounce, fetchData } from "./util.js";
 
-const setCarouselEvent = (carouselData, carouselImgNode, carouselNavBarNode) => {
+const setCarouselEvent = async (carouselImgNode, carouselNavBarNode) => {
+  const carouselData = await fetchData("http://localhost:3000/carouselData");
   const timerId = setInterval(() => setCarouselTimeEvent(carouselData, carouselImgNode, carouselNavBarNode), 2000);
   setCarouselNavBarEvent(carouselData, carouselImgNode, carouselNavBarNode, timerId);
 };
