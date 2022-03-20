@@ -52,7 +52,7 @@ function handleSubmit(event) {
   event.preventDefault();
   const { inputValue } = this.state;
   const searchTerm = inputValue;
-  const { recentSearchList } = this.$ul.state;
+  const { recentSearchList } = this.$RecentSearchList.state;
   const updatedRecentSearchList = handleRecentSearchList(
     recentSearchList,
     inputValue
