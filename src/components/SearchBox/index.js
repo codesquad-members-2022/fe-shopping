@@ -11,6 +11,7 @@ import {
   handleDisplayElement,
 } from '../../utils/manuplateDOM.js';
 import { myLocalStorage } from '../../utils/util.js';
+import AutoComplete from './AutoComplete.js';
 import RecentSearchList from './RecentSearchList.js';
 import Selector from './Selector.js';
 
@@ -37,6 +38,7 @@ SearchBox.prototype.renderChild = function () {
   const { option, recentSearchList } = this.state;
   const $selector = findTargetClassElement(this.$element, 'search__selector');
   const $searchRecord = findTargetClassElement(this.$element, 'search__record');
+  const $searchAuto = findTargetClassElement(this.$element, 'search__auto');
   this.$Selector = new Selector($selector, {
     option,
     changeSearchOption: changeSearchOption.bind(this),
@@ -44,6 +46,7 @@ SearchBox.prototype.renderChild = function () {
   this.$RecentSearchList = new RecentSearchList($searchRecord, {
     recentSearchList,
   });
+  new AutoComplete($searchAuto);
 };
 
 SearchBox.prototype.setEvent = function () {
@@ -114,6 +117,7 @@ class="pop-up-container"
   <span><i class="fas fa-search"></i></span>
 </div>
 </form>
+<div class="search__auto ${POP_UP.show}" id="searchAuto"></div>
 <div class="search__record ${POP_UP.hidden}" id="searchRecord"></div>
 </div>
 `;

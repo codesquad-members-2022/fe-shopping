@@ -53,7 +53,8 @@
 }
 
 .search__options,
-.search__record {
+.search__record,
+.search__auto {
   position: absolute;
   top: $search-height;
   width: 100%;
