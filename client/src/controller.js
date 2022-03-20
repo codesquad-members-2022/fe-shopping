@@ -1,12 +1,15 @@
 import { SelectCategory } from './view/selectCategory.js';
 import { SearchInput } from './view/searchInput.js';
+import { RecentSearch } from './view/recentSearch.js';
+import { AutoComplete } from './view/autoComplete.js';
 import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
 
 export class Controller {
   constructor() {
     this.KeywordLocalStorage = new KeywordLocalStorage();
     this.selectCategory = new SelectCategory();
-    this.searchInput = new SearchInput(this.KeywordLocalStorage.keywordList);
+    this.recentSearchView = new RecentSearch(this.KeywordLocalStorage.keywordList);
+    this.autoCompleteView = new AutoComplete();
 
     this.selector = {
       form: document.querySelector('.search__form'),
@@ -37,7 +40,7 @@ export class Controller {
     this.selector.input.addEventListener('input', () => this.typingInputHandle());
 
     this.selector.inputDropDown.addEventListener('mouseleave', () =>
-      this.searchInput.toggleInputFocusClass()
+      SearchInput.toggleInputFocusClass()
     );
   }
 
@@ -50,17 +53,21 @@ export class Controller {
     if (!this.selector.input.value && !this.KeywordLocalStorage.keywordList.length) return;
 
     if (this.selector.input.value) {
-      this.searchInput.updateAutoComplete();
+      this.recentSearchView.removeRecentSearchChildNodes();
+      this.autoCompleteView.updateAutoComplete();
     } else if (this.KeywordLocalStorage.keywordList.length > 0) {
-      this.searchInput.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
-      this.searchInput.toggleInputFocusClass();
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      SearchInput.toggleInputFocusClass();
     }
   }
 
   typingInputHandle() {
-    this.selector.input.value
-      ? this.searchInput.updateAutoComplete()
-      : this.searchInput.toggleInputFocusClass();
+    if (this.selector.input.value) {
+      this.recentSearchView.removeRecentSearchChildNodes();
+      this.autoCompleteView.updateAutoComplete();
+    } else {
+      SearchInput.toggleInputFocusClass();
+    }
   }
 
   submitFormHandle(e) {
@@ -68,20 +75,20 @@ export class Controller {
 
     if (!this.selector.input.value) return;
     this.KeywordLocalStorage.addKeywordList(this.selector.input.value);
-    this.searchInput.toggleInputFocusClass();
-    this.searchInput.resetInputText();
+    SearchInput.toggleInputFocusClass();
+    SearchInput.resetInputText();
   }
 
   clickDropDownHandle(e) {
     if (e.target.classList.contains('delete__btn')) {
       const keyword = e.target.previousElementSibling.innerText;
       this.KeywordLocalStorage.removeKeywordList(keyword);
-      this.searchInput.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
     }
 
     if (e.target.classList.contains('options--clear-keyword')) {
       this.KeywordLocalStorage.clearKeywordList();
-      this.searchInput.resetRecentSearchList();
+      this.recentSearchView.resetRecentSearchList();
     }
   }
 }
