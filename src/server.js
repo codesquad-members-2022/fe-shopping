@@ -6,7 +6,7 @@ import mainRouter from "./router/mainRouter.js";
 const app = express();
 
 app.set("view engine", "pug");
-app.set("views", __dirname + "/views");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.json()); // get json request
 app.use(express.static(path.join(__dirname, "client")));
