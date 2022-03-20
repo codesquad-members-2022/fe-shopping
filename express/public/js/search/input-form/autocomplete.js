@@ -1,52 +1,71 @@
 import { $ } from '../../utility/util.js';
 import { getCompleteData } from '../../utility/util.js';
 import RecentWord from './recent-words.js';
+
 export default class Autocomplete {
+  constructor() {
+    this.$autocompleteMenu = $('#autocomplete-menu');
+    this.$autocompleteMenuList = $('#input-popup-menu-list');
+  }
   showAutocomplete() {
-    const $autocompleteMenu = $('#autocomplete-menu');
-    $autocompleteMenu.classList.remove('hidden');
+    this.$autocompleteMenu.classList.remove('hidden');
   }
 
   noShowAutocomplete() {
-    const $autocompleteMenu = $('#autocomplete-menu');
-    $autocompleteMenu.classList.add('hidden');
+    this.$autocompleteMenu.classList.add('hidden');
   }
 
   checkInputText() {
     const $searchInput = $('.search-input');
     const inputValue = $searchInput.value;
 
-    if (inputValue) this.showAutocomplete();
+    if (!inputValue.length) {
+      this.noShowAutocomplete();
+      this.$autocompleteMenuList.innerHTML = '검색 결과가 없습니다';
+      RecentWord.prototype.showRecentSearches();
+      return;
+    }
+    this.showAutocomplete();
+    const searchQuery = this.changeInputToQuery(inputValue);
 
-    switch (inputValue) {
-      case '가':
-        this.check500ms(getCompleteData('ga'));
-        break;
-      case '나':
-        this.check500ms(getCompleteData('na'));
-        break;
-      case '다':
-        this.check500ms(getCompleteData('da'));
-        break;
-      case '라':
-        this.check500ms(getCompleteData('ra'));
-        break;
-      case '마':
-        this.check500ms(getCompleteData('ma'));
-        break;
-      case '바':
-        this.check500ms(getCompleteData('ba'));
-        break;
-      case '':
-        this.noShowAutocomplete();
-        RecentWord.prototype.showRecentSearches();
-        const $autocompleteMenu = $('#input-popup-menu-list');
-        $autocompleteMenu.innerHTML = '검색 결과가 없습니다';
-        return;
+    if (!searchQuery) {
+      this.$autocompleteMenu.innerHTML = '검색 결과가 없습니다';
+      return;
     }
   }
 
-  check500ms(completeData) {
+  changeInputToQuery(inputValue) {
+    switch (inputValue) {
+      case 'ㄱ':
+      case '가':
+        this.delay500ms(getCompleteData('ga'));
+        return true;
+      case 'ㄴ':
+      case '나':
+        this.delay500ms(getCompleteData('na'));
+        return true;
+      case 'ㄷ':
+      case '다':
+        this.delay500ms(getCompleteData('da'));
+        return true;
+      case 'ㄹ':
+      case '라':
+        this.delay500ms(getCompleteData('ra'));
+        return true;
+      case 'ㅁ':
+      case '마':
+        this.delay500ms(getCompleteData('ma'));
+        return true;
+      case 'ㅂ':
+      case '바':
+        this.delay500ms(getCompleteData('ba'));
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  delay500ms(completeData) {
     setTimeout(() => this.showCompleteWord(completeData), 500);
   }
 
@@ -58,7 +77,6 @@ export default class Autocomplete {
       ''
     );
 
-    const $autocompleteMenu = $('#input-popup-menu-list');
-    $autocompleteMenu.innerHTML = dataTemplate;
+    this.$autocompleteMenuList.innerHTML = dataTemplate;
   }
 }

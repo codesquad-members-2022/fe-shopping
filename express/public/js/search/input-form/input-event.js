@@ -1,5 +1,4 @@
 import { $ } from '../../utility/util.js';
-import { addEvent } from '../../utility/util.js';
 import RecentWord from './recent-words.js';
 import Autocomplete from './autocomplete.js';
 
@@ -11,15 +10,17 @@ export default class InputEvent {
 
   addInputEvent() {
     const $searchInput = $('.search-input');
-    addEvent($searchInput, 'focus', this.drawHistoryContents);
-    addEvent($searchInput, 'blur', this.nodrawHistoryContents);
-    addEvent($searchInput, 'keyup', this.drawAutocomplete);
+    $searchInput.addEventListener('focus', this.drawHistoryContents);
+    $searchInput.addEventListener('blur', this.nodrawHistoryContents);
+    $searchInput.addEventListener('keyup', this.drawAutocomplete);
   }
 
   drawHistoryContents = () => this.recentWords.showRecentSearches();
   nodrawHistoryContents = () => this.recentWords.noShowRecentSearches();
 
-  drawAutocomplete = () => {
+  drawAutocomplete = ({ code }) => {
+    if (code === 'ArrowDown') console.log(1);
+
     this.nodrawHistoryContents();
     this.autoComplete.checkInputText();
   };

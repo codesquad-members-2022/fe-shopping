@@ -1,13 +1,12 @@
 import { $ } from '../utility/util.js';
-import { addEvent } from '../utility/util.js';
 import { categoryData } from '../../data/search-category/category.js';
 export default class Dropdown {
   addBtnEvent() {
     const $dropdownBtn = $('.search-category-dropdown');
-    addEvent($dropdownBtn, 'click', this.changeArrowKey);
+    $dropdownBtn.addEventListener('click', this.dropdownArrowBtn);
   }
 
-  changeArrowKey = ({ target }) => {
+  dropdownArrowBtn = ({ target }) => {
     const $optionMenu = $('.option-menu');
 
     if (target.closest('button')) {
@@ -38,7 +37,7 @@ export default class Dropdown {
 
   addClickEvent() {
     const $dropdownMenus = $('.dropdown-menus');
-    addEvent($dropdownMenus, 'click', this.changeOption);
+    $dropdownMenus.addEventListener('click', this.changeOption);
   }
 
   changeOption({ target }) {

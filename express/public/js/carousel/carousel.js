@@ -1,8 +1,4 @@
-import { $ } from '../utility/util.js';
-import { addEvent } from '../utility/util.js';
-import { fetchData } from '../utility/util.js';
-import { makeImageSlide } from '../utility/util.js';
-import { makeSideTeb } from '../utility/util.js';
+import { $, fetchData, makeImageSlide, makeSideTeb } from '../utility/util.js';
 export default class Carousel {
   constructor() {
     this.intervalID = 0;
@@ -16,7 +12,7 @@ export default class Carousel {
     this.renderSubMenu(carouselData);
 
     this.addSubMenuEvent();
-    this.initInterval($imageContainer, carouselData);
+    this.initCarouselInterval($imageContainer, carouselData);
   }
 
   renderMainImage(carouselData) {
@@ -38,7 +34,7 @@ export default class Carousel {
     $slideTeb.innerHTML = slideTebTemplates;
   }
 
-  initInterval($imageContainer, carouselData) {
+  initCarouselInterval($imageContainer, carouselData) {
     this.intervalID = setInterval(
       () =>
         this.translateContainer(
@@ -65,11 +61,10 @@ export default class Carousel {
 
   addSubMenuEvent() {
     const $slideTeb = $('.slide-teb-container');
-    addEvent($slideTeb, 'mouseover', this.changeImage);
+    $slideTeb.addEventListener('mouseover', this.changeImage);
   }
 
   changeImage = ({ target }) => {
-    if (!target.closest('li')) return;
-    else if (target.closest('img')) return;
+    if (!target.closest('li') || target.closest('img')) return;
   };
 }
