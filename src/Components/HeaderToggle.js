@@ -21,4 +21,17 @@ function SearchMenuToggle(liContents) {
 SearchInputToggle.prototype = Object.create(Toggle.prototype);
 SearchMenuToggle.prototype = Object.create(Toggle.prototype);
 
+SearchInputToggle.prototype.getHTML = function () {
+  if (this.isEmptyArr(this.liContents)) {
+    return;
+  } // 컨텐츠 없으면 return undefined
+
+  return (
+    /*html*/ `${this.liContents.reduce((liHtml, contents) => {
+      liHtml += `<li class="${this.liClassName}">${contents}</li>`;
+      return liHtml;
+    }, "")}` +
+    '<button class="header__main--deleteHistoryBtn">기록 전체삭제</button>'
+  );
+};
 export { SearchInputToggle, SearchMenuToggle };

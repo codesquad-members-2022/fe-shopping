@@ -15,6 +15,15 @@ centerAlignment, .header__main .header__main--category {
   justify-content: center;
   align-items: center; }
 
+defaultBtnStyle, .search--toggle--ul .header__main--deleteHistoryBtn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit; }
+
 .header {
   align-items: center; }
 
@@ -77,7 +86,7 @@ centerAlignment, .header__main .header__main--category {
 
 .search--toggle--ul {
   width: 400px;
-  height: 200px;
+  height: 300px;
   position: absolute;
   background-color: white;
   z-index: 1; }
@@ -86,6 +95,15 @@ centerAlignment, .header__main .header__main--category {
     height: 15px;
     padding: 5px;
     border-bottom: 0.5px solid #f0f0f0; }
+  .search--toggle--ul .header__main--deleteHistoryBtn {
+    display: flex;
+    padding: 5px;
+    position: absolute;
+    width: inherit;
+    height: 30px;
+    font-size: 13px;
+    left: 0;
+    bottom: 0; }
 
 .header__main--inputMenuButton .search--menu--ul {
   width: 140px;

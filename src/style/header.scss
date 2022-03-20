@@ -26,6 +26,16 @@ centerAlignment {
   align-items: center;
 }
 
+defaultBtnStyle {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 @mixin getWH($width, $height) {
   width: $width;
   height: $height;
@@ -138,7 +148,7 @@ centerAlignment {
 
 .search--toggle--ul {
   width: 400px;
-  height: 200px;
+  height: 300px;
   position: absolute;
   background-color: white;
   z-index: 1;
@@ -148,6 +158,18 @@ centerAlignment {
     height: 15px;
     padding: 5px;
     border-bottom: 0.5px solid #f0f0f0;
+  }
+
+  .header__main--deleteHistoryBtn {
+    @extend defaultBtnStyle;
+    display: flex;
+    padding: 5px;
+    position: absolute;
+    width: inherit;
+    height: 30px;
+    font-size: 13px;
+    left: 0;
+    bottom: 0;
   }
 }
 
