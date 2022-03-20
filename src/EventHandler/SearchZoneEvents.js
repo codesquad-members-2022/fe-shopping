@@ -10,9 +10,17 @@ import {
 import { fetch_use } from "/util/fetchutil.js";
 
 class SearchZoneController {
-  constructor(inputDom, menuDom, inputView, menuView, inputSearch) {
+  constructor({
+    inputDom,
+    menuDom,
+    inputView,
+    menuView,
+    inputSearch,
+    historyRemoveBtn,
+  }) {
     this.inputDom = domUtil.$(inputDom);
     this.menuDom = domUtil.$(menuDom);
+    this.historyRemoveBtn = historyRemoveBtn;
     this.inputView = inputView; // view컨트롤러를 외부에서 변수 저장하고 사용할까 프로퍼티로 사용할까?
     this.menuView = menuView; // new ViewController()
     this.inputSearch = domUtil.$(inputSearch);
@@ -24,9 +32,16 @@ class SearchZoneController {
       this.onInputSearchInput(event)
     );
 
-    this.inputSearch.addEventListener("focus", (event) =>
-      this.onFocusSearchinput(event)
-    );
+    this.inputSearch.addEventListener("focus", (event) => {
+      this.onFocusSearchinput(event);
+      this.historyRemoveBtn = domUtil.$(this.historyRemoveBtn);
+      this.historyRemoveBtn.addEventListener(
+        "click",
+        function () {
+          this.onClickRemoveBtn();
+        }.bind(this)
+      );
+    });
 
     this.inputDom.addEventListener("keydown", (event) =>
       this.onKeyDownEnter(event)
@@ -57,6 +72,10 @@ class SearchZoneController {
 
   onClickOutSearchMenu({ target: { className } }) {
     this.menuView.clickedOutMenu(className);
+  }
+
+  onClickRemoveBtn() {
+    this.inputView.removeHistory();
   }
 }
 

@@ -9,12 +9,15 @@ import {
 const viewTest = new SearchInputToggleView(".header__main--inputWrapper");
 const menuView = new SearchMenuToggleView(".header__main--inputMenuButton");
 
-const test = new SearchZoneController(
-  ".header__main--searchZone",
-  ".header__main--inputMenu",
-  viewTest,
-  menuView,
-  ".header__main--searchInput"
-);
+const searchZoneControllerParm = {
+  inputDom: ".header__main--searchZone",
+  menuDom: ".header__main--inputMenu",
+  historyRemoveBtn: ".header__main--deleteHistoryBtn",
+  inputView: viewTest,
+  menutView: menuView,
+  inputSearch: ".header__main--searchInput",
+};
+
+const test = new SearchZoneController(searchZoneControllerParm);
 
 test.initService();

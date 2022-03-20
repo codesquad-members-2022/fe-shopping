@@ -30,4 +30,11 @@ ToggleView.prototype.removePrevView = function (prevClassName) {
   }
 };
 
+ToggleView.prototype.addReomoveHisoryEvent = function () {
+  this.onFocusSearchinput(event);
+  this.historyRemoveBtn.addEventListener("click", () => {
+    this.onClickRemoveBtn();
+  });
+};
+
 export { ToggleView };

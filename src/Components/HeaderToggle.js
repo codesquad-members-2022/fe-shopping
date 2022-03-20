@@ -31,7 +31,7 @@ SearchInputToggle.prototype.getHTML = function () {
       liHtml += `<li class="${this.liClassName}">${contents}</li>`;
       return liHtml;
     }, "")}` +
-    '<button class="header__main--deleteHistoryBtn">기록 전체삭제</button>'
+    '<button type="button" class="header__main--deleteHistoryBtn">기록 전체삭제</button>'
   );
 };
 export { SearchInputToggle, SearchMenuToggle };

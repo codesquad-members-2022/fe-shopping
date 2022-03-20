@@ -7,12 +7,13 @@ import * as domUtil from "/util/domutil.js";
 import * as fetchUtil from "../util/fetchutil.js";
 import { Toggle } from "../Components/AbstractToggle.js";
 
-function SearchInputToggleView() {
+function SearchInputToggleView(reomoveHistoryBtn) {
   ToggleView.apply(this, arguments);
   this.emptyHistoryContents = ["검색 결과 없음"];
   this.searchHistoryData = new Set(
     JSON.parse(localStorage.getItem("localSearchHistory"))
   );
+  this.reomoveHistoryBtn = domUtil.$(reomoveHistoryBtn);
 }
 
 function SearchMenuToggleView() {
@@ -67,6 +68,12 @@ SearchInputToggleView.prototype.renderHistory = function () {
   const searchHistory = this.checkHistory();
 
   this.generateSearchContents(searchHistory);
+};
+
+SearchInputToggleView.prototype.removeHistory = function () {
+  this.searchHistoryData.clear();
+  localStorage.clear();
+  this.renderHistory();
 };
 
 SearchInputToggleView.prototype.checkHistory = function () {
