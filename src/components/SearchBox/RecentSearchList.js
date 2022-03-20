@@ -14,12 +14,6 @@ export default function RecentSearchList($element, args) {
 RecentSearchList.prototype = Object.create(HtmlElement.prototype);
 RecentSearchList.prototype.constructor = RecentSearchList;
 
-RecentSearchList.prototype.init = function () {
-  this.state = {
-    ...this.args,
-  };
-};
-
 RecentSearchList.prototype.setTemplate = function () {
   const { recentSearchList } = this.state;
   return `

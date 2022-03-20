@@ -7,7 +7,11 @@ export default function HtmlElement($element, args) {
   this.setEvent();
 }
 
-HtmlElement.prototype.init = function () {};
+HtmlElement.prototype.init = function () {
+  this.state = {
+    ...this.args,
+  };
+};
 
 HtmlElement.prototype.setTemplate = function () {
   return ``;
