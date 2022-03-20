@@ -12,15 +12,16 @@ function focusoutSelectBtnHandler(e) {
 
     changeBtnDownImg($selectBtn)
     removeTransition($selectOpenList)
+    addVisibilityHidden($selectOpenList)
 }
 
 function clickSelectBtnHandler(e) {
     const $selectBtn = e.target
     const $selectOpenList = document.querySelector('.header__select__list')
 
-    toggleTransition($selectOpenList)
     toggleBtnImage($selectBtn)
-
+    toggleTransition($selectOpenList)
+    toggleVisibilityHidden($selectOpenList)
 }
 
 function toggleVisibilityHidden(target) {
