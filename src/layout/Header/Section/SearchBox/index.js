@@ -1,16 +1,13 @@
-import {
-  MAX_LOCAL_STORAGE,
-  RECENT_SEARCH_LIST,
-} from '../../constant/constant.js';
-import { POP_UP } from '../../constant/htmlSelector.js';
-import { moveToSearchTermPage } from '../../router.js';
-import HtmlElement from '../../utils/HtmlElement.js';
+import { RECENT_SEARCH_LIST } from '../../../../constant/constant.js';
+import { POP_UP } from '../../../../constant/htmlSelector.js';
+import { moveToSearchTermPage } from '../../../../router.js';
+import HtmlElement from '../../../../utils/HtmlElement.js';
 import {
   findTargetClassElement,
   findTargetIdElement,
   handleDisplayElement,
-} from '../../utils/manuplateDOM.js';
-import { myLocalStorage } from '../../utils/util.js';
+} from '../../../../utils/manuplateDOM.js';
+import { myLocalStorage } from '../../../../utils/util.js';
 import AutoComplete from './AutoComplete.js';
 import RecentSearchList from './RecentSearchList.js';
 import Selector from './Selector.js';

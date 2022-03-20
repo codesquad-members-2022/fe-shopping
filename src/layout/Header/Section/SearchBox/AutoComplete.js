@@ -1,4 +1,4 @@
-import HtmlElement from '../../utils/HtmlElement.js';
+import HtmlElement from '../../../../utils/HtmlElement.js';
 
 export default function AutoComplete($element, args) {
   HtmlElement.call(this, $element, args);

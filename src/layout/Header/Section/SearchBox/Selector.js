@@ -1,9 +1,9 @@
-import { POP_UP } from '../../constant/htmlSelector.js';
-import HtmlElement from '../../utils/HtmlElement.js';
+import { POP_UP } from '../../../../constant/htmlSelector.js';
+import HtmlElement from '../../../../utils/HtmlElement.js';
 import {
   findTargetIdElement,
   handleDisplayElement,
-} from '../../utils/manuplateDOM.js';
+} from '../../../../utils/manuplateDOM.js';
 
 export default function Selector($element, args) {
   HtmlElement.call(this, $element, args);

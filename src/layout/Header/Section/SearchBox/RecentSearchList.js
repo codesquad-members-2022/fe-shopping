@@ -1,9 +1,11 @@
-import { RECENT_SEARCH_LIST } from '../../constant/constant.js';
-import { POP_UP } from '../../constant/htmlSelector.js';
-import { moveToSearchTermPage } from '../../router.js';
-import HtmlElement from '../../utils/HtmlElement.js';
-import { myLocalStorage } from '../../utils/util.js';
-import { SEARCH_BOX } from '../../constant/constant.js';
+import {
+  RECENT_SEARCH_LIST,
+  SEARCH_BOX,
+} from '../../../../constant/constant.js';
+import { POP_UP } from '../../../../constant/htmlSelector.js';
+import { moveToSearchTermPage } from '../../../../router.js';
+import HtmlElement from '../../../../utils/HtmlElement.js';
+import { myLocalStorage } from '../../../../utils/util.js';
 
 const { RECENT__DELETE, RECENT__TERM, RECENT__DELETE__ALL } = SEARCH_BOX;
 

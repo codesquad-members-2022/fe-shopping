@@ -1,4 +1,4 @@
-import HtmlElement from '../../utils/HtmlElement.js';
+import HtmlElement from '../../../../utils/HtmlElement.js';
 
 export default function Navigation(htmlTag, $parent) {
   HtmlElement.call(this, htmlTag, $parent);

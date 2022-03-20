@@ -1,11 +1,7 @@
-import Category from '../../components/Category/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
-import {
-  findTargetClassElement,
-  findTargetIdElement,
-  hidePopUp,
-} from '../../utils/manuplateDOM.js';
-import Section from './Section.js';
+import { findTargetClassElement, hidePopUp } from '../../utils/manuplateDOM.js';
+import Category from './Category/index.js';
+import Section from './Section/index.js';
 
 export default function Header($element) {
   HtmlElement.call(this, $element);

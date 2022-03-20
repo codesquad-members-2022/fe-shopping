@@ -1,10 +1,10 @@
-import Navigation from '../../components/Navigation/index.js';
-import SearchBox from '../../components/SearchBox/index.js';
-import HtmlElement from '../../utils/HtmlElement.js';
+import HtmlElement from '../../../utils/HtmlElement.js';
 import {
   findTargetClassElement,
   findTargetIdElement,
-} from '../../utils/manuplateDOM.js';
+} from '../../../utils/manuplateDOM.js';
+import Navigation from './Navigation/index.js';
+import SearchBox from './SearchBox/index.js';
 
 export default function Section($element) {
   HtmlElement.call(this, $element);
@@ -12,7 +12,6 @@ export default function Section($element) {
 
 Section.prototype = Object.create(HtmlElement.prototype);
 Section.prototype.constructor = Section;
-// Object.setPrototypeOf(Section.prototype, HtmlElement.prototype);
 
 Section.prototype.setTemplate = function () {
   return `
