@@ -20,20 +20,26 @@ export const rootEvent = () => {
       checkElementClass({ target, checkClasses: ['search-keyword', 'main-header__input', 'main-header__input--btn'] })
     ) {
       return;
-    } else searchKeywordBox?.remove();
+    } else {
+      searchKeywordBox?.remove();
+    }
 
     if (
       searchRecentBox &&
       checkElementClass({ target, checkClasses: ['search-recent', 'main-header__input', 'main-header__input--btn'] })
     ) {
       return;
-    } else searchRecentBox?.remove();
+    } else {
+      searchRecentBox?.remove();
+    }
   });
 
   document.body.addEventListener('mouseover', ({ target }) => {
     const categoryListBox = $('.category-list');
     if (categoryListBox && checkElementClass({ target, checkClasses: ['category', 'category-item', 'category--text'] }))
       return;
-    else categoryListBox?.remove();
+    else {
+      categoryListBox?.remove();
+    }
   });
 };

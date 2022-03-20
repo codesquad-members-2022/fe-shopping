@@ -11,7 +11,9 @@ export default function SearchWord() {
 }
 
 SearchWord.prototype.pushRecentWords = function () {
-  if (this.recentWords.includes(this.currentWord)) return;
+  if (this.recentWords.includes(this.currentWord)) {
+    return;
+  }
   this.recentWords.push(this.currentWord);
 };
 
@@ -95,7 +97,9 @@ SearchWord.prototype.toggleRender = function (data) {
   searchKeywordBox?.remove();
 
   if (this.getTurn()) {
-    if (this.recentWords.length === 0) return;
+    if (this.recentWords.length === 0) {
+      return;
+    }
     inputKeyWordBox.insertAdjacentHTML('afterend', RecentSearch(this.recentWords, this.onRecent));
     this.addRemoveBtnEventListener();
     this.onRecent ? this.addOffRecentBtnEventListener() : this.addOnRecentBtnEventListener();

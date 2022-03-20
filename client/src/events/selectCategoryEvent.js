@@ -9,7 +9,9 @@ export const selectCategoryEvent = () => {
 
   selectMainCategoryBox.addEventListener('mouseover', () => {
     const categoryListBox = $('.category-list');
-    if (categoryListBox) return;
+    if (categoryListBox) {
+      return;
+    }
     selectMainCategoryBox.insertAdjacentHTML('beforeend', mainCategory(mainCategoryData));
   });
 

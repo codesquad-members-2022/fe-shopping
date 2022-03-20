@@ -18,18 +18,25 @@ export const fetchPostData = (path, keyword) => {
 export const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 export const checkElementClass = obj => {
-  if (!obj.target) return false;
+  if (!obj.target) {
+    return false;
+  }
 
   const isExistClass = obj.checkClasses.some(className => {
     if (obj.target.classList.contains(className)) return true;
   });
 
-  if (isExistClass) return true;
-  else false;
+  if (isExistClass) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const toggleClass = (element, classes) => {
-  if (!element) return;
+  if (!element) {
+    return;
+  }
   const classList = classes.split(' ');
   classList.forEach(className => {
     element.classList.toggle(className);
