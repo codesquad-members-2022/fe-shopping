@@ -10,6 +10,7 @@ import { Toggle } from "../Components/AbstractToggle.js";
 function SearchInputToggleView() {
   ToggleView.apply(this, arguments);
   this.emptyHistoryContents = ["검색 결과 없음"];
+  this.searchHistoryData = new Set();
 }
 
 function SearchMenuToggleView() {
@@ -92,7 +93,7 @@ SearchInputToggleView.prototype.generateSearchContents = function (data) {
 
   const searchZoneToggle = new SearchInputToggle(data);
   this.parentDom.appendChild(searchZoneToggle.dom);
-}; // 필요할 경우 searchHitoryZone 비슷한 방식으로 구현해야함
+};
 
 SearchInputToggleView.prototype.hasHistoryZone = function () {
   const childDomClassName = ".search--toggle--ul";
@@ -101,6 +102,34 @@ SearchInputToggleView.prototype.hasHistoryZone = function () {
   }
 
   return false;
+};
+
+SearchInputToggleView.prototype.saveSearchingData = function (event) {
+  const {
+    keyCode,
+    target: { value },
+  } = event;
+
+  // keyCode === 13 ? event.preventDefault() : return 삼항연산자좀 써볼걸... 안되네
+  if (this.checkEnter(keyCode)) {
+    return;
+  }
+
+  this.searchHistoryData.add(value);
+  this.Save2LocalStorage(this.searchHistoryData);
+};
+
+SearchInputToggleView.prototype.checkEnter = function (keyCode) {
+  if (keyCode === 13) {
+    return true;
+  }
+};
+
+SearchInputToggleView.prototype.Save2LocalStorage = function (data) {
+  localStorage.setItem(
+    "localSearchHistory",
+    JSON.stringify(Array.from(data)) // 왜 ... 스프레드 문법은 안될까?
+  );
 };
 
 // SearchInputToggleView.prototype.renderHistory = function () {

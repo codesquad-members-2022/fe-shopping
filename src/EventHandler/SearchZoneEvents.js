@@ -40,12 +40,6 @@ class SearchZoneController {
   }
 
   onInputSearchInput({ target: { value } }) {
-    // fetch_use(
-    //   `search/${value}`,
-    //   (jsonData) => new SearchInputToggle(jsonData).dom
-    // )
-    //   .then(() => this.inputView.renderToggle())
-    //   .then(() => this.inputView.renderHistory());
     this.inputView.renderAutoComplete(value);
   }
 
@@ -58,14 +52,7 @@ class SearchZoneController {
   }
 
   onKeyDownEnter(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-
-      this.searched = new Set([
-        ...this.searched,
-        domUtil.$(".header__main--searchInput").value,
-      ]);
-    }
+    this.inputView.saveSearchingData(event);
   }
 
   onClickOutSearchMenu({ target: { className } }) {
