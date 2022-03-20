@@ -33,8 +33,18 @@ class SearchBoxKeyup extends SearchBox {
     return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
   };
 
-  changeRelativeList = (refinedData) => {
-    const innerList = this.drawListFromData(refinedData);
+  addHighlight = (value) => {
+    return "<span class='highlight'>" + value + "</span>";
+  };
+
+  highlightValueInList = (innerList, value) => {
+    const regex = new RegExp(value, "g");
+    return innerList.replace(regex, this.addHighlight(value));
+  };
+
+  changeRelativeList = (refinedData, value) => {
+    let innerList = this.drawListFromData(refinedData);
+    if (value) innerList = this.highlightValueInList(innerList, value);
     this.relativeList.innerHTML = innerList;
   };
 
@@ -54,7 +64,7 @@ class SearchBoxKeyup extends SearchBox {
     const isRefinedData = refinedData.length;
 
     this.transformer.classList[isRefinedData ? "remove" : "add"]("hidden");
-    this.changeRelativeList(refinedData);
+    this.changeRelativeList(refinedData, value);
     this.drawRelativeListForm();
   };
 
