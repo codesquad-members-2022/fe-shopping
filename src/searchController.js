@@ -1,4 +1,4 @@
-import { createStrongList, createHistoryList, createHistoryOff } from "./templates.js";
+
 import {renderHistoryList, renderPrefixList} from "./render.js";
 
 export class SearchController {
@@ -157,17 +157,15 @@ export class SearchController {
 
     onHistoryList() {
         const historyStorage = this.historyManager.getStorage()
-        const historyOnTemplate = createHistoryList([...historyStorage])
-        this.openHistoryList(historyOnTemplate)
+        this.openHistoryList([...historyStorage])
     }
 
     offHistoryList() {
-        const historyOffTemplate = createHistoryOff()
-        this.openHistoryList(historyOffTemplate)
+        this.openHistoryList('off')
     }
-    openHistoryList(template) {
+    openHistoryList(historyList) {
         const $historyListOuter = document.querySelector('.history-list')
-        renderHistoryList($historyListOuter, template)
+        renderHistoryList($historyListOuter, historyList)
         this.removeVisibilityHidden(this.$historyList)
     }
 
@@ -266,8 +264,7 @@ export class SearchController {
 
     highlightPrefixList(prefixList, highlightLength) {
         const splitPrefixArr = prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
-        const prefixListTemplate = createStrongList(splitPrefixArr)
-        renderPrefixList(this.$prefixList, prefixListTemplate)
+        renderPrefixList(this.$prefixList, splitPrefixArr)
     }
 
     fetchPrefixList(word) {

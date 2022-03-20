@@ -1,6 +1,7 @@
 
 import * as Templates from "./templates.js"
 import { selectList, headerNavMenu, topBarMenu, topBarSubMenu } from "./data.js";
+import {createHistoryList, createHistoryOff, createStrongList} from "./templates.js";
 
 const $body = document.body
 
@@ -48,8 +49,9 @@ function renderPrefixListContainer(elem) {
     elem.innerHTML += $prefixList
 }
 
-function renderPrefixList(elem, template) {
-    elem.innerHTML = template
+function renderPrefixList(elem, prefixListArray) {
+    const prefixListTemplate = createStrongList(prefixListArray)
+    elem.innerHTML = prefixListTemplate
 }
 
 function renderSearchHistoryContainer(elem) {
@@ -57,7 +59,9 @@ function renderSearchHistoryContainer(elem) {
     elem.innerHTML += $searchHistory
 }
 
-function renderHistoryList(elem, template) {
+function renderHistoryList(elem, historyList) {
+    let template;
+    template = historyList === 'off'? createHistoryOff() : createHistoryList(historyList)
     elem.innerHTML = template
 }
 
