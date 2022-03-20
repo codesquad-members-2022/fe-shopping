@@ -1,0 +1,228 @@
+.header {
+    @include flex-center(column);
+    @include fullSize;
+    min-width: 1020px;
+
+    &__main {
+        @include flex-center;
+        width: 100%;
+        height: 115px; // 변수로
+    }
+
+    &__contents {
+        @include flex(column);
+        height: 115px;
+        margin: {
+            top : 40px;
+            left : 30px;
+        }
+
+        &--top {
+            @include flex-center;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__logo {
+        @include flex-center;
+        padding-right: 20px;
+
+        img {
+            width: 174px;
+            height: 41px;
+        }
+    }
+    
+    &__category--button {
+        height: 100%;
+    }
+}
+
+.top-bar {
+    @include flex-center;
+    width: 100%;  
+    min-width: 1020px;
+    height: 32px;
+    background: $color-gray;
+
+    &__contents {
+        @include flex-center;
+        width: 1100px;
+        height: 100%;
+        justify-content: space-between;
+    }
+
+    &__menu {
+        @include flex-center;
+
+        &--left {
+            margin-left: 20px;
+        } 
+        
+        &--right {
+            margin-right: 70px;
+        }
+    }
+
+    &__item {
+        font-size: $font-small;
+        padding: {
+            top: 10px;
+            left: 12px;
+        }
+    }
+}
+
+.search {
+    @include flex;
+    width: 518px;
+    height: 37px;
+    border: $color-blue 2px solid;
+
+    &__category {
+        @include flex(column);
+        position: relative;
+        width: 137px;
+        height: 387px;
+
+        &--contents {
+            @include flex;
+            width: 134px;
+            border-right: $color-gray 1px solid;
+
+            img {
+                width: 18px;
+                height: 18px;
+                padding-top: 10px;
+                padding-right: 10px;
+            }
+        }
+        
+        &--title {
+            @include flex;
+            width: 100%;
+            height: 37px;
+            padding-left: 10px;
+            font-size: $font-middle;
+            align-items: center;
+        }
+
+        &--list {
+            z-index: 1;
+            width: 134px;
+            height: 100%;
+            padding-top: 10px;
+            overflow-y: auto;
+            transition: all 0.2s;
+            font-size: $font-middle;
+            background-color: $color-white;
+            box-shadow: 0 4px 5px $color-shadow;
+        }
+
+        &--item {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            padding-left: 13px;
+        }
+    }
+ 
+    &__form {
+        @include flex(column);
+        width: 100%;
+        height: 387px;
+
+        &--main {
+            @include flex;
+            width: 100%;
+            height: 35px;
+        }
+
+        &--input {
+            width: 100%;
+            height: 35px;
+            border: none;
+            padding-left: 8px;
+        }
+
+        &--submit {
+            width: 50px;
+        }
+    }
+
+    &__result {
+        @include flex(column);
+        height: 350px;
+        margin-top: 2px;
+        padding-top: 10px;
+        z-index: 1;
+        font-size: $font-middle;
+        background-color: $color-white;
+        box-shadow: 0 4px 5px $color-shadow;
+        border: $color-deep-gray 1px solid;
+
+        strong {
+            height: 10px;
+            line-height: 5px;
+            border-bottom: $color-deep-gray 1px solid;
+            padding: 10px;
+        }
+
+        &--list {
+            padding: 0 10px 10px 10px;
+            flex-grow: 2;
+            overflow-y: scroll;
+        }
+
+        &--item {
+            padding-top: 15px
+        }
+    }
+
+    &__button {
+        display: flex;
+        justify-content: space-between;
+        background-color: $color-gray;
+        height: 30px;
+        border: $color-deep-gray 1px solid;
+
+        button {
+            background: none;
+            border: none;
+            color: $color-dark-gray;
+            padding: 0px 10px;
+            font-size: $font-middle;
+        }
+    }
+}
+
+.gnb {
+    @include flex;
+
+    button {
+        border: none;
+        background-color: $color-white;
+        padding-right: 25px;
+    }
+}
+
+.menu {
+    @include flex;
+    margin-left: 30px;
+
+    &--item {
+        @include flex(column);
+        @include fullSize;
+        padding-right: 30px;
+
+        img {
+            width: 45px;
+            height: 40px;
+        }
+
+        a {
+            font-size: $font-middle;
+            padding-top: 10px
+        }
+    }
+}
