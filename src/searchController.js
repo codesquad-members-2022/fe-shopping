@@ -1,5 +1,5 @@
 
-import {renderHistoryList, renderPrefixList} from "./render.js";
+import {renderHistoryList, renderPrefixList} from "./headerRender.js";
 
 export class SearchController {
     constructor(historyManager) {
@@ -134,7 +134,8 @@ export class SearchController {
     }
 
     searchFocusoutHandler(e) {
-        if(e.relatedTarget !== null) return
+        const focusBtnClass = ['history-delete', 'history-switch', 'history-deleteAll']
+        if(e.relatedTarget !== null && focusBtnClass.includes(e.relatedTarget.className)) return
 
         this.addVisibilityHidden(this.$prefixList)
         this.addVisibilityHidden(this.$historyList)
