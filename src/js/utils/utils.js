@@ -15,14 +15,12 @@ export const addEvent = (element, type, eventHandler) => {
 }
 
 export const delay = (callback, url) => {
-  new Promise((resolve) =>
-  setTimeout(() => {
-    const searchedDB = fetch(`${url}?input=${$('.coupang-search').value}`)
-      .then((res) => res.json());
-      resolve(searchedDB);
-    }, 500)
-)
-.then((data) => callback(data));
+    new Promise((resolve) => setTimeout(() => {
+        const searchedDB = fetch(`${url}?input=${$('.coupang-search').value}`).then(
+            (res) => res.json()
+        );
+        resolve(searchedDB);
+    }, 500)).then((data) => callback(data));
 };
 
 export const filterInputData = (data, userInput) => {

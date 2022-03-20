@@ -11,10 +11,10 @@ class AutoComplete extends Element {
   }
   
   inputEventHandler = (e) => {
-      if (!this.coupangSearch.value) {
-        addClass(this.searchedItems, 'down');
-        removeClass(this.latestSearchContents, 'down');
-        removeClass(this.historyBtns, 'down');
+    if (!this.coupangSearch.value) {
+      addClass(this.searchedItems, 'down');
+      removeClass(this.latestSearchContents, 'down');
+      removeClass(this.historyBtns, 'down');
     } else {
       removeClass(this.searchedItems, 'down');
       addClass(this.latestSearchContents, 'down');

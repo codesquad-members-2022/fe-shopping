@@ -11,6 +11,7 @@ class latestSearchBar extends Element {
     this.latestSearch();
   }
   
+  
   latestSearch() {
     addEvent(this.headerSearchForm, 'submit', this.submitEventHandler);
     addEvent(this.deleteAllHistory, 'click', this.deleteEventHandler);
@@ -32,14 +33,13 @@ class latestSearchBar extends Element {
       const searchedList = JSON.parse(webStorage.get('searchedItems')).reduce((acc, el, idx) => {
         return acc + `<li>${el}</li>`;
       }, '');
-      console.log(searchedList)
       template($('ol'), searchedList); //template에 this를 쓰면 전에 기억하고있는 node가 됨
     }
   }
 
   deleteEventHandler = (e) => {
     webStorage.clear('searchedItems');
-    template(this.latestList, '');
+    template($('ol'), '');
     this.searchedItemsArr = [];
   }
 

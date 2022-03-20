@@ -17,7 +17,7 @@ app.get("/items", (req, res) => {
 
   const items = require(path.join(__dirname, '/server/data/fakeDB.json'));  
   const result = items.items
-    .filter(v => v["name"].includes(q))
+    .filter(v => v.name.includes(q))
     .sort((a, b) => b.views - a.views);
   res.json(result);
 });
