@@ -1,4 +1,6 @@
 class SearchList {
+    MAX_ITEM = 10;
+
     constructor(searchList, listContainer) {
         this.searchListNode = searchList;
         this.listContainer = listContainer;
@@ -24,30 +26,30 @@ class SearchList {
 
     addSearchWord(word) {
         this.searchItems.unshift(word);
-        if (this.searchItems.length > 10) {
-            this.searchItems = this.searchItems.slice(0, 10);
+        if (this.searchItems.length > this.MAX_ITEM) {
+            this.searchItems = this.searchItems.slice(0, this.MAX_ITEM);
         }
         this.curIdx = -1;
     }
 
-    getInnerText(itemName, input) {
-        let innerText = itemName;
-        const re = new RegExp(`${input}`);
-        const matchWord = re.exec(itemName);
+    getItemText(itemName, input) {
+        let itemText = itemName;
+        const inputRegex = new RegExp(`${input}`);
+        const matchWord = inputRegex.exec(itemName);
         if (matchWord) {
-            innerText =
+            itemText =
                 itemName.slice(0, matchWord.index) +
                 `<strong class="match-word">${input}</strong>` +
                 itemName.slice(matchWord.index + input.length);
         }
 
-        return innerText;
+        return itemText;
     }
 
-    getSearchListItem = (itemName, idx, input) => {
-        const innerText = this.getInnerText(itemName, input);
-        return `<li class="search__list--item" data-idx="${idx}" data-name="${itemName}">${innerText}</li>`;
-    };
+    getSearchListItem(itemName, idx, input) {
+        const itemText = this.getItemText(itemName, input);
+        return `<li class="search__list--item" data-idx="${idx}" data-name="${itemName}">${itemText}</li>`;
+    }
 
     renderSearchList(input = "") {
         const searchList = this.searchItems.reduce(
@@ -62,6 +64,10 @@ class SearchList {
         }
     }
 
+    setStyles(element, styles) {
+        Object.assign(element, styles);
+    }
+
     focusItem() {
         const listItems = this.listContainer.querySelectorAll(
             ".search__list--item"
@@ -71,12 +77,12 @@ class SearchList {
         listItems.forEach((item) => {
             if (item.dataset.idx === this.curIdx.toString()) {
                 focusingItem = item;
-                Object.assign(item.style, {
+                this.setStyles(item.style, {
                     textDecoration: "underline",
                     color: "#228be6",
                 });
             } else {
-                Object.assign(item.style, {
+                this.setStyles(item.style, {
                     textDecoration: "none",
                     color: "black",
                 });
