@@ -5,7 +5,7 @@ import RecentWord from './recent-words.js';
 export default class Autocomplete {
   constructor() {
     this.$autocompleteMenu = $('#autocomplete-menu');
-    this.$autocompleteMenuList = $('#input-popup-menu-list');
+    this.$popupMenuList = $('#input-popup-menu-list');
   }
   showAutocomplete() {
     this.$autocompleteMenu.classList.remove('hidden');
@@ -21,10 +21,11 @@ export default class Autocomplete {
 
     if (!inputValue.length) {
       this.noShowAutocomplete();
-      this.$autocompleteMenuList.innerHTML = '검색 결과가 없습니다';
+      this.$popupMenuList.innerHTML = '검색 결과가 없습니다';
       RecentWord.prototype.showRecentSearches();
       return;
     }
+
     this.showAutocomplete();
     const searchQuery = this.changeInputToQuery(inputValue);
 
@@ -35,7 +36,9 @@ export default class Autocomplete {
   }
 
   changeInputToQuery(inputValue) {
-    switch (inputValue) {
+    const firstWord = inputValue.split('')[0];
+
+    switch (firstWord) {
       case 'ㄱ':
       case '가':
         this.delay500ms(getCompleteData('ga'));
@@ -65,18 +68,18 @@ export default class Autocomplete {
     }
   }
 
-  delay500ms(completeData) {
-    setTimeout(() => this.showCompleteWord(completeData), 500);
+  delay500ms(completeDataPromise) {
+    setTimeout(() => this.showCompleteWord(completeDataPromise), 500);
   }
 
-  async showCompleteWord(completeData) {
-    const wordData = await completeData;
+  async showCompleteWord(completeDataPromise) {
+    const wordData = await completeDataPromise;
     const dataTemplate = wordData.reduce(
       (pre, curList) =>
         (pre += `<li class = "input-popup-menu-item">${curList.keyword}</li>`),
       ''
     );
 
-    this.$autocompleteMenuList.innerHTML = dataTemplate;
+    this.$popupMenuList.innerHTML = dataTemplate;
   }
 }
