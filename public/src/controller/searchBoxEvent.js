@@ -1,9 +1,9 @@
 import { renderRecentSearchBox, renderRelatedSearchBox, renderRelatedSearchWord } from "../render/searchBox.js";
-import { debounce } from "./util.js";
+import { debounce, fetchData } from "./util.js";
 
-const setSearchBoxEvent = (searchBoxNode, searchData) => {
+const setSearchBoxEvent = (searchBoxNode) => {
   setCategoryEvent(searchBoxNode);
-  setSearchEvent(searchBoxNode, searchData);
+  setSearchEvent(searchBoxNode);
 };
 
 const setCategoryEvent = (searchBoxNode) => {
@@ -38,7 +38,7 @@ const changeCategory = (searchBoxNode, targetNode) => {
   searchBoxNode.firstChild.textContent = targetNode.firstChild.textContent;
 };
 
-const setSearchEvent = (searchBoxNode, searchData) => {
+const setSearchEvent = (searchBoxNode) => {
   const searchInput = searchBoxNode.querySelector(".search__input");
   const recentSearchBox = searchBoxNode.querySelector(".recent-search-container");
   const relatedSearchBox = searchBoxNode.querySelector(".related-search-container");
@@ -47,7 +47,7 @@ const setSearchEvent = (searchBoxNode, searchData) => {
     renderRecentSearchBox(recentSearchBox);
     if (searchInput.value.length !== 0) {
       renderRelatedSearchBox(relatedSearchBox);
-      fillRelatedSearchBox(relatedSearchBox.querySelector(".related-search-word-container"), searchData, searchInput.value);
+      fillRelatedSearchBox(relatedSearchBox.querySelector(".related-search-word-container"), searchInput.value);
     }
   });
   searchInput.addEventListener("focusout", (e) => {
@@ -63,14 +63,15 @@ const setSearchEvent = (searchBoxNode, searchData) => {
       if (searchInput.value.length !== 0) {
         renderRelatedSearchBox(relatedSearchBox);
         const relatedSearchWordBox = relatedSearchBox.querySelector(".related-search-word-container");
-        fillRelatedSearchBox(relatedSearchWordBox, searchData, searchInput.value);
+        fillRelatedSearchBox(relatedSearchWordBox, searchInput.value);
         setRelatedSearchWordEvent(relatedSearchWordBox, searchInput);
       }
     }, 100)
   );
 };
 
-const fillRelatedSearchBox = (parentNode, searchData, typeWord) => {
+const fillRelatedSearchBox = async (parentNode, typeWord) => {
+  const searchData = await fetchData("http://localhost:3000/searchData");
   Object.entries(searchData).forEach(([searchWord, searchResult]) => {
     if (searchWord === typeWord) {
       searchResult.forEach((word) => {
