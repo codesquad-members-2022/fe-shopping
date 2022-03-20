@@ -1,43 +1,47 @@
 {
   "data": [
     {
-      "keyword": "가습기",
-      "id": "ga-1"
-    },
-    {
-      "keyword": "가히 멀티밤",
-      "id": "ga-2"
-    },
-    {
-      "keyword": "각티슈",
-      "id": "ga-3"
-    },
-    {
-      "keyword": "감자",
-      "id": "ga-4"
+      "keyword": "가",
+      "id": "ga-0"
     },
     {
       "keyword": "가그린",
+      "id": "ga-1"
+    },
+    {
+      "keyword": "가그린 어린이용",
+      "id": "ga-2"
+    },
+    {
+      "keyword": "가그린 제로",
+      "id": "ga-3"
+    },
+    {
+      "keyword": "가그린 오리지널",
+      "id": "ga-4"
+    },
+    {
+      "keyword": "가그린 휴대용",
       "id": "ga-5"
     },
     {
-      "keyword": "가희 주름 케어 멀티밤",
+      "keyword": "가그린 휴대용 리스테린",
       "id": "ga-6"
     },
     {
-      "keyword": "가글",
+      "keyword": "가그린 스트롱",
       "id": "ga-7"
     },
     {
-      "keyword": "가리비",
+      "keyword": "가그린 키즈",
       "id": "ga-8"
     },
     {
-      "keyword": "간장",
+      "keyword": "가그린 제로 750ml",
       "id": "ga-9"
     },
     {
-      "keyword": "가구 모음",
+      "keyword": "가그린 후레쉬",
       "id": "ga-10"
     }
   ]

@@ -1,7 +1,11 @@
 {
   "data": [
     {
-      "keyword": "나랑드 사이다",
+      "keyword": "나",
+      "id": "na-0"
+    },
+    {
+      "keyword": "나이키",
       "id": "na-1"
     },
     {
@@ -13,31 +17,31 @@
       "id": "na-3"
     },
     {
-      "keyword": "남성 올인원",
+      "keyword": "나이키 바지",
       "id": "na-4"
     },
     {
-      "keyword": "남자 봄잠바",
+      "keyword": "나이키 런닝화",
       "id": "na-5"
     },
     {
-      "keyword": "남성 크록스",
+      "keyword": "나이키 축구화",
       "id": "na-6"
     },
     {
-      "keyword": "남자 후드티",
+      "keyword": "나이키 조던",
       "id": "na-7"
     },
     {
-      "keyword": "남자 맨투맨",
+      "keyword": "나이키 맨투맨",
       "id": "na-8"
     },
     {
-      "keyword": "남자 잠옷",
+      "keyword": "나이키 트레이닝복",
       "id": "na-9"
     },
     {
-      "keyword": "남자 바지",
+      "keyword": "나이키 힙색",
       "id": "na-10"
     }
   ]
