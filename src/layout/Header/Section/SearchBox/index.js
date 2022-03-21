@@ -94,13 +94,13 @@ function handleSubmit(event) {
   moveToSearchTermPage(option, searchTerm);
 }
 
-function handleInput({ target }) {
+async function handleInput({ target }) {
   const { value: inputValue } = target;
-  handlePopUpDisplay.call(this, inputValue);
   this.setState({ inputValue });
-  const reponseTerms = requestAutoCompleteTerms.requestTerms(inputValue);
+  const reponseTerms = await requestAutoCompleteTerms.requestTerms(inputValue);
+  handlePopUpDisplay.call(this, inputValue, reponseTerms);
   this.$AutoComplete.setState({ autoSearchList: reponseTerms });
-  // target.focus();
+  this.setState({ autoSearchList: reponseTerms });
 }
 
 function showRecord({ target }) {
@@ -108,8 +108,8 @@ function showRecord({ target }) {
   handlePopUpDisplay.call(this, inputValue);
 }
 
-function handlePopUpDisplay(inputValue) {
-  if (inputValue === '') {
+function handlePopUpDisplay(inputValue, reponseTerms) {
+  if (inputValue === '' || reponseTerms.length === 0) {
     closePopUp(this.$AutoComplete.$element);
     showPopUp(this.$RecentSearchList.$element);
   } else {

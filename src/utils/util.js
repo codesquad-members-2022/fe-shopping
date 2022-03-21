@@ -1,3 +1,7 @@
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms * 1000));
+}
+
 function handlelocalStorage() {
   return {
     set(key, value) {
@@ -33,8 +37,11 @@ MockData.prototype.init = async function () {
   this.termDB = result;
 };
 
-MockData.prototype.requestTerms = function (text) {
-  return this.termDB.map(({ keyword }) => keyword);
+MockData.prototype.requestTerms = async function (text) {
+  await delay(0.5);
+  return this.termDB
+    .map(({ keyword }) => keyword)
+    .filter((term) => term.slice(0, text.length) === text);
 };
 
 export const requestAutoCompleteTerms = new MockData();
