@@ -136,7 +136,6 @@
   .input-popup-menu-title {
     text-align: left;
     width: 100%;
-
     padding: 10px 0 10px 5px;
     border-bottom: 1px solid $color-blue;
   }
@@ -173,6 +172,9 @@
   display: none;
 }
 
+.color-blue {
+  color: $color-blue;
+}
 .option-menu {
   position: absolute;
   width: 124px;

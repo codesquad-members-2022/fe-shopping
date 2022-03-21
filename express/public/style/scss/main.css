@@ -232,6 +232,10 @@ input:focus {
   display: none;
 }
 
+.color-blue {
+  color: #0000ff;
+}
+
 .option-menu {
   position: absolute;
   width: 124px;
