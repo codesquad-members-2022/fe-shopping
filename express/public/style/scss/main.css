@@ -236,6 +236,7 @@ input:focus {
   margin: 10px;
   font-size: 0.875rem;
   cursor: pointer;
+  background-color: #999;
 }
 
 .input-popup-menu .input-popup-menu-btn .history-off-btn {
@@ -243,6 +244,7 @@ input:focus {
   margin: 10px;
   font-size: 0.875rem;
   cursor: pointer;
+  background-color: #999;
 }
 
 .hidden {
