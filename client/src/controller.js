@@ -41,14 +41,8 @@ export class Controller {
     const DELAY = 500;
 
     this.selector.input.addEventListener('focus', () => this.focusInputHandle());
-    this.selector.input.addEventListener(
-      'input',
-      debounce(this.typingInputHandle.bind(this), DELAY)
-    );
-
-    this.selector.inputDropDown.addEventListener('mouseleave', () =>
-      SearchInput.toggleInputFocusClass()
-    );
+    this.selector.input.addEventListener('input', debounce(this.typingInputHandle.bind(this), DELAY));
+    this.selector.inputDropDown.addEventListener('mouseleave', () => SearchInput.toggleInputFocusClass());
   }
 
   setSearchFormEvents() {
@@ -58,10 +52,11 @@ export class Controller {
 
   async changeAutoCompleteView(inputValue) {
     if (!this.selector.input.value) return;
-
-    const autoData = await getAutoCompleteData(inputValue);
+    const autoCompleteData = await getAutoCompleteData(inputValue);
     this.recentSearchView.removeRecentSearchChildNodes();
-    this.autoCompleteView.updateAutoComplete(autoData);
+    !autoCompleteData.length
+      ? this.autoCompleteView.emptyAutoComplete()
+      : this.autoCompleteView.updateAutoComplete(autoCompleteData, inputValue);
   }
 
   focusInputHandle() {
