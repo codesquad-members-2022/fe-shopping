@@ -27,6 +27,7 @@ const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 const AUTO_COMPLETE_BOX = 'auto-complete';
 const AUTO_COMPLETE_LIST = 'auto-complete-list';
 const ROTATION_LIST = 'rotation-list';
+const SELECTED = 'is-selected';
 
 const autoCompleteDelay = 500;
 const popupboxDelay = 500;
@@ -39,10 +40,12 @@ export class SearchBarForm {
     this.$popupBox = selector(`.${FORM_POPUP_BOX}`);
     this.$submit = selector(`.${SUBMIT}`);
 
+    this.initialInputKeyword = '';
     this.history = this.initHistory();
     this.autoComplete = this.initAutoComplete();
     this.autoCompleteDelay = autoCompleteDelay;
     this.popupboxDelay = popupboxDelay;
+    this.rotationDelay = 0;
   }
 
   init() {
@@ -61,7 +64,10 @@ export class SearchBarForm {
       debounce(this.setPopupbox, this.popupboxDelay)
     );
 
-    this.$input.addEventListener('keydown', this.handleKeywordRotation);
+    this.$input.addEventListener(
+      'keydown',
+      debounce(this.handleKeywordRotation, this.rotationDelay)
+    );
   }
 
   initHistory() {
@@ -109,12 +115,31 @@ export class SearchBarForm {
   };
 
   handleKeywordRotation = (e) => {
-    if (!this.isKeyCodeArrow(e.code)) return;
+    if (!this.isKeyCodeArrowUpOrDown(e.code)) return;
+    const $rotationList = selector(`.${ROTATION_LIST}`, this.$popupBox);
+    const $selectedItem = selector(`.${SELECTED}`, $rotationList);
+    const $target = this.getNextRotationItem(
+      e.code,
+      $rotationList,
+      $selectedItem
+    );
+
+    let keywordOfSelectedItem;
+    if (!$target) keywordOfSelectedItem = this.initialInputKeyword;
+    else keywordOfSelectedItem = selector('a', $target).textContent;
+
+    const keywordLength = keywordOfSelectedItem.length;
+    this.$input.value = keywordOfSelectedItem;
+    this.$input.setSelectionRange(keywordLength, keywordLength);
+
+    removeClass(SELECTED, $selectedItem);
+    addClass(SELECTED, $target);
   };
 
   setPopupbox = (e) => {
     if (this.isKeyCodeArrow(e.code)) return;
     const inputKeyword = e.target.value;
+    this.setInitialInputKeyword(inputKeyword);
     const $autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`, this.$form);
     const $autoCompleteList = selector(
       `.${AUTO_COMPLETE_LIST}`,
@@ -123,6 +148,10 @@ export class SearchBarForm {
 
     const $historyBox = selector(`.${HISTORY_BOX}`, this.$form);
     const $historyList = selector(`.${HISTORY_LIST}`, $historyBox);
+
+    const $prevRotationList = selector(`.${ROTATION_LIST}`, this.$popupBox);
+    const $selectedItem = selector(`.${SELECTED}`, $prevRotationList);
+    if ($selectedItem) removeClass(SELECTED, $selectedItem);
 
     if (inputKeyword.length < 1) {
       addClass(HIDDEN, $autoCompleteBox);
@@ -138,6 +167,21 @@ export class SearchBarForm {
   };
   /* ********** */
 
+  getNextRotationItemKeyword($target) {
+    if ($target) return;
+  }
+
+  getNextRotationItem(code, $rotationList, $selectedItem) {
+    if (this.isKeyCodeArrowUp(code)) {
+      if (!$selectedItem) return $rotationList.lastElementChild;
+      return $selectedItem.previousElementSibling;
+    }
+
+    // code === ArrowDown
+    if (!$selectedItem) return $rotationList.firstElementChild;
+    return $selectedItem.nextElementSibling;
+  }
+
   closePopupbox() {
     addClass(HIDDEN, this.$popupBox);
   }
@@ -151,5 +195,24 @@ export class SearchBarForm {
     )
       return true;
     return false;
+  }
+
+  isKeyCodeArrowUpOrDown(code) {
+    if (code === 'ArrowUp' || code === 'ArrowDown') return true;
+    return false;
+  }
+
+  isKeyCodeArrowUp(code) {
+    if (code === 'ArrowUp') return true;
+    return false;
+  }
+
+  isKeyCodeArrowDown(code) {
+    if (code === 'ArrowDown') return true;
+    return false;
+  }
+
+  setInitialInputKeyword(keyword) {
+    this.initialInputKeyword = keyword;
   }
 }
