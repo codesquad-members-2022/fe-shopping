@@ -157,6 +157,10 @@
 
 input {
   border: 0px solid #fff;
+
+  // &:focus {
+  //   ::placeholder= "" ;
+  // }
 }
 
 .search-form-input-btn {
@@ -214,4 +218,27 @@ input {
 .banner {
   width: 1920px;
   height: 420px;
+}
+
+.autocomplete-popup {
+  transform: scaleY(0);
+  width: 374px;
+  height: 328px;
+  position: absolute;
+  top: 70px;
+  left: 470px;
+  background-color: #fff;
+  padding: 10px 0 10px 10px;
+  border: 1px solid #f0f0f0;
+  z-index: 1;
+
+  li {
+    font: normal 12px Tahoma;
+    color: #555;
+    padding: 0 0 16px 0;
+  }
+}
+
+.showAutocomplete {
+  transform: scaleY(1);
 }
