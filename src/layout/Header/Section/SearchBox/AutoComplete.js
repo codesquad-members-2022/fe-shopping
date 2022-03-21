@@ -8,14 +8,17 @@ AutoComplete.prototype = Object.create(HtmlElement.prototype);
 AutoComplete.prototype.constructor = AutoComplete;
 
 AutoComplete.prototype.setTemplate = function () {
-  const { autoSearchList } = this.state;
-  return template(autoSearchList);
+  const { autoSearchList, inputValue } = this.state;
+  return template(autoSearchList, inputValue);
 };
 
 AutoComplete.prototype.setEvent = function () {};
 
-const template = (autoSearchList) => `
+const template = (autoSearchList, inputValue) => {
+  console.log(inputValue);
+  return `
   <ul>
   ${autoSearchList.map((term) => `<li>${term}</li>`).join('')}
   </ul>
 `;
+};

@@ -40,7 +40,7 @@ SearchBox.prototype.setTemplate = function () {
 };
 
 SearchBox.prototype.renderChild = function () {
-  const { option, recentSearchList, autoSearchList } = this.state;
+  const { option, recentSearchList, autoSearchList, inputValue } = this.state;
   const $selector = findTargetClassElement(this.$element, 'search__selector');
   const $searchRecord = findTargetClassElement(this.$element, 'search__record');
   const $searchAuto = findTargetClassElement(this.$element, 'search__auto');
@@ -52,7 +52,10 @@ SearchBox.prototype.renderChild = function () {
     option,
     recentSearchList,
   });
-  this.$AutoComplete = new AutoComplete($searchAuto, { autoSearchList });
+  this.$AutoComplete = new AutoComplete($searchAuto, {
+    autoSearchList,
+    inputValue,
+  });
 };
 
 SearchBox.prototype.setEvent = function () {
@@ -66,6 +69,8 @@ SearchBox.prototype.setEvent = function () {
 
 SearchBox.prototype.setState = function (newState) {
   this.state = { ...this.state, ...newState };
+  //값이 바뀔 때마다 자식 전체를 리렌더링하지 않고 바뀐 값을 쓰는 자식만 리렌더링하기
+  // this.renderChild();
 };
 
 function changeSearchOption(option) {
@@ -91,6 +96,7 @@ function handleSubmit(event) {
     inputValue
   );
   myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
+  // this.setState({ inputValue: '', recentSearchList: updatedRecentSearchList });
   this.setState({ inputValue: '' });
   this.$RecentSearchList.setState({
     recentSearchList: updatedRecentSearchList,
@@ -101,10 +107,12 @@ function handleSubmit(event) {
 
 async function handleInput({ target }) {
   const { value: inputValue } = target;
+  // 자동완성데이터를 받기 전에 handleSubmit이 실행될 수 있어서 미리 inputValue만 최신화
+  this.setState({ inputValue });
   const reponseTerms = await requestAutoCompleteTerms.requestTerms(inputValue);
   handlePopUpDisplay.call(this, inputValue, reponseTerms);
-  this.$AutoComplete.setState({ autoSearchList: reponseTerms });
-  this.setState({ inputValue, autoSearchList: reponseTerms });
+  this.$AutoComplete.setState({ autoSearchList: reponseTerms, inputValue });
+  this.setState({ autoSearchList: reponseTerms });
 }
 
 function showRecord({ target }) {
