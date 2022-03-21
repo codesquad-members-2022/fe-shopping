@@ -8,27 +8,14 @@ AutoComplete.prototype = Object.create(HtmlElement.prototype);
 AutoComplete.prototype.constructor = AutoComplete;
 
 AutoComplete.prototype.setTemplate = function () {
-  return template;
+  const { autoSearchList } = this.state;
+  return template(autoSearchList);
 };
 
 AutoComplete.prototype.setEvent = function () {};
 
-const terms = [
-  '전체',
-  '옵션1',
-  '옵션2',
-  '옵션3',
-  '옵션4',
-  '옵션5',
-  '옵션6',
-  '옵션7',
-  '옵션8',
-  '옵션9',
-  '옵션10',
-];
-
-const template = `
+const template = (autoSearchList) => `
   <ul>
-  ${terms.map((term) => `<li>${term}</li>`).join('')}
+  ${autoSearchList.map((term) => `<li>${term}</li>`).join('')}
   </ul>
 `;

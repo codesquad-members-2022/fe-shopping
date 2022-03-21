@@ -1,5 +1,3 @@
-import { MAX_LOCAL_STORAGE } from '../constant/constant.js';
-
 function handlelocalStorage() {
   return {
     set(key, value) {
@@ -15,3 +13,28 @@ function handlelocalStorage() {
 }
 
 export const myLocalStorage = handlelocalStorage();
+
+async function fetchData(url) {
+  try {
+    const data = await fetch(url);
+    return data.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function MockData() {
+  this.termDB = [];
+  this.init();
+}
+
+MockData.prototype.init = async function () {
+  const { result } = await fetchData('/mock/search.json');
+  this.termDB = result;
+};
+
+MockData.prototype.requestTerms = function (text) {
+  return this.termDB.map(({ keyword }) => keyword);
+};
+
+export const requestAutoCompleteTerms = new MockData();

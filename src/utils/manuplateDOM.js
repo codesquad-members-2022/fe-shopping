@@ -54,12 +54,12 @@ export function findTargetClassElementAll($target, className) {
   return result;
 }
 
-function closePopUp($element) {
+export function closePopUp($element) {
   $element.classList.remove(POP_UP.show);
   $element.classList.add(POP_UP.hidden);
 }
 
-function showPopUp($element) {
+export function showPopUp($element) {
   $element.classList.remove(POP_UP.hidden);
   $element.classList.add(POP_UP.show);
 }

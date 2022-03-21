@@ -1,3 +1,6 @@
+import AutoComplete from './AutoComplete.js';
+import RecentSearchList from './RecentSearchList.js';
+import Selector from './Selector.js';
 import { RECENT_SEARCH_LIST } from '../../../../constant/constant.js';
 import { POP_UP } from '../../../../constant/htmlSelector.js';
 import { moveToSearchTermPage } from '../../../../router.js';
@@ -5,12 +8,13 @@ import HtmlElement from '../../../../utils/HtmlElement.js';
 import {
   findTargetClassElement,
   findTargetIdElement,
-  handleDisplayElement,
+  showPopUp,
+  closePopUp,
 } from '../../../../utils/manuplateDOM.js';
-import { myLocalStorage } from '../../../../utils/util.js';
-import AutoComplete from './AutoComplete.js';
-import RecentSearchList from './RecentSearchList.js';
-import Selector from './Selector.js';
+import {
+  myLocalStorage,
+  requestAutoCompleteTerms,
+} from '../../../../utils/util.js';
 
 export default function SearchBox($element) {
   HtmlElement.call(this, $element);
@@ -24,6 +28,7 @@ SearchBox.prototype.init = function () {
     option: '전체',
     inputValue: '',
     recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
+    autoSearchList: [],
   };
 };
 
@@ -32,7 +37,7 @@ SearchBox.prototype.setTemplate = function () {
 };
 
 SearchBox.prototype.renderChild = function () {
-  const { option, recentSearchList } = this.state;
+  const { option, recentSearchList, autoSearchList } = this.state;
   const $selector = findTargetClassElement(this.$element, 'search__selector');
   const $searchRecord = findTargetClassElement(this.$element, 'search__record');
   const $searchAuto = findTargetClassElement(this.$element, 'search__auto');
@@ -43,7 +48,7 @@ SearchBox.prototype.renderChild = function () {
   this.$RecentSearchList = new RecentSearchList($searchRecord, {
     recentSearchList,
   });
-  new AutoComplete($searchAuto);
+  this.$AutoComplete = new AutoComplete($searchAuto, { autoSearchList });
 };
 
 SearchBox.prototype.setEvent = function () {
@@ -91,12 +96,26 @@ function handleSubmit(event) {
 
 function handleInput({ target }) {
   const { value: inputValue } = target;
+  handlePopUpDisplay.call(this, inputValue);
   this.setState({ inputValue });
+  const reponseTerms = requestAutoCompleteTerms.requestTerms(inputValue);
+  this.$AutoComplete.setState({ autoSearchList: reponseTerms });
   // target.focus();
 }
 
-function showRecord() {
-  handleDisplayElement(this.$RecentSearchList.$element);
+function showRecord({ target }) {
+  const { value: inputValue } = target;
+  handlePopUpDisplay.call(this, inputValue);
+}
+
+function handlePopUpDisplay(inputValue) {
+  if (inputValue === '') {
+    closePopUp(this.$AutoComplete.$element);
+    showPopUp(this.$RecentSearchList.$element);
+  } else {
+    closePopUp(this.$RecentSearchList.$element);
+    showPopUp(this.$AutoComplete.$element);
+  }
 }
 
 const template = ` <div class="search__selector pop-up-container"></div>
@@ -114,7 +133,7 @@ class="pop-up-container"
   <span><i class="fas fa-search"></i></span>
 </div>
 </form>
-<div class="search__auto ${POP_UP.show}" id="searchAuto"></div>
+<div class="search__auto ${POP_UP.hidden}" id="searchAuto"></div>
 <div class="search__record ${POP_UP.hidden}" id="searchRecord"></div>
 </div>
 `;
