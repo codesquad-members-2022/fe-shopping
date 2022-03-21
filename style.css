@@ -675,7 +675,6 @@ template {
   color: #333;
   width: 100%;
   height: 30px;
-  padding: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -690,6 +689,10 @@ template {
 }
 .auto-complete-item.is-selected {
   text-decoration: underline;
+}
+.auto-complete-item a {
+  display: block;
+  padding: 8px;
 }
 
 /*# sourceMappingURL=style.css.map */
