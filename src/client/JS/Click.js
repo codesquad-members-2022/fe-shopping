@@ -1,10 +1,10 @@
 import { selector } from "./util";
 
 class Click {
-  constructor(target, transformer, className) {
+  constructor(target, transformer, parentName) {
     this.target = target;
     this.transformer = transformer;
-    this.className = className;
+    this.parentName = parentName;
   }
 
   toggleIcon = ({ classList }) => {
@@ -16,21 +16,24 @@ class Click {
     menuList.classList.toggle("hidden");
   };
 
-  handleCenterMenuClick = (centerMenu) => {
+  handleCenterMenuClick = () => {
+    const centerMenu = this.target.parentNode;
     const menuList = selector("ul", centerMenu);
     const menuIcon = selector("i", centerMenu);
     this.toggleIcon(menuIcon);
     this.toggleList(menuList);
   };
 
-  handleClickEvent = ({ target }) => {
-    const isCenterMenu = target.closest(this.className);
-    const centerMenu = this.target;
-    const isCenterMenuListHidden =
-      this.transformer.classList.contains("hidden");
-    if (isCenterMenu || !isCenterMenuListHidden) {
-      this.handleCenterMenuClick(centerMenu);
-    }
+  changeTargetInnerText = ({ innerText }) => {
+    console.log(this.target.children[0]);
+    this.target.children[0].innerText = innerText;
+  };
+
+  handleClickEvent = ({ target, target: { tagName } }) => {
+    const isTarget = target.closest(this.parentName);
+    const isListHidden = this.transformer.classList.contains("hidden");
+    if (isTarget || !isListHidden) this.handleCenterMenuClick();
+    if (tagName === "LI" && isTarget) this.changeTargetInnerText(target);
   };
 
   init = () => {

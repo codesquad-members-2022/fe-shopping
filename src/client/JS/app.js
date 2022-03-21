@@ -8,7 +8,7 @@ import { SearchBoxMouse } from "./SearchBox/SearchBoxMouse";
 
 const centerSearchInput = selector("input", selector(".center-search"));
 const centerRelativeInfo = selector(".center-relative-info");
-const centerMenu = selector(".center-menu");
+const centerMenu = selector(".center-menu-btn");
 const centerMenuList = selector(".center-menu-list");
 
 const handleSearchBoxEvent = (target, transformer) => {
