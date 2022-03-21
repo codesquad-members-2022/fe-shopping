@@ -1,9 +1,10 @@
 import storage from "../util/storage.js";
 
 export default class {
-  constructor({ searchFormArea, localStorageDataSize }) {
+  constructor({ searchFormArea, localStorageDataSize, recentSearchMsg }) {
     this.searchFormArea = searchFormArea;
     this.localStorageDataSize = localStorageDataSize;
+    this.recentSearchMsg = recentSearchMsg;
   }
 
   findElementFromArea(selector) {
@@ -32,7 +33,7 @@ export default class {
       return (
         prev +
         `<li class="recent-search-item">
-            <a href="#" class="link">${cur["data"]}</a>
+            <a href="#" class="link">${cur["recentSearchWord"]}</a>
         </li>`
       );
     }, "");
@@ -48,20 +49,17 @@ export default class {
     this.inputEl.value = "";
   }
 
-  setElDisplayBlock(el) {
+  setDisplayBlock(el) {
     el.style.display = "block";
   }
 
-  setElDisplayNone(el) {
+  setDisplayNone(el) {
     el.style.display = "none";
   }
 
   handleRemoveRecentSearch(e) {
     e.preventDefault();
-
-    const confirmMsg = `저장된 최근 검색어를 모두 삭제하시겠습니까?`;
-    const completeMsg = `삭제 되었습니다.`;
-    const cancelMsg = `취소 되었습니다.`;
+    const { confirmMsg, completeMsg, cancelMsg } = this.recentSearchMsg;
 
     if (!confirm(confirmMsg)) {
       alert(cancelMsg);
@@ -82,14 +80,14 @@ export default class {
 
   onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
-      this.setElDisplayBlock(this.recentSearchArea);
+      this.setDisplayBlock(this.recentSearchArea);
       this.fillRecentSearchWords();
     });
   }
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
-      //   this.setElDisplayNone(this.recentSearchArea);
+      // this.setDisplayNone(this.recentSearchArea);
       // TODO: 최근검색어를 조작중일 때에는 사라지지 않도록 해야함
     });
   }
@@ -113,9 +111,9 @@ export default class {
       : [];
 
     let changedDatas = storedDatas.reduce((prev, cur) => {
-      if (cur["data"] === curInput) return prev;
-      const { no, data } = cur;
-      return [...prev, { no: no + 1, data }];
+      if (cur["recentSearchWord"] === curInput) return prev;
+      const { no, recentSearchWord } = cur;
+      return [...prev, { no: no + 1, recentSearchWord }];
     }, []);
 
     return changedDatas;
@@ -131,7 +129,7 @@ export default class {
 
     const firstIdx = 0;
     const inputTxt = this.inputEl.value;
-    const currentData = { no: firstIdx, data: inputTxt };
+    const currentData = { no: firstIdx, recentSearchWord: inputTxt };
     const currentDataCnt = 1;
     this.clearInput();
     let storedDatas = this.setStoredDatasIdx(inputTxt);
@@ -149,7 +147,7 @@ export default class {
 
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", ({ target }) => {
-      //   this.setElDisplayNone(this.recentSearchArea);
+      //    this.setElDisplayNone(this.recentSearchArea);
       // TODO: 입력시 최근검색어란이 사라지게 하여야 함(현재 최근검색어 동작 확인을 위해 주석처리)
     });
   }
