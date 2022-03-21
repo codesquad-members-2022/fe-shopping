@@ -109,7 +109,7 @@ function showRecord({ target }) {
 }
 
 function handlePopUpDisplay(inputValue, reponseTerms) {
-  if (inputValue === '' || reponseTerms.length === 0) {
+  if (inputValue === '' || reponseTerms?.length === 0) {
     closePopUp(this.$AutoComplete.$element);
     showPopUp(this.$RecentSearchList.$element);
   } else {
