@@ -272,7 +272,6 @@
     width: 12%;
     background-color: map-get($header-bg-color, white);
     border: 0;
-    outline: 0;
     font-size: map-get($header-font, small);
 
     &:hover {
@@ -301,7 +300,6 @@
     background-color: map-get($header-bg-color, gray);
     font-size: map-get($header-font, small);
     border: 0;
-    outline: 0;
   }
 }
 

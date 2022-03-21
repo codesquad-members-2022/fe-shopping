@@ -23,6 +23,7 @@ export class SearchController {
         this.setPrefixListEvent()
         this.setSearchFormEvent()
         this.setHistoryListEvent()
+        this.onHistoryList()
     }
 
     setSearchBoxEvent() {
@@ -103,8 +104,11 @@ export class SearchController {
         e.preventDefault()
 
         if(!this.originInputValue || this.originInputValue.length === 0) return
+
         this.setOriginState()
+
         this.historyManager.addItem(this.originInputValue)
+        this.historyState? this.onHistoryList() : this.offHistoryList()
     }
 
     searchKeydownHandler(e) {
@@ -140,35 +144,30 @@ export class SearchController {
         this.addVisibilityHidden(this.$prefixList)
         this.addVisibilityHidden(this.$historyList)
 
-        if(e.target.value.length === 0)
-        this.prefixListIndex = null
+        if(e.target.value.length === 0) this.prefixListIndex = null
     }
 
     searchClickHandler(e){
         if(e.target.className === 'search-btn') return
-        if(this.historyState && e.target.value.length === 0) {
-            return this.onHistoryList()
-        }
-        if(!this.historyState && e.target.value.length === 0) {
-            return this.offHistoryList()
-        }
-        if(this.prefixListElements.length === 0) return;
+
+        if(e.target.value.length === 0) return this.removeVisibilityHidden(this.$historyList)
+
+        if(this.prefixListElements.length === 0) return
         this.removeVisibilityHidden(this.$prefixList)
     }
 
     onHistoryList() {
         const historyStorage = this.historyManager.getStorage()
-        this.openHistoryList([...historyStorage])
+        this.updateHistoryList([...historyStorage])
     }
 
     offHistoryList() {
-        this.openHistoryList('off')
+        this.updateHistoryList('off')
     }
 
-    openHistoryList(historyList) {
+    updateHistoryList(historyList) {
         const $historyListOuter = document.querySelector('.history-list')
         renderHistoryList($historyListOuter, historyList)
-        this.removeVisibilityHidden(this.$historyList)
     }
 
     setOriginState() {
@@ -176,7 +175,6 @@ export class SearchController {
         const $input = document.querySelector('.search-input')
         $input.value = ''
         this.addVisibilityHidden(this.$prefixList)
-        this.addVisibilityHidden(this.$historyList)
     }
 
     setPrefixListElements() {
