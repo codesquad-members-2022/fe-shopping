@@ -3,6 +3,7 @@ import { SearchInput } from './view/searchInput.js';
 import { RecentSearch } from './view/recentSearch.js';
 import { AutoComplete } from './view/autoComplete.js';
 import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
+import { getAutoCompleteData } from './model/autoCompleteData.js';
 
 export class Controller {
   constructor() {
@@ -49,25 +50,31 @@ export class Controller {
     this.selector.form.addEventListener('click', (e) => this.clickDropDownHandle(e));
   }
 
+  async changeAutoCompleteView(inputValue) {
+    if (!this.selector.input.value) return;
+
+    const autoData = await getAutoCompleteData(inputValue);
+    this.recentSearchView.removeRecentSearchChildNodes();
+    this.autoCompleteView.updateAutoComplete(autoData);
+  }
+
   focusInputHandle() {
     if (!this.selector.input.value && !this.KeywordLocalStorage.keywordList.length) return;
 
-    if (this.selector.input.value) {
-      this.recentSearchView.removeRecentSearchChildNodes();
-      this.autoCompleteView.updateAutoComplete();
-    } else if (this.KeywordLocalStorage.keywordList.length > 0) {
+    if (!this.selector.input.value && this.KeywordLocalStorage.keywordList.length > 0) {
       this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
       SearchInput.toggleInputFocusClass();
+    }
+
+    if (this.selector.input.value) {
+      this.changeAutoCompleteView(this.selector.input.value);
     }
   }
 
   typingInputHandle() {
-    if (this.selector.input.value) {
-      this.recentSearchView.removeRecentSearchChildNodes();
-      this.autoCompleteView.updateAutoComplete();
-    } else {
-      SearchInput.toggleInputFocusClass();
-    }
+    this.selector.input.value
+      ? this.changeAutoCompleteView(this.selector.input.value)
+      : SearchInput.toggleInputFocusClass();
   }
 
   submitFormHandle(e) {
