@@ -10,7 +10,8 @@ export default class Dropdown {
     const $optionMenu = $('.option-menu');
 
     if (target.closest('button')) {
-      target.classList.toggle('opened-option-menu');
+      target.classList.toggle('change-option-key-btn');
+      $optionMenu.classList.toggle('show');
     }
 
     if (target.classList.value === 'search-category-dropdown') {

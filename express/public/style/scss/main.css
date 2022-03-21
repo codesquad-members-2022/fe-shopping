@@ -143,7 +143,7 @@ input:focus {
 }
 
 .search-bar .search-category .selected-option {
-  width: 50px;
+  width: 85px;
   float: left;
   margin: 10px 0 0 10px;
   font-size: 0.75rem;
@@ -152,7 +152,7 @@ input:focus {
 
 .search-bar .search-category .search-category-dropdown {
   float: left;
-  padding: 8px 20px 12.5px 30px;
+  padding: 8px 15px 12.5px 16px;
   background-color: #fff;
   border-right: 1px solid #0000ff;
 }
@@ -162,9 +162,26 @@ input:focus {
   display: inline-block;
 }
 
-.search-bar .search-category .search-category-dropdown.opened-option-menu::after {
+.search-bar .search-category .search-category-dropdown.change-option-key-btn::after {
   content: '▲';
   display: inline-block;
+}
+
+.search-bar .seureureuk {
+  opacity: 0;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.search-bar .seureureuk-up {
+  -webkit-transform: translate(0, 100px);
+          transform: translate(0, 100px);
+}
+
+.search-bar .seureureuk.show {
+  opacity: 1;
+  -webkit-transform: none;
+          transform: none;
 }
 
 .search-bar .search-form {
@@ -180,15 +197,15 @@ input:focus {
 
 .search-bar .search-form button {
   float: left;
-  margin: 9px 0 0 20px;
+  margin: 9px 5px 0 13px;
 }
 
 .input-popup-menu {
   position: absolute;
-  width: 343px;
+  width: 329px;
   height: 295px;
   top: 39px;
-  right: 0px;
+  left: 141px;
   background-color: #999;
 }
 
@@ -238,7 +255,7 @@ input:focus {
 
 .option-menu {
   position: absolute;
-  width: 124px;
+  width: 139px;
   top: 34px;
   float: left;
 }
@@ -261,7 +278,7 @@ input:focus {
 
 .icon-menus {
   position: absolute;
-  width: 130px;
+  width: 100px;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -272,9 +289,9 @@ input:focus {
 .icon-menus .my-coupang {
   float: left;
   position: relative;
-  margin-right: 25px;
-  width: 50px;
-  height: 50px;
+  margin-right: 10px;
+  width: 45px;
+  height: 45px;
 }
 
 .icon-menus .my-coupang div:nth-child(1) {
@@ -286,8 +303,8 @@ input:focus {
 .icon-menus .cart {
   float: left;
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
 
 .icon-menus .cart div:nth-child(1) {
