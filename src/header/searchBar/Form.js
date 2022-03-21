@@ -28,6 +28,7 @@ const AUTO_COMPLETE_BOX = 'auto-complete';
 const AUTO_COMPLETE_LIST = 'auto-complete-list';
 const ROTATION_LIST = 'rotation-list';
 const SELECTED = 'is-selected';
+const ROTATION_KEYWORD = 'rotation-keyword';
 
 const autoCompleteDelay = 500;
 const popupboxDelay = 500;
@@ -89,6 +90,7 @@ export class SearchBarForm {
       HISTORY_CLEAR_BTN: HISTORY_CLEAR_BTN,
       HISTORY_ONOFF_BTN: HISTORY_ONOFF_BTN,
       HISTORY_ITEM_DEL_BTN: HISTORY_ITEM_DELETE_BTN,
+      ROTATION_KEYWORD: ROTATION_KEYWORD,
     });
   }
 
@@ -126,7 +128,10 @@ export class SearchBarForm {
 
     let keywordOfSelectedItem;
     if (!$target) keywordOfSelectedItem = this.initialInputKeyword;
-    else keywordOfSelectedItem = selector('a', $target).textContent;
+    else {
+      const $targetKeyword = selector(`.${ROTATION_KEYWORD}`, $target);
+      keywordOfSelectedItem = $targetKeyword.textContent;
+    }
 
     const keywordLength = keywordOfSelectedItem.length;
     this.$input.value = keywordOfSelectedItem;
@@ -166,10 +171,6 @@ export class SearchBarForm {
     removeClass(ROTATION_LIST, $historyList);
   };
   /* ********** */
-
-  getNextRotationItemKeyword($target) {
-    if ($target) return;
-  }
 
   getNextRotationItem(code, $rotationList, $selectedItem) {
     if (this.isKeyCodeArrowUp(code)) {
