@@ -80,6 +80,23 @@ export default class {
     return recentSearchAreaTag;
   }
 
+  createRecommendSearchArea() {
+    const recommendSearchAreaTag = `
+      <div class="inner">
+        <ul class="list">
+          <li class="recommend-search-item">
+            <a href="#" class="link">아이폰</a>
+          </li>
+          <li class="recommend-search-item">
+            <a href="#" class="link">아이폰</a>
+          </li>
+        </ul>
+      </div>
+    `;
+
+    return recommendSearchAreaTag;
+  }
+
   handleRemoveRecentSearch(e) {
     e.preventDefault();
     const { confirmMsg, completeMsg, cancelMsg } = this.recentSearchMsg;
@@ -114,6 +131,21 @@ export default class {
     }
   }
 
+  // 코드가 너무 비슷함, 수정하기
+  showRecentSearchArea() {
+    const recentSearchAreaTag = this.createRecentSearchArea();
+
+    this.setSearchAreaDropDownInner(recentSearchAreaTag);
+    this.setDisplayBlock(this.searchAreaDropDown);
+    this.fillRecentSearchWords();
+  }
+
+  showRecommendSearchArea() {
+    const recommendSearchAreaTag = this.createRecommendSearchArea();
+    this.setSearchAreaDropDownInner(recommendSearchAreaTag);
+    this.setDisplayBlock(this.searchAreaDropDown);
+  }
+
   onSearchFormMousedown() {
     this.searchFormArea.addEventListener("mousedown", (e) =>
       this.handleSearchFormMousedown(e)
@@ -122,9 +154,7 @@ export default class {
 
   onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
-      this.setSearchAreaDropDownInner(this.createRecentSearchArea());
-      this.setDisplayBlock(this.searchAreaDropDown);
-      this.fillRecentSearchWords();
+      this.showRecentSearchArea();
     });
   }
 
@@ -189,8 +219,12 @@ export default class {
 
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", ({ target }) => {
-      // this.setDisplayNone(this.recentSearchArea);
-      // this.setDisplayBlock(this.recommendSearchArea);
+      if (!this.inputEl.value) {
+        this.showRecentSearchArea();
+        return;
+      }
+
+      this.showRecommendSearchArea();
     });
   }
 
