@@ -179,6 +179,12 @@ const hideLists = () => {
     searchCategory.hideCategoryList();
 };
 
+const searchListItemEventHandle = ({ target }) => {
+    if (target.classList.contains("search__category-list--item")) {
+        console.log(target.innerText);
+    }
+};
+
 const onSearchEvent = () => {
     document.body.addEventListener("click", ({ target }) => {
         if (!target.closest(".search")) {
@@ -189,6 +195,10 @@ const onSearchEvent = () => {
     searchCategory.category.addEventListener(
         "click",
         searchCategoryEventHandler
+    );
+    searchCategory.categoryList.addEventListener(
+        "click",
+        searchListItemEventHandle
     );
 
     searchInput.searchInputNode.addEventListener("focus", () => {

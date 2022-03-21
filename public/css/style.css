@@ -176,7 +176,6 @@ h2 {
 }
 
 .search__category-list {
-  display: none;
   border: 1.5px solid #ced4da;
   -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
@@ -185,10 +184,11 @@ h2 {
   left: 0;
   padding: 0px 10px 10px 10px;
   width: 130px;
-  max-height: 80vh;
   overflow-y: scroll;
   background-color: #fff;
   z-index: 1;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
 }
 
 .search__category-list--item {
@@ -270,6 +270,16 @@ h2 {
 
 .arrow--up {
   display: none;
+}
+
+.roll-down {
+  max-height: 80vh;
+  visibility: visible;
+}
+
+.roll-up {
+  max-height: 0;
+  visibility: hidden;
 }
 
 .record-on {

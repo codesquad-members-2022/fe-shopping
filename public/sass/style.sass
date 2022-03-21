@@ -44,7 +44,6 @@
         padding: 10px
         border-right: 1.5px solid $main-dark-gray
         &-list
-            display: none
             @include border
             @include box-shadow
             position: absolute
@@ -52,10 +51,10 @@
             left: 0
             padding: 0px 10px 10px 10px
             width: 130px
-            max-height: 80vh
             overflow-y: scroll
             background-color: $main-white
             z-index: 1
+            transition: all 0.25s
             &--item
                 padding-top: 13px
                 &:hover
@@ -98,6 +97,14 @@
 
 .arrow--up
     display: none
+
+.roll
+    &-down
+        max-height: 80vh
+        visibility: visible
+    &-up
+        max-height: 0
+        visibility: hidden
 
 .record
     &-on
