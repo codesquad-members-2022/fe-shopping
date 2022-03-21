@@ -31,9 +31,6 @@ export default class AutoKeyword {
     const selectedList = $(
       `#input-popup-menu-list > li:nth-child(${this.count}`
     );
-
-    selectedList.style.textDecoration = 'underline';
-    selectedList.style.color = '#4285f4';
     this.$searchInput.value = selectedList.textContent;
   }
 }
