@@ -7,14 +7,17 @@ export const selectorAll = (selector, base = document) => {
 };
 
 export const addClass = (className, element) => {
+  if (!element) return;
   element.classList.add(className);
 };
 
 export const removeClass = (className, element) => {
+  if (!element) return;
   element.classList.remove(className);
 };
 
 export const toggleClass = (className, element) => {
+  if (!element) return;
   element.classList.toggle(className);
 };
 
