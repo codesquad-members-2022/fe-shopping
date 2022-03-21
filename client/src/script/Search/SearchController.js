@@ -3,7 +3,7 @@ import SearchInput from "./SearchInput.js";
 import SearchAutoComplete from "./SearchAutoComplete.js";
 import SearchHistory from "./SearchHistory.js";
 import SearchCategory from "./SearchCategory.js";
-import { delay } from "../util.js";
+import { debounce } from "../util.js";
 import { categories } from "../data.js";
 
 const [NEXT, BEFORE] = [1, -1];
@@ -18,15 +18,12 @@ input.$input.addEventListener('input', ({target}) => {
     history.show = true;
     return;
   }
-  delay(input.value, 500)
-  .then((previousValue) => {
-    if (previousValue === input.value) {
-      getAutoComplete(input.value).then(data => {
-        autoComplete.keyword = input.value;
-        autoComplete.list = data;
-      });
-    }
-  });
+  debounce(() => {
+    getAutoComplete(input.value).then(data => {
+      autoComplete.keyword = input.value;
+      autoComplete.list = data;
+    });
+  }, 500);
 });
 input.$input.addEventListener('focusin', () => history.show = true );
 input.$input.addEventListener('focusout', () => history.show = false );
