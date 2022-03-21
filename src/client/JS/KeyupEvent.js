@@ -11,7 +11,6 @@ class KeyupEvent {
     this.relativeList = selector("ul", transformer);
     this.relativeTitle = selector("h3", transformer);
     this.relativeOption = selector("div", transformer);
-    this.inputDelayController = null;
   }
 
   findRefinedData = async (address, value = "") => {

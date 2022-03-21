@@ -1,9 +1,10 @@
 const selector = (selector, target = document) =>
   target.querySelector(selector);
 
-const delay = ({ time, signal, data }) =>
+const delay = ({ time, signal = null, data }) =>
   new Promise((resolve) => {
     const timeout = setTimeout(() => resolve(data), time);
+    if (!signal) return;
     signal.addEventListener("abort", () => {
       clearTimeout(timeout);
     });
@@ -23,7 +24,6 @@ class intervalDelay {
     await delay({ time: this.time, signal: inputDelaySignal });
 
     this.inputDelayController = null;
-    console.log("hi");
   };
 }
 

@@ -24,7 +24,6 @@ class ClickEvent {
   };
 
   changeTargetInnerText = ({ innerText }) => {
-    console.log(this.target.children[0]);
     this.target.children[0].innerText = innerText;
   };
 
