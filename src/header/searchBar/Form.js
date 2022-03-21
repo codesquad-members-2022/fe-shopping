@@ -26,6 +26,7 @@ const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
 const AUTO_COMPLETE_BOX = 'auto-complete';
 const AUTO_COMPLETE_LIST = 'auto-complete-list';
+const ROTATION_LIST = 'rotation-list';
 
 const autoCompleteDelay = 500;
 const popupboxDelay = 500;
@@ -59,6 +60,8 @@ export class SearchBarForm {
       'keyup',
       debounce(this.setPopupbox, this.popupboxDelay)
     );
+
+    this.$input.addEventListener('keydown', this.handleKeywordRotation);
   }
 
   initHistory() {
@@ -99,25 +102,54 @@ export class SearchBarForm {
   };
 
   handleKeyup = (e) => {
+    if (this.isKeyCodeArrow(e.code)) return;
+
     const inputKeyword = e.target.value;
     this.autoComplete.renderACKeywords(inputKeyword);
   };
 
+  handleKeywordRotation = (e) => {
+    if (!this.isKeyCodeArrow(e.code)) return;
+  };
+
   setPopupbox = (e) => {
+    if (this.isKeyCodeArrow(e.code)) return;
     const inputKeyword = e.target.value;
     const $autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`, this.$form);
+    const $autoCompleteList = selector(
+      `.${AUTO_COMPLETE_LIST}`,
+      $autoCompleteBox
+    );
+
     const $historyBox = selector(`.${HISTORY_BOX}`, this.$form);
+    const $historyList = selector(`.${HISTORY_LIST}`, $historyBox);
+
     if (inputKeyword.length < 1) {
       addClass(HIDDEN, $autoCompleteBox);
       removeClass(HIDDEN, $historyBox);
+      addClass(ROTATION_LIST, $historyList);
+      removeClass(ROTATION_LIST, $autoCompleteList);
       return;
     }
     addClass(HIDDEN, $historyBox);
     removeClass(HIDDEN, $autoCompleteBox);
+    addClass(ROTATION_LIST, $autoCompleteList);
+    removeClass(ROTATION_LIST, $historyList);
   };
   /* ********** */
 
   closePopupbox() {
     addClass(HIDDEN, this.$popupBox);
+  }
+
+  isKeyCodeArrow(code) {
+    if (
+      code === 'ArrowUp' ||
+      code === 'ArrowDown' ||
+      code === 'ArrowLeft' ||
+      code === 'ArrowRight'
+    )
+      return true;
+    return false;
   }
 }
