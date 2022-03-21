@@ -14,11 +14,15 @@ export default class {
   setSearchFormElements() {
     this.form = this.findElementFromArea(".search-form");
     this.inputEl = this.findElementFromArea(".search-input");
-    this.recentSearchArea = this.findElementFromArea(".recent-search-area");
+    this.searchAreaDropDown = this.findElementFromArea(".search-area-dropdown");
+    // this.recentSearchArea = this.findElementFromArea(".recent-search-area");
+    // this.recommendSearchArea = this.findElementFromArea(
+    //   ".recommend-search-area"
+    // );
   }
 
   fillRecentSearchWords() {
-    const recentSearchList = this.recentSearchArea.querySelector(".list");
+    const recentSearchList = this.searchAreaDropDown.querySelector(".list");
     const storedDatas = storage.getLocalStorage("recent-search");
     if (!storedDatas) {
       recentSearchList.innerHTML = "";
@@ -57,6 +61,25 @@ export default class {
     el.style.display = "none";
   }
 
+  setSearchAreaDropDownInner(HTMLtag) {
+    this.searchAreaDropDown.innerHTML = HTMLtag;
+  }
+
+  createRecentSearchArea() {
+    const recentSearchAreaTag = `
+      <div class="inner">
+        <p class="title">최근 검색어</p>
+        <ul class="list"></ul>
+      </div>
+
+      <div class="recent-search-menu">
+        <a href="#" class="remove-all menu-item">전체삭제</a>
+        <a href="#" class="remove-off menu-item">최근 검색어 끄기</a>
+      </div>
+    `;
+    return recentSearchAreaTag;
+  }
+
   handleRemoveRecentSearch(e) {
     e.preventDefault();
     const { confirmMsg, completeMsg, cancelMsg } = this.recentSearchMsg;
@@ -76,7 +99,7 @@ export default class {
   }
 
   handleSearchFormMousedown(e) {
-    if (e.target.closest(".recent-search-area")) {
+    if (e.target.closest(".search-area-dropdown")) {
       if (e.target.classList.contains("link")) {
         this.handleSearchFormItems(e.target);
         return;
@@ -99,14 +122,15 @@ export default class {
 
   onFocusInInput() {
     this.inputEl.addEventListener("focus", ({ target }) => {
-      this.setDisplayBlock(this.recentSearchArea);
+      this.setSearchAreaDropDownInner(this.createRecentSearchArea());
+      this.setDisplayBlock(this.searchAreaDropDown);
       this.fillRecentSearchWords();
     });
   }
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
-      this.setDisplayNone(this.recentSearchArea);
+      this.setDisplayNone(this.searchAreaDropDown);
     });
   }
 
@@ -165,7 +189,8 @@ export default class {
 
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", ({ target }) => {
-      this.setDisplayNone(this.recentSearchArea);
+      // this.setDisplayNone(this.recentSearchArea);
+      // this.setDisplayBlock(this.recommendSearchArea);
     });
   }
 
