@@ -1,12 +1,30 @@
 import { $ } from '../../utility/util.js';
+
 export default class RecentWord {
-  showRecentSearches() {
-    const $searchHistory = $('#recent-words-menu');
-    $searchHistory.classList.remove('hidden');
+  constructor() {
+    this.$searchHistory = $('#recent-words-menu');
+    this.$historyDeleteBtn = $('.history-off-btn');
   }
 
-  noShowRecentSearches() {
-    const $searchHistory = $('#recent-words-menu');
-    $searchHistory.classList.add('hidden');
+  showRecentSearches() {
+    this.$searchHistory.classList.remove('hidden');
   }
+
+  noShowRecentSearches({ relatedTarget }) {
+    if (relatedTarget) return this.checkWhereClicked();
+    this.$searchHistory.classList.add('hidden');
+  }
+
+  hideRecentSearches() {
+    this.$searchHistory.classList.add('hidden');
+  }
+
+  checkWhereClicked() {
+    this.$historyDeleteBtn.addEventListener('click', this.listOnOff);
+  }
+
+  listOnOff = ({ target }) => {
+    const targetUl = target.parentElement.previousElementSibling;
+    targetUl.classList.toggle('hidden');
+  };
 }

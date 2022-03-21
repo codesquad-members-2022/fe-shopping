@@ -18,14 +18,15 @@ export default class InputEvent {
   }
 
   drawHistoryContents = () => this.recentWords.showRecentSearches();
-  nodrawHistoryContents = () => this.recentWords.noShowRecentSearches();
+  nodrawHistoryContents = ({ relatedTarget }) =>
+    this.recentWords.noShowRecentSearches({ relatedTarget });
 
   drawAutocomplete = ({ code }) => {
     if (code === 'ArrowDown' || code === 'ArrowUp') {
       this.autoKeyword.findDirection(code);
     }
 
-    this.nodrawHistoryContents();
+    this.recentWords.hideRecentSearches();
     this.autoComplete.checkInputText();
   };
 }
