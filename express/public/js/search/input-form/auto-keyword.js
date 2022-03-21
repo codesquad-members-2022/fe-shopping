@@ -7,7 +7,7 @@ export default class AutoKeyword {
     this.count = 1;
   }
 
-  findList(code) {
+  findDirection(code) {
     if (!this.$popupMenuList.firstElementChild) return;
 
     if (code === 'ArrowDown') this.chooseWordDownside();
