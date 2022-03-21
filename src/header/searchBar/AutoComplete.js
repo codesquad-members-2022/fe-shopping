@@ -8,19 +8,29 @@ export class AutoComplete {
     this.AUTO_COMPLETE_LIST = AUTO_COMPLETE_LIST;
   }
 
-  async requestACKeyword(inputKeyword) {
+  async requestACKeywords(inputKeyword) {
     try {
       const response = await fetch(`${apiURL}?q=${inputKeyword}`);
-      const data = await response.json();
-      const ACKeywords = Object.values(data).map(({ keyword }) => keyword);
+
+      if (!response.ok) {
+        const bodyText = await response.text();
+        throw new Error(
+          `${response.status} ${response.statusText} ${bodyText}`
+        );
+      }
+
+      const bodyJSON = await response.json();
+      const ACKeywords = Object.values(bodyJSON).map(({ keyword }) => keyword);
+
       return ACKeywords;
-    } catch {
+    } catch (err) {
+      console.error(err);
       return false;
     }
   }
 
   async renderACKeywords(inputKeyword) {
-    const ACKeywords = await this.requestACKeyword(inputKeyword);
+    const ACKeywords = await this.requestACKeywords(inputKeyword);
     if (!ACKeywords) return;
 
     const ACKeywordsHTML = this.getACKeywordsHTML({ ACKeywords, inputKeyword });
@@ -31,7 +41,7 @@ export class AutoComplete {
   getACKeywordsHTML({ ACKeywords, inputKeyword }) {
     const inputKeywordLength = inputKeyword.length;
 
-    return ACKeywords.reduce((result, ACKeyword) => {
+    const ACKeywordsHTML = ACKeywords.reduce((result, ACKeyword) => {
       const inputKeywordIndex = ACKeyword.indexOf(inputKeyword);
 
       if (inputKeywordIndex === -1)
@@ -43,5 +53,7 @@ export class AutoComplete {
       result += `<li class="auto-complete-item">${leftWord}<strong>${inputKeyword}</strong>${rightWord}</li>`;
       return result;
     }, '');
+
+    return ACKeywordsHTML;
   }
 }
