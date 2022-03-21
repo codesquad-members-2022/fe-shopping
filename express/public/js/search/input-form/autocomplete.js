@@ -27,59 +27,46 @@ export default class Autocomplete {
     }
 
     this.showAutocomplete();
-    const searchQuery = this.changeInputToQuery(inputValue);
+    this.changeInputToQuery(inputValue);
+  }
 
-    if (!searchQuery) {
-      this.$autocompleteMenu.innerHTML = '검색 결과가 없습니다';
+  async changeInputToQuery(inputValue) {
+    const firstWord = inputValue.split('')[0];
+    const completeDataPromise = await getCompleteData(firstWord);
+
+    if (!completeDataPromise) {
+      this.$popupMenuList.innerHTML = '검색 결과가 없습니다';
       return;
     }
+
+    this.delay500ms(completeDataPromise, inputValue);
   }
 
-  changeInputToQuery(inputValue) {
-    const firstWord = inputValue.split('')[0];
-
-    switch (firstWord) {
-      case 'ㄱ':
-      case '가':
-        this.delay500ms(getCompleteData('ga'));
-        return true;
-      case 'ㄴ':
-      case '나':
-        this.delay500ms(getCompleteData('na'));
-        return true;
-      case 'ㄷ':
-      case '다':
-        this.delay500ms(getCompleteData('da'));
-        return true;
-      case 'ㄹ':
-      case '라':
-        this.delay500ms(getCompleteData('ra'));
-        return true;
-      case 'ㅁ':
-      case '마':
-        this.delay500ms(getCompleteData('ma'));
-        return true;
-      case 'ㅂ':
-      case '바':
-        this.delay500ms(getCompleteData('ba'));
-        return true;
-      default:
-        return false;
-    }
+  delay500ms(completeDataPromise, inputValue) {
+    setTimeout(
+      () => this.showCompleteWord(completeDataPromise, inputValue),
+      500
+    );
   }
 
-  delay500ms(completeDataPromise) {
-    setTimeout(() => this.showCompleteWord(completeDataPromise), 500);
-  }
-
-  async showCompleteWord(completeDataPromise) {
-    const wordData = await completeDataPromise;
-    const dataTemplate = wordData.reduce(
-      (pre, curList) =>
-        (pre += `<li class = "input-popup-menu-item">${curList.keyword}</li>`),
+  showCompleteWord(completeData, inputValue) {
+    const dataTemplate = completeData.reduce(
+      (pre, curList) => (pre += `${this.colorWord(inputValue, curList)}`),
       ''
     );
 
     this.$popupMenuList.innerHTML = dataTemplate;
+  }
+
+  colorWord(inputValue, curList) {
+    const length = inputValue.length;
+    const compareWord = curList.keyword.substring(0, length);
+    const remainWord = curList.keyword.substring(length);
+
+    if (inputValue !== compareWord) {
+      return `<li class = "input-popup-menu-item"><span>${curList.keyword}</span></li>`;
+    }
+
+    return `<li class = "input-popup-menu-item"><span class="color-blue">${compareWord}</span>${remainWord}</li>`;
   }
 }
