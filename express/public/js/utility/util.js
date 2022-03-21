@@ -1,15 +1,17 @@
 export const $ = (selected) => document.querySelector(selected);
 
-export const fetchData = async (url) => {
+export async function fetchData(url) {
   const successData = await fetch(url);
-  return successData.json();
-};
+  const json = await successData.json();
+  return json;
+}
 
-export async function getCompleteData(name) {
-  const completeData = await fetchData(
-    `./public/data/auto-complete/${name}.json`
+export async function getCompleteData(consonant) {
+  const jsonData = await fetchData(
+    './public/data/auto-complete/auto-complete.json'
   );
-  return completeData.data;
+  const completeData = jsonData[`${consonant}data`];
+  return completeData;
 }
 
 export function makeImageSlide(list) {
