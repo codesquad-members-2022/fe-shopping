@@ -643,6 +643,10 @@ template {
 .history-item-delete:hover {
   color: #4285f4;
 }
+.history-item.is-selected a {
+  color: #4285f4;
+  text-decoration: underline;
+}
 .history-option {
   display: flex;
   align-items: center;
@@ -683,6 +687,9 @@ template {
 .auto-complete-item strong {
   font-weight: 700;
   color: #4285f4;
+}
+.auto-complete-item.is-selected {
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=style.css.map */
