@@ -9,7 +9,7 @@ export class BannerController {
         this.bigImgElements = [...this.$bigImgContainer.children]
         this.bannerIndex = 0
         this.bannerMaxIndex = this.smallImgElements.length
-        this.intervalTime = 1500
+        this.intervalTime = 2000
     }
 
     initBannerController() {

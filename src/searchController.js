@@ -8,6 +8,7 @@ export class SearchController {
         this.$historyList = document.querySelector('.header__search__history-container')
         this.$searchForm = document.querySelector('.header__form')
         this.timer = null
+        this.fetchDelayTime = 500
         this.prefixListState = false
         this.prefixListElements = []
         this.prefixListIndex = null
@@ -73,7 +74,6 @@ export class SearchController {
     toggleHistoryList(e) {
         if(e.target.className !== 'history-switch') return
         const $historySwitch = document.querySelector('.history-switch')
-        const $historyListOuter = document.querySelector('.history-list')
 
         if(this.historyState) {
             this.historyState = false
@@ -164,6 +164,7 @@ export class SearchController {
     offHistoryList() {
         this.openHistoryList('off')
     }
+
     openHistoryList(historyList) {
         const $historyListOuter = document.querySelector('.history-list')
         renderHistoryList($historyListOuter, historyList)
@@ -272,7 +273,7 @@ export class SearchController {
         if(this.timer) {
             clearTimeout(this.timer)
         }
-        return this.delay(500).then(() => this.fetchPrefixListArray(word))
+        return this.delay(this.fetchDelayTime).then(() => this.fetchPrefixListArray(word))
     }
 
     delay(ms) {
