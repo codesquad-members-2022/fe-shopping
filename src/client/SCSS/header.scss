@@ -24,14 +24,26 @@ header {
     @include divideFlex(1, 6, 1.5);
   }
 
-  .categories {
+  .categories-btn {
+    height: 8rem;
     background-color: $blue-main;
+    text-align: center;
+    font-size: 2rem;
+    align-items: center;
     color: $white;
-    i {
-      font-size: 2rem;
+    div {
+      padding-top: 0.5rem;
+      font-size: 0.8rem;
     }
-    * {
-      margin: 0.2rem;
+  }
+
+  .categories-menu {
+    border: solid $border-main $gray;
+    box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
+    padding: 0.2rem;
+    > * {
+      padding: 0.4rem;
+      font-size: 0.7rem;
     }
   }
 
@@ -80,7 +92,7 @@ header {
     width: calc(100% - $border-main);
     border: solid $gray $border-main;
     position: absolute;
-    box-shadow: 1px 1px 3px 3px $gray3;
+    box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
     @mixin info-padding-margin {
       padding: 0.5rem 0;
       margin: 0 0.5rem;

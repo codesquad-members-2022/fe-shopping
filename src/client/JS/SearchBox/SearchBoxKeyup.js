@@ -10,7 +10,7 @@ class SearchBoxKeyup extends SearchBox {
   }
 
   findRefinedData = async (address, value = "") => {
-    const dataAddress = __dirname + `data/${address}`;
+    const dataAddress = `data/${address}`;
     const data = await fetch(dataAddress, {
       method: "POST",
       headers: {
