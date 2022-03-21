@@ -12,22 +12,27 @@ const autoComplete = new SearchAutoComplete();
 const history = new SearchHistory();
 const category = new SearchCategory(categories);
 
-input.$input.addEventListener('input', ({target}) => {
+document.addEventListener('keyup', moveAutoCompleteItem);
+input.$input.addEventListener('input', setAutoCompleteByInputValue);
+input.$input.addEventListener('focusin', () => history.show = true );
+input.$input.addEventListener('focusout', () => history.show = false );
+category.$category.addEventListener('click', selectCategoryItem);
+
+function setAutoCompleteByInputValue ({target}) {
   input.value = target.value;
   if(!input.value) {
     history.show = true;
     return;
   }
   debounce(() => {
-    getAutoComplete(input.value).then(data => {
+    getAutoComplete(input.value)
+    .then(data => {
       autoComplete.keyword = input.value;
       autoComplete.list = data;
     });
   }, 500);
-});
-input.$input.addEventListener('focusin', () => history.show = true );
-input.$input.addEventListener('focusout', () => history.show = false );
-document.addEventListener('keyup', ({code}) => {
+}
+function moveAutoCompleteItem ({code}) {
   if (code === 'ArrowUp') {
     autoComplete.selectItem(BEFORE);
     input.value = autoComplete.selectedItem;
@@ -36,10 +41,9 @@ document.addEventListener('keyup', ({code}) => {
     autoComplete.selectItem(NEXT);
     input.value = autoComplete.selectedItem;
   }
-});
-
-category.$category.addEventListener('click', ({target}) => {
+}
+function selectCategoryItem ({target}) {
   const selectedItemElement = target.closest('a');
   if (!selectedItemElement) return;
   category.selectItem(selectedItemElement);
-});
+}
