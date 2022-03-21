@@ -15,7 +15,7 @@ export const fetchPostData = (path, keyword) => {
     });
 };
 
-export const delay = time => new Promise(resolve => setTimeout(resolve, time));
+export const timeDelay = time => new Promise(resolve => setTimeout(resolve, time));
 
 export const checkElementClass = obj => {
   if (!obj.target) {
@@ -41,4 +41,15 @@ export const toggleClass = (element, classes) => {
   classList.forEach(className => {
     element.classList.toggle(className);
   });
+};
+
+export const debounce = (callback, time) => {
+  let timerId = null;
+
+  return function () {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(() => callback.apply(this, arguments), time);
+  };
 };

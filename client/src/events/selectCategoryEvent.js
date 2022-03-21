@@ -1,4 +1,4 @@
-import { $, delay, toggleClass } from '../utils/util.js';
+import { $, timeDelay, toggleClass } from '../utils/util.js';
 import { SearchCategory } from '../components/search/SearchCategory.js';
 import { mainCategory } from '../components/category/mainCategory.js';
 import { searchCategoryData, mainCategoryData } from '../constants/data.js';
@@ -28,12 +28,10 @@ export const selectCategoryEvent = () => {
     if (selectListUlBox === null) {
       selectSearchCategoryBox.insertAdjacentHTML('beforeend', SearchCategory(searchCategoryData));
       toggleClass(selectSearchCategoryBox, 'search--off search--on');
-      await delay(1);
+      await timeDelay(1);
       toggleClass($('.search-list'), 'heightExpanded');
     } else {
       toggleClass($('.search-list'), 'heightExpanded');
-      // await delay(1000);
-      // selectSearchCategoryBox.removeChild(selectListUlBox);
       toggleClass(selectSearchCategoryBox, 'search--off search--on');
     }
   });
