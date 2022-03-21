@@ -45,7 +45,7 @@ export class SearchBarForm {
     this.autoComplete = this.initAutoComplete();
     this.autoCompleteDelay = autoCompleteDelay;
     this.popupboxDelay = popupboxDelay;
-    this.rotationDelay = 0;
+    this.keywordRotationDelay = 0;
   }
 
   init() {
@@ -66,7 +66,7 @@ export class SearchBarForm {
 
     this.$input.addEventListener(
       'keydown',
-      debounce(this.handleKeywordRotation, this.rotationDelay)
+      debounce(this.handleKeywordRotation, this.keywordRotationDelay)
     );
   }
 
