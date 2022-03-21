@@ -1,5 +1,5 @@
 import HtmlElement from '../../utils/HtmlElement.js';
-import { findTargetClassElement, hidePopUp } from '../../utils/manuplateDOM.js';
+import { findTargetClassElement } from '../../utils/manuplateDOM.js';
 import Category from './Category/index.js';
 import Section from './Section/index.js';
 
@@ -22,8 +22,4 @@ Header.prototype.renderChild = function () {
   const $section = findTargetClassElement(this.$element, 'section');
   new Category($category);
   new Section($section);
-};
-
-Header.prototype.setEvent = function () {
-  document.body.addEventListener('click', hidePopUp);
 };

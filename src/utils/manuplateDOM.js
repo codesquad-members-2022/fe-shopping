@@ -73,7 +73,7 @@ export function handleDisplayElement($element) {
   }
 }
 
-export function hidePopUp({ target }) {
+export function hideAllPopUp({ target }) {
   const $openPopUpElement = findTargetClassElementAll(
     document.body,
     POP_UP.show

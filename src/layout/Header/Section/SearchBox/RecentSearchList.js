@@ -1,8 +1,7 @@
 import {
   RECENT_SEARCH_LIST,
   SEARCH_BOX,
-} from '../../../../constant/constant.js';
-import { POP_UP } from '../../../../constant/htmlSelector.js';
+} from '../../../../constant/htmlSelector.js';
 import { moveToSearchTermPage } from '../../../../router.js';
 import HtmlElement from '../../../../utils/HtmlElement.js';
 import { myLocalStorage } from '../../../../utils/util.js';
@@ -54,7 +53,7 @@ function handleClick({ target }) {
       deleteTargetTerm.call(this, target);
       break;
     case RECENT__TERM:
-      moveToSearchTermPage(target.innerText.slice(0, -1));
+      moveToSearchTermPage(this.state.option, target.innerText.slice(0, -1));
       break;
     case RECENT__DELETE__ALL:
       deleteAllTerm.apply(this);

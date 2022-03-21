@@ -1,5 +1,5 @@
 import HtmlElement from '../utils/HtmlElement.js';
-import { findTargetIdElement } from '../utils/manuplateDOM.js';
+import { findTargetIdElement, hideAllPopUp } from '../utils/manuplateDOM.js';
 import Header from './Header/index.js';
 import Main from './Main/index.js';
 
@@ -27,4 +27,8 @@ Root.prototype.renderChild = function () {
   const $main = findTargetIdElement(this.$element, 'main');
   new Header($header);
   new Main($main);
+};
+
+Root.prototype.setEvent = function () {
+  document.body.addEventListener('click', hideAllPopUp);
 };

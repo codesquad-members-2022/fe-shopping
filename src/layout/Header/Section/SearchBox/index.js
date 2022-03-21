@@ -1,8 +1,11 @@
 import AutoComplete from './AutoComplete.js';
 import RecentSearchList from './RecentSearchList.js';
 import Selector from './Selector.js';
-import { RECENT_SEARCH_LIST } from '../../../../constant/constant.js';
-import { POP_UP } from '../../../../constant/htmlSelector.js';
+import { MAX_LOCAL_STORAGE } from '../../../../constant/constant.js';
+import {
+  POP_UP,
+  RECENT_SEARCH_LIST,
+} from '../../../../constant/htmlSelector.js';
 import { moveToSearchTermPage } from '../../../../router.js';
 import HtmlElement from '../../../../utils/HtmlElement.js';
 import {
@@ -46,6 +49,7 @@ SearchBox.prototype.renderChild = function () {
     changeSearchOption: changeSearchOption.bind(this),
   });
   this.$RecentSearchList = new RecentSearchList($searchRecord, {
+    option,
     recentSearchList,
   });
   this.$AutoComplete = new AutoComplete($searchAuto, { autoSearchList });
@@ -66,6 +70,7 @@ SearchBox.prototype.setState = function (newState) {
 
 function changeSearchOption(option) {
   this.setState({ option });
+  this.$RecentSearchList.setState({ option });
   this.$Selector.setState({ option });
 }
 

@@ -31,11 +31,13 @@
 
 1. html 뼈대 만들기 및 레이아웃 scss적용
 2. 클라이언트 사이드 작업(es6 module, prototype, scss)
-   - 카테고리
    - 검색창
      <span style="font-size: 22px">`...진행중🏃‍♂️`</span>
+   - 카테고리
+     - 이벤트 고급 제어
    - 캐러셀 기능 구현
 3. 서버에서 홈화면 및 검색어에 따른 화면 렌더링 (innerHTML or pug)
+   - mvc패턴?
 4. webpack 및 nodejs에 es6 적용
 
 # 고민목록
