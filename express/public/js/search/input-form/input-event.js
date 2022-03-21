@@ -22,7 +22,7 @@ export default class InputEvent {
 
   drawAutocomplete = ({ code }) => {
     if (code === 'ArrowDown' || code === 'ArrowUp') {
-      this.autoKeyword.findList(code);
+      this.autoKeyword.findDirection(code);
     }
 
     this.nodrawHistoryContents();
