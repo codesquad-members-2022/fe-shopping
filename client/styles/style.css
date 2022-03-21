@@ -508,7 +508,6 @@ button, cursor {
 }
 
 .input__drop-down {
-  height: 330px;
   padding: 8px 16px;
 }
 
@@ -520,6 +519,9 @@ button, cursor {
 }
 .auto-complete a:hover {
   text-decoration: underline;
+}
+.auto-complete strong {
+  color: #4285f4;
 }
 
 .auto-complete.focus {
