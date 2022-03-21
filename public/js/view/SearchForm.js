@@ -91,7 +91,7 @@ export default class {
     }
   }
 
-  onSearchFormClick() {
+  onSearchFormMousedown() {
     this.searchFormArea.addEventListener("mousedown", (e) =>
       this.handleSearchFormMousedown(e)
     );
@@ -174,7 +174,7 @@ export default class {
     this.onFocusInput();
     this.onKeyUpInput();
     this.onFormSubmit();
-    this.onSearchFormClick();
+    this.onSearchFormMousedown();
   }
 
   init() {
