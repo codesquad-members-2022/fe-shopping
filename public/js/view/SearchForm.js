@@ -165,8 +165,7 @@ export default class {
 
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", ({ target }) => {
-      //    this.setElDisplayNone(this.recentSearchArea);
-      // TODO: 입력시 최근검색어란이 사라지게 하여야 함(현재 최근검색어 동작 확인을 위해 주석처리)
+      this.setDisplayNone(this.recentSearchArea);
     });
   }
 
