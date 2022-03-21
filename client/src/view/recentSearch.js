@@ -19,13 +19,14 @@ export class RecentSearch extends SearchInput {
   }
 
   removeRecentSearchChildNodes() {
+    if (!this.$inputDropDown.classList.contains('recent-search')) return;
     const recentTitle = this.$inputDropDown.querySelector('p');
     const recentOptionBtns = this.$inputDropDown.querySelector('.input__drop-down--options');
 
-    if (recentTitle && recentOptionBtns) {
-      this.$inputDropDown.removeChild(recentTitle);
-      this.$inputDropDown.removeChild(recentOptionBtns);
-    }
+    this.$inputDropDown.removeChild(recentTitle);
+    this.$inputDropDown.removeChild(recentOptionBtns);
+
+    this.resetRecentSearchList();
   }
 
   updateRecentSearchList(data) {
