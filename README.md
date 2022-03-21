@@ -126,3 +126,68 @@ Section.prototype.renderChild = function () {
 
 - `setEvent()`: 런데링이후 이벤트 등록.
 - `setState()`: 상태가 바뀌면 해당 상태를 쓰는 컴포넌트만 render()호출
+
+3. 데이터 바인딩
+
+목표: 부모에서 뿌려주는 값이 변하면 자식요소에서 알아서 리렌더링될 수 있도록 하기
+
+- 자식요소를 선언해 놓고, 자식요소.setState()로 변경을 감지하도록 하고 있음.
+- 부모요소에서 this.setState()해도 자식요소에 쓰는 상태가 바뀌면 알아서 바뀔 수 있도록 하기
+
+```bash
+└── SearchBox
+    ├── AutoComplete.js
+    ├── RecentSearchList.js
+    ├── Selector.js
+    └── index.js
+```
+
+```js
+// HtmlElement.js
+HtmlElement.prototype.setState = function (newState) {
+  this.state = { ...this.state, ...newState };
+  this.render();
+};
+//index.js
+SearchBox.prototype.init = function () {
+  this.state = {
+    showHistroy: true,
+    option: '전체',
+    inputValue: '',
+    recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
+    autoSearchList: [],
+  };
+};
+SearchBox.prototype.renderChild = function () {
+  const { option, recentSearchList, autoSearchList } = this.state;
+  // 생략
+  this.$Selector = new Selector($selector, {
+    option,
+    changeSearchOption: changeSearchOption.bind(this),
+  });
+  this.$RecentSearchList = new RecentSearchList($searchRecord, {
+    option,
+    recentSearchList,
+  });
+  this.$AutoComplete = new AutoComplete($searchAuto, { autoSearchList });
+};
+// SearchBox 인풋이 바뀔때마다 리렌더링이 일어나서 render()실행하지 않게 오버라이딩
+SearchBox.prototype.setState = function (newState) {
+  this.state = { ...this.state, ...newState };
+};
+// 검색어를 입력하면 RecentSearchList.js에서도 변경되어야해서
+function handleSubmit(event) {
+  // 생략
+  this.setState({ inputValue: '' });
+  this.$RecentSearchList.setState({
+    recentSearchList: updatedRecentSearchList,
+  });
+  this.$input.value = '';
+  // 생략
+}
+async function handleInput({ target }) {
+  // 생략
+  this.$AutoComplete.setState({ autoSearchList: reponseTerms });
+  this.setState({ inputValue, autoSearchList: reponseTerms });
+}
+```

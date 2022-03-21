@@ -41,12 +41,6 @@ RecentSearchList.prototype.setEvent = function () {
   this.$element.addEventListener('click', handleClick.bind(this));
 };
 
-RecentSearchList.prototype.setState = function (newState) {
-  this.state = { ...this.state, ...newState };
-  this.setTemplate();
-  this.render();
-};
-
 function handleClick({ target }) {
   switch (target.className) {
     case RECENT__DELETE:

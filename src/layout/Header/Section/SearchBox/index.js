@@ -101,11 +101,10 @@ function handleSubmit(event) {
 
 async function handleInput({ target }) {
   const { value: inputValue } = target;
-  this.setState({ inputValue });
   const reponseTerms = await requestAutoCompleteTerms.requestTerms(inputValue);
   handlePopUpDisplay.call(this, inputValue, reponseTerms);
   this.$AutoComplete.setState({ autoSearchList: reponseTerms });
-  this.setState({ autoSearchList: reponseTerms });
+  this.setState({ inputValue, autoSearchList: reponseTerms });
 }
 
 function showRecord({ target }) {
