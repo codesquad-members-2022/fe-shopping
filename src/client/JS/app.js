@@ -25,7 +25,6 @@ const handleCenterFilterEvent = (target, transformer, parentName) => {
   const centerFilterMouse = new MouseEvent(target, transformer);
   centerFilterclick.init();
   centerFilterMouse.init();
-  console.log(centerFilterMouse);
 };
 
 handleSearchBoxEvent(centerSearchInput, centerRelativeInfo);

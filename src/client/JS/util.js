@@ -9,4 +9,22 @@ const delay = ({ time, signal, data }) =>
     });
   });
 
-export { selector, delay };
+class intervalDelay {
+  constructor(time) {
+    this.inputDelayController = null;
+    this.time = time;
+  }
+
+  waitDelay = async () => {
+    if (this.inputDelayController) this.inputDelayController.abort();
+
+    this.inputDelayController = new AbortController();
+    const inputDelaySignal = this.inputDelayController.signal;
+    await delay({ time: this.time, signal: inputDelaySignal });
+
+    this.inputDelayController = null;
+    console.log("hi");
+  };
+}
+
+export { selector, delay, intervalDelay };

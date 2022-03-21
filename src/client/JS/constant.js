@@ -1,3 +1,3 @@
-const delayTime = 500;
+const inputDelayTime = 500;
 
-export { delayTime };
+export { inputDelayTime };

@@ -1,6 +1,8 @@
-import { delay, selector } from "./util";
-import { delayTime } from "./constant";
+import { delay, selector, intervalDelay } from "./util";
+import { inputDelayTime } from "./constant";
 import { async } from "regenerator-runtime";
+
+const inputDelay = new intervalDelay(inputDelayTime);
 
 class KeyupEvent {
   constructor(target, transformer) {
@@ -49,16 +51,6 @@ class KeyupEvent {
     let innerList = this.drawListFromData(refinedData);
     if (value) innerList = this.highlightValueInList(innerList, value);
     this.relativeList.innerHTML = innerList;
-  };
-
-  waitInputDelay = async (delayTime) => {
-    if (this.inputDelayController) this.inputDelayController.abort();
-
-    this.inputDelayController = new AbortController();
-    const inputDelaySignal = this.inputDelayController.signal;
-    await delay({ time: delayTime, signal: inputDelaySignal });
-
-    this.inputDelayController = null;
   };
 
   showRelativeList = async (value) => {
@@ -140,7 +132,7 @@ class KeyupEvent {
   };
 
   showDataByInput = async (value) => {
-    await this.waitInputDelay(delayTime);
+    await inputDelay.waitDelay();
     const isValueEmpty = value === "";
     isValueEmpty
       ? await this.showRecentList()
