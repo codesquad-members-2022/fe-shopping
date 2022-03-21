@@ -1,5 +1,6 @@
 import { SearchList } from "./search-list.js";
 import { SearchInput } from "./search-input.js";
+import { SearchCategory } from "./search-category.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchRecentList = document.querySelector(".search__recent-list");
@@ -10,6 +11,11 @@ const searchRelatedList = document.querySelector(".search__related-list");
 const searchRelatedListContainer = document.querySelector(
     ".search__related-list--container"
 );
+
+const category = document.querySelector(".search__category");
+const categoryList = document.querySelector(".search__category-list");
+const arrowUp = document.querySelector(".arrow--up");
+const arrowDown = document.querySelector(".arrow--down");
 
 const DIRECTION_UP = "up";
 const DIRECTION_DOWN = "down";
@@ -23,6 +29,13 @@ const recentSearchList = new SearchList(
 const relatedSearchList = new SearchList(
     searchRelatedList,
     searchRelatedListContainer
+);
+
+const searchCategory = new SearchCategory(
+    category,
+    categoryList,
+    arrowUp,
+    arrowDown
 );
 
 const getRelatedWords = async () => {
@@ -128,11 +141,6 @@ const keyDownEventHandler = (event) => {
     }
 };
 
-const hideSearchList = () => {
-    recentSearchList.hide();
-    relatedSearchList.hide();
-};
-
 const clearRecentSearchList = () => {
     if (recentSearchList.isRecording) {
         recentSearchList.reset();
@@ -157,12 +165,31 @@ const toggleRecord = ({ target }) => {
     recentSearchList.isRecording = !recentSearchList.isRecording;
 };
 
+const searchCategoryEventHandler = () => {
+    if (searchCategory.isVisible) {
+        searchCategory.hideCategoryList();
+    } else {
+        searchCategory.showCategoryList();
+    }
+};
+
+const hideLists = () => {
+    recentSearchList.hide();
+    relatedSearchList.hide();
+    searchCategory.hideCategoryList();
+};
+
 const onSearchEvent = () => {
     document.body.addEventListener("click", ({ target }) => {
         if (!target.closest(".search")) {
-            hideSearchList();
+            hideLists();
         }
     });
+
+    searchCategory.category.addEventListener(
+        "click",
+        searchCategoryEventHandler
+    );
 
     searchInput.searchInputNode.addEventListener("focus", () => {
         recentSearchList.show();
