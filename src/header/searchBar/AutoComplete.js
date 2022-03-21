@@ -45,12 +45,12 @@ export class AutoComplete {
       const inputKeywordIndex = ACKeyword.indexOf(inputKeyword);
 
       if (inputKeywordIndex === -1)
-        return (result += `<li class="auto-complete-item">${ACKeyword}</li>`);
+        return (result += `<li class="auto-complete-item"><a href="./search.html?q=${ACKeyword}">${ACKeyword}</a></li>`);
 
       const rightWordIndex = inputKeywordLength + inputKeywordIndex;
       const leftWord = ACKeyword.slice(0, inputKeywordIndex);
       const rightWord = ACKeyword.slice(rightWordIndex);
-      result += `<li class="auto-complete-item">${leftWord}<strong>${inputKeyword}</strong>${rightWord}</li>`;
+      result += `<li class="auto-complete-item"><a href="./search.html?q=${ACKeyword}">${leftWord}<strong>${inputKeyword}</strong>${rightWord}</a></li>`;
       return result;
     }, '');
 
