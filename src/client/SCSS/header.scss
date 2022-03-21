@@ -1,3 +1,8 @@
+@mixin hiddenBox {
+  border: solid $gray $border-main;
+  box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
+}
+
 header {
   .small {
     font-size: 0.6rem;
@@ -25,10 +30,10 @@ header {
   }
 
   .categories-btn {
+    font-size: 2rem;
     height: 8rem;
     background-color: $blue-main;
     text-align: center;
-    font-size: 2rem;
     align-items: center;
     color: $white;
     div {
@@ -38,8 +43,7 @@ header {
   }
 
   .categories-list {
-    border: solid $border-main $gray;
-    box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
+    @include hiddenBox;
     padding: 0.2rem;
     > * {
       padding: 0.4rem;
@@ -63,18 +67,19 @@ header {
   }
 
   .center-menu {
-    @include divideFlex(7, 1);
     position: relative;
-    &-selected {
-      height: 2.5rem;
-      * {
-        padding: 0.2rem;
+    &-btn {
+      @include divideFlex(7, 1);
+      align-items: center;
+      > * {
+        line-height: 2.5rem;
+        height: 2.5rem;
+        padding: 0 0.2rem;
       }
     }
     &-list {
-      border: solid $gray $border-main;
       position: absolute;
-      box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
+      @include hiddenBox;
       width: calc(100% - $border-main);
       left: -$border-main;
       li {
@@ -106,9 +111,8 @@ header {
 
   .center-relative-info {
     width: calc(100% - $border-main);
-    border: solid $gray $border-main;
     position: absolute;
-    box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
+    @include hiddenBox;
     @mixin info-padding-margin {
       padding: 0.5rem 0;
       margin: 0 0.5rem;

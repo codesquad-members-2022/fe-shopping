@@ -2,13 +2,14 @@ import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
 import { selector } from "./util.js";
 import { FocusBlur } from "./focusBlur";
+import { Click } from "./Click";
 import { SearchBoxKeyup } from "./SearchBox/SearchBoxKeyup";
 import { SearchBoxMouse } from "./SearchBox/SearchBoxMouse";
 
-const searchInput = selector("input", selector(".center-search"));
-const relativeInfo = selector(".center-relative-info");
-const categoriesBtn = selector(".categories-btn");
-const categoriesList = selector(".categories-list");
+const centerSearchInput = selector("input", selector(".center-search"));
+const centerRelativeInfo = selector(".center-relative-info");
+const centerMenu = selector(".center-menu");
+const centerMenuList = selector(".center-menu-list");
 
 const handleSearchBoxEvent = (target, transformer) => {
   const searchBoxFocusBlur = new FocusBlur(target, transformer);
@@ -19,10 +20,6 @@ const handleSearchBoxEvent = (target, transformer) => {
   searchBoxKeyup.init();
 };
 
-const handleCategoriesEvent = (target, transformer) => {
-  const categoriesFocusBlur = new FocusBlur(target, transformer);
-  categoriesFocusBlur.init();
-};
-
-handleSearchBoxEvent(searchInput, relativeInfo);
-handleCategoriesEvent(categoriesBtn, categoriesList);
+const click = new Click(centerMenu, centerMenuList, ".center-menu");
+click.init();
+handleSearchBoxEvent(centerSearchInput, centerRelativeInfo);

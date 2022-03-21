@@ -21,15 +21,18 @@ header
 
     div.center
       div.center-main.flex
+
         img.img(src="/images/logo.png")
+
         div.center-search.flex
           div.center-menu 
-            div.center-menu-selected.flex
+            div.center-menu-btn.flex
               div 전체
               i.fas.fa-chevron-down
-            ul.center-menu-list
+            ul.center-menu-list.hidden
               each category in categories 
                 li=category
+
           form.center-form
             div.center-search-box.flex
               input.center-search-input(name="search", type="text", placeholder="찾고 싶은 상품을 검색하세요!")
@@ -43,9 +46,6 @@ header
               div.center-relative-info-option.flex
                 div 전체삭제
                 div 최근 검색어 끄기
-
-              
-
 
       div.center-nav
 
