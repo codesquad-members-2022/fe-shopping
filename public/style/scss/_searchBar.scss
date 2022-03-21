@@ -13,7 +13,7 @@ $word-padding: 0.8rem 8px;
   display: flex;
   position: absolute;
   flex-direction: column;
-  font-size: $basic-font-size * 3 / 4;
+  font-size: calc($basic-font-size * 3 / 4);
   background-color: white;
   z-index: 10;
 
@@ -58,7 +58,7 @@ $word-padding: 0.8rem 8px;
   display: flex;
   position: absolute;
   flex-direction: column;
-  font-size: $basic-font-size * 3 / 4;
+  font-size: calc($basic-font-size * 3 / 4);
   background-color: white;
   z-index: 100;
 

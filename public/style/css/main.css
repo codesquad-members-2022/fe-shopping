@@ -14,17 +14,6 @@
   vertical-align: middle;
 }
 
-.category-btn {
-  width: 110px;
-  height: 115px;
-  top: 32px;
-  left: 0;
-  margin-right: 30px;
-  background-position: 0 0;
-  text-align: center;
-  cursor: pointer;
-}
-
 .select__category-btn {
   background: url(//img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png) 6px -165px no-repeat;
   height: 30px;
@@ -94,21 +83,6 @@
 .top-bar__li {
   padding: 0.8rem 0.3rem;
   cursor: pointer;
-}
-
-.header__container {
-  display: flex;
-  width: 1040px;
-  margin: 0 auto;
-  height: 75%;
-  align-items: center;
-}
-
-.category-btn__name {
-  font-size: 13px;
-  font-family: sans-serif;
-  color: white;
-  line-height: 10rem;
 }
 
 .header__contents {
