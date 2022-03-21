@@ -70,12 +70,31 @@ export default class {
     alert(completeMsg);
   }
 
+  handleSearchFormItems(target) {
+    const selectedText = target.innerText;
+    this.inputEl.value = selectedText;
+  }
+
+  handleSearchFormMousedown(e) {
+    if (e.target.closest(".recent-search-area")) {
+      if (e.target.classList.contains("link")) {
+        this.handleSearchFormItems(e.target);
+        return;
+      }
+
+      if (e.target.classList.contains("remove-all")) {
+        this.handleRemoveRecentSearch(e);
+        return;
+      }
+
+      return;
+    }
+  }
+
   onSearchFormClick() {
-    this.searchFormArea.addEventListener("click", (e) => {
-      // 현재 searchFromClick 이벤트는 최근 검색어 전체 삭제만 작동
-      if (!e.target.classList.contains("remove-all")) return;
-      this.handleRemoveRecentSearch(e);
-    });
+    this.searchFormArea.addEventListener("mousedown", (e) =>
+      this.handleSearchFormMousedown(e)
+    );
   }
 
   onFocusInInput() {
@@ -87,8 +106,7 @@ export default class {
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
-      // this.setDisplayNone(this.recentSearchArea);
-      // TODO: 최근검색어를 조작중일 때에는 사라지지 않도록 해야함
+      this.setDisplayNone(this.recentSearchArea);
     });
   }
 
