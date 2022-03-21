@@ -25,14 +25,15 @@ header
         img.img(src="/images/logo.png")
 
         div.center-search.flex
-          div.center-menu 
-            div.center-menu-btn.flex
-              div.center-menu-filter 전체
+          div.center-filter 
+            div.center-filter-btn.flex
+              div.center-filter-content 전체
               i.fas.fa-chevron-down
-            ul.center-menu-list.hidden
-              li 전체
-              each category in categories 
-                li=category
+            div.center-filter-list.hidden
+              ul
+                li 전체
+                each category in categories 
+                  li=category
 
           form.center-form
             div.center-search-box.flex

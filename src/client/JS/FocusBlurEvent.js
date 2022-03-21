@@ -1,4 +1,4 @@
-class FocusBlur {
+class FocusBlurEvent {
   constructor(target, transformer) {
     this.target = target;
     this.transformer = transformer;
@@ -18,4 +18,4 @@ class FocusBlur {
   };
 }
 
-export { FocusBlur };
+export { FocusBlurEvent };

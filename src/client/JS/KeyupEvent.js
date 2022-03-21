@@ -1,11 +1,14 @@
-import { delay } from "../util";
-import { SearchBox } from "./SearchBox";
-import { delayTime } from "../constant";
+import { delay, selector } from "./util";
+import { delayTime } from "./constant";
 import { async } from "regenerator-runtime";
 
-class SearchBoxKeyup extends SearchBox {
+class KeyupEvent {
   constructor(target, transformer) {
-    super(target, transformer);
+    this.target = target;
+    this.transformer = transformer;
+    this.relativeList = selector("ul", transformer);
+    this.relativeTitle = selector("h3", transformer);
+    this.relativeOption = selector("div", transformer);
     this.inputDelayController = null;
   }
 
@@ -154,4 +157,4 @@ class SearchBoxKeyup extends SearchBox {
   };
 }
 
-export { SearchBoxKeyup };
+export { KeyupEvent };

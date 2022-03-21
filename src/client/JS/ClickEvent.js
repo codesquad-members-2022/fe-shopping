@@ -1,6 +1,6 @@
 import { selector } from "./util";
 
-class Click {
+class ClickEvent {
   constructor(target, transformer, parentName) {
     this.target = target;
     this.transformer = transformer;
@@ -12,16 +12,15 @@ class Click {
     classList.toggle("fa-chevron-up");
   };
 
-  toggleList = (menuList) => {
-    menuList.classList.toggle("hidden");
+  toggleList = () => {
+    this.transformer.classList.toggle("hidden");
   };
 
   handleCenterMenuClick = () => {
     const centerMenu = this.target.parentNode;
-    const menuList = selector("ul", centerMenu);
     const menuIcon = selector("i", centerMenu);
     this.toggleIcon(menuIcon);
-    this.toggleList(menuList);
+    this.toggleList();
   };
 
   changeTargetInnerText = ({ innerText }) => {
@@ -41,4 +40,4 @@ class Click {
   };
 }
 
-export { Click };
+export { ClickEvent };

@@ -2,6 +2,10 @@
   border: solid $gray $border-main;
   box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
 }
+@mixin selected {
+  color: $blue-main;
+  text-decoration: underline;
+}
 
 header {
   .small {
@@ -66,7 +70,7 @@ header {
     border: solid $border-main $blue-main;
   }
 
-  .center-menu {
+  .center-filter {
     position: relative;
     &-btn {
       @include divideFlex(7, 1);
@@ -85,6 +89,9 @@ header {
       li {
         color: $gray2;
         padding: 0.4rem;
+      }
+      .selected {
+        @include selected;
       }
     }
   }
@@ -126,8 +133,7 @@ header {
       color: $gray2;
     }
     &-list > .selected {
-      color: $blue-main;
-      text-decoration: underline;
+      @include selected;
     }
     &-option {
       @include info-padding-margin;

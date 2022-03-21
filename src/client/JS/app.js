@@ -1,25 +1,32 @@
 import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
 import { selector } from "./util.js";
-import { FocusBlur } from "./focusBlur";
-import { Click } from "./Click";
-import { SearchBoxKeyup } from "./SearchBox/SearchBoxKeyup";
-import { SearchBoxMouse } from "./SearchBox/SearchBoxMouse";
+import { FocusBlurEvent } from "./FocusBlurEvent";
+import { ClickEvent } from "./ClickEvent";
+import { KeyupEvent } from "./KeyupEvent";
+import { MouseEvent } from "./MouseEvent";
 
 const centerSearchInput = selector("input", selector(".center-search"));
 const centerRelativeInfo = selector(".center-relative-info");
-const centerMenu = selector(".center-menu-btn");
-const centerMenuList = selector(".center-menu-list");
+const centerFilter = selector(".center-filter-btn");
+const centerFilterList = selector(".center-filter-list");
+const centerFilterParentName = ".center-filter";
 
 const handleSearchBoxEvent = (target, transformer) => {
-  const searchBoxFocusBlur = new FocusBlur(target, transformer);
-  const searchBoxKeyup = new SearchBoxKeyup(target, transformer);
-  const searchBoxMouse = new SearchBoxMouse(target, transformer);
+  const searchBoxFocusBlur = new FocusBlurEvent(target, transformer);
+  const searchBoxKeyup = new KeyupEvent(target, transformer);
+  const searchBoxMouse = new MouseEvent(target, transformer);
   searchBoxFocusBlur.init();
   searchBoxMouse.init();
   searchBoxKeyup.init();
 };
+const handleCenterFilterEvent = (target, transformer, parentName) => {
+  const centerFilterclick = new ClickEvent(target, transformer, parentName);
+  const centerFilterMouse = new MouseEvent(target, transformer);
+  centerFilterclick.init();
+  centerFilterMouse.init();
+  console.log(centerFilterMouse);
+};
 
-const click = new Click(centerMenu, centerMenuList, ".center-menu");
-click.init();
 handleSearchBoxEvent(centerSearchInput, centerRelativeInfo);
+handleCenterFilterEvent(centerFilter, centerFilterList, centerFilterParentName);
