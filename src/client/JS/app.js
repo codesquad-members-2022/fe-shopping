@@ -7,8 +7,10 @@ import { SearchBoxMouse } from "./SearchBox/SearchBoxMouse";
 
 const searchInput = selector("input", selector(".center-search"));
 const relativeInfo = selector(".center-relative-info");
+const categoriesBtn = selector(".categories-btn");
+const categoriesList = selector(".categories-list");
 
-const getSearchBoxEvent = (target, transformer) => {
+const handleSearchBoxEvent = (target, transformer) => {
   const searchBoxFocusBlur = new FocusBlur(target, transformer);
   const searchBoxKeyup = new SearchBoxKeyup(target, transformer);
   const searchBoxMouse = new SearchBoxMouse(target, transformer);
@@ -17,4 +19,10 @@ const getSearchBoxEvent = (target, transformer) => {
   searchBoxKeyup.init();
 };
 
-getSearchBoxEvent(searchInput, relativeInfo);
+const handleCategoriesEvent = (target, transformer) => {
+  const categoriesFocusBlur = new FocusBlur(target, transformer);
+  categoriesFocusBlur.init();
+};
+
+handleSearchBoxEvent(searchInput, relativeInfo);
+handleCategoriesEvent(categoriesBtn, categoriesList);

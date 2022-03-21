@@ -15,19 +15,21 @@ header
       div.categories-btn.flex
         i.fas.fa-bars
           div 카테고리
-      div.categories-contents
-        ul.categories-menu
-          each category in categories 
-            li=category
+      ul.categories-list
+        each category in categories 
+          li=category
 
     div.center
       div.center-main.flex
         img.img(src="/images/logo.png")
         div.center-search.flex
-          div.menu.flex
-            div.menu-selected 전체
-            div.menu-viewer
+          div.center-menu 
+            div.center-menu-selected.flex
+              div 전체
               i.fas.fa-chevron-down
+            ul.center-menu-list
+              each category in categories 
+                li=category
           form.center-form
             div.center-search-box.flex
               input.center-search-input(name="search", type="text", placeholder="찾고 싶은 상품을 검색하세요!")

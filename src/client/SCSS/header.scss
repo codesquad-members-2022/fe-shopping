@@ -37,7 +37,7 @@ header {
     }
   }
 
-  .categories-menu {
+  .categories-list {
     border: solid $border-main $gray;
     box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
     padding: 0.2rem;
@@ -60,10 +60,26 @@ header {
   .center-search {
     @include divideFlex(1, 3);
     border: solid $border-main $blue-main;
-    .menu {
-      @include divideFlex(5, 1);
-      .menu-selected {
+  }
+
+  .center-menu {
+    @include divideFlex(7, 1);
+    position: relative;
+    &-selected {
+      height: 2.5rem;
+      * {
         padding: 0.2rem;
+      }
+    }
+    &-list {
+      border: solid $gray $border-main;
+      position: absolute;
+      box-shadow: 0.05rem 0.05rem 0.3rem 0.15rem $gray3;
+      width: calc(100% - $border-main);
+      left: -$border-main;
+      li {
+        color: $gray2;
+        padding: 0.4rem;
       }
     }
   }
