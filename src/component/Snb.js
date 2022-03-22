@@ -1,5 +1,5 @@
 import Component from "../core/Component.js";
-export default class Snb extends Component {
+export default class SNB extends Component {
     template() {
         const { data } = this.$state;
         return `
@@ -14,13 +14,13 @@ export default class Snb extends Component {
     }
     setEvent () {
         const $eventTarget = this.$target.parentElement;
-        $eventTarget.addEventListener("mouseenter",this.enterEvent);
-        $eventTarget.addEventListener("mouseleave",this.leaveEvent);
+        $eventTarget.addEventListener("mouseenter",this.openListMenu);
+        $eventTarget.addEventListener("mouseleave",this.closeListMenu);
     }
-    enterEvent() {
+    openListMenu() {
         document.querySelector(".list-menu").style.visibility = "visible";
     }
-    leaveEvent() {
+    closeListMenu() {
         document.querySelector(".list-menu").style.visibility = "hidden";
     }
 }
