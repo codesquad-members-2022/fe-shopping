@@ -15,7 +15,7 @@ $word-padding: 0.8rem 8px;
   flex-direction: column;
   font-size: calc($basic-font-size * 3 / 4);
   background-color: white;
-  z-index: 10;
+  z-index: 1000;
 
   .recent-search-word-container {
     padding: $word-padding;
@@ -60,7 +60,7 @@ $word-padding: 0.8rem 8px;
   flex-direction: column;
   font-size: calc($basic-font-size * 3 / 4);
   background-color: white;
-  z-index: 100;
+  z-index: 1000;
 
   .related-search-word-container {
     padding: $word-padding;
