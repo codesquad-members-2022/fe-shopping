@@ -372,11 +372,11 @@ input:focus {
   top: 30px;
 }
 
-.slide-tab-box .slide-teb-container {
+.slide-tab-box .slide-tab-container {
   position: absolute;
 }
 
-.slide-tab-box .slide-teb-container .side-teb-element {
+.slide-tab-box .slide-tab-container .side-tab-element {
   border: 1px solid #000;
   border-bottom: 0.5px solid #000;
 }
