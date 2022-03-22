@@ -18,7 +18,10 @@ export class Controller {
       input: document.querySelector('.search__input'),
       select: document.querySelector('.select__category'),
       inputDropDown: document.querySelector('.input__drop-down'),
+      dropDownList: document.querySelector('.drop-down__list'),
     };
+
+    this.focusKeybordItem;
   }
 
   init() {
@@ -38,13 +41,17 @@ export class Controller {
   }
 
   setSearchInputEvents() {
-    const delay = { focus: 500, mouseleave: 200 };
+    const delay = { focus: 500, mouseleave: 200, keydown: 100 };
 
     this.selector.input.addEventListener('focus', () => this.focusInputHandle());
     this.selector.input.addEventListener('input', debounce(this.typingInputHandle, delay.focus));
+    this.selector.input.addEventListener('keydown', throttle(this.arrowKeyupInputHandle, delay.keydown));
+
     this.selector.inputDropDown.addEventListener(
       'mouseleave',
-      throttle(() => SearchInput.toggleClassName(this.selector.inputDropDown, 'focus'), delay.mouseleave)
+      throttle(() => {
+        SearchInput.toggleClassName(this.selector.inputDropDown, 'focus');
+      }, delay.mouseleave)
     );
   }
 
@@ -76,7 +83,7 @@ export class Controller {
   }
 
   typingInputHandle = () => {
-    if (!this.selector.input.value) return;
+    if (!this.selector.input.value || document.querySelector('.item--focus')) return;
     this.changeAutoCompleteView(this.selector.input.value);
   };
 
@@ -100,5 +107,41 @@ export class Controller {
       this.KeywordLocalStorage.clearKeywordList();
       this.recentSearchView.resetRecentSearchList();
     }
+  }
+
+  arrowKeyupInputHandle = (e) => {
+    const focusClassName = 'item--focus';
+
+    switch (e.key) {
+      case 'ArrowDown':
+        this.moveDownDropDownItem(focusClassName);
+        break;
+      case 'ArrowRight':
+        if (!document.querySelector(`.${focusClassName}`)) return;
+        this.changeAutoCompleteView(this.selector.input.value);
+        break;
+    }
+  };
+
+  moveDownDropDownItem(className) {
+    const firstItem = this.selector.dropDownList.firstElementChild;
+    const lastItem = this.selector.dropDownList.lastElementChild;
+
+    if (firstItem.dataset.value === 'null') return; // 일치하는 데이터가 없는 경우
+
+    if (this.focusKeybordItem === lastItem) {
+      SearchInput.toggleClassName(this.focusKeybordItem, className);
+      this.focusKeybordItem = firstItem;
+    }
+
+    if (!document.querySelector(`.${className}`)) {
+      this.focusKeybordItem = firstItem;
+    } else {
+      SearchInput.toggleClassName(this.focusKeybordItem, className);
+      this.focusKeybordItem = this.focusKeybordItem.nextElementSibling;
+    }
+
+    this.selector.input.value = this.focusKeybordItem.dataset.value;
+    SearchInput.toggleClassName(this.focusKeybordItem, className);
   }
 }
