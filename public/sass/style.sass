@@ -76,7 +76,8 @@
     &__list--item
         font-size: 1.2rem
         margin-top: $margin-l
-        &:hover
+        grid-template-columns: 9fr 1fr
+        &-text:hover
             color: $main-blue
             text-decoration: underline
     &__bottom-bar
@@ -121,6 +122,12 @@
     &--underline
         color: $main-blue
         text-decoration: underline
+
+.delete-btn
+    opacity: 0
+    &:hover
+        opacity: 1
+        color: $main-blue
 
 .match-word
     color: $main-blue

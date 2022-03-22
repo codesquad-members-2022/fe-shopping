@@ -51,7 +51,13 @@ class SearchList {
 
     getSearchListItem(itemName, idx, input) {
         const itemText = this.getItemText(itemName, input);
-        return `<li class="search__list--item" data-idx="${idx}" data-name="${itemName}">${itemText}</li>`;
+        return `<li 
+                    class="search__list--item grid" 
+                    data-idx="${idx}" 
+                    data-name="${itemName}">
+                        <p class="search__list--item-text">${itemText}</p>
+                        <p class="delete-btn">삭제</p>
+                </li>`;
     }
 
     renderSearchList(input = "") {
@@ -74,10 +80,11 @@ class SearchList {
         let focusingItem;
 
         listItems.forEach((item) => {
-            item.classList.remove("focus--underline");
+            const itemText = item.querySelector(".search__list--item-text");
+            itemText.classList.remove("focus--underline");
             if (item.dataset.idx === this.curIdx.toString()) {
                 focusingItem = item;
-                item.classList.toggle("focus--underline");
+                itemText.classList.toggle("focus--underline");
             }
         });
 
