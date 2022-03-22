@@ -50,9 +50,9 @@ strong { font-weight: bold; }
 
 body { background: #fff; color: #212529; }
 
-.header { margin: 80px auto; width: 800px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; }
+.header { margin: 80px auto; width: 800px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; z-index: 1100; }
 
-.main { margin: 0 auto; width: 800px; }
+.categoryMenu { width: 80px; height: 80px; line-height: 80px; font-size: 0.875rem; text-align: center; color: #fff; background-color: #4285f4; cursor: pointer; }
 
 .searchForm { width: 600px; height: 40px; border: 2px solid #4285f4; display: -webkit-box; display: -ms-flexbox; display: flex; }
 
@@ -60,7 +60,7 @@ body { background: #fff; color: #212529; }
 
 .searchForm__current-category { height: 36px; line-height: 36px; font-size: 0.875rem; color: #495057; cursor: pointer; }
 
-.searchForm__category-list { position: absolute; top: 36px; left: 0; padding: 8px 0; width: 150px; max-height: 400px; overflow-y: scroll; background-color: #fff; border: 1px solid #ced4da; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); }
+.searchForm__category-list { position: absolute; top: 36px; left: 0; padding: 8px 0; width: 150px; max-height: 400px; overflow-y: scroll; background-color: #fff; border: 1px solid #ced4da; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); z-index: 1100; }
 
 .searchForm__category-item { padding: 0 12px; height: 28px; line-height: 28px; font-size: 0.75rem; cursor: pointer; }
 
@@ -72,4 +72,6 @@ body { background: #fff; color: #212529; }
 
 .searchForm__button { width: 51px; height: 36px; color: #4285f4; }
 
-.categoryMenu { width: 80px; height: 80px; line-height: 80px; font-size: 0.875rem; text-align: center; color: #fff; background-color: #4285f4; cursor: pointer; }
+.mainBanner { position: relative; height: 450px; background-color: #f1f3f5; border: 1px solid #dee2e6; }
+
+.mainBanner__thumbnails { position: absolute; top: 0; left: 50%; margin-left: -960px; width: 1920px; height: 450px; background-color: #adb5bd; z-index: 1000; }

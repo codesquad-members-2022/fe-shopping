@@ -9,9 +9,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.main {
-  margin: 0 auto;
-  width: 800px;
+  z-index: 1100;
 }
