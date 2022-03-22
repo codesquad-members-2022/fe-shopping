@@ -97,3 +97,14 @@ export const debounce = (cb, delay) => {
     timerId = setTimeout(cb, delay, event);
   };
 };
+
+export const throttle = (cb, delay) => {
+  let timerId;
+  return (event) => {
+    if (timerId) return;
+    timerId = setTimeout(() => {
+      cb(event);
+      timerId = null;
+    }, delay);
+  };
+};
