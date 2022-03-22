@@ -137,6 +137,7 @@ Section.prototype.renderChild = function () {
 
 - 1번: 부모요소에서 this.setState()해도 자식요소에 쓰는 상태가 바뀌면 알아서 바뀔 수 있도록 하기(지금은 자식전부다 리렌더링)
 - 2번: 자식요소를 선언해 놓고, 자식요소.setState()로 변경을 감지하도록 하고 있음.
+- 3번: 부모.setState하되, 자식들은 본인이 넘겨받은 state가 변할 때만 리랜더링
 
 ```bash
 └── SearchBox
@@ -146,7 +147,43 @@ Section.prototype.renderChild = function () {
     └── index.js
 ```
 
-### 1번
+### 1번 부모.setState() -> 부모 아래 자식 모두 리랜더링
+
+```js
+// index.js
+SearchBox.prototype.renderChild = function () {
+  const { option, recentSearchList, autoSearchList } = this.state;
+  // 생략
+  new Selector($selector, {
+    option,
+    changeSearchOption: changeSearchOption.bind(this),
+  });
+  new RecentSearchList($searchRecord, {
+    option,
+    recentSearchList,
+  });
+  new AutoComplete($searchAuto, { autoSearchList });
+};
+
+SearchBox.prototype.setState = function (newState) {
+  this.state = { ...this.state, ...newState };
+  this.renderChild();
+};
+
+function handleSubmit(event) {
+  // 생략
+  this.setState({ inputValue: '', recentSearchList: updatedRecentSearchList });
+  this.$input.value = '';
+  // 생략
+}
+
+async function handleInput({ target }) {
+  // 생략
+  this.setState({ inputValue, autoSearchList: reponseTerms });
+}
+```
+
+### 2번: 선택적으로 자식.setState()실행
 
 ```js
 // HtmlElement.js
@@ -203,48 +240,21 @@ async function handleInput({ target }) {
 }
 ```
 
-### 2번
-
-```js
-SearchBox.prototype.renderChild = function () {
-  const { option, recentSearchList, autoSearchList } = this.state;
-  // 생략
-  new Selector($selector, {
-    option,
-    changeSearchOption: changeSearchOption.bind(this),
-  });
-  new RecentSearchList($searchRecord, {
-    option,
-    recentSearchList,
-  });
-  new AutoComplete($searchAuto, { autoSearchList });
-};
-
-SearchBox.prototype.setState = function (newState) {
-  this.state = { ...this.state, ...newState };
-  this.renderChild();
-};
-
-function handleSubmit(event) {
-  // 생략
-  this.setState({ inputValue: '', recentSearchList: updatedRecentSearchList });
-  this.$input.value = '';
-  // 생략
-}
-
-async function handleInput({ target }) {
-  // 생략
-  this.setState({ inputValue, autoSearchList: reponseTerms });
-}
-```
+### 3번: 부모.setState하되, 자식들은 본인이 넘겨받은 state가 변할 때만 리랜더링
 
 3. 이벤트핸들러 함수 vs 객체
 
 ## 이벤트 핸들러를 객체나 클래스로 선언해보기
 
+🎯 의도
+
+이벤트핸들러를 컴포넌트(htmlElement)가 정의된 코드 아래 묶지 않고 선언해뒀는데, 컴포넌트에 넣어 보려고 함.
+
+이유: 그냥 위에처럼 따로 선언되어 있는게 보기 안좋아서
+
 🤔 문제점
 
-- this로 짜여진 코드여서 수정하기 까다로움.
+- this로 짜여진 코드여서 수정하기 까다로움.(객체에 bind,apply,call 메서드가 없음)
 - switch문을 안쓰려고 했는데 분기처리하려면 어차피 switch문처럼 만들어야함.
 
 ```js
@@ -292,3 +302,29 @@ Main.prototype.EventHandler = {
 4. 의도적인 이벤트 딜레이
 
 > input, keyup, mousemove, resize
+
+input을 예로 들면, `this.$input.addEventListener('input', inputHandler);`가 있을 때 시작시간을 inputHandler안에 기록해두니까 시작시간도 콜백이 실행되면서 최신화됨.
+
+클로저로 선언하면 될려나?
+
+```js
+function delayListenEvent() {
+  let timer = 0;
+  return function (event, callback, ms) {
+    console.log(callback);
+    // clearTimeout(timer);
+    timer = setTimeout(callback(event), ms * 1000);
+  };
+}
+const delay = delayListenEvent();
+this.$input.addEventListener('input', (event) => delay(event, inputHandler, 1));
+```
+
+🤔 문제점
+
+1번처럼 선언만 했을 때 변수를 어떻게 넘겨주지?
+
+```js
+this.$input.addEventListener('input', (event) => delay(event, inputHandler, 1)); //1번
+this.$input.addEventListener('input', delay); // 2번
+```

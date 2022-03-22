@@ -17,7 +17,7 @@ Main.prototype.init = function () {
           dataset: { click },
         },
       } = event;
-      this.EventHandler.onClick[getMethodName(click)](event);
+      click && this.EventHandler.onClick[getMethodName(click)](event);
     }.bind(this),
   };
 };
