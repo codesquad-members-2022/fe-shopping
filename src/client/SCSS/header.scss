@@ -82,6 +82,7 @@ header {
       }
     }
     &-list {
+      overflow: hidden;
       position: absolute;
       @include hiddenBox;
       width: calc(100% - $border-main);

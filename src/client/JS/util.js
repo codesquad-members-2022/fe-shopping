@@ -1,5 +1,16 @@
-const selector = (selector, target = document) =>
-  target.querySelector(selector);
+const selector = (selector, target = document) => {
+  return target.querySelector(selector);
+};
+
+const getStyle = (target, styleValue) => {
+  return document.defaultView
+    .getComputedStyle(target)
+    .getPropertyValue(styleValue);
+};
+
+const isHidden = (target) => {
+  return target.classList.contains("hidden");
+};
 
 const delay = ({ time, signal = null, data }) =>
   new Promise((resolve) => {
@@ -27,4 +38,4 @@ class intervalDelay {
   };
 }
 
-export { selector, delay, intervalDelay };
+export { selector, getStyle, delay, intervalDelay, isHidden };
