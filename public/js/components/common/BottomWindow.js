@@ -11,6 +11,12 @@ class BottomWindow extends Component {
     if (this.$props.isSearchHistory) SearchHistoryStore.subscribe('searchHistory', this);
   }
 
+  setState(newState) {
+    this.$state = { ...this.$state, ...newState };
+    SearchHistoryStore.unsubscribe('searchHistory');
+    this.render();
+  }
+
   template() {
     if (this.$props.isSearchHistory) {
       return `<div class="window-contents">

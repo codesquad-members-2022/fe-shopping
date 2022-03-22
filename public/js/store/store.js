@@ -26,12 +26,12 @@ class Store {
       get() {
         return _value;
       },
-      set: function(value) {
+      set: (value) => {
         _value = value;
         this.subscribers[state].forEach(subscriber => {
           subscriber.setState({ [state]: this.state[state] });
         });
-      }.bind(this),
+      },
     });
   }
 

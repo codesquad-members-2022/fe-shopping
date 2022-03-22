@@ -1,8 +1,13 @@
+export let abortController;
+
 const request = (url) => {
-  return fetch(url).then((res) => res.json());
+    abortController = new AbortController();
+    const { signal } = abortController.signal;
+    return fetch(url, { signal }).then((res) => res.json())
 };
 
-export const getAutocompleteData = (url) => {
-  return request(url)
-    .then(data => data.suggestions.map(item => {return { item: item.value, link: '#' };}));
+export const getAutocompleteData = async (url) => {
+  const { suggestions } = await request(url);
+  if (abortController.signal.aborted) return null;
+  else return suggestions.map(item => {return { item: item.value, link: '#' };});
 };
