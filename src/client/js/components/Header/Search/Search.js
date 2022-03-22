@@ -20,6 +20,16 @@ createExtendsRelation(Search, Component);
 Search.prototype.setEvent = function () {
   document.body.addEventListener("click", handleBodyClick);
   this.addEvent("click", ".search__category", handleSearchCategoryClick);
+  this.addEvent("transitionstart", ".search__category-list", ({ target }) => {
+    target.style.boxShadow = "0 4px 5px rgb(0 0 0 / 30%)";
+    target.style.border = "1px #d1d8e0 solid";
+  });
+  this.addEvent("transitionend", ".search__category-list", ({ target }) => {
+    if (!target.classList.contains("list-act")) {
+      target.style.boxShadow = "none";
+      target.style.border = "none";
+    }
+  });
 };
 
 Search.prototype.mount = async function () {

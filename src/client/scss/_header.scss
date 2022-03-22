@@ -98,8 +98,6 @@ i {
   }
   .list-act {
     max-height: 1000px;
-    box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
-    border: 1px $baseLightGray solid;
   }
   .search__input {
     @include flex(space-around, center);
