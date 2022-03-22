@@ -1,8 +1,9 @@
 import searchBoxModel from "../model/searchBoxModel.js";
+import { $ } from "../util/util.js";
 
 const renderSearchBox = () => {
   searchBoxModel.render();
-  searchBoxModel.setEvent(document.querySelector(".search-box"));
+  searchBoxModel.setEvent($(".search-box"));
 };
 
 export { renderSearchBox };

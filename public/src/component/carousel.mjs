@@ -1,4 +1,4 @@
-import { debounce } from "../util/util.js";
+import { $, debounce } from "../util/util.js";
 import Component from "./component.mjs";
 
 const FIRST_INDEX = 0;
@@ -18,16 +18,16 @@ class Carousel extends Component {
   }
 
   init() {
-    document.querySelector(".carousel__container").innerHTML += getCarouselItem(
+    $(".carousel__container").innerHTML += getCarouselItem(
       this.carouselData.carouselData[FIRST_INDEX].imgData,
       this.carouselData.carouselData[FIRST_INDEX].altData
     );
 
     this.carouselData.carouselData.forEach((data) => {
-      document.querySelector(".carousel__snb").innerHTML += getSnbItem(data.navData, data.altData);
+      $(".carousel__snb").innerHTML += getSnbItem(data.navData, data.altData);
     });
-    document.querySelector(".carousel__snb").firstElementChild.classList.remove("snb__item");
-    document.querySelector(".carousel__snb").firstElementChild.classList.add("snb__selected");
+    $(".carousel__snb").firstElementChild.classList.remove("snb__item");
+    $(".carousel__snb").firstElementChild.classList.add("snb__selected");
   }
 
   setEvent(carouselImgNode, carouselNavBarNode) {
