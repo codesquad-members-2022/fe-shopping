@@ -1,4 +1,5 @@
 export class SearchCategory {
+    CATEGORY_LENGTH = 31;
     constructor(category, categoryList, arrowUp, arrowDown) {
         this.category = category;
         this.categorySelected = category.querySelector(
@@ -10,6 +11,7 @@ export class SearchCategory {
         this.selectedCategory = "all";
         this.selectedCategoryName = "전체";
         this.isVisible = false;
+        this.curIdx = -1;
     }
 
     showCategoryList() {
@@ -30,5 +32,44 @@ export class SearchCategory {
         this.selectedCategoryName = newCategory.innerText;
         this.selectedCategory = newCategory.dataset.category;
         this.categorySelected.innerText = this.selectedCategoryName;
+    }
+
+    focusItem() {
+        const listItems = this.categoryList.querySelectorAll(
+            ".search__category-list--item"
+        );
+        let focusingItem;
+
+        listItems.forEach((item) => {
+            item.classList.remove("focus");
+            if (item.dataset.idx === this.curIdx.toString()) {
+                focusingItem = item;
+                item.classList.toggle("focus");
+            }
+        });
+
+        return focusingItem;
+    }
+
+    focusNextItem() {
+        this.curIdx += 1;
+        if (this.curIdx >= this.CATEGORY_LENGTH) {
+            this.curIdx = 0;
+        }
+
+        const focusingItem = this.focusItem();
+
+        this.changeSelectedCategory(focusingItem);
+    }
+
+    focusPreviousItem() {
+        this.curIdx -= 1;
+        if (this.curIdx < 0) {
+            this.curIdx = this.CATEGORY_LENGTH - 1;
+        }
+
+        const focusingItem = this.focusItem();
+
+        this.changeSelectedCategory(focusingItem);
     }
 }

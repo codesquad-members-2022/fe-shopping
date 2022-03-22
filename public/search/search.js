@@ -187,10 +187,31 @@ const searchListItemEventHandler = ({ target }) => {
     }
 };
 
+const searchCategoryKeydownEventHandler = (event) => {
+    if (event.key === "ArrowDown") {
+        event.preventDefault();
+        searchCategory.focusNextItem();
+    }
+
+    if (event.key === "ArrowUp") {
+        event.preventDefault();
+        searchCategory.focusPreviousItem();
+    }
+
+    if (event.key === "Enter") {
+        searchCategory.hideCategoryList();
+    }
+};
+
 const onSearchEvent = () => {
     document.body.addEventListener("click", ({ target }) => {
         if (!target.closest(".search")) {
             hideLists();
+        }
+    });
+    document.body.addEventListener("keydown", (event) => {
+        if (searchCategory.isVisible) {
+            searchCategoryKeydownEventHandler(event);
         }
     });
 
