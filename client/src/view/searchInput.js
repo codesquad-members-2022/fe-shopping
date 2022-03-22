@@ -22,10 +22,8 @@ export class SearchInput {
     );
   }
 
-  static toggleInputFocusClass() {
-    // this.$inputDropDown === undefind
-    const $inputDropDown = document.querySelector('.input__drop-down');
-    $inputDropDown.classList.toggle('focus');
+  static toggleClassName(selector, className) {
+    selector.classList.toggle(className);
   }
 
   static resetInputText() {

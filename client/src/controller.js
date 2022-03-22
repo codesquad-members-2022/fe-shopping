@@ -64,7 +64,7 @@ export class Controller {
 
     if (!this.selector.input.value && this.KeywordLocalStorage.keywordList.length > 0) {
       this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
-      SearchInput.toggleInputFocusClass();
+      SearchInput.toggleClassName(this.selector.inputDropDown, 'focus');
     }
 
     if (this.selector.input.value) {
@@ -82,7 +82,7 @@ export class Controller {
 
     if (!this.selector.input.value) return;
     this.KeywordLocalStorage.addKeywordList(this.selector.input.value);
-    SearchInput.toggleInputFocusClass();
+    SearchInput.toggleClassName(this.selector.inputDropDown, 'focus');
     SearchInput.resetInputText();
   }
 
