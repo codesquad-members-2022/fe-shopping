@@ -21,17 +21,6 @@ const SEARCH_INPUT_MODEL = new SearchInputToggle();
 const SEARCH_MENU_VIEW = new SearchMenuView();
 const SEARCH_MENU_MODEL = new SearchMenuToggle();
 
-<<<<<<< HEAD
-const searchZoneControllerParm = {
-  inputDom: ".header__main--searchZone",
-  menuDom: ".header__main--inputMenu",
-  inputView: viewTest,
-  menuView: menuView,
-  inputSearch: ".header__main--searchInput",
-};
-
-const test = new SearchZoneController(searchZoneControllerParm);
-=======
 const HISTORY_MANAGER = new HeaderHistoryPatcher(
   SEARCH_INPUT_MODEL,
   SEARCH_INPUT_VIEW
@@ -54,6 +43,5 @@ const mainControllerParams = {
 };
 
 const test = new mainController(mainControllerParams);
->>>>>>> 5393d49 (error: 깃 관련 문제)
 
 test.initService();

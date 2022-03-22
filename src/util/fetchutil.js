@@ -5,7 +5,7 @@ async function fetch_use(uri, callback) {
 }
 
 function fetchData(uri) {
-  return fetch(uri).then((data) => data.json);
+  return fetch(uri).then((data) => console.log(data));
 }
 
 export { fetch_use, fetchData };

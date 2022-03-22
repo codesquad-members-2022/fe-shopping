@@ -9,7 +9,7 @@ class SearchMenuEventHandler {
   }
 
   addClickEvent() {
-    this.targetDom.addEventListener("click", () => this.onClickEvent);
+    this.targetDom.addEventListener("click", () => this.onClickEvent());
   }
 
   onClickEvent() {

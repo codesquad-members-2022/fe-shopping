@@ -22,8 +22,7 @@ class SearchInputEventHandler {
   }
 
   onInputEvent({ target: { value } }) {
-    console.log(value);
-    const uri = `/search/${value}`; // 추후 util폴더 constants로 추가할 예정
+    const uri = `search/${value}`; // 추후 util폴더 constants로 추가할 예정
     this.router.setAutoCompleteData(uri);
   }
 
