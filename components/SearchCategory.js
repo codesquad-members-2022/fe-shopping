@@ -10,7 +10,7 @@ class SearchCategory extends Element {
     this.$search__category = null;
   }
 
-  handleClickSearchCategory() {
+  onClickSearchCategory() {
     document.addEventListener("click", ({ target }) => {
       const $search__categories__container = targetQuerySelector({
         className: "search__dropbox",

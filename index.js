@@ -7,15 +7,15 @@ import SearchBarDropBox from "./components/SearchBarDropBox.js";
 
 const category = new SearchCategory();
 const categoriesDropBox = new SearchCategoryDropBox();
-category.handleClickSearchCategory();
-categoriesDropBox.handleClickSearchCategory();
+category.onClickSearchCategory();
+categoriesDropBox.onClickSearchCategory();
 categoriesDropBox.appendElement({ data: searchCategories });
 
 const searchBar = new SearchBar();
 const searchBarDropBox = new SearchBarDropBox();
 searchBarDropBox.appendElement({ data: searchData });
-searchBarDropBox.handleClickDocumentWhenDropDown();
-searchBarDropBox.handleKeyupKeywords({
+searchBarDropBox.onClickDocumentWhenDropDown();
+searchBarDropBox.onKeyupKeywords({
   showKeyword: (keyword) => {
     searchBar.setState({
       keyword,
@@ -23,7 +23,7 @@ searchBarDropBox.handleKeyupKeywords({
   },
 });
 
-searchBar.handleFocusInput({
+searchBar.onFocusInput({
   dropDown: (hasDropBox) => {
     if (hasDropBox) {
       searchBarDropBox.render();

@@ -32,7 +32,7 @@ class SearchCategoryDropBox extends Element {
     this.setState(data);
   }
 
-  handleClickSearchCategory() {
+  onClickSearchCategory() {
     document.addEventListener("click", ({ target }) => {
       const { visibility } = this.$search__categories__container.style;
       if (visibility === "hidden") {

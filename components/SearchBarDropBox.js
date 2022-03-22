@@ -41,7 +41,7 @@ class SearchBarDropBox extends Element {
     this.$search__word__dropbox.style.visibility = "hidden";
   }
 
-  handleClickDocumentWhenDropDown() {
+  onClickDocumentWhenDropDown() {
     const $search__delete = targetQuerySelector({
       className: "search__delete",
     });
@@ -63,7 +63,7 @@ class SearchBarDropBox extends Element {
     });
   }
 
-  handleKeyupKeywords({ showKeyword }) {
+  onKeyupKeywords({ showKeyword }) {
     let index = 0;
     const $ul = this.$search__word__dropbox.children[0];
     const keywords = $ul.children;
