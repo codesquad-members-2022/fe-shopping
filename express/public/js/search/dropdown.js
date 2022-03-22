@@ -1,5 +1,5 @@
 import { $ } from '../utility/util.js';
-import { categoryData } from '../../data/search-category/category.js';
+import { categoryData } from '../../data/search-category/search-category.js';
 export default class Dropdown {
   addBtnEvent() {
     const $dropdownBtn = $('.search-category-dropdown');
