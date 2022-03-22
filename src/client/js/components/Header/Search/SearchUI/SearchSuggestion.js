@@ -8,8 +8,10 @@ function SearchSuggestion(...params) {
 createExtendsRelation(SearchSuggestion, Component);
 
 const highlightWord = (string, word) => {
-  const regex = new RegExp(`(?<front>.+)?(?<matchedWord>${word})(?<back>.+)?`);
-  const { groups } = string.match(regex) || { groups: {} };
+  const matchedWordRegex = new RegExp(
+    `(?<front>.+)?(?<matchedWord>${word})(?<back>.+)?`
+  );
+  const { groups } = string.match(matchedWordRegex) || { groups: {} };
   const { front, matchedWord, back } = groups;
 
   return matchedWord
