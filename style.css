@@ -699,16 +699,6 @@ template {
 .g-category {
   position: relative;
 }
-.g-category-banner {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  z-index: 10;
-  width: 300%;
-  height: 100%;
-  background-color: #fff;
-  border: 1px solid #ddd;
-}
 .g-category .category-layer {
   position: absolute;
   top: 100%;
@@ -725,44 +715,44 @@ template {
   background-color: #fff;
   border: 1px solid #ddd;
 }
-.g-category .shopping-menu-list {
+.g-category .category-list {
   position: relative;
   z-index: 50;
   width: 170px;
   padding: 8px 0;
   border: 1px solid #ddd;
 }
-.g-category .shopping-menu-item {
+.g-category .category-item {
   font-size: 13px;
   color: #333;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.g-category .shopping-menu-item.menu-open > .category-layer-depth-1 {
+.g-category .category-item.is-open > .category-layer-depth-1 {
   display: block;
 }
-.g-category .shopping-menu-item.menu-open > i {
+.g-category .category-item.is-open > i {
   color: #4285f4;
 }
-.g-category .shopping-menu-item.menu-open > a {
+.g-category .category-item.is-open > a {
   color: #4285f4;
   text-decoration: underline;
 }
-.g-category .shopping-menu-item.menu-open > a i {
+.g-category .category-item.is-open > a i {
   display: inline;
 }
-.g-category .shopping-menu-item i {
+.g-category .category-item i {
   flex-basis: 20px;
   margin: 0 8px;
 }
-.g-category .shopping-menu-item a {
+.g-category .category-item a {
   position: relative;
   display: block;
   width: 100%;
   padding: 10px 25px 10px 0;
 }
-.g-category .shopping-menu-item a i {
+.g-category .category-item a i {
   position: absolute;
   right: 10px;
   display: none;

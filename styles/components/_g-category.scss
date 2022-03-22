@@ -1,17 +1,6 @@
 .g-category {
   position: relative;
 
-  &-banner {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    z-index: $g-category-banner-z;
-    width: 300%;
-    height: 100%;
-    background-color: $white;
-    border: 1px solid $gray-dark;
-  }
-
   .category-layer {
     position: absolute;
     top: 100%;
@@ -30,19 +19,19 @@
     }
   }
 
-  .shopping-menu-list {
+  .category-list {
     position: relative;
-    z-index: $shopping-menu-list-z;
+    z-index: $category-list-z;
     width: 170px;
     padding: 8px 0;
     border: 1px solid $gray-dark;
   }
 
-  .shopping-menu-item {
+  .category-item {
     @include font-style($font-md, $primary);
     @include flexbox;
 
-    &.menu-open {
+    &.is-open {
       > .category-layer-depth-1 {
         display: block;
       }
