@@ -65,6 +65,23 @@
   }
 }
 
+.shopping-menu-list {
+  position: absolute;
+  width: 110px;
+  top: 115px;
+  background-color: $color-gray;
+  z-index: 1;
+  .shopping-popup-menu-list {
+    .shopping-popup-menu-item {
+      font-size: $font-size-12;
+      font-weight: $font-bold;
+      cursor: pointer;
+      padding: 10px 0 5px 5px;
+      text-align: left;
+    }
+  }
+}
+
 .logo {
   top: $center-sort-top;
   transform: $center-sort-transform;
@@ -202,7 +219,7 @@
       font-size: $font-size-12;
       font-weight: $font-bold;
       cursor: pointer;
-      margin-top: 5px;
+      margin: 5px 0 5px 0;
     }
     li:hover {
       color: #4285f4;

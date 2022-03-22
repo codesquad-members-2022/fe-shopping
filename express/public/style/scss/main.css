@@ -117,6 +117,22 @@ input:focus {
   color: #fff;
 }
 
+.shopping-menu-list {
+  position: absolute;
+  width: 110px;
+  top: 115px;
+  background-color: #999;
+  z-index: 1;
+}
+
+.shopping-menu-list .shopping-popup-menu-list .shopping-popup-menu-item {
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 10px 0 5px 5px;
+  text-align: left;
+}
+
 .logo {
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -270,7 +286,7 @@ input:focus {
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 5px;
+  margin: 5px 0 5px 0;
 }
 
 .option-menu .dropdown-menus li:hover {
