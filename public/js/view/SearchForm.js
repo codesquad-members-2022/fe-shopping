@@ -225,23 +225,35 @@ export default class {
     this.form.addEventListener("submit", (e) => this.handleSubmitForm(e));
   }
 
+  getNextIdx(idx) {
+    return idx + 1;
+  }
+
+  getPrevIdx(idx) {
+    return idx - 1;
+  }
+
   computeIdx(key) {
+    const vaildIdxNum = 0;
+    const firstIdx = 0;
+    const lastIdx = this.itemsCount - 1;
+
     switch (key) {
       case "ArrowDown":
-        if (this.curSelectedIdx < 0) {
-          this.curSelectedIdx = 0;
+        if (this.curSelectedIdx < vaildIdxNum) {
+          this.curSelectedIdx = firstIdx;
         } else {
-          this.curSelectedIdx = this.curSelectedIdx + 1;
-          if (this.curSelectedIdx > this.itemsCount - 1) {
-            this.curSelectedIdx = 0;
+          this.curSelectedIdx = this.getNextIdx(this.curSelectedIdx);
+          if (this.curSelectedIdx > lastIdx) {
+            this.curSelectedIdx = firstIdx;
           }
         }
         break;
 
       case "ArrowUp":
-        this.curSelectedIdx = this.curSelectedIdx - 1;
-        if (this.curSelectedIdx < 0) {
-          this.curSelectedIdx = this.itemsCount - 1;
+        this.curSelectedIdx = this.getPrevIdx(this.curSelectedIdx);
+        if (this.curSelectedIdx < vaildIdxNum) {
+          this.curSelectedIdx = lastIdx;
         }
         break;
 
@@ -250,25 +262,33 @@ export default class {
     }
   }
 
+  initSelectedIdx() {
+    const initialIdx = -1;
+    this.curSelectedIdx = initialIdx;
+  }
+
+  foucusSelectedItem() {
+    const curItem = $(`[data-idx="${this.curSelectedIdx}"]`);
+    curItem.classList.add("focus");
+  }
+
   removeClassFromSelector(selector, className) {
     [...$$(selector)].forEach((el) => {
       el.classList.remove(className);
     });
   }
 
-  // TODO: 매직넘버 없애기
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", (e) => {
       if (e.code === "Escape") {
-        this.curSelectedIdx = -1;
+        this.initSelectedIdx();
         this.hideSearchAreaDropDown();
         return;
       }
       if (e.code === "ArrowDown" || e.code === "ArrowUp") {
         this.computeIdx(e.code);
         this.removeClassFromSelector("[data-idx]", "focus");
-        const curItem = $(`[data-idx="${this.curSelectedIdx}"]`);
-        curItem.classList.add("focus");
+        this.foucusSelectedItem();
         this.inputEl.focus();
         return;
       }
@@ -277,7 +297,7 @@ export default class {
         if (this.curSelectedIdx < 0) return;
         // select된 아이템이 없으면 submit이 일어나야함 (return)
         this.inputEl.value = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
-        this.curSelectedIdx = -1;
+        this.initSelectedIdx();
       }
 
       if (!this.inputEl.value) {
