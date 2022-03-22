@@ -335,10 +335,12 @@ export default class {
       }
 
       if (!this.inputEl.value) {
+        this.initSelectedIdx();
         this.showRecentSearchArea();
         return;
       }
 
+      this.initSelectedIdx();
       this.getInputWord();
     });
   }
