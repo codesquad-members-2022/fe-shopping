@@ -2,6 +2,7 @@ export class CurrentSearchStore {
   constructor() {
     this.localStorageArr = [];
     this.getLocalStorage();
+    this.maxListNum = 8;
   }
 
   getLocalStorage() {
@@ -11,6 +12,10 @@ export class CurrentSearchStore {
     }
     storage
       .sort((a, b) => b - a)
-      .forEach((v) => this.localStorageArr.push(localStorage.getItem(v)));
+      .forEach((key) => this.localStorageArr.push(localStorage.getItem(key)));
+
+    if (this.localStorageArr.length > this.maxListNum) {
+      this.localStorageArr = this.localStorageArr.splice(0, this.maxListNum);
+    }
   }
 }

@@ -46,16 +46,15 @@ export class SearchInputController {
   }
 
   reRenderRecentKeyword() {
+    this.recentKeywordStore.getLocalStorage();
+
     this.$searchList.innerHTML = "";
     this.$searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
-
-    const length = this.recentKeywordStore.localStorageArr.length;
-    for (let i = 0; i < 8; i++) {
-      if (!length) break;
+    this.recentKeywordStore.localStorageArr.forEach((v) => {
       const keyword = document.createElement("li");
-      keyword.textContent = this.recentKeywordStore.localStorageArr[i];
+      keyword.textContent = v;
       this.$searchList.appendChild(keyword);
-    }
+    });
   }
 
   storageClear() {
