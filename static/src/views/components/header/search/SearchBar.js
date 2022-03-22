@@ -51,7 +51,7 @@ export class SearchBar {
     });
   }
 
-  innit(recentSearchKeywords, automaticCompletion) {
+  init(recentSearchKeywords, automaticCompletion) {
     this.connect(recentSearchKeywords, automaticCompletion);
     this.addEventListener();
     this.moveFocus();

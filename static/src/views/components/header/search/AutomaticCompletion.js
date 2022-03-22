@@ -57,7 +57,7 @@ export class AutomaticCompletion {
     });
   }
 
-  innit(searchBar) {
+  init(searchBar) {
     this.connect(searchBar);
     this.getAutomaticCompletionData();
     this.moveFocus();

@@ -22,7 +22,7 @@ export class SearchCategoriesButton {
     this.addSearchCategoriesButtonEvent();
   }
 
-  innit(searchCategories) {
+  init(searchCategories) {
     this.conntect(searchCategories);
     this.addEventListener();
   }

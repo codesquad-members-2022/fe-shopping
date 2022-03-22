@@ -46,7 +46,7 @@ export class SearchCategories {
     });
   }
 
-  innit(categoriesButton) {
+  init(categoriesButton) {
     this.connect(categoriesButton);
     this.render();
     this.addEventListener();

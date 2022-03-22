@@ -41,7 +41,6 @@ export class RecentSearchKeywords {
 
   saveRecentSearchKeyword(searchValue) {
     if (!searchValue) return;
-    console.log(searchValue);
     const searchValues = this.searchStorage.getItem(this.RECENT_KEYWORDS_STORAGE_KEY)
       ? `${this.searchStorage.getItem(this.RECENT_KEYWORDS_STORAGE_KEY)},${searchValue}`
       : searchValue;
@@ -67,7 +66,7 @@ export class RecentSearchKeywords {
     this.addSwitchButtonEvent();
   }
 
-  innit(searchBar) {
+  init(searchBar) {
     this.connect(searchBar);
     this.render();
     this.addEventListener();

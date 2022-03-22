@@ -13,14 +13,14 @@ export class Header {
     this.recentSearchKeywords = new RecentSearchKeywords(this.RECENT_KEYWORDS_STORAGE_KEY, this.searchStorage);
     this.automaticCompletion = new AutomaticCompletion();
     this.searchBar = new SearchBar();
-    this.innitSearchArea();
+    this.initSearchArea();
   }
 
-  innitSearchArea() {
-    this.searchCategories.innit(this.searchCategoriesButton);
-    this.searchCategoriesButton.innit(this.searchCategories);
-    this.recentSearchKeywords.innit(this.searchBar);
-    this.automaticCompletion.innit(this.searchBar);
-    this.searchBar.innit(this.recentSearchKeywords, this.automaticCompletion);
+  initSearchArea() {
+    this.searchCategories.init(this.searchCategoriesButton);
+    this.searchCategoriesButton.init(this.searchCategories);
+    this.recentSearchKeywords.init(this.searchBar);
+    this.automaticCompletion.init(this.searchBar);
+    this.searchBar.init(this.recentSearchKeywords, this.automaticCompletion);
   }
 }
