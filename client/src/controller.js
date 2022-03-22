@@ -4,7 +4,7 @@ import { RecentSearch } from './view/recentSearch.js';
 import { AutoComplete } from './view/autoComplete.js';
 import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
 import { getAutoCompleteData } from './model/autoCompleteData.js';
-import { debounce } from './util.js';
+import { debounce, throttle } from './util.js';
 
 export class Controller {
   constructor() {
@@ -38,11 +38,14 @@ export class Controller {
   }
 
   setSearchInputEvents() {
-    const DELAY = 500;
+    const delay = { focus: 500, mouseleave: 200 };
 
     this.selector.input.addEventListener('focus', () => this.focusInputHandle());
-    this.selector.input.addEventListener('input', debounce(this.typingInputHandle.bind(this), DELAY));
-    this.selector.inputDropDown.addEventListener('mouseleave', () => SearchInput.toggleInputFocusClass());
+    this.selector.input.addEventListener('input', debounce(this.typingInputHandle, delay.focus));
+    this.selector.inputDropDown.addEventListener(
+      'mouseleave',
+      throttle(() => SearchInput.toggleClassName(this.selector.inputDropDown, 'focus'), delay.mouseleave)
+    );
   }
 
   setSearchFormEvents() {
@@ -72,10 +75,10 @@ export class Controller {
     }
   }
 
-  typingInputHandle() {
+  typingInputHandle = () => {
     if (!this.selector.input.value) return;
     this.changeAutoCompleteView(this.selector.input.value);
-  }
+  };
 
   submitFormHandle(e) {
     e.preventDefault();
