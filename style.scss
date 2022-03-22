@@ -87,6 +87,36 @@
       width: 30px;
       height: 30px;
     }
+
+    .showCheck {
+      background-image: url(https://img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
+      background-position-x: 6px;
+      background-position-y: -140px;
+      //padding-bottom: 3px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+    }
+    .header__categorylist {
+      width: 130px;
+      // height: 830px;
+      height: 200px;
+      background: #fff;
+      font-size: $fontSize;
+      color: #666;
+      display: none;
+      position: absolute;
+      top: 100px;
+      overflow: auto;
+      border: 1px solid #ddd;
+      box-shadow: 0px 4px 5px #666;
+      li {
+        padding: 10px;
+      }
+    }
+    .show {
+      display: block;
+    }
   }
 }
 
@@ -103,6 +133,7 @@
     border: none;
     padding-left: 10px;
     line-height: 30px;
+    outline: none;
   }
   span {
     background-image: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png);
