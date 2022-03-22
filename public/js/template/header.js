@@ -3,10 +3,10 @@ export const header = `
     <div class="header-wrap">
       <div class="header">
         <div class="header-left">
-          <div class="header-gnb">
-            <a href="#" class="header-gnb__link">
-              <img src="#" alt="#" class="header-gnb__img">
-              <span class="header-gnb__text absolute-width-center">카테고리</span>
+          <div class="header-gnb-logo">
+            <a href="#" class="header-gnb-logo__link">
+              <img src="#" alt="#" class="header-gnb-logo__img">
+              <span class="header-gnb-logo__text absolute-width-center">카테고리</span>
             </a>
           </div>
         </div>

@@ -184,18 +184,18 @@ table {
 .header {
   display: flex;
 }
-.header-gnb {
+.header-gnb-logo {
   background-color: #fff;
   color: #fff;
   height: 115px;
   position: relative;
   width: 110px;
 }
-.header-gnb__link {
+.header-gnb-logo__link {
   cursor: default;
   display: block;
 }
-.header-gnb__text {
+.header-gnb-logo__text {
   color: #fff;
   cursor: pointer;
   top: 65%;

@@ -9,7 +9,7 @@ function parseHeaderImg(data) {
   headerLogoImg.src = data.logo.src;
   headerLogoImg.alt = data.logo.alt;
 
-  const headerMenuImg = document.querySelector('.header-gnb__img');
+  const headerMenuImg = document.querySelector('.header-gnb-logo__img');
   headerMenuImg.src = data.menu.src;
   headerMenuImg.alt = data.menu.alt;
 }

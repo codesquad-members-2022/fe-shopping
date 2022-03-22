@@ -1,0 +1,356 @@
+{
+  "data": [
+    {
+      "keyword": "패션의류/잡화",
+      "fashion": [
+        {
+          "keyword": "여성패션",
+          "woman": [
+            {
+              "keyword": "의류"
+            },
+            {
+              "keyword": "속옷/잠옷"
+            },
+            {
+              "keyword": "신발"
+            },
+            {
+              "keyword": "가방/잡화"
+            }
+          ]
+        },
+        {
+          "keyword": "남성패션",
+          "man": [
+            {
+              "keyword": "의류"
+            },
+            {
+              "keyword": "속옷/잠옷"
+            },
+            {
+              "keyword": "신발"
+            },
+            {
+              "keyword": "가방/잡화"
+            }
+          ]
+        },
+        {
+          "keyword": "남녀 공용 의류",
+          "all": [
+            {
+              "keyword": "티셔츠"
+            },
+            {
+              "keyword": "맨투맨/후드티"
+            },
+            {
+              "keyword": "셔츠"
+            },
+            {
+              "keyword": "바지"
+            },
+            {
+              "keyword": "트레이닝복"
+            },
+            {
+              "keyword": "후드집업/집업류"
+            },
+            {
+              "keyword": "니트류/조끼"
+            },
+            {
+              "keyword": "아우터"
+            },
+            {
+              "keyword": "테마의류"
+            },
+            {
+              "keyword": "커플룩/패밀리룩"
+            }
+          ]
+        },
+        {
+          "keyword": "유아동패션",
+          "child": [
+            {
+              "keyword": "베이비"
+            },
+            {
+              "keyword": "여아"
+            },
+            {
+              "keyword": "남아"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "keyword": "뷰티",
+      "beauty": [
+        {
+          "keyword": "명품뷰티"
+        },
+        {
+          "keyword": "스킨케어",
+          "skin": [
+            {
+              "keyword": "스킨"
+            },
+            {
+              "keyword": "로션"
+            },
+            {
+              "keyword": "에센스/세럼/앰플"
+            },
+            {
+              "keyword": "미스트"
+            },
+            {
+              "keyword": "오일"
+            },
+            {
+              "keyword": "크림/올인원"
+            },
+            {
+              "keyword": "기초세트"
+            },
+            {
+              "keyword": "마스크/팩"
+            },
+            {
+              "keyword": "선케어/태닝"
+            }
+          ]
+        },
+        {
+          "keyword": "클렌징/필링",
+          "cleansing": [
+            {
+              "keyword": "클렌징 폼"
+            },
+            {
+              "keyword": "클렌징 젤/파우더"
+            },
+            {
+              "keyword": "클렌징 비누"
+            },
+            {
+              "keyword": "클렌징 오일"
+            },
+            {
+              "keyword": "클렌징 워터"
+            },
+            {
+              "keyword": "립/아이리무버"
+            },
+            {
+              "keyword": "클렌징 티슈/시트"
+            },
+            {
+              "keyword": "클렌징 로션/크림"
+            },
+            {
+              "keyword": "클렌징세트"
+            },
+            {
+              "keyword": "스크럽/필링"
+            }
+          ]
+        },
+        {
+          "keyword": "더마코스메틱"
+        },
+        {
+          "keyword": "메이크업",
+          "makeup": [
+            {
+              "keyword": "아이 메이크업"
+            },
+            {
+              "keyword": "립 메이크업"
+            },
+            {
+              "keyword": "베이스 메이크업"
+            },
+            {
+              "keyword": "치크 메이크업"
+            },
+            {
+              "keyword": "멀티 메이크업"
+            },
+            {
+              "keyword": "바디 메이크업"
+            }
+          ]
+        },
+        {
+          "keyword": "향수",
+          "perfume": [
+            {
+              "keyword": "여성향수"
+            },
+            {
+              "keyword": "남성향수"
+            },
+            {
+              "keyword": "드레스퍼퓸"
+            }
+          ]
+        },
+        {
+          "keyword": "남성화장품",
+          "man": [
+            {
+              "keyword": "남성스킨케어"
+            },
+            {
+              "keyword": "남성메이크업"
+            },
+            {
+              "keyword": "남성화장품세트"
+            },
+            {
+              "keyword": "남성 헤어케어"
+            },
+            {
+              "keyword": "남성 바디케어"
+            },
+            {
+              "keyword": "남성 쉐이빙 케어"
+            }
+          ]
+        },
+        {
+          "keyword": "네일",
+          "nail": [
+            {
+              "keyword": "네일팁/스티커"
+            },
+            {
+              "keyword": "일반네일"
+            },
+            {
+              "keyword": "젤네일"
+            },
+            {
+              "keyword": "큐티클/영양"
+            },
+            {
+              "keyword": "네일케어도구"
+            },
+            {
+              "keyword": "네일아트소품/도구"
+            },
+            {
+              "keyword": "네일세트"
+            }
+          ]
+        },
+        {
+          "keyword": "뷰티소품",
+          "beautyprop": [
+            {
+              "keyword": "화장솜/면봉"
+            },
+            {
+              "keyword": "아이소품"
+            },
+            {
+              "keyword": "페이스소품"
+            },
+            {
+              "keyword": "클렌징소품"
+            },
+            {
+              "keyword": "헤어소품"
+            },
+            {
+              "keyword": "피부관리기"
+            },
+            {
+              "keyword": "용기/거울/기타소품"
+            }
+          ]
+        },
+        {
+          "keyword": "어린이화장품",
+          "child": [
+            {
+              "keyword": "메이크업"
+            },
+            {
+              "keyword": "향수"
+            },
+            {
+              "keyword": "네일케어"
+            },
+            {
+              "keyword": "세트/키트"
+            }
+          ]
+        },
+        {
+          "keyword": "로드샵"
+        },
+        {
+          "keyword": "헤어",
+          "hair": [
+            {
+              "keyword": "샴푸"
+            },
+            {
+              "keyword": "린스/컨디셔너"
+            },
+            {
+              "keyword": "트리트먼트/팩/앰플"
+            },
+            {
+              "keyword": "헤어에센스/오일"
+            },
+            {
+              "keyword": "헤어스타일링"
+            },
+            {
+              "keyword": "헤어세트"
+            },
+            {
+              "keyword": "염색/파마"
+            }
+          ]
+        },
+        {
+          "keyword": "바디",
+          "body": [
+            {
+              "keyword": "샤워/입욕용품"
+            },
+            {
+              "keyword": "바디로션/크림"
+            },
+            {
+              "keyword": "핸드/풋/데오"
+            },
+            {
+              "keyword": "제모/슬리밍/청결제"
+            }
+          ]
+        },
+        {
+          "keyword": "선물세트/키트",
+          "present": [
+            {
+              "keyword": "선물세트"
+            },
+            {
+              "keyword": "여행용키트"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
