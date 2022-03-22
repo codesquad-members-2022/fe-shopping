@@ -8,7 +8,7 @@ export class SearchController {
         this.$historyList = document.querySelector('.header__search__history-container')
         this.$searchForm = document.querySelector('.header__form')
         this.timer = null
-        this.fetchDelayTime = 500
+        this.prefixListDelayTime = 500
         this.prefixListState = false
         this.prefixListElements = []
         this.prefixListIndex = null
@@ -250,28 +250,29 @@ export class SearchController {
     }
 
     searchPrefixList(word) {
-        const highlightLength = word.trim().length
-        this.fetchPrefixList(word)
-            .then((prefixArr) => this.openPrefixList(prefixArr, highlightLength))
+        this.debounce(this.timer, this.prefixListDelayTime)
+            .then(() => this.fetchPrefixList(word))
+            .then((prefixList) => this.openPrefixList(prefixList, word))
     }
 
-    openPrefixList(prefixArr, highlightLength) {
+    openPrefixList(prefixArr, word) {
         prefixArr.length === 0? this.addVisibilityHidden(this.$prefixList) : this.removeVisibilityHidden(this.$prefixList);
-        this.highlightPrefixList(prefixArr, highlightLength)
+        const parsedPrefixList = this.getParsedPrefixListForHighlight(prefixArr, word)
+        renderPrefixList(this.$prefixList, parsedPrefixList)
         this.setPrefixListElements()
         this.prefixListState = true
     }
 
-    highlightPrefixList(prefixList, highlightLength) {
-        const splitPrefixArr = prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
-        renderPrefixList(this.$prefixList, splitPrefixArr)
+    getParsedPrefixListForHighlight(prefixList, word) {
+        const highlightLength = word.trim().length
+        return prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
     }
 
-    fetchPrefixList(word) {
-        if(this.timer) {
-            clearTimeout(this.timer)
+    debounce(timer, delayTime) {
+        if(timer) {
+            clearTimeout(timer)
         }
-        return this.delay(this.fetchDelayTime).then(() => this.fetchPrefixListArray(word))
+        return this.delay(delayTime)
     }
 
     delay(ms) {
@@ -280,7 +281,7 @@ export class SearchController {
         });
     }
 
-    fetchPrefixListArray(word) {
+    fetchPrefixList(word) {
         return fetch(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${word}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`)
             .then((res) => res.json())
             .then((prefixData) => prefixData.suggestions.map((v) => v.value))
