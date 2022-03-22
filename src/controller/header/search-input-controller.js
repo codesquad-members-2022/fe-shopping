@@ -78,12 +78,11 @@ export class SearchInputController {
   reRenderAutoComplete(maxLiNum) {
     this.$searchList.innerHTML = "";
     this.autoKeywordStore.getKeywordData(this.$searchInput.value).then(() => {
-      for (let i = 0; i < maxLiNum; i++) {
-        if (!this.autoKeywordStore.keywordData) break;
+      this.autoKeywordStore.keywordData.forEach((keyword) => {
         const content = document.createElement("li");
-        content.textContent = this.autoKeywordStore.keywordData[i];
+        content.textContent = keyword;
         this.$searchList.appendChild(content);
-      }
+      });
     });
   }
 
