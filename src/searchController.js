@@ -39,6 +39,7 @@ export class SearchController {
 
     setHistoryListEvent() {
         this.$historyList.addEventListener('click', (e) => this.historyListClickHandler(e))
+        this.$historyList.addEventListener('mousedown', (e) => this.historyListMousedownHandler(e))
     }
 
     setSearchFormEvent() {
@@ -50,10 +51,14 @@ export class SearchController {
 
         this.toggleHistoryList(e)
 
-        if(this.historyState){
+        if(this.historyState) {
             this.deleteHistoryList(e)
             this.deleteAllHistoryList(e)
         }
+    }
+
+    historyListMousedownHandler(e) {
+        e.preventDefault()
     }
 
     deleteHistoryList(e) {
@@ -62,8 +67,6 @@ export class SearchController {
         const historyWord = historyElem.firstElementChild.innerText
         this.historyManager.deleteItem(historyWord)
         this.onHistoryList()
-        // 삭제 버튼 클릭 시 포커스 대상이 사라져서 그런가? 어딜 눌러도 포커스아웃이 안되는 현상이 발생하여 억지로 포커스를 인풋에 줌.
-        document.querySelector('.search-input').focus()
     }
 
     deleteAllHistoryList(e) {
@@ -138,9 +141,6 @@ export class SearchController {
     }
 
     searchFocusoutHandler(e) {
-        const focusBtnClass = ['history-delete', 'history-switch', 'history-deleteAll']
-        if(e.relatedTarget !== null && focusBtnClass.includes(e.relatedTarget.className)) return
-
         this.addVisibilityHidden(this.$prefixList)
         this.addVisibilityHidden(this.$historyList)
 
