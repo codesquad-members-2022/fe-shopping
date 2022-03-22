@@ -26,39 +26,13 @@ class InputBox extends Component {
       });
     }, true);
 
-    this.addEvent('blur', '.input', (event) => {
-      if (event.relatedTarget) return;
+    this.addEvent('blur', '.input', () => {
       this.$props.removeBottomWindow('.bottom-window');
     }, true);
 
     this.addEvent('input', '.input', (event) => {
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-
-      this.timer = setTimeout(async () => {
-        if (!event.target.value && !this.$state.searchHistory.length) {
-          this.$props.removeBottomWindow('.bottom-window');
-          return;
-        }
-
-        if (!event.target.value && this.$state.searchHistory.length) {
-          this.$props.renderBottomWindow('.bottom-window', {
-            isSearchHistory: true,
-          });
-          return;
-        }
-
-        const autocompleteList = await getAutocompleteData(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${event.target.value}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`);
-        if (autocompleteList) {
-          this.$props.renderBottomWindow('.bottom-window', {
-            isSearchHistory: false,
-            windowList: autocompleteList,
-            input: event.target.value,
-          });
-        }
-
-      }, 500);
+      if (this.timer) clearTimeout(this.timer);
+      this.timer = setTimeout(() => this.timerCallback(event), 500);
     });
   }
 
@@ -66,6 +40,28 @@ class InputBox extends Component {
     this.$target.querySelector('.input').focus();
   }
 
+  async timerCallback({ target: { value } }) {
+    if (!value && !this.$state.searchHistory.length) {
+      this.$props.removeBottomWindow('.bottom-window');
+      return;
+    }
+
+    if (!value && this.$state.searchHistory.length) {
+      this.$props.renderBottomWindow('.bottom-window', {
+        isSearchHistory: true,
+      });
+      return;
+    }
+
+    const autocompleteList = await getAutocompleteData(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${value}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`);
+    if (autocompleteList) {
+      this.$props.renderBottomWindow('.bottom-window', {
+        isSearchHistory: false,
+        windowList: autocompleteList,
+        input: value,
+      });
+    }
+  }
 }
 
 export default InputBox;

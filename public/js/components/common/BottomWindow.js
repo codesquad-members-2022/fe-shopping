@@ -54,8 +54,11 @@ class BottomWindow extends Component {
       this.$target.classList.remove('open');
       this.$target.innerHTML = '';
     }, true);
-  }
 
+    this.addEvent('mousedown', '.bottom-window', (e) => {
+      e.preventDefault();
+    }, true);
+  }
 
   mounted() {
     this.$target.classList.add('open');
