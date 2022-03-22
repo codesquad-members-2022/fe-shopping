@@ -1,11 +1,11 @@
-import { $ } from '../../utility/util.js';
-import { getCompleteData } from '../../utility/util.js';
+import { $, getCompleteData } from '../../utility/util.js';
 import RecentWord from './recent-words.js';
 
 export default class Autocomplete {
   constructor() {
     this.$autocompleteMenu = $('#autocomplete-menu');
     this.$popupMenuList = $('#input-popup-menu-list');
+    this.recentWord = new RecentWord();
   }
   showAutocomplete() {
     this.$autocompleteMenu.classList.remove('hidden');
@@ -22,7 +22,7 @@ export default class Autocomplete {
     if (!inputValue.length) {
       this.noShowAutocomplete();
       this.$popupMenuList.innerHTML = '검색 결과가 없습니다';
-      RecentWord.prototype.showRecentSearches();
+      this.recentWord.showRecentSearches();
       return;
     }
 
