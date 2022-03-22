@@ -168,6 +168,7 @@ export default class {
 
   onFocusOutInput() {
     this.inputEl.addEventListener("blur", ({ target }) => {
+      this.initSelectedIdx();
       this.setDisplayNone(this.searchAreaDropDown);
     });
   }
@@ -293,16 +294,16 @@ export default class {
         return;
       }
 
+      if (!this.inputEl.value) {
+        this.showRecentSearchArea();
+        return;
+      }
+
       if (e.code === "Enter") {
         if (this.curSelectedIdx < 0) return;
         // select된 아이템이 없으면 submit이 일어나야함 (return)
         this.inputEl.value = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
         this.initSelectedIdx();
-      }
-
-      if (!this.inputEl.value) {
-        this.showRecentSearchArea();
-        return;
       }
 
       this.showRecommendSearchArea();
