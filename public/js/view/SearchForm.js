@@ -34,13 +34,13 @@ export default class {
     recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
   }
 
-  fillRecommendSearchWords({ suggestions }) {
+  fillSuggestSearchWords({ suggestions }) {
     if (!suggestions) return;
     const recentSearchList = this.searchAreaDropDown.querySelector(".list");
     const suggestionsData = suggestions.map((data) => data.value);
     this.setSearchItemsCount(suggestionsData);
     recentSearchList.innerHTML =
-      this.createRecommendSearchElements(suggestionsData);
+      this.createSuggestSearchElements(suggestionsData);
   }
 
   setSearchItemsCount(data) {
@@ -60,19 +60,19 @@ export default class {
     return recentSearchElTag;
   }
 
-  createRecommendSearchElements(data) {
-    const recommendSearchTag = data.reduce((prev, cur, idx) => {
+  createSuggestSearchElements(data) {
+    const suggestSearchTag = data.reduce((prev, cur, idx) => {
       return (
         prev +
         `
-        <li class="recommend-search-item">
+        <li class="suggest-search-item">
           <a href="#" class="link" data-idx=${idx}>${cur}</a>
         </li>
       `
       );
     }, "");
 
-    return recommendSearchTag;
+    return suggestSearchTag;
   }
 
   isInputEmpty() {
@@ -110,15 +110,15 @@ export default class {
     return recentSearchAreaTag;
   }
 
-  createRecommendSearchArea() {
-    const recommendSearchAreaTag = `
+  createSuggestSearchArea() {
+    const suggestSearchAreaTag = `
       <div class="inner">
         <ul class="list">
         </ul>
       </div>
     `;
 
-    return recommendSearchAreaTag;
+    return suggestSearchAreaTag;
   }
 
   handleRemoveRecentSearch(e) {
@@ -164,11 +164,11 @@ export default class {
     this.fillRecentSearchWords();
   }
 
-  showRecommendSearchArea(jsonData) {
-    const recommendSearchAreaTag = this.createRecommendSearchArea();
-    this.setSearchAreaDropDownInner(recommendSearchAreaTag);
+  showSuggestSearchArea(jsonData) {
+    const suggestSearchAreaTag = this.createSuggestSearchArea();
+    this.setSearchAreaDropDownInner(suggestSearchAreaTag);
     this.setDisplayBlock(this.searchAreaDropDown);
-    this.fillRecommendSearchWords(jsonData);
+    this.fillSuggestSearchWords(jsonData);
   }
 
   hideSearchAreaDropDown() {
@@ -317,8 +317,8 @@ export default class {
   setGetInputWordFunc(delay) {
     this.getInputWord = debounce(() => {
       const searchWord = this.inputEl.value;
-      fetchData(constants.recommendSearchUrl + searchWord).then((jsonData) => {
-        this.showRecommendSearchArea(jsonData);
+      fetchData(constants.suggestionUrl + searchWord).then((jsonData) => {
+        this.showSuggestSearchArea(jsonData);
       });
     }, delay);
   }
@@ -340,7 +340,6 @@ export default class {
       }
 
       this.getInputWord();
-      // this.showRecommendSearchArea();
     });
   }
 
