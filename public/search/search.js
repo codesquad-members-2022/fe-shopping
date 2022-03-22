@@ -203,6 +203,19 @@ const searchCategoryKeydownEventHandler = (event) => {
     }
 };
 
+const deleteRecentItem = (event) => {
+    event.stopPropagation();
+    const target = event.target;
+
+    if (target.classList.contains("delete-btn")) {
+        const listItem = target.closest(".search__list--item");
+        const idx = listItem.dataset.idx;
+        recentSearchList.searchItems.splice(idx, 1);
+        recentSearchList.curIdx = -1;
+        recentSearchList.renderSearchList();
+    }
+};
+
 const onSearchEvent = () => {
     document.body.addEventListener("click", ({ target }) => {
         if (!target.closest(".search")) {
@@ -240,6 +253,8 @@ const onSearchEvent = () => {
     recentSearchList.searchListNode
         .querySelector(".record-btn")
         .addEventListener("click", toggleRecord);
+
+    recentSearchList.listContainer.addEventListener("click", deleteRecentItem);
 };
 
 export { onSearchEvent };
