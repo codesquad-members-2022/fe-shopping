@@ -1,21 +1,15 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
+import { store } from "../../../../core/Store";
 
 function SearchRecent(...params) {
   Component.call(this, ...params);
 }
 createExtendsRelation(SearchRecent, Component);
 
-SearchRecent.prototype.setup = function () {
-  this.state = {
-    display: "none",
-    selectedIndex: 0,
-  };
-};
-
 SearchRecent.prototype.mount = function () {
-  const { display } = this.state;
-  this.$target.style.display = display;
+  const { searchRecentDisplay } = store.state;
+  this.$target.style.display = searchRecentDisplay;
 };
 
 SearchRecent.prototype.template = function () {

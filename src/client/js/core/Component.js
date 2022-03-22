@@ -1,3 +1,5 @@
+import { observe } from "./observer";
+
 export default function Component($target, $props) {
   this.$target = $target;
   this.$props = $props;
@@ -5,9 +7,11 @@ export default function Component($target, $props) {
 
 Component.prototype = {
   constructor: Component,
-  async initRender() {
+  initRender() {
     this.setup();
-    await this.render();
+    observe(async () => {
+      await this.render();
+    });
     this.setEvent();
   },
   setup() {
