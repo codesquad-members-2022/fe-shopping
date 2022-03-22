@@ -1,14 +1,15 @@
 export class CurrentSearchStore {
   constructor() {
     this.localStorageArr = [];
+    this.getLocalStorage();
   }
 
   getLocalStorage() {
-    const arr = [];
+    const storage = [];
     for (let i = 0; i < localStorage.length; i++) {
-      arr.push(localStorage.key(i));
+      storage.push(localStorage.key(i));
     }
-    arr
+    storage
       .sort((a, b) => b - a)
       .forEach((v) => this.localStorageArr.push(localStorage.getItem(v)));
   }
