@@ -15,6 +15,12 @@ class HeaderRoutes {
     this.dataDispatcher.searchInputData = data; // setter 호출
   }
 
+  async getMenuData(uri) {
+    const data = await fetchUtil.fetchData(uri);
+
+    this.dataDispatcher.searchMenuData = data;
+  }
+
   isEmptyData(data) {
     if (!Array.isArray(data) || data.length <= 0) {
       return true;

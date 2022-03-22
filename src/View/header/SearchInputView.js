@@ -1,7 +1,5 @@
-import { ToggleView } from "./AbstractToggleView.js";
-import { SearchInputToggle } from "../Components/headerToggle.js";
+import { ToggleView } from "../AbstractToggleView.js";
 import * as domUtil from "/util/domutil.js";
-import * as fetchUtil from "../util/fetchutil.js";
 
 function SearchInputView() {
   ToggleView.apply(this, arguments);

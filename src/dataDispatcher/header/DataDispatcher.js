@@ -23,7 +23,7 @@ class HedearDataDispatcher {
 
   set searchMenuData(data) {
     const menuDOM = this.searchMenuModel.getHTML(data);
-    this.searchMenuData.render(menuDOM);
+    this.searchMenuView.renderMenu(menuDOM);
   }
 
   checkdataSize(...data) {
