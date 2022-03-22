@@ -15,6 +15,17 @@ export default function RecentSearchList($element, args) {
 RecentSearchList.prototype = Object.create(HtmlElement.prototype);
 RecentSearchList.prototype.constructor = RecentSearchList;
 
+RecentSearchList.prototype.init = function () {
+  this.state = {
+    ...this.args,
+    handleClick: {
+      handleEvent: function ({ target }) {
+        console.log(target.className);
+      }.bind(this),
+    },
+  };
+};
+
 RecentSearchList.prototype.setTemplate = function () {
   const { recentSearchList } = this.state;
   return `
@@ -26,23 +37,27 @@ RecentSearchList.prototype.setTemplate = function () {
         : recentSearchList
             .map(
               (term, idx) =>
-                `<li class=${RECENT__TERM} data-term-id=${idx}>${term}<span class=${RECENT__DELETE}>X</span></li>`
+                `<li data-click=${RECENT__TERM} data-term-id=${idx}>${term}<span data-click=${RECENT__DELETE}>X</span></li>`
             )
             .join('')
     }
   </ul>
 <div>
-  <button class=${RECENT__DELETE__ALL}>전체삭제</button>
+  <button data-click=${RECENT__DELETE__ALL}>전체삭제</button>
   <button id="">최근 검색어 끄기</button>
 </div>`;
 };
 
 RecentSearchList.prototype.setEvent = function () {
   this.$element.addEventListener('click', handleClick.bind(this));
+  // this.$element.addEventListener('click', this.state.handleClick);
 };
 
 function handleClick({ target }) {
-  switch (target.className) {
+  const {
+    dataset: { click: clickHandler },
+  } = target;
+  switch (clickHandler) {
     case RECENT__DELETE:
       deleteTargetTerm.call(this, target);
       break;

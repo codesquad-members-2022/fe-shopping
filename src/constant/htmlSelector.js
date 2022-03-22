@@ -5,7 +5,7 @@ export const POP_UP = {
 export const RECENT_SEARCH_LIST = 'recentSearchList';
 
 export const SEARCH_BOX = {
-  RECENT__DELETE: 'recent__delete',
-  RECENT__TERM: 'recent__term',
-  RECENT__DELETE__ALL: 'recent__delete-all',
+  RECENT__DELETE: 'deleteHistory',
+  RECENT__TERM: 'history',
+  RECENT__DELETE__ALL: 'deleteAllHistory',
 };

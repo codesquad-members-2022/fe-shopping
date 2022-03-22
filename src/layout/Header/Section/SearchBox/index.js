@@ -1,12 +1,12 @@
 import AutoComplete from './AutoComplete.js';
 import RecentSearchList from './RecentSearchList.js';
 import Selector from './Selector.js';
+import { moveToSearchTermPage } from '../../../../router.js';
 import { MAX_LOCAL_STORAGE } from '../../../../constant/constant.js';
 import {
   POP_UP,
   RECENT_SEARCH_LIST,
 } from '../../../../constant/htmlSelector.js';
-import { moveToSearchTermPage } from '../../../../router.js';
 import HtmlElement from '../../../../utils/HtmlElement.js';
 import {
   findTargetClassElement,
