@@ -17,9 +17,6 @@ export default class SideMenu {
       this.container.appendChild(selectNode);
     }
 
-    this.container.insertBefore(
-      selectNode,
-      this.container.firstElementChild.nextElementSibling
-    );
+    this.container.insertBefore(selectNode, this.container.firstElementChild.nextElementSibling);
   }
 }

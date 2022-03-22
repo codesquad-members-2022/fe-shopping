@@ -15,22 +15,20 @@ export default class AutoKeyword {
   }
 
   chooseWordDownside() {
-    if (this.count === 12) this.count = 1;
+    if (this.count > this.$popupMenuList.childElementCount) this.count = 1;
 
     this.changeInputValue();
     this.count++;
   }
 
   chooseWordUpside() {
-    if (this.count === 0) this.count = 11;
+    if (this.count < 1) this.count = this.$popupMenuList.childElementCount;
     this.changeInputValue();
     this.count--;
   }
 
   changeInputValue() {
-    const selectedList = $(
-      `#input-popup-menu-list > li:nth-child(${this.count}`
-    );
+    const selectedList = $(`#input-popup-menu-list > li:nth-child(${this.count}`);
     this.$searchInput.value = selectedList.textContent;
   }
 }

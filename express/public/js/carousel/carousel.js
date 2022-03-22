@@ -1,5 +1,4 @@
 import { $, $$, fetchData } from '../utility/util.js';
-
 import RenderCarousel from './render-carousel.js';
 import SideMenu from './sub-menu.js';
 

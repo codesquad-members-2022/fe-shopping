@@ -43,10 +43,7 @@ export default class Autocomplete {
   }
 
   delay500ms(completeDataPromise, inputValue) {
-    setTimeout(
-      () => this.showCompleteWord(completeDataPromise, inputValue),
-      500
-    );
+    setTimeout(() => this.showCompleteWord(completeDataPromise, inputValue), 500);
   }
 
   showCompleteWord(completeData, inputValue) {
@@ -67,6 +64,6 @@ export default class Autocomplete {
       return `<li class = "input-popup-menu-item"><span>${curList.keyword}</span></li>`;
     }
 
-    return `<li class = "input-popup-menu-item"><span class="color-blue">${compareWord}</span>${remainWord}</li>`;
+    return `<li class = "input-popup-menu-item"><strong class="color-blue">${compareWord}</strong>${remainWord}</li>`;
   }
 }
