@@ -107,6 +107,7 @@
   .link {
     line-height: $item-height;
     display: block;
+    @include ellipsis;
 
     &:hover,
     &:focus,

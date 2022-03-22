@@ -351,6 +351,9 @@ input {
 .search-area-dropdown .link {
   line-height: 2.2rem;
   display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .search-area-dropdown .link:hover, .search-area-dropdown .link:focus, .search-area-dropdown .link.focus {
