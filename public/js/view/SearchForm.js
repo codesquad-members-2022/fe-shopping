@@ -1,5 +1,6 @@
 import storage from "../util/storage.js";
-import { $, $$, debounce } from "../util/util.js";
+import constants from "../common/constants.js";
+import { $, $$, debounce, fetchData } from "../util/util.js";
 
 export default class {
   constructor({ searchFormArea, localStorageDataSize, recentSearchMsg }) {
@@ -20,6 +21,7 @@ export default class {
     this.searchAreaDropDown = this.findElementFromArea(".search-area-dropdown");
   }
 
+  // TODO: 코드가 너무 비슷함, 수정하기
   fillRecentSearchWords() {
     const recentSearchList = this.searchAreaDropDown.querySelector(".list");
     const storedDatas = storage.getLocalStorage("recent-search");
@@ -32,8 +34,13 @@ export default class {
     recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
   }
 
-  fillRecommendSearchWords() {
-    this.setSearchItemsCount([0, 1]);
+  fillRecommendSearchWords({ suggestions }) {
+    if (!suggestions) return;
+    const recentSearchList = this.searchAreaDropDown.querySelector(".list");
+    const suggestionsData = suggestions.map((data) => data.value);
+    this.setSearchItemsCount(suggestionsData);
+    recentSearchList.innerHTML =
+      this.createRecommendSearchElements(suggestionsData);
   }
 
   setSearchItemsCount(data) {
@@ -51,6 +58,21 @@ export default class {
     }, "");
 
     return recentSearchElTag;
+  }
+
+  createRecommendSearchElements(data) {
+    const recommendSearchTag = data.reduce((prev, cur, idx) => {
+      return (
+        prev +
+        `
+        <li class="recommend-search-item">
+          <a href="#" class="link" data-idx=${idx}>${cur}</a>
+        </li>
+      `
+      );
+    }, "");
+
+    return recommendSearchTag;
   }
 
   isInputEmpty() {
@@ -92,12 +114,6 @@ export default class {
     const recommendSearchAreaTag = `
       <div class="inner">
         <ul class="list">
-          <li class="recommend-search-item">
-            <a href="#" class="link" data-idx=0>아이폰</a>
-          </li>
-          <li class="recommend-search-item">
-            <a href="#" class="link" data-idx=1>오잉</a>
-          </li>
         </ul>
       </div>
     `;
@@ -148,11 +164,11 @@ export default class {
     this.fillRecentSearchWords();
   }
 
-  showRecommendSearchArea() {
+  showRecommendSearchArea(jsonData) {
     const recommendSearchAreaTag = this.createRecommendSearchArea();
     this.setSearchAreaDropDownInner(recommendSearchAreaTag);
     this.setDisplayBlock(this.searchAreaDropDown);
-    this.fillRecommendSearchWords();
+    this.fillRecommendSearchWords(jsonData);
   }
 
   hideSearchAreaDropDown() {
@@ -300,13 +316,10 @@ export default class {
 
   setGetInputWordFunc(delay) {
     this.getInputWord = debounce(() => {
-      this.searchWord = this.inputEl.value;
-      console.log(this.searchWord);
-      fetch(
-        `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${this.searchWord}`
-      )
-        .then((res) => res.json())
-        .then((res) => console.log(res));
+      const searchWord = this.inputEl.value;
+      fetchData(constants.recommendSearchUrl + searchWord).then((jsonData) => {
+        this.showRecommendSearchArea(jsonData);
+      });
     }, delay);
   }
 
@@ -327,7 +340,7 @@ export default class {
       }
 
       this.getInputWord();
-      this.showRecommendSearchArea();
+      // this.showRecommendSearchArea();
     });
   }
 

@@ -12,3 +12,7 @@ export const debounce = (func, delay = 0) => {
     timer = setTimeout(func, delay);
   };
 };
+
+export const fetchData = async (url) => {
+  return await fetch(url).then((res) => res.json());
+};
