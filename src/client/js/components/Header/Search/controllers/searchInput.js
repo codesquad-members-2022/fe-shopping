@@ -1,5 +1,5 @@
 import { delay, request } from "../../../../utils";
-import { store } from "../../../../core/Store";
+import { store } from "../../../../Store";
 
 const moveCursorToEnd = ($input, len) => {
   delay(0).then(() => {

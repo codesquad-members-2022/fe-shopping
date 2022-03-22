@@ -10,7 +10,6 @@ export const observable = (obj) => {
   Object.keys(obj).forEach((key) => {
     let value = obj[key];
     const observers = new Set();
-
     Object.defineProperty(obj, key, {
       get() {
         if (currentObserver) observers.add(currentObserver);

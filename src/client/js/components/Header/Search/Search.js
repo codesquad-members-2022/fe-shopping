@@ -10,7 +10,7 @@ import {
   handleBodyClick,
   handleSearchCategoryClick,
 } from "./controllers/search";
-import { store } from "../../../core/Store";
+import { store } from "../../../Store";
 
 function Search(...params) {
   Component.call(this, ...params);

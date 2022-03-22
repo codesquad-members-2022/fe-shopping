@@ -1,6 +1,6 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
-import { store } from "../../../../core/Store";
+import { store } from "../../../../Store";
 
 function SearchSuggestion(...params) {
   Component.call(this, ...params);

@@ -1,4 +1,4 @@
-import { observable } from "./observer";
+import { observable } from "./core/observer";
 
 const initState = {
   categoryTitle: "전체",
