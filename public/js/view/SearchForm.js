@@ -8,7 +8,6 @@ export default class {
     this.localStorageDataSize = localStorageDataSize;
     this.recentSearchMsg = recentSearchMsg;
     this.curSelectedIdx = -1;
-    this.itemsCount;
   }
 
   findElementFromArea(selector) {
@@ -34,13 +33,15 @@ export default class {
     recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
   }
 
-  fillSuggestSearchWords({ suggestions }) {
+  fillSuggestSearchWords({ suggestions }, searchWord) {
     if (!suggestions) return;
     const recentSearchList = this.searchAreaDropDown.querySelector(".list");
     const suggestionsData = suggestions.map((data) => data.value);
     this.setSearchItemsCount(suggestionsData);
-    recentSearchList.innerHTML =
-      this.createSuggestSearchElements(suggestionsData);
+    recentSearchList.innerHTML = this.createSuggestSearchElements(
+      suggestionsData,
+      searchWord
+    );
   }
 
   setSearchItemsCount(data) {
@@ -60,13 +61,15 @@ export default class {
     return recentSearchElTag;
   }
 
-  createSuggestSearchElements(data) {
+  createSuggestSearchElements(data, searchWord) {
     const suggestSearchTag = data.reduce((prev, cur, idx) => {
+      const item = cur.split(searchWord).join(`<strong>${searchWord}</strong>`);
+
       return (
         prev +
         `
         <li class="suggest-search-item">
-          <a href="#" class="link" data-idx=${idx}>${cur}</a>
+          <a href="#" class="link" data-idx=${idx}>${item}</a>
         </li>
       `
       );
@@ -164,11 +167,11 @@ export default class {
     this.fillRecentSearchWords();
   }
 
-  showSuggestSearchArea(jsonData) {
+  showSuggestSearchArea(jsonData, searchWord) {
     const suggestSearchAreaTag = this.createSuggestSearchArea();
     this.setSearchAreaDropDownInner(suggestSearchAreaTag);
     this.setDisplayBlock(this.searchAreaDropDown);
-    this.fillSuggestSearchWords(jsonData);
+    this.fillSuggestSearchWords(jsonData, searchWord);
   }
 
   hideSearchAreaDropDown() {
@@ -327,7 +330,7 @@ export default class {
       this.initSelectedIdx();
 
       fetchData(fetchUrl).then((jsonData) => {
-        this.showSuggestSearchArea(jsonData);
+        this.showSuggestSearchArea(jsonData, searchWord);
       });
     }, delay);
   }

@@ -362,6 +362,10 @@ input {
   text-decoration: underline;
 }
 
+.search-area-dropdown .link strong {
+  color: #4285f4;
+}
+
 .recent-search-area {
   display: none;
 }

@@ -115,6 +115,10 @@
       outline: none;
       @include hover-decoration;
     }
+
+    strong {
+      color: $color-blue;
+    }
   }
 }
 
