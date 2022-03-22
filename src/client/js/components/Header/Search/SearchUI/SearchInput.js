@@ -4,6 +4,7 @@ import {
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
+  handleSearchIconClick,
 } from "../controllers/searchInput";
 
 function SearchInput(...params) {
@@ -15,6 +16,7 @@ SearchInput.prototype.setEvent = function () {
   this.addEvent("focusout", "input[type='text']", handleInputFocusOut);
   this.addEvent("focusin", "input[type='text']", handleInputFocusIn);
   this.addEvent("keyup", "input[type='text']", handleKeyupWithFocus);
+  this.addEvent("click", ".fa-search", handleSearchIconClick);
 };
 
 SearchInput.prototype.template = function () {

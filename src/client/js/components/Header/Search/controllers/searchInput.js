@@ -18,18 +18,11 @@ const handleInputFocusOut = () => {
 };
 
 const handleInputFocusIn = () => {
-  const { searchWord } = store.state;
-  if (searchWord) {
-    store.setState({
-      searchRecentDisplay: "none",
-      searchSuggestionDisplay: "flex",
-    });
-  } else {
-    store.setState({
-      searchRecentDisplay: "flex",
-      searchSuggestionDisplay: "none",
-    });
-  }
+  const { searchWord, recentDatas } = store.state;
+  store.setState({
+    searchRecentDisplay: recentDatas.length ? "flex" : "none",
+    searchSuggestionDisplay: searchWord ? "flex" : "none",
+  });
 };
 
 const getSelectedData = (target) => {
@@ -83,6 +76,11 @@ const handleKeyUpEnter = ({ target }) => {
   handleInputFocusIn();
 };
 
+const handleSearchIconClick = ({ target }) => {
+  const $input = target.parentNode.parentNode.querySelector("input");
+  handleKeyUpEnter({ target: $input });
+};
+
 const handleKeyupWithFocus = ({ target, key }) => {
   if (key === "ArrowDown" || key === "ArrowUp") {
     handleKeyUpArrowUpDown({ target, key });
@@ -100,7 +98,7 @@ const handleKeyupWithFocus = ({ target, key }) => {
   } else {
     store.setState({
       searchSuggestionDisplay: "none",
-      searchRecentDisplay: "flex",
+      searchRecentDisplay: store.state.recentDatas.length ? "flex" : "none",
       selectedInputIdx: 0,
     });
   }
@@ -133,4 +131,10 @@ const handleKeyupWithFocus = ({ target, key }) => {
   });
 };
 
-export { handleInputFocusIn, handleInputFocusOut, handleKeyupWithFocus };
+export {
+  handleInputFocusIn,
+  handleInputFocusOut,
+  handleKeyupWithFocus,
+  handleKeyUpEnter,
+  handleSearchIconClick,
+};

@@ -111,6 +111,7 @@ i {
       margin: 0px 3px;
     }
     i {
+      cursor: pointer;
       font-size: nth($fontSizes, 3);
       color: $baseBlue;
     }
