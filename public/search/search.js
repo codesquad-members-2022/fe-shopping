@@ -181,7 +181,8 @@ const hideLists = () => {
 
 const searchListItemEventHandle = ({ target }) => {
     if (target.classList.contains("search__category-list--item")) {
-        console.log(target.innerText);
+        searchCategory.categorySelected.innerText = target.innerText;
+        searchCategory.hideCategoryList();
     }
 };
 
