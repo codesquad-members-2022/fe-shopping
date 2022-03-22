@@ -76,21 +76,18 @@ i {
 
   .search__category-list {
     cursor: pointer;
-    visibility: hidden;
+    overflow: hidden;
     position: absolute;
     left: -1px;
     top: 30px;
     max-height: 0px;
     width: 100px;
     background-color: $baseBgColor;
-    border: 1px $baseLightGray solid;
     font-size: nth($fontSizes, 1);
     color: $baseGray;
-    box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
-    transition: all 0.2s;
+    transition: max-height 0.2s;
     li {
       cursor: pointer;
-      visibility: hidden;
       padding: 5px;
       margin: 5px 0px;
       &:hover {
@@ -100,8 +97,9 @@ i {
     }
   }
   .list-act {
-    visibility: visible;
     max-height: 1000px;
+    box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+    border: 1px $baseLightGray solid;
   }
   .search__input {
     @include flex(space-around, center);

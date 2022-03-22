@@ -1,9 +1,8 @@
 import { observable } from "./observer";
 
 const initState = {
-  a: 1,
-  b: 0,
   categoryTitle: "전체",
+  categoryDatas: [],
   searchRecentDisplay: "none",
   searchSuggestionDisplay: "none",
   selectedInputIdx: 0,

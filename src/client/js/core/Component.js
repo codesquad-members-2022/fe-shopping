@@ -17,10 +17,6 @@ Component.prototype = {
   setup() {
     // this.state 초기 셋업
   },
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.render();
-  },
   async mount() {
     // render 이후 로직 실행
   },
