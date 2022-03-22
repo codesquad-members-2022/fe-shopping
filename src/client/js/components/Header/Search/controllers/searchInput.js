@@ -15,9 +15,9 @@ const handleInputFocusOut = () => {
 };
 
 const handleInputFocusIn = () => {
-  const { searchWord, recentDatas } = store.state;
+  const { searchWord } = store.state;
   store.setState({
-    searchRecentDisplay: recentDatas.length ? "flex" : "none",
+    searchRecentDisplay: searchWord ? "none" : "flex",
     searchSuggestionDisplay: searchWord ? "flex" : "none",
   });
 };
@@ -36,7 +36,6 @@ const getSelectedData = (target) => {
 const handleKeyUpArrowUpDown = ({ target, key }) => {
   const {
     selectedInputIdx,
-    searchWord,
     suggestionDatas,
     recentDatas,
     searchRecentDisplay,
