@@ -8,15 +8,10 @@ import {
 class SearchBarDropBox extends Element {
   constructor() {
     super();
-    this.$search = null;
     this.$search__word__dropbox = null;
   }
 
   appendElement({ data = "" }) {
-    this.$search = targetQuerySelector({
-      className: "search",
-    });
-
     const $search__bar = targetQuerySelector({
       className: "search__bar",
     });
@@ -41,69 +36,12 @@ class SearchBarDropBox extends Element {
     this.$search__word__dropbox.style.visibility = "hidden";
   }
 
-  onClickDocumentWhenDropDown() {
-    const $search__delete = targetQuerySelector({
-      className: "search__delete",
-    });
-
-    const $current__search__off = targetQuerySelector({
-      className: "current__search__off",
-    });
-
-    document.addEventListener("click", ({ target }) => {
-      if (
-        target === this.$search ||
-        target === $search__delete ||
-        target === $current__search__off
-      ) {
-        return;
-      } else {
-        this.$search__word__dropbox.style.visibility = "hidden";
-      }
-    });
+  onClickDocumentWhenDropDown({ handleClickOutDropBox }) {
+    handleClickOutDropBox();
   }
 
-  onKeyupKeywords({ showKeyword }) {
-    let index = 0;
-    const $ul = this.$search__word__dropbox.children[0];
-    const keywords = $ul.children;
-    const keywordsLen = keywords.length;
-    let previousKeywordIdx = -1;
-
-    this.$search.addEventListener("keyup", ({ code }) => {
-      if (code === "ArrowDown") {
-        let currentKeywordIdx = index % keywordsLen;
-        keywords[currentKeywordIdx].style.textDecoration = "underline";
-        showKeyword(keywords[currentKeywordIdx].textContent);
-        if (previousKeywordIdx >= 0) {
-          keywords[previousKeywordIdx].style.textDecoration = "none";
-        }
-        previousKeywordIdx = currentKeywordIdx;
-        index += 1;
-      } else if (code === "ArrowUp") {
-        let currentKeywordIdx =
-          (index - 1) % keywordsLen === 0 ? index : (index - 1) % keywordsLen;
-        previousKeywordIdx = currentKeywordIdx - 1;
-        if (previousKeywordIdx >= 0) {
-          keywords[previousKeywordIdx].style.textDecoration = "underline";
-        } else if (previousKeywordIdx < 0) {
-          keywords[0].style.textDecoration = "none";
-        }
-        if (currentKeywordIdx > 0) {
-          keywords[currentKeywordIdx].style.textDecoration = "none";
-        } else {
-          keywords[0].style.textDecoration = "none";
-          return;
-        }
-
-        const keyword = keywords[previousKeywordIdx]
-          ? keywords[previousKeywordIdx].textContent
-          : null;
-        showKeyword(keyword);
-        currentKeywordIdx = previousKeywordIdx;
-        index -= 1;
-      }
-    });
+  onKeyupKeywords({ handleKeyupKeywords }) {
+    handleKeyupKeywords();
   }
 
   render() {

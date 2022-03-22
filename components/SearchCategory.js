@@ -7,30 +7,10 @@ class SearchCategory extends Element {
     this.$selected__category = targetQuerySelector({
       className: "selected__category",
     });
-    this.$search__category = null;
   }
 
-  onClickSearchCategory() {
-    document.addEventListener("click", ({ target }) => {
-      const $search__categories__container = targetQuerySelector({
-        className: "search__dropbox",
-      });
-
-      const visibility = $search__categories__container?.style?.visibility;
-      if (visibility !== "visible") {
-        return;
-      }
-
-      $search__categories__container.style.visibility = "hidden";
-      const $currentCategory = target.closest("li");
-
-      if ($currentCategory?.parentNode !== $search__categories__container) {
-        return;
-      }
-
-      const selectedCategoryText = $currentCategory.textContent;
-      this.setState(selectedCategoryText || "전체");
-    });
+  onClickSearchCategory({ handleClickSearchCatgory }) {
+    handleClickSearchCatgory();
   }
 
   render() {
