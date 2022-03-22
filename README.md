@@ -2,7 +2,7 @@
 
 - [x] ES Modules 이해
 - [x] prototype 공부
-- [ ] prototype 기반 객체 활용
+- [x] prototype 기반 객체 활용
 - [ ] css preprocessor 중 sass 활용 (extension -> webpack)
 - [x] 서버 역할 결정 (검색사이트니까 ssr?)
 - [ ] 클라이언트 기능(검색창, 카테고리, 캐러샐..)마다 feature브랜치 만들어서 관리
@@ -11,7 +11,7 @@
 
 > 어떤 문제를 만났는데 어떻게 해결했다. 일단 다쓰고 pr전에 정리해보자
 
-- [ ] 클라이언트에서 탬플릿을 랜더링하고 이벤트를 등록하는 과정 구현해보기
+- [x] 클라이언트에서 탬플릿을 랜더링하고 이벤트를 등록하는 과정 구현해보기
 - [ ] 검색창 개발
   - 카테고리부분과 검색창 부분 나누기
   - 검색창 글자 입력할 때마다 일정 딜레이 이후 내가 검색했던 검색어 또는 추천단어 띄우기
@@ -30,14 +30,16 @@
 # 진행순서
 
 1. html 뼈대 만들기 및 레이아웃 scss적용
-2. 클라이언트 사이드 작업(es6 module, prototype, scss)
-   - 검색창
+2. 클라이언트 사이드 작업
+
+   - 컴포넌트로 구현
+   - 검색창, 카테고리: 의도적인 이벤트 딜레이 구현
      <span style="font-size: 22px">`...진행중🏃‍♂️`</span>
-   - 카테고리
-     - 이벤트 고급 제어
-   - 캐러셀 기능 구현
+   - 데이터 바인딩: 부모에서 전달받은 상태가 변하면 알아서 리랜더링되게하기
+
 3. 서버에서 홈화면 및 검색어에 따른 화면 렌더링 (innerHTML or pug)
-   - mvc패턴?
+   - 서버사이드에서 html렌더링하기
+   - api서버 만들기
 4. webpack 및 nodejs에 es6 적용
 
 # 고민목록
@@ -236,6 +238,57 @@ async function handleInput({ target }) {
 }
 ```
 
-3. 의도적인 이벤트 딜레이
+3. 이벤트핸들러 함수 vs 객체
+
+## 이벤트 핸들러를 객체나 클래스로 선언해보기
+
+🤔 문제점
+
+- this로 짜여진 코드여서 수정하기 까다로움.
+- switch문을 안쓰려고 했는데 분기처리하려면 어차피 switch문처럼 만들어야함.
+
+```js
+const getMethodName = (text) => 'on' + text[0].toUpperCase() + text.slice(1);
+Main.prototype.init = function () {
+  this.handleClick = {
+    // 축약으로 하면 bind안 됨
+    // handleEvent(event) {
+    //   console.log(event, this);
+    // }.bind(this),
+    handleEvent: function (event) {
+      const {
+        target: {
+          dataset: { click },
+        },
+      } = event;
+      this.EventHandler.onClick[getMethodName(click)](event);
+    }.bind(this),
+  };
+};
+
+Main.prototype.setTemplate = function () {
+  return `
+      <h1>메인</h1>
+      <div data-click="tomato" style="width: 500px; height: 500px; background-color: tomato"></div>
+      <div data-click="darkgreen" style="width: 500px; height: 500px; background-color: darkgreen"></div>`;
+};
+
+Main.prototype.setEvent = function () {
+  this.$element.addEventListener('click', this.handleClick);
+};
+
+Main.prototype.EventHandler = {
+  onClick: {
+    onTomato(event) {
+      alert(event.target.dataset.click);
+    },
+    onDarkgreen(event) {
+      alert(event.target.dataset.click);
+    },
+  },
+};
+```
+
+4. 의도적인 이벤트 딜레이
 
 > input, keyup, mousemove, resize
