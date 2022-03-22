@@ -80,7 +80,7 @@ export default class {
   }
 
   clearInput() {
-    this.inputEl.value = "";
+    $(".search-form").reset();
   }
 
   setDisplayBlock(el) {
@@ -228,20 +228,23 @@ export default class {
 
   handleSubmitForm(e) {
     e.preventDefault(); // 현재 검색 기능이 동작하지 않으므로 페이지 reload 동작하지 않도록 함
+
     if (this.isInputEmpty()) return;
 
     const firstIdx = 0;
     const inputTxt = this.inputEl.value;
     const currentData = { no: firstIdx, recentSearchWord: inputTxt };
     const currentDataCnt = 1;
-    this.clearInput();
     let storedDatas = this.setStoredDatasIdx(inputTxt);
 
     if (storedDatas.length > this.localStorageDataSize - currentDataCnt) {
       storedDatas = this.removeLeastUsedData(storedDatas, "no");
     }
     storage.setLocalStorage("recent-search", [...storedDatas, currentData]);
-    this.fillRecentSearchWords();
+
+    // 현재는 검색기능이 동작하지 않으므로 반영된 최근검색어 보여줌
+    this.clearInput();
+    this.showRecentSearchArea();
   }
 
   onFormSubmit() {
@@ -314,10 +317,16 @@ export default class {
     this.inputEl.value = selectedWord;
   }
 
-  setGetInputWordFunc(delay) {
-    this.getInputWord = debounce(() => {
+  setShowSuggestionFunc(delay) {
+    this.getSuggestionWord = debounce(() => {
+      if (this.isInputEmpty()) return;
+
       const searchWord = this.inputEl.value;
-      fetchData(constants.suggestionUrl + searchWord).then((jsonData) => {
+      const fetchUrl = constants.suggestionUrl + searchWord;
+
+      this.initSelectedIdx();
+
+      fetchData(fetchUrl).then((jsonData) => {
         this.showSuggestSearchArea(jsonData);
       });
     }, delay);
@@ -334,14 +343,13 @@ export default class {
         return;
       }
 
-      if (!this.inputEl.value) {
+      if (this.isInputEmpty()) {
         this.initSelectedIdx();
         this.showRecentSearchArea();
         return;
       }
 
-      this.initSelectedIdx();
-      this.getInputWord();
+      this.getSuggestionWord();
     });
   }
 
@@ -352,9 +360,9 @@ export default class {
     this.onSearchFormMousedown();
   }
 
-  init(delay) {
+  init() {
     this.setSearchFormElements();
-    this.setGetInputWordFunc(delay);
+    this.setShowSuggestionFunc(constants.suggestionDelay);
     this.onEvent();
   }
 }
