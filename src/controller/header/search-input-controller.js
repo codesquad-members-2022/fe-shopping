@@ -1,3 +1,4 @@
+import { AutoCompleteStore } from "../../model/autocomplete-store.js";
 import { CurrentSearchStore } from "../../model/current-search-store.js";
 import { debounce } from "../../utils/utils.js";
 
@@ -6,29 +7,27 @@ export class SearchInputController {
     this.$searchInput = document.querySelector(".search-input");
     this.$searchList = document.querySelector(".search-list");
     this.$searchBtn = document.querySelector(".search-btn");
-    this.keywordStore = new CurrentSearchStore();
-    this.autoCompleteStore;
+    this.recentKeywordStore = new CurrentSearchStore();
+    this.autoKeywordStore = new AutoCompleteStore();
     this.toggle = false;
   }
-  getData() {
-    return fetch("./data/fakeDB.json").then((res) => res.json());
-  }
+
   addEvents() {
     this.$searchInput.addEventListener("keyup", (e) =>
       this.inputEnterHandler(e)
     );
     this.$searchInput.addEventListener("click", () => this.inputClickHandler());
+    document.addEventListener("click", (e) => this.otherClickHandler(e));
     this.$searchBtn.addEventListener("click", () => this.storageClear());
     this.$searchInput.addEventListener("keyup", () =>
-      this.autoCompleteHandler(500, this.getData())
+      this.autoCompleteHandler(500)
     );
-    document.addEventListener("click", (e) => this.otherClickHandler(e));
   }
 
   inputEnterHandler(e) {
     if (e.key === "Enter") {
       localStorage.setItem(`${Date.now()}`, `${this.$searchInput.value}`);
-      this.keywordStore.localStorageArr.unshift(this.$searchInput.value);
+      this.recentKeywordStore.localStorageArr.unshift(this.$searchInput.value);
       this.$searchInput.value = "";
     }
   }
@@ -37,49 +36,54 @@ export class SearchInputController {
     this.toggleOn();
 
     if (!this.$searchInput.value) {
-      if (this.keywordStore.length === 0) {
+      if (this.recentKeywordStore.length === 0) {
         this.toggleOff();
         return;
       }
 
-      this.$searchList.innerHTML = "";
-      this.$searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
+      this.reRenderRecentKeyword();
+    }
+  }
 
-      const length = this.keywordStore.localStorageArr.length;
-      for (let i = 0; i < 8; i++) {
-        if (!length) break;
-        const keyword = document.createElement("li");
-        keyword.textContent = this.keywordStore.localStorageArr[i];
-        this.$searchList.appendChild(keyword);
-      }
+  reRenderRecentKeyword() {
+    this.$searchList.innerHTML = "";
+    this.$searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
+
+    const length = this.recentKeywordStore.localStorageArr.length;
+    for (let i = 0; i < 8; i++) {
+      if (!length) break;
+      const keyword = document.createElement("li");
+      keyword.textContent = this.recentKeywordStore.localStorageArr[i];
+      this.$searchList.appendChild(keyword);
     }
   }
 
   storageClear() {
-    this.keywordStore = [];
+    this.recentKeywordStore = [];
     localStorage.clear();
     this.toggleOff();
   }
 
-  async autoCompleteHandler(interval, data) {
+  autoCompleteHandler(interval) {
     this.toggleOn();
 
     debounce(interval).then(() => {
       if (!this.$searchInput.value) {
         this.inputClickHandler();
       } else {
-        this.$searchList.innerHTML = "";
-        data.then((json) => {
-          const searchList = json.products
-            .filter((v) => v.keyword.includes(this.$searchInput.value))
-            .sort((a, b) => b.views - a.views);
-          for (let i = 0; i < 10; i++) {
-            if (!searchList[i]) break;
-            const content = document.createElement("li");
-            content.textContent = searchList[i].keyword;
-            this.$searchList.appendChild(content);
-          }
-        });
+        this.reRenderAutoComplete(10);
+      }
+    });
+  }
+
+  reRenderAutoComplete(maxLiNum) {
+    this.$searchList.innerHTML = "";
+    this.autoKeywordStore.getKeywordData(this.$searchInput.value).then(() => {
+      for (let i = 0; i < maxLiNum; i++) {
+        if (!this.autoKeywordStore.keywordData) break;
+        const content = document.createElement("li");
+        content.textContent = this.autoKeywordStore.keywordData[i];
+        this.$searchList.appendChild(content);
       }
     });
   }
@@ -97,6 +101,7 @@ export class SearchInputController {
     this.$searchList.classList.add("is-opened");
     this.toggle = true;
   }
+
   toggleOff() {
     this.$searchList.classList.remove("is-opened");
     this.toggle = false;
