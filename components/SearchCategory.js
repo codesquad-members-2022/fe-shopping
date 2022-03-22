@@ -17,16 +17,19 @@ class SearchCategory extends Element {
       });
 
       const visibility = $search__categories__container?.style?.visibility;
-      if (visibility === "visible") {
-        $search__categories__container.style.visibility = "hidden";
-        const $currentCategory = target.closest("li");
-
-        // Todo : 함수화하여 이중if문을 if문 하나만 사용하도록 리팩토링
-        if ($currentCategory?.parentNode === $search__categories__container) {
-          const selectedCategoryText = $currentCategory.textContent;
-          this.setState(selectedCategoryText || "전체");
-        }
+      if (visibility !== "visible") {
+        return;
       }
+
+      $search__categories__container.style.visibility = "hidden";
+      const $currentCategory = target.closest("li");
+
+      if ($currentCategory?.parentNode !== $search__categories__container) {
+        return;
+      }
+
+      const selectedCategoryText = $currentCategory.textContent;
+      this.setState(selectedCategoryText || "전체");
     });
   }
 
