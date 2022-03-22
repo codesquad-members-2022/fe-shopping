@@ -286,6 +286,8 @@ export default class {
   }
 
   moveUsingArrowKey(key) {
+    if (!this.itemsCount) return;
+
     this.computeIdx(key);
     this.addClassSelectedItem("[data-idx]", "focus");
     this.inputSelectedWord();
