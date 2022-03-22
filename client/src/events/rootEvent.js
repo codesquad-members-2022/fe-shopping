@@ -36,7 +36,13 @@ export const rootEvent = () => {
 
   document.body.addEventListener('mouseover', ({ target }) => {
     const categoryListBox = $('.category-list');
-    if (categoryListBox && checkElementClass({ target, checkClasses: ['category', 'category-item', 'category--text'] }))
+    if (
+      categoryListBox &&
+      checkElementClass({
+        target,
+        checkClasses: ['category', 'category-item', 'category-item__link', 'category--text'],
+      })
+    )
       return;
     else {
       categoryListBox?.remove();
