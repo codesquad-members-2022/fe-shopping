@@ -62,6 +62,7 @@ class BottomWindow extends Component {
 
   mounted() {
     this.$target.classList.add('open');
+    if (this.$state.searchHistory.length && !this.$state.searchHistory.length) this.$target.querySelector('.list-item').classList.add('focus');
   }
 }
 

@@ -376,8 +376,15 @@ body {
     min-height: 250px;
   }
 
-  .list-item:last-child {
-    margin-bottom: 15px;
+  .list-item {
+    &:last-child {
+      margin-bottom: 15px;
+    }
+
+    &.focus a {
+      color: $text-highlight;
+      text-decoration: underline;
+    }
   }
 
   .search-history-btn-group {

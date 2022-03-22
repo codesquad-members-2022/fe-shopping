@@ -6,6 +6,7 @@ class InputBox extends Component {
 
   setup() {
     this.$state = {
+      value: '',
       searchHistory: SearchHistoryStore.getHistory() || [],
       timer: null,
     };
@@ -32,7 +33,14 @@ class InputBox extends Component {
 
     this.addEvent('input', '.input', (event) => {
       if (this.timer) clearTimeout(this.timer);
+      if (this.$state.value === event.target.value) return;
+      this.$state.value = event.target.value;
       this.timer = setTimeout(() => this.timerCallback(event), 500);
+    });
+
+    this.addEvent('keydown', '.input-box', (event) => {
+      if (event.isComposing) return;
+      this.changeFocusedItem(event);
     });
   }
 
@@ -70,6 +78,27 @@ class InputBox extends Component {
         link: keyword.link,
       };
     });
+  }
+
+  changeFocusedItem({ key }) {
+
+    if (key !== 'ArrowDown' && key !== 'ArrowUp') return;
+
+    const $focused = this.$target.querySelector('.focus');
+    const $input = this.$target.querySelector('.input');
+    let $toBeFocused;
+
+    if (key === 'ArrowDown') {
+      if ($focused && $focused.nextElementSibling) $toBeFocused = $focused.nextElementSibling;
+      else $toBeFocused = this.$target.querySelector('.list-item');
+    }
+
+    if (key === 'ArrowUp' && $focused && $focused.previousElementSibling) $toBeFocused = $focused.previousElementSibling;
+
+    $focused && $focused.classList.remove('focus');
+    $toBeFocused && $toBeFocused.classList.add('focus');
+    $input.value = $toBeFocused ? $toBeFocused.textContent : this.$state.value || '';
+    $input.selectionEnd;
   }
 }
 

@@ -320,6 +320,9 @@ body {
     min-height: 250px; }
   .input-box .bottom-window .list-item:last-child {
     margin-bottom: 15px; }
+  .input-box .bottom-window .list-item.focus a {
+    color: #008cff;
+    text-decoration: underline; }
   .input-box .bottom-window .search-history-btn-group {
     position: absolute;
     bottom: -25px;
