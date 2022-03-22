@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve() + "/index.html");
 });
 
+app.get("/searchCategoryData", (req, res) => {
+  res.sendFile(path.resolve() + "/searchCategoryData.json");
+});
+
 app.get("/searchData", (req, res) => {
   res.sendFile(path.resolve() + "/searchData.json");
 });
