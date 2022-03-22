@@ -12,7 +12,7 @@ export default class SNB extends Component {
         this.$target.innerHTML = this.template();
         this.setEvent();
     }
-    setEvent () {
+    setEvent() {
         const $eventTarget = this.$target.parentElement;
         $eventTarget.addEventListener("mouseenter",this.openListMenu);
         $eventTarget.addEventListener("mouseleave",this.closeListMenu);

@@ -10,12 +10,14 @@ export default class FocusLinstener {
     }
 
     openLatelySearchList() {
-        const eventTarget = document.querySelector(".search-lately");
+        const eventTarget = document.querySelector(".search-list");
+        eventTarget.classList.add("search-lately");
         eventTarget.style.display = "block";
     }
 
     closeLatelySearchList() {
-        const eventTarget = document.querySelector(".search-lately");
+        const eventTarget = document.querySelector(".search-list");
+        eventTarget.classList.remove("search-lately");
         eventTarget.style.display = "none";
     }
 
