@@ -8,31 +8,6 @@ import { myLocalStorage } from '../../../../utils/util.js';
 
 const { RECENT__DELETE, RECENT__TERM, RECENT__DELETE__ALL } = SEARCH_BOX;
 
-// class ClickHandler {
-//   handleEvent(event) {
-//     const {
-//       target: {
-//         dataset: { click },
-//       },
-//     } = event;
-//     const method = 'on' + click[0].toUpperCase() + click.slice(1);
-//     this[method](event);
-//   }
-// }
-
-// const getMethodName = (text) => 'on' + text[0].toUpperCase() + text.slice(1);
-
-// const clickHandler = new ClickHandler();
-// clickHandler[`${getMethodName(RECENT__TERM)}`] = function (e) {
-//   console.log(e);
-// };
-// clickHandler[`${getMethodName(RECENT__DELETE)}`] = function (e) {
-//   console.log(e);
-// };
-// clickHandler[`${getMethodName(RECENT__DELETE__ALL)}`] = function (e) {
-//   console.log(e);
-// };
-
 export default function RecentSearchList($element, args) {
   HtmlElement.call(this, $element, args);
 }
@@ -41,7 +16,8 @@ RecentSearchList.prototype = Object.create(HtmlElement.prototype);
 RecentSearchList.prototype.constructor = RecentSearchList;
 
 RecentSearchList.prototype.setTemplate = function () {
-  const { recentSearchList } = this.state;
+  const { recentSearchList, activeHistory } = this.state;
+  const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
   return `
 <h5>최근 검색어</h5>
 <ul id="recentSearchList">
@@ -51,7 +27,10 @@ RecentSearchList.prototype.setTemplate = function () {
         : recentSearchList
             .map(
               (term, idx) =>
-                `<li data-click=${RECENT__TERM} data-term-id=${idx}>${term}<span data-click=${RECENT__DELETE}>X</span></li>`
+                `<li class="${isActive(idx)}"
+                  data-click=${RECENT__TERM} data-term-id=${idx}>${term}
+                  <span data-click=${RECENT__DELETE}>X</span>
+                 </li>`
             )
             .join('')
     }
@@ -64,7 +43,6 @@ RecentSearchList.prototype.setTemplate = function () {
 
 RecentSearchList.prototype.setEvent = function () {
   this.$element.addEventListener('click', handleClick.bind(this));
-  // this.$element.addEventListener('click', clickHandler);
 };
 
 function handleClick({ target }) {
