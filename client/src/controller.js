@@ -116,6 +116,9 @@ export class Controller {
       case 'ArrowDown':
         this.moveDownDropDownItem(focusClassName);
         break;
+      case 'ArrowUp':
+        this.moveUpDropDownItem(focusClassName);
+        break;
       case 'ArrowRight':
         if (!document.querySelector(`.${focusClassName}`)) return;
         this.changeAutoCompleteView(this.selector.input.value);
@@ -123,6 +126,7 @@ export class Controller {
     }
   };
 
+  //...최선을 다해 리팩토링하기
   moveDownDropDownItem(className) {
     const firstItem = this.selector.dropDownList.firstElementChild;
     const lastItem = this.selector.dropDownList.lastElementChild;
@@ -141,6 +145,22 @@ export class Controller {
       this.focusKeybordItem = this.focusKeybordItem.nextElementSibling;
     }
 
+    this.changeInputValueToDataset(className);
+  }
+
+  moveUpDropDownItem(className) {
+    if (!this.focusKeybordItem.previousElementSibling) {
+      this.focusKeybordItem.classList.remove(className);
+      return;
+    }
+
+    SearchInput.toggleClassName(this.focusKeybordItem, className);
+    this.focusKeybordItem = this.focusKeybordItem.previousElementSibling;
+
+    this.changeInputValueToDataset(className);
+  }
+
+  changeInputValueToDataset(className) {
     this.selector.input.value = this.focusKeybordItem.dataset.value;
     SearchInput.toggleClassName(this.focusKeybordItem, className);
   }
