@@ -108,3 +108,7 @@ export const throttle = (cb, delay) => {
     }, delay);
   };
 };
+
+export const computeGrad = (oldX, oldY, x, y) => {
+  return (oldY - y) / (oldX - x);
+};
