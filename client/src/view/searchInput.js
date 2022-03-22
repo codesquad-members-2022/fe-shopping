@@ -13,7 +13,7 @@ export class SearchInput {
       (acc, cur) =>
         acc +
         `
-        <li>
+        <li data-value="${cur}">
           <a href="#">${cur}</a>
           <button type="button" class="delete__btn">삭제</button>
         </li>
