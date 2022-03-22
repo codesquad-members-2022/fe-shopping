@@ -5,9 +5,20 @@ class HeaderRoutes {
     this.dataDispatcher = dataDispatcher;
   }
 
-  async getData(uri) {
-    const data = fetchUtil.fetchData(uri);
-    this.dataDispatcher.disposeData(data);
+  async setAutoCompleteData(uri) {
+    const data = await fetchUtil.fetchData(uri); // 에러나면 await이랑 async 삭제해볼것 : fetchData 도 async함수임
+
+    if (this.isEmptyData(data)) {
+      return;
+    }
+
+    this.dataDispatcher.searchInputData = data; // setter 호출
+  }
+
+  isEmptyData(data) {
+    if (!Array.isArray(data) || data.length <= 0) {
+      return true;
+    }
   }
 }
 

@@ -18,7 +18,7 @@ class HedearDataDispatcher {
     }
     const inputData = this.checkdataSize(data);
     const DOM = this.searchInputModel.getHTML(inputData);
-    this.searchInputView.render(DOM);
+    this.searchInputView.renderSearchAutoComplete(DOM);
   }
 
   set searchMenuData(data) {

@@ -8,18 +8,14 @@ class HeaderHistoryPatcher {
     this.searchInputView = searchInputView;
   }
 
-  get inputHistoryData() {
-    const historyData = this.checkHistorySize([...this.historStorage]); // 안해도 될수도 있음
+  manageHistory() {
+    const historyData = this.checkHistorySize([...this.historStorage]); // 안해도 될수도 있음 , 함수명 check -> trim으로 추후 통일
     const DOM = this.searchInputModel.getHTML(historyData);
-    this.searchInputView.render(DOM);
+    this.searchInputView.renderSearchHistory(DOM);
   }
 
   addData2localStorage(data) {
     localStorage.setItem("localSearchHistory", JSON.stringify(data));
-  }
-
-  disposeData(data) {
-    this.setData2localStorage(data);
   }
 
   checkHistorySize() {
