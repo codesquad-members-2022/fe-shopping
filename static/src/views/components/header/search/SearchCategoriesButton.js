@@ -12,14 +12,22 @@ export class SearchCategoriesButton {
     this.$categoriesButton.textContent = selectedCategory;
   }
 
-  addSearchCategoriesButtonEvent() {
+  addButtonClickEvent() {
     this.$categoriesButton.addEventListener('click', () => {
       this.searchCategories.toggle();
     });
   }
 
+  addButtonBlurEvent() {
+    this.$categoriesButton.addEventListener('blur', () => {
+      console.log('a');
+      this.searchCategories.hide();
+    });
+  }
+
   addEventListener() {
-    this.addSearchCategoriesButtonEvent();
+    this.addButtonClickEvent();
+    this.addButtonBlurEvent();
   }
 
   init(searchCategories) {

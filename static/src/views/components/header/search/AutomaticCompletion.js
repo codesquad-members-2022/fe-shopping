@@ -47,19 +47,8 @@ export class AutomaticCompletion {
     this.$automaticCompletionWrap.classList.remove('active');
   }
 
-  moveFocus() {
-    document.addEventListener('click', ({ target }) => {
-      if (
-        target.closest('.search-automatic-completion-wrap') ||
-        target.classList.contains('search-automatic-completion-wrap')
-      )
-        this.hide();
-    });
-  }
-
   init(searchBar) {
     this.connect(searchBar);
     this.getAutomaticCompletionData();
-    this.moveFocus();
   }
 }

@@ -40,16 +40,9 @@ export class SearchCategories {
     this.addSearchCategoriesEvent();
   }
 
-  moveFocus() {
-    document.addEventListener('click', ({ target }) => {
-      if (!target.closest('.search-categories-wrap')) this.hide();
-    });
-  }
-
   init(categoriesButton) {
     this.connect(categoriesButton);
     this.render();
     this.addEventListener();
-    this.moveFocus();
   }
 }

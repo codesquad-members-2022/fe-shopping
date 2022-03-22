@@ -11,6 +11,7 @@ export class SearchBar {
 
   addSearchValueSubmitEvent() {
     this.$searchWrap.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault();
       const searchValue = this.$searchInput.value;
       this.recentSearchKeywords.saveRecentSearchKeyword(searchValue);
     });
@@ -36,24 +37,22 @@ export class SearchBar {
     });
   }
 
+  addSearchBarBlurEvent() {
+    this.$searchInput.addEventListener('blur', () => {
+      this.recentSearchKeywords.hide();
+      this.automaticCompletion.hide();
+    });
+  }
+
   addEventListener() {
     this.addSearchValueSubmitEvent();
     this.addSearchInputFocusEvent();
     this.addSearchInputKeyupEvent();
-  }
-
-  moveFocus() {
-    document.addEventListener('click', ({ target }) => {
-      if (!target.closest('.search-bar-wrap')) {
-        this.recentSearchKeywords.hide();
-        this.automaticCompletion.hide();
-      }
-    });
+    this.addSearchBarBlurEvent();
   }
 
   init(recentSearchKeywords, automaticCompletion) {
     this.connect(recentSearchKeywords, automaticCompletion);
     this.addEventListener();
-    this.moveFocus();
   }
 }
