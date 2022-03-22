@@ -163,6 +163,10 @@
   strong {
     color: $point-color;
   }
+
+  .item--focus {
+    text-decoration: underline;
+  }
 }
 
 .auto-complete.focus {
@@ -209,6 +213,12 @@
       color: $point-color;
       text-decoration: underline;
       transition: color 0.05s ease-in;
+    }
+  }
+
+  .item--focus {
+    a {
+      text-decoration: underline;
     }
   }
 }

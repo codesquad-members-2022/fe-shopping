@@ -523,6 +523,9 @@ button, cursor {
 .auto-complete strong {
   color: #4285f4;
 }
+.auto-complete .item--focus {
+  text-decoration: underline;
+}
 
 .auto-complete.focus {
   display: block;
@@ -560,6 +563,9 @@ button, cursor {
   color: #4285f4;
   text-decoration: underline;
   transition: color 0.05s ease-in;
+}
+.recent-search .item--focus a {
+  text-decoration: underline;
 }
 
 .input__drop-down--options {
