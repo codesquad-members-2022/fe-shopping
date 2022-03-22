@@ -1,9 +1,6 @@
 import { delay, request } from "../../../../utils";
 import { store } from "../../../../Store";
 
-const MAX_SEARCH_DATA = 9;
-const MAX_RECENT_DATA = 7;
-
 const moveCursorToEnd = ($input, len) => {
   delay(0).then(() => {
     $input.setSelectionRange(len, len);
@@ -26,15 +23,29 @@ const handleInputFocusIn = () => {
 };
 
 const getSelectedData = (target) => {
-  // suggestionBody or recentBody
-  const $suggestionBody =
-    target.parentNode.parentNode.querySelector(".suggestion__body");
-  const $selected = $suggestionBody.querySelector(".selected");
-  return $selected ? $selected.textContent : null;
+  const { searchRecentDisplay, searchWord } = store.state;
+  const isSearchRecent = searchRecentDisplay === "flex";
+  const layoutSelector = isSearchRecent ? ".recent__body" : ".suggestion__body";
+  const $layoutBody =
+    target.parentNode.parentNode.querySelector(layoutSelector);
+  const $selected = $layoutBody.querySelector(".selected");
+  const idxZeroString = isSearchRecent ? "" : searchWord;
+  return $selected ? $selected.textContent : idxZeroString;
 };
 
 const handleKeyUpArrowUpDown = ({ target, key }) => {
-  const { selectedInputIdx } = store.state;
+  const {
+    selectedInputIdx,
+    searchWord,
+    suggestionDatas,
+    recentDatas,
+    searchRecentDisplay,
+  } = store.state;
+
+  const MAX_SEARCH_DATA =
+    searchRecentDisplay === "flex"
+      ? recentDatas.length
+      : suggestionDatas.length;
 
   const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== 0;
   const possibleArrowdown =
@@ -47,19 +58,14 @@ const handleKeyUpArrowUpDown = ({ target, key }) => {
       key === "ArrowDown" ? selectedInputIdx + 1 : selectedInputIdx - 1,
   });
 
-  const isSelectedIdxZero = selectedInputIdx - 1 === 0;
-
-  const selectedData = isSelectedIdxZero
-    ? store.state.searchWord
-    : getSelectedData(target);
-
+  const selectedData = getSelectedData(target);
   target.value = selectedData;
-
   moveCursorToEnd(target, target.value.length);
 };
 
 const handleKeyUpEnter = ({ target }) => {
   if (target.value === "") return;
+  const MAX_RECENT_DATA = 7;
   const { recentDatas } = store.state;
   const filteredRecentDatas = recentDatas.filter(
     (data) => data !== target.value
@@ -90,6 +96,9 @@ const handleKeyupWithFocus = ({ target, key }) => {
     handleKeyUpEnter({ target });
     return;
   }
+
+  const { recentDatas } = store.state;
+
   if (target.value) {
     store.setState({
       searchRecentDisplay: "none",
@@ -98,8 +107,9 @@ const handleKeyupWithFocus = ({ target, key }) => {
   } else {
     store.setState({
       searchSuggestionDisplay: "none",
-      searchRecentDisplay: store.state.recentDatas.length ? "flex" : "none",
+      searchRecentDisplay: recentDatas.length ? "flex" : "none",
       selectedInputIdx: 0,
+      searchWord: "",
     });
   }
   /* 5초 뒤에도 같은 값인지 확인 하기위한 변수 */

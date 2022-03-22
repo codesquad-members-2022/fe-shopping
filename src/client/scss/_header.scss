@@ -129,6 +129,9 @@ i {
   border: 1px $baseLightGray solid;
   box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
   font-size: nth($fontSizes, 1);
+  .selected {
+    text-decoration: underline;
+  }
 }
 
 .layout__body {
@@ -159,6 +162,9 @@ i {
   }
   .recent__body {
     @extend .layout__body;
+    .selected {
+      color: $baseBlue;
+    }
   }
   .recent__footer {
     @include flex(space-between, center);
@@ -177,9 +183,6 @@ i {
     @extend .layout__body;
     .matchedWord {
       color: $baseBlue;
-    }
-    .selected {
-      text-decoration: underline;
     }
   }
 }
