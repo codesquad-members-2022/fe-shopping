@@ -89,8 +89,7 @@
   $item-height: 2.2rem;
   @include box-shadow;
 
-  .inner,
-  &.inner {
+  .inner {
     padding: 15px;
   }
 
@@ -110,7 +109,8 @@
     display: block;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.focus {
       outline: none;
       @include hover-decoration;
     }

@@ -1,10 +1,13 @@
 import storage from "../util/storage.js";
+import { $, $$ } from "../util/util.js";
 
 export default class {
   constructor({ searchFormArea, localStorageDataSize, recentSearchMsg }) {
     this.searchFormArea = searchFormArea;
     this.localStorageDataSize = localStorageDataSize;
     this.recentSearchMsg = recentSearchMsg;
+    this.curSelectedIdx = -1;
+    this.itemsCount;
   }
 
   findElementFromArea(selector) {
@@ -15,10 +18,6 @@ export default class {
     this.form = this.findElementFromArea(".search-form");
     this.inputEl = this.findElementFromArea(".search-input");
     this.searchAreaDropDown = this.findElementFromArea(".search-area-dropdown");
-    // this.recentSearchArea = this.findElementFromArea(".recent-search-area");
-    // this.recommendSearchArea = this.findElementFromArea(
-    //   ".recommend-search-area"
-    // );
   }
 
   fillRecentSearchWords() {
@@ -29,15 +28,20 @@ export default class {
       return;
     }
     const DataSortByAsc = this.sortDataAsc(storedDatas, "no");
+    this.setSearchItemsCount(DataSortByAsc);
     recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
   }
 
+  setSearchItemsCount(data) {
+    this.itemsCount = data.length;
+  }
+
   createRecentSearchElements(data) {
-    const recentSearchElTag = data.reduce((prev, cur) => {
+    const recentSearchElTag = data.reduce((prev, cur, idx) => {
       return (
         prev +
         `<li class="recent-search-item">
-            <a href="#" class="link">${cur["recentSearchWord"]}</a>
+            <a href="#" class="link" data-idx=${idx}>${cur["recentSearchWord"]}</a>
         </li>`
       );
     }, "");
@@ -131,7 +135,7 @@ export default class {
     }
   }
 
-  // 코드가 너무 비슷함, 수정하기
+  // TODO: 코드가 너무 비슷함, 수정하기
   showRecentSearchArea() {
     const recentSearchAreaTag = this.createRecentSearchArea();
 
@@ -144,6 +148,10 @@ export default class {
     const recommendSearchAreaTag = this.createRecommendSearchArea();
     this.setSearchAreaDropDownInner(recommendSearchAreaTag);
     this.setDisplayBlock(this.searchAreaDropDown);
+  }
+
+  hideSearchAreaDropDown() {
+    this.setDisplayNone(this.searchAreaDropDown);
   }
 
   onSearchFormMousedown() {
@@ -217,8 +225,61 @@ export default class {
     this.form.addEventListener("submit", (e) => this.handleSubmitForm(e));
   }
 
+  computeIdx(key) {
+    switch (key) {
+      case "ArrowDown":
+        if (this.curSelectedIdx < 0) {
+          this.curSelectedIdx = 0;
+        } else {
+          this.curSelectedIdx = this.curSelectedIdx + 1;
+          if (this.curSelectedIdx > this.itemsCount - 1) {
+            this.curSelectedIdx = 0;
+          }
+        }
+        break;
+
+      case "ArrowUp":
+        this.curSelectedIdx = this.curSelectedIdx - 1;
+        if (this.curSelectedIdx < 0) {
+          this.curSelectedIdx = this.itemsCount - 1;
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  removeClassFromSelector(selector, className) {
+    [...$$(selector)].forEach((el) => {
+      el.classList.remove(className);
+    });
+  }
+
+  // TODO: 매직넘버 없애기
   onKeyUpInput() {
-    this.inputEl.addEventListener("keyup", ({ target }) => {
+    this.inputEl.addEventListener("keyup", (e) => {
+      if (e.code === "Escape") {
+        this.curSelectedIdx = -1;
+        this.hideSearchAreaDropDown();
+        return;
+      }
+      if (e.code === "ArrowDown" || e.code === "ArrowUp") {
+        this.computeIdx(e.code);
+        this.removeClassFromSelector("[data-idx]", "focus");
+        const curItem = $(`[data-idx="${this.curSelectedIdx}"]`);
+        curItem.classList.add("focus");
+        this.inputEl.focus();
+        return;
+      }
+
+      if (e.code === "Enter") {
+        if (this.curSelectedIdx < 0) return;
+        // select된 아이템이 없으면 submit이 일어나야함 (return)
+        this.inputEl.value = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
+        this.curSelectedIdx = -1;
+      }
+
       if (!this.inputEl.value) {
         this.showRecentSearchArea();
         return;

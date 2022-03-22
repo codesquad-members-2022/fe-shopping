@@ -333,7 +333,7 @@ input {
           box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-.search-area-dropdown .inner, .search-area-dropdown.inner {
+.search-area-dropdown .inner {
   padding: 15px;
 }
 
@@ -353,7 +353,7 @@ input {
   display: block;
 }
 
-.search-area-dropdown .link:hover, .search-area-dropdown .link:focus {
+.search-area-dropdown .link:hover, .search-area-dropdown .link:focus, .search-area-dropdown .link.focus {
   outline: none;
   color: #4285f4;
   text-decoration: underline;
@@ -361,6 +361,10 @@ input {
 
 .recent-search-area {
   display: none;
+}
+
+.recent-search-area:hover {
+  display: block;
 }
 
 .recent-search-menu {
