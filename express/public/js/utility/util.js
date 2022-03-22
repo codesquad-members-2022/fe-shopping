@@ -9,9 +9,7 @@ export async function fetchData(url) {
 }
 
 export async function getCompleteData(consonant) {
-  const jsonData = await fetchData(
-    './public/data/auto-complete/auto-complete.json'
-  );
+  const jsonData = await fetchData('/completeData');
   const completeData = jsonData[`${consonant}data`];
   return completeData;
 }

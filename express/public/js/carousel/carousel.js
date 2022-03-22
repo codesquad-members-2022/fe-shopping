@@ -15,9 +15,7 @@ export default class Carousel {
   }
 
   async startSlide() {
-    const carouselData = await fetchData(
-      './public/data/carousel/carousel.json'
-    );
+    const carouselData = await fetchData('/carouselData');
 
     this.renderCarousel.renderMainImage(carouselData, this.mainContainer);
     this.renderCarousel.renderSubMenu(carouselData, this.sideTab);
