@@ -104,7 +104,7 @@
     height: 38px;
     width: 110px;
     line-height: 38px;
-    text-indent: 10px;
+    margin-left: 10px;
   }
 
   &-toggle {
@@ -234,8 +234,12 @@ input {
 
   li {
     font: normal 12px Tahoma;
-    color: #555;
+    color: #4285f4;
     padding: 0 0 16px 0;
+
+    span {
+      color: #555;
+    }
   }
 }
 

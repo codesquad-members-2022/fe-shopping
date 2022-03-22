@@ -107,7 +107,7 @@
   height: 38px;
   width: 110px;
   line-height: 38px;
-  text-indent: 10px;
+  margin-left: 10px;
 }
 
 .select-category-toggle {
@@ -241,8 +241,12 @@ input {
 
 .autocomplete-popup li {
   font: normal 12px Tahoma;
-  color: #555;
+  color: #4285f4;
   padding: 0 0 16px 0;
+}
+
+.autocomplete-popup li span {
+  color: #555;
 }
 
 .showAutocomplete {

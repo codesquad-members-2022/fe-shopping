@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
 
 app.get('/autocomplete', (req, res) => {
   res.send(JSON.stringify(autocompleteData[req.query.value]));
-  // res.json(autocompleteData);
 });
 
 app.listen(port, () => {
