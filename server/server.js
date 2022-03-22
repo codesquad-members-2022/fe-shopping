@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const searchRouter = require('./routers/search.js');
-const staticPath = path.join(__dirname, '../static/views');
+const staticPath = path.join(__dirname, '../static');
 
 app.use(express.static(staticPath));
 
