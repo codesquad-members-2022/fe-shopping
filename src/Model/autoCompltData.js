@@ -1,6 +1,3 @@
-import { init } from "./App.js";
-init();
-
 class Model {
   _state;
 
@@ -16,7 +13,7 @@ class Model {
 
   async getState() {
     let data = null;
-    const fetched = await fetch("http://localhost:3000/fakeDB").then((res) => {
+    const fetched = await fetch(`${this.apiURL}?input=${$(".coupang-search").value}`).then((res) => {
       data = res.formData();
     });
     return data;
@@ -25,3 +22,4 @@ class Model {
 
 let a = new Model();
 console.log(a.getState());
+console.log(3);
