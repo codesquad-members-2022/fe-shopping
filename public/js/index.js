@@ -20,5 +20,5 @@ const searchForm = new SearchForm({
   },
 });
 
-searchForm.init();
+searchForm.init(300);
 mainBanner.init();

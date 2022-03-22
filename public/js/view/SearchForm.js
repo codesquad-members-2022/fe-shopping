@@ -1,5 +1,5 @@
 import storage from "../util/storage.js";
-import { $, $$ } from "../util/util.js";
+import { $, $$, debounce } from "../util/util.js";
 
 export default class {
   constructor({ searchFormArea, localStorageDataSize, recentSearchMsg }) {
@@ -30,6 +30,10 @@ export default class {
     const DataSortByAsc = this.sortDataAsc(storedDatas, "no");
     this.setSearchItemsCount(DataSortByAsc);
     recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
+  }
+
+  fillRecommendSearchWords() {
+    this.setSearchItemsCount([0, 1]);
   }
 
   setSearchItemsCount(data) {
@@ -89,10 +93,10 @@ export default class {
       <div class="inner">
         <ul class="list">
           <li class="recommend-search-item">
-            <a href="#" class="link">아이폰</a>
+            <a href="#" class="link" data-idx=0>아이폰</a>
           </li>
           <li class="recommend-search-item">
-            <a href="#" class="link">아이폰</a>
+            <a href="#" class="link" data-idx=1>오잉</a>
           </li>
         </ul>
       </div>
@@ -148,6 +152,7 @@ export default class {
     const recommendSearchAreaTag = this.createRecommendSearchArea();
     this.setSearchAreaDropDownInner(recommendSearchAreaTag);
     this.setDisplayBlock(this.searchAreaDropDown);
+    this.fillRecommendSearchWords();
   }
 
   hideSearchAreaDropDown() {
@@ -270,27 +275,37 @@ export default class {
     this.curSelectedIdx = initialIdx;
   }
 
-  foucusSelectedItem() {
-    const curItem = $(`[data-idx="${this.curSelectedIdx}"]`);
-    curItem.classList.add("focus");
-  }
-
-  removeClassFromSelector(selector, className) {
-    [...$$(selector)].forEach((el) => {
-      el.classList.remove(className);
+  addClassSelectedItem(selector, className) {
+    [...$$(selector)].forEach((el, idx) => {
+      if (idx === this.curSelectedIdx) {
+        el.classList.add(className);
+      } else {
+        el.classList.remove(className);
+      }
     });
   }
 
   moveUsingArrowKey(key) {
     this.computeIdx(key);
-    this.removeClassFromSelector("[data-idx]", "focus");
-    this.foucusSelectedItem();
+    this.addClassSelectedItem("[data-idx]", "focus");
     this.inputSelectedWord();
   }
 
   inputSelectedWord() {
     const selectedWord = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
     this.inputEl.value = selectedWord;
+  }
+
+  setGetInputWordFunc(delay) {
+    this.getInputWord = debounce(() => {
+      this.searchWord = this.inputEl.value;
+      console.log(this.searchWord);
+      fetch(
+        `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${this.searchWord}`
+      )
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+    }, delay);
   }
 
   onKeyUpInput() {
@@ -309,6 +324,7 @@ export default class {
         return;
       }
 
+      this.getInputWord();
       this.showRecommendSearchArea();
     });
   }
@@ -320,8 +336,9 @@ export default class {
     this.onSearchFormMousedown();
   }
 
-  init() {
+  init(delay) {
     this.setSearchFormElements();
+    this.setGetInputWordFunc(delay);
     this.onEvent();
   }
 }
