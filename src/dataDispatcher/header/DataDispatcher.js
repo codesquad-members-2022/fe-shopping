@@ -38,3 +38,5 @@ class HedearDataDispatcher {
 
   // focus
 }
+
+export { HedearDataDispatcher };

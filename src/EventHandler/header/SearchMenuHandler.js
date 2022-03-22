@@ -1,7 +1,11 @@
 class SearchMenuEventHandler {
-  constructor(dom) {
+  constructor(dom, router) {
     this.targetDom = dom;
     this.router = router;
+  }
+
+  init() {
+    this.addClickEvent();
   }
 
   addClickEvent() {
@@ -9,6 +13,9 @@ class SearchMenuEventHandler {
   }
 
   onClickEvent() {
-    this.router.getMenuData();
+    const uri = "/menu/toggle";
+    this.router.getMenuData(uri);
   }
 }
+
+export { SearchMenuEventHandler };

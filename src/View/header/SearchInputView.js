@@ -1,5 +1,5 @@
 import { ToggleView } from "../AbstractToggleView.js";
-import * as domUtil from "/util/domutil.js";
+import * as domUtil from "../../util/domutil.js";
 
 function SearchInputView() {
   ToggleView.apply(this, arguments);
@@ -35,3 +35,5 @@ SearchInputView.prototype.removePrevView = function (parentDom, targetName) {
     domUtil.target$(parentDom, targetName).remove();
   } // 추후 데이터 어트리뷰트로 삭제하는 방법으로 변경예정
 };
+
+export { SearchInputView };

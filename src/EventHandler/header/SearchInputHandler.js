@@ -2,7 +2,13 @@ class SearchInputEventHandler {
   constructor(dom, router, historyManager) {
     this.targetDom = dom;
     this.router = router;
-    this.historyManager = this.historyManager;
+    this.historyManager = historyManager;
+  }
+
+  init() {
+    this.addFocusEvent();
+    this.addInputEvent();
+    //this.addFoucusOutEvent();
   }
 
   addFocusEvent() {
@@ -16,10 +22,14 @@ class SearchInputEventHandler {
   }
 
   onInputEvent({ target: { value } }) {
-    this.router.setAutoCompleteData(value);
+    console.log(value);
+    const uri = `/search/${value}`; // 추후 util폴더 constants로 추가할 예정
+    this.router.setAutoCompleteData(uri);
   }
 
   onFocusEvent() {
     this.historyManager.manageHistory();
   }
 }
+
+export { SearchInputEventHandler };

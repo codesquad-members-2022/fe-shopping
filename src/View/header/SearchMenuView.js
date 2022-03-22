@@ -1,5 +1,5 @@
 import { ToggleView } from "../AbstractToggleView.js";
-import * as domUtil from "/util/domutil.js";
+import * as domUtil from "../../util/domutil.js";
 
 function SearchMenuView() {
   ToggleView.apply(this, arguments);
@@ -8,11 +8,10 @@ function SearchMenuView() {
 SearchMenuView.prototype = Object.create(ToggleView.prototype);
 
 SearchMenuView.prototype.rederMenu = function (MenuDom) {
-  // 이전 view 삭제 함수
   const removeTarget = ".search--menu--ul";
   this.removePrevView(this.parentDom);
+  // 역시 이부분도 클릭시 textContent를 target으로 변경하는 이벤트 등록 추후 필요
   this.parentDom.appendChild(MenuDom);
-  // 추가함수
 };
 
 SearchMenuView.prototype.removePrevView = function (parentDom, targetName) {
@@ -20,3 +19,5 @@ SearchMenuView.prototype.removePrevView = function (parentDom, targetName) {
     domUtil.target$(parentDom, targetName).remove();
   }
 };
+
+export { SearchMenuView };

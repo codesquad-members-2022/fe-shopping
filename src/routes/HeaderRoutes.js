@@ -7,6 +7,7 @@ class HeaderRoutes {
 
   async setAutoCompleteData(uri) {
     const data = await fetchUtil.fetchData(uri); // 에러나면 await이랑 async 삭제해볼것 : fetchData 도 async함수임
+    console.log(data);
 
     if (this.isEmptyData(data)) {
       return;
@@ -28,4 +29,4 @@ class HeaderRoutes {
   }
 }
 
-export default HeaderRoutes;
+export { HeaderRoutes };

@@ -33,3 +33,5 @@ class HeaderHistoryPatcher {
     return [...this.historStorage].reverse();
   }
 }
+
+export { HeaderHistoryPatcher };
