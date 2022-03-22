@@ -7,9 +7,6 @@ export default class Carousel {
   constructor() {
     this.renderCarousel = new RenderCarousel();
     this.sideMenu = new SideMenu();
-
-    this.carouselInfo;
-
     this.mainContainer = $('.image-container');
     this.sideTab = $('.slide-tab-container');
   }
