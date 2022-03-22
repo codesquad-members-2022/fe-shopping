@@ -115,3 +115,24 @@ https://bangdler.github.io/fe-shopping/
         }
     ```
  
+- debounce 사용 시 전역 this.timer 를 사용하지 않고 구현을 할 수 있을까?
+    ```javascript
+    searchPrefixList(word) {
+            this.debounce(this.timer, this.prefixListDelayTime)
+                .then(() => this.fetchPrefixList(word))
+                .then((prefixList) => this.openPrefixList(prefixList, word))
+        }
+  
+    debounce(timer, delayTime) {
+            if(timer) {
+                clearTimeout(timer)
+            }
+            return this.delay(timer, delayTime)
+        }
+    
+    delay(timer, ms) {
+        return new Promise((res) => {
+            return timer = setTimeout(() => res(), ms);
+        });
+    }
+    ```

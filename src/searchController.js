@@ -250,7 +250,7 @@ export class SearchController {
     }
 
     searchPrefixList(word) {
-        this.debounce(this.timer, this.prefixListDelayTime)
+        this.debounce(this.prefixListDelayTime)
             .then(() => this.fetchPrefixList(word))
             .then((prefixList) => this.openPrefixList(prefixList, word))
     }
@@ -268,9 +268,9 @@ export class SearchController {
         return prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
     }
 
-    debounce(timer, delayTime) {
-        if(timer) {
-            clearTimeout(timer)
+    debounce(delayTime) {
+        if(this.timer) {
+            clearTimeout(this.timer)
         }
         return this.delay(delayTime)
     }

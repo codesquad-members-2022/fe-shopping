@@ -2,7 +2,6 @@ import { renderBannerBigImg } from "./renderBanner.js";
 
 export class BannerController {
     constructor() {
-        this.timer = null
         this.$smallImgContainer = document.querySelector('.banner__smallImg-container')
         this.$bigImgContainer = document.querySelector('.banner__bigImg-container')
         this.smallImgElements = [...this.$smallImgContainer.children]
@@ -10,6 +9,9 @@ export class BannerController {
         this.bannerIndex = 0
         this.bannerMaxIndex = this.smallImgElements.length
         this.intervalTime = 2000
+        this.intervalTimer = null
+        this.setTimer = null
+        this.mouseoverDelayTime = 250
     }
 
     initBannerController() {
@@ -24,20 +26,24 @@ export class BannerController {
     }
 
     setIntervalEvent() {
-        this.timer = setInterval(this.autoChangeBanner.bind(this), this.intervalTime)
+        this.intervalTimer = setInterval(this.autoChangeBanner.bind(this), this.intervalTime)
     }
 
     smallContainerMouseleaveHandler(e) {
         this.setIntervalEvent()
+        clearTimeout(this.setTimer)
     }
 
     smallContainerMouseoverHandler(e) {
         if(e.target.tagName !== 'LI') return
+        this.clearInterval()
+        this.debounce(this.mouseoverDelayTime)
+            .then(() => this.onMouseoverEffect(e))
+    }
 
+    onMouseoverEffect(e) {
         const curIndex = Number(e.target.dataset.index)
         this.bannerIndex = curIndex
-
-        this.clearTimer()
         this.changeBanner()
     }
 
@@ -55,8 +61,8 @@ export class BannerController {
         this.toggleBigImg(this.bannerIndex)
     }
 
-    clearTimer() {
-        if(this.timer) return clearInterval(this.timer)
+    clearInterval() {
+        if(this.intervalTimer) return clearInterval(this.intervalTimer)
     }
 
     toggleBigImg(index) {
@@ -96,5 +102,18 @@ export class BannerController {
 
     removeVisibilityHidden(target) {
         target.classList.remove('visibility-hidden')
+    }
+
+    debounce(delayTime) {
+        if(this.setTimer) {
+            clearTimeout(this.setTimer)
+        }
+        return this.delay(delayTime)
+    }
+
+    delay(ms) {
+        return new Promise((res) => {
+            return this.setTimer = setTimeout(() => res(), ms);
+        });
     }
 }
