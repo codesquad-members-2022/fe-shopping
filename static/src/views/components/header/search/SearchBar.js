@@ -1,43 +1,59 @@
 export class SearchBar {
-  constructor([$recentKeywords, $categories, STORAGE_KEY, searchStorage]) {
+  constructor() {
     this.$searchWrap = document.querySelector('.header__search-wrap');
-    this.$recentKeywords = $recentKeywords;
-    this.$categories = $categories;
-    this.STORAGE_KEY = STORAGE_KEY;
-    this.searchStorage = searchStorage;
-    this.addEventListener();
+    this.$searchInput = this.$searchWrap.querySelector('.search-input');
   }
 
-  saveRecentSearchKeyword() {
-    const searchValue = this.$searchWrap.querySelector('.search-input').value;
-    if (!searchValue) return;
-    const searchValues = this.searchStorage.getItem(this.STORAGE_KEY)
-      ? `${this.searchStorage.getItem(this.STORAGE_KEY)},${searchValue}`
-      : searchValue;
-    this.searchStorage.setItem(this.STORAGE_KEY, searchValues);
-    this.$searchWrap.querySelector('.search-input').value = '';
+  connect(recentSearchKeywords, automaticCompletion) {
+    this.recentSearchKeywords = recentSearchKeywords;
+    this.automaticCompletion = automaticCompletion;
   }
 
-  addSearchButtonEvent() {
-    this.$searchWrap.querySelector('.search-button').addEventListener('click', () => {
-      this.saveRecentSearchKeyword();
+  addSearchValueSubmitEvent() {
+    this.$searchWrap.querySelector('form').addEventListener('submit', e => {
+      const searchValue = this.$searchInput.value;
+      this.recentSearchKeywords.saveRecentSearchKeyword(searchValue);
     });
   }
 
-  addSearchInputEvent() {
-    this.$searchWrap.querySelector('.search-input').addEventListener('focus', () => {
-      if (!this.$recentKeywords.querySelectorAll('li').length) return;
-      this.$recentKeywords.classList.add('active');
-      this.$categories.classList.remove('active');
+  addSearchInputFocusEvent() {
+    this.$searchInput.addEventListener('focus', () => {
+      if (this.$searchInput.value) return;
+      this.recentSearchKeywords.showRecentKeywords();
     });
-    this.$searchWrap.querySelector('.search-input').addEventListener('keyup', (event) => {
-      const key = event.key || event.keyCode;
-      if (key === 'Enter' || key === 13) this.saveRecentSearchKeyword();
+  }
+
+  addSearchInputKeyupEvent() {
+    this.$searchInput.addEventListener('input', async ({ target }) => {
+      const searchValue = target.value;
+      if (searchValue) {
+        this.recentSearchKeywords.hide();
+        this.automaticCompletion.render(searchValue);
+      } else {
+        this.automaticCompletion.hide();
+        this.recentSearchKeywords.show();
+      }
     });
   }
 
   addEventListener() {
-    this.addSearchButtonEvent();
-    this.addSearchInputEvent();
+    this.addSearchValueSubmitEvent();
+    this.addSearchInputFocusEvent();
+    this.addSearchInputKeyupEvent();
+  }
+
+  moveFocus() {
+    document.addEventListener('click', ({ target }) => {
+      if (!target.closest('.search-bar-wrap')) {
+        this.recentSearchKeywords.hide();
+        this.automaticCompletion.hide();
+      }
+    });
+  }
+
+  innit(recentSearchKeywords, automaticCompletion) {
+    this.connect(recentSearchKeywords, automaticCompletion);
+    this.addEventListener();
+    this.moveFocus();
   }
 }
