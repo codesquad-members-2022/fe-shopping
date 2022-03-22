@@ -88,8 +88,8 @@
 .header__container {
   display: flex;
   width: 1040px;
-  margin: 0 auto;
   height: 75%;
+  margin: 0 auto;
   align-items: center;
 }
 .header__container .category-btn {
@@ -111,11 +111,14 @@
   cursor: default;
 }
 .header__container .category-btn .category-nav {
-  display: none;
   position: absolute;
   top: 115px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: 172px;
   height: 550px;
+  display: none;
   background-color: white;
   z-index: 100;
   font-size: 12px;
@@ -257,13 +260,15 @@
   background-position: -200px -909px;
 }
 .header__container .category-btn .categories .category .category-nav-second {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  bottom: 0;
+  left: 100%;
+  width: 680px;
+  height: 550px;
   color: black;
   display: none;
-  position: absolute;
-  height: 550px;
-  width: 680px;
-  top: -1px;
-  left: 100%;
   border: #ddd solid 1px;
   background-color: white;
   z-index: 100;
@@ -271,8 +276,8 @@
 .header__container .category-btn .categories .category .category-nav-second .categories {
   display: flex;
   box-sizing: border-box;
-  height: 100%;
   width: 172px;
+  height: 100%;
   padding: 1.3rem 0;
   border-right: #ddd solid 1px;
 }
@@ -293,22 +298,25 @@
 .header__container .category-btn .categories .category .category-nav-second .categories .category:hover .select-icon {
   display: block;
 }
+.header__container .category-btn .categories .category .category-nav-second .categories .category:hover .category-nav-third {
+  display: block;
+}
 .header__container .category-btn .categories .category .category-nav-second .categories .category-nav-third {
   color: black;
   display: none;
   position: absolute;
-  background-color: white;
-  left: 172px;
   top: 0;
+  right: 0;
+  bottom: 0;
+  left: 172px;
+  width: 172px;
+  background-color: white;
 }
 .header__container .category-btn .categories .category .category-nav-second .categories .category-nav-third .categories {
   border: 0;
 }
 .header__container .category-btn .categories .category .category-nav-second .categories .category-nav-third .category:hover {
   text-decoration: underline;
-}
-.header__container .category-btn .categories .category .category-nav-second .categories .category:hover .category-nav-third {
-  display: block;
 }
 .header__container .category-btn .categories .category .category-nav-second .category-img {
   position: absolute;
