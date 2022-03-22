@@ -7,7 +7,11 @@ const port = 3000;
 app.use("/static", express.static(path.join(__dirname, "/public")));
 
 app.get("/search", (req, res) => {
-    res.json(dataOfTshirt[req.query.keyword]);
+    if (req.query.category === "woman-fashion") {
+        res.json(dataOfTshirt[req.query.category][req.query.keyword]);
+    } else {
+        res.json(dataOfTshirt.all[req.query.keyword]);
+    }
 });
 
 app.listen(port, () => {

@@ -45,6 +45,7 @@ const getRelatedWords = async () => {
             "../search?" +
                 new URLSearchParams({
                     keyword: word,
+                    category: searchCategory.selectedCategory,
                 })
         );
 
@@ -179,9 +180,9 @@ const hideLists = () => {
     searchCategory.hideCategoryList();
 };
 
-const searchListItemEventHandle = ({ target }) => {
+const searchListItemEventHandler = ({ target }) => {
     if (target.classList.contains("search__category-list--item")) {
-        searchCategory.categorySelected.innerText = target.innerText;
+        searchCategory.changeSelectedCategory(target);
         searchCategory.hideCategoryList();
     }
 };
@@ -199,7 +200,7 @@ const onSearchEvent = () => {
     );
     searchCategory.categoryList.addEventListener(
         "click",
-        searchListItemEventHandle
+        searchListItemEventHandler
     );
 
     searchInput.searchInputNode.addEventListener("focus", () => {

@@ -7,6 +7,8 @@ export class SearchCategory {
         this.categoryList = categoryList;
         this.arrowUp = arrowUp;
         this.arrowDown = arrowDown;
+        this.selectedCategory = "all";
+        this.selectedCategoryName = "전체";
         this.isVisible = false;
     }
 
@@ -22,5 +24,11 @@ export class SearchCategory {
         this.categoryList.classList.replace("roll-down", "roll-up");
         this.arrowDown.style.display = "block";
         this.arrowUp.style.display = "none";
+    }
+
+    changeSelectedCategory(newCategory) {
+        this.selectedCategoryName = newCategory.innerText;
+        this.selectedCategory = newCategory.dataset.category;
+        this.categorySelected.innerText = this.selectedCategoryName;
     }
 }
