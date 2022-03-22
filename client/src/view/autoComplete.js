@@ -7,7 +7,7 @@ export class AutoComplete extends SearchInput {
 
   templateDropDownItems(data) {
     return `
-      <li>
+      <li data-value="${data.dataValue}">
         <a href="#">
           <strong>${data.highlight}</strong><span>${data.noneHighlight}</span>
         </a>
@@ -15,22 +15,24 @@ export class AutoComplete extends SearchInput {
       `;
   }
 
+  templateDropDownList(data, inputValue) {
+    return data.reduce((acc, cur) => {
+      const dataValue = cur.value;
+      const highlight = inputValue;
+      const noneHighlight = dataValue.replace(highlight, '');
+      return acc + this.templateDropDownItems({ highlight, noneHighlight, dataValue });
+    }, '');
+  }
+
   updateAutoComplete(autoCompleteData, inputValue) {
     this.setAutoCompleteInputClass();
-
-    const listTemplate = autoCompleteData.reduce((acc, cur) => {
-      const highlight = inputValue;
-      const noneHighlight = cur.value.replace(highlight, '');
-      return acc + this.templateDropDownItems({ highlight, noneHighlight });
-    }, '');
-
-    this.$dropDownList.innerHTML = listTemplate;
+    this.$dropDownList.innerHTML = this.templateDropDownList(autoCompleteData, inputValue);
   }
 
   emptyAutoComplete() {
     this.setAutoCompleteInputClass();
 
-    const emptyTemplate = `<li><span>일치하는 데이터가 없습니다.</span></li>`;
+    const emptyTemplate = `<li data-value="null"><span>일치하는 데이터가 없습니다.</span></li>`;
     this.$dropDownList.innerHTML = emptyTemplate;
   }
 
