@@ -66,14 +66,16 @@ function showDropBox() {
       className: "search__category",
     });
 
-    if (visibility === "hidden") {
-      if (
-        target === $search__category ||
-        target === category.$selected__category
-      ) {
-        categoriesDropBox.$search__categories__container.style.visibility =
-          "visible";
-      }
+    if (visibility === "visible") {
+      return;
+    }
+
+    if (
+      target === $search__category ||
+      target === category.$selected__category
+    ) {
+      categoriesDropBox.$search__categories__container.style.visibility =
+        "visible";
     }
   });
 }
