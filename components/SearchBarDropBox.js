@@ -21,7 +21,8 @@ class SearchBarDropBox extends Element {
       className: "search__bar",
     });
 
-    const $latestSearch__data = createLiListTemplate(data);
+    const liClissName = "header__input__keyword";
+    const $latestSearch__data = createLiListTemplate(data, liClissName);
 
     const htmlString = `
             <ul>
@@ -58,6 +59,49 @@ class SearchBarDropBox extends Element {
         return;
       } else {
         this.$search__word__dropbox.style.visibility = "hidden";
+      }
+    });
+  }
+
+  handleKeyupKeywords({ showKeyword }) {
+    let index = 0;
+    const $ul = this.$search__word__dropbox.children[0];
+    const keywords = $ul.children;
+    const keywordsLen = keywords.length;
+    let previousKeywordIdx = -1;
+
+    this.$search.addEventListener("keyup", ({ code }) => {
+      if (code === "ArrowDown") {
+        let currentKeywordIdx = index % keywordsLen;
+        keywords[currentKeywordIdx].style.textDecoration = "underline";
+        showKeyword(keywords[currentKeywordIdx].textContent);
+        if (previousKeywordIdx >= 0) {
+          keywords[previousKeywordIdx].style.textDecoration = "none";
+        }
+        previousKeywordIdx = currentKeywordIdx;
+        index += 1;
+      } else if (code === "ArrowUp") {
+        let currentKeywordIdx =
+          (index - 1) % keywordsLen === 0 ? index : (index - 1) % keywordsLen;
+        previousKeywordIdx = currentKeywordIdx - 1;
+        if (previousKeywordIdx >= 0) {
+          keywords[previousKeywordIdx].style.textDecoration = "underline";
+        } else if (previousKeywordIdx < 0) {
+          keywords[0].style.textDecoration = "none";
+        }
+        if (currentKeywordIdx > 0) {
+          keywords[currentKeywordIdx].style.textDecoration = "none";
+        } else {
+          keywords[0].style.textDecoration = "none";
+          return;
+        }
+
+        const keyword = keywords[previousKeywordIdx]
+          ? keywords[previousKeywordIdx].textContent
+          : null;
+        showKeyword(keyword);
+        currentKeywordIdx = previousKeywordIdx;
+        index -= 1;
       }
     });
   }

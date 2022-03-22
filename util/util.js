@@ -1,15 +1,17 @@
 /** 이전 미션에서 구현한 util**/
 
-const createTagTemplate = (tag, content) => {
-  return `<${tag}>${content}</${tag}>`;
+const createTagTemplate = (tag, content, className = "") => {
+  return `<${tag} class="${className}">${content}</${tag}>`;
 };
 
-const createListTemplate = (tag, domStringContents) => {
-  return domStringContents.map((content) => createTagTemplate(tag, content));
+const createListTemplate = (tag, domStringContents, className) => {
+  return domStringContents.map((content) =>
+    createTagTemplate(tag, content, className)
+  );
 };
 
-const createLiListTemplate = (domStringContents) => {
-  return createListTemplate("li", domStringContents).join("");
+const createLiListTemplate = (domStringContents, className) => {
+  return createListTemplate("li", domStringContents, className).join("");
 };
 
 const htmlString2htmlElement = ({

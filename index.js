@@ -15,6 +15,13 @@ const searchBar = new SearchBar();
 const searchBarDropBox = new SearchBarDropBox();
 searchBarDropBox.appendElement({ data: searchData });
 searchBarDropBox.handleClickDocumentWhenDropDown();
+searchBarDropBox.handleKeyupKeywords({
+  showKeyword: (keyword) => {
+    searchBar.setState({
+      keyword,
+    });
+  },
+});
 
 searchBar.handleFocusInput({
   dropDown: (hasDropBox) => {

@@ -15,6 +15,11 @@ class SearchBar extends Element {
       dropDown(hasDropBox);
     });
   }
+
+  render() {
+    const { keyword } = this.state;
+    this.$search.value = keyword;
+  }
 }
 
 export default SearchBar;

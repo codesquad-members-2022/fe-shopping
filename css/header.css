@@ -88,11 +88,15 @@ header {
   left: 53rem;
   position: absolute;
   z-index: 1;
-  background-color: #bebbbb;
+  background-color: #fff;
 }
 
 .visible {
   visibility: hidden;
+}
+
+.header__input__keyword {
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=header.css.map */
