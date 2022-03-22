@@ -2,7 +2,7 @@ import Component from '../../core/Component.js';
 import SelectBox from './SelectBox.js';
 import InputBox from './InputBox.js';
 import BottomWindow from '../common/BottomWindow.js';
-import SearchHistoryStore from '../../store/searchHistoryStore.js'
+import SearchHistoryStore from '../../store/searchHistoryStore.js';
 
 class SearchForm extends Component {
 
@@ -15,7 +15,7 @@ class SearchForm extends Component {
     this.addEvent('submit', '.search-form', (event) => {
       event.preventDefault();
       const input = event.target.querySelector('.input');
-      SearchHistoryStore.addHistory('searchHistory', {
+      SearchHistoryStore.addHistory({
         item: input.value,
         link: '#',
       });

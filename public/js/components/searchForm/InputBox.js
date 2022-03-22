@@ -6,7 +6,7 @@ class InputBox extends Component {
 
   setup() {
     this.$state = {
-      searchHistory: SearchHistoryStore.getHistory('searchHistory') || [],
+      searchHistory: SearchHistoryStore.getHistory() || [],
       timer: null,
     };
     SearchHistoryStore.subscribe('searchHistory', this);
@@ -55,7 +55,7 @@ class InputBox extends Component {
               isSearchHistory: false,
               windowList: autocompleteList,
               input: event.target.value,
-            })
+            });
           });
       }.bind(this), 500);
     });
