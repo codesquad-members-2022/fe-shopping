@@ -151,6 +151,7 @@ export default class {
   }
 
   hideSearchAreaDropDown() {
+    this.initSelectedIdx();
     this.setDisplayNone(this.searchAreaDropDown);
   }
 
@@ -243,12 +244,13 @@ export default class {
       case "ArrowDown":
         if (this.curSelectedIdx < vaildIdxNum) {
           this.curSelectedIdx = firstIdx;
-        } else {
-          this.curSelectedIdx = this.getNextIdx(this.curSelectedIdx);
-          if (this.curSelectedIdx > lastIdx) {
-            this.curSelectedIdx = firstIdx;
-          }
+          return;
         }
+        this.curSelectedIdx = this.getNextIdx(this.curSelectedIdx);
+        if (this.curSelectedIdx > lastIdx) {
+          this.curSelectedIdx = firstIdx;
+        }
+
         break;
 
       case "ArrowUp":
@@ -279,31 +281,32 @@ export default class {
     });
   }
 
+  moveUsingArrowKey(key) {
+    this.computeIdx(key);
+    this.removeClassFromSelector("[data-idx]", "focus");
+    this.foucusSelectedItem();
+    this.inputSelectedWord();
+  }
+
+  inputSelectedWord() {
+    const selectedWord = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
+    this.inputEl.value = selectedWord;
+  }
+
   onKeyUpInput() {
     this.inputEl.addEventListener("keyup", (e) => {
-      if (e.code === "Escape") {
-        this.initSelectedIdx();
+      if (e.key === "Escape") {
         this.hideSearchAreaDropDown();
         return;
       }
-      if (e.code === "ArrowDown" || e.code === "ArrowUp") {
-        this.computeIdx(e.code);
-        this.removeClassFromSelector("[data-idx]", "focus");
-        this.foucusSelectedItem();
-        this.inputEl.focus();
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        this.moveUsingArrowKey(e.key);
         return;
       }
 
       if (!this.inputEl.value) {
         this.showRecentSearchArea();
         return;
-      }
-
-      if (e.code === "Enter") {
-        if (this.curSelectedIdx < 0) return;
-        // select된 아이템이 없으면 submit이 일어나야함 (return)
-        this.inputEl.value = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
-        this.initSelectedIdx();
       }
 
       this.showRecommendSearchArea();
