@@ -13,13 +13,20 @@ SearchRecent.prototype.mount = function () {
 };
 
 SearchRecent.prototype.template = function () {
+  const { recentDatas, selectedInputIdx } = store.state;
   return `
     <div class="recent__title">
         <span>최근 검색어</span>
     </div>
     <div class="recent__body">
-        <span>코드스쿼드</span>
-        <span>아이폰</span>
+        ${recentDatas
+          ?.map(
+            (data, idx) =>
+              `<span ${
+                idx + 1 === selectedInputIdx ? "class='selected'" : ""
+              }>${data}</span>`
+          )
+          .join("")}
     </div>
     <div class="recent__footer">
         <span class="recent__deleteBtn">전체삭제</span>

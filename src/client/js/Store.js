@@ -7,6 +7,7 @@ const initState = {
   searchSuggestionDisplay: "none",
   selectedInputIdx: 0,
   suggestionDatas: [],
+  recentDatas: JSON.parse(localStorage.getItem("recent")) || [],
   searchWord: "",
 };
 

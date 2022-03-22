@@ -1,7 +1,6 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
 import {
-  handleArrowKeydown,
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
@@ -16,7 +15,6 @@ SearchInput.prototype.setEvent = function () {
   this.addEvent("focusout", "input[type='text']", handleInputFocusOut);
   this.addEvent("focusin", "input[type='text']", handleInputFocusIn);
   this.addEvent("keyup", "input[type='text']", handleKeyupWithFocus);
-  this.addEvent("keydown", "input[type='text']", handleArrowKeydown);
 };
 
 SearchInput.prototype.template = function () {
