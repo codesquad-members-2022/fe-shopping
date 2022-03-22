@@ -110,7 +110,7 @@ SearchInputToggleView.prototype.generateSearchContents = function (data) {
 SearchInputToggleView.prototype.hasHistoryZone = function () {
   const childDomClassName = ".search--toggle--ul";
   if (domUtil.target$(this.parentDom, childDomClassName)) {
-    return true; // 이부분 에러면 querySelector 결과가 undefined라 에러임
+    return true;
   }
 
   return false;
@@ -160,20 +160,19 @@ SearchInputToggleView.prototype.Save2LocalStorage = function (data) {
 };
 
 SearchInputToggleView.prototype.hilightSearchList = function (keyCode) {
-  let { upDownCount, listLength } = this.keyUpDownCount;
   const auotSearchList = domUtil.target$All(
     this.parentDom,
     ".search--toggle--li"
   );
-  listLength = auotSearchList.length;
-  // console.log(upDownCount, listLength);
+  this.keyUpDownCount.listLength = auotSearchList.length;
+  console.log(this.keyUpDownCount.upDownCount, this.keyUpDownCount.listLength);
 
-  const listStyle = auotSearchList[upDownCount].style;
+  const listStyle = auotSearchList[this.keyUpDownCount.upDownCount].style;
   listStyle.color = "black";
 
   this.checkUpOrDown(keyCode);
   listStyle.color = "#4285f4";
-  // console.log(upDownCount, listLength);
+  console.log(this.keyUpDownCount.upDownCount, this.keyUpDownCount.listLength);
 };
 
 SearchInputToggleView.prototype.checkUpOrDown = function (keyCode) {
@@ -183,13 +182,14 @@ SearchInputToggleView.prototype.checkUpOrDown = function (keyCode) {
 
   if (keyCode === KEY_UP) {
     this.keyUpDownCount.upDownCount--;
-    if (upDownCount < 0) {
+    console.log(this.keyUpDownCount.upDownCount);
+    if (this.keyUpDownCount.upDownCount < 0) {
       this.keyUpDownCount.upDownCount = listLength;
     }
   } else if (keyCode === KEY_DOWN) {
     this.keyUpDownCount.upDownCount++;
     console.log(this.keyUpDownCount.upDownCount);
-    if (upDownCount < listLength) {
+    if (this.keyUpDownCount.upDownCount < listLength) {
       this.keyUpDownCount.upDownCount = 0;
     }
   }

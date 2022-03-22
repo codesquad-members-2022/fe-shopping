@@ -4,7 +4,7 @@ import {
   SearchMenuToggleView,
 } from "./View/HeaderView.js";
 
-// localStorage.setItem("localSearchHistory", []); // Set으로 로컬스토리지 사용하기 어떻게 해야할까?
+// localStorage.setItem("localSearchHistory", "[]"); // 초기화용
 
 const viewTest = new SearchInputToggleView(".header__main--inputWrapper");
 const menuView = new SearchMenuToggleView(".header__main--inputMenuButton");
