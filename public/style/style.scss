@@ -345,6 +345,10 @@ body {
     .list-item {
       margin-bottom: 15px;
 
+      b {
+        color: $text-highlight;
+      }
+
       &:is(:last-child) {
         margin-bottom: 5px;
       }

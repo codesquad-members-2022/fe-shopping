@@ -301,6 +301,8 @@ body {
     padding-top: 5px; }
     .bottom-window .window-list .list-item {
       margin-bottom: 15px; }
+      .bottom-window .window-list .list-item b {
+        color: #008cff; }
       .bottom-window .window-list .list-item:is(:last-child) {
         margin-bottom: 5px; }
       .bottom-window .window-list .list-item a:hover {

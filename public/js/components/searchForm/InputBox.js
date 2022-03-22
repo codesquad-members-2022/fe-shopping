@@ -57,10 +57,19 @@ class InputBox extends Component {
     if (autocompleteList) {
       this.$props.renderBottomWindow('.bottom-window', {
         isSearchHistory: false,
-        windowList: autocompleteList,
+        windowList: this.highlight(value, autocompleteList),
         input: value,
       });
     }
+  }
+
+  highlight(value, keywordList) {
+    return keywordList.map(keyword => {
+      return {
+        item: keyword.item.replace(value, `<b>${value}</b>`),
+        link: keyword.link,
+      };
+    });
   }
 }
 
