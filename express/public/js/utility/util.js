@@ -30,6 +30,14 @@ export function makeSideTab(list) {
   `;
 }
 
+export function makeShoppingCategory(categoryData, step) {
+  return [...categoryData].reduce(
+    (pre, curContent) =>
+      (pre += `<li class = "shopping-popup-menu-item">${curContent[`${step}`]}</li>`),
+    ''
+  );
+}
+
 export function throttle(callback, wait) {
   let waiting = true;
   return function (...args) {
