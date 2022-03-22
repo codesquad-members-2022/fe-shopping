@@ -159,6 +159,8 @@ SearchInputToggleView.prototype.Save2LocalStorage = function (data) {
   localStorage.setItem("localSearchHistory", JSON.stringify(reverseData));
 };
 
+///////// 아래  error code ////////////
+
 SearchInputToggleView.prototype.hilightSearchList = function (keyCode) {
   const auotSearchList = domUtil.target$All(
     this.parentDom,
