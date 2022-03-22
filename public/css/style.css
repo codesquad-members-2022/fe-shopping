@@ -298,6 +298,11 @@ h2 {
   color: #228be6;
 }
 
+.focus--underline {
+  color: #228be6;
+  text-decoration: underline;
+}
+
 .match-word {
   color: #228be6;
 }

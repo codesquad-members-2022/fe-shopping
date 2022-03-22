@@ -67,10 +67,6 @@ class SearchList {
         }
     }
 
-    setStyles(element, styles) {
-        Object.assign(element, styles);
-    }
-
     focusItem() {
         const listItems = this.listContainer.querySelectorAll(
             ".search__list--item"
@@ -78,17 +74,10 @@ class SearchList {
         let focusingItem;
 
         listItems.forEach((item) => {
+            item.classList.remove("focus--underline");
             if (item.dataset.idx === this.curIdx.toString()) {
                 focusingItem = item;
-                this.setStyles(item.style, {
-                    textDecoration: "underline",
-                    color: "#228be6",
-                });
-            } else {
-                this.setStyles(item.style, {
-                    textDecoration: "none",
-                    color: "black",
-                });
+                item.classList.toggle("focus--underline");
             }
         });
 
