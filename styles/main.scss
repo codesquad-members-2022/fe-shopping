@@ -1,6 +1,7 @@
 @import './constants/colors';
 @import './constants/layouts';
 @import './constants/font-size';
+@import './constants/z-index';
 
 @import './base/reset';
 @import './base/normalize';
@@ -15,3 +16,4 @@
 @import './components/search-group';
 @import './components/history';
 @import './components/auto-complete';
+@import './components/g-category';

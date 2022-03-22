@@ -593,6 +593,7 @@ template {
   position: absolute;
   top: 35px;
   left: -2px;
+  z-index: 90;
   width: 101%;
   height: 300px;
   background-color: #fff;
@@ -693,6 +694,86 @@ template {
 .auto-complete-item a {
   display: block;
   padding: 8px;
+}
+
+.g-category {
+  position: relative;
+}
+.g-category-banner {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 10;
+  width: 300%;
+  height: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.g-category .category-layer {
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+}
+.g-category .category-layer-depth-1 {
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  display: none;
+  width: 300%;
+  height: 200%;
+  padding: 8px 0 8px 16px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.g-category .shopping-menu-list {
+  position: relative;
+  z-index: 50;
+  width: 170px;
+  padding: 8px 0;
+  border: 1px solid #ddd;
+}
+.g-category .shopping-menu-item {
+  font-size: 13px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.g-category .shopping-menu-item.menu-open > .category-layer-depth-1 {
+  display: block;
+}
+.g-category .shopping-menu-item.menu-open > i {
+  color: #4285f4;
+}
+.g-category .shopping-menu-item.menu-open > a {
+  color: #4285f4;
+  text-decoration: underline;
+}
+.g-category .shopping-menu-item.menu-open > a i {
+  display: inline;
+}
+.g-category .shopping-menu-item i {
+  flex-basis: 20px;
+  margin: 0 8px;
+}
+.g-category .shopping-menu-item a {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 10px 25px 10px 0;
+}
+.g-category .shopping-menu-item a i {
+  position: absolute;
+  right: 10px;
+  display: none;
+}
+.g-category .depth-1-menu-item {
+  font-size: 13px;
+  color: #333;
+}
+.g-category .depth-1-menu-item:hover a {
+  color: #4285f4;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=style.css.map */
