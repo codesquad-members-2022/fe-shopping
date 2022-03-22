@@ -85,11 +85,11 @@
   background-color: #fff;
   position: relative;
   z-index: 999;
-  border-top: color-line($color-lightgray);
   $item-height: 2.2rem;
   @include box-shadow;
 
   .inner {
+    border-top: color-line($color-lightgray);
     padding: 15px;
   }
 
