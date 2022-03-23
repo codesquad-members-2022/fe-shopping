@@ -4,14 +4,13 @@ export class RelativeSearchModel {
     this.keywordList = [];
   }
 
-  createKeywordList(searchKeyword) {
-    const keywordList = this.data.reduce((keywordList, data) => {
-      const keyword = data.keyword;
-      if (keyword.includes(searchKeyword)) {
-        keywordList.push(keyword);
-      }
-      return keywordList;
-    }, []);
+  isEmpty() {
+    return this.keywordList.length === 0;
+  }
+
+  updateKeywordList(searchKeyword) {
+    const keywordList = this.data.filter(({keyword}) => keyword.includes(searchKeyword));
+    this.keywordList = keywordList;
     return keywordList;
   }
 }

@@ -166,4 +166,30 @@ header .category-button span {
   padding: 5px;
   margin: 6px;
 }
+
+.search-bar .popup-keywords .recent-search-list li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.search-bar .popup-keywords .recent-search-list li:hover button {
+  visibility: visible;
+}
+
+.search-bar .popup-keywords .recent-search-list li button {
+  visibility: hidden;
+  border: 0;
+  background-color: #fff;
+}
+
+.search-bar .popup-keywords .relative-keyword-list strong {
+  color: #4285f4;
+}
 /*# sourceMappingURL=main.css.map */
