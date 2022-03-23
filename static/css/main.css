@@ -166,4 +166,8 @@ header .category-button span {
   padding: 5px;
   margin: 6px;
 }
+
+.search-bar .popup-keywords .relative-keyword-list strong {
+  color: #4285f4;
+}
 /*# sourceMappingURL=main.css.map */
