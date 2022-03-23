@@ -34,7 +34,8 @@ export default class CategorySelector {
     }
 
     setClickEvent() {
-        this.$target.addEventListener('click', this.handleClickEvent.bind(this));
+        const listTitle = document.querySelector('.search__category--contents');
+        listTitle.addEventListener('click', this.handleClickEvent.bind(this));
     }
 
     handleClickEvent(event) {
