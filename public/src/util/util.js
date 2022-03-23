@@ -13,4 +13,8 @@ const fetchData = async (url) => {
   return response.json();
 };
 
-export { debounce, fetchData };
+const $ = (className) => {
+  return document.querySelector(className);
+};
+
+export { debounce, fetchData, $ };
