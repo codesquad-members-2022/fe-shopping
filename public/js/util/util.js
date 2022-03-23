@@ -5,10 +5,7 @@ export const debounce = (func, delay = 0) => {
   let timer;
 
   return function () {
-    if (timer) {
-      clearTimeout(timer);
-    }
-
+    clearTimeout(timer);
     timer = setTimeout(func, delay);
   };
 };

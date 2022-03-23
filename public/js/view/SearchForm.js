@@ -22,23 +22,23 @@ export default class {
 
   // TODO: 코드가 너무 비슷함, 수정하기
   fillRecentSearchWords() {
-    const recentSearchList = this.searchAreaDropDown.querySelector(".list");
+    const searchAreaList = this.searchAreaDropDown.querySelector(".list");
     const storedDatas = storage.getLocalStorage("recent-search");
     if (!storedDatas) {
-      recentSearchList.innerHTML = "";
+      searchAreaList.innerHTML = "";
       return;
     }
     const DataSortByAsc = this.sortDataAsc(storedDatas, "no");
     this.setSearchItemsCount(DataSortByAsc);
-    recentSearchList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
+    searchAreaList.innerHTML = this.createRecentSearchElements(DataSortByAsc);
   }
 
   fillSuggestSearchWords({ suggestions }, searchWord) {
     if (!suggestions) return;
-    const recentSearchList = this.searchAreaDropDown.querySelector(".list");
+    const searchAreaList = this.searchAreaDropDown.querySelector(".list");
     const suggestionsData = suggestions.map((data) => data.value);
     this.setSearchItemsCount(suggestionsData);
-    recentSearchList.innerHTML = this.createSuggestSearchElements(
+    searchAreaList.innerHTML = this.createSuggestSearchElements(
       suggestionsData,
       searchWord
     );
@@ -167,7 +167,17 @@ export default class {
     this.fillRecentSearchWords();
   }
 
+  isDataEmpty(data, key) {
+    if (key) {
+      return !data[key].length;
+    }
+    return !data.length;
+  }
+
   showSuggestSearchArea(jsonData, searchWord) {
+    if (this.isDataEmpty(jsonData, "suggestions")) {
+      return;
+    }
     const suggestSearchAreaTag = this.createSuggestSearchArea();
     this.setSearchAreaDropDownInner(suggestSearchAreaTag);
     this.setDisplayBlock(this.searchAreaDropDown);
@@ -322,8 +332,6 @@ export default class {
 
   setShowSuggestionFunc(delay) {
     this.getSuggestionWord = debounce(() => {
-      if (this.isInputEmpty()) return;
-
       const searchWord = this.inputEl.value;
       const fetchUrl = constants.suggestionUrl + searchWord;
 
