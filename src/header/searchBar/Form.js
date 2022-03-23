@@ -62,10 +62,7 @@ export class SearchBarForm {
       debounce(this.setPopupbox, popupboxDelay)
     );
 
-    this.$input.addEventListener(
-      'keydown',
-      debounce(this.handleKeywordRotation, this.keywordRotationDelay)
-    );
+    this.$input.addEventListener('keydown', this.handleKeywordRotation);
   }
 
   initHistory() {
@@ -114,7 +111,11 @@ export class SearchBarForm {
   };
 
   handleKeywordRotation = (e) => {
+    if (e.isComposing || e.keyCode === 229) return;
+
     if (!this.isKeyCodeArrowUpOrDown(e.code)) return;
+    e.preventDefault();
+
     const $rotationList = selector(`.${ROTATION_LIST}`, this.$popupBox);
     const $selectedItem = selector(`.${SELECTED}`, $rotationList);
     const $target = this.getNextRotationItem(
@@ -130,9 +131,7 @@ export class SearchBarForm {
       keywordOfSelectedItem = $targetKeyword.textContent;
     }
 
-    const keywordLength = keywordOfSelectedItem.length;
     this.$input.value = keywordOfSelectedItem;
-    this.$input.setSelectionRange(keywordLength, keywordLength);
 
     removeClass(SELECTED, $selectedItem);
     addClass(SELECTED, $target);
