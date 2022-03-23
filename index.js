@@ -38,8 +38,6 @@ searchBar.onChangeInput({
   handleChangeInput,
 });
 
-carousel();
-
 const inputDropBox = new SearchBarDropBox();
 
 function appendSearchBarDropBox(data) {
@@ -237,3 +235,8 @@ function handleClickOutDropBox() {
     }
   });
 }
+
+const $slideList = document.querySelector(".slide__list");
+const $banner__category = document.querySelector(".banner__category");
+
+carousel({ slides: $slideList, selector: $banner__category });
