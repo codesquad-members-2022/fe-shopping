@@ -13,10 +13,26 @@ function SearchInput(...params) {
 createExtendsRelation(SearchInput, Component);
 
 SearchInput.prototype.setEvent = function () {
-  this.addEvent("focusout", "input[type='text']", handleInputFocusOut);
-  this.addEvent("focusin", "input[type='text']", handleInputFocusIn);
-  this.addEvent("keyup", "input[type='text']", handleKeyupWithFocus);
-  this.addEvent("click", ".fa-search", handleSearchIconClick);
+  this.addEvent({
+    eventType: "focusout",
+    selector: "input[type='text']",
+    callback: handleInputFocusOut,
+  });
+  this.addEvent({
+    eventType: "focusin",
+    selector: "input[type='text']",
+    callback: handleInputFocusIn,
+  });
+  this.addEvent({
+    eventType: "keyup",
+    selector: "input[type='text']",
+    callback: handleKeyupWithFocus,
+  });
+  this.addEvent({
+    eventType: "click",
+    selector: ".fa-search",
+    callback: handleSearchIconClick,
+  });
 };
 
 SearchInput.prototype.template = function () {

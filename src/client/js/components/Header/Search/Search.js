@@ -21,13 +21,21 @@ createExtendsRelation(Search, Component);
 
 Search.prototype.setEvent = function () {
   document.body.addEventListener("click", handleBodyClick);
-  this.addEvent("click", ".search__category", handleSearchCategoryClick);
-  this.addEvent(
-    "transitionstart",
-    ".search__category-list",
-    handleCListTransStart
-  );
-  this.addEvent("transitionend", ".search__category-list", handleCListTransEnd);
+  this.addEvent({
+    eventType: "click",
+    selector: ".search__category",
+    callback: handleSearchCategoryClick,
+  });
+  this.addEvent({
+    eventType: "transitionstart",
+    selector: ".search__category-list",
+    callback: handleCListTransStart,
+  });
+  this.addEvent({
+    eventType: "transitionend",
+    selector: ".search__category-list",
+    callback: handleCListTransEnd,
+  });
 };
 
 Search.prototype.mount = async function () {

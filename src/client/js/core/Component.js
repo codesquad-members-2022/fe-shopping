@@ -27,7 +27,7 @@ Component.prototype = {
     // html 태그 templating
     return ``;
   },
-  addEvent(eventType, selector, callback) {
+  addEvent({ eventType, selector, callback }) {
     const children = [...this.$target.querySelectorAll(selector)];
     const isTarget = (target) =>
       children.includes(target) || target.closest(selector);

@@ -8,8 +8,12 @@ function SearchCategoryList(...params) {
 createExtendsRelation(SearchCategoryList, Component);
 
 SearchCategoryList.prototype.setEvent = function () {
-  this.addEvent("click", "li", ({ target }) => {
-    store.setState({ categoryTitle: target.textContent });
+  this.addEvent({
+    eventType: "click",
+    selector: "li",
+    callback: ({ target }) => {
+      store.setState({ categoryTitle: target.textContent });
+    },
   });
 };
 
