@@ -157,10 +157,6 @@
 
 input {
   border: 0px solid #fff;
-
-  // &:focus {
-  //   ::placeholder= "" ;
-  // }
 }
 
 .search-form-input-btn {
@@ -230,7 +226,7 @@ input {
   background-color: #fff;
   padding: 10px 0 10px 10px;
   border: 1px solid #f0f0f0;
-  z-index: 1;
+  z-index: 15;
 
   li {
     font: normal 12px Tahoma;
@@ -244,5 +240,81 @@ input {
 }
 
 .showAutocomplete {
+  transform: scaleY(1);
+}
+
+.history-popup {
+  transform: scaleY(0);
+  width: 364px;
+  height: 280px;
+  position: absolute;
+  top: 70px;
+  left: 470px;
+  background-color: #fff;
+  padding: 0px 10px 10px 10px;
+  border: 1px solid #f0f0f0;
+  z-index: 10;
+
+  h3 {
+    font-size: 12px;
+    padding: 14px 0 13px 4px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  li {
+    font: normal 12px Tahoma;
+    color: #555;
+    padding: 10px 0 0 3px;
+
+    &:hover {
+      text-decoration: underline;
+      color: #4285f4;
+    }
+  }
+}
+
+.history-popup-btn {
+  transform: scaleY(0);
+  width: 374px;
+  height: 12px;
+  position: absolute;
+  top: 358px;
+  left: 470px;
+  background-color: #f5f5f5;
+  padding: 10px 0 10px 10px;
+  border: 1px solid #f0f0f0;
+  z-index: 10;
+
+  border: 1px solid #ddd;
+
+  li {
+    font: normal 12px Tahoma;
+    color: #555;
+    padding: 0 0 16px 0;
+  }
+
+  .delete-all-history {
+    float: left;
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .history-onoff {
+    float: right;
+    color: #888;
+    font-size: 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.showHistoryPopup {
   transform: scaleY(1);
 }

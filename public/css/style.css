@@ -236,7 +236,7 @@ input {
   background-color: #fff;
   padding: 10px 0 10px 10px;
   border: 1px solid #f0f0f0;
-  z-index: 1;
+  z-index: 15;
 }
 
 .autocomplete-popup li {
@@ -250,6 +250,86 @@ input {
 }
 
 .showAutocomplete {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+}
+
+.history-popup {
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  width: 364px;
+  height: 280px;
+  position: absolute;
+  top: 70px;
+  left: 470px;
+  background-color: #fff;
+  padding: 0px 10px 10px 10px;
+  border: 1px solid #f0f0f0;
+  z-index: 10;
+}
+
+.history-popup h3 {
+  font-size: 12px;
+  padding: 14px 0 13px 4px;
+  border-bottom: 1px solid #ddd;
+}
+
+.history-popup li {
+  font: normal 12px Tahoma;
+  color: #555;
+  padding: 10px 0 0 3px;
+}
+
+.history-popup li:hover {
+  text-decoration: underline;
+  color: #4285f4;
+}
+
+.history-popup-btn {
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  width: 374px;
+  height: 12px;
+  position: absolute;
+  top: 358px;
+  left: 470px;
+  background-color: #f5f5f5;
+  padding: 10px 0 10px 10px;
+  border: 1px solid #f0f0f0;
+  z-index: 10;
+  border: 1px solid #ddd;
+}
+
+.history-popup-btn li {
+  font: normal 12px Tahoma;
+  color: #555;
+  padding: 0 0 16px 0;
+}
+
+.history-popup-btn .delete-all-history {
+  float: left;
+  color: #888;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.history-popup-btn .delete-all-history:hover {
+  text-decoration: underline;
+}
+
+.history-popup-btn .history-onoff {
+  float: right;
+  color: #888;
+  font-size: 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.history-popup-btn .history-onoff:hover {
+  text-decoration: underline;
+}
+
+.showHistoryPopup {
   -webkit-transform: scaleY(1);
           transform: scaleY(1);
 }
