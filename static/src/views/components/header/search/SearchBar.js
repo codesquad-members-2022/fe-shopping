@@ -79,6 +79,7 @@ export class SearchBar {
       const wordsInSearchPop = this.$searchWrap.querySelectorAll('.search-pop.active li');
       switch (key) {
         case 'ArrowUp':
+          event.preventDefault();
           this.moveActivePointerToUp(wordsInSearchPop, searchPopInfo);
           break;
         case 'ArrowDown':
