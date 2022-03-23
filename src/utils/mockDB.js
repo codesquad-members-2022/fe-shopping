@@ -27,21 +27,21 @@ async function fetchData(url) {
   }
 }
 
-function MockData() {
+function MockSearchData() {
   this.termDB = [];
   this.init();
 }
 
-MockData.prototype.init = async function () {
+MockSearchData.prototype.init = async function () {
   const { result } = await fetchData('/mock/search.json');
   this.termDB = result;
 };
 
-MockData.prototype.requestTerms = async function (text) {
+MockSearchData.prototype.requestTerms = async function (text) {
   await delay(0.5);
   return this.termDB
     .map(({ keyword }) => keyword)
     .filter((term) => term.slice(0, text.length) === text);
 };
 
-export const requestAutoCompleteTerms = new MockData();
+export const requestAutoCompleteTerms = new MockSearchData();

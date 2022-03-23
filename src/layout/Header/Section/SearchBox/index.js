@@ -1,13 +1,12 @@
+import HtmlElement from '../../../../utils/HtmlElement.js';
 import AutoComplete from './AutoComplete.js';
 import RecentSearchList from './RecentSearchList.js';
 import Selector from './Selector.js';
 import { moveToSearchTermPage } from '../../../../router.js';
-import { MAX_LOCAL_STORAGE } from '../../../../constant/constant.js';
 import {
-  POP_UP,
-  RECENT_SEARCH_LIST,
-} from '../../../../constant/htmlSelector.js';
-import HtmlElement from '../../../../utils/HtmlElement.js';
+  myLocalStorage,
+  requestAutoCompleteTerms,
+} from '../../../../utils/mockDB.js';
 import {
   findTargetClassElement,
   findTargetIdElement,
@@ -15,11 +14,12 @@ import {
   closePopUp,
 } from '../../../../utils/manuplateDOM.js';
 import {
-  myLocalStorage,
-  requestAutoCompleteTerms,
-} from '../../../../utils/util.js';
+  POP_UP,
+  RECENT_SEARCH_LIST,
+} from '../../../../constant/htmlSelector.js';
 
 const INPUT_DEFAULT = -1;
+const MAX_LOCAL_STORAGE = 10;
 
 export default function SearchBox($element) {
   HtmlElement.call(this, $element);
@@ -115,8 +115,7 @@ function handleArrowUp(activeElement) {
     : activeTerm.value - 1;
 }
 
-function handleKeyDown(event) {
-  const { key } = event;
+function setActiveElement() {
   const {
     recentSearchList,
     autoSearchList,
@@ -124,7 +123,7 @@ function handleKeyDown(event) {
     activeHistory,
     showHistroy,
   } = this.state;
-  const activeElement = showHistroy
+  return showHistroy
     ? {
         $targetChild: this.$RecentSearchList,
         activeTerm: { key: 'activeHistory', value: activeHistory },
@@ -135,6 +134,11 @@ function handleKeyDown(event) {
         activeTerm: { key: 'activeAutoTerm', value: activeAutoTerm },
         activeList: autoSearchList,
       };
+}
+
+function handleKeyDown(event) {
+  const { key } = event;
+  const activeElement = setActiveElement.apply(this);
   switch (key) {
     case 'ArrowDown':
       const newArrowDownTerm = handleArrowDown(activeElement);
@@ -165,7 +169,6 @@ function handleSubmit(event) {
     inputValue
   );
   myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
-  // this.setState({ inputValue: '', recentSearchList: updatedRecentSearchList });
   this.setState({ inputValue: '' });
   this.$RecentSearchList.setState({
     recentSearchList: updatedRecentSearchList,

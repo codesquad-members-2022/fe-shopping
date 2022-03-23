@@ -1,10 +1,10 @@
+import HtmlElement from '../../../../utils/HtmlElement.js';
+import { moveToSearchTermPage } from '../../../../router.js';
+import { myLocalStorage } from '../../../../utils/mockDB.js';
 import {
   RECENT_SEARCH_LIST,
   SEARCH_BOX,
 } from '../../../../constant/htmlSelector.js';
-import { moveToSearchTermPage } from '../../../../router.js';
-import HtmlElement from '../../../../utils/HtmlElement.js';
-import { myLocalStorage } from '../../../../utils/util.js';
 
 const { RECENT__DELETE, RECENT__TERM, RECENT__DELETE__ALL } = SEARCH_BOX;
 
@@ -18,7 +18,6 @@ RecentSearchList.prototype.constructor = RecentSearchList;
 RecentSearchList.prototype.setTemplate = function () {
   const { recentSearchList, activeHistory } = this.state;
   const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
-  console.log(activeHistory);
   return `
 <h5>최근 검색어</h5>
 <ul id="recentSearchList">
