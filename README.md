@@ -1,5 +1,7 @@
 # fe-shopping
 
+![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/68533016/159639120-a0c9d7f4-4d7d-4265-9c2e-17ba4b8d27ce.gif)
+
 # [3/23] 검색창 자동완성 구현
 
 - [x] json 데이터 서버에 요청 & 받아오기
@@ -25,7 +27,7 @@
 
 # [3/25] MV, 클래스 분리
 
-## keyup에서 keyCode === 13 시 이벤트가 두 번 발생하는 이슈
+## keyup에서 엔터키 이벤트가 두 번 발생하는 이슈
 
 - 영어를 입력하고 엔터 키를 누르면 문제 발생 x (이벤트가 한 번만 발생)
   <img width="295" alt="스크린샷 2022-03-23 오후 2 21 58" src="https://user-images.githubusercontent.com/68533016/159629435-a9840573-3baa-45a6-b921-e38dbbce8bc1.png">
@@ -38,6 +40,8 @@
 - `keyup`을 `keypress`로 변경한다.
 - 한글 특성 상 키 입력 순간부터 입력 완료까지 시간이 오래 걸린다 => `isComposing`이라는 이벤트 속성을 확인한다.
   https://kwangsunny.tistory.com/33
+
+## 빨리 입력하거나 삭제할 때 처리해야 함
 
 # [3/18] 검색 카테고리 토글 구현
 
