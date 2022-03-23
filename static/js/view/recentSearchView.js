@@ -4,7 +4,7 @@ export class RecentSearchView {
   }
 
   createKeywordsTemplate(keywordList, keywordIndexList, listClassName) {
-    let keywordsTemplate = keywordList.reduce((template, keyword, index) => {
+    const keywordsTemplate = keywordList.reduce((template, keyword, index) => {
       template += `<li data-index=${keywordIndexList[index]}>
       ${keyword}
       <button type='button' class='recent-keyword-button'>X</button>
@@ -16,9 +16,9 @@ export class RecentSearchView {
   }
 
   renderRecentSearch(keywordList, keywordIndexList) {
-    let popupKeywordsTemplate = '<h3 class="recent-search-text">최근 검색어</h3>';
+    const textTemplate = '<h3 class="recent-search-text">최근 검색어</h3>';
     const keywordsTemplate = this.createKeywordsTemplate(keywordList, keywordIndexList, 'recent-search-list');
-    popupKeywordsTemplate += keywordsTemplate;
+    const popupKeywordsTemplate = textTemplate + keywordsTemplate;
     this.$popupKeywords.innerHTML = popupKeywordsTemplate;
   }
 }
