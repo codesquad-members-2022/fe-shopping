@@ -24,27 +24,14 @@ class SearchList {
         this.searchItems = [];
     }
 
-    getItemText(itemName, input) {
-        let itemText = itemName;
-        const inputRegex = new RegExp(`${input}`);
-        const matchWord = inputRegex.exec(itemName);
-        if (matchWord) {
-            itemText =
-                itemName.slice(0, matchWord.index) +
-                `<strong class="match-word">${input}</strong>` +
-                itemName.slice(matchWord.index + input.length);
-        }
-
-        return itemText;
-    }
-
-    getSearchListItem(itemName, idx, input) {
-        const itemText = this.getItemText(itemName, input);
+    getSearchListItem(...itemInfo) {
+        const itemName = itemInfo[0];
+        const idx = itemInfo[1];
         return `<li 
                     class="search__list--item grid" 
                     data-idx="${idx}" 
                     data-name="${itemName}">
-                        <p class="search__list--item-text">${itemText}</p>
+                        <p class="search__list--item-text">${itemName}</p>
                         <p class="delete-btn">삭제</p>
                 </li>`;
     }

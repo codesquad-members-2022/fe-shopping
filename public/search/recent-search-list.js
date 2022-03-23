@@ -15,6 +15,10 @@ class RecentSearchList extends SearchList {
         }
         this.curIdx = -1;
     }
+
+    toggleRecord() {
+        this.isRecording = !this.isRecording;
+    }
 }
 
 export { RecentSearchList };

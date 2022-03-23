@@ -1,5 +1,5 @@
-import { SearchList } from "./search-list.js";
 import { RecentSearchList } from "./recent-search-list.js";
+import { RelatedSearchList } from "./related-search-list.js";
 import { SearchInput } from "./search-input.js";
 import { SearchCategory } from "./search-category.js";
 
@@ -12,26 +12,27 @@ const searchRelatedList = document.querySelector(".search__related-list");
 const searchRelatedListContainer = document.querySelector(
     ".search__related-list--container"
 );
-
 const category = document.querySelector(".search__category");
 const categoryList = document.querySelector(".search__category-list");
 const arrowUp = document.querySelector(".arrow--up");
 const arrowDown = document.querySelector(".arrow--down");
+const recordOnBlock = document.querySelector(".record-on");
+const recordOffBlock = document.querySelector(".record-off");
 
 const DIRECTION_UP = "up";
 const DIRECTION_DOWN = "down";
+const RECORD_ON = "최근검색어켜기";
+const RECORD_OFF = "최근검색어끄기";
 
 const searchInput = new SearchInput(searchbar);
-
 const recentSearchList = new RecentSearchList(
     searchRecentList,
     searchRecentListContainer
 );
-const relatedSearchList = new SearchList(
+const relatedSearchList = new RelatedSearchList(
     searchRelatedList,
     searchRelatedListContainer
 );
-
 const searchCategory = new SearchCategory(
     category,
     categoryList,
@@ -40,7 +41,7 @@ const searchCategory = new SearchCategory(
 );
 
 const getRelatedWords = async () => {
-    const word = searchInput.getSearchWord();
+    const word = searchInput.getInput();
     try {
         const response = await fetch(
             "../search?" +
@@ -80,15 +81,15 @@ const requestRelatedWordsNoMoreInput = () => {
     delay(500).then(() => getRelatedWords());
 };
 
-const removeHighlightOnSearchListItem = () => {
+const removeFocusOnSearchList = () => {
     recentSearchList.removeFocus();
     relatedSearchList.removeFocus();
 };
 
 const inputEventHandler = () => {
-    removeHighlightOnSearchListItem();
+    removeFocusOnSearchList();
 
-    const word = searchInput.getSearchWord();
+    const word = searchInput.getInput();
     if (!word) {
         relatedSearchList.reset();
         relatedSearchList.hide();
@@ -98,13 +99,12 @@ const inputEventHandler = () => {
 };
 
 const updateRecentSearchList = () => {
-    const word = searchInput.getSearchWord();
+    const word = searchInput.getInput();
     searchInput.clearSearchInput();
     recentSearchList.addSearchWord(word);
 };
 
-const reRenderSearchList = (event) => {
-    event.preventDefault();
+const reRenderSearchList = () => {
     updateRecentSearchList();
     recentSearchList.renderSearchList();
 
@@ -118,12 +118,15 @@ const focusItem = (direction, searchList) => {
         direction === DIRECTION_UP
             ? searchList.focusPreviousItem()
             : searchList.focusNextItem();
-    searchInput.setInputWord(focusingItem);
+    searchInput.setInput(focusingItem);
 };
 
-const keyDownEventHandler = (event) => {
+const searchInputkeyDownEventHandler = (event) => {
+    event.stopPropagation();
+
     if (event.key === "Enter") {
-        reRenderSearchList(event);
+        event.preventDefault();
+        reRenderSearchList();
     }
 
     if (event.key === "ArrowDown") {
@@ -151,63 +154,62 @@ const clearRecentSearchList = () => {
 };
 
 const toggleRecord = ({ target }) => {
-    const recordOnBlock = document.querySelector(".record-on");
-    const recordOffBlock = document.querySelector(".record-off");
-
     if (recentSearchList.isRecording) {
         recordOnBlock.style.display = "none";
         recordOffBlock.style.display = "block";
-        target.innerText = "최근검색어켜기";
+        target.innerText = RECORD_ON;
     } else {
         recordOnBlock.style.display = "block";
         recordOffBlock.style.display = "none";
-        target.innerText = "최근검색어끄기";
+        target.innerText = RECORD_OFF;
     }
 
-    recentSearchList.isRecording = !recentSearchList.isRecording;
+    recentSearchList.toggleRecord();
 };
 
 const searchCategoryEventHandler = () => {
     if (searchCategory.isVisible) {
-        searchCategory.hideCategoryList();
+        searchCategory.hide();
     } else {
-        searchCategory.showCategoryList();
+        searchCategory.show();
     }
 };
 
 const hideLists = () => {
     recentSearchList.hide();
     relatedSearchList.hide();
-    searchCategory.hideCategoryList();
+    searchCategory.hide();
 };
 
-const searchListItemEventHandler = ({ target }) => {
+const searchCategoryListItemEventHandler = ({ target }) => {
     if (target.classList.contains("search__category-list--item")) {
-        searchCategory.changeSelectedCategory(target);
-        searchCategory.hideCategoryList();
+        searchCategory.changeCategory(target);
+        searchCategory.hide();
     }
 };
 
 const searchCategoryKeydownEventHandler = (event) => {
+    event.preventDefault();
+
     if (event.key === "ArrowDown") {
-        event.preventDefault();
         searchCategory.focusNextItem();
     }
 
     if (event.key === "ArrowUp") {
-        event.preventDefault();
         searchCategory.focusPreviousItem();
     }
 
     if (event.key === "Enter") {
-        searchCategory.hideCategoryList();
+        searchCategory.hide();
     }
 };
 
 const deleteRecentItem = (target) => {
     const listItem = target.closest(".search__list--item");
     const idx2Delete = listItem.dataset.idx;
+
     recentSearchList.searchItems.splice(idx2Delete, 1);
+
     if (idx2Delete === recentSearchList.curIdx.toString()) {
         recentSearchList.curIdx = -1;
         searchInput.clearSearchInput();
@@ -215,6 +217,7 @@ const deleteRecentItem = (target) => {
         recentSearchList.curIdx -= 1;
         recentSearchList.focusItem();
     }
+
     recentSearchList.renderSearchList();
 };
 
@@ -227,7 +230,8 @@ const recentSearchListClickEventHandler = (event) => {
     }
 
     if (target.classList.contains("search__list--item-text")) {
-        searchInput.setInputWord(target.closest(".search__list--item"));
+        const clickedItem = target.closest(".search__list--item");
+        searchInput.setInput(clickedItem);
     }
 };
 
@@ -249,7 +253,7 @@ const onSearchEvent = () => {
     );
     searchCategory.categoryList.addEventListener(
         "click",
-        searchListItemEventHandler
+        searchCategoryListItemEventHandler
     );
 
     searchInput.searchInputNode.addEventListener("focus", () => {
@@ -257,18 +261,16 @@ const onSearchEvent = () => {
     });
     searchInput.searchInputNode.addEventListener(
         "keydown",
-        keyDownEventHandler
+        searchInputkeyDownEventHandler
     );
     searchInput.searchInputNode.addEventListener("input", inputEventHandler);
 
     recentSearchList.searchListNode
         .querySelector(".clear-all")
         .addEventListener("click", clearRecentSearchList);
-
     recentSearchList.searchListNode
         .querySelector(".record-btn")
         .addEventListener("click", toggleRecord);
-
     recentSearchList.listContainer.addEventListener(
         "click",
         recentSearchListClickEventHandler

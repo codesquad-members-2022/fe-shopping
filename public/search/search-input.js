@@ -3,11 +3,11 @@ class SearchInput {
         this.searchInputNode = searchbar;
     }
 
-    getSearchWord() {
+    getInput() {
         return this.searchInputNode.value;
     }
 
-    setInputWord(item) {
+    setInput(item) {
         this.searchInputNode.value = item.dataset.name;
     }
 
