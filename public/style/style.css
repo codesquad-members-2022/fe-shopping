@@ -159,6 +159,7 @@ input:focus {
   flex-direction: row;
   width: 134px;
   border-right: #f0f0f0 1px solid;
+  cursor: pointer;
 }
 .search__category--contents img {
   width: 18px;
@@ -191,6 +192,7 @@ input:focus {
   align-items: center;
   height: 30px;
   padding-left: 13px;
+  cursor: pointer;
 }
 .search__form {
   display: flex;
@@ -287,6 +289,11 @@ input:focus {
 
 .hidden {
   visibility: hidden;
+  height: 0%;
+}
+
+.none {
+  display: none;
   height: 0%;
 }
 
