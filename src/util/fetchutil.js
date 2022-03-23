@@ -4,8 +4,10 @@ async function fetch_use(uri, callback) {
   return new callback(jsonData);
 }
 
-function fetchData(uri) {
-  return fetch(uri).then((data) => console.log(data));
+async function fetchData(uri) {
+  const data = await fetch(uri);
+  const jsonData = await data.json();
+  return jsonData;
 }
 
 export { fetch_use, fetchData };

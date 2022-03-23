@@ -6,18 +6,13 @@ class HeaderRoutes {
   }
 
   async setAutoCompleteData(uri) {
-    // const data = await fetchUtil.fetchData(uri); // 에러나면 await이랑 async 삭제해볼것 : fetchData 도 async함수임
-    // console.log(data);
-    console.log(uri);
-    fetch(encodeURIComponent(uri))
-      .then((data) => data.json())
-      .then((data) => console.log(data));
+    const data = await fetchUtil.fetchData(uri);
 
-    // if (this.isEmptyData(data)) {
-    //   return;
-    // }
+    if (this.isEmptyData(data)) {
+      return;
+    }
 
-    // this.dataDispatcher.searchInputData = data; // setter 호출
+    this.dataDispatcher.searchInputData = data; // setter 호출
   }
 
   async getMenuData(uri) {

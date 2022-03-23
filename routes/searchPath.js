@@ -7,7 +7,7 @@ router.get("/menu/toggle", (req, res) => {
 });
 
 router.get("/:keyWord", (req, res) => {
-  const keyWord = decodeURIComponent(req.params.keyWord);
+  const keyWord = req.params.keyWord;
   res.json(dataDisposer.findMatchData(keyWord));
 });
 

@@ -13,7 +13,7 @@ class SearchMenuEventHandler {
   }
 
   onClickEvent() {
-    const uri = "/menu/toggle";
+    const uri = "search/menu/toggle";
     this.router.getMenuData(uri);
   }
 }

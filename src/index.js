@@ -18,7 +18,7 @@ const INPUT = domUtil.$(".header__main--searchInput");
 const MENU = domUtil.$(".header__main--inputMenuButton");
 const SEARCH_INPUT_VIEW = new SearchInputView(".header__main--inputWrapper");
 const SEARCH_INPUT_MODEL = new SearchInputToggle();
-const SEARCH_MENU_VIEW = new SearchMenuView();
+const SEARCH_MENU_VIEW = new SearchMenuView(".header__main--inputMenuButton");
 const SEARCH_MENU_MODEL = new SearchMenuToggle();
 
 const HISTORY_MANAGER = new HeaderHistoryPatcher(
