@@ -23,11 +23,12 @@ export class RecentSearchModel {
     this.keywordList.push(keyword);
   }
 
-  createKeywordList() {
-    const localStorageIndice = Object.keys(this.storage);
-    let keywordList = localStorageIndice.map((storageIndex) => {
-      return this.storage[storageIndex];
-    });
+  updateKeywordList() {
+    const localStorageIndice = Object.keys(this.storage).sort();
+    const keywordList = localStorageIndice
+    .filter((storageIndex) => Number(storageIndex))
+    .map((storageIndex) => this.storage[storageIndex]);
+    console.log(keywordList);
     this.keywordList = keywordList;
   }
 }
