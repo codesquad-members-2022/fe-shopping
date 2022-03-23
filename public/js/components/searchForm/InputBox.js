@@ -9,6 +9,7 @@ class InputBox extends Component {
       value: '',
       searchHistory: SearchHistoryStore.getHistory() || [],
       timer: null,
+      isSaveHistoryOn: SearchHistoryStore.isSaveHistoryOn(),
     };
     SearchHistoryStore.subscribe('searchHistory', this);
   }
@@ -55,6 +56,7 @@ class InputBox extends Component {
     }
 
     if (!value && this.$state.searchHistory.length) {
+      this.$props.removeBottomWindow('.bottom-window');
       this.$props.renderBottomWindow('.bottom-window', {
         isSearchHistory: true,
       });
@@ -63,6 +65,7 @@ class InputBox extends Component {
 
     const autocompleteList = await getAutocompleteData(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${value}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`);
     if (autocompleteList) {
+      this.$props.removeBottomWindow('.bottom-window');
       this.$props.renderBottomWindow('.bottom-window', {
         isSearchHistory: false,
         windowList: this.highlight(value, autocompleteList),
@@ -74,7 +77,7 @@ class InputBox extends Component {
   highlight(value, keywordList) {
     return keywordList.map(keyword => {
       return {
-        item: keyword.item.replace(value, `<b>${value}</b>`),
+        item: keyword.item.replace(value, `<b class="highlight">${value}</b>`),
         link: keyword.link,
       };
     });

@@ -294,14 +294,20 @@ body {
   transition: all 250ms ease; }
   .bottom-window.open {
     visibility: visible;
+    min-height: 100px;
     max-height: 1500px; }
+    .bottom-window.open strong {
+      display: block;
+      height: 50px;
+      text-align: center;
+      line-height: 5; }
   .bottom-window .window-contents {
     padding: 10px; }
   .bottom-window .window-list {
     padding-top: 5px; }
     .bottom-window .window-list .list-item {
       margin-bottom: 15px; }
-      .bottom-window .window-list .list-item b {
+      .bottom-window .window-list .list-item .highlight {
         color: #008cff; }
       .bottom-window .window-list .list-item:is(:last-child) {
         margin-bottom: 5px; }

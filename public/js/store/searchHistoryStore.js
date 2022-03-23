@@ -7,6 +7,8 @@ class SearchHistoryStore extends Store {
 
   constructor() {
     super();
+    const isSaveHistoryOn = JSON.parse(localStorage.getItem('isSaveHistoryOn'));
+    this.setState('isSaveHistoryOn', isSaveHistoryOn === null ? true : isSaveHistoryOn);
     this.setState(this.#key, JSON.parse(localStorage.getItem(this.#key)) || []);
   }
 
@@ -26,6 +28,15 @@ class SearchHistoryStore extends Store {
   clearHistory() {
     localStorage.removeItem(this.#key);
     this.clearState(this.#key);
+  }
+
+  isSaveHistoryOn() {
+    return this.getState('isSaveHistoryOn');
+  }
+
+  toggleSaveHistory() {
+    localStorage.setItem('isSaveHistoryOn', JSON.stringify(!this.getState('isSaveHistoryOn')));
+    this.setState('isSaveHistoryOn', !this.getState('isSaveHistoryOn'));
   }
 }
 

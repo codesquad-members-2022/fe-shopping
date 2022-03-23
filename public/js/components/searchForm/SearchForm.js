@@ -7,6 +7,13 @@ import { abortController } from '../api/index.js';
 
 class SearchForm extends Component {
 
+  setup() {
+    this.$state = {
+      isSaveHistoryOn: SearchHistoryStore.isSaveHistoryOn(),
+    }
+    SearchHistoryStore.subscribe('isSaveHistoryOn', this);
+  }
+
   template() {
     return `<div class="select-box"></div>
             <div class="input-box"></div>`;
@@ -17,13 +24,18 @@ class SearchForm extends Component {
       event.preventDefault();
       abortController && abortController.abort();
       const input = event.target.querySelector('.input');
-      if (input.value) {
+      if (this.$state.isSaveHistoryOn && input.value) {
         SearchHistoryStore.addHistory({
           item: input.value,
           link: '#',
         });
-        input.value = '';
       }
+      else {
+        this.renderBottomWindow.call(this.$target.querySelector('.input-box'), '.bottom-window', {
+          isSearchHistory: true,
+        })
+      }
+      input.value = '';
     });
   }
 
@@ -42,14 +54,13 @@ class SearchForm extends Component {
   }
 
   renderBottomWindow(containerClass, props) {
-    const $container = this.querySelector(containerClass);
-    new BottomWindow($container, props);
+    if (!this.querySelector(containerClass)) this.insertAdjacentHTML('beforeend', `<div class="bottom-window"></div>`)
+    new BottomWindow(this.querySelector(containerClass), props);
   }
 
   removeBottomWindow(containerClass) {
     const $bottomWindow = this.querySelector(containerClass);
-    $bottomWindow.classList.remove('open');
-    $bottomWindow.innerHTML = '';
+    this.removeChild($bottomWindow);
   }
 }
 

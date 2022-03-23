@@ -332,7 +332,15 @@ body {
 
   &.open {
     visibility: visible;
+    min-height: 100px;
     max-height: 1500px;
+
+    strong {
+      display: block;
+      height: 50px;
+      text-align: center;
+      line-height: 5;
+    }
   }
 
   .window-contents {
@@ -345,7 +353,7 @@ body {
     .list-item {
       margin-bottom: 15px;
 
-      b {
+      .highlight {
         color: $text-highlight;
       }
 
