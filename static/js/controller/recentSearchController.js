@@ -9,21 +9,35 @@ export class RecentSearchController {
     this.$popupKeywords = document.querySelector('.popup-keywords');
   }
   
-  addInputFocusEvent () {
+  addInputFocusEvent() {
     this.$input.addEventListener('focus', () => {
       if (!this.recentSearchModel.isEmpty()) {
         this.$popupKeywords.classList.remove('hidden');
       }
       this.recentSearchModel.updateKeywordList();
-      this.recentSearchView.renderRecentSearch(this.recentSearchModel.keywordList);
+      const keywordList = this.recentSearchModel.keywordList;
+      const keywordIndexList = this.recentSearchModel.keywordIndexList;
+      this.recentSearchView.renderRecentSearch(keywordList, keywordIndexList);
     });
   }
 
-  addInputKeyDownEvent () {
+  addInputKeyDownEvent() {
     this.$input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         this.recentSearchModel.addKeyword(event.target.value);
         event.target.value = '';
+      }
+    });
+  }
+  addPopupKeywordsClickEvent() {
+    this.$popupKeywords.addEventListener('click', (event) => {
+      const $recentKeyword = event.target.closest('li');
+      if ($recentKeyword) {
+        const selectedKeywordIndex =  $recentKeyword.dataset.index;
+        this.recentSearchModel.deleteKeyword(selectedKeywordIndex);
+        const keywordList = this.recentSearchModel.keywordList;
+        const keywordIndexList = this.recentSearchModel.keywordIndexList;
+        this.recentSearchView.renderRecentSearch(keywordList, keywordIndexList);
       }
     });
   }

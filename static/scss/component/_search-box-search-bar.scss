@@ -23,15 +23,15 @@
     height: auto;
     padding: 10px;
     margin: 0 auto;
-    border: 1px solid $font-gray;
-    box-shadow: 0 2px 3px $font-gray;
+    border: 1px solid $color-gray;
+    box-shadow: 0 2px 3px $color-gray;
 
     .recent-search-text {
       position: relative;
       height: 11px;
       padding: 5px;
       margin: 6px;
-      border-bottom: 1px solid $font-gray;
+      border-bottom: 1px solid $color-gray;
       line-height: 0;
       font-size: 14px;
     }
@@ -39,11 +39,25 @@
     .recent-search-list {
       padding: 5px;
       margin: 6px;
+
+      li {
+        @include flexbox(space-between, center);
+        &:hover {
+          button {
+            visibility: visible;
+          }
+        }
+        button {
+          visibility: hidden;
+          border: 0;
+          background-color: $color-white;
+        }
+      }
     }
 
     .relative-keyword-list {
       strong {
-        color: $font-blue;
+        color: $color-blue;
       }
     }
   }

@@ -13,6 +13,7 @@ function init() {
   const relativeSearchController = new RelativeSearchController(keywordsData);
   recentSearchController.addInputFocusEvent();
   recentSearchController.addInputKeyDownEvent();
+  recentSearchController.addPopupKeywordsClickEvent();
   relativeSearchController.addInputKeyUpEvent();
   relativeSearchController.addInputKeyDownEvent();
 }
