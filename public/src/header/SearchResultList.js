@@ -9,7 +9,10 @@ export default class SearchResultList extends Toggler {
         this.listData = null;
         this.isTyping = false;
         this.recentKeywords = getLocalData()['recent'] || [];
-        this.relatedKeywords = ['아', '아이', '아이폰', '아이폰13', '아이폰 충전기'];
+        this.autoCompletionWords = {
+            inputValue: '',
+            words: []
+        };
     }
 
     createHTML() {
@@ -42,12 +45,13 @@ export default class SearchResultList extends Toggler {
             return;
         }
 
-        this.relatedKeywords = data;
+        this.autoCompletionWords = data;
+        this.setListData();
     }
 
     setListData() {
         const searchList = document.querySelector('.search__result--list');
-        let changedDate = this.isTyping ? this.relatedKeywords : this.recentKeywords;
-        searchList.innerHTML = changedDate.reduce((text, keyword) => text += `<li class="search__result--item">${keyword}</li>`, '');
+        const changedDate = this.isTyping ? this.autoCompletionWords.words : this.recentKeywords;
+        searchList.innerHTML = changedDate.reduce((text, data) => text += `<li class="search__result--item">${text}</li>`, '');
     }
 }

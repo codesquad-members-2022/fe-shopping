@@ -1,6 +1,9 @@
 import {
     addLocalData
 } from "../util/localStorage.js";
+import {
+    fetchAutoCompletionWord
+} from "../util/utils.js";
 
 export default class SearchController {
     constructor($parent, resultList) {
@@ -35,6 +38,7 @@ export default class SearchController {
         this.setFocusEvent();
         this.setSubmitEvent();
         this.setKeyEvent();
+        this.setInputEvent();
     }
 
     setFocusEvent() {
@@ -50,6 +54,20 @@ export default class SearchController {
     setKeyEvent() {
         const inputTextForm = document.querySelector('.search__form--input');
         inputTextForm.addEventListener('keydown', this.handleKeyDownEvent.bind(this));
+    }
+
+    setInputEvent() {
+        const inputTextForm = document.querySelector('.search__form--input');
+        inputTextForm.addEventListener('input', this.handleInputEvent);
+    }
+
+    handleInputEvent = async (event) => {
+        const inputValue = event.target.value;
+        const fetchedData = await fetchAutoCompletionWord(inputValue);
+        this.resultList.updateData('complete', {
+            inputValue: inputValue,
+            words: fetchedData
+        });
     }
 
     handleFocusInEvent(event) {
