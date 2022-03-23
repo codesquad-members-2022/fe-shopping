@@ -4,6 +4,7 @@ import {
   intervalDelay,
   findRefinedData,
   drawListFromData,
+  addHighlight,
 } from "./util";
 import { inputDelayTime } from "./constant";
 import { async } from "regenerator-runtime";
@@ -26,13 +27,9 @@ class KeyupEvent {
     }
   };
 
-  addHighlight = (value) => {
-    return "<span class='highlight'>" + value + "</span>";
-  };
-
   highlightValueInList = (innerList, value) => {
     const regex = new RegExp(value, "g");
-    return innerList.replace(regex, this.addHighlight(value));
+    return innerList.replace(regex, addHighlight(value));
   };
 
   changeRelativeList = (refinedData, value) => {

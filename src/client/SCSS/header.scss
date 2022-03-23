@@ -53,7 +53,7 @@ header {
   .categories-list {
     @include hiddenBox;
     ul {
-      height: 22rem;
+      height: 21rem;
       border-left: solid $border-main $gray;
       padding: 0.3rem;
       li {

@@ -1,4 +1,7 @@
-import { selector, drawListFromData } from "./util";
+import { selector, drawListFromData, intervalDelay } from "./util";
+import { showDelayTime } from "./constant";
+
+const showListDelay = new intervalDelay(showDelayTime);
 
 class MouseEvent {
   constructor(target, transformer, data) {
@@ -68,13 +71,14 @@ class MouseEvent {
     target.classList.toggle("selected");
   };
 
-  handleShowListEvent = (target) => {
+  handleShowListEvent = async (target) => {
+    await showListDelay.waitDelay();
     this.assignCategory(target);
-    return this.showChildList(target);
+    this.showChildList(target);
   };
 
   handleShowEvent = ({ target: { tagName }, target }) => {
-    if (tagName === "LI") this.handleShowListEvent(target);
+    if (tagName === "LI") return this.handleShowListEvent(target);
     this.transformer.classList.remove("hidden");
   };
 

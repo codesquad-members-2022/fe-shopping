@@ -12,6 +12,14 @@ const isHidden = (target) => {
   return target.classList.contains("hidden");
 };
 
+const addHighlight = (value) => {
+  return "<span class='highlight'>" + value + "</span>";
+};
+
+const drawListFromData = (data) => {
+  return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
+};
+
 const findRefinedData = async (address, value = "") => {
   const dataAddress = `data/${address}`;
   const data = await fetch(dataAddress, {
@@ -23,10 +31,6 @@ const findRefinedData = async (address, value = "") => {
   });
   const refinedData = await data.json();
   return refinedData;
-};
-
-const drawListFromData = (data) => {
-  return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
 };
 
 const delay = ({ time, signal = null, data }) =>
@@ -61,4 +65,5 @@ export {
   intervalDelay,
   isHidden,
   drawListFromData,
+  addHighlight,
 };
