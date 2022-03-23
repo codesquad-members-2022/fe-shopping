@@ -1,4 +1,5 @@
 import { SearchList } from "./search-list.js";
+import { RecentSearchList } from "./recent-search-list.js";
 import { SearchInput } from "./search-input.js";
 import { SearchCategory } from "./search-category.js";
 
@@ -22,7 +23,7 @@ const DIRECTION_DOWN = "down";
 
 const searchInput = new SearchInput(searchbar);
 
-const recentSearchList = new SearchList(
+const recentSearchList = new RecentSearchList(
     searchRecentList,
     searchRecentListContainer
 );

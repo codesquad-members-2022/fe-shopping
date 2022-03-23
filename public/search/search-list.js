@@ -7,7 +7,6 @@ class SearchList {
         this.searchItems = [];
         this.isVisible = false;
         this.curIdx = -1;
-        this.isRecording = true;
     }
 
     show() {
@@ -23,16 +22,6 @@ class SearchList {
 
     reset() {
         this.searchItems = [];
-    }
-
-    addSearchWord(word) {
-        if (this.isRecording) {
-            this.searchItems.unshift(word);
-            if (this.searchItems.length > this.MAX_ITEM) {
-                this.searchItems = this.searchItems.slice(0, this.MAX_ITEM);
-            }
-        }
-        this.curIdx = -1;
     }
 
     getItemText(itemName, input) {
