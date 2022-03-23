@@ -36,13 +36,13 @@ const handleCategoriesEvent = async (target, tranformer) => {
   categoriesMouse.getListMarkEvent();
 };
 
-const init = () => {
+const init = async () => {
   handleSearchBoxEvent(centerSearchInput, centerRelativeInfo);
   handleCenterFilterEvent(
     centerFilter,
     centerFilterList,
     centerFilterParentName
   );
-  handleCategoriesEvent(categoriesBtn, categoriesList);
+  await handleCategoriesEvent(categoriesBtn, categoriesList);
 };
 init();

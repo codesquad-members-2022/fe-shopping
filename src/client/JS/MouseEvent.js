@@ -83,6 +83,7 @@ class MouseEvent {
   };
 
   handleHideEvent = () => {
+    if (showListDelay.delayController) showListDelay.abortDelay();
     this.hideChildList();
     this.transformer.classList.add("hidden");
   };
