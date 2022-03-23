@@ -1,5 +1,6 @@
 import Toggler from "../components/Toggler.js";
 import {
+    clearLocalData,
     getLocalData
 } from "../util/localStorage.js";
 
@@ -77,6 +78,7 @@ export default class SearchResultList extends Toggler {
     }
 
     toggleContents() {
+        this.close();
         const recentTitle = document.querySelector('.search__result--title');
         const recentButtons = document.querySelector('.search__button');
         recentTitle.classList.toggle('none');
@@ -107,7 +109,7 @@ export default class SearchResultList extends Toggler {
             text = text.replace(new RegExp(replaceText, 'i'), `<strong>${replaceText}</strong>`);
         }
 
-        const itemHTML = `<li class="search__result--item">${text}</li>`;
+        const itemHTML = `<li class="search__result--item"><a href="#">${text}</a></li>`;
         return itemHTML;
     }
 }

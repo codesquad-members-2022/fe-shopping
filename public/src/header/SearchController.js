@@ -59,22 +59,48 @@ export default class SearchController {
     }
 
     handleInputEvent = (event) => {
-        this.fetchTimer.debounceTimer(this.fetchDelay, async () => {
-            const inputValue = event.target.value;
-            const fetchedData = await fetchAutoCompletionWord(inputValue);
-            this.resultList.updateData('complete', {
-                inputValue: inputValue,
-                words: fetchedData
-            });
+        const inputValue = event.target.value;
+
+        if (!this.resultList.isTyping) {
+            this.resultList.toggleContents();
+        }
+
+        if (inputValue === '') {
+            this.resultList.toggleContents();
+        }
+
+        this.resultList.open();
+        this.fetchTimer.debounceTimer(this.fetchDelay, () => this.fetchInputValue(inputValue));
+    }
+
+    fetchInputValue = async (inputValue) => {
+        const fetchedData = await fetchAutoCompletionWord(inputValue);
+        this.resultList.updateData('complete', {
+            inputValue: inputValue,
+            words: fetchedData
         });
+
+        if (!fetchedData === '') {
+            this.resultList.close();
+        } else {
+            this.resultList.open();
+        }
     }
 
     handleFocusInEvent(event) {
-        this.resultList.toggle();
+        this.resultList.open();
     }
 
     handleFocusOutEvent(event) {
-        this.resultList.toggle();
+        if (event.relatedTarget !== null) {
+            return;
+        }
+
+        if (event.target.value === '' && this.resultList.isTyping) {
+            this.resultList.toggleContents();
+        }
+
+        this.resultList.close();
     }
 
     handleSubmitEvent(event) {
@@ -85,9 +111,8 @@ export default class SearchController {
         if (inputText === '') return;
 
         $textInput.value = '';
-
         addLocalData('recent', [inputText]);
         this.resultList.updateData('recent');
-        this.resultList.toggleState();
+        this.resultList.toggleContents();
     }
 }
