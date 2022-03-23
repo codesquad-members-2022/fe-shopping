@@ -104,7 +104,7 @@ export class SearchController {
     }
 
     formSubmitHandler(e) {
-        e.preventDefault()
+        // e.preventDefault()
 
         if(!this.originInputValue || this.originInputValue.length === 0) return
 
@@ -255,17 +255,16 @@ export class SearchController {
             .then((prefixList) => this.openPrefixList(prefixList, word))
     }
 
-    openPrefixList(prefixArr, word) {
-        prefixArr.length === 0? this.addVisibilityHidden(this.$prefixList) : this.removeVisibilityHidden(this.$prefixList);
-        const parsedPrefixList = this.getParsedPrefixListForHighlight(prefixArr, word)
-        renderPrefixList(this.$prefixList, parsedPrefixList)
+    openPrefixList(prefixList, word) {
+        prefixList.length === 0? this.addVisibilityHidden(this.$prefixList) : this.removeVisibilityHidden(this.$prefixList);
+        const highlightPrefixList = this.getPrefixListForHighlight(prefixList, word)
+        renderPrefixList(this.$prefixList, highlightPrefixList)
         this.setPrefixListElements()
         this.prefixListState = true
     }
 
-    getParsedPrefixListForHighlight(prefixList, word) {
-        const highlightLength = word.trim().length
-        return prefixList.map((fullWord) => [fullWord.slice(0, highlightLength), fullWord.slice(highlightLength)] )
+    getPrefixListForHighlight(prefixList, word) {
+        return prefixList.map(fullWord => fullWord.replace(word, `<strong>${word}</strong>`))
     }
 
     debounce(delayTime) {

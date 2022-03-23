@@ -20,9 +20,9 @@ function createList(listArray) {
     }, ``)
 }
 
-function createStrongList(listArray) {
+function createIndexList(listArray) {
     return listArray.reduce((acc, cur, idx) => {
-        return acc + `<li data-index="${idx}"><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
+        return acc + `<li data-index="${idx}"><a>${cur}</a></li>`}, ``)
 }
 
 function createHeader(navMenu) {
@@ -106,6 +106,6 @@ function createHistoryOff() {
 }
 
 export { createList, createTopBar, createSelectList, createHeader,
-    createPrefixListContainer, createStrongList, createSearchHistoryContainer,
+    createPrefixListContainer, createIndexList, createSearchHistoryContainer,
     createHistoryList, createHistoryOff }
 

@@ -49,7 +49,7 @@ function renderPrefixListContainer(elem) {
 }
 
 function renderPrefixList(elem, prefixListArray) {
-    const prefixListTemplate = Templates.createStrongList(prefixListArray)
+    const prefixListTemplate = Templates.createIndexList(prefixListArray)
     elem.innerHTML = prefixListTemplate
 }
 
