@@ -10,10 +10,12 @@ export default class {
     this.curSelectedIdx = -1;
   }
 
+  /* done */
   findElementFromArea(selector) {
     return this.searchFormArea.querySelector(selector);
   }
 
+  /* done */
   setSearchFormElements() {
     this.form = this.findElementFromArea(".search-form");
     this.inputEl = this.findElementFromArea(".search-input");
@@ -184,6 +186,7 @@ export default class {
     this.fillSuggestSearchWords(jsonData, searchWord);
   }
 
+  /* done */
   hideSearchAreaDropDown() {
     this.initSelectedIdx();
     this.setDisplayNone(this.searchAreaDropDown);
@@ -272,6 +275,7 @@ export default class {
     return idx - 1;
   }
 
+  /* done */
   computeIdx(key) {
     const vaildIdxNum = 0;
     const firstIdx = 0;
@@ -302,6 +306,7 @@ export default class {
     }
   }
 
+  /* done */
   initSelectedIdx() {
     const initialIdx = -1;
     this.curSelectedIdx = initialIdx;
@@ -317,6 +322,7 @@ export default class {
     });
   }
 
+  /* done */
   moveUsingArrowKey(key) {
     if (!this.itemsCount) return;
 
@@ -325,6 +331,7 @@ export default class {
     this.inputSelectedWord();
   }
 
+  /* done */
   inputSelectedWord() {
     const selectedWord = $(`[data-idx="${this.curSelectedIdx}"]`).innerText;
     this.inputEl.value = selectedWord;
