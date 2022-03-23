@@ -7,7 +7,7 @@
 .header {
   display: flex;
 
-  &-gnb-logo {
+  &-gnb {
     background-color: $white;
     color: $white;
     height: 115px;
@@ -24,6 +24,10 @@
       cursor: pointer;
       top: 65%;
     }
+  }
+
+  &-left {
+    position: relative;
   }
 
   &-right {

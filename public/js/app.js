@@ -23,6 +23,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const smartMenuController = new SmartMenuController();
   smartMenuController.init();
-
-  smartMenuController.tempFetch();
 });

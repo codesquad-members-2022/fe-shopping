@@ -184,21 +184,24 @@ table {
 .header {
   display: flex;
 }
-.header-gnb-logo {
+.header-gnb {
   background-color: #fff;
   color: #fff;
   height: 115px;
   position: relative;
   width: 110px;
 }
-.header-gnb-logo__link {
+.header-gnb__link {
   cursor: default;
   display: block;
 }
-.header-gnb-logo__text {
+.header-gnb__text {
   color: #fff;
   cursor: pointer;
   top: 65%;
+}
+.header-left {
+  position: relative;
 }
 .header-right {
   margin-left: 40px;
@@ -452,6 +455,71 @@ table {
   font-size: 14px;
   color: #4285f4;
   font-weight: bold;
+}
+
+.btn {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+
+.absolute-width-center {
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.header-lnb {
+  font-size: 12px;
+  position: absolute;
+  top: 115px;
+  z-index: 999999999;
+  background-color: #fff;
+}
+
+.header-lnb-first__list {
+  border: 1px solid #ddd;
+  height: 550px;
+  width: 165px;
+}
+.header-lnb-first__link {
+  display: block;
+  padding: 10px 8px;
+  text-align: center;
+}
+.header-lnb-first__link:hover {
+  color: #9cf;
+  text-decoration: underline;
+}
+.header-lnb-first__hr {
+  background-color: #ddd;
+  border: 0;
+  height: 1px;
+  margin: 0;
+}
+
+.header-lnb-second__list {
+  border: 1px solid #ddd;
+  height: 550px;
+  left: 165px;
+  position: absolute;
+  top: 0;
+  width: 165px;
+  background-color: #fff;
+}
+.header-lnb-second__item {
+  padding: 10px 8px;
+  text-align: center;
+}
+.header-lnb-second__link {
+  display: block;
+}
+.header-lnb-second__link:hover {
+  color: #9cf;
+  text-decoration: underline;
+}
+.header-lnb-second__hr {
+  margin: 0;
 }
 
 .container {

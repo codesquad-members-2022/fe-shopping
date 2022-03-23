@@ -2,10 +2,10 @@
   "data": [
     {
       "keyword": "패션의류/잡화",
-      "fashion": [
+      "kind": [
         {
           "keyword": "여성패션",
-          "woman": [
+          "kind": [
             {
               "keyword": "의류"
             },
@@ -22,7 +22,7 @@
         },
         {
           "keyword": "남성패션",
-          "man": [
+          "kind": [
             {
               "keyword": "의류"
             },
@@ -39,7 +39,7 @@
         },
         {
           "keyword": "남녀 공용 의류",
-          "all": [
+          "kind": [
             {
               "keyword": "티셔츠"
             },
@@ -74,7 +74,7 @@
         },
         {
           "keyword": "유아동패션",
-          "child": [
+          "kind": [
             {
               "keyword": "베이비"
             },
@@ -90,13 +90,13 @@
     },
     {
       "keyword": "뷰티",
-      "beauty": [
+      "kind": [
         {
           "keyword": "명품뷰티"
         },
         {
           "keyword": "스킨케어",
-          "skin": [
+          "kind": [
             {
               "keyword": "스킨"
             },
@@ -128,7 +128,7 @@
         },
         {
           "keyword": "클렌징/필링",
-          "cleansing": [
+          "kind": [
             {
               "keyword": "클렌징 폼"
             },
@@ -166,7 +166,7 @@
         },
         {
           "keyword": "메이크업",
-          "makeup": [
+          "kind": [
             {
               "keyword": "아이 메이크업"
             },
@@ -189,7 +189,7 @@
         },
         {
           "keyword": "향수",
-          "perfume": [
+          "kind": [
             {
               "keyword": "여성향수"
             },
@@ -203,7 +203,7 @@
         },
         {
           "keyword": "남성화장품",
-          "man": [
+          "kind": [
             {
               "keyword": "남성스킨케어"
             },
@@ -226,7 +226,7 @@
         },
         {
           "keyword": "네일",
-          "nail": [
+          "kind": [
             {
               "keyword": "네일팁/스티커"
             },
@@ -252,7 +252,7 @@
         },
         {
           "keyword": "뷰티소품",
-          "beautyprop": [
+          "kind": [
             {
               "keyword": "화장솜/면봉"
             },
@@ -278,7 +278,7 @@
         },
         {
           "keyword": "어린이화장품",
-          "child": [
+          "kind": [
             {
               "keyword": "메이크업"
             },
@@ -298,7 +298,7 @@
         },
         {
           "keyword": "헤어",
-          "hair": [
+          "kind": [
             {
               "keyword": "샴푸"
             },
@@ -324,7 +324,7 @@
         },
         {
           "keyword": "바디",
-          "body": [
+          "kind": [
             {
               "keyword": "샤워/입욕용품"
             },
@@ -341,7 +341,7 @@
         },
         {
           "keyword": "선물세트/키트",
-          "present": [
+          "kind": [
             {
               "keyword": "선물세트"
             },
