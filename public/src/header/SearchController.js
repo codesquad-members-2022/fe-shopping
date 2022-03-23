@@ -40,7 +40,6 @@ export default class SearchController {
         this.setTarget();
         this.setFocusEvent();
         this.setSubmitEvent();
-        this.setKeyEvent();
         this.setInputEvent();
     }
 
@@ -52,11 +51,6 @@ export default class SearchController {
 
     setSubmitEvent() {
         this.$target.addEventListener('submit', this.handleSubmitEvent.bind(this));
-    }
-
-    setKeyEvent() {
-        const inputTextForm = document.querySelector('.search__form--input');
-        inputTextForm.addEventListener('keydown', this.handleKeyDownEvent.bind(this));
     }
 
     setInputEvent() {
@@ -95,12 +89,5 @@ export default class SearchController {
         addLocalData('recent', [inputText]);
         this.resultList.updateData('recent');
         this.resultList.toggleState();
-    }
-
-    handleKeyDownEvent(event) {
-        if (!this.resultList.isTyping) {
-            this.resultList.toggleState();
-            return;
-        }
     }
 }
