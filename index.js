@@ -17,9 +17,6 @@ category.onClickSearchCategory({
   handleClickSearchCatgory,
 });
 categoriesDropBox.appendElement({ data: searchCategories, appendDropBox });
-categoriesDropBox.onClickSearchCategory({
-  showDropBox,
-});
 
 const searchBar = new SearchBar();
 const searchBarDropBox = new SearchBarDropBox();
@@ -83,7 +80,6 @@ function handleChangeInput() {
       keywordData = inputData[word].map(({ keyword }) => keyword);
     }
 
-    console.log(keywordData);
     inputDropBox?.$search__word__dropbox?.remove(); // Todo: dom추가/제거 방식이 아닌 데이터 바꿀때 리렌더링되도록 개선할 수 있을까?
 
     if (!keywordData) {
@@ -136,45 +132,32 @@ function appendDropBox(data) {
   categoriesDropBox.setState(data);
 }
 
-function showDropBox() {
+function handleClickSearchCatgory() {
   document.addEventListener("click", ({ target }) => {
-    const { visibility } =
-      categoriesDropBox.$search__categories__container.style;
-
+    const visibility =
+      categoriesDropBox.$search__categories__container?.style.visibility;
     const $search__category = targetQuerySelector({
       className: "search__category",
     });
 
     if (visibility === "visible") {
-      return;
-    }
+      categoriesDropBox.$search__categories__container.style.visibility =
+        "hidden";
 
-    if (
+      const $currentCategory = target.closest("li");
+      const selectedCategoryText = $currentCategory.textContent;
+      const isInCategoryDropBox =
+        $currentCategory?.parentNode ===
+        categoriesDropBox.$search__categories__container;
+
+      isInCategoryDropBox && category.setState(selectedCategoryText || "전체");
+    } else if (
       target === $search__category ||
       target === category.$selected__category
     ) {
       categoriesDropBox.$search__categories__container.style.visibility =
         "visible";
     }
-  });
-}
-
-function handleClickSearchCatgory() {
-  document.addEventListener("click", ({ target }) => {
-    const visibility = categoriesDropBox.style?.visibility;
-    if (visibility !== "visible") {
-      return;
-    }
-
-    categoriesDropBox.style.visibility = "hidden";
-    const $currentCategory = target.closest("li");
-
-    if ($currentCategory?.parentNode !== categoriesDropBox) {
-      return;
-    }
-
-    const selectedCategoryText = $currentCategory.textContent;
-    category.setState(selectedCategoryText || "전체");
   });
 }
 

@@ -10,10 +10,6 @@ class SearchCategoryDropBox extends Element {
     appendDropBox(data);
   }
 
-  onClickSearchCategory({ showDropBox }) {
-    showDropBox();
-  }
-
   render() {
     this.$search__categories__container.style.visibility = "hidden";
   }
