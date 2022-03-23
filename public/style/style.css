@@ -240,6 +240,7 @@ input:focus {
 }
 .search__result--item {
   padding-top: 15px;
+  cursor: pointer;
 }
 .search__result--item strong {
   color: #008CFF;
@@ -257,6 +258,7 @@ input:focus {
   color: #929191;
   padding: 0px 10px;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .gnb {
