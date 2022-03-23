@@ -2,7 +2,6 @@ export class SearchBar {
   constructor() {
     this.$searchWrap = document.querySelector('.header__search-wrap');
     this.$searchInput = this.$searchWrap.querySelector('.search-input');
-    this.status = this.$searchInput.value;
   }
 
   connect(recentSearchKeywords, automaticCompletion) {
@@ -12,14 +11,13 @@ export class SearchBar {
 
   addSearchValueSubmitEvent() {
     this.$searchWrap.querySelector('form').addEventListener('submit', e => {
-      this.status = this.$searchInput.value;
-      this.recentSearchKeywords.saveRecentSearchKeyword(this.status);
+      this.recentSearchKeywords.saveRecentSearchKeyword(this.$searchInput.value);
     });
   }
 
   addSearchInputFocusEvent() {
     this.$searchInput.addEventListener('focus', () => {
-      if (this.status) return;
+      if (this.$searchInput.value) return;
       this.recentSearchKeywords.showRecentKeywords();
     });
   }
@@ -28,10 +26,10 @@ export class SearchBar {
     this.$searchInput.addEventListener('input', async event => {
       const key = event.key || event.keyCode;
       if (['ArrowDown', 'ArrowUp'].includes(key)) return;
-      this.status = this.$searchInput.value;
-      if (this.status) {
+      const searchValue = this.$searchInput.value;
+      if (searchValue) {
         this.recentSearchKeywords.hide();
-        this.automaticCompletion.render(this.status);
+        this.automaticCompletion.render(searchValue);
       } else {
         this.automaticCompletion.hide();
         this.recentSearchKeywords.showRecentKeywords();
@@ -56,8 +54,9 @@ export class SearchBar {
 
   moveActivePointerToUp(wordsInSearchPop, searchPopInfo) {
     this.inactivateWordInSearchPop(wordsInSearchPop, searchPopInfo.currentIndex);
-    --searchPopInfo.currentIndex;
-    if (!this.isPointerOnSearchPop(searchPopInfo.currentIndex)) this.$searchInput.value = searchPopInfo.previousValue;
+    this.isPointerOnSearchPop(searchPopInfo.currentIndex)
+      ? --searchPopInfo.currentIndex
+      : (this.$searchInput.value = searchPopInfo.previousValue);
     this.updateSearchValue(wordsInSearchPop, searchPopInfo.currentIndex);
   }
 
