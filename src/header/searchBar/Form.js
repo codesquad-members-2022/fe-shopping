@@ -30,9 +30,6 @@ const ROTATION_LIST = 'rotation-list';
 const SELECTED = 'is-selected';
 const ROTATION_KEYWORD = 'rotation-keyword';
 
-const autoCompleteDelay = 500;
-const popupboxDelay = 500;
-
 export class SearchBarForm {
   constructor() {
     this.$form = selector(`.${FORM}`);
@@ -43,12 +40,13 @@ export class SearchBarForm {
     this.initialInputKeyword = '';
     this.history = this.initHistory();
     this.autoComplete = this.initAutoComplete();
-    this.autoCompleteDelay = autoCompleteDelay;
-    this.popupboxDelay = popupboxDelay;
     this.keywordRotationDelay = 0;
   }
 
   init() {
+    const autoCompleteDelay = 500;
+    const popupboxDelay = 500;
+
     this.$input.addEventListener('mousedown', () => {
       removeClass(HIDDEN, this.$popupBox);
     });
@@ -56,12 +54,12 @@ export class SearchBarForm {
     this.$form.addEventListener('submit', this.handleSubmit);
     this.$input.addEventListener(
       'keyup',
-      debounce(this.handleKeyup, this.autoCompleteDelay)
+      debounce(this.handleKeyup, autoCompleteDelay)
     );
 
     this.$input.addEventListener(
       'keyup',
-      debounce(this.setPopupbox, this.popupboxDelay)
+      debounce(this.setPopupbox, popupboxDelay)
     );
 
     this.$input.addEventListener(
@@ -187,12 +185,7 @@ export class SearchBarForm {
   }
 
   isKeyCodeArrow(code) {
-    if (
-      code === 'ArrowUp' ||
-      code === 'ArrowDown' ||
-      code === 'ArrowLeft' ||
-      code === 'ArrowRight'
-    )
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code))
       return true;
     return false;
   }
