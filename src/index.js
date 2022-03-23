@@ -1,9 +1,9 @@
 import { SearchCategoryController } from "./controller/header/search-category-controller.js";
 import { SearchInputController } from "./controller/header/search-input-controller.js";
-import { HeaderMain } from "./model/header/header-main.js";
-import { SearchInput } from "./model/header/search-input.js";
-import { SearchCategory } from "./model/header/search.-category.js";
-import { TopBar } from "./model/header/topbar.js";
+import { HeaderMain } from "./view/header/header-main.js";
+import { SearchInput } from "./view/header/search-input.js";
+import { SearchCategory } from "./view/header/search.-category.js";
+import { TopBar } from "./view/header/topbar.js";
 
 const topbar = new TopBar();
 const headerMain = new HeaderMain();

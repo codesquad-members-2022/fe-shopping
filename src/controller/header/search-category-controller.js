@@ -6,59 +6,51 @@ export class SearchCategoryController {
     this.$selectCategory = document.querySelector(".select-category");
     this.dropdownToggle = false;
   }
-  static toggle = false;
+
+  categoryDropdownHandler(argArr) {
+    argArr.forEach((v) => v.classList.toggle("is-opened"));
+    if (this.dropdownToggle) {
+      this.dropdownToggle = false;
+      return;
+    } else {
+      this.dropdownToggle = true;
+    }
+  }
+
+  textContentHandler(e, tagname, changed) {
+    if (e.target.tagName === tagname) {
+      changed.textContent = e.target.textContent;
+    }
+  }
+
+  otherClickHandler(e, argArr) {
+    if (e.target.parentNode.className !== "select-category-wrap is-opened") {
+      if (this.dropdownToggle) {
+        argArr.forEach((v) => v.classList.remove("is-opened"));
+        this.dropdownToggle = false;
+      }
+    }
+  }
+
   addEvents() {
     this.$selectCategoryWrap.addEventListener("click", () =>
-      categoryDropdownHandler(
-        [
-          this.$selectCategoryWrap,
-          this.$selectToggle,
-          this.$selectCategoryList,
-        ],
-        "is-opened"
-      )
+      this.categoryDropdownHandler([
+        this.$selectCategoryWrap,
+        this.$selectToggle,
+        this.$selectCategoryList,
+      ])
     );
 
     this.$selectCategoryList.addEventListener("click", (e) =>
-      textContentHandler(e, "LI", this.$selectCategory)
+      this.textContentHandler(e, "LI", this.$selectCategory)
     );
 
     document.addEventListener("click", (e) =>
-      otherClickHandler(
-        e,
-        "select-category-wrap is-opened",
-        [
-          this.$selectCategoryWrap,
-          this.$selectToggle,
-          this.$selectCategoryList,
-        ],
-        "is-opened"
-      )
+      this.otherClickHandler(e, [
+        this.$selectCategoryWrap,
+        this.$selectToggle,
+        this.$selectCategoryList,
+      ])
     );
   }
 }
-
-const categoryDropdownHandler = (argArr, toggleClassName) => {
-  argArr.forEach((v) => v.classList.toggle(toggleClassName));
-  if (SearchCategoryController.toggle) {
-    SearchCategoryController.toggle = false;
-    return;
-  } else {
-    SearchCategoryController.toggle = true;
-  }
-};
-
-const textContentHandler = (e, tagname, changed) => {
-  if (e.target.tagName === tagname) {
-    changed.textContent = e.target.textContent;
-  }
-};
-
-const otherClickHandler = (e, matchedClassName, argArr, toggleClassName) => {
-  if (e.target.parentNode.className !== matchedClassName) {
-    if (SearchCategoryController.toggle) {
-      argArr.forEach((v) => v.classList.toggle(toggleClassName));
-      SearchCategoryController.toggle = false;
-    }
-  }
-};
