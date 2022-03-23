@@ -27,6 +27,15 @@ export default class {
     this.listItemsCnt = data.length;
   }
 
+  getElFromArea(selector) {
+    return this.$searchFormArea.querySelector(selector);
+  }
+
+  clearInput() {
+    this.$form.reset();
+  }
+
+  /* CREATE ELEMENTS */
   createDropdownInner() {
     this.$dropdown.innerHTML = `
     <div class="inner">
@@ -44,6 +53,7 @@ export default class {
     dropDownList.innerHTML = "";
   }
 
+  /* SHOW, HIDE ELEMENT */
   showDropdown() {
     this.createDropdownInner();
     this.fillDropdownList();
@@ -54,11 +64,6 @@ export default class {
     this.initSelectedIdx();
     setDisplayNone(this.$dropdown);
   }
-
-  getElFromArea(selector) {
-    return this.$searchFormArea.querySelector(selector);
-  }
-
   /* FOCUS EVENT */
 
   onFocus() {
@@ -180,6 +185,7 @@ export default class {
     const keyName = "recent-search";
     const inputTxt = this.$input.value;
     this.storeItemLocalStorage(keyName, inputTxt);
+    this.clearInput();
   }
 
   onSubmit() {

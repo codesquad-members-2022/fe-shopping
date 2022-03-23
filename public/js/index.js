@@ -2,8 +2,9 @@ import { $ } from "./util/util.js";
 import { sliderData } from "../data/data.js";
 import MainBanner from "./view/MainBanner.js";
 // import SearchForm from "./view/SearchForm.js";
-import SearchForm from "./component/SearchForm.js";
+// import SearchForm from "./component/SearchForm.js";
 import LocalStorage from "./model/LocalStorage.js";
+import RecentSearchView from "./view/RecentSearchView.js";
 
 const mainBanner = new MainBanner({
   data: sliderData,
@@ -22,11 +23,21 @@ const mainBanner = new MainBanner({
 //   },
 // });
 
-const searchForm = new SearchForm({
+const args = {
   searchFormArea: $(".search-form-area"),
   datasetName: "idx",
-  localStorage: new LocalStorage(10),
-});
+  localStorage: new LocalStorage({ dataSizeLimit: 10 }),
+};
 
-searchForm.init();
+const recentSearchView = new RecentSearchView(args);
+
+// const searchForm = new SearchForm({
+//   searchFormArea: $(".search-form-area"),
+//   datasetName: "idx",
+//   localStorage: new LocalStorage({ dataSizeLimit: 10}),
+// });
+
+// searchForm.init();
+recentSearchView.init();
+
 mainBanner.init();

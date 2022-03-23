@@ -3,13 +3,14 @@ import { sortAsc } from "../util/util.js";
 
 export default class extends SearchForm {
   constructor(...args) {
-    this.super(...args);
+    super(...args);
   }
 
   // view 모델 에서 해야하는 일
   // set recentSearchData(data) {
-  //   this.showDropdown();
-  //   this.fillDropdownList(data);
+  //   console.log(data);
+  //   // this.showDropdown();
+  //   // this.fillDropdownList(data);
   // }
 
   createDropdownInner() {
