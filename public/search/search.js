@@ -209,9 +209,15 @@ const deleteRecentItem = (event) => {
 
     if (target.classList.contains("delete-btn")) {
         const listItem = target.closest(".search__list--item");
-        const idx = listItem.dataset.idx;
-        recentSearchList.searchItems.splice(idx, 1);
-        recentSearchList.curIdx = -1;
+        const idx2Delete = listItem.dataset.idx;
+        recentSearchList.searchItems.splice(idx2Delete, 1);
+        if (idx2Delete === recentSearchList.curIdx.toString()) {
+            recentSearchList.curIdx = -1;
+            searchInput.clearSearchInput();
+        } else if (idx2Delete < recentSearchList.curIdx.toString()) {
+            recentSearchList.curIdx -= 1;
+            recentSearchList.focusItem();
+        }
         recentSearchList.renderSearchList();
     }
 };

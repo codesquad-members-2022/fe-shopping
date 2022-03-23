@@ -67,10 +67,7 @@ class SearchList {
             ""
         );
         this.listContainer.innerHTML = searchList;
-
-        if (this.curIdx !== -1) {
-            this.focusItem();
-        }
+        this.focusItem();
     }
 
     focusItem() {
