@@ -35,7 +35,6 @@ const popupboxDelay = 500;
 
 export class SearchBarForm {
   constructor() {
-    this.state = {};
     this.$form = selector(`.${FORM}`);
     this.$input = selector(`.${INPUT}`);
     this.$popupBox = selector(`.${FORM_POPUP_BOX}`);

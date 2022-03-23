@@ -42,12 +42,12 @@ export class GlobalCategory {
   }
 
   init() {
-    this.$gCategory.addEventListener('mouseenter', (e) => {
+    this.$gCategory.addEventListener('mouseenter', () => {
       this.isMouseEnterGCategory = true;
       removeClass(HIDDEN, this.$categoryLayer);
     });
 
-    this.$gCategory.addEventListener('mouseleave', (e) => {
+    this.$gCategory.addEventListener('mouseleave', () => {
       this.isMouseEnterGCategory = false;
     });
 
