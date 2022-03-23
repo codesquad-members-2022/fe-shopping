@@ -1,9 +1,9 @@
-let currentObserver = null;
+let currentRenderer = null;
 
-export const observe = (fn) => {
-  currentObserver = fn;
-  fn();
-  currentObserver = null;
+export const observe = (render) => {
+  currentRenderer = render;
+  render();
+  currentRenderer = null;
 };
 
 export const observable = (obj) => {
@@ -12,7 +12,7 @@ export const observable = (obj) => {
     const observers = new Set();
     Object.defineProperty(obj, key, {
       get() {
-        if (currentObserver) observers.add(currentObserver);
+        if (currentRenderer) observers.add(currentRenderer);
         return value;
       },
       set(newValue) {

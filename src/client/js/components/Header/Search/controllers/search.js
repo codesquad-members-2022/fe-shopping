@@ -23,4 +23,21 @@ const handleSearchCategoryClick = ({ target }) => {
   $searchCategoryList.classList.toggle("list-act");
 };
 
-export { handleBodyClick, handleSearchCategoryClick };
+const handleCListTransStart = ({ target }) => {
+  target.style.boxShadow = "0 4px 5px rgb(0 0 0 / 30%)";
+  target.style.border = "1px #d1d8e0 solid";
+};
+
+const handleCListTransEnd = ({ target }) => {
+  if (!target.classList.contains("list-act")) {
+    target.style.boxShadow = "none";
+    target.style.border = "none";
+  }
+};
+
+export {
+  handleBodyClick,
+  handleSearchCategoryClick,
+  handleCListTransStart,
+  handleCListTransEnd,
+};

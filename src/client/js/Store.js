@@ -3,12 +3,12 @@ import { observable } from "./core/observer";
 const initState = {
   categoryTitle: "전체",
   categoryDatas: [],
+  searchWord: "",
   searchRecentDisplay: "none",
   searchSuggestionDisplay: "none",
-  selectedInputIdx: 0,
   suggestionDatas: [],
   recentDatas: JSON.parse(localStorage.getItem("recent")) || [],
-  searchWord: "",
+  selectedInputIdx: 0,
 };
 
 export const store = {

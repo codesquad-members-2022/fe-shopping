@@ -1,8 +1,7 @@
 import { observe } from "./observer";
 
-export default function Component($target, $props) {
+export default function Component($target) {
   this.$target = $target;
-  this.$props = $props;
 }
 
 Component.prototype = {

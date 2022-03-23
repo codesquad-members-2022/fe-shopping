@@ -1,31 +1,12 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
-import { store } from "../../../../Store";
+import { store } from "../../../../store";
+import { highlightWord } from "../controllers/searchSuggestion";
 
 function SearchSuggestion(...params) {
   Component.call(this, ...params);
 }
 createExtendsRelation(SearchSuggestion, Component);
-
-const highlightWord = (string, word) => {
-  const matchedWordRegex = new RegExp(
-    `(?<front>.+)?(?<matchedWord>${word})(?<back>.+)?`
-  );
-  const { groups } = string.match(matchedWordRegex) || { groups: {} };
-  const { front, matchedWord, back } = groups;
-
-  return matchedWord
-    ? `${front || ""}<span class="matchedWord">${matchedWord}</span>${
-        back || ""
-      }`
-    : string;
-};
-
-SearchSuggestion.prototype.getSelectedData = function () {
-  const $suggestionBody = this.$target.querySelector(".suggestion__body");
-  const $selected = $suggestionBody.querySelector(".selected");
-  return $selected ? $selected.textContent : null;
-};
 
 SearchSuggestion.prototype.mount = function () {
   const { searchSuggestionDisplay } = store.state;
@@ -34,19 +15,22 @@ SearchSuggestion.prototype.mount = function () {
 
 SearchSuggestion.prototype.template = function () {
   const { suggestionDatas, searchWord, selectedInputIdx } = store.state;
+  const isSelectedIdx = (idx) =>
+    idx + 1 === selectedInputIdx ? "class='selected'" : "";
+
   const suggestions = suggestionDatas
-    ? suggestionDatas
-        .map(
-          ({ keyword }, idx) =>
-            `<span ${
-              idx + 1 === selectedInputIdx ? "class='selected'" : ""
-            }>${highlightWord(keyword, searchWord)}</span>`
-        )
-        .join("")
-    : "";
+    ?.map(
+      ({ keyword }, idx) =>
+        `<span ${isSelectedIdx(idx)}>${highlightWord(
+          keyword,
+          searchWord
+        )}</span>`
+    )
+    .join("");
+
   return `
     <div class="suggestion__body">
-        ${suggestions}
+        ${suggestions || ""}
     </div>
   `;
 };

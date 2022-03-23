@@ -13,10 +13,12 @@ App.prototype.mount = function () {
   const $body = this.$target.querySelector(".body");
   const header = new Header($header);
   const body = new Body($body);
+
   [header, body].forEach((component) => {
     component.initRender();
   });
 };
+
 App.prototype.template = function () {
   return `
     <div class="header"></div>

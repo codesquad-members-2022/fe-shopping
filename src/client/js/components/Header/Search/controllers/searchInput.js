@@ -1,5 +1,5 @@
 import { delay, request } from "../../../../utils";
-import { store } from "../../../../Store";
+import { store } from "../../../../store";
 
 const moveCursorToEnd = ($input, len) => {
   delay(0).then(() => {
@@ -45,7 +45,6 @@ const handleKeyUpArrowUpDown = ({ target, key }) => {
     searchRecentDisplay === "flex"
       ? recentDatas.length
       : suggestionDatas.length;
-
   const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== 0;
   const possibleArrowdown =
     key === "ArrowDown" && selectedInputIdx !== MAX_SEARCH_DATA;
