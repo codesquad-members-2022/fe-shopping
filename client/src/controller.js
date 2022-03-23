@@ -18,7 +18,6 @@ export class Controller {
       input: document.querySelector('.search__input'),
       select: document.querySelector('.select__category'),
       inputDropDown: document.querySelector('.input__drop-down'),
-      dropDownList: document.querySelector('.drop-down__list'),
     };
 
     this.focusKeybordItem;
@@ -83,8 +82,9 @@ export class Controller {
   }
 
   typingInputHandle = () => {
-    if (!this.selector.input.value || document.querySelector('.item--focus')) return;
-    this.changeAutoCompleteView(this.selector.input.value);
+    !this.selector.input.value
+      ? this.selector.inputDropDown.classList.remove('focus')
+      : this.changeAutoCompleteView(this.selector.input.value);
   };
 
   submitFormHandle(e) {
@@ -111,16 +111,18 @@ export class Controller {
 
   arrowKeyupInputHandle = (e) => {
     const focusClassName = 'item--focus';
+    const focusItem = document.querySelector(`.${focusClassName}`);
 
     switch (e.key) {
       case 'ArrowDown':
+        if (!this.selector.inputDropDown.classList.contains('focus')) return;
         this.moveDownDropDownItem(focusClassName);
         break;
       case 'ArrowUp':
         this.moveUpDropDownItem(focusClassName);
         break;
       case 'ArrowRight':
-        if (!document.querySelector(`.${focusClassName}`)) return;
+        if (!focusItem) return;
         this.changeAutoCompleteView(this.selector.input.value);
         break;
     }
@@ -128,8 +130,9 @@ export class Controller {
 
   //...최선을 다해 리팩토링하기
   moveDownDropDownItem(className) {
-    const firstItem = this.selector.dropDownList.firstElementChild;
-    const lastItem = this.selector.dropDownList.lastElementChild;
+    const dropDownList = document.querySelector('.drop-down__list');
+    const firstItem = dropDownList.firstElementChild;
+    const lastItem = dropDownList.lastElementChild;
 
     if (firstItem.dataset.value === 'null') return; // 일치하는 데이터가 없는 경우
 
