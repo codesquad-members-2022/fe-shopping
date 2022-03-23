@@ -29,12 +29,36 @@ export default class SearchResultList extends Toggler {
         return localData[this.type.recent];
     }
 
+    open() {
+        if (!this.isToggled) {
+            return;
+        }
+
+        const type = this.getType();
+
+        if (type === this.type.recent && !this.recentKeywords.length) {
+            return;
+        }
+
+        if (type === this.type.complete && !this.autoCompletionWords.words.length) {
+            return;
+        }
+
+        super.toggle();
+    }
+
+    close() {
+        if (!this.isToggled) {
+            super.toggle();
+        }
+    }
+
     createHTML() {
         return /* html */ `
             <div class="search__result none">
                 <strong class="search__result--title">최근 검색어</strong>
                 <ul class="search__result--list">
-                ${this.recentKeywords.reduce((text, keyword) => text += `<li class="search__result--item">${keyword}</li>`, '')}
+                    ${this.recentKeywords.reduce((text, keyword) => text += this.createListItemHTML(keyword), '')}
                 </ul>
                 <div class="search__button">
                     <button class="search__button--remove">전체 삭제</button>
