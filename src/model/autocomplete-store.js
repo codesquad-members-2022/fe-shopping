@@ -1,7 +1,7 @@
 export class AutoCompleteStore {
   constructor() {
-    this.keywordData = [];
-    this.maxLiNum = 10;
+    this.keywordData;
+    this.maxListNum = 10;
   }
   async getKeywordData(value) {
     const data = await fetch("./data/fakeDB.json");
@@ -9,8 +9,8 @@ export class AutoCompleteStore {
     let sorted = await json.products
       .filter((v) => v.keyword.includes(value))
       .sort((a, b) => b.views - a.views);
-    if (sorted.length > this.maxLiNum) {
-      sorted = sorted.splice(0, this.maxLiNum);
+    if (sorted.length > this.maxListNum) {
+      sorted = sorted.splice(0, this.maxListNum);
     }
     this.keywordData = sorted.map((v) => v.keyword);
   }
