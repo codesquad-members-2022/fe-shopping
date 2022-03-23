@@ -1,10 +1,12 @@
 $pink: pink;
 $gray: #d8d8d8;
 $gray2: #808080;
+$gray3: #a7a6a6;
 $blue-main: #7096e9;
 $white: #ffffff;
 
 $border-main: 0.25rem;
+$width-main: 1020px;
 
 @mixin divideFlex($first: 0, $second: 0, $third: 0) {
   :nth-child(1) {

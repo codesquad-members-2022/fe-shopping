@@ -1,7 +1,69 @@
-const selector = (selector, target = document) =>
-  target.querySelector(selector);
+const selector = (selector, target = document) => {
+  return target.querySelector(selector);
+};
 
-const delay = (ms, data) =>
-  new Promise((resolve) => setTimeout(() => resolve(data), ms));
+const getStyle = (target, styleValue) => {
+  return document.defaultView
+    .getComputedStyle(target)
+    .getPropertyValue(styleValue);
+};
 
-export { selector, delay };
+const isHidden = (target) => {
+  return target.classList.contains("hidden");
+};
+
+const addHighlight = (value) => {
+  return "<span class='highlight'>" + value + "</span>";
+};
+
+const drawListFromData = (data) => {
+  return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
+};
+
+const findRefinedData = async (address, value = "") => {
+  const dataAddress = `data/${address}`;
+  const data = await fetch(dataAddress, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ value }),
+  });
+  const refinedData = await data.json();
+  return refinedData;
+};
+
+const delay = ({ time, signal = null, data }) =>
+  new Promise((resolve) => {
+    const timeout = setTimeout(() => resolve(data), time);
+    if (!signal) return;
+    signal.addEventListener("abort", () => {
+      clearTimeout(timeout);
+    });
+  });
+
+class intervalDelay {
+  constructor(time) {
+    this.inputDelayController = null;
+    this.time = time;
+  }
+
+  waitDelay = async () => {
+    if (this.inputDelayController) this.inputDelayController.abort();
+    this.inputDelayController = new AbortController();
+    const inputDelaySignal = this.inputDelayController.signal;
+    await delay({ time: this.time, signal: inputDelaySignal });
+    this.inputDelayController = null;
+  };
+}
+
+export {
+  selector,
+  getStyle,
+  findRefinedData,
+  delay,
+  intervalDelay,
+  isHidden,
+  drawListFromData,
+  addHighlight,
+};
