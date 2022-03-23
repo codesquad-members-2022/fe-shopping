@@ -36,4 +36,13 @@ SearchInputView.prototype.removePrevView = function (parentDom, targetName) {
   } // 추후 데이터 어트리뷰트로 검증후 삭제하는 방법으로 변경예정
 };
 
+SearchInputView.prototype.hilight = function ({ prev, current, list }) {
+  console.log(prev, current, list);
+  if (prev === -1) {
+    prev = 0;
+  }
+  list[prev].style.color = "black";
+  list[current].style.color = "#4285f4";
+};
+
 export { SearchInputView };

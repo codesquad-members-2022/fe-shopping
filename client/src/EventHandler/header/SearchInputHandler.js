@@ -1,14 +1,15 @@
 class SearchInputEventHandler {
-  constructor(dom, router, historyManager) {
+  constructor(dom, router, historyManager, keyboardManager) {
     this.targetDom = dom;
     this.router = router;
     this.historyManager = historyManager;
+    this.keyboardManager = keyboardManager;
   }
 
   init() {
     this.addFocusEvent();
     this.addInputEvent();
-    this.addEnterEvent();
+    this.addSpecialKeyEvent();
   }
 
   addFocusEvent() {
@@ -21,15 +22,25 @@ class SearchInputEventHandler {
     );
   }
 
-  addEnterEvent() {
+  addSpecialKeyEvent() {
+    const ENTER = 13;
+    const KEY_UP = 38;
+    const KEY_DOWN = 40;
+
     this.targetDom.addEventListener("keydown", (event) => {
       const {
         keyCode,
         target: { value },
       } = event;
-      if (keyCode === 13) {
+
+      if (keyCode === ENTER) {
         event.preventDefault();
         this.historyManager.addData2localStorage(value);
+        return;
+      }
+
+      if (keyCode === KEY_UP || keyCode === KEY_DOWN) {
+        this.keyboardManager.searchInputArrow(keyCode);
       }
     });
   }
