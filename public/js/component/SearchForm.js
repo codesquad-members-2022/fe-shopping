@@ -200,7 +200,28 @@ export default class {
     });
   }
 
-  onMouseDown() {}
+  /* MOUSE DOWN EVENT */
+  handleSearchFormItems(target) {
+    const selectedText = target.innerText;
+    this.$input.value = selectedText;
+  }
+
+  handleSearchFormMousedown(e) {
+    const { target } = e;
+    if (target.closest(".search-area-dropdown")) {
+      if (target.classList.contains("link")) {
+        this.handleSearchFormItems(target);
+        return;
+      }
+    }
+  }
+
+  onMouseDown() {
+    this.$searchFormArea.addEventListener("mousedown", (e) => {
+      // console.log(e);
+      this.handleSearchFormMousedown(e);
+    });
+  }
 
   onEvent() {
     this.onFocusInOut();

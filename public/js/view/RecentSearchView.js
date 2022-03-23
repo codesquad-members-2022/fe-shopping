@@ -4,16 +4,35 @@ import storage from "../util/storage.js";
 import { sortAsc } from "../util/util.js";
 
 export default class extends SearchForm {
-  constructor(...args) {
-    super(...args);
+  constructor({ ...args }, msg) {
+    super(args);
+    this.msg = msg;
   }
 
-  // view 모델 에서 해야하는 일
-  // set recentSearchData(data) {
-  //   console.log(data);
-  //   // this.showDropdown();
-  //   // this.fillDropdownList(data);
-  // }
+  handleRemoveRecentSearch(e) {
+    e.preventDefault();
+    const { confirmMsg, completeMsg, cancelMsg } = this.msg;
+
+    if (!confirm(confirmMsg)) {
+      alert(cancelMsg);
+      return;
+    }
+    storage.removeFromLocalStorage(constants.recentSearchKeyName);
+    this.fillDropdownList();
+    alert(completeMsg);
+  }
+
+  handleSearchFormMousedown(e) {
+    super.handleSearchFormMousedown(e);
+    const { target } = e;
+
+    if (target.closest(".search-area-dropdown")) {
+      if (target.classList.contains("remove-all")) {
+        this.handleRemoveRecentSearch(e);
+        return;
+      }
+    }
+  }
 
   createDropdownInner() {
     const recentSearchAreaTag = `
