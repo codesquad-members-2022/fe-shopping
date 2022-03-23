@@ -1,12 +1,14 @@
 export const $ = document.querySelector.bind(document);
 export const $$ = document.querySelectorAll.bind(document);
 
-export const removeClass = (element, className) => {
-  element.classList.remove(className);
+export const removeClass = (element1, element2, className) => {
+  element1.classList.remove(className);
+  element2.classList.remove(className);
 };
 
-export const addClass = (element, className) => {
-  element.classList.add(className);
+export const addClass = (element1, element2, className) => {
+  element1.classList.add(className);
+  element2.classList.add(className);
 };
 
 export const addEvent = (element, type, eventHandler) => {

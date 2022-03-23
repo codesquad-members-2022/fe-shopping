@@ -1,3 +1,6 @@
+import { $, $$, removeClass, addClass } from "../js/utils/utils.js";
+import { View } from "../View/autoCompltView.js";
+import { Model } from "../Model/autoCompltData.js";
 class Controller {
   _target;
   _model;
@@ -7,16 +10,47 @@ class Controller {
     this._target = target;
     this._model = model;
     this._view = view;
+    this.latestSearchContents = $(".latest-search-contents");
+    this.historyBtns = $(".history-btns");
   }
 
-  setState(newState) {
-    this._model.setState(newState);
-    this.render(this._model.getState());
+  setData(inputValue) {
+    return this._model.getData(inputValue);
   }
 
-  render(state) {
-    this._view.render(state);
+  render(data) {
+    this._view.render(data);
   }
 
-  addEvent() {}
+  init() {
+    this.addEvent();
+  }
+
+  addEvent() {
+    this._target.addEventListener("input", this.autoCompltEvtHandler);
+  }
+
+  autoCompltEvtHandler = (e) => {
+    if (!$(".coupang-search").value) {
+      removeClass(this.latestSearchContents, this.historyBtns, "down");
+      this.render("");
+    } else {
+      addClass(this.latestSearchContents, this.historyBtns, "down");
+      this.delayFetch(this.setData($(".coupang-search").value));
+    }
+  };
+
+  delayFetch(filteredData) {
+    new Promise((resolve) =>
+      setTimeout(() => {
+        const searchedDB = filteredData;
+        resolve(filteredData);
+      }, 500)
+    ).then((data) => {
+      if ($(".coupang-search").value) {
+        this.render(data.sort((a, b) => b.views - a.views));
+      }
+    });
+  }
 }
+export { Controller };

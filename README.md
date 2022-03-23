@@ -39,3 +39,15 @@
   - 여기서 `변경사항`을 정의하는게 좀 까다로운데 우선은 사용자의 요청에 따라(입력, 클릭 등의 이벤트) 기능을 연결시키는 역할 정도로 해석했다.
 
 ![default](docs\MVC.png)
+
+## 구현하면서 배운 점
+
+### fetch함수가 반환하는 promise객체의 반환값을 리턴하는 법
+
+예)
+
+```javascript
+const response = await fetch("~~");
+const data = await response.json();
+return data;
+```
