@@ -41,6 +41,7 @@ export default class SearchController {
         this.setFocusEvent();
         this.setSubmitEvent();
         this.setInputEvent();
+        this.resultList.setEvents();
     }
 
     setFocusEvent() {

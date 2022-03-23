@@ -112,4 +112,17 @@ export default class SearchResultList extends Toggler {
         const itemHTML = `<li class="search__result--item"><a href="#">${text}</a></li>`;
         return itemHTML;
     }
+
+    setEvents() {
+        this.setRemoveButtonEvent();
+    }
+
+    setRemoveButtonEvent() {
+        const resetButton = document.querySelector('.search__button--remove');
+        resetButton.addEventListener('click', (event) => {
+            clearLocalData();
+            this.recentKeywords = this.setRecentKeywords();
+            this.setListData();
+        });
+    }
 }
