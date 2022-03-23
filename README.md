@@ -242,12 +242,29 @@ async function handleInput({ target }) {
 
 이벤트핸들러를 컴포넌트(htmlElement)가 정의된 코드 아래 묶지 않고 따로 선언해뒀는데, 컴포넌트에 넣어 보려고 함.
 
+```js
+// 현재상태
+export default function SearchBox($element, args) {
+  HtmlElement.call(this, $element, args);
+}
+SearchBox.prototype.setEvent = function () {
+  this.$element.addEventListener('click', handleClick.bind(this));
+};
+function handleClick({ target }) {
+  showCategory.apply(this);
+  showRecord.call(this, target);
+}
+function showCategory() {}
+function showRecord(target) {}
+```
+
 이유:
 
 - 이벤트 동작 함수를 element.prototype안에 묶어두지 않아서, this를 bind나 call로 묶어야했는데 이렇게 하니까 코드가 복잡해지고 수정이 어려워짐
 
 🤔 문제점
 
+- 컴포넌트 안에서 선언하니까 컴포넌트가 비대해짐
 - switch문을 안쓰려고 했는데 분기처리하려면 어차피 switch문처럼 만들어야함.
 
 ```js
@@ -302,14 +319,17 @@ debounce과 throttling을 구현하려고 했는데 생각처럼 되지 않았�
 
 1. 이벤트핸들러로 함수 넘기기 (함수를 인자로 넘기기)
 
-- 함수를 인자로 넘길 때, `함수()`로 해야하는지 `함수`로 해야하는지 차이를 잘모르겠다. `() => callback()` vs `() => callback`
+- 함수를 인자로 넘길 때, `함수()`로 해야하는지 `함수`로 해야하는지 차이를 잘모르겠다.
+  `element.addEventListener(type, callback)` vs `element.addEventListener(type, (event) => callback(event, something))`
 - 넘기는 함수의 종류(화살표함수, 표현식, 선언문)에 따라 차이가 있는거 같아서 알아보는중
 
 ```js
-$input.addEventListener('input', handleInput(something));
-$input.addEventListener('input', (event) => handleInput(event, something));
 // 1번
+$input.addEventListener('input', handleInput);
 function handleInput(event) {}
+// const handleInput = () => {};
+
 // 2번
-const handleInput = () => {};
+$input.addEventListener('input', (event) => handleInput(event, something));
+const handleInput = (event, something) => {};
 ```
