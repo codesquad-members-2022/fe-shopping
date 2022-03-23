@@ -1,6 +1,7 @@
-export class RecentSearchModel {
+class RecentSearchModel {
   constructor(localStorage) {
     this.storage = localStorage;
+    this.keywordIndexList = [];
     this.keywordList = [];
   }
 
@@ -9,26 +10,27 @@ export class RecentSearchModel {
   }
 
   addKeyword(keyword) {
-    const keywordList = Object.values(this.storage);
     const keywordListMaxLength = 9;
-    if (keywordList.includes(keyword)) {
+    if (this.keywordList.includes(keyword)) {
       return;
     }
-    if (keywordList.length >= keywordListMaxLength) {
-      const oldKeyword = keywordList[0];
+    if (this.keywordList.length >= keywordListMaxLength) {
+      const oldestKeywordIndex = this.keywordIndexList[0];
+      this.storage.removeItem(oldestKeywordIndex);
       this.keywordList.splice(0, 1);
-      this.storage.removeItem(oldKeyword);
     }
-    this.storage.setItem(Date.now(), keyword);
+    const keywordIndex = Date.now();
+    this.storage.setItem(keywordIndex, keyword);
+    this.keywordIndexList.push(keywordIndex);
     this.keywordList.push(keyword);
   }
 
   updateKeywordList() {
-    const localStorageIndice = Object.keys(this.storage).sort();
-    const keywordList = localStorageIndice
-    .filter((storageIndex) => Number(storageIndex))
-    .map((storageIndex) => this.storage[storageIndex]);
-    console.log(keywordList);
+    const localStorageKeys = Object.keys(this.storage)
+    .filter((storageKey) => Number(storageKey))
+    .sort();
+    const keywordList = localStorageKeys.map((storageKey) => this.storage[storageKey]);
+    this.keywordIndexList = localStorageKeys;
     this.keywordList = keywordList;
   }
 }
