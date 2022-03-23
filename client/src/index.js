@@ -3,15 +3,15 @@ import { mainController } from "./EventHandler/mainHandler.js";
 import { SearchInputEventHandler } from "./EventHandler/header/SearchInputHandler.js";
 import { SearchMenuEventHandler } from "./EventHandler/header/SearchMenuHandler.js";
 import { HeaderRoutes } from "./routes/HeaderRoutes.js";
-import { HeaderHistoryPatcher } from "./dataDispatcher/header/HistoryManager.js";
-import { HedearDataDispatcher } from "./dataDispatcher/header/DataDispatcher.js";
+import { HeaderHistoryPatcher } from "./service/dataDispatcher/header/HistoryManager.js";
+import { HedearDataDispatcher } from "./service/dataDispatcher/header/DataDispatcher.js";
 import { SearchInputView } from "./View/header/SearchInputView.js";
 import { SearchMenuView } from "./View/header/searchMenuView.js";
 import {
   SearchInputToggle,
   SearchMenuToggle,
 } from "./Components/HeaderToggle.js";
-import { ETCmovement } from "./etcMovement/EtcMovement.js";
+import { ETCmovement } from "./service/etcMovement/EtcMovement.js";
 
 // localStorage.setItem("localSearchHistory", "[]"); // 초기화용
 

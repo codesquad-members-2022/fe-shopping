@@ -8,6 +8,7 @@ class SearchInputEventHandler {
   init() {
     this.addFocusEvent();
     this.addInputEvent();
+    this.addEnterEvent();
   }
 
   addFocusEvent() {
@@ -18,6 +19,19 @@ class SearchInputEventHandler {
     this.targetDom.addEventListener("input", (event) =>
       this.onInputEvent(event)
     );
+  }
+
+  addEnterEvent() {
+    this.targetDom.addEventListener("keydown", (event) => {
+      const {
+        keyCode,
+        target: { value },
+      } = event;
+      if (keyCode === 13) {
+        event.preventDefault();
+        this.historyManager.addData2localStorage(value);
+      }
+    });
   }
 
   onInputEvent({ target: { value } }) {

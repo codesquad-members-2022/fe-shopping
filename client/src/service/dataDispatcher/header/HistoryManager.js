@@ -15,7 +15,17 @@ class HeaderHistoryPatcher {
   }
 
   addData2localStorage(data) {
-    localStorage.setItem("localSearchHistory", JSON.stringify(data));
+    if (!data) {
+      return;
+    }
+    this.historStorage.add(data);
+
+    localStorage.setItem(
+      "localSearchHistory",
+      JSON.stringify([...this.historStorage])
+    );
+
+    this.manageHistory();
   }
 
   checkHistorySize() {
@@ -26,7 +36,7 @@ class HeaderHistoryPatcher {
       return ["검색 결과가 없습니다."];
     }
 
-    if (this.historStorage >= MAX_SIZE) {
+    if (this.historStorage.size > MAX_SIZE) {
       this.historStorage.delete(historyArr[0]);
     }
 
