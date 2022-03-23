@@ -144,6 +144,10 @@ $search-height: 36px;
         padding: 0 12px;
         line-height: 30px;
       }
+      b {
+        font-weight: $weight-B;
+        color: $blue;
+      }
     }
   }
 }

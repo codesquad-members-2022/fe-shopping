@@ -29,11 +29,12 @@ export class AutomaticCompletion {
     }
     this.$automaticCompletionWrap.classList.add('active');
     const automaticCompletionWordTemplate = currentSearchData
-      .map(
-        searchKeyword => `<li>
-                            <a href="javascript:;"}"><span>${searchKeyword.keyword}</span></a>
-                          </li>`
-      )
+      .map(searchKeyword => {
+        const currentSearchKeyword = this.highlightSearchValue(searchValue, searchKeyword.keyword);
+        return `<li>
+                  <a href="javascript:;"><span>${currentSearchKeyword}</span></a>
+                </li>`;
+      })
       .join('');
     this.$automaticCompletion.insertAdjacentHTML('afterbegin', automaticCompletionWordTemplate);
     this.show();
@@ -45,6 +46,10 @@ export class AutomaticCompletion {
 
   hide() {
     this.$automaticCompletionWrap.classList.remove('active');
+  }
+
+  highlightSearchValue(searchValue, currentSearchKeyword) {
+    return currentSearchKeyword.replace(searchValue, `<b>${searchValue}</b>`);
   }
 
   init(searchBar) {

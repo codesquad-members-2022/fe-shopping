@@ -215,6 +215,7 @@ ul {
   border-width: 0;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
+  overflow-y: auto;
 }
 
 .header__search-wrap .search-categories.active {
@@ -341,4 +342,9 @@ ul {
   display: block;
   padding: 0 12px;
   line-height: 30px;
+}
+
+.header__search-wrap .search-automatic-completion-wrap b {
+  font-weight: 700;
+  color: #4285f4;
 }
