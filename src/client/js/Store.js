@@ -11,7 +11,7 @@ const initState = {
   selectedInputIdx: 0,
 };
 
-export const store = {
+const store = {
   state: observable(initState),
   setState(newState) {
     Object.entries(newState).forEach(([key, value]) => {
@@ -19,3 +19,5 @@ export const store = {
     });
   },
 };
+
+export { store };
