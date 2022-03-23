@@ -6,12 +6,12 @@
 
   &__categories {
     position: relative;
-    padding: 0 0 0 12px;
     width: 150px;
     border-right: 1px solid $gray-4;
   }
 
   &__current-category {
+    padding: 0 0 0 12px;
     height: 36px;
     line-height: 36px;
     font-size: $small;
@@ -23,7 +23,6 @@
     position: absolute;
     top: 36px;
     left: 0;
-    padding: 8px 0;
     width: 150px;
     max-height: 400px;
     overflow-y: scroll;
@@ -31,6 +30,14 @@
     border: 1px solid $gray-4;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
     z-index: 1100;
+
+    &--hidden {
+      visibility: hidden;
+    }
+
+    &--show {
+      visibility: visible;
+    }
   }
 
   &__category-item {
