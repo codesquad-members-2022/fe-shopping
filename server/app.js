@@ -10,7 +10,8 @@ app.use((req, res, next) => {
 app.get('/api/autoComplete', (req, res) => {
   const autoComplete = require('./db/autoComplete/autoComplete.json');
   const { q } = req.query;
-  res.json(autoComplete[q]);
+  const resData = autoComplete[q] ? autoComplete[q] : {};
+  res.json(resData);
 });
 
 app.listen(3000);

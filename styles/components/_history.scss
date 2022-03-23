@@ -48,6 +48,13 @@
         color: $border;
       }
     }
+
+    &.is-selected {
+      a {
+        color: $border;
+        text-decoration: underline;
+      }
+    }
   }
 
   &-option {

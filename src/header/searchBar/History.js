@@ -22,6 +22,7 @@ export class History {
     HISTORY_ITEM_DEL_BTN,
     HISTORY_CLEAR_BTN,
     HISTORY_ONOFF_BTN,
+    ROTATION_KEYWORD,
   }) {
     this.$form = $form;
     this.$input = $input;
@@ -40,6 +41,7 @@ export class History {
     this.HISTORY_CLEAR_BTN = HISTORY_CLEAR_BTN;
     this.HISTORY_ONOFF_BTN = HISTORY_ONOFF_BTN;
     this.HISTORY_ITEM_DEL_BTN = HISTORY_ITEM_DEL_BTN;
+    this.ROTATION_KEYWORD = ROTATION_KEYWORD;
 
     this.init();
   }
@@ -133,7 +135,7 @@ export class History {
 
     const $historyItemLink = createElement(
       'a',
-      this.HISTORY_ITEM_LINK,
+      [this.HISTORY_ITEM_LINK, this.ROTATION_KEYWORD],
       keyword,
       {
         href: `./search.html?q=${keyword}`,

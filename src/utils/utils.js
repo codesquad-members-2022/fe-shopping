@@ -7,20 +7,26 @@ export const selectorAll = (selector, base = document) => {
 };
 
 export const addClass = (className, element) => {
+  if (!element) return;
   element.classList.add(className);
 };
 
 export const removeClass = (className, element) => {
+  if (!element) return;
   element.classList.remove(className);
 };
 
 export const toggleClass = (className, element) => {
+  if (!element) return;
   element.classList.toggle(className);
 };
 
 export const createElement = (tagName, className, textContent, attrs = {}) => {
   const element = document.createElement(tagName);
-  if (className) element.className = className;
+  if (className) {
+    if (Array.isArray(className)) element.className = className.join(' ');
+    else element.className = className;
+  }
   if (textContent) element.textContent = textContent;
   Object.entries(attrs).forEach(([key, value]) => {
     element.setAttribute(key, value);
@@ -90,4 +96,19 @@ export const debounce = (cb, delay) => {
     }
     timerId = setTimeout(cb, delay, event);
   };
+};
+
+export const throttle = (cb, delay) => {
+  let timerId;
+  return (event) => {
+    if (timerId) return;
+    timerId = setTimeout(() => {
+      cb(event);
+      timerId = null;
+    }, delay);
+  };
+};
+
+export const computeGrad = (oldX, oldY, x, y) => {
+  return (oldY - y) / (oldX - x);
 };

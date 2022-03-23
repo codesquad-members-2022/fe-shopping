@@ -593,6 +593,7 @@ template {
   position: absolute;
   top: 35px;
   left: -2px;
+  z-index: 90;
   width: 101%;
   height: 300px;
   background-color: #fff;
@@ -643,6 +644,10 @@ template {
 .history-item-delete:hover {
   color: #4285f4;
 }
+.history-item.is-selected a {
+  color: #4285f4;
+  text-decoration: underline;
+}
 .history-option {
   display: flex;
   align-items: center;
@@ -671,7 +676,6 @@ template {
   color: #333;
   width: 100%;
   height: 30px;
-  padding: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -683,6 +687,83 @@ template {
 .auto-complete-item strong {
   font-weight: 700;
   color: #4285f4;
+}
+.auto-complete-item.is-selected {
+  text-decoration: underline;
+}
+.auto-complete-item a {
+  display: block;
+  padding: 8px;
+}
+
+.g-category {
+  position: relative;
+}
+.g-category .category-layer {
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+}
+.g-category .category-layer-depth-1 {
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  display: none;
+  width: 300%;
+  height: 200%;
+  padding: 8px 0 8px 16px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.g-category .category-list {
+  position: relative;
+  z-index: 50;
+  width: 170px;
+  padding: 8px 0;
+  border: 1px solid #ddd;
+}
+.g-category .category-item {
+  font-size: 13px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.g-category .category-item.is-open > .category-layer-depth-1 {
+  display: block;
+}
+.g-category .category-item.is-open > i {
+  color: #4285f4;
+}
+.g-category .category-item.is-open > a {
+  color: #4285f4;
+  text-decoration: underline;
+}
+.g-category .category-item.is-open > a i {
+  display: inline;
+}
+.g-category .category-item i {
+  flex-basis: 20px;
+  margin: 0 8px;
+}
+.g-category .category-item a {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 10px 25px 10px 0;
+}
+.g-category .category-item a i {
+  position: absolute;
+  right: 10px;
+  display: none;
+}
+.g-category .depth-1-menu-item {
+  font-size: 13px;
+  color: #333;
+}
+.g-category .depth-1-menu-item:hover a {
+  color: #4285f4;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=style.css.map */
