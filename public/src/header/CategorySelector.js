@@ -6,6 +6,11 @@ export default class CategorySelector {
         this.defaultCategory = (categories[0].name || '전체');
     }
 
+    init() {
+        this.render();
+        this.setEvents();
+    }
+
     render() {
         this.$parent.innerHTML += this.createHTML();
     }

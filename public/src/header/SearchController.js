@@ -10,9 +10,14 @@ export default class SearchController {
     constructor($parent, resultList) {
         this.$parent = $parent;
         this.$target = null;
+        this.fetchDelay = 50;
         this.resultList = resultList;
         this.fetchTimer = new DelayTimer();
-        this.fetchDelay = 500;
+    }
+
+    init() {
+        this.render();
+        this.setEvents();
     }
 
     render() {
@@ -31,11 +36,6 @@ export default class SearchController {
         `
     }
 
-    setTarget() {
-        this.$target = document.querySelector('.search__form')
-        this.resultList.setTarget(document.querySelector('.search__result'));
-    }
-
     setEvents() {
         this.setTarget();
         this.setFocusEvent();
@@ -44,14 +44,48 @@ export default class SearchController {
         this.resultList.setEvents();
     }
 
+    setTarget() {
+        this.$target = document.querySelector('.search__form')
+        this.resultList.setTarget(document.querySelector('.search__result'));
+    }
+
     setFocusEvent() {
         const inputTextForm = document.querySelector('.search__form');
         inputTextForm.addEventListener('focusin', this.handleFocusInEvent.bind(this));
         inputTextForm.addEventListener('focusout', this.handleFocusOutEvent.bind(this));
     }
 
+    handleFocusInEvent(event) {
+        this.resultList.open();
+    }
+
+    handleFocusOutEvent(event) {
+        if (event.relatedTarget !== null) {
+            return;
+        }
+
+        if (event.target.value === '' && this.resultList.isTyping) {
+            this.resultList.toggleContents();
+        }
+
+        this.resultList.close();
+    }
+
     setSubmitEvent() {
         this.$target.addEventListener('submit', this.handleSubmitEvent.bind(this));
+    }
+
+    handleSubmitEvent(event) {
+        event.preventDefault();
+        const $textInput = document.querySelector('.search__form--input');
+        const inputText = $textInput.value;
+
+        if (inputText === '') return;
+
+        $textInput.value = '';
+        addLocalData('recent', [inputText]);
+        this.resultList.updateData('recent');
+        this.resultList.toggleContents();
     }
 
     setInputEvent() {
@@ -86,34 +120,5 @@ export default class SearchController {
         } else {
             this.resultList.open();
         }
-    }
-
-    handleFocusInEvent(event) {
-        this.resultList.open();
-    }
-
-    handleFocusOutEvent(event) {
-        if (event.relatedTarget !== null) {
-            return;
-        }
-
-        if (event.target.value === '' && this.resultList.isTyping) {
-            this.resultList.toggleContents();
-        }
-
-        this.resultList.close();
-    }
-
-    handleSubmitEvent(event) {
-        event.preventDefault();
-        const $textInput = document.querySelector('.search__form--input');
-        const inputText = $textInput.value;
-
-        if (inputText === '') return;
-
-        $textInput.value = '';
-        addLocalData('recent', [inputText]);
-        this.resultList.updateData('recent');
-        this.resultList.toggleContents();
     }
 }

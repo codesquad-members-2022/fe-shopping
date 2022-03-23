@@ -30,30 +30,6 @@ export default class SearchResultList extends Toggler {
         return localData[this.type.recent];
     }
 
-    open() {
-        if (!this.isToggled) {
-            return;
-        }
-
-        const type = this.getType();
-
-        if (type === this.type.recent && !this.recentKeywords.length) {
-            return;
-        }
-
-        if (type === this.type.complete && !this.autoCompletionWords.words.length) {
-            return;
-        }
-
-        super.toggle();
-    }
-
-    close() {
-        if (!this.isToggled) {
-            super.toggle();
-        }
-    }
-
     createHTML() {
         return /* html */ `
             <div class="search__result none">
@@ -67,41 +43,6 @@ export default class SearchResultList extends Toggler {
                 </div>
             </div>
         `;
-    }
-
-    getType() {
-        const recentTitle = document.querySelector('.search__result--title');
-        if (recentTitle.classList.contains('none')) {
-            return this.type.complete;
-        }
-        return this.type.recent;
-    }
-
-    toggleContents() {
-        this.close();
-        const recentTitle = document.querySelector('.search__result--title');
-        const recentButtons = document.querySelector('.search__button');
-        recentTitle.classList.toggle('none');
-        recentButtons.classList.toggle('none');
-        this.isTyping = !this.isTyping;
-        this.setListData();
-    }
-
-    updateData(type, data) {
-        if (type === this.type.recent) {
-            this.recentKeywords = getLocalData()[type];
-            return;
-        }
-
-        this.autoCompletionWords = data;
-        this.setListData();
-    }
-
-    setListData() {
-        const searchList = document.querySelector('.search__result--list');
-        const changedDate = this.isTyping ? this.autoCompletionWords.words : this.recentKeywords;
-        const replaceText = this.isTyping ? this.autoCompletionWords.inputValue : '';
-        searchList.innerHTML = changedDate.reduce((text, data) => text += this.createListItemHTML(data, replaceText), '');
     }
 
     createListItemHTML(text, replaceText = '') {
@@ -124,5 +65,68 @@ export default class SearchResultList extends Toggler {
             this.recentKeywords = this.setRecentKeywords();
             this.setListData();
         });
+    }
+
+    open() {
+        if (!this.isToggled || this.IsEmptyItem()) {
+            return;
+        }
+
+        super.toggle();
+    }
+
+    IsEmptyItem() {
+        const type = this.getType();
+
+        if (type === this.type.recent && !this.recentKeywords.length) {
+            return true;
+        }
+
+        if (type === this.type.complete && !this.autoCompletionWords.words.length) {
+            return true;
+        }
+
+        return false;
+    }
+
+    getType() {
+        const recentTitle = document.querySelector('.search__result--title');
+        if (recentTitle.classList.contains('none')) {
+            return this.type.complete;
+        }
+        return this.type.recent;
+    }
+
+    close() {
+        if (!this.isToggled) {
+            super.toggle();
+        }
+    }
+
+    toggleContents() {
+        this.close();
+        const recentTitle = document.querySelector('.search__result--title');
+        const recentButtons = document.querySelector('.search__button');
+        recentTitle.classList.toggle('none');
+        recentButtons.classList.toggle('none');
+        this.isTyping = !this.isTyping;
+        this.setListData();
+    }
+
+    setListData() {
+        const searchList = document.querySelector('.search__result--list');
+        const changedDate = this.isTyping ? this.autoCompletionWords.words : this.recentKeywords;
+        const replaceText = this.isTyping ? this.autoCompletionWords.inputValue : '';
+        searchList.innerHTML = changedDate.reduce((text, data) => text += this.createListItemHTML(data, replaceText), '');
+    }
+
+    updateData(type, data) {
+        if (type === this.type.recent) {
+            this.recentKeywords = getLocalData()[type];
+            return;
+        }
+
+        this.autoCompletionWords = data;
+        this.setListData();
     }
 }
