@@ -9,7 +9,7 @@ export const LatelyManager = {
 
     addNewdata(data,crrData) {
         if(crrData.length === this.maxData) {
-            data.pop();
+            crrData.pop();
         }
         crrData.unshift(data);
         this.setLocalData(crrData);

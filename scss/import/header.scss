@@ -130,6 +130,20 @@ article {
             }
         }
     }
+    .reco-list {
+        ul {
+            padding: 0 10px;
+
+            li {
+                font-size: 12px;
+                padding: 10px 5px;
+            }
+            li:hover {
+                color: #4285f4;
+                
+            }
+        }
+    }
 }
 
 

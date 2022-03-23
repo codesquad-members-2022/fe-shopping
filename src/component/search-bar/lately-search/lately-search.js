@@ -1,7 +1,7 @@
 import Component from "../../../core/Component.js";
 import { LatelyManager } from "./lately-store.js";
 export default class LatelySearch extends Component {
-    template(data) {
+    template() {
         return `
             <h3>최근 검색어</h3>
             <ul>

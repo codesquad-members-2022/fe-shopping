@@ -169,6 +169,19 @@ article .header-top .loginMenu li {
   color: #4285f4;
 }
 
+.search-form .reco-list ul {
+  padding: 0 10px;
+}
+
+.search-form .reco-list ul li {
+  font-size: 12px;
+  padding: 10px 5px;
+}
+
+.search-form .reco-list ul li:hover {
+  color: #4285f4;
+}
+
 .snb-list {
   visibility: hidden;
   position: absolute;
