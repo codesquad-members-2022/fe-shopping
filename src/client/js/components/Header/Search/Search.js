@@ -9,7 +9,10 @@ import SearchSuggestion from "./SearchUI/SearchSuggestion";
 import {
   handleBodyClick,
   handleSearchCategoryClick,
+  handleCListTransStart,
+  handleCListTransEnd,
 } from "./controllers/search";
+import { store } from "../../../Store";
 
 function Search(...params) {
   Component.call(this, ...params);
@@ -17,13 +20,16 @@ function Search(...params) {
 createExtendsRelation(Search, Component);
 
 Search.prototype.setEvent = function () {
-  document.body.addEventListener("click", handleBodyClick.bind(this));
+  document.body.addEventListener("click", handleBodyClick);
+  this.addEvent("click", ".search__category", handleSearchCategoryClick);
   this.addEvent(
-    "click",
-    ".search__category",
-    handleSearchCategoryClick.bind(this)
+    "transitionstart",
+    ".search__category-list",
+    handleCListTransStart
   );
+  this.addEvent("transitionend", ".search__category-list", handleCListTransEnd);
 };
+
 Search.prototype.mount = async function () {
   const $searchCategory = this.$target.querySelector(".search__category");
   const $searchCategoryList = this.$target.querySelector(
@@ -33,19 +39,15 @@ Search.prototype.mount = async function () {
   const $searchRecent = this.$target.querySelector(".search__recent");
   const $searchSuggestion = this.$target.querySelector(".search__suggestion");
 
-  const { results: categoryData } = await request("search/category");
+  const { results: categoryDatas } = await request("search/category");
+  store.setState({ categoryDatas });
 
   const searchCategory = new SearchCategory($searchCategory);
-  const searchCategoryList = new SearchCategoryList($searchCategoryList, {
-    categoryData,
-    searchCategory,
-  });
+  const searchCategoryList = new SearchCategoryList($searchCategoryList);
   const searchRecent = new SearchRecent($searchRecent);
   const searchSuggestion = new SearchSuggestion($searchSuggestion);
-  const searchInput = new SearchInput($searchInput, {
-    searchSuggestion,
-    searchRecent,
-  });
+  const searchInput = new SearchInput($searchInput);
+
   [
     searchCategory,
     searchCategoryList,
@@ -55,14 +57,6 @@ Search.prototype.mount = async function () {
   ].forEach((component) => {
     component.initRender();
   });
-
-  this.state = {
-    searchCategory,
-    searchCategoryList,
-    searchRecent,
-    searchSuggestion,
-    searchInput,
-  };
 };
 
 Search.prototype.template = function () {

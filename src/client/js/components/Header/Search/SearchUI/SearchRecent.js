@@ -1,31 +1,32 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
+import { store } from "../../../../Store";
 
 function SearchRecent(...params) {
   Component.call(this, ...params);
 }
 createExtendsRelation(SearchRecent, Component);
 
-SearchRecent.prototype.setup = function () {
-  this.state = {
-    display: "none",
-    selectedIndex: 0,
-  };
-};
-
 SearchRecent.prototype.mount = function () {
-  const { display } = this.state;
-  this.$target.style.display = display;
+  const { searchRecentDisplay } = store.state;
+  this.$target.style.display = searchRecentDisplay;
 };
 
 SearchRecent.prototype.template = function () {
+  const { recentDatas, selectedInputIdx } = store.state;
+  const isSelectedIdx = (idx) =>
+    idx + 1 === selectedInputIdx ? "class='selected'" : "";
+
+  const recents = recentDatas
+    ?.map((data, idx) => `<span ${isSelectedIdx(idx)}>${data}</span>`)
+    .join("");
+
   return `
     <div class="recent__title">
         <span>최근 검색어</span>
     </div>
     <div class="recent__body">
-        <span>코드스쿼드</span>
-        <span>아이폰</span>
+        ${recents || `<span>최근 검색어가 없습니다.</span>`}
     </div>
     <div class="recent__footer">
         <span class="recent__deleteBtn">전체삭제</span>

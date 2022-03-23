@@ -7,7 +7,9 @@ function Body(...params) {
 createExtendsRelation(Body, Component);
 
 Body.prototype.template = function () {
-  return `<div>Hello body</div>`;
+  return `
+    <div>Hello body</div>
+  `;
 };
 
 export default Body;

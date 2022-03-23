@@ -1,4 +1,5 @@
 import { delay, request } from "../../../../utils";
+import { store } from "../../../../Store";
 
 const moveCursorToEnd = ($input, len) => {
   delay(0).then(() => {
@@ -6,72 +7,117 @@ const moveCursorToEnd = ($input, len) => {
   });
 };
 
-function handleInputFocusOut() {
-  const { searchSuggestion, searchRecent } = this.$props;
-  searchSuggestion.setState({ display: "none" });
-  searchRecent.setState({ display: "none" });
-}
+const handleInputFocusOut = () => {
+  store.setState({
+    searchRecentDisplay: "none",
+    searchSuggestionDisplay: "none",
+  });
+};
 
-function handleInputFocusIn() {
-  const { inputData } = this.state;
-  const { searchRecent, searchSuggestion } = this.$props;
-  if (inputData) {
-    searchSuggestion.setState({ display: "flex" });
-    searchRecent.setState({ display: "none" });
-  } else {
-    searchSuggestion.setState({ display: "none" });
-    searchRecent.setState({ display: "flex" });
-  }
-}
+const handleInputFocusIn = () => {
+  const { searchWord } = store.state;
+  store.setState({
+    searchRecentDisplay: searchWord ? "none" : "flex",
+    searchSuggestionDisplay: searchWord ? "flex" : "none",
+  });
+};
 
-function handleArrowKeydown({ key }) {
-  const $input = this.$target.querySelector("input");
-  const { searchSuggestion, searchRecent } = this.$props;
+const getSelectedData = (target) => {
+  const { searchRecentDisplay, searchWord } = store.state;
+  const isSearchRecent = searchRecentDisplay === "flex";
+  const layoutSelector = isSearchRecent ? ".recent__body" : ".suggestion__body";
+  const $layoutBody =
+    target.parentNode.parentNode.querySelector(layoutSelector);
+  const $selected = $layoutBody.querySelector(".selected");
+  const idxZeroString = isSearchRecent ? "" : searchWord;
+  return $selected ? $selected.textContent : idxZeroString;
+};
+
+const handleKeyUpArrowUpDown = ({ target, key }) => {
   const {
-    state: { display: sgDisplay },
-  } = searchSuggestion;
-  const curLayout = sgDisplay === "flex" ? searchSuggestion : searchRecent;
-  const { selectedIndex } = curLayout.state;
-  const MAX_SEARCH_DATA = 9;
-  if (key === "ArrowDown") {
-    if (selectedIndex === MAX_SEARCH_DATA) return;
-    curLayout.setState({ selectedIndex: selectedIndex + 1 });
-    const selectedData = curLayout.getSelectedData();
-    $input.value = selectedData;
-  } else if (key === "ArrowUp") {
-    if (selectedIndex === 0) return;
-    curLayout.setState({ selectedIndex: selectedIndex - 1 });
-    const selectedData = curLayout.getSelectedData();
-    const inputValue =
-      selectedIndex - 1 !== 0 ? selectedData : this.state.inputData;
-    $input.value = inputValue;
-    moveCursorToEnd($input, inputValue.length);
-  }
-}
+    selectedInputIdx,
+    suggestionDatas,
+    recentDatas,
+    searchRecentDisplay,
+  } = store.state;
 
-function handleKeyupWithFocus({ target, key }) {
+  const MAX_SEARCH_DATA =
+    searchRecentDisplay === "flex"
+      ? recentDatas.length
+      : suggestionDatas.length;
+  const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== 0;
+  const possibleArrowdown =
+    key === "ArrowDown" && selectedInputIdx !== MAX_SEARCH_DATA;
+
+  if (!possibleArrowUp && !possibleArrowdown) return;
+
+  store.setState({
+    selectedInputIdx:
+      key === "ArrowDown" ? selectedInputIdx + 1 : selectedInputIdx - 1,
+  });
+
+  const selectedData = getSelectedData(target);
+  target.value = selectedData;
+  moveCursorToEnd(target, target.value.length);
+};
+
+const handleKeyUpEnter = ({ target }) => {
+  if (target.value === "") return;
+  const MAX_RECENT_DATA = 7;
+  const { recentDatas } = store.state;
+  const filteredRecentDatas = recentDatas.filter(
+    (data) => data !== target.value
+  );
+  const sliceMaximumDatas =
+    filteredRecentDatas.length >= MAX_RECENT_DATA
+      ? filteredRecentDatas.slice(0, MAX_RECENT_DATA - 1)
+      : filteredRecentDatas;
+
+  const newRecentDatas = [target.value, ...sliceMaximumDatas];
+  target.value = "";
+  localStorage.setItem("recent", JSON.stringify(newRecentDatas));
+  store.setState({ searchWord: "", recentDatas: newRecentDatas });
+  handleInputFocusIn();
+};
+
+const handleSearchIconClick = ({ target }) => {
+  const $input = target.parentNode.parentNode.querySelector("input");
+  handleKeyUpEnter({ target: $input });
+};
+
+const handleKeyupWithFocus = ({ target, key }) => {
   if (key === "ArrowDown" || key === "ArrowUp") {
+    handleKeyUpArrowUpDown({ target, key });
     return;
   }
-  const { searchSuggestion, searchRecent } = this.$props;
-  this.state.inputData = target.value;
-  if (target.value) {
-    searchRecent.setState({ display: "none" });
-    searchRecent.setState({ selectedIndex: 0 });
-  } else {
-    searchSuggestion.setState({ display: "none" });
-    searchSuggestion.setState({ selectedIndex: 0 });
-    searchRecent.setState({ display: "flex" });
+  if (key === "Enter") {
+    handleKeyUpEnter({ target });
     return;
+  }
+
+  const { recentDatas } = store.state;
+
+  if (target.value) {
+    store.setState({
+      searchRecentDisplay: "none",
+      selectedInputIdx: 0,
+    });
+  } else {
+    store.setState({
+      searchSuggestionDisplay: "none",
+      searchRecentDisplay: recentDatas.length ? "flex" : "none",
+      selectedInputIdx: 0,
+      searchWord: "",
+    });
   }
   /* 5초 뒤에도 같은 값인지 확인 하기위한 변수 */
-  const curValue = target.value;
+  const searchWord = target.value;
   delay(500).then(async () => {
-    const isFinishInput = this.state.inputData === curValue;
+    const isFinishInput = target.value === searchWord;
     if (isFinishInput) {
       const requestOptions = {
         query: {
-          keyword: curValue,
+          keyword: searchWord,
         },
       };
       const { results: suggestionDatas } = await request(
@@ -79,21 +125,24 @@ function handleKeyupWithFocus({ target, key }) {
         requestOptions
       );
       if (suggestionDatas?.length) {
-        searchSuggestion.setState({
+        store.setState({
           suggestionDatas,
-          word: curValue,
-          display: "flex",
+          searchWord,
+          searchSuggestionDisplay: "flex",
         });
       } else {
-        searchSuggestion.setState({ display: "none" });
+        store.setState({
+          searchSuggestionDisplay: "none",
+        });
       }
     }
   });
-}
+};
 
 export {
   handleInputFocusIn,
   handleInputFocusOut,
-  handleArrowKeydown,
   handleKeyupWithFocus,
+  handleKeyUpEnter,
+  handleSearchIconClick,
 };

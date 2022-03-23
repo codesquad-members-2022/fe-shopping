@@ -1,46 +1,43 @@
-import { delay } from "../../../../utils";
-
-const delayVisible = async (ms, lists) => {
-  for (const li of lists) {
-    await delay(ms);
-    li.style.visibility =
-      li.style.visibility === "visible" ? "hidden" : "visible";
-  }
-};
-
-async function handleBodyClick({ target }) {
-  const $searchCategoryList = this.$target.querySelector(
+const handleBodyClick = ({ target }) => {
+  const $searchCategoryList = document.body.querySelector(
     ".search__category-list"
   );
   const $target = target.closest(".search__category");
-  const $searchCategory = this.$target.querySelector(".search__category");
-  const TARGET_IS_SCATEGORY = $target === $searchCategory;
-  const CATEGORY_LIST_ACTING =
+  const $searchCategory = document.body.querySelector(".search__category");
+
+  const isSearchCategory = $target === $searchCategory;
+  const isActingCategoryList =
     $searchCategoryList.classList.contains("list-act");
-  const CLICK_OTHER_BODY = !TARGET_IS_SCATEGORY && CATEGORY_LIST_ACTING;
+  const isClickOtherBody = !isSearchCategory && isActingCategoryList;
 
-  if (CLICK_OTHER_BODY) {
+  if (isClickOtherBody) {
     $searchCategoryList.classList.remove("list-act");
-    const lists = [...$searchCategoryList.querySelectorAll("li")];
-    lists.reverse();
-    const TRANSITION_TIME = 200;
-    const TIME_CORRECTION = 2;
-    await delayVisible(TRANSITION_TIME / lists.length - TIME_CORRECTION, lists);
   }
-}
+};
 
-async function handleSearchCategoryClick() {
-  const $searchCategoryList = this.$target.querySelector(
+const handleSearchCategoryClick = ({ target }) => {
+  const $searchCategory = target.closest(".search__category");
+  const $searchCategoryList = $searchCategory.parentNode.querySelector(
     ".search__category-list"
   );
   $searchCategoryList.classList.toggle("list-act");
-  const lists = [...$searchCategoryList.querySelectorAll("li")];
-  if (!$searchCategoryList.classList.contains("list-act")) {
-    lists.reverse();
-  }
-  const TRANSITION_TIME = 200;
-  const TIME_CORRECTION = 2;
-  await delayVisible(TRANSITION_TIME / lists.length - TIME_CORRECTION, lists);
-}
+};
 
-export { handleBodyClick, handleSearchCategoryClick };
+const handleCListTransStart = ({ target }) => {
+  target.style.boxShadow = "0 4px 5px rgb(0 0 0 / 30%)";
+  target.style.border = "1px #d1d8e0 solid";
+};
+
+const handleCListTransEnd = ({ target }) => {
+  if (!target.classList.contains("list-act")) {
+    target.style.boxShadow = "none";
+    target.style.border = "none";
+  }
+};
+
+export {
+  handleBodyClick,
+  handleSearchCategoryClick,
+  handleCListTransStart,
+  handleCListTransEnd,
+};

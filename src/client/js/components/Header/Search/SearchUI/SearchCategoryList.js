@@ -1,4 +1,5 @@
 import Component from "../../../../core/Component";
+import { store } from "../../../../Store";
 import { createExtendsRelation } from "../../../../oop-utils";
 
 function SearchCategoryList(...params) {
@@ -7,14 +8,14 @@ function SearchCategoryList(...params) {
 createExtendsRelation(SearchCategoryList, Component);
 
 SearchCategoryList.prototype.setEvent = function () {
-  const { searchCategory } = this.$props;
   this.addEvent("click", "li", ({ target }) => {
-    searchCategory.setState({ categoryTitle: target.textContent });
+    store.setState({ categoryTitle: target.textContent });
   });
 };
+
 SearchCategoryList.prototype.template = function () {
-  const { categoryData } = this.$props;
-  return categoryData.map((data) => `<li>${data}</li>`).join("");
+  const { categoryDatas } = store.state;
+  return categoryDatas.map((data) => `<li>${data}</li>`).join("");
 };
 
 export default SearchCategoryList;

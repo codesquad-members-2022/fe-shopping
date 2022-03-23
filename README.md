@@ -1,44 +1,66 @@
 # fe-shopping
 
-## 1주차 - 2
+## 1주차 - 3
 
 task list
 
-- [ ] +) 최근 검색어는 localStorage 에 저장해서 저장하고, 불러오기
-- [x] 키보드 방향키 위/아래 이동시에 이동하기
-- [x] 전체 를 클릭하면 하단에 카테고리 펼치기
-- [x] 선택시 검색 진행(실제 동작 X)
-- [ ] 캐러셀
+- [x] +) 최근 검색어는 localStorage 에 저장해서 저장하고, 불러오기
+- [x] +) 키보드 위/아래 이동시 이동 -> Suggestion 과 Recent 가 동일한 Index 로
+- [x] 전체 를 클릭하면 하단에 카테고리 펼치기 - Visibility + delay 로직에서 overflow hidden 을 주어서 height 만을 이용해 transition 사용하는 것으로 변경..
+- [x] Store 분리
 
-### 키보드 위/아래 이동시에 이동
+## ✅ PR 리뷰에서 개선한 점
 
-- 쿠팡에서는 맨 아래에서 아래 이동시 아무 이동효과가 없음
+### Store(Model) 를 분리해서 처리
 
-  - 맨 위에서 위로 이동시 원래 입력했던 키워드로 돌아옴
+- 기존의 각각의 컴포넌트들이 갖는 state 를 store 가 모두 갖도록 분리했습니다.
+- store 를 분리하고서 어떻게 store 가 notify 해야할 지 고민을 많이해보았는데 떠오르는 방법은 모두 실패해서 작성된 옵저버패턴을 참고해서 코드를 작성했습니다. (core/observer)
 
-- 위 처럼 동작하게 하려면 `SearchInput` 과 `SearchSuggestion` 이 위/아래 이벤트를 통한 이동값을 공유해야 한다고 생각했음
+### Store 를 쓰면서 느낀 단점?
 
-- 현재 `keyup` 이벤트시 `최근검색어` 혹은 `추천검색어` 를 보이게 하는 로직이 있어서 키보드 위/아래 이벤트는 따로 `keydown` 이벤트에서 진행하려고 했음
+- store + observer 패턴 을 쓰면서 아쉬웠던 점은 `store 가 모든 state 를 갖게되어서 어느 Component 에서 쓰이는지 확인하기 어렵다` 는 것이었습니다.
 
-  - 한번에 key 입력시 keydown-keyup 이벤트가 동시에 일어나서 특정 키보드입력을 예외처리하지 않으면 `setState` 가 두 번 일어나는 현상이 생김
-  - keyup 이벤트 내부에서 `ArrowDown`, `ArrowUp` 키보드 이벤트를 제외하고 진행하기로 예외처리함
-  - ?) 실제 keyboard 이벤트를 핸들링할 때, 다양한 키보드 이벤트상황(keyup, keydown, keypress..)에 맞춰서 이벤트를 나눠서 달아주는지가 궁금했습니다. 하나의 이벤트(keyup) 에서만 핸들링한다면 핸들링 함수가 처리하는 로직이 너무 많아진다고 생각해서 분리해보았는데 분리했을 때 일어나는 부수효과가 더 치명적이지 않을까 란 생각도 들었습니다.
+- 만약 store의 state 가 너무 커진다면 어떤 Component 에서 쓰는지 구분하기 어렵지 않을까? 란 생각을 했습니다.
+  - 그래서 state 안에 어느 Component 에서 쓰이는지 작성하는 식으로 하고 flat 시켜서 넣으면 되지않을까? 싶었는데 하나의 State 를 두 개의 Component 에서 쓰는 경우도 있을 것 같아 중복으로 보여져서 꺼려지게 되었습니다. Component 별 state 를 어떻게 명시적으로 보여줄 지를 좀 더 고민해봐야겠다는 생각을 했습니다.
 
-- 아래 이벤트 시에는 커서가 맨 오른쪽으로 가는데, 위 이벤트 시에는 커서가 맨 왼쪽으로 감??
+```js
+const initState = {
+  categoryTitle: "전체",
+  categoryDatas: [],
+  searchWord: "",
+  searchRecentDisplay: "none",
+  searchSuggestionDisplay: "none",
+  suggestionDatas: [],
+  recentDatas: JSON.parse(localStorage.getItem("recent")) || [],
+  selectedInputIdx: 0,
+};
 
-  - 딜레이를 줘서 해결
-  - DOM 에 range 설정을 해주는 해당 코드와 DOM 이 실제로 뿌려지는 시점이 차이가 있어서 delay 를 사용하지 않으면 해당 코드가 무시되는것 처럼 보이는걸로 예상이 되는데 자세하게는 모르겠어서 찾아볼 생각입니다..
+// 생각해본 방법..
+const initState = {
+  categoryState: {
+    categoryTitle: "전체",
+    categoryDatas: [],
+  },
+  searchState: {
+    searchWord: "",
+    searchRecentDisplay: "none",
+    searchSuggestionDisplay: "none",
+  },
+  searchSuggestionState: {
+    suggestionDatas: [],
+    selectedInputIdx: 0,
+  },
+  searchRecentState: {
+    recentDatas: JSON.parse(localStorage.getItem("recent")) || [],
+    selectedInputIdx: 0, // 중복으로 쓰여짐, 의미없는 값이 되는데..?
+  },
+};
+```
 
-  ```js
-  // 전
-  $input.setSelectionRange(len, len);
-  // 후
-  const moveCursorToEnd = ($input, len) => {
-    delay(0).then(() => {
-      $input.setSelectionRange(len, len);
-    });
-  };
-  ```
+### Store 를 쓰면서 느낀 장점
 
-- `전체` 버튼을 눌렀을 때 촤르륵 내려오는 효과를 클릭 이벤트와 transition 을 활용해서 해보고 싶었고 안에 li 태그가 많을 때에 각 요소가 시간차로 visibility 가 바뀌게 보여야 자연스러워 보일 것 같아서 delay 함수를 활용해서 구현해보았는데 delay 로직이 많은게 자연스럽진 않은 것 같아서 다른 분들 코드를 참고해서 고쳐볼 생각입니다.
-  - 자연스럽지 않다고 느낀것은 많은 delay 로직 이후 실행되는 코드가 있다면 delay 를 await 한 이후 코드의 실행이 자연스러운 흐름으로 동작하지 않을 것이라 생각했습니다.
+- `Component` 에서 분리된 `Store` 에서 `state` 를 가져오는 방식으로 하니 `$props` 를 통해서 전달하던 복잡한 로직에서 벗어날 수 있었고, `View` 간에 결합성이 떨어져 각각의 `Component` 를 작업하는 데 생기는 부수효과가 적어져서 유지보수가 용이해졌다는 생각이 들었습니다.
+
+- 또한 하나의 state 에서 property 를 관리하다보니 뜻하지않게 변수명이 구체적이게 되어서 가독성이 더 좋아졌다는 느낌을 받았습니다.
+
+- 단점대비 장점이 훨씬 많은 느낌을 받아서, Store 를 쓰지않을 이유가 없다는 생각이 들었습니다.

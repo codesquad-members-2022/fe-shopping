@@ -1,21 +1,20 @@
-export default function Component($target, $props) {
+import { observe } from "./observer";
+
+export default function Component($target) {
   this.$target = $target;
-  this.$props = $props;
 }
 
 Component.prototype = {
   constructor: Component,
-  async initRender() {
+  initRender() {
     this.setup();
-    await this.render();
+    observe(async () => {
+      await this.render();
+    });
     this.setEvent();
   },
   setup() {
     // this.state 초기 셋업
-  },
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.render();
   },
   async mount() {
     // render 이후 로직 실행
