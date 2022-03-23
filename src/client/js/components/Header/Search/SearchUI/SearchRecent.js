@@ -1,6 +1,6 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
-import { store } from "../../../../store";
+import { store } from "../../../../Store";
 
 function SearchRecent(...params) {
   Component.call(this, ...params);

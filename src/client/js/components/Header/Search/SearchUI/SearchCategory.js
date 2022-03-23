@@ -1,5 +1,5 @@
 import Component from "../../../../core/Component";
-import { store } from "../../../../store";
+import { store } from "../../../../Store";
 import { createExtendsRelation } from "../../../../oop-utils";
 
 function SearchCategory(...params) {

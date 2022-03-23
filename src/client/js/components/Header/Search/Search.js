@@ -12,7 +12,7 @@ import {
   handleCListTransStart,
   handleCListTransEnd,
 } from "./controllers/search";
-import { store } from "../../../store";
+import { store } from "../../../Store";
 
 function Search(...params) {
   Component.call(this, ...params);
