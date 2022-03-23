@@ -1,18 +1,17 @@
 import DelayTimer from "../util/DelayTimer.js";
+import FetchController from "../util/FetchController.js";
 import {
     addLocalData
 } from "../util/localStorage.js";
-import {
-    fetchAutoCompletionWord
-} from "../util/utils.js";
 
 export default class SearchController {
     constructor($parent, resultList) {
         this.$parent = $parent;
         this.$target = null;
-        this.fetchDelay = 50;
+        this.fetchDelay = 500;
         this.resultList = resultList;
         this.fetchTimer = new DelayTimer();
+        this.fetchController = new FetchController();
     }
 
     init() {
@@ -109,7 +108,8 @@ export default class SearchController {
     }
 
     fetchInputValue = async (inputValue) => {
-        const fetchedData = await fetchAutoCompletionWord(inputValue);
+        const fetchedData = await this.fetchController.fetchAutoCompletionWord(inputValue);
+
         this.resultList.updateData('complete', {
             inputValue: inputValue,
             words: fetchedData
