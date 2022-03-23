@@ -1,3 +1,4 @@
+import DelayTimer from "../util/DelayTimer.js";
 import {
     addLocalData
 } from "../util/localStorage.js";
@@ -10,6 +11,8 @@ export default class SearchController {
         this.$parent = $parent;
         this.$target = null;
         this.resultList = resultList;
+        this.fetchTimer = new DelayTimer();
+        this.fetchDelay = 500;
     }
 
     render() {
@@ -61,12 +64,14 @@ export default class SearchController {
         inputTextForm.addEventListener('input', this.handleInputEvent);
     }
 
-    handleInputEvent = async (event) => {
-        const inputValue = event.target.value;
-        const fetchedData = await fetchAutoCompletionWord(inputValue);
-        this.resultList.updateData('complete', {
-            inputValue: inputValue,
-            words: fetchedData
+    handleInputEvent = (event) => {
+        this.fetchTimer.debounceTimer(this.fetchDelay, async () => {
+            const inputValue = event.target.value;
+            const fetchedData = await fetchAutoCompletionWord(inputValue);
+            this.resultList.updateData('complete', {
+                inputValue: inputValue,
+                words: fetchedData
+            });
         });
     }
 
