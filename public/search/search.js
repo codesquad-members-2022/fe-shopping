@@ -203,22 +203,30 @@ const searchCategoryKeydownEventHandler = (event) => {
     }
 };
 
-const deleteRecentItem = (event) => {
+const deleteRecentItem = (target) => {
+    const listItem = target.closest(".search__list--item");
+    const idx2Delete = listItem.dataset.idx;
+    recentSearchList.searchItems.splice(idx2Delete, 1);
+    if (idx2Delete === recentSearchList.curIdx.toString()) {
+        recentSearchList.curIdx = -1;
+        searchInput.clearSearchInput();
+    } else if (idx2Delete < recentSearchList.curIdx.toString()) {
+        recentSearchList.curIdx -= 1;
+        recentSearchList.focusItem();
+    }
+    recentSearchList.renderSearchList();
+};
+
+const recentSearchListClickEventHandler = (event) => {
     event.stopPropagation();
     const target = event.target;
 
     if (target.classList.contains("delete-btn")) {
-        const listItem = target.closest(".search__list--item");
-        const idx2Delete = listItem.dataset.idx;
-        recentSearchList.searchItems.splice(idx2Delete, 1);
-        if (idx2Delete === recentSearchList.curIdx.toString()) {
-            recentSearchList.curIdx = -1;
-            searchInput.clearSearchInput();
-        } else if (idx2Delete < recentSearchList.curIdx.toString()) {
-            recentSearchList.curIdx -= 1;
-            recentSearchList.focusItem();
-        }
-        recentSearchList.renderSearchList();
+        deleteRecentItem(target);
+    }
+
+    if (target.classList.contains("search__list--item-text")) {
+        searchInput.setInputWord(target.closest(".search__list--item"));
     }
 };
 
@@ -260,7 +268,10 @@ const onSearchEvent = () => {
         .querySelector(".record-btn")
         .addEventListener("click", toggleRecord);
 
-    recentSearchList.listContainer.addEventListener("click", deleteRecentItem);
+    recentSearchList.listContainer.addEventListener(
+        "click",
+        recentSearchListClickEventHandler
+    );
 };
 
 export { onSearchEvent };
