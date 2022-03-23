@@ -38,7 +38,7 @@ Search.prototype.setEvent = function () {
   });
 };
 
-Search.prototype.mount = async function () {
+Search.prototype.mount = function () {
   const $searchCategory = this.$target.querySelector(".search__category");
   const $searchCategoryList = this.$target.querySelector(
     ".search__category-list"
@@ -46,9 +46,6 @@ Search.prototype.mount = async function () {
   const $searchInput = this.$target.querySelector(".search__input");
   const $searchRecent = this.$target.querySelector(".search__recent");
   const $searchSuggestion = this.$target.querySelector(".search__suggestion");
-
-  const { results: categoryDatas } = await request("search/category");
-  store.setState({ categoryDatas });
 
   const searchCategory = new SearchCategory($searchCategory);
   const searchCategoryList = new SearchCategoryList($searchCategoryList);

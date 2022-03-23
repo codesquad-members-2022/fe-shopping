@@ -1,5 +1,6 @@
 import Component from "../../core/Component";
 import { createExtendsRelation } from "../../oop-utils";
+import Category from "./Category/Category";
 import Search from "./Search/Search";
 
 function Header(...params) {
@@ -9,20 +10,15 @@ createExtendsRelation(Header, Component);
 
 Header.prototype.mount = function () {
   const $search = this.$target.querySelector(".search");
+  const $headerCategory = this.$target.querySelector(".header__category");
   const search = new Search($search);
-  search.initRender();
+  const category = new Category($headerCategory);
+  [search, category].forEach((component) => component.initRender());
 };
 
 Header.prototype.template = function () {
   return `
-    <div class="header__category">
-        <div class="category__icon">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="category__text">
-            <span>카테고리</span>
-        </div>
-    </div>
+    <div class="header__category"></div>
     <div class="header__main">
         <div class="main__searchBar">
             <div class="logo">
