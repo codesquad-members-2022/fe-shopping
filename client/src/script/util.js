@@ -12,5 +12,9 @@ const debounce = (function () {
     timer = setTimeout(callback, delay);
   };
 })();
+const extend = (child, parent) => {
+  child.prototype = Object.create(parent.prototype);
+  child.prototype.constructor = child;
+}
 
-export { delay, debounce };
+export { delay, debounce, extend };
