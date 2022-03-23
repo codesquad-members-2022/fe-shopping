@@ -1,0 +1,20 @@
+
+$header-bg-color: (white: #fff, gray:#e1e1e1);
+$header-font: (small: 12px, medium: 24px, large: 36px);
+$header-font-color: (white: #fff, dark-gray: #555, blue: #008cff);
+$header-width: (base: 1020px, search-form: 518px);
+$header-height: (top-bar: 32px, header: 115px, search-form: 37px);
+
+@mixin bg-img-no-repeat($url) {
+  background: {
+    image: url($url);
+    repeat: no-repeat;
+  };
+}
+
+@mixin position-absolute($top:auto, $left:auto, $right:auto) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+}

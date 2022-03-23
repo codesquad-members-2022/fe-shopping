@@ -1,28 +1,9 @@
 @import "utils";
-
-$header-bg-color: #fff;
-$header-font: (small: 12px, medium: 24px, large: 36px);
-$header-font-color: (white: #fff, dark-gray: #555, blue: #008cff);
-$header-width: (base: 1020px, search-form: 518px);
-$header-height: (top-bar: 32px, header: 115px, search-form: 37px);
-
-@mixin bg-img-no-repeat($url) {
-  background: {
-    image: url($url);
-    repeat: no-repeat;
-  };
-}
-
-@mixin position-absolute($top:auto, $left:auto, $right:auto) {
-  position: absolute;
-  top: $top;
-  left: $left;
-  right: $right;
-}
+@import "constants";
 
 .header-container {
   background: {
-    color: $header-bg-color;
+    color: map-get($header-bg-color, white);
   };
   position: relative;
   min-width: map-get($header-width, base);
@@ -70,6 +51,7 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
   margin: 0 auto;
   padding-top: map-get($header-height, top-bar);
   position: relative;
+  z-index: 1;
 }
 
 .header__category-btn {
@@ -114,7 +96,7 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
 .form-container {
   width: map-get($header-width, search-form);
   height: map-get($header-height, search-form);
-  background-color: $header-bg-color;
+  background-color: map-get($header-bg-color, white);
   border: 2px solid #4285f4;
   float: left;
   position: relative;
@@ -153,7 +135,7 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
   @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
   background: {
     position: 109px -163px;
-    color: $header-bg-color;
+    color: map-get($header-bg-color, white);
   };
 }
 
@@ -161,14 +143,14 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
   @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
   background: {
     position: 109px -141px;
-    color: $header-bg-color;
+    color: map-get($header-bg-color, white);
   };
 }
 
 .header__select__list {
   max-height: 0;
   border: 1px solid #ddd;
-  background-color: $header-bg-color;
+  background-color: map-get($header-bg-color, white);
   width: inherit;
   @include position-absolute(map-get($header-height, search-form), -1px);
   overflow-y: auto;
@@ -187,7 +169,6 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
 
 .header__select--slide-down {
   max-height: 800px;
-  visibility: visible;
 }
 
 .header__form__search {
@@ -203,24 +184,26 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
     text-indent: 10px;
   }
 
-  >a {
+  >button {
     width: 50px;
     height: 37px;
+    border: 0;
+    background-color: map-get($header-bg-color, white);
     @include bg-img-no-repeat("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
     background: {
       position: -112px -71px;
     };
-    @include position-absolute(auto, auto, 0);
+    @include position-absolute(auto, auto, 2px);
     cursor: pointer;
 
   }
 }
 
-.header__search__list {
+.header__search__prefix-container {
   max-height: 800px;
   border: 1px solid #ddd;
-  background-color: $header-bg-color;
-  width: 80%;
+  background-color: map-get($header-bg-color, white);
+  width: 100%;
   @include position-absolute(map-get($header-height, search-form), -1px);
   overflow-y: auto;
   box-shadow: 0 5px 5px #ddd;
@@ -236,6 +219,90 @@ $header-height: (top-bar: 32px, header: 115px, search-form: 37px);
     }
   }
 }
+
+.header__search__history-container {
+  border: 1px solid #ddd;
+  background-color: map-get($header-bg-color, white);
+  width: 100%;
+  @include position-absolute(map-get($header-height, search-form), -1px);
+  display: flex;
+  flex-flow: column;
+}
+
+.history-top {
+  height: 300px;
+  font-size: map-get($header-font, small) * 1.1;
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+  overflow-y: auto;
+
+  >div:nth-child(1) {
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    line-height: 30px;
+  }
+}
+
+.history-main {
+  flex-grow: 1;
+  padding: 10px 0;
+  line-height: 30px;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    font-size: map-get($header-font, small) * 1.1;
+
+    a {
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .history-delete {
+    cursor: pointer;
+    width: 12%;
+    background-color: map-get($header-bg-color, white);
+    border: 0;
+    font-size: map-get($header-font, small);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.history-off {
+  text-align: center;
+  font-size: map-get($header-font, medium);
+  line-height: 100px;
+}
+
+.history-bottom {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: map-get($header-bg-color, gray);
+  padding: 10px;
+  box-sizing: border-box;
+
+  button {
+    cursor: pointer;
+    background-color: map-get($header-bg-color, gray);
+    font-size: map-get($header-font, small);
+    border: 0;
+  }
+}
+
 
 .key-on {
   background-color: blanchedalmond;

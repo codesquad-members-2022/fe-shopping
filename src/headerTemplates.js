@@ -20,9 +20,9 @@ function createList(listArray) {
     }, ``)
 }
 
-function createStrongList(listArray) {
+function createIndexList(listArray) {
     return listArray.reduce((acc, cur, idx) => {
-        return acc + `<li data-index="${idx}"><a><strong>${cur[0]}</strong>${cur[1]}</a></li>`}, ``)
+        return acc + `<li data-index="${idx}"><a>${cur}</a></li>`}, ``)
 }
 
 function createHeader(navMenu) {
@@ -39,7 +39,7 @@ function createHeader(navMenu) {
                         </div>
                         <div class="header__form__search">
                             <input type="text" class="search-input">
-                                <a class="search-btn"></a>
+                                <button class="search-btn"></button>
                         </div>
                     </form>
                 </div>
@@ -72,10 +72,40 @@ function createSelectList(list) {
             </ul>`
 }
 
-function createSearchListContainer() {
-    return `<ul class="header__search__list visibility-hidden">
+function createPrefixListContainer() {
+    return `<ul class="header__search__prefix-container visibility-hidden">
             </ul>`
 }
 
-export { createList, createTopBar, createSelectList, createHeader, createSearchListContainer, createStrongList }
+function createSearchHistoryContainer() {
+    return `<div class="header__search__history-container visibility-hidden">
+                <div class="history-top">
+                    <div><p>최근 검색어</p></div>
+                    <div class="history-main">
+                        <ul class="history-list">                 
+                        </ul>
+                    </div>
+                </div>
+                <div class="history-bottom">
+                    <button type="button" class="history-deleteAll">전체삭제</button>
+                    <button type="button" class="history-switch">최근검색어끄기</button>
+                </div>
+            </div>`
+}
+
+function createHistoryList(listArray) {
+    return listArray.reduce((acc, cur) => {
+        return acc + `<li>
+                        <a>${cur}</a>
+                        <button type="button" class="history-delete">삭제</button>
+                      </li>`}, ``)
+}
+
+function createHistoryOff() {
+    return `<div class="history-off">최근검색어 기능이 꺼져있습니다.</div>`
+}
+
+export { createList, createTopBar, createSelectList, createHeader,
+    createPrefixListContainer, createIndexList, createSearchHistoryContainer,
+    createHistoryList, createHistoryOff }
 

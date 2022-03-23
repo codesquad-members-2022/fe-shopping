@@ -55,6 +55,7 @@
   margin: 0 auto;
   padding-top: 32px;
   position: relative;
+  z-index: 1;
 }
 
 .header__category-btn {
@@ -172,7 +173,6 @@
 
 .header__select--slide-down {
   max-height: 800px;
-  visibility: visible;
 }
 
 .header__form__search {
@@ -190,24 +190,26 @@
   outline: none;
   text-indent: 10px;
 }
-.header__form__search > a {
+.header__form__search > button {
   width: 50px;
   height: 37px;
+  border: 0;
+  background-color: #fff;
   background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
   background-repeat: no-repeat;
   background-position: -112px -71px;
   position: absolute;
   top: auto;
   left: auto;
-  right: 0;
+  right: 2px;
   cursor: pointer;
 }
 
-.header__search__list {
+.header__search__prefix-container {
   max-height: 800px;
   border: 1px solid #ddd;
   background-color: #fff;
-  width: 80%;
+  width: 100%;
   position: absolute;
   top: 37px;
   left: -1px;
@@ -215,14 +217,93 @@
   overflow-y: auto;
   box-shadow: 0 5px 5px #ddd;
 }
-.header__search__list li {
+.header__search__prefix-container li {
   color: black;
   font-size: 12px;
   padding: 7px;
 }
-.header__search__list li strong {
+.header__search__prefix-container li strong {
   color: #008cff;
   font-weight: bold;
+}
+
+.header__search__history-container {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  top: 37px;
+  left: -1px;
+  right: auto;
+  display: flex;
+  flex-flow: column;
+}
+
+.history-top {
+  height: 300px;
+  font-size: 13.2px;
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+  overflow-y: auto;
+}
+.history-top > div:nth-child(1) {
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  height: 30px;
+  line-height: 30px;
+}
+
+.history-main {
+  flex-grow: 1;
+  padding: 10px 0;
+  line-height: 30px;
+}
+.history-main li {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  font-size: 13.2px;
+}
+.history-main li a {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.history-main li a:hover {
+  text-decoration: underline;
+}
+.history-main .history-delete {
+  cursor: pointer;
+  width: 12%;
+  background-color: #fff;
+  border: 0;
+  font-size: 12px;
+}
+.history-main .history-delete:hover {
+  text-decoration: underline;
+}
+
+.history-off {
+  text-align: center;
+  font-size: 24px;
+  line-height: 100px;
+}
+
+.history-bottom {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #e1e1e1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.history-bottom button {
+  cursor: pointer;
+  background-color: #e1e1e1;
+  font-size: 12px;
+  border: 0;
 }
 
 .key-on {
@@ -291,6 +372,47 @@
 .header__nav-bar li {
   font-size: 12px;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.banner-container {
+  position: relative;
+  height: 450px;
+}
+
+.banner__bigImg-container a {
+  position: absolute;
+  margin-left: -960px;
+  left: 50%;
+}
+.banner__bigImg-container img {
+  display: block;
+}
+
+.banner__smallImg-container {
+  position: absolute;
+  right: 10px;
+  top: 45px;
+  background-color: #fff;
+  box-shadow: 0 4px 5px #e1e1e1;
+}
+.banner__smallImg-container img {
+  display: block;
+}
+
+.banner__smallImg-basicBorder {
+  border: 2px solid #fff;
+}
+
+.banner__smallImg-blueBorder {
+  border: 2px solid #008cff;
 }
 
 /*# sourceMappingURL=style.css.map */
