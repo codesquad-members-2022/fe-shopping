@@ -218,7 +218,6 @@ export default class {
 
   onMouseDown() {
     this.$searchFormArea.addEventListener("mousedown", (e) => {
-      // console.log(e);
       this.handleSearchFormMousedown(e);
     });
   }

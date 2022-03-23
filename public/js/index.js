@@ -1,10 +1,9 @@
 import { $ } from "./util/util.js";
 import { sliderData } from "../data/data.js";
 import MainBanner from "./view/MainBanner.js";
-// import SearchForm from "./view/SearchForm.js";
-// import SearchForm from "./component/SearchForm.js";
 import LocalStorage from "./model/LocalStorage.js";
-import RecentSearchView from "./view/RecentSearchView.js";
+import SearchView from "./view/SearchView.js";
+import SearchForm from "./component/SearchForm.js";
 
 const mainBanner = new MainBanner({
   data: sliderData,
@@ -13,35 +12,18 @@ const mainBanner = new MainBanner({
   imgAreaElement: $(".carousel-img-area"),
 });
 
-// const searchForm = new SearchForm({
-//   searchFormArea: $(".search-form-area"),
-//   localStorageDataSize: 10,
-//   recentSearchMsg: {
-//     confirmMsg: `저장된 최근 검색어를 모두 삭제하시겠습니까?`,
-//     completeMsg: `삭제 되었습니다.`,
-//     cancelMsg: `취소 되었습니다.`,
-//   },
-// });
-
 const args = {
   searchFormArea: $(".search-form-area"),
   datasetName: "idx",
   localStorage: new LocalStorage({ dataSizeLimit: 10 }),
 };
 
-const recentSearchView = new RecentSearchView(args, {
+const searchView = new SearchView(args, {
   confirmMsg: `저장된 최근 검색어를 모두 삭제하시겠습니까?`,
   completeMsg: `삭제 되었습니다.`,
   cancelMsg: `취소 되었습니다.`,
 });
 
-// const searchForm = new SearchForm({
-//   searchFormArea: $(".search-form-area"),
-//   datasetName: "idx",
-//   localStorage: new LocalStorage({ dataSizeLimit: 10}),
-// });
-
-// searchForm.init();
-recentSearchView.init();
+searchView.init();
 
 mainBanner.init();
