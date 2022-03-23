@@ -17,8 +17,7 @@ export class RelativeSearchController {
         return;
       }
       const searchKeyword = event.target.value;
-      if (searchKeyword !== '')
-      {
+      if (searchKeyword !== '') {
         this.updatePopupRelativeKeyword(searchKeyword);
       }
     }, delayTime));
