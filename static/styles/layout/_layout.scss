@@ -1,0 +1,13 @@
+body {
+  background: $gray-0;
+  color: $gray-9;
+}
+
+.header {
+  margin: 80px auto;
+  width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1100;
+}

@@ -1,0 +1,17 @@
+.mainBanner {
+  position: relative;
+  height: 450px;
+  background-color: $gray-1;
+  border: 1px solid $gray-3;
+
+  &__thumbnails {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -640px;
+    width: 1280px;
+    height: 450px;
+    background-color: $gray-5;
+    z-index: 1000;
+  }
+}

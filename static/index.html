@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script type="module" src="js/main.js"></script>
+    <title>쿠팡!</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="categoryMenu">
+        <span>카테고리</span>
+        <ul class="categoryMenu_list">
+          <li class="categoryMenu_item"></li>
+        </ul>
+      </div>
+
+      <a href="/static/index.html">
+        <img
+          width="80"
+          src="https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png"
+        />
+      </a>
+      <form class="searchForm">
+        <div class="searchForm__categories">
+          <div class="searchForm__current-category"></div>
+          <ul class="searchForm__category-list searchForm__category-list--hidden"></ul>
+        </div>
+        <div class="searchForm__input-wrap">
+          <input class="searchForm__input" type="text" required minlength="1" />
+          <button class="searchForm__submit" type="submit">검색</button>
+          <div class="searchForm__result">
+            <div class="searchForm__"></div>
+            <ul class="searchForm__result-list">
+              <li class="searchForm__result-item">최근검색어1</li>
+            </ul>
+            <div class="searchForm__buttons"></div>
+          </div>
+        </div>
+      </form>
+    </header>
+
+    <main class="main">
+      <div class="mainBanner">
+        <div class="mainBanner__inner">
+          <ul class="mainBanner__thumbnails">
+            <li class="mainBanner__thumbnail"></li>
+          </ul>
+          <ul class="mainBanner__list">
+            <li class="mainBanner__item"></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
