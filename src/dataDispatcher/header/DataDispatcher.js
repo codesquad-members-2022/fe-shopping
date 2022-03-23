@@ -26,7 +26,7 @@ class HedearDataDispatcher {
     this.searchMenuView.renderMenu(menuDOM);
   }
 
-  checkdataSize(...data) {
+  checkdataSize(data) {
     const MAX_SIZE = 10;
 
     if (data.length > MAX_SIZE) {

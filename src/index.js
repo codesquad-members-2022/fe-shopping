@@ -11,6 +11,7 @@ import {
   SearchInputToggle,
   SearchMenuToggle,
 } from "./Components/HeaderToggle.js";
+import { ETCmovement } from "./etcMovement/EtcMovement.js";
 
 // localStorage.setItem("localSearchHistory", "[]"); // 초기화용
 
@@ -20,6 +21,7 @@ const SEARCH_INPUT_VIEW = new SearchInputView(".header__main--inputWrapper");
 const SEARCH_INPUT_MODEL = new SearchInputToggle();
 const SEARCH_MENU_VIEW = new SearchMenuView(".header__main--inputMenuButton");
 const SEARCH_MENU_MODEL = new SearchMenuToggle();
+const ETC_MOVEMENT = new ETCmovement(SEARCH_INPUT_VIEW, SEARCH_MENU_VIEW);
 
 const HISTORY_MANAGER = new HeaderHistoryPatcher(
   SEARCH_INPUT_MODEL,
@@ -39,7 +41,7 @@ const mainControllerParams = {
     ROUTER,
     HISTORY_MANAGER
   ),
-  searchMenuHandler: new SearchMenuEventHandler(MENU, ROUTER),
+  searchMenuHandler: new SearchMenuEventHandler(MENU, ROUTER, ETC_MOVEMENT),
 };
 
 const test = new mainController(mainControllerParams);

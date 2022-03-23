@@ -8,7 +8,6 @@ class SearchInputEventHandler {
   init() {
     this.addFocusEvent();
     this.addInputEvent();
-    //this.addFoucusOutEvent();
   }
 
   addFocusEvent() {

@@ -28,12 +28,12 @@ SearchInputView.prototype.renderSearchHistory = function (searchHistoryDom) {
   this.removePrevView(this.parentDom, removeTarget);
   // 인자DOM에 전체 검색 삭제 이벤트 추가 필요함 이부분은 View가 아닌 DOM 넘겨주는 단계에서 처리 예정
   this.parentDom.appendChild(searchHistoryDom);
-};
+}; // 중복
 
 SearchInputView.prototype.removePrevView = function (parentDom, targetName) {
   if (domUtil.target$(parentDom, targetName)) {
     domUtil.target$(parentDom, targetName).remove();
-  } // 추후 데이터 어트리뷰트로 삭제하는 방법으로 변경예정
+  } // 추후 데이터 어트리뷰트로 검증후 삭제하는 방법으로 변경예정
 };
 
 export { SearchInputView };

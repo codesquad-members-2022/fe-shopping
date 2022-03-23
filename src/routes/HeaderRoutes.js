@@ -16,7 +16,6 @@ class HeaderRoutes {
   }
 
   async getMenuData(uri) {
-    console.log(uri);
     const data = await fetchUtil.fetchData(uri);
 
     this.dataDispatcher.searchMenuData = data;
