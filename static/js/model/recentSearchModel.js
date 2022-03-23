@@ -1,4 +1,4 @@
-class RecentSearchModel {
+export class RecentSearchModel {
   constructor(localStorage) {
     this.storage = localStorage;
     this.keywordIndexList = [];
@@ -27,10 +27,16 @@ class RecentSearchModel {
 
   updateKeywordList() {
     const localStorageKeys = Object.keys(this.storage)
-    .filter((storageKey) => Number(storageKey))
-    .sort();
+      .filter((storageKey) => Number(storageKey))
+      .sort();
     const keywordList = localStorageKeys.map((storageKey) => this.storage[storageKey]);
     this.keywordIndexList = localStorageKeys;
     this.keywordList = keywordList;
+  }
+
+  deleteKeyword(selectedKeywordIndex) {
+    this.keywordIndexList = this.keywordIndexList.filter((keywordIndex) => keywordIndex !== selectedKeywordIndex);
+    this.keywordList = this.keywordList.filter((keyword) => keyword !== this.storage[selectedKeywordIndex]);
+    this.storage.removeItem(selectedKeywordIndex);
   }
 }
