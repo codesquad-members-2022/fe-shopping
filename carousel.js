@@ -1,18 +1,18 @@
 export default function carousel({ slides, selector }) {
   const liCount = slides.childElementCount;
-  let count = 1;
+  let slideOrder = 1;
 
   const showNextSlide = (id) => {
     const remaindar = id % liCount;
     const moveNum = remaindar === 0 ? 0 : remaindar;
     slides.style.transform = `translateX(-${moveNum * 100}vw)`;
-    count = id;
-    count += 1;
+    slideOrder = id;
+    slideOrder += 1;
   };
 
   const sec = 3000;
   setInterval(() => {
-    showNextSlide(count);
+    showNextSlide(slideOrder);
   }, sec);
 
   selector.addEventListener("mouseover", (event) => {
