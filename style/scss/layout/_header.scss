@@ -28,6 +28,9 @@ header {
     width: $logo-width;
     height: $logo-height;
     margin-right: 16px;
+    &:hover {
+      cursor: pointer;
+    }
   }
   > .search {
     width: 60%;

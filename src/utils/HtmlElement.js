@@ -1,20 +1,32 @@
-function HtmlElement(htmlTag, $parent) {
-  this.$parent = $parent;
-  this.$element = document.createElement(htmlTag);
-  this.setTemplate();
+export default function HtmlElement($element, args) {
+  this.$element = $element;
+  this.args = args;
+  this.state;
+  this.init();
   this.render();
   this.setEvent();
 }
 
-HtmlElement.prototype.setTemplate = function () {
-  this.$element.innerHTML = ``;
+HtmlElement.prototype.init = function () {
+  this.state = {
+    ...this.args,
+  };
 };
 
+HtmlElement.prototype.setTemplate = function () {
+  return ``;
+};
+
+HtmlElement.prototype.renderChild = function () {};
+
 HtmlElement.prototype.render = function () {
-  // prototype.directRender()할 때는 render가 호출되더라도 부모가 있을 때만 실행
-  this.$parent && this.$parent.appendChild(this.$element);
+  this.$element.innerHTML = this.setTemplate();
+  this.renderChild();
+};
+
+HtmlElement.prototype.setState = function (newState) {
+  this.state = { ...this.state, ...newState };
+  this.render();
 };
 
 HtmlElement.prototype.setEvent = function () {};
-
-export default HtmlElement;

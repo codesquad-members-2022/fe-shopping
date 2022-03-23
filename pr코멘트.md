@@ -1,48 +1,106 @@
-# 진행순서
+저번주 금요일날 몸상태가 좋지 못해 pr을 보내지 못했습니다.😰
 
-1. html 뼈대 만들기 및 레이아웃 scss적용
-2. 클라이언트 사이드 작업(es6 module, prototype, scss)
-   - 카테고리
-   - 검색창
-     <span style="font-size: 22px">`...진행중🏃‍♂️`</span>
-   - 캐러셀 기능 구현
-3. 서버에서 홈화면 및 검색어에 따른 화면 렌더링 (innerHTML or pug)
+> 리드미에 미션을 진행하면서 생긴 고민과 과정을 자세히 기록해두었습니다. 작성하다보니 리드미가 너무 길어져 내용을 요약해봤습니다.
 
-# 목표
+# 결과
 
-- [ ] 클라이언트에서 탬플릿을 랜더링하고 이벤트를 등록하는 과정 구현해보기
-- [ ] 검색창 개발
-  - 카테고리부분과 검색창 부분 나누기
-  - 검색창 글자 입력할 때마다 일정 딜레이 이후 내가 검색했던 검색어 또는 추천단어 띄우기
-  - 검색화면에 따른 결과 보여주기? 는 어려울 듯
-- [ ] 카테고리
-  - hover 바로바로 뜨는 ui변경 -> click? 혹은 몇초 이상 머물 때
-- [ ] 캐러셀
-  - 새로 만들고 (재사용가능하게) 이전에 만들었던 캐러셀이랑 비교해보기
-  - 스으윽 미끄러지는 애니매이션 추가
-- [ ] nodejs에서 미리 html만들어서 주기
+### 1. 검색창
+
+- [x] 입력 값에 따라 관련 자동완성리스트 받기
+- [x] input창이 클릭되면 최근검색어 목록 보여주기
+- [x] 최근검색어: 삭제, 추가, 전체삭제, 클릭시 해당페이지로 이동
+- [x] 최근검색어목록, 자동완성목록 방향키로 이동
+- [x] 검색 옵션 창 활성화
+- [x] form이 제출되면 옵션 값과 검색어어로 이동 (/search?option=옵션4&text=g)
+- [ ] debounce과 throttling활용해서 인풋이벤트 다루기
+- [ ] 방향키 이동에 따른 커서 버그
+- [ ] 방향키 이동에 따른 한글 버그
+
+### 2. 관심사별로 코드를 묶어보기
+
+카테고리, 검색창, 네비게이션 등등 기준을 잡고 분리해봤습니다.
+
+기준 : html구조 상 부모-자식관계인지, 공통된 데이터를 쓰는지
+
+목표: 부모 아래 여러 자식들이 있을 경우 자식들은 본인이 넘겨받은 데이터가가 변할 때만 리랜더링될 수 있도록 하기
 
 # 시도한 것들
 
-### 1. 브랜치 관리
+### 1. 데이터 바인딩
 
-Feature브랜치를 만들어서 기능별로 브랜치를 만들어서 개발하다가 주 브랜치에 합치는 방식으로 진행봤습니다.
+목표: 부모에서 뿌려주는 값이 변하면 자식요소에서 알아서 리렌더링될 수 있도록 하기
 
-### 2. 상속을 활용한 클라이언트에서 돔 렌더링 관리
+- 1번: 자식1에서 쓰는 데이터가 변하면 자식1의 부모가 포함하는 모든 자식들 리렌더링
+- ✅ 2번: 부모요소에서 자식요소에 어떤 데이터를 넘겨줬는지 인지하고 있다가, 해당 데이터가 바뀌면 자식요소를 직접 리렌더링
+- 3번: 2번과 비슷하지만, 부모가 자식요소를 리렌더링 시키지 않고 자식요소들이 자신들이 쓰는 데이터가 바뀌면 알아서 리렌더링
 
-돔이 `렌더링되는 과정`과 `이벤트를 등록하는 타이밍(?)`을 제어하고 싶어 클라이언트에서 html element를 렌더링해보았습니다.
+### 2. 이벤트 핸들러
 
-- 돔 요소들을 `HtmlElement()`이라는 상위 constructor에서 상속받아서 사용
-- js로 html element를 렌더링
+목표: 이벤트핸들러를 컴포넌트(htmlElement)가 정의된 코드 아래 묶지 않고 따로 선언해뒀는데, 컴포넌트에 넣어 보려고 했습니다.
 
-🤔 문제점
+```js
+// 현재상태
+export default function SearchBox($element, args) {
+  HtmlElement.call(this, $element, args);
+}
+SearchBox.prototype.setEvent = function () {
+  this.$element.addEventListener('click', handleClick.bind(this));
+};
+function handleClick({ target }) {
+  showCategory.apply(this);
+  showRecord.call(this, target);
+}
+function showCategory() {}
+function showRecord(target) {}
+```
 
-1. 이벤트 등록과 렌더링
+이유: 이벤트 동작 함수를 element.prototype안에 묶어두지 않아서, this를 bind나 call로 묶어야했는데 이렇게 하니까 코드가 복잡해지고 수정이 어려워졌습니다.
 
-   - 돔 렌더링 이후에 이벤트 등록해야 한다고 생각하고 진행했는데 `돔이 렌더링되었다`는 타이밍을 이해하기 어려웠습니다. (document.createElement()만 실행해도 렌더링된건지, 현재 html에 있는 body안으로 넣어야 렌더링 된건지 등등...)
-   - `innerHTML`로 템플릿을 넣었을 때 `addEventListner`가 작동하지 않아 문제점을 찾고 있습니다.
+문제점:
 
-2. html 탬플릿을 js에서 관리해서 프로젝트의 전체적인 구조가 잘 보이지 않음.
+- call,apply,bind는 안써도 되지만 컴포넌트가 비대해졌습니다.
+- 뭔가 차이가 더 있을 것 같은데 잘 모르겠습니다.
 
-   - createElement(htmlTag)로 wrapper를 만들고, 그 안에 innerHTML로 탬플릿을 넣는 구조
-   - 곧바로 InnerHTML로 만든게 아니라서 wrapper의 존재를 한 눈에 보기 어려움
+```js
+// 시도
+export default function SearchBox($element, args) {
+  HtmlElement.call(this, $element, args);
+}
+SearchBox.prototype.setEvent = function () {
+  const {handleClick} = this.eventHandler;
+  this.$element.addEventListener('click', handleClick);
+};
+SearchBox.prototype.eventHandler = {
+  handleClick({ target }) {
+    this.showCategory();
+    this.showRecord(target));
+  },
+  showCategory() {},
+  showRecord(target) {},
+};
+```
+
+### 3. 의도적인 이벤트 딜레이
+
+debounce과 throttling을 구현하려고 했는데 생각처럼 되지 않았다. mouse움직이나 input, change 이벤트가 발생할 때마다 특정 작업을 실행하지 않고 약간의 시간을 가졌다가 작업을 실행하게 할 생각이었습니다.
+
+문제점
+
+- 함수를 인자로 넘길 때, `함수()`로 해야하는지 `함수`로 해야하는지 차이를 잘모르겠습니다.
+  `element.addEventListener(type, callback)` vs `element.addEventListener(type, (event) => callback(event, something))`
+- 넘기는 함수의 종류(화살표함수, 표현식, 선언문)에 따라 차이가 있는거 같아서 알아 보는 중입니다.
+
+```js
+// 1번
+$input.addEventListener('input', handleInput);
+function handleInput(event) {}
+// const handleInput = () => {};
+
+// 2번
+$input.addEventListener('input', (event) => handleInput(event, something));
+const handleInput = (event, something) => {};
+```
+
+# 앞으로 시도할 것들
+
+위에서 언급한 `문제점`에 대해서 더 고민해보고 검색창에서 발생한 `버그`를 수정할 예정입니다.

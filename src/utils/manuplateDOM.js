@@ -1,3 +1,5 @@
+import { POP_UP } from '../constant/htmlSelector.js';
+
 export function assignStyles($element, styleObj) {
   Object.assign($element.style, styleObj);
 }
@@ -52,13 +54,31 @@ export function findTargetClassElementAll($target, className) {
   return result;
 }
 
+export function closePopUp($element) {
+  $element.classList.remove(POP_UP.show);
+  $element.classList.add(POP_UP.hidden);
+}
+
+export function showPopUp($element) {
+  $element.classList.remove(POP_UP.hidden);
+  $element.classList.add(POP_UP.show);
+}
+
 export function handleDisplayElement($element) {
   const elementClassList = $element.classList;
-  if (elementClassList.contains('none')) {
-    $element.classList.remove('none');
-    $element.classList.add('show');
+  if (elementClassList.contains(POP_UP.hidden)) {
+    showPopUp($element);
   } else {
-    $element.classList.remove('show');
-    $element.classList.add('none');
+    closePopUp($element);
   }
+}
+
+export function hideAllPopUp({ target }) {
+  const $openPopUpElement = findTargetClassElementAll(
+    document.body,
+    POP_UP.show
+  );
+  $openPopUpElement.forEach(
+    ($element) => !target.closest('.pop-up-container') && closePopUp($element)
+  );
 }

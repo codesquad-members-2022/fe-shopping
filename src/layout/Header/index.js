@@ -1,19 +1,25 @@
-import Category from '../../components/Category/index.js';
 import HtmlElement from '../../utils/HtmlElement.js';
-import Section from './Section.js';
+import { findTargetClassElement } from '../../utils/manuplateDOM.js';
+import Category from './Category/index.js';
+import Section from './Section/index.js';
 
-function Header(htmlTag, $parent) {
-  HtmlElement.call(this, htmlTag, $parent);
+export default function Header($element) {
+  HtmlElement.call(this, $element);
 }
 
 Header.prototype = Object.create(HtmlElement.prototype);
 Header.prototype.constructor = Header;
-// Object.setPrototypeOf(Header.prototype, HtmlElement.prototype);
 
 Header.prototype.setTemplate = function () {
-  this.$element.id = 'header';
-  new Category('div', this.$element);
-  new Section('section', this.$element);
+  return `
+    <div class="category pop-up-container">카테고리</div>
+    <section class="section"></section>
+  `;
 };
 
-export default Header;
+Header.prototype.renderChild = function () {
+  const $category = findTargetClassElement(this.$element, 'category');
+  const $section = findTargetClassElement(this.$element, 'section');
+  new Category($category);
+  new Section($section);
+};

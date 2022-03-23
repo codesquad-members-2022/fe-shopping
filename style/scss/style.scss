@@ -1,12 +1,18 @@
 @charset 'utf-8';
 @import 'common/reset';
 @import 'common/variable';
-@import 'layout/header';
 @import 'layout/top_bar';
+@import 'layout/header';
+@import 'layout/main';
 
-.none {
+.pop-up-hidden {
   display: none;
 }
-.show {
+.pop-up-show {
   display: block;
+}
+.active__term {
+  color: $main-blue-deep;
+  font-weight: 600;
+  font-size: 1rem;
 }
