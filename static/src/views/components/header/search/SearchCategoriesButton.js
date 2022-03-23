@@ -20,7 +20,6 @@ export class SearchCategoriesButton {
 
   addButtonBlurEvent() {
     this.$categoriesButton.addEventListener('blur', () => {
-      console.log('a');
       this.searchCategories.hide();
     });
   }
