@@ -13,8 +13,8 @@
     padding: 5px 10px
     position: absolute
     background-color: $main-white
-    width: 500px
-    height: 320px
+    left: 130px
+    width: 370px
 
 .main-header 
     padding: 30px 0px 0px 30px
@@ -23,7 +23,7 @@
     width: 180px
 
 .header
-    grid-template-columns: 1fr 9fr;
+    grid-template-columns: 1fr 9fr
     font-size: $main-font-size
     &__nav
         width: 785px
@@ -33,10 +33,37 @@
 
 .search
     position: relative
-    &__input
+    cursor: pointer
+    &__container
         @include border($main-blue, 2px)
         width: 500px
         height: 40px
+    &__category
+        width: 130px
+        height: 100%
+        padding: 10px
+        border-right: 1.5px solid $main-dark-gray
+        &-list
+            @include border
+            @include box-shadow
+            position: absolute
+            top: 40px
+            left: 0
+            padding: 0px 10px 10px 10px
+            width: 130px
+            overflow-y: scroll
+            background-color: $main-white
+            z-index: 1
+            transition: all 0.25s
+            &--item
+                padding-top: 13px
+                &:hover
+                    color: $main-blue
+                    text-decoration: underline
+    &__input
+        border: none
+        width: 375px
+        height: 100%
         font-size: 1.4rem
         padding: 10px
         &:link, &:visited, &:hover, &:active, &:focus
@@ -44,12 +71,13 @@
     &__recent-list
         @include search-list
         &--name
-            padding: 10px 0px 
+            padding: 6px 0px 10px 0px 
             border-bottom: 1px solid $main-dark-gray 
     &__list--item
         font-size: 1.2rem
         margin-top: $margin-l
-        &:hover
+        grid-template-columns: 9fr 1fr
+        &-text:hover
             color: $main-blue
             text-decoration: underline
     &__bottom-bar
@@ -65,6 +93,41 @@
             text-decoration: underline
     &__related-list
         @include search-list
+        height: 330px
+        font-size: 1.3rem
+
+.arrow--up
+    display: none
+
+.roll
+    &-down
+        max-height: 80vh
+        visibility: visible
+    &-up
+        max-height: 0
+        visibility: hidden
+
+.record
+    &-on
+        height: 310px
+    &-off
+        display: none
+        height: 80px
+        line-height: 50px
+        text-align: center
+        color: #495057
+
+.focus
+    color: $main-blue
+    &--underline
+        color: $main-blue
+        text-decoration: underline
+
+.delete-btn
+    opacity: 0
+    &:hover
+        opacity: 1
+        color: $main-blue
 
 .match-word
     color: $main-blue

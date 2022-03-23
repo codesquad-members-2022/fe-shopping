@@ -47,14 +47,89 @@
               </div>
             </h1>
             <form class="search">
-              <input type="text" class="search__input"/>
-              <div class="search__recent-list">
-                <p class="search__recent-list--name"><strong>최근 검색어</strong></p>
-                <ul class="search__recent-list--container">
+              <div class="search__container l--flex">
+                <div class="search__category l--flex l--vertical-center l--space-between">
+                  <p class="search__category--selected">전체</p>
+                  <div>
+                    <svg 
+                      class="icon--small color--gray arrow--down" 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      class="h-6 w-6" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor" 
+                      stroke-width="2"
+                    >
+                      <path 
+                        stroke-linecap="round" 
+                        stroke-linejoin="round" 
+                        d="M19 9l-7 7-7-7" 
+                      />
+                    </svg>
+                    <svg 
+                      class="icon--small color--gray arrow--up" 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      class="h-6 w-6" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor" 
+                      stroke-width="2"
+                    >
+                      <path 
+                        stroke-linecap="round" 
+                        stroke-linejoin="round" 
+                        d="M5 15l7-7 7 7" 
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <ul class="search__category-list roll-up">
+                  <li class="search__category-list--item" data-category-name="전체" data-idx="0" data-category="all">전체</li>
+                  <li class="search__category-list--item" data-category-name="여성패션" data-idx="1" data-category="woman-fashion">여성패션</li>
+                  <li class="search__category-list--item" data-category-name="남성패션" data-idx="2"data-category="man-fashion">남성패션</li>
+                  <li class="search__category-list--item" data-category-name="남녀 공용 의류" data-idx="3" data-category="unisex-fashion">남녀 공용 의류</li>
+                  <li class="search__category-list--item" data-category-name="유아동패션" data-idx="4" data-category="child-fashion">유아동패션</li>
+                  <li class="search__category-list--item" data-category-name="뷰티" data-idx="5" data-category="beauty">뷰티</li>
+                  <li class="search__category-list--item" data-category-name="출산/유아동" data-idx="6" data-category="childbirth">출산/유아동</li>
+                  <li class="search__category-list--item" data-category-name="식품" data-idx="7" data-category="food">식품</li>
+                  <li class="search__category-list--item" data-category-name="주방용품" data-idx="8" data-category="kitchen-utensil">주방용품</li>
+                  <li class="search__category-list--item" data-category-name="생활용품" data-idx="9" data-category="household-goods">생활용품</li>
+                  <li class="search__category-list--item" data-category-name="홈인테리어" data-idx="10" data-category="interior">홈인테리어</li>
+                  <li class="search__category-list--item" data-category-name="가전디지털" data-idx="11" data-category="home-appliance">가전디지털</li>
+                  <li class="search__category-list--item" data-category-name="스포츠/레저" data-idx="12" data-category="sports">스포츠/레저</li>
+                  <li class="search__category-list--item" data-category-name="자동차용품" data-idx="13" data-category="car-accessories">자동차용품</li>
+                  <li class="search__category-list--item" data-category-name="도서/음반/DVD" data-idx="14" data-category="book">도서/음반/DVD</li>
+                  <li class="search__category-list--item" data-category-name="완구/취미" data-idx="15" data-category="toy">완구/취미</li>
+                  <li class="search__category-list--item" data-category-name="문구/오피스" data-idx="16" data-category="stationery">문구/오피스</li>
+                  <li class="search__category-list--item" data-category-name="반려동물용품" data-idx="17" data-category="pet-supplies">반려동물용품</li>
+                  <li class="search__category-list--item" data-category-name="헬스/건강식품" data-idx="18" data-category="health">헬스/건강식품</li>
+                  <li class="search__category-list--item" data-category-name="국내여행" data-idx="19" data-category="domestic-travel">국내여행</li>
+                  <li class="search__category-list--item" data-category-name="해외여행" data-idx="20" data-category="overseas-travel">해외여행</li>
+                  <li class="search__category-list--item" data-category-name="로켓설치" data-idx="21" data-category="fast-install">로켓설치</li>
+                  <li class="search__category-list--item" data-category-name="공간별 집꾸미기" data-idx="22" data-category="home-decoration">공간별 집꾸미기</li>
+                  <li class="search__category-list--item" data-category-name="헬스케어 전문관" data-idx="23" data-category="healthcare">헬스케어 전문관</li>
+                  <li class="search__category-list--item" data-category-name="쿠팡 Only" data-idx="24" data-category="coupang-only">쿠팡 Only</li>
+                  <li class="search__category-list--item" data-category-name="싱글라이프" data-idx="25" data-category="single-life">싱글라이프</li>
+                  <li class="search__category-list--item" data-category-name="악기전문관" data-idx="26" data-category="instrument">악기전문관</li>
+                  <li class="search__category-list--item" data-category-name="결혼준비" data-idx="27" data-category="wedding">결혼준비</li>
+                  <li class="search__category-list--item" data-category-name="아트/공예" data-idx="28" data-category="art">아트/공예</li>
+                  <li class="search__category-list--item" data-category-name="홈카페" data-idx="29" data-category="home-cafe">홈카페</li>
+                  <li class="search__category-list--item" data-category-name="실버스토어" data-idx="30" data-category="silver-store">실버스토어</li>
                 </ul>
+                <input type="text" class="search__input"/>
+              </div>
+              <div class="search__recent-list">
+                <div class="record-on">
+                  <p class="search__recent-list--name"><strong>최근 검색어</strong></p>
+                  <ul class="search__recent-list--container">
+                  </ul>
+                </div>
+                <div class="record-off">
+                  <strong>최근 검색어 기능이 꺼져 있습니다.</strong>
+                </div>
                 <div class="search__bottom-bar l--flex">
-                  <p class="mr--auto">전체삭제</p>
-                  <p>최근검색어끄기</p>
+                  <p class="mr--auto clear-all">전체삭제</p>
+                  <p class="record-btn">최근검색어끄기</p>
                 </div>
               </div>
               <div class="search__related-list">

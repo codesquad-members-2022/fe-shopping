@@ -1,4 +1,6 @@
 class SearchList {
+    MAX_ITEM = 9;
+
     constructor(searchList, listContainer) {
         this.searchListNode = searchList;
         this.listContainer = listContainer;
@@ -22,32 +24,17 @@ class SearchList {
         this.searchItems = [];
     }
 
-    addSearchWord(word) {
-        this.searchItems.unshift(word);
-        if (this.searchItems.length > 10) {
-            this.searchItems = this.searchItems.slice(0, 10);
-        }
-        this.curIdx = -1;
+    getSearchListItem(...itemInfo) {
+        const itemName = itemInfo[0];
+        const idx = itemInfo[1];
+        return `<li 
+                    class="search__list--item grid" 
+                    data-idx="${idx}" 
+                    data-name="${itemName}">
+                        <p class="search__list--item-text">${itemName}</p>
+                        <p class="delete-btn">삭제</p>
+                </li>`;
     }
-
-    getInnerText(itemName, input) {
-        let innerText = itemName;
-        const re = new RegExp(`${input}`);
-        const matchWord = re.exec(itemName);
-        if (matchWord) {
-            innerText =
-                itemName.slice(0, matchWord.index) +
-                `<strong class="match-word">${input}</strong>` +
-                itemName.slice(matchWord.index + input.length);
-        }
-
-        return innerText;
-    }
-
-    getSearchListItem = (itemName, idx, input) => {
-        const innerText = this.getInnerText(itemName, input);
-        return `<li class="search__list--item" data-idx="${idx}" data-name="${itemName}">${innerText}</li>`;
-    };
 
     renderSearchList(input = "") {
         const searchList = this.searchItems.reduce(
@@ -56,10 +43,7 @@ class SearchList {
             ""
         );
         this.listContainer.innerHTML = searchList;
-
-        if (this.curIdx !== -1) {
-            this.focusItem();
-        }
+        this.focusItem();
     }
 
     focusItem() {
@@ -69,17 +53,11 @@ class SearchList {
         let focusingItem;
 
         listItems.forEach((item) => {
+            const itemText = item.querySelector(".search__list--item-text");
+            itemText.classList.remove("focus--underline");
             if (item.dataset.idx === this.curIdx.toString()) {
                 focusingItem = item;
-                Object.assign(item.style, {
-                    textDecoration: "underline",
-                    color: "#228be6",
-                });
-            } else {
-                Object.assign(item.style, {
-                    textDecoration: "none",
-                    color: "black",
-                });
+                itemText.classList.toggle("focus--underline");
             }
         });
 
