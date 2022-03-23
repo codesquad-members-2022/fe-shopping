@@ -12,14 +12,28 @@ export default class InputEvent {
 
   addInputEvent() {
     const $searchInput = $('.search-input');
-    $searchInput.addEventListener('focus', this.drawHistoryContents);
-    $searchInput.addEventListener('blur', this.nodrawHistoryContents);
+    $searchInput.addEventListener('focus', this.drawInputMenu);
+    $searchInput.addEventListener('blur', ({ relatedTarget }) => {
+      this.nodrawHistoryContents(relatedTarget);
+      this.nodrawAutocomplete();
+    });
     $searchInput.addEventListener('keyup', this.drawAutocomplete);
   }
 
-  drawHistoryContents = () => this.recentWords.showRecentSearches();
-  nodrawHistoryContents = ({ relatedTarget }) =>
-    this.recentWords.noShowRecentSearches({ relatedTarget });
+  drawInputMenu = () => {
+    const $searchInput = $('.search-input');
+    if ($searchInput.value) {
+      this.autoComplete.checkInputText();
+      return;
+    }
+
+    this.recentWords.showRecentSearches();
+  };
+
+  nodrawHistoryContents = (relatedTarget) => {
+    console.log(relatedTarget);
+    this.recentWords.noShowRecentSearches(relatedTarget);
+  };
 
   drawAutocomplete = ({ code }) => {
     if (code === 'ArrowDown' || code === 'ArrowUp') {
@@ -29,4 +43,6 @@ export default class InputEvent {
     this.recentWords.hideRecentSearches();
     this.autoComplete.checkInputText();
   };
+
+  nodrawAutocomplete = () => this.autoComplete.noShowAutocomplete();
 }
