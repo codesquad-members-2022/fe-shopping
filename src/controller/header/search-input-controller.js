@@ -1,5 +1,5 @@
 import { AutoCompleteStore } from "../../model/autocomplete-store.js";
-import { CurrentSearchStore } from "../../model/current-search-store.js";
+import { RecentKeywordStore } from "../../model/recent-keyword-store.js";
 import { debounce } from "../../utils/utils.js";
 
 export class SearchInputController {
@@ -7,7 +7,7 @@ export class SearchInputController {
     this.$searchInput = document.querySelector(".search-input");
     this.$searchList = document.querySelector(".search-list");
     this.$searchBtn = document.querySelector(".search-btn");
-    this.recentKeywordStore = new CurrentSearchStore();
+    this.recentKeywordStore = new RecentKeywordStore();
     this.autoKeywordStore = new AutoCompleteStore();
     this.toggle = false;
   }
@@ -19,8 +19,9 @@ export class SearchInputController {
     this.$searchInput.addEventListener("click", () => this.inputClickHandler());
     document.addEventListener("click", (e) => this.otherClickHandler(e));
     this.$searchBtn.addEventListener("click", () => this.storageClear());
-    this.$searchInput.addEventListener("keyup", () =>
-      this.autoCompleteHandler(500)
+    this.$searchInput.addEventListener(
+      "keyup",
+      debounce(() => this.autoCompleteHandler(), 500)
     );
   }
 
@@ -36,11 +37,10 @@ export class SearchInputController {
     this.toggleOn();
 
     if (!this.$searchInput.value) {
-      if (this.recentKeywordStore.length === 0) {
+      if (this.recentKeywordStore.localStorageArr.length === 0) {
         this.toggleOff();
         return;
       }
-
       this.reRenderRecentKeyword();
     }
   }
@@ -50,32 +50,30 @@ export class SearchInputController {
 
     this.$searchList.innerHTML = "";
     this.$searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
-    this.recentKeywordStore.localStorageArr.forEach((v) => {
+    this.recentKeywordStore.localStorageArr.forEach((recentKeyword) => {
       const keyword = document.createElement("li");
-      keyword.textContent = v;
+      keyword.textContent = recentKeyword;
       this.$searchList.appendChild(keyword);
     });
   }
 
   storageClear() {
-    this.recentKeywordStore = [];
     localStorage.clear();
+    this.recentKeywordStore.localStorageArr = [];
     this.toggleOff();
+    this.$searchList.innerHTML = "";
   }
 
-  autoCompleteHandler(interval) {
+  autoCompleteHandler() {
     this.toggleOn();
-
-    debounce(interval).then(() => {
-      if (!this.$searchInput.value) {
-        this.inputClickHandler();
-      } else {
-        this.reRenderAutoComplete(10);
-      }
-    });
+    if (!this.$searchInput.value) {
+      this.inputClickHandler();
+    } else {
+      this.reRenderAutoComplete();
+    }
   }
 
-  reRenderAutoComplete(maxLiNum) {
+  reRenderAutoComplete() {
     this.$searchList.innerHTML = "";
     this.autoKeywordStore.getKeywordData(this.$searchInput.value).then(() => {
       this.autoKeywordStore.keywordData.forEach((keyword) => {
