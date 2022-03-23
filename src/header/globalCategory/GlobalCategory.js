@@ -7,8 +7,9 @@ import {
   computeGrad,
 } from '../../utils/utils.js';
 
-const HIDDEN = 'hidden';
-const OPEN = 'is-open';
+const DISPLAY_NONE = 'hidden';
+const LAYER_OPEN = 'is-open';
+
 const DIRECTION = {
   UP: 'UP',
   DOWN: 'DOWN',
@@ -31,10 +32,6 @@ export class GlobalCategory {
     this.$categoryList = selector(`.${CATEGORY_LIST}`);
     this.$selectedCategoryItem = null;
 
-    this.gCategoryCloseDelay = 200;
-    this.mouseMoveDirectionSetDelay = 20;
-    this.categoryItemOpenDelay = 20;
-
     this.mouseMoveDirection = null;
     this.isMouseEnterGCategory = null;
 
@@ -42,9 +39,13 @@ export class GlobalCategory {
   }
 
   init() {
+    const gCategoryCloseDelay = 200;
+    const mouseMoveDirectionSetDelay = 20;
+    const categoryItemOpenDelay = 20;
+
     this.$gCategory.addEventListener('mouseenter', () => {
       this.isMouseEnterGCategory = true;
-      removeClass(HIDDEN, this.$categoryLayer);
+      removeClass(DISPLAY_NONE, this.$categoryLayer);
     });
 
     this.$gCategory.addEventListener('mouseleave', () => {
@@ -53,18 +54,18 @@ export class GlobalCategory {
 
     this.$gCategory.addEventListener(
       'mouseleave',
-      debounce(this.closeGCategoryLayer, this.gCategoryCloseDelay)
+      debounce(this.closeGCategoryLayer, gCategoryCloseDelay)
     );
 
     /* 스마트 레이어 */
     this.$categoryList.addEventListener(
       'mousemove',
-      throttle(this.setMouseMoveDirection(), this.mouseMoveDirectionSetDelay)
+      throttle(this.setMouseMoveDirection(), mouseMoveDirectionSetDelay)
     );
 
     this.$categoryList.addEventListener(
       'mouseover',
-      debounce(this.openCategoryItem, this.categoryItemOpenDelay)
+      debounce(this.openCategoryItem, categoryItemOpenDelay)
     );
   }
 
@@ -89,9 +90,9 @@ export class GlobalCategory {
 
   closeGCategoryLayer = () => {
     if (this.isMouseEnterGCategory) return;
-    const $selectedItem = selector(`.${OPEN}`, this.$categoryLayer);
-    addClass(HIDDEN, this.$categoryLayer);
-    removeClass(OPEN, $selectedItem);
+    const $selectedItem = selector(`.${LAYER_OPEN}`, this.$categoryLayer);
+    addClass(DISPLAY_NONE, this.$categoryLayer);
+    removeClass(LAYER_OPEN, $selectedItem);
   };
 
   openCategoryItem = (e) => {
@@ -101,9 +102,9 @@ export class GlobalCategory {
     const $categoryItem = e.target.closest(`.${CATEGORY_ITEM}`);
     if (!this.mouseMoveDirection) {
       if (this.$selectedCategoryItem)
-        removeClass(OPEN, this.$selectedCategoryItem);
+        removeClass(LAYER_OPEN, this.$selectedCategoryItem);
       this.$selectedCategoryItem = $categoryItem;
-      addClass(OPEN, $categoryItem);
+      addClass(LAYER_OPEN, $categoryItem);
     }
   };
 
