@@ -114,7 +114,7 @@ const setSearchEvent = (searchBoxNode) => {
 };
 
 const fillRelatedSearchBox = async (parentNode, typeWord) => {
-  const searchData = await fetchData("http://localhost:3000/searchData");
+  const searchData = await fetchData("./searchData.json");
   Object.entries(searchData).forEach(([searchWord, searchResult]) => {
     if (searchWord === typeWord) {
       searchResult.forEach((word) => {
