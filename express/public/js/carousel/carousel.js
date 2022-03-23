@@ -1,75 +1,50 @@
-import { $ } from '../utility/util.js';
-import { addEvent } from '../utility/util.js';
-import { fetchData } from '../utility/util.js';
-import { makeImageSlide } from '../utility/util.js';
-import { makeSideTeb } from '../utility/util.js';
+import { $, $$, fetchData } from '../utility/util.js';
+import RenderCarousel from './render-carousel.js';
+import SideMenu from './sub-menu.js';
+
 export default class Carousel {
   constructor() {
-    this.intervalID = 0;
+    this.renderCarousel = new RenderCarousel();
+    this.sideMenu = new SideMenu();
+    this.mainContainer = $('.image-container');
+    this.sideTab = $('.slide-tab-container');
   }
+
   async startSlide() {
-    const carouselData = await fetchData(
-      './public/data/carousel/carousel.json'
-    );
+    const carouselData = await fetchData('/carouselData');
 
-    const $imageContainer = this.renderMainImage(carouselData);
-    this.renderSubMenu(carouselData);
-
+    this.renderCarousel.renderMainImage(carouselData, this.mainContainer);
+    this.renderCarousel.renderSubMenu(carouselData, this.sideTab);
+    this.initCarouselInterval();
     this.addSubMenuEvent();
-    this.initInterval($imageContainer, carouselData);
   }
 
-  renderMainImage(carouselData) {
-    const $imageContainer = $('.image-container');
-    const slideTemplates = carouselData.slideData.reduce(
-      (pre, curList) => (pre += makeImageSlide(curList)),
-      ''
-    );
-    $imageContainer.innerHTML = slideTemplates;
-    return $imageContainer;
+  initCarouselInterval = () => {
+    this.intervalID = setInterval(() => this.translateContainer(), 2000);
+  };
+
+  stopCarouselInterval = () => clearInterval(this.intervalID);
+
+  translateContainer() {
+    this.mainContainer.style.transitionDuration = '1ms';
+    this.mainContainer.style.transform = `translateY(${-100}%)`;
+    this.mainContainer.ontransitionend = () => this.changeLocationEl();
   }
 
-  renderSubMenu(carouselData) {
-    const $slideTeb = $('.slide-teb-container');
-    const slideTebTemplates = carouselData.slideData.reduce(
-      (pre, curList) => (pre += makeSideTeb(curList)),
-      ''
-    );
-    $slideTeb.innerHTML = slideTebTemplates;
-  }
-
-  initInterval($imageContainer, carouselData) {
-    this.intervalID = setInterval(
-      () =>
-        this.translateContainer(
-          -1,
-          $imageContainer,
-          carouselData.slideData.length
-        ),
-      2000
-    );
-  }
-
-  translateContainer(direction, container, totalSlide) {
-    container.style.transitionDuration = '1ms';
-    container.style.transform = `translateY(${
-      direction * ((totalSlide * 100) / totalSlide)
-    }%)`;
-    container.ontransitionend = () => this.changeLocationEl(container);
-  }
-
-  changeLocationEl(container) {
-    container.removeAttribute('style');
-    container.appendChild(container.firstElementChild);
+  changeLocationEl() {
+    this.mainContainer.removeAttribute('style');
+    this.mainContainer.appendChild(this.mainContainer.firstElementChild);
   }
 
   addSubMenuEvent() {
-    const $slideTeb = $('.slide-teb-container');
-    addEvent($slideTeb, 'mouseover', this.changeImage);
-  }
+    const $$sideTab = $$('.side-tab-element');
 
-  changeImage = ({ target }) => {
-    if (!target.closest('li')) return;
-    else if (target.closest('img')) return;
-  };
+    $$sideTab.forEach((list) => {
+      list.addEventListener('mouseleave', this.initCarouselInterval);
+      list.addEventListener('mouseenter', ({ target }) => {
+        this.stopCarouselInterval();
+        this.sideMenu.findTargetImg(target);
+      });
+    });
+  }
 }

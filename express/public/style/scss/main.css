@@ -117,6 +117,22 @@ input:focus {
   color: #fff;
 }
 
+.shopping-menu-list {
+  position: absolute;
+  width: 110px;
+  top: 115px;
+  background-color: #999;
+  z-index: 1;
+}
+
+.shopping-menu-list .shopping-popup-menu-list .shopping-popup-menu-item {
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 10px 0 5px 5px;
+  text-align: left;
+}
+
 .logo {
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -143,7 +159,7 @@ input:focus {
 }
 
 .search-bar .search-category .selected-option {
-  width: 50px;
+  width: 85px;
   float: left;
   margin: 10px 0 0 10px;
   font-size: 0.75rem;
@@ -152,7 +168,7 @@ input:focus {
 
 .search-bar .search-category .search-category-dropdown {
   float: left;
-  padding: 8px 20px 12.5px 30px;
+  padding: 8px 15px 12.5px 16px;
   background-color: #fff;
   border-right: 1px solid #0000ff;
 }
@@ -162,9 +178,26 @@ input:focus {
   display: inline-block;
 }
 
-.search-bar .search-category .search-category-dropdown.opened-option-menu::after {
+.search-bar .search-category .search-category-dropdown.change-option-key-btn::after {
   content: '▲';
   display: inline-block;
+}
+
+.search-bar .seureureuk {
+  opacity: 0;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.search-bar .seureureuk-up {
+  -webkit-transform: translate(0, 100px);
+          transform: translate(0, 100px);
+}
+
+.search-bar .seureureuk.show {
+  opacity: 1;
+  -webkit-transform: none;
+          transform: none;
 }
 
 .search-bar .search-form {
@@ -180,15 +213,15 @@ input:focus {
 
 .search-bar .search-form button {
   float: left;
-  margin: 9px 0 0 20px;
+  margin: 9px 5px 0 13px;
 }
 
 .input-popup-menu {
   position: absolute;
-  width: 343px;
-  height: 270px;
+  width: 329px;
+  height: 295px;
   top: 39px;
-  right: 0px;
+  left: 141px;
   background-color: #999;
 }
 
@@ -219,6 +252,7 @@ input:focus {
   margin: 10px;
   font-size: 0.875rem;
   cursor: pointer;
+  background-color: #999;
 }
 
 .input-popup-menu .input-popup-menu-btn .history-off-btn {
@@ -226,15 +260,20 @@ input:focus {
   margin: 10px;
   font-size: 0.875rem;
   cursor: pointer;
+  background-color: #999;
 }
 
 .hidden {
   display: none;
 }
 
+.color-blue {
+  color: #0000ff;
+}
+
 .option-menu {
   position: absolute;
-  width: 124px;
+  width: 139px;
   top: 34px;
   float: left;
 }
@@ -247,7 +286,7 @@ input:focus {
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 5px;
+  margin: 5px 0 5px 0;
 }
 
 .option-menu .dropdown-menus li:hover {
@@ -257,7 +296,7 @@ input:focus {
 
 .icon-menus {
   position: absolute;
-  width: 130px;
+  width: 100px;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -268,9 +307,9 @@ input:focus {
 .icon-menus .my-coupang {
   float: left;
   position: relative;
-  margin-right: 25px;
-  width: 50px;
-  height: 50px;
+  margin-right: 10px;
+  width: 45px;
+  height: 45px;
 }
 
 .icon-menus .my-coupang div:nth-child(1) {
@@ -282,8 +321,8 @@ input:focus {
 .icon-menus .cart {
   float: left;
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
 
 .icon-menus .cart div:nth-child(1) {
@@ -349,11 +388,11 @@ input:focus {
   top: 30px;
 }
 
-.slide-tab-box .slide-teb-container {
+.slide-tab-box .slide-tab-container {
   position: absolute;
 }
 
-.slide-tab-box .slide-teb-container .side-teb-element {
+.slide-tab-box .slide-tab-container .side-tab-element {
   border: 1px solid #000;
   border-bottom: 0.5px solid #000;
 }

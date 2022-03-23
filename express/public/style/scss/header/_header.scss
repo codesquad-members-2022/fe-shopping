@@ -65,6 +65,23 @@
   }
 }
 
+.shopping-menu-list {
+  position: absolute;
+  width: 110px;
+  top: 115px;
+  background-color: $color-gray;
+  z-index: 1;
+  .shopping-popup-menu-list {
+    .shopping-popup-menu-item {
+      font-size: $font-size-12;
+      font-weight: $font-bold;
+      cursor: pointer;
+      padding: 10px 0 5px 5px;
+      text-align: left;
+    }
+  }
+}
+
 .logo {
   top: $center-sort-top;
   transform: $center-sort-transform;
@@ -86,7 +103,7 @@
   .search-category {
     position: relative;
     .selected-option {
-      width: 50px;
+      width: 85px;
       float: left;
       margin: 10px 0 0 10px;
       font-size: $font-size-12;
@@ -94,7 +111,7 @@
     }
     .search-category-dropdown {
       float: left;
-      padding: 8px 20px 12.5px 30px;
+      padding: 8px 15px 12.5px 16px;
       background-color: $color-white;
       border-right: 1px solid $color-blue;
       &::after {
@@ -102,7 +119,7 @@
         display: inline-block;
       }
     }
-    .search-category-dropdown.opened-option-menu {
+    .search-category-dropdown.change-option-key-btn {
       &::after {
         content: '▲';
         display: inline-block;
@@ -110,6 +127,19 @@
     }
   }
 
+  .seureureuk {
+    opacity: 0;
+    transition: all 1s ease;
+  }
+
+  .seureureuk-up {
+    transform: translate(0, 100px);
+  }
+
+  .seureureuk.show {
+    opacity: 1;
+    transform: none;
+  }
   .search-form {
     position: relative;
     .search-input {
@@ -120,23 +150,22 @@
     }
     button {
       float: left;
-      margin: 9px 0 0 20px;
+      margin: 9px 5px 0 13px;
     }
   }
 }
 
 .input-popup-menu {
   position: absolute;
-  width: 343px;
-  height: 270px;
+  width: 329px;
+  height: 295px;
   top: 39px;
-  right: 0px;
+  left: 141px;
   background-color: $color-gray;
 
   .input-popup-menu-title {
     text-align: left;
     width: 100%;
-
     padding: 10px 0 10px 5px;
     border-bottom: 1px solid $color-blue;
   }
@@ -159,12 +188,14 @@
       margin: 10px;
       font-size: $font-size-14;
       cursor: pointer;
+      background-color: $color-gray;
     }
     .history-off-btn {
       float: right;
       margin: 10px;
       font-size: $font-size-14;
       cursor: pointer;
+      background-color: $color-gray;
     }
   }
 }
@@ -173,9 +204,12 @@
   display: none;
 }
 
+.color-blue {
+  color: $color-blue;
+}
 .option-menu {
   position: absolute;
-  width: 124px;
+  width: 139px;
   top: 34px;
   float: left;
 
@@ -185,7 +219,7 @@
       font-size: $font-size-12;
       font-weight: $font-bold;
       cursor: pointer;
-      margin-top: 5px;
+      margin: 5px 0 5px 0;
     }
     li:hover {
       color: #4285f4;
@@ -196,7 +230,7 @@
 
 .icon-menus {
   position: absolute;
-  width: 130px;
+  width: 100px;
   top: $center-sort-top;
   transform: $center-sort-transform;
   font-size: $font-size-11;
@@ -204,9 +238,9 @@
   .my-coupang {
     float: left;
     position: relative;
-    margin-right: 25px;
-    width: 50px;
-    height: 50px;
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
     div:nth-child(1) {
       font-size: 25px;
       padding-bottom: 2px;
@@ -216,8 +250,8 @@
   .cart {
     float: left;
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     div:nth-child(1) {
       font-size: 25px;
       padding-bottom: 2px;
