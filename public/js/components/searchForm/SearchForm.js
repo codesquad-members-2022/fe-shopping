@@ -3,7 +3,7 @@ import SelectBox from './SelectBox.js';
 import InputBox from './InputBox.js';
 import BottomWindow from '../common/BottomWindow.js';
 import SearchHistoryStore from '../../store/searchHistoryStore.js';
-import { abortController } from '../api/index.js';
+import { abortController } from '../../api/index.js';
 
 class SearchForm extends Component {
 

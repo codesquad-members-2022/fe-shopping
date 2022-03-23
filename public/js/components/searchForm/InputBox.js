@@ -1,6 +1,6 @@
 import Component from '../../core/Component.js';
 import SearchHistoryStore from '../../store/searchHistoryStore.js';
-import { getAutocompleteData } from '../api/index.js';
+import { getAutocompleteData } from '../../api/index.js';
 
 class InputBox extends Component {
 
