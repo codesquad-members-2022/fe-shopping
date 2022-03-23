@@ -163,7 +163,7 @@
         box-shadow: 0 4px 5px $color-shadow;
         border: $color-deep-gray 1px solid;
 
-        strong {
+        &--title {
             height: 10px;
             line-height: 5px;
             border-bottom: $color-deep-gray 1px solid;
@@ -177,7 +177,11 @@
         }
 
         &--item {
-            padding-top: 15px
+            padding-top: 15px;
+
+            strong {
+                color: $color-strong-blue;
+            }
         }
     }
 

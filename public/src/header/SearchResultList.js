@@ -52,6 +52,16 @@ export default class SearchResultList extends Toggler {
     setListData() {
         const searchList = document.querySelector('.search__result--list');
         const changedDate = this.isTyping ? this.autoCompletionWords.words : this.recentKeywords;
-        searchList.innerHTML = changedDate.reduce((text, data) => text += `<li class="search__result--item">${text}</li>`, '');
+        const replaceText = this.isTyping ? this.autoCompletionWords.inputValue : '';
+        searchList.innerHTML = changedDate.reduce((text, data) => text += this.createListItemHTML(data, replaceText), '');
+    }
+
+    createListItemHTML(text, replaceText = '') {
+        if (replaceText !== '') {
+            text = text.replace(new RegExp(replaceText, 'i'), `<strong>${replaceText}</strong>`);
+        }
+
+        const itemHTML = `<li class="search__result--item">${text}</li>`;
+        return itemHTML;
     }
 }

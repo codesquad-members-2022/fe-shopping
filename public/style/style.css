@@ -227,7 +227,7 @@ input:focus {
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   border: #ddd 1px solid;
 }
-.search__result strong {
+.search__result--title {
   height: 10px;
   line-height: 5px;
   border-bottom: #ddd 1px solid;
@@ -240,6 +240,9 @@ input:focus {
 }
 .search__result--item {
   padding-top: 15px;
+}
+.search__result--item strong {
+  color: #008CFF;
 }
 .search__button {
   display: flex;
