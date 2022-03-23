@@ -10,8 +10,12 @@ export default class RecentWord {
     this.$searchHistory.classList.remove('hidden');
   }
 
-  noShowRecentSearches({ relatedTarget }) {
-    if (relatedTarget) return this.checkWhereClicked();
+  noShowRecentSearches(relatedTarget) {
+    if (relatedTarget && relatedTarget.className === 'history-off-btn') {
+      this.addOfOffEventHistoryBtn();
+      return;
+    }
+
     this.$searchHistory.classList.add('hidden');
   }
 
@@ -19,7 +23,7 @@ export default class RecentWord {
     this.$searchHistory.classList.add('hidden');
   }
 
-  checkWhereClicked() {
+  addOfOffEventHistoryBtn() {
     this.$historyDeleteBtn.addEventListener('click', this.listOnOff);
   }
 
