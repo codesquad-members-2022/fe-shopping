@@ -15,5 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const autoComplete = new AutoComplete();
   autoComplete.createAutoComplete();
-  autoComplete.destroyAutoComplete();
+  autoComplete.hideAutoComplete();
 });

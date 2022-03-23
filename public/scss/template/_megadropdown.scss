@@ -1,0 +1,64 @@
+@import '../colors';
+@import '../utils';
+
+.header-lnb {
+  font-size: 12px;
+  position: absolute;
+  top: 115px;
+  z-index: 999999999;
+  background-color: $white;
+}
+
+.header-lnb-first {
+  &__list {
+    border: 1px solid $search-category-border;
+    height: 550px;
+    width: 165px;
+  }
+
+  &__link {
+    display: block;
+    padding: 10px 8px;
+    text-align: center;
+  }
+
+  &__link:hover {
+    @include link-hover;
+  }
+
+  &__hr {
+    background-color: $search-category-border;
+    border: 0;
+    height: 1px;
+    margin: 0;
+  }
+}
+
+.header-lnb-second {
+  &__list {
+    border: 1px solid $search-category-border;
+    height: 550px;
+    left: 165px;
+    position: absolute;
+    top: 0;
+    width: 165px;
+    background-color: $white;
+  }
+
+  &__item {
+    padding: 10px 8px;
+    text-align: center;
+  }
+
+  &__link {
+    display: block;
+  }
+
+  &__link:hover {
+    @include link-hover;
+  }
+
+  &__hr {
+    margin: 0;
+  }
+}

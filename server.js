@@ -28,6 +28,10 @@ app.get('/search/ah/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/search-ah.json'));
 });
 
+app.get('/menu/data', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/json/SmartMenu.json'));
+});
+
 const port = 3000;
 app.listen(port, function () {
   console.log('server on!');

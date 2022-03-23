@@ -26,6 +26,10 @@
     }
   }
 
+  &-left {
+    position: relative;
+  }
+
   &-right {
     margin-left: 40px;
     margin-top: 22px;
@@ -89,8 +93,8 @@
   margin-left: 15px;
 
   .search-category {
-    border-right: 1px solid $search-category-border;
     width: 125px;
+    border-right: 1px solid $search-category-border;
 
     &__link {
       display: block;

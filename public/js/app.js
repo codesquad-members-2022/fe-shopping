@@ -5,6 +5,8 @@ import { category } from './template/category.js';
 import { recentSearch } from './template/search-recent.js';
 import { autoSearch } from './template/search-auto.js';
 
+import SmartMenuController from './controller/SmartMenuController.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.querySelector('.wrap');
   wrap.insertAdjacentHTML('afterbegin', bar);
@@ -18,4 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.querySelector('.search-form');
   searchForm.insertAdjacentHTML('beforeend', recentSearch);
   searchForm.insertAdjacentHTML('beforeend', autoSearch);
+
+  const smartMenuController = new SmartMenuController();
+  smartMenuController.init();
 });
