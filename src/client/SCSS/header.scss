@@ -33,6 +33,10 @@ header {
     @include divideFlex(1, 6, 1.5);
   }
 
+  .categories {
+    @include divideFlex(1, 1, 1);
+  }
+
   .categories-btn {
     font-size: 2rem;
     height: 8rem;
@@ -48,10 +52,24 @@ header {
 
   .categories-list {
     @include hiddenBox;
-    padding: 0.2rem;
-    > * {
-      padding: 0.4rem;
-      font-size: 0.7rem;
+    ul {
+      height: 22rem;
+      border-left: solid $border-main $gray;
+      padding: 0.3rem;
+      li {
+        padding-bottom: 0.6rem;
+        font-size: 0.6rem;
+      }
+      .selected {
+        @include selected;
+      }
+    }
+    > :first-child {
+      li {
+        padding-bottom: 0.7rem;
+        font-size: 0.7rem;
+      }
+      border-left: none;
     }
   }
 

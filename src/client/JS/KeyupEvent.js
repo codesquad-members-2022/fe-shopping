@@ -1,4 +1,10 @@
-import { delay, selector, intervalDelay } from "./util";
+import {
+  delay,
+  selector,
+  intervalDelay,
+  findRefinedData,
+  drawListFromData,
+} from "./util";
 import { inputDelayTime } from "./constant";
 import { async } from "regenerator-runtime";
 
@@ -13,28 +19,11 @@ class KeyupEvent {
     this.relativeOption = selector("div", transformer);
   }
 
-  findRefinedData = async (address, value = "") => {
-    const dataAddress = `data/${address}`;
-    const data = await fetch(dataAddress, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ value }),
-    });
-    const refinedData = await data.json();
-    return refinedData;
-  };
-
   drawRelativeListForm = () => {
     if (this.relativeTitle) {
       this.relativeTitle.remove();
       this.relativeOption.remove();
     }
-  };
-
-  drawListFromData = (data) => {
-    return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
   };
 
   addHighlight = (value) => {
@@ -47,14 +36,14 @@ class KeyupEvent {
   };
 
   changeRelativeList = (refinedData, value) => {
-    let innerList = this.drawListFromData(refinedData);
+    let innerList = drawListFromData(refinedData);
     if (value) innerList = this.highlightValueInList(innerList, value);
     this.relativeList.innerHTML = innerList;
   };
 
   showRelativeList = async (value) => {
     const address = "keyword";
-    const refinedData = await this.findRefinedData(address, value);
+    const refinedData = await findRefinedData(address, value);
     const isRefinedData = refinedData.length;
 
     this.transformer.classList[isRefinedData ? "remove" : "add"]("hidden");
@@ -73,8 +62,7 @@ class KeyupEvent {
 
   showRecentList = async () => {
     const address = "recent";
-    const refinedData = await this.findRefinedData(address);
-
+    const refinedData = await findRefinedData(address);
     this.changeRelativeList(refinedData);
     this.drawRecentListForm();
   };

@@ -1,2 +1,287 @@
-["패션의류/잡화","뷰티","출산/유아동","식품","주방용품","생활용품","홈인테리어","가전디지털","스포츠/레저","자동차용품","도서/음반/DVD","완구/취미","문구/오피스","반려동물용품","헬스/건강식품"]
+[
+  {
+    "keyword":"패션의류/잡화",
+    "child":[
+      {"keyword":"여성패션"},
+      {"keyword":"남성패션"},
+      {"keyword":"남녀 공동 의류"},
+      {"keyword":"유아동패션"}
+    ]
+  },
+  {
+    "keyword":"뷰티",
+    "child":[
+      {"keyword":"명품뷰티"},
+      {"keyword":"스킨케어"},
+      {"keyword":"클렌징/필링"},
+      {"keyword":"더마코스메틱"},
+      {"keyword":"메이크업"},
+      {"keyword":"향수"},
+      {"keyword":"남성화장품"},
+      {"keyword":"네일"},
+      {"keyword":"뷰티소품"},
+      {"keyword":"어린이화장품"},
+      {"keyword":"로드샵"},
+      {"keyword":"헤어"},
+      {"keyword":"바디"},
+      {"keyword":"선물세트/키트"}
+    ]
+  },
+  {
+    "keyword":"출산/유아동",
+    "child":[
+      {"keyword":"베이비패션"},
+      {"keyword":"여아키즈패션"},
+      {"keyword":"남아키즈패션"},
+      {"keyword":"기저귀"},
+      {"keyword":"물티슈"},
+      {"keyword":"분유/어린이식품"},
+      {"keyword":"수유용품"},
+      {"keyword":"이유용품/유아식기"},
+      {"keyword":"유모차/웨건"},
+      {"keyword":"카시트"},
+      {"keyword":"아기띠/외출용품"},
+      {"keyword":"유아동침구"},
+      {"keyword":"매트/안전용품"},
+      {"keyword":"유아가구/인테리어"},
+      {"keyword":"욕실용품/스킨케어"},
+      {"keyword":"위생/건강/세제"}
+    ]
+  },
+  {
+    "keyword":"식품",
+    "child":[
+      {"keyword":"유기농/친환경 전문관"},
+      {"keyword":"과일"},
+      {"keyword":"견과/건과"},
+      {"keyword":"채소"},
+      {"keyword":"쌀/잡곡"},
+      {"keyword":"축산/계란"},
+      {"keyword":"수산물/건어물"},
+      {"keyword":"생수/음료"},
+      {"keyword":"커피/원두/차"},
+      {"keyword":"과자/초콜릿/시리얼"},
+      {"keyword":"면/통조림/가공식품"},
+      {"keyword":"가루/조미료/오일"},
+      {"keyword":"장/소스/드레싱/식초"},
+      {"keyword":"유제품/아이스크림"},
+      {"keyword":"냉장/냉동/간편요리"},
+      {"keyword":"건강식품"}
+    ]
+  },
+  {
+    "keyword":"주방용품",
+    "child":[
+      {"keyword":"주방가전"},
+      {"keyword":"냄비/프라이팬"},
+      {"keyword":"칼/도마"},
+      {"keyword":"주방조리도구"},
+      {"keyword":"그릇/홈세트"},
+      {"keyword":"수저/커트러리"},
+      {"keyword":"컵/잔/텀블러"},
+      {"keyword":"커피/티/와인"},
+      {"keyword":"주방수납/정리"},
+      {"keyword":"밀폐저장/도시락"},
+      {"keyword":"주방잡화"},
+      {"keyword":"일회용품/종이컵"},
+      {"keyword":"보온/보냉용품"},
+      {"keyword":"이유/유아식기"},
+      {"keyword":"베이킹용품"},
+      {"keyword":"교자상/제수용품"}
+    ]
+  },
+  {
+    "keyword":"생활용품",
+    "child":[
+      {"keyword":"헤어/바디/세안"},
+      {"keyword":"구강/면도"},
+      {"keyword":"화장지/물티슈"},
+      {"keyword":"생리대/성인기저귀"},
+      {"keyword":"기저귀"},
+      {"keyword":"세탁세제"},
+      {"keyword":"청소/주방세제"},
+      {"keyword":"탈취/방향/살충"},
+      {"keyword":"건강/의료용품"},
+      {"keyword":"성인용품(19)"},
+      {"keyword":"세탁/청소용품"},
+      {"keyword":"욕실용품"},
+      {"keyword":"생활전기용품"},
+      {"keyword":"수납/정리"},
+      {"keyword":"주방수납/잡화"},
+      {"keyword":"생활잡화"}
+    ]
+  },
+  {
+    "keyword":"홈인테리어",
+    "child":[
+      {"keyword":"봄침구샵"},
+      {"keyword":"싱글하우스"},
+      {"keyword":"홈데코"},
+      {"keyword":"가구"},
+      {"keyword":"수납/정리"},
+      {"keyword":"침구"},
+      {"keyword":"커튼/블라인드"},
+      {"keyword":"카페트/쿠션/거실화"},
+      {"keyword":"수예/수선"},
+      {"keyword":"욕실용품"},
+      {"keyword":"조명/스탠드"},
+      {"keyword":"셀프인테리어"},
+      {"keyword":"원예/가드닝"}
+    ]
+  },
+  {
+    "keyword":"가전디지털",
+    "child":[
+      {"keyword":"TV영상가전"},
+      {"keyword":"냉장고"},
+      {"keyword":"세탁기/건조기"},
+      {"keyword":"생활가전"},
+      {"keyword":"청소기"},
+      {"keyword":"계절가전"},
+      {"keyword":"이미용가전"},
+      {"keyword":"건강가전"},
+      {"keyword":"주방가전"},
+      {"keyword":"노트북"},
+      {"keyword":"데스크탑"},
+      {"keyword":"모니터"},
+      {"keyword":"키보드/마우스"},
+      {"keyword":"저장장치"},
+      {"keyword":"프린터/복합기"},
+      {"keyword":"PC부품"}
+    ]
+  },
+  {
+    "keyword":"스포츠/레저",
+    "child":[
+      {"keyword":"캠핑전문관"},
+      {"keyword":"홈트레이닝"},
+      {"keyword":"수영/수상스포츠"},
+      {"keyword":"골프"},
+      {"keyword":"자전거"},
+      {"keyword":"킥보드/스케이트"},
+      {"keyword":"낚시"},
+      {"keyword":"등산/아웃도어"},
+      {"keyword":"스포츠신발"},
+      {"keyword":"남성스포츠의류"},
+      {"keyword":"여성스포츠의류"},
+      {"keyword":"유아스포츠의류"},
+      {"keyword":"스포츠잡화"},
+      {"keyword":"구기스포츠"},
+      {"keyword":"라켓스포츠"},
+      {"keyword":"헬스/요가/댄스"}
+    ]
+  },
+  {
+    "keyword":"자동차용품",
+    "child":[
+      {"keyword":"인테리어"},
+      {"keyword":"익스테리어"},
+      {"keyword":"세차/카케어"},
+      {"keyword":"차량용 전자기기"},
+      {"keyword":"차량관리/소모품"},
+      {"keyword":"RV/아웃도어"},
+      {"keyword":"부품/안전/공구"},
+      {"keyword":"오토바이/전동킥보드"},
+      {"keyword":"로켓설치 타이어"}
+    ]
+  },
+  {
+    "keyword":"도서/음반/DVD",
+    "child":[
+      {"keyword":"유아/어린이"},
+      {"keyword":"소설/에세이/시"},
+      {"keyword":"초중고참고서"},
+      {"keyword":"가정 살림"},
+      {"keyword":"건강 취미"},
+      {"keyword":"경제 경영"},
+      {"keyword":"과학/공학"},
+      {"keyword":"국어/외국어사전"},
+      {"keyword":"대학교재"},
+      {"keyword":"만화/라이트노벨"},
+      {"keyword":"사회 정치"},
+      {"keyword":"수험서/자격증"},
+      {"keyword":"여행"},
+      {"keyword":"역사"},
+      {"keyword":"예술"},
+      {"keyword":"인문"}
+    ]
+  },
+  {
+    "keyword":"완구/취미",
+    "child":[
+      {"keyword":"캐릭터별완구"},
+      {"keyword":"신생아/영아완구"},
+      {"keyword":"로봇/작동완구"},
+      {"keyword":"역할놀이"},
+      {"keyword":"블록놀이"},
+      {"keyword":"인형"},
+      {"keyword":"물놀이/계절완구"},
+      {"keyword":"승용완구"},
+      {"keyword":"스포츠/야외완구"},
+      {"keyword":"실내대형완구"},
+      {"keyword":"STEAM완구"},
+      {"keyword":"학습완구/교구"},
+      {"keyword":"보드게임"},
+      {"keyword":"RC완구/부품"},
+      {"keyword":"퍼즐/큐브/피켓토이"},
+      {"keyword":"프라모델"}
+    ]
+  },
+  {
+    "keyword":"문구/오피스",
+    "child":[
+      {"keyword":"사무용품 전문관"},
+      {"keyword":"미술/화방용품"},
+      {"keyword":"캐릭터 문구"},
+      {"keyword":"학용품/수업준비"},
+      {"keyword":"필기류"},
+      {"keyword":"노트/메모지"},
+      {"keyword":"다이어리/플래너"},
+      {"keyword":"바인더/파일"},
+      {"keyword":"파티/이벤트"},
+      {"keyword":"데코/포장용품"},
+      {"keyword":"카드/엽서/봉투"},
+      {"keyword":"앨범"},
+      {"keyword":"복사용품/라벨지"},
+      {"keyword":"보드/칠판/광고"}
+    ]
+  },
+  {
+    "keyword":"반려동물용품",
+    "child":[
+      {"keyword":"강아지 사료"},
+      {"keyword":"강아지 간식"},
+      {"keyword":"강아지 영양제"},
+      {"keyword":"강아지 용품"},
+      {"keyword":"고양이 사료"},
+      {"keyword":"고양이 간식"},
+      {"keyword":"고양이 영양제"},
+      {"keyword":"고양이 용품"},
+      {"keyword":"펫프리미엄"},
+      {"keyword":"펫티켓 산책용품"},
+      {"keyword":"관상어 용품"},
+      {"keyword":"소동물/가축용품"}
+    ]
+  },
+  {
+    "keyword":"헬스/건강식품",
+    "child":[
+      {"keyword":"건강기능식품"},
+      {"keyword":"성인용 건강식품"},
+      {"keyword":"여성용 건강식품"},
+      {"keyword":"남성용 건강식품"},
+      {"keyword":"임산부 건강식품"},
+      {"keyword":"시니어 건강식품"},
+      {"keyword":"어린이 건강식품"},
+      {"keyword":"비타민/미네랄"},
+      {"keyword":"영양제"},
+      {"keyword":"허브/식물추출물"},
+      {"keyword":"홍삼/인삼"},
+      {"keyword":"건강즙/음료"},
+      {"keyword":"꿀/프로폴리스"},
+      {"keyword":"건강분말/건강환"},
+      {"keyword":"헬스보충식품"},
+      {"keyword":"다이어트/이너뷰티"}
+    ]
+  }]
 

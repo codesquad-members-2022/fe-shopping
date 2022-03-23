@@ -15,9 +15,14 @@ header
       div.categories-btn.flex
         i.fas.fa-bars
           div 카테고리
-      ul.categories-list
-        each category in categories 
-          li=category
+      div.categories-list.hidden.flex
+        ul.categories-list-first
+          each category in categories 
+            li=category
+        ul.categories-list-second.none
+          li hihi
+        ul.categories-list-third.none
+          li hihi
 
     div.center
       div.center-main.flex

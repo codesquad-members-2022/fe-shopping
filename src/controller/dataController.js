@@ -1,6 +1,8 @@
 import items from "../data/items.json";
 import recent from "../data/recent.json";
+import categories from "../data/categories.json";
 import { koreanMatcher } from "./util";
+import { async } from "regenerator-runtime";
 
 const getItemsWithValue = (value) => {
   if (value === "") return [];
@@ -22,4 +24,8 @@ const searchRecent = (req, res) => {
   res.json(filteredData);
 };
 
-export { searchWithKeyword, searchRecent };
+const sendCategories = (req, res) => {
+  res.json(categories);
+};
+
+export { searchWithKeyword, searchRecent, sendCategories };

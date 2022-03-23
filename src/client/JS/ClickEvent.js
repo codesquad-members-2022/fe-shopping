@@ -10,11 +10,6 @@ class ClickEvent {
     this.lengthDirection = null;
   }
 
-  toggleIcon = ({ classList }) => {
-    classList.toggle("fa-chevron-down");
-    classList.toggle("fa-chevron-up");
-  };
-
   activateRequestAF = (length) => {
     const changeLength = {
       plus: () => (length += searchFilterInterval),
@@ -50,6 +45,11 @@ class ClickEvent {
     this.lengthDirection = length > searchFilterInterval ? "minus" : "plus";
     if (this.lengthDirection === "plus") classList.remove("hidden");
     this.resizeList(length);
+  };
+
+  toggleIcon = ({ classList }) => {
+    classList.toggle("fa-chevron-down");
+    classList.toggle("fa-chevron-up");
   };
 
   handleSearchFilterClick = () => {

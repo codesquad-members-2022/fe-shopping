@@ -12,6 +12,23 @@ const isHidden = (target) => {
   return target.classList.contains("hidden");
 };
 
+const findRefinedData = async (address, value = "") => {
+  const dataAddress = `data/${address}`;
+  const data = await fetch(dataAddress, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ value }),
+  });
+  const refinedData = await data.json();
+  return refinedData;
+};
+
+const drawListFromData = (data) => {
+  return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
+};
+
 const delay = ({ time, signal = null, data }) =>
   new Promise((resolve) => {
     const timeout = setTimeout(() => resolve(data), time);
@@ -29,13 +46,19 @@ class intervalDelay {
 
   waitDelay = async () => {
     if (this.inputDelayController) this.inputDelayController.abort();
-
     this.inputDelayController = new AbortController();
     const inputDelaySignal = this.inputDelayController.signal;
     await delay({ time: this.time, signal: inputDelaySignal });
-
     this.inputDelayController = null;
   };
 }
 
-export { selector, getStyle, delay, intervalDelay, isHidden };
+export {
+  selector,
+  getStyle,
+  findRefinedData,
+  delay,
+  intervalDelay,
+  isHidden,
+  drawListFromData,
+};
