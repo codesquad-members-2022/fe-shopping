@@ -332,7 +332,15 @@ body {
 
   &.open {
     visibility: visible;
+    min-height: 100px;
     max-height: 1500px;
+
+    strong {
+      display: block;
+      height: 50px;
+      text-align: center;
+      line-height: 5;
+    }
   }
 
   .window-contents {
@@ -344,6 +352,10 @@ body {
 
     .list-item {
       margin-bottom: 15px;
+
+      .highlight {
+        color: $text-highlight;
+      }
 
       &:is(:last-child) {
         margin-bottom: 5px;
@@ -372,8 +384,15 @@ body {
     min-height: 250px;
   }
 
-  .list-item:last-child {
-    margin-bottom: 15px;
+  .list-item {
+    &:last-child {
+      margin-bottom: 15px;
+    }
+
+    &.focus a {
+      color: $text-highlight;
+      text-decoration: underline;
+    }
   }
 
   .search-history-btn-group {

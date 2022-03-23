@@ -3,28 +3,40 @@ import Store from './store.js';
 
 class SearchHistoryStore extends Store {
 
-  addHistory(key, value) {
-    const values = JSON.parse(localStorage.getItem(key));
+  #key = 'searchHistory';
 
-    if (values) {
-      values.length === MAX_RECENT_SEARCH_SIZE && values.pop();
-      localStorage.setItem(key, JSON.stringify([value, ...values]));
-      this.state[key] = [value, ...values];
-    }
-
-    else {
-      localStorage.setItem(key, JSON.stringify([value]));
-      this.state[key] = [value];
-    }
+  constructor() {
+    super();
+    const isSaveHistoryOn = JSON.parse(localStorage.getItem('isSaveHistoryOn'));
+    this.setState('isSaveHistoryOn', isSaveHistoryOn === null ? true : isSaveHistoryOn);
+    this.setState(this.#key, JSON.parse(localStorage.getItem(this.#key)) || []);
   }
 
-  getHistory(key) {
-    return JSON.parse(localStorage.getItem(key));
+  addHistory(value) {
+    const values = this.getState(this.#key);
+
+    if (values) values.length === MAX_RECENT_SEARCH_SIZE && values.pop();
+
+    localStorage.setItem(this.#key, JSON.stringify([value, ...values]));
+    this.setState(this.#key, value);
   }
 
-  clearHistory(key) {
-    localStorage.removeItem(key);
-    this.state[key] = [];
+  getHistory() {
+    return this.getState(this.#key);
+  }
+
+  clearHistory() {
+    localStorage.removeItem(this.#key);
+    this.clearState(this.#key);
+  }
+
+  isSaveHistoryOn() {
+    return this.getState('isSaveHistoryOn');
+  }
+
+  toggleSaveHistory() {
+    localStorage.setItem('isSaveHistoryOn', JSON.stringify(!this.getState('isSaveHistoryOn')));
+    this.setState('isSaveHistoryOn', !this.getState('isSaveHistoryOn'));
   }
 }
 

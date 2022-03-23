@@ -26,13 +26,27 @@ class Store {
       get() {
         return _value;
       },
-      set: function(value) {
+      set: (value) => {
         _value = value;
         this.subscribers[state].forEach(subscriber => {
-          subscriber.setState({ [state]: this.state[state] })
-        })
-      }.bind(this)
+          subscriber.setState({ [state]: this.state[state] });
+        });
+      },
     });
+  }
+
+  getState(state) {
+    return this.state[state];
+  }
+
+  setState(state, value) {
+    if (Array.isArray(this.state[state])) this.state[state] = [value, ...this.state[state]];
+    else this.state[state] = value;
+  }
+
+  clearState(state) {
+    if (Array.isArray(this.state[state])) this.state[state] = [];
+    else this.state[state] = null;
   }
 }
 
