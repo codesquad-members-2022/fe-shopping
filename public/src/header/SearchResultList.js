@@ -14,7 +14,7 @@ export default class SearchResultList extends Toggler {
 
     createHTML() {
         return /* html */ `
-            <div class="search__result hidden">
+            <div class="search__result none">
                 <strong class="search__result--title">최근 검색어</strong>
                 <ul class="search__result--list">
                     ${this.recentKeywords.reduce((text, keyword) => text += `<li class="search__result--item">${keyword}</li>`, '')}
@@ -30,8 +30,8 @@ export default class SearchResultList extends Toggler {
     toggleState() {
         const recentTitle = document.querySelector('.search__result--title');
         const recentButtons = document.querySelector('.search__button');
-        recentTitle.classList.toggle('hidden');
-        recentButtons.classList.toggle('hidden');
+        recentTitle.classList.toggle('none');
+        recentButtons.classList.toggle('none');
         this.isTyping = !this.isTyping;
         this.setListData();
     }

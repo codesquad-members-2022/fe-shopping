@@ -1,5 +1,5 @@
 export default class Toggler {
-    constructor($target = null, toggleKey = 'hidden') {
+    constructor($target = null, toggleKey = 'none') {
         this.$target = $target;
         this.toggleKey = toggleKey;
     }
