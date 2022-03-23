@@ -72,100 +72,84 @@ SearchBox.prototype.renderChild = function () {
 };
 
 SearchBox.prototype.setEvent = function () {
-  const $form = findTargetIdElement(this.$element, 'searhForm');
-  this.$input = findTargetIdElement($form, 'searchInput');
-  // this.$input = $input;
-  $form.addEventListener('submit', handleSubmit.bind(this));
+  this.$form = findTargetIdElement(this.$element, 'searhForm');
+  this.$input = findTargetIdElement(this.$form, 'searchInput');
+  this.$form.addEventListener('submit', handleSubmit.bind(this));
   this.$input.addEventListener('click', showRecord.bind(this));
   this.$input.addEventListener('keydown', handleKeyDown.bind(this));
   this.$input.addEventListener('input', handleInput.bind(this));
 };
 
 SearchBox.prototype.setState = function (newState) {
-  console.log(newState);
   this.state = { ...this.state, ...newState };
   //값이 바뀔 때마다 자식 전체를 리렌더링하지 않고 바뀐 값을 쓰는 자식만 리렌더링하기
   // this.renderChild();
 };
 
-function changeActiceHistory(newActiveHistory) {
-  const { recentSearchList } = this.state;
-  const newInputValue = recentSearchList[newActiveHistory] || '';
-  this.$input.value = newInputValue;
+function changeActiveList({
+  newActiveTerm,
+  activeTerm,
+  activeList,
+  $targetChild,
+}) {
+  const newInputValue = activeList[newActiveTerm] || '';
   this.setState({
-    activeHistory: newActiveHistory,
+    [`${activeTerm.key}`]: newActiveTerm,
     inputValue: newInputValue,
   });
-  this.$RecentSearchList.setState({ activeHistory: newActiveHistory });
-  // handleInput.apply(this);
-}
-
-function changeActiceAutoList(newActiveAutoTerm) {
-  const { autoSearchList } = this.state;
-  const newInputValue = autoSearchList[newActiveAutoTerm] || '';
+  $targetChild.setState({ [`${activeTerm.key}`]: newActiveTerm });
   this.$input.value = newInputValue;
-  this.setState({
-    activeAutoTerm: newActiveAutoTerm,
-    inputValue: newInputValue,
-  });
-  this.$AutoComplete.setState({ activeAutoTerm: newActiveAutoTerm });
-  // handleInput.apply(this);
 }
 
-function handleArrowDown() {
-  const {
-    recentSearchList,
-    autoSearchList,
-    activeAutoTerm,
-    activeHistory,
-    showHistroy,
-  } = this.state;
-  if (!showHistroy) {
-    const newActiveAutoTerm =
-      activeAutoTerm >= autoSearchList.length - 1
-        ? INPUT_DEFAULT
-        : activeAutoTerm + 1;
-    changeActiceAutoList.call(this, newActiveAutoTerm);
-  } else {
-    const newActiveHistory =
-      activeHistory >= recentSearchList.length - 1
-        ? INPUT_DEFAULT
-        : activeHistory + 1;
-    changeActiceHistory.call(this, newActiveHistory);
-  }
+function handleArrowDown(activeElement) {
+  const { activeTerm, activeList } = activeElement;
+  return activeTerm.value >= activeList.length - 1
+    ? INPUT_DEFAULT
+    : activeTerm.value + 1;
 }
 
-function handleArrowUp() {
-  const {
-    recentSearchList,
-    autoSearchList,
-    activeAutoTerm,
-    activeHistory,
-    showHistroy,
-  } = this.state;
-  if (!showHistroy) {
-    const newActiveAutoTerm =
-      activeAutoTerm <= INPUT_DEFAULT
-        ? autoSearchList.length - 1
-        : activeAutoTerm - 1;
-    changeActiceAutoList.call(this, newActiveAutoTerm);
-  } else {
-    const newActiveHistory =
-      activeHistory <= INPUT_DEFAULT
-        ? recentSearchList.length - 1
-        : activeHistory - 1;
-    changeActiceHistory.call(this, newActiveHistory);
-  }
+function handleArrowUp(activeElement) {
+  const { activeTerm, activeList } = activeElement;
+  return activeTerm.value <= INPUT_DEFAULT
+    ? activeList.length - 1
+    : activeTerm.value - 1;
 }
 
 function handleKeyDown(event) {
   const { key } = event;
+  const {
+    recentSearchList,
+    autoSearchList,
+    activeAutoTerm,
+    activeHistory,
+    showHistroy,
+  } = this.state;
+  const activeElement = showHistroy
+    ? {
+        $targetChild: this.$RecentSearchList,
+        activeTerm: { key: 'activeHistory', value: activeHistory },
+        activeList: recentSearchList,
+      }
+    : {
+        $targetChild: this.$AutoComplete,
+        activeTerm: { key: 'activeAutoTerm', value: activeAutoTerm },
+        activeList: autoSearchList,
+      };
   switch (key) {
     case 'ArrowDown':
-      handleArrowDown.apply(this);
+      const newArrowDownTerm = handleArrowDown(activeElement);
+      changeActiveList.call(this, {
+        ...activeElement,
+        newActiveTerm: newArrowDownTerm,
+      });
       break;
     case 'ArrowUp':
-      handleArrowUp.apply(this);
+      const newArrowUpTerm = handleArrowUp(activeElement);
+      changeActiveList.call(this, {
+        ...activeElement,
+        newActiveTerm: newArrowUpTerm,
+      });
+      break;
     default:
       break;
   }
@@ -191,14 +175,18 @@ function handleSubmit(event) {
 }
 
 async function handleInput(event) {
-  const inputValue = event ? event.target.value : this.state.inputValue;
-  // const { inputValue } = this.state;
+  const { inputValue: value, activeHistory, recentSearchList } = this.state;
+  const inputValue = event ? event.target.value : value;
   if (inputValue !== '') {
     this.setState({ showHistroy: false });
-  }
-  if (inputValue === '') {
-    changeActiceHistory.call(this, INPUT_DEFAULT);
+  } else {
     this.setState({ showHistroy: true });
+    changeActiveList.call(this, {
+      newActiveTerm: INPUT_DEFAULT,
+      $targetChild: this.$RecentSearchList,
+      activeTerm: { key: 'activeHistory', value: activeHistory },
+      activeList: recentSearchList,
+    });
   }
   // 자동완성데이터를 받기 전에 handleSubmit이 실행될 수 있어서 미리 inputValue만 최신화
   this.setState({ inputValue });

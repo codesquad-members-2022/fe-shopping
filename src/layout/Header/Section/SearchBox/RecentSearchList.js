@@ -18,6 +18,7 @@ RecentSearchList.prototype.constructor = RecentSearchList;
 RecentSearchList.prototype.setTemplate = function () {
   const { recentSearchList, activeHistory } = this.state;
   const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
+  console.log(activeHistory);
   return `
 <h5>최근 검색어</h5>
 <ul id="recentSearchList">

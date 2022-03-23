@@ -10,13 +10,14 @@ AutoComplete.prototype.constructor = AutoComplete;
 AutoComplete.prototype.setTemplate = function () {
   const { autoSearchList, inputValue, activeAutoTerm } = this.state;
   const isActive = (idx) => (idx === activeAutoTerm ? 'active__term' : '');
+  console.log(activeAutoTerm, inputValue);
   return template(isActive, autoSearchList, inputValue);
 };
 
 AutoComplete.prototype.setEvent = function () {};
 
 const template = (isActive, autoSearchList, inputValue) => {
-  console.log(inputValue);
+  // console.log(inputValue);
   return `
   <ul>
   ${autoSearchList
