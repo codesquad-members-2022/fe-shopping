@@ -1,36 +1,15 @@
 import { $, $$, removeClass, addClass } from "../js/utils/utils.js";
-import { View } from "../View/autoCompltView.js";
-import { Model } from "../Model/autoCompltData.js";
-class Controller {
-  _target;
-  _model;
-  _view;
-
+import { AutoCpltView } from "../View/autoCompltView.js";
+import { AutoCpltModel } from "../Model/autoCompltData.js";
+import { Controller } from "./controller.js";
+class AutoCpltController extends Controller {
   constructor(target, model, view) {
-    this._target = target;
-    this._model = model;
-    this._view = view;
+    super(target, model, view);
     this.latestSearchContents = $(".latest-search-contents");
     this.historyBtns = $(".history-btns");
   }
 
-  setData(inputValue) {
-    return this._model.getData(inputValue);
-  }
-
-  render(data) {
-    this._view.render(data);
-  }
-
-  init() {
-    this.addEvent();
-  }
-
-  addEvent() {
-    this._target.addEventListener("input", this.autoCompltEvtHandler);
-  }
-
-  autoCompltEvtHandler = (e) => {
+  EvtHandler = (e) => {
     if (!$(".coupang-search").value) {
       removeClass(this.latestSearchContents, this.historyBtns, "down");
       this.render("");
@@ -53,4 +32,4 @@ class Controller {
     });
   }
 }
-export { Controller };
+export { AutoCpltController };

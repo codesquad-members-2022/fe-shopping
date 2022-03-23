@@ -1,7 +1,6 @@
 class Model {
   constructor() {
-    this.apiURL = "http://localhost:3000/items";
-    this.userInput = $(".coupang-search").value;
+    this.apiURL = "";
   }
 
   getData(ipnutValue) {

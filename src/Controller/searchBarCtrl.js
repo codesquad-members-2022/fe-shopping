@@ -1,19 +1,12 @@
-import { Controller } from "./autoCompltContrl.js";
-import { View } from "../View/autoCompltView.js";
-import { Model } from "../Model/autoCompltData.js";
+import { AutoCpltController } from "./autoCompltContrl.js";
+import { AutoCpltView } from "../View/autoCompltView.js";
+import { AutoCpltModel } from "../Model/autoCompltData.js";
 
 class SearchBar {
-  // _model;
-  // _view;
-  // _controller;
-  constructor() {
-    //   this._controller = controller;
-    //   this._model = model;
-    //   this._view = view;
-  }
+  constructor() {}
 
   init() {
-    const search_bar = new Controller(document.querySelector(".coupang-search"), new Model(), new View());
+    const search_bar = new AutoCpltController(document.querySelector(".coupang-search"), new AutoCpltModel(), new AutoCpltView());
     search_bar.init();
   }
 }

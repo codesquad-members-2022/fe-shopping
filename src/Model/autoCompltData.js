@@ -1,6 +1,8 @@
 import { $, $$ } from "../js/utils/utils.js";
-class Model {
+import { Model } from "./model.js";
+class AutoCpltModel extends Model {
   constructor() {
+    super();
     this.apiURL = "http://localhost:3000/items";
     this.userInput = $(".coupang-search").value;
   }
@@ -10,4 +12,4 @@ class Model {
   }
 }
 
-export { Model };
+export { AutoCpltModel };

@@ -1,8 +1,8 @@
-class View {
-  _target;
-
+import { View } from "./view.js";
+import { $ } from "../js/utils/utils.js";
+class AutoCpltView extends View {
   constructor() {
-    this._target = document.querySelector(".searched-items");
+    super($(".searched-items"));
     this.userInput = document.querySelector(".coupang-search").value;
   }
 
@@ -22,10 +22,6 @@ class View {
   getElement(elementName) {
     return document.querySelector("elementName");
   }
-
-  render(data) {
-    this._target.innerHTML = this.Template(data);
-  }
 }
 
-export { View };
+export { AutoCpltView };

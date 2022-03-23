@@ -1,3 +1,5 @@
+//test용 파일입니다.
+
 import { $ } from "./src/js/utils/utils";
 $input.addEventListner("input", (event) => {
   const userInpt = $input.value;
