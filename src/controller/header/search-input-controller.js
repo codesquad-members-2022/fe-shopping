@@ -66,6 +66,7 @@ export class SearchInputController {
 
   autoCompleteHandler() {
     this.toggleOn();
+
     if (!this.$searchInput.value) {
       this.inputClickHandler();
     } else {
@@ -86,7 +87,7 @@ export class SearchInputController {
 
   otherClickHandler(e) {
     if (e.target.className === "search-input") return;
-    if (e.target.parentNode.className !== "search-list is-opened") {
+    if (!e.target.parentNode.classList.contains("is-opened")) {
       if (this.toggle) {
         this.toggleOff();
       }

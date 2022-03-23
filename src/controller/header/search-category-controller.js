@@ -11,7 +11,6 @@ export class SearchCategoryController {
     argArr.forEach((v) => v.classList.toggle("is-opened"));
     if (this.dropdownToggle) {
       this.dropdownToggle = false;
-      return;
     } else {
       this.dropdownToggle = true;
     }
@@ -24,7 +23,7 @@ export class SearchCategoryController {
   }
 
   otherClickHandler(e, argArr) {
-    if (e.target.parentNode.className !== "select-category-wrap is-opened") {
+    if (!e.target.parentNode.classList.contains("is-opened")) {
       if (this.dropdownToggle) {
         argArr.forEach((v) => v.classList.remove("is-opened"));
         this.dropdownToggle = false;
