@@ -43,7 +43,7 @@ export default class Autocomplete {
   }
 
   delay500ms(completeDataPromise, inputValue) {
-    setTimeout(() => this.showCompleteWord(completeDataPromise, inputValue), 500);
+    setTimeout(() => this.showCompleteWord(completeDataPromise, inputValue), 300);
   }
 
   showCompleteWord(completeData, inputValue) {
