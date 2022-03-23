@@ -48,7 +48,7 @@ export default class {
     );
 
     storage.setLocalStorage(key, [...storedDatas, curInputData]);
-
     // 여기서 뷰를 호출? 모델뷰?
+    this.recentSearchView.recentSearchData = storage.getLocalStorage(key);
   }
 }

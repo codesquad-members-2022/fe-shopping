@@ -23,7 +23,30 @@ export default class {
     this.selectedIdx = initialIdx;
   }
 
+  setListItemsCnt(data) {
+    this.listItemsCnt = data.length;
+  }
+
+  createDropdownInner() {
+    this.$dropdown.innerHTML = `
+    <div class="inner">
+      <ul class="list"></ul>
+    </div>`;
+  }
+
+  createLiElements() {
+    const tag = `<li></li>`;
+    return tag;
+  }
+
+  fillDropdownList() {
+    const dropDownList = this.$dropdown.querySelector(".list");
+    dropDownList.innerHTML = "";
+  }
+
   showDropdown() {
+    this.createDropdownInner();
+    this.fillDropdownList();
     setDisplayBlock(this.$dropdown);
   }
 
@@ -40,10 +63,7 @@ export default class {
 
   onFocus() {
     this.$input.addEventListener("focus", () => {
-      // 뷰를 표시한다
       this.showDropdown();
-
-      // TODO:  최근검색어를 표시한다.
     });
   }
 
@@ -136,7 +156,7 @@ export default class {
 
       if (isEmpty(this.$input)) {
         this.initSelectedIdx();
-        // TODO: 최근 검색어표시 되어야함
+        // TODO: 최근검색어가 표시되도록
         this.showDropdown();
         return;
       }
