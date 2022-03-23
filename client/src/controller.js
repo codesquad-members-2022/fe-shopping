@@ -119,6 +119,7 @@ export class Controller {
         this.moveDownDropDownItem(focusClassName);
         break;
       case 'ArrowUp':
+        if (!this.selector.inputDropDown.classList.contains('focus')) return;
         this.moveUpDropDownItem(focusClassName);
         break;
       case 'ArrowRight':
@@ -152,15 +153,15 @@ export class Controller {
   }
 
   moveUpDropDownItem(className) {
+    if (!this.focusKeybordItem) return;
+
     if (!this.focusKeybordItem.previousElementSibling) {
       this.focusKeybordItem.classList.remove(className);
-      return;
+    } else {
+      SearchInput.toggleClassName(this.focusKeybordItem, className);
+      this.focusKeybordItem = this.focusKeybordItem.previousElementSibling;
+      this.changeInputValueToDataset(className);
     }
-
-    SearchInput.toggleClassName(this.focusKeybordItem, className);
-    this.focusKeybordItem = this.focusKeybordItem.previousElementSibling;
-
-    this.changeInputValueToDataset(className);
   }
 
   changeInputValueToDataset(className) {
