@@ -1,0 +1,16 @@
+.header__category {
+  @include flex(center, center);
+  flex-direction: column;
+  height: 100px;
+  width: 100px;
+  background-color: $baseBlue;
+  color: $fontWhite;
+
+  div {
+    margin: 3px 0px;
+  }
+
+  span {
+    font-size: nth($fontSizes, 2);
+  }
+}
