@@ -29,7 +29,7 @@ export class SearchCategories {
   }
 
   addSearchCategoriesEvent() {
-    this.$categories.addEventListener('click', ({ target }) => {
+    this.$categories.addEventListener('mousedown', ({ target }) => {
       const selectedCategory = target.dataset.category;
       this.categoriesButton.render(selectedCategory);
       this.toggle();

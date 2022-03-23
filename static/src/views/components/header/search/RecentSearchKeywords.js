@@ -19,9 +19,9 @@ export class RecentSearchKeywords {
       .split(',')
       .map(
         keyword => `<li>
-                        <a href="javascript:;"}"><span>${keyword}</span></a>
-                        <button type="button" class="delete-button">삭제</button>
-                      </li>`
+                      <a href="javascript:;"}"><span>${keyword}</span></a>
+                      <button type="button" class="delete-button">삭제</button>
+                    </li>`
       )
       .join('');
     this.$recentKeywords.insertAdjacentHTML('afterbegin', recentKeywordsTemplate);
@@ -41,14 +41,14 @@ export class RecentSearchKeywords {
 
   saveRecentSearchKeyword(searchValue) {
     if (!searchValue) return;
-    const searchValues = this.searchStorage.getItem(this.RECENT_KEYWORDS_STORAGE_KEY)
-      ? `${this.searchStorage.getItem(this.RECENT_KEYWORDS_STORAGE_KEY)},${searchValue}`
-      : searchValue;
-    this.searchStorage.setItem(this.RECENT_KEYWORDS_STORAGE_KEY, searchValues);
+    const recentKeywordsData = this.searchStorage.getItem(this.RECENT_KEYWORDS_STORAGE_KEY);
+    const recentKeywords = new Set(recentKeywordsData ? recentKeywordsData.split(',') : '');
+    recentKeywords.add(searchValue);
+    this.searchStorage.setItem(this.RECENT_KEYWORDS_STORAGE_KEY, [...recentKeywords]);
   }
 
   addAllDeleteButtonEvent() {
-    this.$recentKeywordsWrap.querySelector('.all-delete-button').addEventListener('click', () => {
+    this.$recentKeywordsWrap.querySelector('.all-delete-button').addEventListener('mousedown', () => {
       this.searchStorage.removeItem(this.RECENT_KEYWORDS_STORAGE_KEY);
       this.$recentKeywordsWrap.classList.remove('active');
       this.render();
@@ -56,7 +56,7 @@ export class RecentSearchKeywords {
   }
 
   addSwitchButtonEvent() {
-    this.$recentKeywordsWrap.querySelector('.switch-button').addEventListener('click', () => {
+    this.$recentKeywordsWrap.querySelector('.switch-button').addEventListener('mousedown', () => {
       this.$recentKeywordsWrap.classList.remove('active');
     });
   }

@@ -54,6 +54,7 @@ $search-height: 36px;
         @extend .search-box;
         height: 100%;
         cursor: pointer;
+        &.active span,
         &:hover span {
           @extend .search-pop__hover;
         }
@@ -119,25 +120,28 @@ $search-height: 36px;
       li {
         display: flex;
         justify-content: space-between;
+        &.active span,
+        &:hover span {
+          @extend .search-pop__hover;
+        }
       }
       a {
         flex: 1 0 0;
         text-indent: 6px;
         line-height: 30px;
-        &.active {
-          @extend .search-pop__hover;
-        }
-        &:hover span {
-          @extend .search-pop__hover;
-        }
       }
     }
     &-automatic-completion-wrap {
-      @extend .search-pop;
       display: none;
       padding: 10px 0;
       &.active {
         display: block;
+      }
+      li {
+        &.active span,
+        &.active span:hover {
+          text-decoration: underline;
+        }
       }
       a {
         display: block;
