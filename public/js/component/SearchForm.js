@@ -1,3 +1,4 @@
+import constants from "../common/constants.js";
 import {
   isEmpty,
   setDisplayNone,
@@ -55,9 +56,9 @@ export default class {
 
   /* SHOW, HIDE ELEMENT */
   showDropdown() {
+    setDisplayBlock(this.$dropdown);
     this.createDropdownInner();
     this.fillDropdownList();
-    setDisplayBlock(this.$dropdown);
   }
 
   hideDropDown() {
@@ -119,7 +120,7 @@ export default class {
       },
     };
 
-    return compute[key];
+    return compute[key].bind(this);
   }
 
   addClassSelectedIdx(commonSelector, className) {
@@ -135,12 +136,15 @@ export default class {
   }
 
   inputSelectedWord() {
-    const selectedWord = $(`[data-${this.datasetName}]`).innerTextl;
+    const selectedWord = $(
+      `[data-${this.datasetName}="${this.selectedIdx}"]`
+    ).innerText;
     this.$input.value = selectedWord;
   }
 
   handleArrowUpDownKeyUp(key) {
     if (!this.listItemsCnt) return;
+    const className = "focus";
 
     this.computeIdx(key)();
     this.addClassSelectedIdx(`[data-${this.datasetName}]`, className);
@@ -178,14 +182,16 @@ export default class {
     // 현재 검색 기능이 동작하지 않으므로 preventDefault() 적용
     e.preventDefault();
 
-    if (isEmpty(this.$input)) {
+    if (isEmpty(this.$input.value)) {
       return;
     }
 
-    const keyName = "recent-search";
+    const keyName = constants.recentSearchKeyName;
     const inputTxt = this.$input.value;
     this.storeItemLocalStorage(keyName, inputTxt);
+
     this.clearInput();
+    this.fillDropdownList();
   }
 
   onSubmit() {

@@ -1,4 +1,6 @@
+import constants from "../common/constants.js";
 import SearchForm from "../component/SearchForm.js";
+import storage from "../util/storage.js";
 import { sortAsc } from "../util/util.js";
 
 export default class extends SearchForm {
@@ -45,6 +47,8 @@ export default class extends SearchForm {
 
   fillDropdownList() {
     const dropDownList = this.$dropdown.querySelector(".list");
+    const keyName = constants.recentSearchKeyName;
+    this.recentSearchData = storage.getLocalStorage(keyName);
     if (!this.recentSearchData) {
       dropDownList.innerHTML = "";
       return;
@@ -54,6 +58,6 @@ export default class extends SearchForm {
     const dataSortByAsc = sortAsc(this.recentSearchData, sortKey);
     this.setListItemsCnt(dataSortByAsc);
 
-    dropDownList.innerHTML = createLiElements();
+    dropDownList.innerHTML = this.createLiElements();
   }
 }
