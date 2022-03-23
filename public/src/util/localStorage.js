@@ -4,6 +4,11 @@ export const addLocalData = (key, arrayData) => {
     const storedData = getLocalData() || {
         [key]: []
     };
+
+    if (!storedData[key]) {
+        storedData[key] = new Array();
+    }
+
     storedData[key].push(...arrayData);
     localStorage.setItem(localStorageKey, JSON.stringify(storedData));
 }

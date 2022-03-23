@@ -8,11 +8,25 @@ export default class SearchResultList extends Toggler {
         super();
         this.listData = null;
         this.isTyping = false;
-        this.recentKeywords = getLocalData()['recent'] || [];
         this.autoCompletionWords = {
             inputValue: '',
             words: []
         };
+        this.type = {
+            recent: 'recent',
+            complete: 'complete'
+        }
+        this.recentKeywords = this.setRecentKeywords();
+    }
+
+    setRecentKeywords() {
+        const localData = getLocalData();
+
+        if (!localData) {
+            return [];
+        }
+
+        return localData[this.type.recent];
     }
 
     createHTML() {
@@ -20,7 +34,7 @@ export default class SearchResultList extends Toggler {
             <div class="search__result none">
                 <strong class="search__result--title">최근 검색어</strong>
                 <ul class="search__result--list">
-                    ${this.recentKeywords.reduce((text, keyword) => text += `<li class="search__result--item">${keyword}</li>`, '')}
+                ${this.recentKeywords.reduce((text, keyword) => text += `<li class="search__result--item">${keyword}</li>`, '')}
                 </ul>
                 <div class="search__button">
                     <button class="search__button--remove">전체 삭제</button>
@@ -30,7 +44,15 @@ export default class SearchResultList extends Toggler {
         `;
     }
 
-    toggleState() {
+    getType() {
+        const recentTitle = document.querySelector('.search__result--title');
+        if (recentTitle.classList.contains('none')) {
+            return this.type.complete;
+        }
+        return this.type.recent;
+    }
+
+    toggleContents() {
         const recentTitle = document.querySelector('.search__result--title');
         const recentButtons = document.querySelector('.search__button');
         recentTitle.classList.toggle('none');
@@ -40,7 +62,7 @@ export default class SearchResultList extends Toggler {
     }
 
     updateData(type, data) {
-        if (type === 'recent') {
+        if (type === this.type.recent) {
             this.recentKeywords = getLocalData()[type];
             return;
         }
