@@ -9,6 +9,7 @@ import {
   createLiListTemplate,
   htmlString2htmlElement,
 } from "./util/util.js";
+import { inputData } from "./data/data.js";
 
 const category = new SearchCategory();
 const categoriesDropBox = new SearchCategoryDropBox();
@@ -22,7 +23,7 @@ categoriesDropBox.onClickSearchCategory({
 
 const searchBar = new SearchBar();
 const searchBarDropBox = new SearchBarDropBox();
-searchBarDropBox.appendElement({ data: searchData });
+searchBarDropBox.appendElement({ data: searchData, appendSearchBarDropBox });
 
 searchBarDropBox.onClickDocumentWhenDropDown({
   handleClickOutDropBox,
@@ -36,7 +37,85 @@ searchBar.onFocusInput({
   dropDown,
 });
 
+searchBar.onChangeInput({
+  handleChangeInput,
+});
+
 carousel();
+
+const inputDropBox = new SearchBarDropBox();
+
+function appendSearchBarDropBox(data) {
+  const $search__bar = targetQuerySelector({
+    className: "search__bar",
+  });
+
+  const liClissName = "header__input__keyword";
+  const $latestSearch__data = createLiListTemplate(data, liClissName);
+
+  const htmlString = `
+          <ul>
+            ${$latestSearch__data}
+          </ul>
+          <button class="search__delete">전체삭제</button>
+          <button class="current__search__off">최근검색어끄기</button>
+        `;
+
+  searchBarDropBox.$search__word__dropbox = htmlString2htmlElement({
+    htmlString,
+    className: "search__word__dropbox",
+  });
+
+  $search__bar.insertAdjacentElement(
+    "afterend",
+    searchBarDropBox.$search__word__dropbox
+  );
+  searchBarDropBox.$search__word__dropbox.style.visibility = "hidden";
+}
+
+function handleChangeInput() {
+  searchBar.$search.addEventListener("keyup", (event) => {
+    const word = event.target.value;
+    searchBarDropBox.$search__word__dropbox.style.visibility = "hidden";
+    let keywordData;
+
+    if (inputData[word]) {
+      keywordData = inputData[word].map(({ keyword }) => keyword);
+    }
+
+    console.log(keywordData);
+    inputDropBox?.$search__word__dropbox?.remove(); // Todo: dom추가/제거 방식이 아닌 데이터 바꿀때 리렌더링되도록 개선할 수 있을까?
+
+    if (!keywordData) {
+      searchBarDropBox.$search__word__dropbox.style.visibility = "visible";
+    }
+
+    const $search__bar = targetQuerySelector({
+      className: "search__bar",
+    });
+
+    let htmlString = "";
+    if (inputData[word] !== undefined) {
+      htmlString = `
+      <ul>
+        ${createLiListTemplate(keywordData)}
+      </ul>
+    `;
+    }
+
+    inputDropBox.$search__word__dropbox = htmlString2htmlElement({
+      htmlString,
+      className: "search__word__dropbox",
+    });
+
+    inputDropBox.$search__word__dropbox.hasChildNodes() &&
+      $search__bar.insertAdjacentElement(
+        "afterend",
+        inputDropBox.$search__word__dropbox
+      );
+    inputDropBox.$search__word__dropbox.style.visibility = "visible";
+  });
+}
 
 function appendDropBox(data) {
   const $categories = createLiListTemplate(data);

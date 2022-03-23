@@ -16,6 +16,10 @@ class SearchBar extends Element {
     });
   }
 
+  onChangeInput({ handleChangeInput }) {
+    handleChangeInput();
+  }
+
   render() {
     const { keyword } = this.state;
     this.$search.value = keyword;
