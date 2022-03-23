@@ -4,16 +4,12 @@ class HeaderKeyboadManager {
   constructor(searchInputView, searchMenuView) {
     this.searchInputView = searchInputView;
     this.searchMenuView = searchMenuView;
-    this.arrowCount = {
-      count: -1,
-      autoComplete: null,
-    };
+    this.arrowCount = -1;
   }
 
   searchInputArrow(keyCode) {
     const list = domutil.$All(".search--toggle--li");
     const { prev, current } = this.changeKeyCount(keyCode, list);
-    console.log(list, prev, current);
     this.searchInputView.hilight({ prev, current, list });
   }
 
@@ -21,8 +17,8 @@ class HeaderKeyboadManager {
     const KEY_UP = 38;
     const KEY_DOWN = 40;
     const targetLength = list.length - 1;
-    let { count } = this.arrowCount;
-    const prev = count;
+    let count = this.arrowCount;
+    let prev = count;
 
     if (keyCode === KEY_UP) {
       count--;
@@ -32,13 +28,21 @@ class HeaderKeyboadManager {
 
     if (count < 0) {
       count = targetLength;
-    } else if (count >= targetLength) {
+    } else if (count > targetLength) {
       count = 0;
     }
 
+    // default값이 -1이기때문에
+    if (prev < 0) {
+      prev = 0;
+    }
     const current = count;
-    this.arrowCount.count = count;
+    this.arrowCount = count;
     return { prev, current };
+  }
+
+  initCount() {
+    this.arrowCount = -1;
   }
 }
 

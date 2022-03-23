@@ -21,19 +21,21 @@ const SEARCH_MENU_VIEW = new SearchMenuView(".header__main--inputMenuButton");
 const SEARCH_MENU_MODEL = new SearchMenuToggle();
 const ETC_MOVEMENT = new ETCmovement(SEARCH_INPUT_VIEW, SEARCH_MENU_VIEW);
 
+const HEADER_KEY_MANAGER = new HeaderKeyboadManager(
+  SEARCH_INPUT_VIEW,
+  SEARCH_MENU_VIEW
+);
 const HISTORY_MANAGER = new HeaderHistoryPatcher(
   SEARCH_INPUT_MODEL,
-  SEARCH_INPUT_VIEW
+  SEARCH_INPUT_VIEW,
+  HEADER_KEY_MANAGER // 상위의 객체는 하위를 바라보지 않지만 동등한 계층끼리는 바라볼수 있는 룰을 적용했는데 같은계층끼리 바라보니깐 어색하다
 );
 const DATA_DISPATCHER = new HedearDataDispatcher(
   SEARCH_INPUT_MODEL,
   SEARCH_MENU_MODEL,
   SEARCH_INPUT_VIEW,
-  SEARCH_MENU_VIEW
-);
-const HEADER_KEY_MANAGER = new HeaderKeyboadManager(
-  SEARCH_INPUT_VIEW,
-  SEARCH_MENU_VIEW
+  SEARCH_MENU_VIEW,
+  HEADER_KEY_MANAGER //흠
 );
 
 const ROUTER = new HeaderRoutes(DATA_DISPATCHER);

@@ -37,12 +37,9 @@ SearchInputView.prototype.removePrevView = function (parentDom, targetName) {
 };
 
 SearchInputView.prototype.hilight = function ({ prev, current, list }) {
-  console.log(prev, current, list);
-  if (prev === -1) {
-    prev = 0;
-  }
+  const signatureColor = "#4285f4";
   list[prev].style.color = "black";
-  list[current].style.color = "#4285f4";
+  list[current].style.color = signatureColor;
 };
 
 export { SearchInputView };

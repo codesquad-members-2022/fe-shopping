@@ -1,16 +1,18 @@
 class HeaderHistoryPatcher {
-  constructor(searchInputToggle, searchInputView) {
+  constructor(searchInputToggle, searchInputView, headerKeyManager) {
     this.historStorage = new Set(
       JSON.parse(localStorage.getItem("localSearchHistory")) // 로컬스토리지 볐다 할수있음
     );
 
     this.searchInputModel = searchInputToggle;
     this.searchInputView = searchInputView;
+    this.headerKeyManager = headerKeyManager;
   }
 
   manageHistory() {
     const historyData = this.checkHistorySize([...this.historStorage]); // 안해도 될수도 있음 , 함수명 check -> trim으로 추후 통일
     const DOM = this.searchInputModel.getHTML(historyData);
+    this.headerKeyManager.initCount();
     this.searchInputView.renderSearchHistory(DOM);
   }
 

@@ -3,12 +3,14 @@ class HedearDataDispatcher {
     searchInputToggle,
     searchMenuToggle,
     searchInputView,
-    searchMenuView
+    searchMenuView,
+    headerKeyManager
   ) {
     this.searchInputModel = searchInputToggle;
     this.searchMenuModel = searchMenuToggle;
     this.searchInputView = searchInputView;
     this.searchMenuView = searchMenuView;
+    this.headerKeyManager = headerKeyManager; // 흠...
   }
 
   set searchInputData(data) {
@@ -18,6 +20,7 @@ class HedearDataDispatcher {
     }
     const inputData = this.checkdataSize(data);
     const DOM = this.searchInputModel.getHTML(inputData);
+    this.headerKeyManager.initCount();
     this.searchInputView.renderSearchAutoComplete(DOM);
   }
 
