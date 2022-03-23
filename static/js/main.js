@@ -9,10 +9,10 @@ const keywordsData = goodsData[firstKeyword];
 init();
 
 function init() {
-  window.localStorage.clear();
   const recentSearchController = new RecentSearchController();
   const relativeSearchController = new RelativeSearchController(keywordsData);
   recentSearchController.addInputFocusEvent();
   recentSearchController.addInputKeyDownEvent();
   relativeSearchController.addInputKeyUpEvent();
+  relativeSearchController.addInputKeyDownEvent();
 }
