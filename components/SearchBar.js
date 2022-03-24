@@ -9,11 +9,20 @@ class SearchBar extends Element {
     });
   }
 
-  handleFocusInput({ dropDown }) {
+  onFocusInput({ dropDown }) {
     this.$search.addEventListener("focus", (event) => {
       const hasDropBox = true;
       dropDown(hasDropBox);
     });
+  }
+
+  onChangeInput({ handleChangeInput }) {
+    handleChangeInput();
+  }
+
+  render() {
+    const { keyword } = this.state;
+    this.$search.value = keyword;
   }
 }
 

@@ -88,9 +88,13 @@ header {
   left: 53rem;
   position: absolute;
   z-index: 1;
-  background-color: rgb(190, 187, 187);
+  background-color: #fff;
 }
 
 .visible {
   visibility: hidden;
+}
+
+.header__input__keyword {
+  text-decoration: none;
 }

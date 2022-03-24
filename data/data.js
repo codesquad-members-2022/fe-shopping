@@ -25,4 +25,111 @@ const searchCategories = [
 
 const searchData = ["초코송이", "포카칩", "바지", "자켓", "지우개"];
 
-export { searchCategories, searchData };
+const inputData = {
+  아: [
+    {
+      keyword: "아몬드 브리즈",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰 13 pro",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰 13",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이패드 에어4",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰13 미니",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아르기닌",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이패드",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아보카도",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이스크림",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아몬드브리즈 프로틴",
+      requestId: "7225867454b04ac5ac8a51dc7d37d8a8",
+      travelKeyword: "false",
+    },
+  ],
+  아이: [
+    {
+      keyword: "아이폰 13 pro",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이패드 에어4",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이깨끗해",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰 13",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이패드",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰13 미니",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰13 pro max",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이스크림",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이깨끗해 리필",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+    {
+      keyword: "아이폰 se",
+      requestId: "043722c8c60d4107bea931d1a9e3f8e3",
+      travelKeyword: "false",
+    },
+  ],
+};
+
+export { searchCategories, searchData, inputData };
