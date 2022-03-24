@@ -16,6 +16,10 @@ const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 export class History {
   constructor({ ROTATION_KEYWORD }) {
     this.$historyList = selector(`.${HISTORY_LIST}`);
+    this.$historyTitle = selector(`.${HISTORY_TITLE}`);
+    this.$historyOffTitle = selector(`.${HISTORY_OFF_TITLE}`);
+    this.$clearBtn = selector(`.${HISTORY_CLEAR_BTN}`);
+    this.$activationBtn = selector(`.${HISTORY_ONOFF_BTN}`);
     this.ROTATION_KEYWORD = ROTATION_KEYWORD;
     this.init();
   }
@@ -23,24 +27,20 @@ export class History {
   init() {
     const isHistoryActive = historyStore.isHistoryActive();
     if (!isHistoryActive) {
-      selector(`.${HISTORY_ONOFF_BTN}`).textContent = '최근검색어켜기';
-      this.setHistoryItems();
+      this.$activationBtn.textContent = '최근검색어켜기';
+      this.toggleHistoryActivation();
     }
 
     this.renderHistoryItems();
     this.$historyList.addEventListener('click', this.handleClickDelBtn);
-
-    const $clearBtn = selector(`.${HISTORY_CLEAR_BTN}`);
-    $clearBtn.addEventListener('click', this.handleClickClearBtn);
-
-    const $onoffBtn = selector(`.${HISTORY_ONOFF_BTN}`);
-    $onoffBtn.addEventListener('click', this.handleClickActivateBtn);
+    this.$clearBtn.addEventListener('click', this.handleClickClearBtn);
+    this.$activationBtn.addEventListener('click', this.handleClickActivationBtn);
   }
 
   /* **리스너*** */
-  handleClickClearBtn = (e) => {
+  handleClickClearBtn = () => {
     historyStore.clear();
-    this.$historyList.innerHTML = '';
+    this.$historyList.textContent = '';
   };
 
   handleClickDelBtn = (e) => {
@@ -52,40 +52,38 @@ export class History {
     this.removeHistoryItemElement($item);
   };
 
-  handleClickActivateBtn = (e) => {
+  handleClickActivationBtn = () => {
     const isHistoryActive = historyStore.isHistoryActive();
-    const $onoffBtn = e.currentTarget;
 
-    this.setHistoryItems();
+    this.toggleHistoryActivation();
     if (isHistoryActive) {
-      $onoffBtn.textContent = '최근검색어켜기';
+      this.$activationBtn.textContent = '최근검색어켜기';
       historyStore.stopHistory();
       return;
     }
 
-    $onoffBtn.textContent = '최근검색어끄기';
+    this.$activationBtn.textContent = '최근검색어끄기';
     historyStore.activateHistory();
   };
   /* ********** */
 
-  setHistoryItems() {
-    const $historyList = this.$historyList;
-    const $historyWrapper = $historyList.parentNode;
-    const $historyTitle = selector(`.${HISTORY_TITLE}`, $historyWrapper);
-    const $historyOffTitle = selector(`.${HISTORY_OFF_TITLE}`, $historyWrapper);
-
-    toggleClass(DISPLAY_NONE, $historyList);
-    toggleClass(DISPLAY_NONE, $historyTitle);
-    toggleClass(DISPLAY_NONE, $historyOffTitle);
+  toggleHistoryActivation() {
+    toggleClass(DISPLAY_NONE, this.$historyList);
+    toggleClass(DISPLAY_NONE, this.$historyTitle);
+    toggleClass(DISPLAY_NONE, this.$historyOffTitle);
   }
 
   renderHistoryItems() {
-    const history = historyStore.getAllItems();
-    const $$historyItem = Object.entries(history).map(([id, value]) =>
+    const historyList = historyStore.getAllItems();
+    const $$historyItem = Object.entries(historyList).map(([id, value]) =>
       this.createHistoryItemElement(id, value)
     );
     $$historyItem.reverse();
     this.$historyList.append(...$$historyItem);
+  }
+
+  removeHistoryItemElement($item) {
+    this.$historyList.removeChild($item);
   }
 
   createHistoryItemElement(id, keyword) {
@@ -100,25 +98,13 @@ export class History {
         href: `./search.html?q=${keyword}`,
       }
     );
+
     $historyItemLink.textContent = keyword;
 
     const $historyDelBtn = createElement('span', HISTORY_ITEM_DEL_BTN);
     $historyDelBtn.textContent = '삭제';
+    $historyItem.append($historyItemLink, $historyDelBtn);
 
-    $historyItem.appendChild($historyItemLink);
-    $historyItem.appendChild($historyDelBtn);
     return $historyItem;
-  }
-
-  removeHistoryItemElement($item) {
-    this.$historyList.removeChild($item);
-  }
-
-  removeHistoryItemElementById(id) {
-    const $item = selector(`.${HISTORY_ITEM}[data-id='${id}']`);
-
-    if (!$item) return false;
-    this.$historyList.removeChild($item);
-    return true;
   }
 }
