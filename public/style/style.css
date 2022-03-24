@@ -159,6 +159,7 @@ input:focus {
   flex-direction: row;
   width: 134px;
   border-right: #f0f0f0 1px solid;
+  cursor: pointer;
 }
 .search__category--contents img {
   width: 18px;
@@ -191,6 +192,7 @@ input:focus {
   align-items: center;
   height: 30px;
   padding-left: 13px;
+  cursor: pointer;
 }
 .search__form {
   display: flex;
@@ -225,7 +227,7 @@ input:focus {
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   border: #ddd 1px solid;
 }
-.search__result strong {
+.search__result--title {
   height: 10px;
   line-height: 5px;
   border-bottom: #ddd 1px solid;
@@ -238,6 +240,10 @@ input:focus {
 }
 .search__result--item {
   padding-top: 15px;
+  cursor: pointer;
+}
+.search__result--item strong {
+  color: #008CFF;
 }
 .search__button {
   display: flex;
@@ -252,6 +258,7 @@ input:focus {
   color: #929191;
   padding: 0px 10px;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .gnb {
@@ -287,6 +294,11 @@ input:focus {
 
 .hidden {
   visibility: hidden;
+  height: 0%;
+}
+
+.none {
+  display: none;
   height: 0%;
 }
 

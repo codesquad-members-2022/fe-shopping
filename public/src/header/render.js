@@ -10,10 +10,8 @@ const searchBarRender = () => {
     const searchResultList = new SearchResultList();
     const categorySelector = new CategorySelector($search, categoryList, category);
     const searchController = new SearchController($search, searchResultList);
-    categorySelector.render();
-    searchController.render();
-    categorySelector.setEvents();
-    searchController.setEvents();
+    categorySelector.init();
+    searchController.init();
 };
 
 const renderHeader = () => {

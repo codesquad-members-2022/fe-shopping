@@ -6,6 +6,11 @@ export default class CategorySelector {
         this.defaultCategory = (categories[0].name || '전체');
     }
 
+    init() {
+        this.render();
+        this.setEvents();
+    }
+
     render() {
         this.$parent.innerHTML += this.createHTML();
     }
@@ -34,7 +39,8 @@ export default class CategorySelector {
     }
 
     setClickEvent() {
-        this.$target.addEventListener('click', this.handleClickEvent.bind(this));
+        const listTitle = document.querySelector('.search__category--contents');
+        listTitle.addEventListener('click', this.handleClickEvent.bind(this));
     }
 
     handleClickEvent(event) {

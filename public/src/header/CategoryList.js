@@ -1,8 +1,8 @@
 import Toggler from "../components/Toggler.js";
 
 export default class CategoryList extends Toggler {
-    constructor(categories = []) {
-        super();
+    constructor(categories = [], toggleKey = 'hidden') {
+        super(null, toggleKey);
         this.categories = categories;
     }
 

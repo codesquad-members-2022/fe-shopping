@@ -1,3 +1,5 @@
+import DelayTimer from "../util/DelayTimer.js";
+import FetchController from "../util/FetchController.js";
 import {
     addLocalData
 } from "../util/localStorage.js";
@@ -6,7 +8,15 @@ export default class SearchController {
     constructor($parent, resultList) {
         this.$parent = $parent;
         this.$target = null;
+        this.fetchDelay = 500;
         this.resultList = resultList;
+        this.fetchTimer = new DelayTimer();
+        this.fetchController = new FetchController();
+    }
+
+    init() {
+        this.render();
+        this.setEvents();
     }
 
     render() {
@@ -25,16 +35,17 @@ export default class SearchController {
         `
     }
 
-    setTarget() {
-        this.$target = document.querySelector('.search__form')
-        this.resultList.setTarget(document.querySelector('.search__result'));
-    }
-
     setEvents() {
         this.setTarget();
         this.setFocusEvent();
         this.setSubmitEvent();
-        this.setKeyEvent();
+        this.setInputEvent();
+        this.resultList.setEvents();
+    }
+
+    setTarget() {
+        this.$target = document.querySelector('.search__form')
+        this.resultList.setTarget(document.querySelector('.search__result'));
     }
 
     setFocusEvent() {
@@ -43,21 +54,24 @@ export default class SearchController {
         inputTextForm.addEventListener('focusout', this.handleFocusOutEvent.bind(this));
     }
 
-    setSubmitEvent() {
-        this.$target.addEventListener('submit', this.handleSubmitEvent.bind(this));
-    }
-
-    setKeyEvent() {
-        const inputTextForm = document.querySelector('.search__form--input');
-        inputTextForm.addEventListener('keydown', this.handleKeyDownEvent.bind(this));
-    }
-
     handleFocusInEvent(event) {
-        this.resultList.toggle();
+        this.resultList.open();
     }
 
     handleFocusOutEvent(event) {
-        this.resultList.toggle();
+        if (event.relatedTarget !== null) {
+            return;
+        }
+
+        if (event.target.value === '' && this.resultList.isTyping) {
+            this.resultList.toggleContents();
+        }
+
+        this.resultList.close();
+    }
+
+    setSubmitEvent() {
+        this.$target.addEventListener('submit', this.handleSubmitEvent.bind(this));
     }
 
     handleSubmitEvent(event) {
@@ -68,16 +82,43 @@ export default class SearchController {
         if (inputText === '') return;
 
         $textInput.value = '';
-
         addLocalData('recent', [inputText]);
         this.resultList.updateData('recent');
-        this.resultList.toggleState();
+        this.resultList.toggleContents();
     }
 
-    handleKeyDownEvent(event) {
+    setInputEvent() {
+        const inputTextForm = document.querySelector('.search__form--input');
+        inputTextForm.addEventListener('input', this.handleInputEvent);
+    }
+
+    handleInputEvent = (event) => {
+        const inputValue = event.target.value;
+
         if (!this.resultList.isTyping) {
-            this.resultList.toggleState();
-            return;
+            this.resultList.toggleContents();
+        }
+
+        if (inputValue === '') {
+            this.resultList.toggleContents();
+        }
+
+        this.resultList.open();
+        this.fetchTimer.debounceTimer(this.fetchDelay, () => this.fetchInputValue(inputValue));
+    }
+
+    fetchInputValue = async (inputValue) => {
+        const fetchedData = await this.fetchController.fetchAutoCompletionWord(inputValue);
+
+        this.resultList.updateData('complete', {
+            inputValue: inputValue,
+            words: fetchedData
+        });
+
+        if (!fetchedData === '') {
+            this.resultList.close();
+        } else {
+            this.resultList.open();
         }
     }
 }

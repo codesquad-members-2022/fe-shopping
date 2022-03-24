@@ -1,7 +1,8 @@
 export default class Toggler {
-    constructor($target = null, toggleKey = 'hidden') {
+    constructor($target = null, toggleKey = 'none') {
         this.$target = $target;
         this.toggleKey = toggleKey;
+        this.isToggled = true;
     }
 
     setTarget($target) {
@@ -12,7 +13,12 @@ export default class Toggler {
         this.toggleKey = toggleKey;
     }
 
-    toggle(toggleKey) {
-        this.$target.classList.toggle(toggleKey || this.toggleKey);
+    isToggled() {
+        return this.isToggled;
+    }
+
+    toggle() {
+        this.$target.classList.toggle(this.toggleKey);
+        this.isToggled = !this.isToggled;
     }
 }
