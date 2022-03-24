@@ -15,6 +15,11 @@ class SelectBox extends Component {
 
   template() {
     return `<button type="button" class="select-btn">${this.getSelectedCategory()}</button>
+            <select id="category">
+              ${this.$state.categories
+                .map((category) => `<option value="${category.item}" ${this.getSelectedCategory() === category.item ? 'selected': ''}></option>`)
+                .join('')}
+            </select>
             <div class="bottom-ui"></div>`;
   }
 

@@ -22,14 +22,15 @@ class SearchForm extends Component {
     this.addEvent('submit', '.search-form', (event) => {
       event.preventDefault();
       abortController && abortController.abort();
-      const input = event.target.querySelector('.input');
-      if (this.$state.isSaveHistoryOn && input.value) {
+      const selectedCategory = this.getSelectedCategory(event.target);
+      const $input = event.target.querySelector('.input');
+      if (this.$state.isSaveHistoryOn && $input.value) {
         SearchHistoryStore.addHistory({
-          item: input.value,
+          item: $input.value,
           link: '#',
         });
       }
-      input.value = '';
+      $input.value = '';
     });
   }
 
@@ -39,6 +40,12 @@ class SearchForm extends Component {
 
     new SelectBox($selectBox);
     new InputBox($inputBox);
+  }
+
+  getSelectedCategory(target) {
+    const $select = target.querySelector('#category');
+    const selectedIndex = target.querySelector('#category').options.selectedIndex;
+    return $select.options[selectedIndex].value;
   }
 }
 

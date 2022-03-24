@@ -145,6 +145,8 @@ body {
         background-repeat: no-repeat; }
       .main-header .search-form .select-box .select-btn.selected::after {
         background-position: 6px -142px; }
+    .main-header .search-form .select-box select {
+      display: none; }
   .main-header .search-form .input-box {
     position: relative;
     display: flex;
