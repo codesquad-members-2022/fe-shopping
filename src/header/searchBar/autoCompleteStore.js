@@ -7,10 +7,12 @@ export const autoCompleteStore = {
   async requestACKeywords(inputKeyword) {
     try {
       const response = await fetch(`${apiURL}?q=${inputKeyword}`);
+
       if (!response.ok) {
         const bodyText = await response.text();
         throw new Error(`${response.status} ${response.statusText} ${bodyText}`);
       }
+
       const bodyJSON = await response.json();
       const ACKeywords = Object.values(bodyJSON).map(({ keyword }) => keyword);
       return ACKeywords;

@@ -55,8 +55,10 @@ export class History {
   handleClickDelBtn = (e) => {
     const $target = e.target;
     if (!$target.classList.contains(HISTORY_ITEM_DEL_BTN)) return;
+
     const $item = $target.closest(`.${HISTORY_ITEM}`);
     const itemId = $item.dataset.id;
+
     historyStore.removeItem(itemId);
     this.removeHistoryItemElement($item);
   };
