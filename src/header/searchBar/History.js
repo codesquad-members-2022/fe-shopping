@@ -5,42 +5,30 @@ import {
   toggleClass,
 } from '../../utils/utils.js';
 
-const HIDDEN = 'hidden';
+const DISPLAY_NONE = 'hidden';
+
+const HISTORY_TITLE = 'history-title';
+const HISTORY_OFF_TITLE = 'history-off-title';
+const HISTORY_LIST = 'history-list';
+const HISTORY_ITEM = 'history-item';
+const HISTORY_ITEM_LINK = 'history-item-link';
+const HISTORY_ITEM_DEL_BTN = 'history-item-delete';
+const HISTORY_CLEAR_BTN = 'history-clear-btn';
+const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
 export class History {
   constructor({
-    $form,
-    $input,
     historyListKey,
     historyActivationKey,
     maxHistoryLength,
-    HISTORY_TITLE,
-    HISTORY_OFF_TITLE,
-    HISTORY_LIST,
-    HISTORY_ITEM,
-    HISTORY_ITEM_LINK,
-    HISTORY_ITEM_DEL_BTN,
-    HISTORY_CLEAR_BTN,
-    HISTORY_ONOFF_BTN,
     ROTATION_KEYWORD,
   }) {
-    this.$form = $form;
-    this.$input = $input;
     this.$historyList = selector(`.${HISTORY_LIST}`);
 
     this.historyListKey = historyListKey;
     this.historyActivationKey = historyActivationKey;
-
     this.maxLength = maxHistoryLength;
 
-    this.HISTORY_TITLE = HISTORY_TITLE;
-    this.HISTORY_OFF_TITLE = HISTORY_OFF_TITLE;
-    this.HISTORY_LIST = HISTORY_LIST;
-    this.HISTORY_ITEM = HISTORY_ITEM;
-    this.HISTORY_ITEM_LINK = HISTORY_ITEM_LINK;
-    this.HISTORY_CLEAR_BTN = HISTORY_CLEAR_BTN;
-    this.HISTORY_ONOFF_BTN = HISTORY_ONOFF_BTN;
-    this.HISTORY_ITEM_DEL_BTN = HISTORY_ITEM_DEL_BTN;
     this.ROTATION_KEYWORD = ROTATION_KEYWORD;
 
     this.init();
@@ -49,17 +37,17 @@ export class History {
   init() {
     const isHistoryActive = this.getHistoryActivationState();
     if (!isHistoryActive) {
-      selector(`.${this.HISTORY_ONOFF_BTN}`).textContent = '최근검색어켜기';
+      selector(`.${HISTORY_ONOFF_BTN}`).textContent = '최근검색어켜기';
       this.setHistoryItems();
     }
 
     this.renderHistoryItems();
     this.$historyList.addEventListener('click', this.handleClickDelBtn);
 
-    const $clearBtn = selector(`.${this.HISTORY_CLEAR_BTN}`);
+    const $clearBtn = selector(`.${HISTORY_CLEAR_BTN}`);
     $clearBtn.addEventListener('click', this.handleClickClearBtn);
 
-    const $onoffBtn = selector(`.${this.HISTORY_ONOFF_BTN}`);
+    const $onoffBtn = selector(`.${HISTORY_ONOFF_BTN}`);
     $onoffBtn.addEventListener('click', this.handleClickActivateBtn);
   }
 
@@ -71,8 +59,8 @@ export class History {
 
   handleClickDelBtn = (e) => {
     const $target = e.target;
-    if (!$target.classList.contains(this.HISTORY_ITEM_DEL_BTN)) return;
-    const $item = $target.closest(`.${this.HISTORY_ITEM}`);
+    if (!$target.classList.contains(HISTORY_ITEM_DEL_BTN)) return;
+    const $item = $target.closest(`.${HISTORY_ITEM}`);
     const itemId = $item.dataset.id;
     this.removeHistory(itemId);
     this.removeHistoryItemElement($item);
@@ -94,25 +82,15 @@ export class History {
   };
   /* ********** */
 
-  // handleSubmitForm = (itemId, keyword) => {
-  //   this.setHistory(itemId, keyword);
-
-  //   const $historyItem = this.createHistoryItemElement(itemId, keyword);
-  //   this.$historyList.appendChild($historyItem);
-  // };
-
   setHistoryItems() {
     const $historyList = this.$historyList;
     const $historyWrapper = $historyList.parentNode;
-    const $historyTitle = selector(`.${this.HISTORY_TITLE}`, $historyWrapper);
-    const $historyOffTitle = selector(
-      `.${this.HISTORY_OFF_TITLE}`,
-      $historyWrapper
-    );
+    const $historyTitle = selector(`.${HISTORY_TITLE}`, $historyWrapper);
+    const $historyOffTitle = selector(`.${HISTORY_OFF_TITLE}`, $historyWrapper);
 
-    toggleClass(HIDDEN, $historyList);
-    toggleClass(HIDDEN, $historyTitle);
-    toggleClass(HIDDEN, $historyOffTitle);
+    toggleClass(DISPLAY_NONE, $historyList);
+    toggleClass(DISPLAY_NONE, $historyTitle);
+    toggleClass(DISPLAY_NONE, $historyOffTitle);
   }
 
   renderHistoryItems() {
@@ -129,23 +107,20 @@ export class History {
   }
 
   createHistoryItemElement(id, keyword) {
-    const $historyItem = createElement('li', this.HISTORY_ITEM, {
+    const $historyItem = createElement('li', HISTORY_ITEM, {
       'data-id': id,
     });
 
     const $historyItemLink = createElement(
       'a',
-      [this.HISTORY_ITEM_LINK, this.ROTATION_KEYWORD],
+      [HISTORY_ITEM_LINK, this.ROTATION_KEYWORD],
       {
         href: `./search.html?q=${keyword}`,
       }
     );
     $historyItemLink.textContent = keyword;
 
-    const $historyDelBtn = createElement(
-      'span',
-      this.HISTORY_ITEM_DEL_BTN,
-    );
+    const $historyDelBtn = createElement('span', HISTORY_ITEM_DEL_BTN);
     $historyDelBtn.textContent = '삭제';
 
     $historyItem.appendChild($historyItemLink);
@@ -158,7 +133,7 @@ export class History {
   }
 
   removeHistoryItemElementById(id) {
-    const $item = selector(`.${this.HISTORY_ITEM}[data-id='${id}']`);
+    const $item = selector(`.${HISTORY_ITEM}[data-id='${id}']`);
 
     if (!$item) return false;
     this.$historyList.removeChild($item);

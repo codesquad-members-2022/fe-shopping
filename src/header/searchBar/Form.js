@@ -12,22 +12,15 @@ const FORM = 'search-bar-form';
 const INPUT = 'search-bar-input';
 const SUBMIT = 'search-bar-submit';
 const FORM_POPUP_BOX = 'search-bar-form-popup-box';
-const HIDDEN = 'hidden';
+const DISPLAY_NONE = 'hidden';
 
 const HISTORY_BOX = 'history';
-const HISTORY_TITLE = 'history-title';
-const HISTORY_OFF_TITLE = 'history-off-title';
 const HISTORY_LIST = 'history-list';
-const HISTORY_ITEM = 'history-item';
-const HISTORY_ITEM_LINK = 'history-item-link';
-const HISTORY_ITEM_DELETE_BTN = 'history-item-delete';
-const HISTORY_CLEAR_BTN = 'history-clear-btn';
-const HISTORY_ONOFF_BTN = 'history-onoff-btn';
-
 const AUTO_COMPLETE_BOX = 'auto-complete';
 const AUTO_COMPLETE_LIST = 'auto-complete-list';
 const ROTATION_LIST = 'rotation-list';
 const SELECTED = 'is-selected';
+
 const ROTATION_KEYWORD = 'rotation-keyword';
 
 export class SearchBarForm {
@@ -48,7 +41,7 @@ export class SearchBarForm {
     const popupboxDelay = 500;
 
     this.$input.addEventListener('mousedown', () => {
-      removeClass(HIDDEN, this.$popupBox);
+      removeClass(DISPLAY_NONE, this.$popupBox);
     });
 
     this.$form.addEventListener('submit', this.handleSubmit);
@@ -71,19 +64,9 @@ export class SearchBarForm {
     const maxHistoryLength = 9;
 
     return new History({
-      $form: this.$form,
-      $input: this.$input,
       historyListKey: historyListKey,
       historyActivationKey: historyActivationKey,
       maxHistoryLength: maxHistoryLength,
-      HISTORY_TITLE: HISTORY_TITLE,
-      HISTORY_OFF_TITLE: HISTORY_OFF_TITLE,
-      HISTORY_LIST: HISTORY_LIST,
-      HISTORY_ITEM: HISTORY_ITEM,
-      HISTORY_ITEM_LINK: HISTORY_ITEM_LINK,
-      HISTORY_CLEAR_BTN: HISTORY_CLEAR_BTN,
-      HISTORY_ONOFF_BTN: HISTORY_ONOFF_BTN,
-      HISTORY_ITEM_DEL_BTN: HISTORY_ITEM_DELETE_BTN,
       ROTATION_KEYWORD: ROTATION_KEYWORD,
     });
   }
@@ -155,14 +138,14 @@ export class SearchBarForm {
     if ($selectedItem) removeClass(SELECTED, $selectedItem);
 
     if (inputKeyword.length < 1) {
-      addClass(HIDDEN, $autoCompleteBox);
-      removeClass(HIDDEN, $historyBox);
+      addClass(DISPLAY_NONE, $autoCompleteBox);
+      removeClass(DISPLAY_NONE, $historyBox);
       addClass(ROTATION_LIST, $historyList);
       removeClass(ROTATION_LIST, $autoCompleteList);
       return;
     }
-    addClass(HIDDEN, $historyBox);
-    removeClass(HIDDEN, $autoCompleteBox);
+    addClass(DISPLAY_NONE, $historyBox);
+    removeClass(DISPLAY_NONE, $autoCompleteBox);
     addClass(ROTATION_LIST, $autoCompleteList);
     removeClass(ROTATION_LIST, $historyList);
   };
@@ -180,7 +163,7 @@ export class SearchBarForm {
   }
 
   closePopupbox() {
-    addClass(HIDDEN, this.$popupBox);
+    addClass(DISPLAY_NONE, this.$popupBox);
   }
 
   isKeyCodeArrow(code) {
