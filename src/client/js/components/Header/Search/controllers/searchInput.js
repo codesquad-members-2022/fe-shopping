@@ -108,17 +108,7 @@ const fetchSuggestionData = async (searchWord) => {
   }
 };
 
-const handleKeyupWithFocus = (event) => {
-  const { target, key } = event;
-  if (key === "ArrowDown" || key === "ArrowUp") {
-    handleKeyUpArrowUpDown({ target, key });
-    return;
-  }
-  if (key === "Enter") {
-    handleKeyUpEnter({ target });
-    return;
-  }
-
+const handleKeyUpOthers = ({ target }) => {
   const { recentDatas } = store.state;
 
   if (target.value) {
@@ -134,13 +124,21 @@ const handleKeyupWithFocus = (event) => {
       searchWord: "",
     });
   }
+  fetchSuggestionData(target.value);
+};
 
-  debounce({
-    event,
-    standardValue: "target-value",
+const handleKeyupWithFocus = (event) => {
+  const { key } = event;
+  if (key === "ArrowDown" || key === "ArrowUp") {
+    return handleKeyUpArrowUpDown.call(undefined, event);
+  }
+  if (key === "Enter") {
+    return handleKeyUpEnter.call(undefined, event);
+  }
+  return debounce({
     msTime: 500,
-    callback: fetchSuggestionData.bind(undefined, target.value),
-  });
+    callback: handleKeyUpOthers,
+  }).call(undefined, event);
 };
 
 export {

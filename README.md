@@ -116,3 +116,37 @@ const debounce = ({ baseTarget, msTime, callback }) => {
   });
 };
 ```
+
+### debounce 3차 수정
+
+- input 을 사용한 value 추적은 event의 target 이 input 으로 한정되어 있어서 전/후 비교가 수월했었는데, 마우스 이벤트의 이벤트를 동일한 방법으로 추적하는 것은 다르다는 것을 느꼈다.
+
+  - input 의 target.value 는 하나의 target 으로 추적할 수 있지만 마우스의 이벤트는 왼쪽에서 오른쪽으로 이동한다고 해서 동일한 target.value 와 같은 값(ex. clientX) 를 찾을 수 없었다.
+
+- 그렇다면 `기준이 되는 value 를 통해서 추적하는 방식`을 버리고, `특정 시간 내에 동일한 event 가 발생했는지`를 파악해보는 방식으로 변경해야 겠다는 생각이 들었다.
+
+- 어떤 이벤트를 발생하고 -> 이후 지정시간내에 동일한 이벤트를 발생했다는 것을 이전 이벤트가 어떻게 감지할 것인가?
+  - 감지를 해야 취소를 할텐데
+
+```js
+const debounce = ({ msTime, callback }) => {
+  const events = {};
+  return function (event) {
+    events[event.type] = {};
+    events[event.type].event = event;
+    delay(msTime).then(() => {
+      if (events[event.type].event === event) {
+        callback(event);
+      }
+    });
+  };
+};
+```
+
+- `events` 변수를 선언해서 클로져로 사용하도록 설정
+
+- 문제점: 마우스 이벤트는 각기 다른 이벤트로 파악을 하기때문에 마지막 이벤트가 실행되는데 이번엔 키보드 keyup 이벤트가 처음 입력된 `keyup 이벤트 === 마지막 입력된 keyup 이벤트` 가 되어버려서 keyup 이벤트 만큼 이벤트를 모두 실행하는 반대현상이 발생..
+
+<img width="501" alt="스크린샷 2022-03-25 오전 1 02 19" src="https://user-images.githubusercontent.com/58503584/159959075-3a5000a1-c985-4a2b-b1db-00a22e77da25.png">
+
+- `마지막 이벤트 이다` 라고 판단하는 로직을 어떻게 짜야할까?
