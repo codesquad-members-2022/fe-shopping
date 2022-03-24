@@ -9,7 +9,6 @@ export default class App {
         new SNB(document.querySelector(".snb-list"),data);
         new FocusLinstener(document.querySelector(".search-form input"));
         new LatelySearch(document.querySelector(".search-list"));
-        debugger;
         new RecoSearch(document.querySelector(".search-form input"));
     }
 }
