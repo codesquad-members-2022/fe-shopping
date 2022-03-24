@@ -8,8 +8,13 @@ import { HedearDataDispatcher } from "./service/dataController/header/DataDispat
 import { HeaderKeyboadManager } from "./service/keyInputController/HeaderKeyManager.js";
 import { SearchInputView } from "./View/header/SearchInputView.js";
 import { SearchMenuView } from "./View/header/searchMenuView.js";
-import { SearchInputToggle, SearchMenuToggle } from "./Model/HeaderToggle.js";
+import {
+  SearchInputToggle,
+  SearchMenuToggle,
+} from "./MV/Model/HeaderToggle.js";
 import { ETCmovement } from "./service/etcMovement/EtcMovement.js";
+import ObserverPublisher from "./observer/Observer.js/index.js";
+import Store from "./MV/Store.js";
 
 // localStorage.setItem("localSearchHistory", "[]"); // 초기화용
 
@@ -20,25 +25,15 @@ const SEARCH_INPUT_MODEL = new SearchInputToggle();
 const SEARCH_MENU_VIEW = new SearchMenuView(".header__main--inputMenuButton");
 const SEARCH_MENU_MODEL = new SearchMenuToggle();
 const ETC_MOVEMENT = new ETCmovement(SEARCH_INPUT_VIEW, SEARCH_MENU_VIEW);
+const INPUT_OBSERVER = new ObserverPublisher(null);
+const MENU_OBSERVER = new ObserverPublisher(null);
 
 const HEADER_KEY_MANAGER = new HeaderKeyboadManager(
   SEARCH_INPUT_VIEW,
   SEARCH_MENU_VIEW
-);
-const HISTORY_MANAGER = new HeaderHistoryPatcher(
-  SEARCH_INPUT_MODEL,
-  SEARCH_INPUT_VIEW,
-  HEADER_KEY_MANAGER // 상위의 객체는 하위를 바라보지 않지만 동등한 계층끼리는 바라볼수 있는 룰을 적용했는데 같은계층끼리 바라보니깐 어색하다
-);
-const DATA_DISPATCHER = new HedearDataDispatcher(
-  SEARCH_INPUT_MODEL,
-  SEARCH_MENU_MODEL,
-  SEARCH_INPUT_VIEW,
-  SEARCH_MENU_VIEW,
-  HEADER_KEY_MANAGER //흠
-);
-
-const ROUTER = new HeaderRoutes(DATA_DISPATCHER);
+); // 추후 삭제 가능
+const HISTORY_MANAGER = new HeaderHistoryPatcher(INPUT_OBSERVER);
+const ROUTER = new HeaderRoutes(INPUT_OBSERVER, MENU_OBSERVER);
 
 const mainControllerParams = {
   searchInputHandler: new SearchInputEventHandler(

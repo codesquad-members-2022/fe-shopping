@@ -31,7 +31,9 @@ class SearchInputEventHandler {
 
       if (key === "Enter") {
         event.preventDefault();
-        this.historyManager.addData2localStorage(value);
+        const localData = this.historyManager.addData2localStorage(value);
+        const fitData = this.historyManager.fitHistorySize(localData);
+        this.historyManager.observer.notify(fitData);
         return;
       }
 
@@ -41,9 +43,10 @@ class SearchInputEventHandler {
     });
   }
 
-  onInputEvent({ target: { value } }) {
+  async onInputEvent({ target: { value } }) {
     const uri = `search/${value}`; // 추후 util폴더 constants로 추가할 예정
-    this.router.setAutoCompleteData(uri);
+    const autoCompleteData = await this.router.setAutoCompleteData(uri);
+    this.router.observer.notify(autoCompleteData);
   }
 
   onFocusEvent() {

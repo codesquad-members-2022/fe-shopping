@@ -23,8 +23,8 @@ class SearchMenuEventHandler {
     this.router.getMenuData(uri);
   }
 
-  onClickOutEvent({ target }) {
-    this.etcMovement.removeMenu(target);
+  onClickOutEvent(event) {
+    this.etcMovement.removeMenu(event);
   }
 }
 

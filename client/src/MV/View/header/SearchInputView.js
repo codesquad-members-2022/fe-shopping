@@ -14,9 +14,7 @@ function SearchInputView() {
 
 SearchInputView.prototype = Object.create(ToggleView.prototype);
 
-SearchInputView.prototype.renderSearchAutoComplete = function (
-  autoCompleteDom
-) {
+SearchInputView.prototype.render = function (autoCompleteDom) {
   const removeTarget = ".search--toggle--ul";
   this.removePrevView(this.parentDom, removeTarget);
   const removeBtn = autoCompleteDom.querySelector(

@@ -1,26 +1,13 @@
-import ObserverPublisher from "../../../../observer/observer";
-
 class HeaderHistoryPatcher {
-  constructor(searchInputToggle, searchInputView, headerKeyManager) {
+  constructor(observer) {
     this.historyStorage = new Set(
       JSON.parse(localStorage.getItem("localSearchHistory")) // 로컬스토리지 볐다 할수있음
     );
-
-    this.searchInputModel = searchInputToggle;
-    this.searchInputView = searchInputView;
-    this.headerKeyManager = headerKeyManager;
-    this.observer = new ObserverPublisher(this.historyStorage);
+    this.observer = observer;
   }
 
   getLocalHistory() {
     return this.historyStorage;
-  }
-
-  manageHistory() {
-    const historyData = this.fitHistorySize([...this.historyStorage]); // 안해도 될수도 있음 , 함수명 fit -> trim으로 추후 통일
-    const DOM = this.searchInputModel.getHTML(historyData);
-    this.headerKeyManager.initCount();
-    this.searchInputView.renderSearchHistory(DOM);
   }
 
   addData2localStorage(data) {
@@ -33,12 +20,11 @@ class HeaderHistoryPatcher {
       "localSearchHistory",
       JSON.stringify([...this.historyStorage])
     );
-
-    this.manageHistory();
+    return this.historyStorage;
   }
 
-  fitHistorySize() {
-    const historyArr = [...this.historyStorage];
+  fitHistorySize(data) {
+    const historyArr = [...data];
     const MAX_SIZE = 10;
 
     if (historyArr.length === 0) {
