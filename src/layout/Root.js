@@ -17,11 +17,6 @@ Root.prototype.setTemplate = function () {
   `;
 };
 
-Root.prototype.render = function () {
-  this.$element.innerHTML = this.setTemplate();
-  this.renderChild();
-};
-
 Root.prototype.renderChild = function () {
   const $header = findTargetIdElement(this.$element, 'header');
   const $main = findTargetIdElement(this.$element, 'main');

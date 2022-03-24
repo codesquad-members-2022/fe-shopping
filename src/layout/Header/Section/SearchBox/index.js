@@ -75,8 +75,8 @@ SearchBox.prototype.setEvent = function () {
   this.$form = findTargetIdElement(this.$element, 'searhForm');
   this.$input = findTargetIdElement(this.$form, 'searchInput');
   this.$form.addEventListener('submit', handleSubmit.bind(this));
-  this.$input.addEventListener('click', showRecord.bind(this));
-  this.$input.addEventListener('keydown', handleKeyDown.bind(this));
+  this.$input.addEventListener('click', handleInputClick.bind(this));
+  this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));
   this.$input.addEventListener('input', handleInput.bind(this));
 };
 
@@ -85,6 +85,75 @@ SearchBox.prototype.setState = function (newState) {
   //값이 바뀔 때마다 자식 전체를 리렌더링하지 않고 바뀐 값을 쓰는 자식만 리렌더링하기
   // this.renderChild();
 };
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const { option, inputValue } = this.state;
+  const searchTerm = inputValue;
+  const { recentSearchList } = this.$RecentSearchList.state;
+  const updatedRecentSearchList = handleRecentSearchList(
+    recentSearchList,
+    inputValue
+  );
+  myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
+  this.setState({ inputValue: '' });
+  this.$RecentSearchList.setState({
+    recentSearchList: updatedRecentSearchList,
+  });
+  this.$input.value = '';
+  moveToSearchTermPage(option, searchTerm);
+}
+
+function handleInputClick({ target }) {
+  const { value: inputValue } = target;
+  handlePopUpDisplay.call(this, inputValue);
+}
+
+function handleInputKeyDown(event) {
+  const { key } = event;
+  const activeElement = setActiveElement.apply(this);
+  switch (key) {
+    case 'ArrowDown':
+      const newArrowDownTerm = handleArrowDown(activeElement);
+      changeActiveList.call(this, {
+        ...activeElement,
+        newActiveTerm: newArrowDownTerm,
+      });
+      break;
+    case 'ArrowUp':
+      const newArrowUpTerm = handleArrowUp(activeElement);
+      changeActiveList.call(this, {
+        ...activeElement,
+        newActiveTerm: newArrowUpTerm,
+      });
+      break;
+    default:
+      break;
+  }
+}
+
+async function handleInput(event) {
+  const { inputValue: value, activeHistory, recentSearchList } = this.state;
+  const inputValue = event ? event.target.value : value;
+  if (inputValue !== '') {
+    this.setState({ showHistroy: false });
+  } else {
+    this.setState({ showHistroy: true });
+    // 백스페이스로 input이 비었을 때 최근검색어 목록에서 하이라이트 지우기
+    changeActiveList.call(this, {
+      newActiveTerm: INPUT_DEFAULT,
+      $targetChild: this.$RecentSearchList,
+      activeTerm: { key: 'activeHistory', value: activeHistory },
+      activeList: recentSearchList,
+    });
+  }
+  // 자동완성데이터를 받기 전에 handleSubmit이 실행될 수 있어서 미리 inputValue만 최신화
+  this.setState({ inputValue });
+  const reponseTerms = await requestAutoCompleteTerms.requestTerms(inputValue);
+  handlePopUpDisplay.call(this, inputValue, reponseTerms);
+  this.$AutoComplete.setState({ autoSearchList: reponseTerms, inputValue });
+  this.setState({ autoSearchList: reponseTerms });
+}
 
 function changeActiveList({
   newActiveTerm,
@@ -136,69 +205,6 @@ function setActiveElement() {
       };
 }
 
-function handleKeyDown(event) {
-  const { key } = event;
-  const activeElement = setActiveElement.apply(this);
-  switch (key) {
-    case 'ArrowDown':
-      const newArrowDownTerm = handleArrowDown(activeElement);
-      changeActiveList.call(this, {
-        ...activeElement,
-        newActiveTerm: newArrowDownTerm,
-      });
-      break;
-    case 'ArrowUp':
-      const newArrowUpTerm = handleArrowUp(activeElement);
-      changeActiveList.call(this, {
-        ...activeElement,
-        newActiveTerm: newArrowUpTerm,
-      });
-      break;
-    default:
-      break;
-  }
-}
-
-function handleSubmit(event) {
-  event.preventDefault();
-  const { option, inputValue } = this.state;
-  const searchTerm = inputValue;
-  const { recentSearchList } = this.$RecentSearchList.state;
-  const updatedRecentSearchList = handleRecentSearchList(
-    recentSearchList,
-    inputValue
-  );
-  myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
-  this.setState({ inputValue: '' });
-  this.$RecentSearchList.setState({
-    recentSearchList: updatedRecentSearchList,
-  });
-  this.$input.value = '';
-  moveToSearchTermPage(option, searchTerm);
-}
-
-async function handleInput(event) {
-  const { inputValue: value, activeHistory, recentSearchList } = this.state;
-  const inputValue = event ? event.target.value : value;
-  if (inputValue !== '') {
-    this.setState({ showHistroy: false });
-  } else {
-    this.setState({ showHistroy: true });
-    changeActiveList.call(this, {
-      newActiveTerm: INPUT_DEFAULT,
-      $targetChild: this.$RecentSearchList,
-      activeTerm: { key: 'activeHistory', value: activeHistory },
-      activeList: recentSearchList,
-    });
-  }
-  // 자동완성데이터를 받기 전에 handleSubmit이 실행될 수 있어서 미리 inputValue만 최신화
-  this.setState({ inputValue });
-  const reponseTerms = await requestAutoCompleteTerms.requestTerms(inputValue);
-  handlePopUpDisplay.call(this, inputValue, reponseTerms);
-  this.$AutoComplete.setState({ autoSearchList: reponseTerms, inputValue });
-  this.setState({ autoSearchList: reponseTerms });
-}
-
 function changeSearchOption(option) {
   this.setState({ option });
   this.$RecentSearchList.setState({ option });
@@ -210,11 +216,6 @@ function handleRecentSearchList(recentSearchList, inputValue) {
     return [inputValue, ...recentSearchList.slice(0, -1)];
   }
   return [inputValue, ...recentSearchList];
-}
-
-function showRecord({ target }) {
-  const { value: inputValue } = target;
-  handlePopUpDisplay.call(this, inputValue);
 }
 
 function handlePopUpDisplay(inputValue, reponseTerms) {

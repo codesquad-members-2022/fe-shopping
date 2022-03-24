@@ -55,4 +55,5 @@ const template = (option) => `
  <ul>
  ${options.map((option) => `<li data-option=${option}>${option}</li>`).join('')}
  </ul>
-</div>`;
+ </div>
+ `;

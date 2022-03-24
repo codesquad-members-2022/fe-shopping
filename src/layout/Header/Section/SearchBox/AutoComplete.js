@@ -13,8 +13,6 @@ AutoComplete.prototype.setTemplate = function () {
   return template(isActive, autoSearchList, inputValue);
 };
 
-AutoComplete.prototype.setEvent = function () {};
-
 const template = (isActive, autoSearchList, inputValue) => {
   // console.log(inputValue);
   return `
