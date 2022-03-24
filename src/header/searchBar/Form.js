@@ -99,11 +99,11 @@ export class SearchBarForm {
 
     if (inputKeyword.length < 1) {
       this.history.openHistory();
-      this.autoComplete.closeAC();
+      this.autoComplete.closeAutoComplete();
       return;
     }
     this.history.closeHistory();
-    this.autoComplete.openAC();
+    this.autoComplete.openAutoComplete();
   };
   /* ********** */
 

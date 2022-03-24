@@ -40,12 +40,12 @@ export class AutoComplete {
     return ACKeywordsHTML;
   }
 
-  closeAC() {
+  closeAutoComplete() {
     addClass(DISPLAY_NONE, this.$autoCompleteBox);
     removeClass(ROTATION_LIST, this.$autoCompleteList);
   }
 
-  openAC() {
+  openAutoComplete() {
     removeClass(DISPLAY_NONE, this.$autoCompleteBox);
     addClass(ROTATION_LIST, this.$autoCompleteList);
   }
