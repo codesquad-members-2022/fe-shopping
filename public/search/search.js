@@ -104,7 +104,6 @@ const updateRecentSearchList = () => {
 
 const reRenderSearchList = () => {
     updateRecentSearchList();
-    recentSearchList.renderSearchList();
 
     clearTimeout(timer);
     relatedSearchList.reset();
@@ -213,6 +212,18 @@ const recentSearchListClickEventHandler = (event) => {
     }
 };
 
+const relatedSearchListClickEventHandler = (event) => {
+    event.stopPropagation();
+    const target = event.target;
+
+    if (target.classList.contains("search__list--item-text")) {
+        const clickedItem = target.closest(".search__list--item");
+        relatedSearchList.hide();
+        searchInput.clearSearchInput();
+        recentSearchList.addSearchWord(clickedItem.dataset.name);
+    }
+};
+
 const onSearchEvent = () => {
     document.body.addEventListener("click", ({ target }) => {
         if (!target.closest(".search")) {
@@ -255,6 +266,11 @@ const onSearchEvent = () => {
     recentSearchList.listContainer.addEventListener(
         "click",
         recentSearchListClickEventHandler
+    );
+
+    relatedSearchList.listContainer.addEventListener(
+        "click",
+        relatedSearchListClickEventHandler
     );
 };
 

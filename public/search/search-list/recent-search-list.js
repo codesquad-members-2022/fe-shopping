@@ -21,6 +21,8 @@ class RecentSearchList extends SearchList {
             }
         }
         this.curIdx = -1;
+
+        this.renderSearchList();
     }
 
     showRecordBlock(recordBlock) {
