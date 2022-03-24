@@ -4,24 +4,19 @@ const dev = true;
 const apiURL = dev ? 'http://localhost:3000/api/autoComplete' : '';
 
 export class AutoComplete {
-  constructor({ AUTO_COMPLETE_LIST }) {
+  constructor(AUTO_COMPLETE_LIST) {
     this.AUTO_COMPLETE_LIST = AUTO_COMPLETE_LIST;
   }
 
   async requestACKeywords(inputKeyword) {
     try {
       const response = await fetch(`${apiURL}?q=${inputKeyword}`);
-
       if (!response.ok) {
         const bodyText = await response.text();
-        throw new Error(
-          `${response.status} ${response.statusText} ${bodyText}`
-        );
+        throw new Error(`${response.status} ${response.statusText} ${bodyText}`);
       }
-
       const bodyJSON = await response.json();
       const ACKeywords = Object.values(bodyJSON).map(({ keyword }) => keyword);
-
       return ACKeywords;
     } catch (err) {
       console.error(err);

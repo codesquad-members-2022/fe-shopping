@@ -14,7 +14,7 @@ const HISTORY_CLEAR_BTN = 'history-clear-btn';
 const HISTORY_ONOFF_BTN = 'history-onoff-btn';
 
 export class History {
-  constructor({ ROTATION_KEYWORD }) {
+  constructor(ROTATION_KEYWORD) {
     this.$historyList = selector(`.${HISTORY_LIST}`);
     this.$historyTitle = selector(`.${HISTORY_TITLE}`);
     this.$historyOffTitle = selector(`.${HISTORY_OFF_TITLE}`);

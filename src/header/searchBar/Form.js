@@ -1,9 +1,4 @@
-import {
-  selector,
-  addClass,
-  removeClass,
-  debounce,
-} from '../../utils/utils.js';
+import { selector, addClass, removeClass, debounce } from '../../utils/utils.js';
 
 import { History } from './History.js';
 import { historyStore } from './historyStore.js';
@@ -34,7 +29,6 @@ export class SearchBarForm {
     this.initialInputKeyword = '';
     this.history = this.initHistory();
     this.autoComplete = this.initAutoComplete();
-    this.keywordRotationDelay = 0;
   }
 
   init() {
@@ -46,35 +40,17 @@ export class SearchBarForm {
     });
 
     this.$form.addEventListener('submit', this.handleSubmit);
-
-    this.$input.addEventListener(
-      'keyup',
-      debounce(this.handleKeyup, autoCompleteDelay)
-    );
-
-    this.$input.addEventListener(
-      'keyup',
-      debounce(this.setPopupbox, popupboxDelay)
-    );
-
+    this.$input.addEventListener('keyup', debounce(this.handleKeyup, autoCompleteDelay));
+    this.$input.addEventListener('keyup', debounce(this.setPopupbox, popupboxDelay));
     this.$input.addEventListener('keydown', this.handleKeywordRotation);
   }
 
   initHistory() {
-    const historyListKey = 'HistoryList';
-    const historyActivationKey = 'isHistoryActive';
-    const maxHistoryLength = 9;
-
-    return new History({
-      historyListKey: historyListKey,
-      historyActivationKey: historyActivationKey,
-      maxHistoryLength: maxHistoryLength,
-      ROTATION_KEYWORD: ROTATION_KEYWORD,
-    });
+    return new History(ROTATION_KEYWORD);
   }
 
   initAutoComplete() {
-    return new AutoComplete({ AUTO_COMPLETE_LIST: AUTO_COMPLETE_LIST });
+    return new AutoComplete(AUTO_COMPLETE_LIST);
   }
 
   /* **리스너*** */
@@ -103,11 +79,7 @@ export class SearchBarForm {
 
     const $rotationList = selector(`.${ROTATION_LIST}`, this.$popupBox);
     const $selectedItem = selector(`.${SELECTED}`, $rotationList);
-    const $target = this.getNextRotationItem(
-      e.code,
-      $rotationList,
-      $selectedItem
-    );
+    const $target = this.getNextRotationItem(e.code, $rotationList, $selectedItem);
 
     let keywordOfSelectedItem;
     if (!$target) keywordOfSelectedItem = this.initialInputKeyword;
@@ -127,10 +99,7 @@ export class SearchBarForm {
     const inputKeyword = e.target.value;
     this.setInitialInputKeyword(inputKeyword);
     const $autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`, this.$form);
-    const $autoCompleteList = selector(
-      `.${AUTO_COMPLETE_LIST}`,
-      $autoCompleteBox
-    );
+    const $autoCompleteList = selector(`.${AUTO_COMPLETE_LIST}`, $autoCompleteBox);
 
     const $historyBox = selector(`.${HISTORY_BOX}`, this.$form);
     const $historyList = selector(`.${HISTORY_LIST}`, $historyBox);
@@ -169,8 +138,7 @@ export class SearchBarForm {
   }
 
   isKeyCodeArrow(code) {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code))
-      return true;
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) return true;
     return false;
   }
 
