@@ -1,6 +1,5 @@
-export async function getData(...paths) {
+export async function getData(URL, ...paths) {
   const resource = paths.join('/');
-  const databaseURL = 'http://127.0.0.1:3000/';
-  const res = await fetch(`${databaseURL}${resource}`);
+  const res = await fetch(`${URL}${resource}`);
   return await res.json();
 }
