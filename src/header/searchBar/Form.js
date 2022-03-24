@@ -6,6 +6,7 @@ import {
 } from '../../utils/utils.js';
 
 import { History } from './History.js';
+import { historyStore } from './historyStore.js';
 import { AutoComplete } from './AutoComplete.js';
 
 const FORM = 'search-bar-form';
@@ -45,6 +46,7 @@ export class SearchBarForm {
     });
 
     this.$form.addEventListener('submit', this.handleSubmit);
+
     this.$input.addEventListener(
       'keyup',
       debounce(this.handleKeyup, autoCompleteDelay)
@@ -83,7 +85,7 @@ export class SearchBarForm {
       return;
     }
 
-    this.history.setHistory(Date.now(), keyword);
+    historyStore.setItem(Date.now(), keyword);
   };
 
   handleKeyup = (e) => {
