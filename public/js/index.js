@@ -56,6 +56,7 @@ $searchInput.addEventListener('input', ({ target }) => {
 const $historyPopupBox = $('.history-popup');
 const $historyPopupBtn = $('.history-popup-btn');
 const $deleteAllHistory = $('.delete-all-history');
+const $historyOnoff = $('.history-onoff');
 
 $searchInput.addEventListener('focus', ({ target }) => {
   $historyPopupBox.classList.add('showHistoryPopup');
@@ -77,11 +78,15 @@ const showHistory = (element) => {
 
 const savedHistory = JSON.parse(localStorage.getItem('history'));
 
-// localStorage에 있는 검색어를 띄운다
-if (savedHistory !== null) {
-  historyList = savedHistory;
-  savedHistory.forEach((element) => showHistory(element));
-}
+const showInitialHistory = () => {
+  // localStorage에 있는 검색어를 띄운다
+  if (savedHistory !== null) {
+    historyList = savedHistory;
+    savedHistory.forEach((element) => showHistory(element));
+  }
+};
+
+showInitialHistory();
 
 const deleteHistory = () => {
   localStorage.clear();
@@ -93,9 +98,23 @@ $deleteAllHistory.addEventListener('click', ({ target }) => {
   $historyPopupBox.innerHTML = `<h3>최근 검색어</h3>`;
 });
 
+$historyOnoff.addEventListener('click', ({ target }) => {
+  $searchInput.classList.toggle('historyOn');
+  if (!$searchInput.classList.contains('historyOn')) {
+    $historyPopupBox.innerHTML = `<span>최근 검색어 저장 기능이 꺼져 있습니다.</span>`;
+    $historyOnoff.innerText = `최근검색어켜기`;
+  } else {
+    $historyPopupBox.innerHTML = `<h3>최근 검색어</h3>`;
+    showInitialHistory();
+    $historyOnoff.innerText = `최근검색어끄기`;
+  }
+});
+
 $searchInput.addEventListener('keypress', (key) => {
   $autocompleteBox.classList.remove('showAutocomplete');
   if (key.keyCode === 13) {
+    if (!$searchInput.classList.contains('historyOn')) return;
+
     const input = getInput();
     historyList.push(input);
     localStorage.setItem('history', JSON.stringify(historyList));
@@ -104,7 +123,7 @@ $searchInput.addEventListener('keypress', (key) => {
 });
 
 $searchInput.addEventListener('blur', ({ target }) => {
-  $autocompleteBox.classList.remove('showAutocomplete');
+  // $autocompleteBox.classList.remove('showAutocomplete');
   // $historyPopupBox.classList.remove('showHistoryPopup');
   // $historyPopupBtn.classList.remove('showHistoryPopup');
 });

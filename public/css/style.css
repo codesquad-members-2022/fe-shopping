@@ -285,6 +285,18 @@ input {
   color: #4285f4;
 }
 
+.history-popup span {
+  width: 364px;
+  height: 43px;
+  display: block;
+  margin: 12px 0;
+  text-align: center;
+  line-height: 43px;
+  font-weight: bold;
+  font-size: 12px;
+  color: #666;
+}
+
 .history-popup-btn {
   -webkit-transform: scaleY(0);
           transform: scaleY(0);
