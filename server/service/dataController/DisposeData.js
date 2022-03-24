@@ -4,7 +4,7 @@ const searchingData = require("../../data/searchData.json");
 function findMatchData(keyWord) {
   const firstWordArray = getFirstWordArr(keyWord);
   const filterdData = filteringData(firstWordArray);
-  return checkMatchWord(keyWord.trim(), filterdData);
+  return getMatchWord(keyWord.trim(), filterdData);
 }
 
 function findSearchMenu() {
@@ -36,7 +36,7 @@ function filteringData(firstWordArray) {
 }
 
 //검색어와 데이터가 동일한지 비교후 일치하는 단어들만 리턴
-function checkMatchWord(keyWord, data) {
+function getMatchWord(keyWord, data) {
   const splitSpace = data.map((el) => el.split(" "));
   return splitSpace.reduce((matchedData, splitedData) => {
     if (splitedData.includes(keyWord)) {
