@@ -7,6 +7,15 @@ function Category(...params) {
 }
 createExtendsRelation(Category, Component);
 
+Category.prototype.setEvent = function () {
+  this.addEvent({
+    eventType: "mouseover",
+    selector: ".category__main li",
+    callback: ({ target }) => {
+      console.log(target);
+    },
+  });
+};
 Category.prototype.mount = function () {};
 
 Category.prototype.template = function () {
@@ -19,7 +28,7 @@ Category.prototype.template = function () {
         <span>카테고리</span>
     </div>
     <ul class="category__main">
-        ${categoryDatas.map(({ name }) => `<li>${name}</li`)}
+        ${categoryDatas.map(({ name }) => `<li>${name}</li>`).join("")}
     </ul>
     <ul class="category__sub"></ul>
     <ul class="category__third"></ul>

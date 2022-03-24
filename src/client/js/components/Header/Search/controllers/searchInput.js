@@ -1,4 +1,4 @@
-import { delay, request } from "../../../../utils";
+import { delay, request, debounce } from "../../../../utils";
 import { store } from "../../../../Store";
 
 const moveCursorToEnd = ($input, len) => {
@@ -85,6 +85,29 @@ const handleSearchIconClick = ({ target }) => {
   handleKeyUpEnter({ target: $input });
 };
 
+const fetchSuggestionData = async (searchWord) => {
+  const requestOptions = {
+    query: {
+      keyword: searchWord,
+    },
+  };
+  const { results: suggestionDatas } = await request(
+    "search/autoComplete",
+    requestOptions
+  );
+  if (suggestionDatas?.length) {
+    store.setState({
+      suggestionDatas,
+      searchWord,
+      searchSuggestionDisplay: "flex",
+    });
+  } else {
+    store.setState({
+      searchSuggestionDisplay: "none",
+    });
+  }
+};
+
 const handleKeyupWithFocus = ({ target, key }) => {
   if (key === "ArrowDown" || key === "ArrowUp") {
     handleKeyUpArrowUpDown({ target, key });
@@ -110,32 +133,11 @@ const handleKeyupWithFocus = ({ target, key }) => {
       searchWord: "",
     });
   }
-  /* 5초 뒤에도 같은 값인지 확인 하기위한 변수 */
-  const searchWord = target.value;
-  delay(500).then(async () => {
-    const isFinishInput = target.value === searchWord;
-    if (isFinishInput) {
-      const requestOptions = {
-        query: {
-          keyword: searchWord,
-        },
-      };
-      const { results: suggestionDatas } = await request(
-        "search/autoComplete",
-        requestOptions
-      );
-      if (suggestionDatas?.length) {
-        store.setState({
-          suggestionDatas,
-          searchWord,
-          searchSuggestionDisplay: "flex",
-        });
-      } else {
-        store.setState({
-          searchSuggestionDisplay: "none",
-        });
-      }
-    }
+
+  debounce({
+    baseTarget: target,
+    msTime: 500,
+    callback: fetchSuggestionData.bind(undefined, target.value),
   });
 };
 

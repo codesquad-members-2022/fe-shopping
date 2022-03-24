@@ -9,3 +9,7 @@
   left: $left;
   top: $top;
 }
+
+@mixin boxShadow() {
+  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+}

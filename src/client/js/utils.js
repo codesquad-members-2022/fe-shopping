@@ -27,4 +27,14 @@ const request = async (url, options) => {
   }
 };
 
-export { delay, request };
+const debounce = ({ baseTarget, msTime, callback }) => {
+  const baseValue = baseTarget.value;
+  delay(msTime).then(() => {
+    console.log(baseValue, baseTarget.value);
+    if (baseValue === baseTarget.value) {
+      callback();
+    }
+  });
+};
+
+export { delay, request, debounce };

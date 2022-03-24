@@ -62,11 +62,11 @@
 
 .search__layout {
   @include position-abs(99px, 30px);
+  @include boxShadow();
   width: 300px;
   height: 250px;
   background-color: $baseBgColor;
   border: 1px $baseLightGray solid;
-  box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
   font-size: nth($fontSizes, 1);
   .selected {
     text-decoration: underline;

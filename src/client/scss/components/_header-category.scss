@@ -5,12 +5,27 @@
   width: 100px;
   background-color: $baseBlue;
   color: $fontWhite;
-
+  position: relative;
   div {
-    margin: 3px 0px;
+    // margin: 3px 0px;
   }
 
   span {
-    font-size: nth($fontSizes, 2);
+    // font-size: nth($fontSizes, 2);
+  }
+
+  .category__main {
+    @include flex();
+    @include boxShadow();
+    @include position-abs(0px, 100px);
+    flex-direction: column;
+    width: 130px;
+    background-color: $baseBgColor;
+    color: $baseBlack;
+    font-size: nth($fontSizes, 1);
+    border: 1px $baseLightGray solid;
+    li {
+      padding: 10px;
+    }
   }
 }
