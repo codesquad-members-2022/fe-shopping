@@ -18,7 +18,7 @@ class HedearDataDispatcher {
       // 나중에 router쪽에서 값이 없으면 차단하는것도 고려
       return;
     }
-    const inputData = this.checkdataSize(data);
+    const inputData = this.fitDataSize(data);
     const DOM = this.searchInputModel.getHTML(inputData);
     this.headerKeyManager.initCount();
     this.searchInputView.renderSearchAutoComplete(DOM);
@@ -29,7 +29,7 @@ class HedearDataDispatcher {
     this.searchMenuView.renderMenu(menuDOM);
   }
 
-  checkdataSize(data) {
+  fitDataSize(data) {
     const MAX_SIZE = 10;
 
     if (data.length > MAX_SIZE) {

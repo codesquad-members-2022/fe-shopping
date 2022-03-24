@@ -5,9 +5,13 @@ async function fetch_use(uri, callback) {
 }
 
 async function fetchData(uri) {
-  const data = await fetch(uri);
-  const jsonData = await data.json();
-  return jsonData;
+  try {
+    const data = await fetch(uri);
+    const jsonData = await data.json();
+    return jsonData;
+  } catch (e) {
+    console.log(`fetch에러 ${e.name} : ${e.message}`);
+  }
 }
 
 export { fetch_use, fetchData };

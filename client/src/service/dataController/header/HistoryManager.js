@@ -10,7 +10,7 @@ class HeaderHistoryPatcher {
   }
 
   manageHistory() {
-    const historyData = this.checkHistorySize([...this.historStorage]); // 안해도 될수도 있음 , 함수명 check -> trim으로 추후 통일
+    const historyData = this.fitHistorySize([...this.historStorage]); // 안해도 될수도 있음 , 함수명 fit -> trim으로 추후 통일
     const DOM = this.searchInputModel.getHTML(historyData);
     this.headerKeyManager.initCount();
     this.searchInputView.renderSearchHistory(DOM);
@@ -30,7 +30,7 @@ class HeaderHistoryPatcher {
     this.manageHistory();
   }
 
-  checkHistorySize() {
+  fitHistorySize() {
     const historyArr = [...this.historStorage];
     const MAX_SIZE = 10;
 
