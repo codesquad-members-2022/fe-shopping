@@ -1,13 +1,10 @@
 import Component from '../../core/Component.js';
 import SelectBox from './SelectBox.js';
 import InputBox from './InputBox.js';
-import BottomWindow from '../common/BottomWindow.js';
 import SearchHistoryStore from '../../store/searchHistoryStore.js';
 import { abortController } from '../../api/index.js';
 
 class SearchForm extends Component {
-
-  bottomWindow;
 
   setup() {
     this.$state = {
@@ -32,11 +29,6 @@ class SearchForm extends Component {
           link: '#',
         });
       }
-      else {
-        this.renderBottomWindow.call(this.$target.querySelector('.input-box'), '.bottom-window', {
-          isSearchHistory: true,
-        })
-      }
       input.value = '';
     });
   }
@@ -45,25 +37,8 @@ class SearchForm extends Component {
     const $selectBox = this.$target.querySelector('.select-box');
     const $inputBox = this.$target.querySelector('.input-box');
 
-    new SelectBox($selectBox, {
-      renderBottomWindow: this.renderBottomWindow.bind($selectBox),
-      removeBottomWindow: this.removeBottomWindow.bind($selectBox),
-    });
-    new InputBox($inputBox, {
-      renderBottomWindow: this.renderBottomWindow.bind($inputBox),
-      removeBottomWindow: this.removeBottomWindow.bind($inputBox),
-    });
-  }
-
-  renderBottomWindow(containerClass, props) {
-    if (this.bottomWindow) this.bottomWindow.destroy();
-    this.bottomWindow = new BottomWindow(this.querySelector(containerClass), props);
-  }
-
-  removeBottomWindow(containerClass) {
-    if (this.bottomWindow) this.bottomWindow.destroy();
-    const $bottomWindow = this.querySelector(containerClass);
-    $bottomWindow.classList.remove('open');
+    new SelectBox($selectBox);
+    new InputBox($inputBox);
   }
 }
 

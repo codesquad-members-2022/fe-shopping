@@ -1,40 +1,44 @@
 import Component from '../../core/Component.js';
-import { category } from '../../../data/index.js';
+import { categories } from '../../../data/index.js';
+import CategoryList from './CategoryList.js';
 
 class SelectBox extends Component {
 
+  categoryList;
+
   setup() {
     this.$state = {
-      value: '',
-      category: category,
-      autoComplete: [],
+      categories: categories,
     };
   }
 
   template() {
     return `<button type="button" class="select-btn">전체</button>
-            <div class="bottom-window"></div>`;
+            <div class="bottom-ui"></div>`;
   }
 
   setEvent() {
     this.addEvent('click', '.select-btn', () => {
-      const $bottomWindow = this.$target.querySelector('.bottom-window');
+      const $bottomUI = this.$target.querySelector('.bottom-ui');
 
-      if ($bottomWindow.classList.contains('open')) {
-        $bottomWindow.classList.remove('open');
-        setTimeout(() => $bottomWindow.innerHTML = '', 250)
-      }
-
-      else {
-        this.$props.renderBottomWindow('.bottom-window', {
-          windowList: this.$state.category,
-        });
-      }
+      if ($bottomUI.classList.contains('open')) this.removeCategoryList();
+      else this.renderCategoryList({ categories: this.$state.categories });
     });
 
     this.addEvent('blur', '.select-box', () => {
-      this.$props.removeBottomWindow('.bottom-window');
+      this.removeCategoryList();
     }, true);
+  }
+
+  renderCategoryList(props) {
+    if (this.categoryList) this.categoryList.destroy();
+    this.categoryList = new CategoryList(this.$target.querySelector('.bottom-ui'), props);
+  }
+
+  removeCategoryList() {
+    const $categoryList = this.$target.querySelector('.bottom-ui');
+    $categoryList.classList.remove('open');
+    setTimeout(() => this.categoryList.destroy(), 250);
   }
 
 }
