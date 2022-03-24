@@ -3,19 +3,19 @@ import { selector, addClass, removeClass, debounce } from '../../utils/utils.js'
 import { History } from './History.js';
 import { historyStore } from './historyStore.js';
 import { AutoComplete } from './AutoComplete.js';
+import { autoCompleteStore } from './autoCompleteStore.js';
+
+const DISPLAY_NONE = 'hidden';
+const SELECTED = 'is-selected';
 
 const FORM = 'search-bar-form';
 const INPUT = 'search-bar-input';
-const SUBMIT = 'search-bar-submit';
 const FORM_POPUP_BOX = 'search-bar-form-popup-box';
-const DISPLAY_NONE = 'hidden';
-
 const HISTORY_BOX = 'history';
 const HISTORY_LIST = 'history-list';
 const AUTO_COMPLETE_BOX = 'auto-complete';
 const AUTO_COMPLETE_LIST = 'auto-complete-list';
 const ROTATION_LIST = 'rotation-list';
-const SELECTED = 'is-selected';
 
 const ROTATION_KEYWORD = 'rotation-keyword';
 
@@ -24,9 +24,7 @@ export class SearchBarForm {
     this.$form = selector(`.${FORM}`);
     this.$input = selector(`.${INPUT}`);
     this.$popupBox = selector(`.${FORM_POPUP_BOX}`);
-    this.$submit = selector(`.${SUBMIT}`);
 
-    this.initialInputKeyword = '';
     this.history = this.initHistory();
     this.autoComplete = this.initAutoComplete();
   }
@@ -82,7 +80,7 @@ export class SearchBarForm {
     const $target = this.getNextRotationItem(e.code, $rotationList, $selectedItem);
 
     let keywordOfSelectedItem;
-    if (!$target) keywordOfSelectedItem = this.initialInputKeyword;
+    if (!$target) keywordOfSelectedItem = autoCompleteStore.getInitialInputKeyword();
     else {
       const $targetKeyword = selector(`.${ROTATION_KEYWORD}`, $target);
       keywordOfSelectedItem = $targetKeyword.textContent;
@@ -97,7 +95,7 @@ export class SearchBarForm {
   setPopupbox = (e) => {
     if (this.isKeyCodeArrow(e.code)) return;
     const inputKeyword = e.target.value;
-    this.setInitialInputKeyword(inputKeyword);
+    autoCompleteStore.setInitialInputKeyword(inputKeyword);
     const $autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`, this.$form);
     const $autoCompleteList = selector(`.${AUTO_COMPLETE_LIST}`, $autoCompleteBox);
 
@@ -155,9 +153,5 @@ export class SearchBarForm {
   isKeyCodeArrowDown(code) {
     if (code === 'ArrowDown') return true;
     return false;
-  }
-
-  setInitialInputKeyword(keyword) {
-    this.initialInputKeyword = keyword;
   }
 }

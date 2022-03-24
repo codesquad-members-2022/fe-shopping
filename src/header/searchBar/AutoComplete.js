@@ -1,36 +1,17 @@
 import { selector } from '../../utils/utils.js';
-
-const dev = true;
-const apiURL = dev ? 'http://localhost:3000/api/autoComplete' : '';
+import { autoCompleteStore } from './autoCompleteStore.js';
 
 export class AutoComplete {
   constructor(AUTO_COMPLETE_LIST) {
-    this.AUTO_COMPLETE_LIST = AUTO_COMPLETE_LIST;
-  }
-
-  async requestACKeywords(inputKeyword) {
-    try {
-      const response = await fetch(`${apiURL}?q=${inputKeyword}`);
-      if (!response.ok) {
-        const bodyText = await response.text();
-        throw new Error(`${response.status} ${response.statusText} ${bodyText}`);
-      }
-      const bodyJSON = await response.json();
-      const ACKeywords = Object.values(bodyJSON).map(({ keyword }) => keyword);
-      return ACKeywords;
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
+    this.$autoCompleteList = selector(`.${AUTO_COMPLETE_LIST}`);
   }
 
   async renderACKeywords(inputKeyword) {
-    const ACKeywords = await this.requestACKeywords(inputKeyword);
-    if (!ACKeywords) return;
+    const ACKeywords = await autoCompleteStore.requestACKeywords(inputKeyword);
 
+    if (!ACKeywords) return;
     const ACKeywordsHTML = this.getACKeywordsHTML({ ACKeywords, inputKeyword });
-    const $autoCompleteList = selector(`.${this.AUTO_COMPLETE_LIST}`);
-    $autoCompleteList.innerHTML = ACKeywordsHTML;
+    this.$autoCompleteList.innerHTML = ACKeywordsHTML;
   }
 
   getACKeywordsHTML({ ACKeywords, inputKeyword }) {
