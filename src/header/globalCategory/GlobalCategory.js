@@ -76,12 +76,7 @@ export class GlobalCategory {
     return (e) => {
       const x = e.clientX;
       const y = e.clientY;
-      this.mouseMoveDirection = this.computeMouseMoveDirection(
-        oldX,
-        oldY,
-        x,
-        y
-      );
+      this.mouseMoveDirection = this.computeMouseMoveDirection(oldX, oldY, x, y);
 
       oldX = x;
       oldY = y;
@@ -101,8 +96,7 @@ export class GlobalCategory {
 
     const $categoryItem = e.target.closest(`.${CATEGORY_ITEM}`);
     if (!this.mouseMoveDirection) {
-      if (this.$selectedCategoryItem)
-        removeClass(LAYER_OPEN, this.$selectedCategoryItem);
+      if (this.$selectedCategoryItem) removeClass(LAYER_OPEN, this.$selectedCategoryItem);
       this.$selectedCategoryItem = $categoryItem;
       addClass(LAYER_OPEN, $categoryItem);
     }
@@ -112,13 +106,6 @@ export class GlobalCategory {
 
   computeMouseMoveDirection(oldX, oldY, x, y) {
     const grad = computeGrad(oldX, oldY, x, y);
-    // if (grad < -2 || grad > 2) {
-    //   if (oldY > y) return DIRECTION.UP;
-    //   else if (oldY < y) return DIRECTION.DOWN;
-    // }
-    // if (oldX > x) return DIRECTION.LEFT;
-    // else if (oldX < x) return DIRECTION.RIGHT;
-
     if (-2 < grad && grad < 2 && oldX < x) return DIRECTION.RIGHT;
     return DIRECTION.DEFAULT;
   }
