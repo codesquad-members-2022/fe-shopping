@@ -108,7 +108,8 @@ const fetchSuggestionData = async (searchWord) => {
   }
 };
 
-const handleKeyupWithFocus = ({ target, key }) => {
+const handleKeyupWithFocus = (event) => {
+  const { target, key } = event;
   if (key === "ArrowDown" || key === "ArrowUp") {
     handleKeyUpArrowUpDown({ target, key });
     return;
@@ -135,8 +136,8 @@ const handleKeyupWithFocus = ({ target, key }) => {
   }
 
   debounce({
-    baseTarget: target,
-    standardValue: "value",
+    event,
+    standardValue: "target-value",
     msTime: 500,
     callback: fetchSuggestionData.bind(undefined, target.value),
   });

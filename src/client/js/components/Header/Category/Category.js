@@ -10,17 +10,17 @@ createExtendsRelation(Category, Component);
 
 Category.prototype.setEvent = function () {
   this.addEvent({
-    eventType: "mouseover",
+    eventType: "mousemove",
     selector: ".category__main li",
-    callback: ({ target }) => {
-      // debounce({
-      //   baseTarget: target,
-      //   msTime: 200,
-      //   callback: () => {
-      //     console.log("디디바바우운ㄴ시싱");
-      //   },
-      // });
-      console.log(target.value);
+    callback: (event) => {
+      debounce({
+        event,
+        standardValues: ["clientX", "clientY"],
+        msTime: 1000,
+        callback: () => {
+          console.log("디디바바우운ㄴ시싱");
+        },
+      });
     },
   });
 };

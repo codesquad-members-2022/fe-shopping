@@ -27,10 +27,42 @@ const request = async (url, options) => {
   }
 };
 
-const debounce = ({ baseTarget, standardValue, msTime, callback }) => {
-  const baseValue = baseTarget[standardValue];
+const debounce = ({
+  event,
+  standardValue,
+  standardValues,
+  msTime,
+  callback,
+}) => {
+  const findBaseValue = (standardValue) => {
+    const [firstDepth, secondDepth] = standardValue.split("-");
+    const baseValue = secondDepth
+      ? event[firstDepth][secondDepth]
+      : event[firstDepth];
+    return baseValue;
+  };
+
+  const isSameValues = (valuesOne, valuesTwo) => {
+    if (!Array.isArray(valuesOne) && !Array.isArray(valuesTwo)) {
+      return valuesOne === valuesTwo;
+    }
+    return valuesOne.every((v1, idx) => {
+      const v2 = valuesTwo[idx];
+      return v1 === v2;
+    });
+  };
+
+  const baseValue = standardValues
+    ? standardValues.map((standard) => findBaseValue(standard))
+    : findBaseValue(standardValue);
+
   delay(msTime).then(() => {
-    if (baseValue === baseTarget[standardValue]) {
+    const compareValue = standardValues
+      ? standardValues.map((standard) => findBaseValue(standard))
+      : findBaseValue(standardValue);
+
+    console.log(baseValue, compareValue);
+    if (isSameValues(baseValue, compareValue)) {
       callback();
     }
   });
