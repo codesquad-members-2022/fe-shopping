@@ -1,5 +1,5 @@
-import { RecentSearchList } from "./recent-search-list.js";
-import { RelatedSearchList } from "./related-search-list.js";
+import { RecentSearchList } from "./search-list/recent-search-list.js";
+import { RelatedSearchList } from "./search-list/related-search-list.js";
 import { SearchInput } from "./search-input.js";
 import { SearchCategory } from "./search-category.js";
 
@@ -16,15 +16,13 @@ const category = document.querySelector(".search__category");
 const categoryList = document.querySelector(".search__category-list");
 const arrowUp = document.querySelector(".arrow--up");
 const arrowDown = document.querySelector(".arrow--down");
-const recordOnBlock = document.querySelector(".record-on");
-const recordOffBlock = document.querySelector(".record-off");
 
-const DIRECTION_UP = "up";
-const DIRECTION_DOWN = "down";
-const RECORD_ON = "최근검색어켜기";
-const RECORD_OFF = "최근검색어끄기";
+const DIRECTION_UP = "ArrowUp";
+const DIRECTION_DOWN = "ArrowDown";
+const ENTER = "Enter";
 
 const searchInput = new SearchInput(searchbar);
+
 const recentSearchList = new RecentSearchList(
     searchRecentList,
     searchRecentListContainer
@@ -121,28 +119,22 @@ const focusItem = (direction, searchList) => {
     searchInput.setInput(focusingItem);
 };
 
+const executeArrowKey = (direction) => {
+    relatedSearchList.isVisible
+        ? focusItem(direction, relatedSearchList)
+        : focusItem(direction, recentSearchList);
+};
+
 const searchInputkeyDownEventHandler = (event) => {
     event.stopPropagation();
 
-    if (event.key === "Enter") {
+    if (event.key === ENTER) {
         event.preventDefault();
         reRenderSearchList();
     }
 
-    if (event.key === "ArrowDown") {
-        if (relatedSearchList.isVisible) {
-            focusItem(DIRECTION_DOWN, relatedSearchList);
-        } else if (recentSearchList.isVisible) {
-            focusItem(DIRECTION_DOWN, recentSearchList);
-        }
-    }
-
-    if (event.key === "ArrowUp") {
-        if (relatedSearchList.isVisible) {
-            focusItem(DIRECTION_UP, relatedSearchList);
-        } else if (recentSearchList.isVisible) {
-            focusItem(DIRECTION_UP, recentSearchList);
-        }
+    if (event.key === DIRECTION_UP || event.key == DIRECTION_DOWN) {
+        executeArrowKey(event.key);
     }
 };
 
@@ -151,20 +143,6 @@ const clearRecentSearchList = () => {
         recentSearchList.reset();
         recentSearchList.renderSearchList();
     }
-};
-
-const toggleRecord = ({ target }) => {
-    if (recentSearchList.isRecording) {
-        recordOnBlock.style.display = "none";
-        recordOffBlock.style.display = "block";
-        target.innerText = RECORD_ON;
-    } else {
-        recordOnBlock.style.display = "block";
-        recordOffBlock.style.display = "none";
-        target.innerText = RECORD_OFF;
-    }
-
-    recentSearchList.toggleRecord();
 };
 
 const searchCategoryEventHandler = () => {
@@ -191,15 +169,15 @@ const searchCategoryListItemEventHandler = ({ target }) => {
 const searchCategoryKeydownEventHandler = (event) => {
     event.preventDefault();
 
-    if (event.key === "ArrowDown") {
+    if (event.key === DIRECTION_DOWN) {
         searchCategory.focusNextItem();
     }
 
-    if (event.key === "ArrowUp") {
+    if (event.key === DIRECTION_UP) {
         searchCategory.focusPreviousItem();
     }
 
-    if (event.key === "Enter") {
+    if (event.key === ENTER) {
         searchCategory.hide();
     }
 };
@@ -270,7 +248,10 @@ const onSearchEvent = () => {
         .addEventListener("click", clearRecentSearchList);
     recentSearchList.searchListNode
         .querySelector(".record-btn")
-        .addEventListener("click", toggleRecord);
+        .addEventListener(
+            "click",
+            recentSearchList.toggleRecord.bind(recentSearchList)
+        );
     recentSearchList.listContainer.addEventListener(
         "click",
         recentSearchListClickEventHandler

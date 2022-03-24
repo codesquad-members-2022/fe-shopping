@@ -24,28 +24,6 @@ class SearchList {
         this.searchItems = [];
     }
 
-    getSearchListItem(...itemInfo) {
-        const itemName = itemInfo[0];
-        const idx = itemInfo[1];
-        return `<li 
-                    class="search__list--item grid" 
-                    data-idx="${idx}" 
-                    data-name="${itemName}">
-                        <p class="search__list--item-text">${itemName}</p>
-                        <p class="delete-btn">삭제</p>
-                </li>`;
-    }
-
-    renderSearchList(input = "") {
-        const searchList = this.searchItems.reduce(
-            (acc, itemName, idx) =>
-                acc + this.getSearchListItem(itemName, idx, input),
-            ""
-        );
-        this.listContainer.innerHTML = searchList;
-        this.focusItem();
-    }
-
     focusItem() {
         const listItems = this.listContainer.querySelectorAll(
             ".search__list--item"
@@ -87,10 +65,8 @@ class SearchList {
     }
 
     removeFocus() {
-        if (this.curIdx !== -1) {
-            this.curIdx = -1;
-            this.renderSearchList();
-        }
+        this.curIdx = -1;
+        this.focusItem();
     }
 }
 

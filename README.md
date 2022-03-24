@@ -82,6 +82,21 @@ query string과 path variable 중 query string을 택했다. 카테고리를 선
 
 (느낀점) 그동안 버블링에 대해서 버블링을 이용하면 리스트 아이템(ex. li)마다 이벤트 리스너를 달지 않고 리스트 컨테이너(ex. ul)에서 한 번에 처리할 수 있다는 식으로만 이해하고 있었다. 이번에 자식 요소에 이벤트 리스너를 달고 부모 요소에도 이벤트 리스너가 있다면 버블링을 고려해야한다는 걸 알았다!
 
+### EventHandler의 this
+
+EventHandler의 this는 그 이벤트를 발생시킨 요소다. 따라서
+
+```JavaScript
+recentSearchList.searchListNode
+        .querySelector(".record-btn")
+        .addEventListener(
+            "click",
+            recentSearchList.toggleRecord.bind(recentSearchList)
+        );
+```
+
+와 같이 `bind`로 this를 설정해서 넘겨줘야 의도한대로 동작한다.
+
 ### 문제
 
 -

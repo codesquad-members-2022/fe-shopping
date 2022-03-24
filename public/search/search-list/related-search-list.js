@@ -28,6 +28,16 @@ class RelatedSearchList extends SearchList {
                         <p class="search__list--item-text">${itemText}</p>
                 </li>`;
     }
+
+    renderSearchList(input = "") {
+        const searchList = this.searchItems.reduce(
+            (acc, itemName, idx) =>
+                acc + this.getSearchListItem(itemName, idx, input),
+            ""
+        );
+        this.listContainer.innerHTML = searchList;
+        this.focusItem();
+    }
 }
 
 export { RelatedSearchList };
