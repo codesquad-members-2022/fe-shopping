@@ -1,9 +1,16 @@
-import { selector } from '../../utils/utils.js';
+import { selector, removeClass, addClass } from '../../utils/utils.js';
 import { autoCompleteStore } from './autoCompleteStore.js';
 
+const DISPLAY_NONE = 'hidden';
+
+const AUTO_COMPLETE_BOX = 'auto-complete';
+const AUTO_COMPLETE_LIST = 'auto-complete-list';
+const ROTATION_LIST = 'rotation-list';
+
 export class AutoComplete {
-  constructor(AUTO_COMPLETE_LIST) {
+  constructor() {
     this.$autoCompleteList = selector(`.${AUTO_COMPLETE_LIST}`);
+    this.$autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`);
   }
 
   async renderACKeywords(inputKeyword) {
@@ -31,5 +38,15 @@ export class AutoComplete {
     }, '');
 
     return ACKeywordsHTML;
+  }
+
+  closeAC() {
+    addClass(DISPLAY_NONE, this.$autoCompleteBox);
+    removeClass(ROTATION_LIST, this.$autoCompleteList);
+  }
+
+  openAC() {
+    removeClass(DISPLAY_NONE, this.$autoCompleteBox);
+    addClass(ROTATION_LIST, this.$autoCompleteList);
   }
 }

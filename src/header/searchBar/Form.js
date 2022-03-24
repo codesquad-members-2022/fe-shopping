@@ -11,12 +11,7 @@ const SELECTED = 'is-selected';
 const FORM = 'search-bar-form';
 const INPUT = 'search-bar-input';
 const FORM_POPUP_BOX = 'search-bar-form-popup-box';
-const HISTORY_BOX = 'history';
-const HISTORY_LIST = 'history-list';
-const AUTO_COMPLETE_BOX = 'auto-complete';
-const AUTO_COMPLETE_LIST = 'auto-complete-list';
 const ROTATION_LIST = 'rotation-list';
-
 const ROTATION_KEYWORD = 'rotation-keyword';
 
 export class SearchBarForm {
@@ -44,11 +39,11 @@ export class SearchBarForm {
   }
 
   initHistory() {
-    return new History(ROTATION_KEYWORD);
+    return new History();
   }
 
   initAutoComplete() {
-    return new AutoComplete(AUTO_COMPLETE_LIST);
+    return new AutoComplete();
   }
 
   /* **리스너*** */
@@ -94,29 +89,21 @@ export class SearchBarForm {
 
   setPopupbox = (e) => {
     if (this.isKeyCodeArrow(e.code)) return;
+
     const inputKeyword = e.target.value;
     autoCompleteStore.setInitialInputKeyword(inputKeyword);
-    const $autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`, this.$form);
-    const $autoCompleteList = selector(`.${AUTO_COMPLETE_LIST}`, $autoCompleteBox);
-
-    const $historyBox = selector(`.${HISTORY_BOX}`, this.$form);
-    const $historyList = selector(`.${HISTORY_LIST}`, $historyBox);
 
     const $prevRotationList = selector(`.${ROTATION_LIST}`, this.$popupBox);
     const $selectedItem = selector(`.${SELECTED}`, $prevRotationList);
     if ($selectedItem) removeClass(SELECTED, $selectedItem);
 
     if (inputKeyword.length < 1) {
-      addClass(DISPLAY_NONE, $autoCompleteBox);
-      removeClass(DISPLAY_NONE, $historyBox);
-      addClass(ROTATION_LIST, $historyList);
-      removeClass(ROTATION_LIST, $autoCompleteList);
+      this.history.openHistory();
+      this.autoComplete.closeAC();
       return;
     }
-    addClass(DISPLAY_NONE, $historyBox);
-    removeClass(DISPLAY_NONE, $autoCompleteBox);
-    addClass(ROTATION_LIST, $autoCompleteList);
-    removeClass(ROTATION_LIST, $historyList);
+    this.history.closeHistory();
+    this.autoComplete.openAC();
   };
   /* ********** */
 

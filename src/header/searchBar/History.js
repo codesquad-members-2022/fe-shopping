@@ -1,9 +1,16 @@
-import { createElement, selector, toggleClass } from '../../utils/utils.js';
+import {
+  createElement,
+  selector,
+  toggleClass,
+  addClass,
+  removeClass,
+} from '../../utils/utils.js';
 
 import { historyStore } from './historyStore.js';
 
 const DISPLAY_NONE = 'hidden';
 
+const HISTORY_BOX = 'history';
 const HISTORY_TITLE = 'history-title';
 const HISTORY_OFF_TITLE = 'history-off-title';
 const HISTORY_LIST = 'history-list';
@@ -12,15 +19,17 @@ const HISTORY_ITEM_LINK = 'history-item-link';
 const HISTORY_ITEM_DEL_BTN = 'history-item-delete';
 const HISTORY_CLEAR_BTN = 'history-clear-btn';
 const HISTORY_ONOFF_BTN = 'history-onoff-btn';
+const ROTATION_LIST = 'rotation-list';
+const ROTATION_KEYWORD = 'rotation-keyword';
 
 export class History {
-  constructor(ROTATION_KEYWORD) {
+  constructor() {
+    this.$historyBox = selector(`.${HISTORY_BOX}`);
     this.$historyList = selector(`.${HISTORY_LIST}`);
     this.$historyTitle = selector(`.${HISTORY_TITLE}`);
     this.$historyOffTitle = selector(`.${HISTORY_OFF_TITLE}`);
     this.$clearBtn = selector(`.${HISTORY_CLEAR_BTN}`);
     this.$activationBtn = selector(`.${HISTORY_ONOFF_BTN}`);
-    this.ROTATION_KEYWORD = ROTATION_KEYWORD;
     this.init();
   }
 
@@ -91,13 +100,9 @@ export class History {
       'data-id': id,
     });
 
-    const $historyItemLink = createElement(
-      'a',
-      [HISTORY_ITEM_LINK, this.ROTATION_KEYWORD],
-      {
-        href: `./search.html?q=${keyword}`,
-      }
-    );
+    const $historyItemLink = createElement('a', [HISTORY_ITEM_LINK, ROTATION_KEYWORD], {
+      href: `./search.html?q=${keyword}`,
+    });
 
     $historyItemLink.textContent = keyword;
 
@@ -106,5 +111,15 @@ export class History {
     $historyItem.append($historyItemLink, $historyDelBtn);
 
     return $historyItem;
+  }
+
+  closeHistory() {
+    addClass(DISPLAY_NONE, this.$historyBox);
+    removeClass(ROTATION_LIST, this.$historyList);
+  }
+
+  openHistory() {
+    removeClass(DISPLAY_NONE, this.$historyBox);
+    addClass(ROTATION_LIST, this.$historyList);
   }
 }
