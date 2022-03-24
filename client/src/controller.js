@@ -1,12 +1,17 @@
 import { SelectCategory } from './view/selectCategory.js';
 import { SearchInput } from './view/searchInput.js';
-import { LocalStorage } from './model/localStorage.js';
+import { RecentSearch } from './view/recentSearch.js';
+import { AutoComplete } from './view/autoComplete.js';
+import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
+import { getAutoCompleteData } from './model/autoCompleteData.js';
+import { debounce, throttle } from './util.js';
 
 export class Controller {
   constructor() {
-    this.localStorage = new LocalStorage();
+    this.KeywordLocalStorage = new KeywordLocalStorage();
     this.selectCategory = new SelectCategory();
-    this.searchInput = new SearchInput(this.localStorage.keywordList);
+    this.recentSearchView = new RecentSearch(this.KeywordLocalStorage.keywordList);
+    this.autoCompleteView = new AutoComplete();
 
     this.selector = {
       form: document.querySelector('.search__form'),
@@ -14,6 +19,8 @@ export class Controller {
       select: document.querySelector('.select__category'),
       inputDropDown: document.querySelector('.input__drop-down'),
     };
+
+    this.focusKeybordItem;
   }
 
   init() {
@@ -33,11 +40,17 @@ export class Controller {
   }
 
   setSearchInputEvents() {
-    this.selector.input.addEventListener('focus', () => this.focusInputHandle());
-    this.selector.input.addEventListener('input', () => this.typingInputHandle());
+    const delay = { focus: 500, mouseleave: 200, keydown: 100 };
 
-    this.selector.inputDropDown.addEventListener('mouseleave', () =>
-      this.searchInput.toggleInputFocusClass()
+    this.selector.input.addEventListener('focus', () => this.focusInputHandle());
+    this.selector.input.addEventListener('input', debounce(this.typingInputHandle, delay.focus));
+    this.selector.input.addEventListener('keydown', throttle(this.arrowKeyupInputHandle, delay.keydown));
+
+    this.selector.inputDropDown.addEventListener(
+      'mouseleave',
+      throttle(() => {
+        SearchInput.toggleClassName(this.selector.inputDropDown, 'focus');
+      }, delay.mouseleave)
     );
   }
 
@@ -46,44 +59,113 @@ export class Controller {
     this.selector.form.addEventListener('click', (e) => this.clickDropDownHandle(e));
   }
 
+  async changeAutoCompleteView(inputValue) {
+    if (!this.selector.input.value) return;
+    const autoCompleteData = await getAutoCompleteData(inputValue);
+    this.recentSearchView.removeRecentSearchChildNodes();
+    !autoCompleteData.length
+      ? this.autoCompleteView.emptyAutoComplete()
+      : this.autoCompleteView.updateAutoComplete(autoCompleteData, inputValue);
+  }
+
   focusInputHandle() {
-    if (!this.selector.input.value && !this.localStorage.keywordList.length) return;
+    if (!this.selector.input.value && !this.KeywordLocalStorage.keywordList.length) return;
+
+    if (!this.selector.input.value && this.KeywordLocalStorage.keywordList.length > 0) {
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      SearchInput.toggleClassName(this.selector.inputDropDown, 'focus');
+    }
 
     if (this.selector.input.value) {
-      this.searchInput.updateAutoComplete();
-      this.searchInput.toggleInputFocusClass();
-    } else if (this.localStorage.keywordList.length > 0) {
-      this.selector.inputDropDown.classList.remove('auto-complete');
-      this.selector.inputDropDown.classList.add('recent-search');
-      this.searchInput.updateRecentSearchList(this.localStorage.keywordList);
+      this.changeAutoCompleteView(this.selector.input.value);
     }
-    this.searchInput.toggleInputFocusClass();
   }
 
-  typingInputHandle() {
-    this.selector.input.value
-      ? this.searchInput.updateAutoComplete()
-      : this.searchInput.toggleInputFocusClass();
-  }
+  typingInputHandle = () => {
+    !this.selector.input.value
+      ? this.selector.inputDropDown.classList.remove('focus')
+      : this.changeAutoCompleteView(this.selector.input.value);
+  };
 
   submitFormHandle(e) {
     e.preventDefault();
 
     if (!this.selector.input.value) return;
-    this.localStorage.addKeywordList(this.selector.input.value);
-    this.searchInput.toggleInputFocusClass();
-    this.searchInput.resetInputText();
+    this.KeywordLocalStorage.addKeywordList(this.selector.input.value);
+    SearchInput.toggleClassName(this.selector.inputDropDown, 'focus');
+    SearchInput.resetInputText();
   }
 
   clickDropDownHandle(e) {
     if (e.target.classList.contains('delete__btn')) {
-      this.localStorage.removeKeywordList(e);
-      this.searchInput.updateRecentSearchList(this.localStorage.keywordList);
+      const keyword = e.target.previousElementSibling.innerText;
+      this.KeywordLocalStorage.removeKeywordList(keyword);
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
     }
 
     if (e.target.classList.contains('options--clear-keyword')) {
-      this.localStorage.clearKeywordList();
-      this.searchInput.resetRecentSearchList();
+      this.KeywordLocalStorage.clearKeywordList();
+      this.recentSearchView.resetRecentSearchList();
     }
+  }
+
+  arrowKeyupInputHandle = (e) => {
+    const focusClassName = 'item--focus';
+    const focusItem = document.querySelector(`.${focusClassName}`);
+
+    switch (e.key) {
+      case 'ArrowDown':
+        if (!this.selector.inputDropDown.classList.contains('focus')) return;
+        this.moveDownDropDownItem(focusClassName);
+        break;
+      case 'ArrowUp':
+        if (!this.selector.inputDropDown.classList.contains('focus')) return;
+        this.moveUpDropDownItem(focusClassName);
+        break;
+      case 'ArrowRight':
+        if (!focusItem) return;
+        this.changeAutoCompleteView(this.selector.input.value);
+        break;
+    }
+  };
+
+  //...최선을 다해 리팩토링하기
+  moveDownDropDownItem(className) {
+    const dropDownList = document.querySelector('.drop-down__list');
+    const firstItem = dropDownList.firstElementChild;
+    const lastItem = dropDownList.lastElementChild;
+
+    if (firstItem.dataset.value === 'null') return; // 일치하는 데이터가 없는 경우
+
+    if (this.focusKeybordItem === lastItem) {
+      SearchInput.toggleClassName(this.focusKeybordItem, className);
+      this.focusKeybordItem = firstItem;
+    }
+
+    if (!document.querySelector(`.${className}`)) {
+      this.focusKeybordItem = firstItem;
+    } else {
+      SearchInput.toggleClassName(this.focusKeybordItem, className);
+      this.focusKeybordItem = this.focusKeybordItem.nextElementSibling;
+    }
+
+    this.changeInputValueToDataset(className);
+  }
+
+  moveUpDropDownItem(className) {
+    if (!this.focusKeybordItem) return;
+
+    if (!this.focusKeybordItem.previousElementSibling) {
+      this.focusKeybordItem.classList.remove(className);
+    } else {
+      SearchInput.toggleClassName(this.focusKeybordItem, className);
+      this.focusKeybordItem = this.focusKeybordItem.previousElementSibling;
+      this.changeInputValueToDataset(className);
+    }
+  }
+
+  changeInputValueToDataset(className) {
+    this.selector.input.value = this.focusKeybordItem.dataset.value;
+    SearchInput.toggleClassName(this.focusKeybordItem, className);
   }
 }

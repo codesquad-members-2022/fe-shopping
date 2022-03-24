@@ -508,7 +508,6 @@ button, cursor {
 }
 
 .input__drop-down {
-  height: 330px;
   padding: 8px 16px;
 }
 
@@ -519,6 +518,12 @@ button, cursor {
   font-size: 0.75rem;
 }
 .auto-complete a:hover {
+  text-decoration: underline;
+}
+.auto-complete strong {
+  color: #4285f4;
+}
+.auto-complete .item--focus {
   text-decoration: underline;
 }
 
@@ -558,6 +563,9 @@ button, cursor {
   color: #4285f4;
   text-decoration: underline;
   transition: color 0.05s ease-in;
+}
+.recent-search .item--focus a {
+  text-decoration: underline;
 }
 
 .input__drop-down--options {
