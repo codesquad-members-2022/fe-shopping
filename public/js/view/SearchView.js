@@ -68,24 +68,19 @@ export default class extends SearchForm {
   }
 
   getSearchData() {
-    const data = {
-      "recent-search"() {
-        const keyName = option.recentSearchKeyName;
-        const recentSearchData = storage.getLocalStorage(keyName);
-        if (!recentSearchData) {
-          return [];
-        }
+    if (this.state === "recent-search") {
+      const keyName = option.recentSearchKeyName;
+      const recentSearchData = storage.getLocalStorage(keyName);
+      if (!recentSearchData) {
+        return [];
+      }
 
-        const sortKey = "no";
-        const dataSortByAsc = sortAsc(recentSearchData, sortKey);
-        this.setListItemsCnt(dataSortByAsc);
-        this.setSearchData(dataSortByAsc);
-        return dataSortByAsc;
-      },
-      "suggest-search"() {},
-    };
-
-    data[this.state].bind(this)();
+      const sortKey = "no";
+      const dataSortByAsc = sortAsc(recentSearchData, sortKey);
+      this.setListItemsCnt(dataSortByAsc);
+      this.setSearchData(dataSortByAsc);
+      return dataSortByAsc;
+    }
     return this.searchData;
   }
 
