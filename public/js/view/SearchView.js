@@ -90,7 +90,6 @@ export default class extends SearchForm {
   }
 
   getLiTemplate(cur, idx) {
-    console.log(cur);
     let item;
     if (this.state === "recent-search") {
       item = cur[option.recentSearchValueName];

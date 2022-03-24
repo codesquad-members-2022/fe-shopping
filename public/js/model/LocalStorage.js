@@ -21,8 +21,12 @@ export default class {
       if (cur[option.recentSearchValueName] === val) {
         return prev;
       }
-      const { no, input } = cur;
-      return [...prev, { no: no + 1, input }];
+
+      const curData = {
+        no: cur["no"] + 1,
+        [option.recentSearchValueName]: cur[option.recentSearchValueName],
+      };
+      return [...prev, curData];
     }, []);
 
     return idxChangedDatas;
