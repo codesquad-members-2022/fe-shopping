@@ -23,24 +23,20 @@ class SearchInputEventHandler {
   }
 
   addSpecialKeyEvent() {
-    const ENTER = 13;
-    const KEY_UP = 38;
-    const KEY_DOWN = 40;
-
     this.targetDom.addEventListener("keydown", (event) => {
       const {
-        keyCode,
+        key,
         target: { value },
       } = event;
 
-      if (keyCode === ENTER) {
+      if (key === "Enter") {
         event.preventDefault();
         this.historyManager.addData2localStorage(value);
         return;
       }
 
-      if (keyCode === KEY_UP || keyCode === KEY_DOWN) {
-        this.keyboardManager.searchInputArrow(keyCode);
+      if (key === "ArrowUp" || key === "ArrowDown") {
+        this.keyboardManager.searchInputArrow(key);
       }
     });
   }

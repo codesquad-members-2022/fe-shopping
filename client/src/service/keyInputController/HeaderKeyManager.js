@@ -7,22 +7,20 @@ class HeaderKeyboadManager {
     this.arrowCount = -1;
   }
 
-  searchInputArrow(keyCode) {
+  searchInputArrow(key) {
     const list = domutil.$All(".search--toggle--li");
-    const { prev, current } = this.changeKeyCount(keyCode, list);
+    const { prev, current } = this.changeKeyCount(key, list);
     this.searchInputView.hilight({ prev, current, list });
   }
 
-  changeKeyCount(keyCode, list) {
-    const KEY_UP = 38;
-    const KEY_DOWN = 40;
+  changeKeyCount(key, list) {
     const targetLength = list.length - 1;
     let count = this.arrowCount;
     let prev = count;
 
-    if (keyCode === KEY_UP) {
+    if (key === "ArrowUP") {
       count--;
-    } else if (keyCode === KEY_DOWN) {
+    } else if (key === "ArrowDown") {
       count++;
     }
 
