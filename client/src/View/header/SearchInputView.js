@@ -19,8 +19,11 @@ SearchInputView.prototype.renderSearchAutoComplete = function (
 ) {
   const removeTarget = ".search--toggle--ul";
   this.removePrevView(this.parentDom, removeTarget);
-  // 인자DOM에 전체 검색 삭제 이벤트 추가 필요함 이부분은 View가 아닌 DOM 넘겨주는 단계에서 처리 예정
+  const removeBtn = autoCompleteDom.querySelector(
+    '[data-button="removeHistory"]'
+  );
   this.parentDom.appendChild(autoCompleteDom);
+  this.addremoveHistoryEvent(removeBtn);
 };
 
 SearchInputView.prototype.renderSearchHistory = function (searchHistoryDom) {
@@ -40,6 +43,10 @@ SearchInputView.prototype.hilight = function ({ prev, current, list }) {
   const signatureColor = "#4285f4";
   list[prev].style.color = "black";
   list[current].style.color = signatureColor;
+};
+
+SearchInputView.prototype.addremoveHistoryEvent = function (target) {
+  target.addEventListener("click", () => console.log("test"));
 };
 
 export { SearchInputView };

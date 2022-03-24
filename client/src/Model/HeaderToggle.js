@@ -21,11 +21,11 @@ SearchInputToggle.prototype.getHTML = function (liContents) {
   const DOM = document.createElement("ul");
   DOM.classList.add(this.ulClassName);
   DOM.innerHTML =
-    /*html*/ `${liContents.reduce((liHtml, contents) => {
+    `${liContents.reduce((liHtml, contents) => {
       liHtml += `<li class="${this.liClassName}">${contents}</li>`;
       return liHtml;
     }, "")}` +
-    '<button type="button" class="header__main--deleteHistoryBtn">기록 전체삭제</button>';
+    /*html*/ `<button type="button" class="header__main--deleteHistoryBtn" data-button="removeHistory">기록 전체삭제</button>`;
 
   return DOM;
 };
