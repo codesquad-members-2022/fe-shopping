@@ -14,9 +14,11 @@ export class AutoComplete {
   }
 
   async renderACKeywords(inputKeyword) {
-    const ACKeywords = await autoCompleteStore.requestACKeywords(inputKeyword);
+    if (inputKeyword.length === 0) return;
 
+    const ACKeywords = await autoCompleteStore.requestACKeywords(inputKeyword);
     if (!ACKeywords) return;
+
     const ACKeywordsHTML = this.getACKeywordsHTML({ ACKeywords, inputKeyword });
     this.$autoCompleteList.innerHTML = ACKeywordsHTML;
   }
