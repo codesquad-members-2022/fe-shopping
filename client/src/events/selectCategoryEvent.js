@@ -1,19 +1,9 @@
 import { $, timeDelay, toggleClass } from '../utils/util.js';
 import { SearchCategory } from '../components/search/SearchCategory.js';
-import { mainCategory } from '../components/category/mainCategory.js';
 import { searchCategoryData, mainCategoryData } from '../constants/data.js';
 
 export const selectCategoryEvent = () => {
-  const selectMainCategoryBox = $('.category');
   const selectSearchCategoryBox = $('.search-selectBox');
-
-  selectMainCategoryBox.addEventListener('mouseover', () => {
-    const categoryListBox = $('.category-list');
-    if (categoryListBox) {
-      return;
-    }
-    selectMainCategoryBox.insertAdjacentHTML('beforeend', mainCategory(mainCategoryData));
-  });
 
   selectSearchCategoryBox.addEventListener('click', async ({ target }) => {
     const selectListUlBox = $('.search-list');

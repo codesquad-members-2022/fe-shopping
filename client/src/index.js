@@ -1,11 +1,12 @@
 import { rootEvent } from './events/rootEvent.js';
-import { selectCategoryEvent } from './events/selectCategoryEvent.js';
 import { inputKeyWordEvent } from './events/inputKeyWordEvent.js';
+import { CategoryController } from './controllers/CategoryController.js';
 
 const init = () => {
   rootEvent();
-  selectCategoryEvent();
   inputKeyWordEvent();
+
+  new CategoryController();
 };
 
 init();
