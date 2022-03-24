@@ -1,6 +1,7 @@
 import { getData } from '../utils/getData.js';
 import SearchModel from './model/SearchModel.js';
 import CategoryView from './view/CategoryView.js';
+import CategoryController from './controller/CategoryController.js';
 
 export async function initSearchForm() {
   const user = await getData('http://127.0.0.1:3000/', 'data', 'user');
@@ -14,6 +15,7 @@ export async function initSearchForm() {
   const categoryView = new CategoryView(searchModel);
   //ResultView
   //InputView
+  const categoryController = new CategoryController(searchModel, categoryView);
 
   categoryView.init();
 }
