@@ -10,6 +10,7 @@ import { SearchInputView } from "./View/header/SearchInputView.js";
 import { SearchMenuView } from "./View/header/searchMenuView.js";
 import { SearchInputToggle, SearchMenuToggle } from "./Model/HeaderToggle.js";
 import { ETCmovement } from "./service/etcMovement/EtcMovement.js";
+import ObserverPublisher from "./observer/historyDataObserver.js";
 
 // localStorage.setItem("localSearchHistory", "[]"); // 초기화용
 
@@ -20,6 +21,9 @@ const SEARCH_INPUT_MODEL = new SearchInputToggle();
 const SEARCH_MENU_VIEW = new SearchMenuView(".header__main--inputMenuButton");
 const SEARCH_MENU_MODEL = new SearchMenuToggle();
 const ETC_MOVEMENT = new ETCmovement(SEARCH_INPUT_VIEW, SEARCH_MENU_VIEW);
+const HISTORY_OBSERVER = new ObserverPublisher(
+  localStorage.getItem("localSearchHistory")
+);
 
 const HEADER_KEY_MANAGER = new HeaderKeyboadManager(
   SEARCH_INPUT_VIEW,
