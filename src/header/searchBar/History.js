@@ -129,24 +129,24 @@ export class History {
   }
 
   createHistoryItemElement(id, keyword) {
-    const $historyItem = createElement('li', this.HISTORY_ITEM, null, {
+    const $historyItem = createElement('li', this.HISTORY_ITEM, {
       'data-id': id,
     });
 
     const $historyItemLink = createElement(
       'a',
       [this.HISTORY_ITEM_LINK, this.ROTATION_KEYWORD],
-      keyword,
       {
         href: `./search.html?q=${keyword}`,
       }
     );
+    $historyItemLink.textContent = keyword;
 
     const $historyDelBtn = createElement(
       'span',
       this.HISTORY_ITEM_DEL_BTN,
-      '삭제'
     );
+    $historyDelBtn.textContent = '삭제';
 
     $historyItem.appendChild($historyItemLink);
     $historyItem.appendChild($historyDelBtn);

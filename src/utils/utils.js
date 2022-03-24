@@ -21,13 +21,12 @@ export const toggleClass = (className, element) => {
   element.classList.toggle(className);
 };
 
-export const createElement = (tagName, className, textContent, attrs = {}) => {
+export const createElement = (tagName, className, attrs = {}) => {
   const element = document.createElement(tagName);
   if (className) {
     if (Array.isArray(className)) element.className = className.join(' ');
     else element.className = className;
   }
-  if (textContent) element.textContent = textContent;
   Object.entries(attrs).forEach(([key, value]) => {
     element.setAttribute(key, value);
   });
