@@ -1,6 +1,6 @@
 import Component from '../../core/Component.js';
-import { categories } from '../../../data/index.js';
 import CategoryList from './CategoryList.js';
+import CategoryStore from '../../store/CategoryStore.js';
 
 class SelectBox extends Component {
 
@@ -8,12 +8,13 @@ class SelectBox extends Component {
 
   setup() {
     this.$state = {
-      categories: categories,
+      categories: CategoryStore.getCategories(),
     };
+    CategoryStore.subscribe('categories', this);
   }
 
   template() {
-    return `<button type="button" class="select-btn">전체</button>
+    return `<button type="button" class="select-btn">${this.getSelectedCategory()}</button>
             <div class="bottom-ui"></div>`;
   }
 
@@ -33,12 +34,17 @@ class SelectBox extends Component {
   renderCategoryList(props) {
     if (this.categoryList) this.categoryList.destroy();
     this.categoryList = new CategoryList(this.$target.querySelector('.bottom-ui'), props);
+    this.$target.querySelector('.select-btn').classList.add('selected');
   }
 
   removeCategoryList() {
-    const $categoryList = this.$target.querySelector('.bottom-ui');
-    $categoryList.classList.remove('open');
+    this.$target.querySelector('.bottom-ui').classList.remove('open');
+    this.$target.querySelector('.select-btn').classList.remove('selected');
     setTimeout(() => this.categoryList.destroy(), 250);
+  }
+
+  getSelectedCategory() {
+    return this.$state.categories.find(category => category.isSelected).item;
   }
 
 }

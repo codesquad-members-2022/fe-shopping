@@ -112,10 +112,10 @@ body {
           background-position: 6px -165px;
           background-repeat: no-repeat;
         }
-      }
 
-      &.opened .select-btn::after {
-        background-position: 6px -142px;
+        &.selected::after {
+          background-position: 6px -142px;
+        }
       }
     }
 

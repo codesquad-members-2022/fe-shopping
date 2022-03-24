@@ -1,4 +1,5 @@
 import Component from '../../core/Component.js';
+import CategoryStore from '../../store/CategoryStore.js';
 
 class CategoryList extends Component {
 
@@ -13,8 +14,10 @@ class CategoryList extends Component {
   }
 
   setEvent() {
-    this.addEvent('mousedown', '.bottom-ui', (e) => {
-      e.preventDefault();
+    this.addEvent('mousedown', '.bottom-ui', (event) => {
+      event.preventDefault();
+      if (event.target.tagName !== 'A') return;
+      CategoryStore.changeSelectedCategory(event.target.innerText);
     }, true);
   }
 

@@ -143,8 +143,8 @@ body {
         background-image: url("https://img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
         background-position: 6px -165px;
         background-repeat: no-repeat; }
-    .main-header .search-form .select-box.opened .select-btn::after {
-      background-position: 6px -142px; }
+      .main-header .search-form .select-box .select-btn.selected::after {
+        background-position: 6px -142px; }
   .main-header .search-form .input-box {
     position: relative;
     display: flex;
