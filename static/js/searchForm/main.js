@@ -10,7 +10,6 @@ export async function initSearchForm() {
     mode: user.mode,
     categories: searchCategories,
     currentCategory: searchCategories[0],
-    inputValue: '',
   });
   const categoryView = new CategoryView(searchModel);
   //ResultView
