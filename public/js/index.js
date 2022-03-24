@@ -55,6 +55,7 @@ $searchInput.addEventListener('input', ({ target }) => {
 
 const $historyPopupBox = $('.history-popup');
 const $historyPopupBtn = $('.history-popup-btn');
+const $deleteAllHistory = $('.delete-all-history');
 
 $searchInput.addEventListener('focus', ({ target }) => {
   $historyPopupBox.classList.add('showHistoryPopup');
@@ -82,6 +83,16 @@ if (savedHistory !== null) {
   savedHistory.forEach((element) => showHistory(element));
 }
 
+const deleteHistory = () => {
+  localStorage.clear();
+};
+
+$deleteAllHistory.addEventListener('click', ({ target }) => {
+  console.log('delete');
+  deleteHistory();
+  $historyPopupBox.innerHTML = `<h3>최근 검색어</h3>`;
+});
+
 $searchInput.addEventListener('keypress', (key) => {
   $autocompleteBox.classList.remove('showAutocomplete');
   if (key.keyCode === 13) {
@@ -94,6 +105,6 @@ $searchInput.addEventListener('keypress', (key) => {
 
 $searchInput.addEventListener('blur', ({ target }) => {
   $autocompleteBox.classList.remove('showAutocomplete');
-  $historyPopupBox.classList.remove('showHistoryPopup');
-  $historyPopupBtn.classList.remove('showHistoryPopup');
+  // $historyPopupBox.classList.remove('showHistoryPopup');
+  // $historyPopupBtn.classList.remove('showHistoryPopup');
 });
