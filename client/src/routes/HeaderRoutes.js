@@ -22,7 +22,7 @@ class HeaderRoutes {
   }
 
   isEmptyData(data) {
-    if (!Array.isArray(data) || data.length <= 0) {
+    if (data.length <= 0) {
       return true;
     }
   }

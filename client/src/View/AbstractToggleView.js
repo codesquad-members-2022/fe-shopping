@@ -17,7 +17,7 @@ ToggleView.prototype.renderToggle = function (childDom) {
 };
 
 ToggleView.prototype.isEmptyArr = function (arr) {
-  if (!Array.isArray(arr) || arr.length <= 0) {
+  if (arr.length <= 0) {
     return true;
   }
 };
