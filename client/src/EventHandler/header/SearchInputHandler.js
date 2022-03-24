@@ -47,7 +47,10 @@ class SearchInputEventHandler {
   }
 
   onFocusEvent() {
-    this.historyManager.manageHistory();
+    const localdata = this.historyManager.getLocalHistory();
+    const fitData = this.historyManager.fitHistorySize(localdata);
+    this.historyManager.observer.notify(fitData);
+    // controller에 옵저버를 등록하고 사용할지(보기 편할것같아) historyManager에 등록하고 사용할지 고민하다 Data변화를 관측한다는 의미에서 historyManager에 observer를 등록했습니다.
   }
 }
 

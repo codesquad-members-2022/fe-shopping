@@ -1,3 +1,5 @@
+import ObserverPublisher from "../../../../observer/observer";
+
 class HeaderHistoryPatcher {
   constructor(searchInputToggle, searchInputView, headerKeyManager) {
     this.historyStorage = new Set(
@@ -7,6 +9,7 @@ class HeaderHistoryPatcher {
     this.searchInputModel = searchInputToggle;
     this.searchInputView = searchInputView;
     this.headerKeyManager = headerKeyManager;
+    this.observer = new ObserverPublisher(this.historyStorage);
   }
 
   getLocalHistory() {
