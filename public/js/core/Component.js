@@ -1,4 +1,5 @@
 function Component($target, $props = {}) {
+  this.abortController = new AbortController();
   this.$target = $target;
   this.$props = $props;
   this.setup();
@@ -33,7 +34,16 @@ Component.prototype.addEvent = function(eventType, selector, callback, useCaptur
   this.$target.addEventListener(eventType, event => {
     if (!isTarget(event.target)) return false;
     callback(event);
-  }, useCapture);
-}
+  }, { capture: useCapture, signal: this.abortController.signal });
+};
+
+Component.prototype.removeEvent = function() {
+  this.abortController.abort();
+};
+
+Component.prototype.destroy = function() {
+  this.removeEvent();
+  this.$target.innerHTML = '';
+};
 
 export default Component;

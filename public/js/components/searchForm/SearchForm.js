@@ -7,10 +7,12 @@ import { abortController } from '../../api/index.js';
 
 class SearchForm extends Component {
 
+  bottomWindow;
+
   setup() {
     this.$state = {
       isSaveHistoryOn: SearchHistoryStore.isSaveHistoryOn(),
-    }
+    };
     SearchHistoryStore.subscribe('isSaveHistoryOn', this);
   }
 
@@ -54,13 +56,14 @@ class SearchForm extends Component {
   }
 
   renderBottomWindow(containerClass, props) {
-    if (!this.querySelector(containerClass)) this.insertAdjacentHTML('beforeend', `<div class="bottom-window"></div>`)
-    new BottomWindow(this.querySelector(containerClass), props);
+    if (this.bottomWindow) this.bottomWindow.destroy();
+    this.bottomWindow = new BottomWindow(this.querySelector(containerClass), props);
   }
 
   removeBottomWindow(containerClass) {
+    if (this.bottomWindow) this.bottomWindow.destroy();
     const $bottomWindow = this.querySelector(containerClass);
-    this.removeChild($bottomWindow);
+    $bottomWindow.classList.remove('open');
   }
 }
 
