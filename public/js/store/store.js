@@ -40,8 +40,7 @@ class Store {
   }
 
   setState(state, value) {
-    if (Array.isArray(this.state[state])) this.state[state] = [value, ...this.state[state]];
-    else this.state[state] = value;
+    this.state[state] = value;
   }
 
   clearState(state) {
