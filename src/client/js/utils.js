@@ -27,11 +27,10 @@ const request = async (url, options) => {
   }
 };
 
-const debounce = ({ baseTarget, msTime, callback }) => {
-  const baseValue = baseTarget.value;
+const debounce = ({ baseTarget, standardValue, msTime, callback }) => {
+  const baseValue = baseTarget[standardValue];
   delay(msTime).then(() => {
-    console.log(baseValue, baseTarget.value);
-    if (baseValue === baseTarget.value) {
+    if (baseValue === baseTarget[standardValue]) {
       callback();
     }
   });

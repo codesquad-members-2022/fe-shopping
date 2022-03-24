@@ -136,6 +136,7 @@ const handleKeyupWithFocus = ({ target, key }) => {
 
   debounce({
     baseTarget: target,
+    standardValue: "value",
     msTime: 500,
     callback: fetchSuggestionData.bind(undefined, target.value),
   });

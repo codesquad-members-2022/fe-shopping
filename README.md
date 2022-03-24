@@ -100,3 +100,19 @@ debounce({
   callback: fetchSuggestionData.bind(undefined, target.value),
 });
 ```
+
+### debounce 2차 수정
+
+- target.value 는 input 에서만 유효한 비교값이 되었다.
+- target 어떤 property 로 비교값을 설정할 것인지도 넘겨준 것이 좀 더 범용적이게 될 것이라고 생각이 들었다.
+
+```js
+const debounce = ({ baseTarget, msTime, callback }) => {
+  const baseValue = baseTarget.value;
+  delay(msTime).then(() => {
+    if (baseValue === baseTarget.value) {
+      callback();
+    }
+  });
+};
+```

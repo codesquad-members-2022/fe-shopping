@@ -1,5 +1,6 @@
 import Component from "../../../core/Component";
 import { createExtendsRelation } from "../../../oop-utils";
+import { debounce } from "../../../utils";
 import { store } from "../../../Store";
 
 function Category(...params) {
@@ -12,7 +13,14 @@ Category.prototype.setEvent = function () {
     eventType: "mouseover",
     selector: ".category__main li",
     callback: ({ target }) => {
-      console.log(target);
+      // debounce({
+      //   baseTarget: target,
+      //   msTime: 200,
+      //   callback: () => {
+      //     console.log("디디바바우운ㄴ시싱");
+      //   },
+      // });
+      console.log(target.value);
     },
   });
 };
