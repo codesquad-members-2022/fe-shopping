@@ -17,6 +17,7 @@ export class RecentSearchModel {
     if (this.keywordList.length >= keywordListMaxLength) {
       const oldestKeywordIndex = this.keywordIndexList[0];
       this.storage.removeItem(oldestKeywordIndex);
+      this.keywordIndexList.splice(0, 1);
       this.keywordList.splice(0, 1);
     }
     const keywordIndex = Date.now();
@@ -27,7 +28,8 @@ export class RecentSearchModel {
 
   updateKeywordList() {
     const localStorageKeys = Object.keys(this.storage)
-      .filter((storageKey) => Number(storageKey))
+      .map((storageKey) => Number(storageKey))
+      .filter((storageKey) => storageKey)
       .sort();
     const keywordList = localStorageKeys.map((storageKey) => this.storage[storageKey]);
     this.keywordIndexList = localStorageKeys;

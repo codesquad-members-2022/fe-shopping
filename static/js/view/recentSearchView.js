@@ -4,7 +4,7 @@ export class RecentSearchView {
   }
 
   createKeywordsTemplate(keywordList, keywordIndexList, listClassName) {
-    const keywordsTemplate = keywordList.reduce((template, keyword, index) => {
+    let keywordsTemplate = keywordList.reduce((template, keyword, index) => {
       template += `<li data-index=${keywordIndexList[index]}>
       ${keyword}
       <button type='button' class='recent-keyword-button'>X</button>

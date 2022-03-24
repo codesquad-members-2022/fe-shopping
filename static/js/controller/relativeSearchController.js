@@ -13,7 +13,7 @@ export class RelativeSearchController {
   addInputKeyUpEvent() {
     const delayTime = 500;
     this.$input.addEventListener('keyup', debounce((event) => {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Backspace') {
         return;
       }
       const searchKeyword = event.target.value;
