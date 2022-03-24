@@ -1,2 +1,5 @@
 import { init } from "./App.js";
-init();
+import { SearchBar } from "../Controller/searchBarCtrl.js";
+// init();
+const a = new SearchBar();
+a.init();
