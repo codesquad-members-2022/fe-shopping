@@ -1,7 +1,7 @@
 import { $ } from "./util/util.js";
 import { sliderData } from "../data/data.js";
 import MainBanner from "./view/MainBanner.js";
-import LocalStorage from "./model/LocalStorage.js";
+import LocalStorage from "./util/LocalStorage.js";
 import SearchView from "./view/SearchView.js";
 
 const mainBanner = new MainBanner({

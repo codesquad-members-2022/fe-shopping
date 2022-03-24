@@ -1,6 +1,6 @@
-import storage from "../util/storage.js";
+import storage from "./storage.js";
 import option from "../common/option.js";
-import { isEmpty, sortDesc } from "../util/util.js";
+import { isEmpty, sortDesc } from "./util.js";
 
 export default class {
   constructor({ dataSizeLimit }) {
