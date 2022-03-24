@@ -17,14 +17,7 @@ const args = {
   localStorage: new LocalStorage({ dataSizeLimit: 10 }),
 };
 
-const searchView = new SearchView(
-  {
-    confirmMsg: `저장된 최근 검색어를 모두 삭제하시겠습니까?`,
-    completeMsg: `삭제 되었습니다.`,
-    cancelMsg: `취소 되었습니다.`,
-  },
-  args
-);
+const searchView = new SearchView(args);
 
 searchView.init();
 mainBanner.init();

@@ -4,9 +4,9 @@ import storage from "../util/storage.js";
 import { sortAsc, isEmpty, fetchData, debounce } from "../util/util.js";
 
 export default class extends SearchForm {
-  constructor(message, ...args) {
+  constructor(...args) {
     super(...args);
-    this.message = message;
+    this.message = option.message;
     this.state = "recent-search";
   }
 
