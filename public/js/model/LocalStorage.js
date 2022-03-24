@@ -1,4 +1,5 @@
 import storage from "../util/storage.js";
+import option from "../common/option.js";
 import { isEmpty, sortDesc } from "../util/util.js";
 
 export default class {
@@ -17,7 +18,7 @@ export default class {
     }
 
     let idxChangedDatas = storedDatas.reduce((prev, cur) => {
-      if (cur["input"] === val) {
+      if (cur[option.recentSearchValueName] === val) {
         return prev;
       }
       const { no, input } = cur;
@@ -36,8 +37,11 @@ export default class {
   }
 
   storeItem(key, val) {
-    const curInputData = { no: this.firstIdx, input: val };
-    const curInputDataCnt = curInputData.length;
+    const curInputData = {
+      no: this.firstIdx,
+      [option.recentSearchValueName]: val,
+    };
+    const curInputDataCnt = [curInputData].length;
 
     let storedDatas = this.setStoredDatasIdx(key, val);
     const sortByKey = "no";

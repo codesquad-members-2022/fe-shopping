@@ -4,14 +4,21 @@ export const $$ = (selector) => document.querySelectorAll(selector);
 export const debounce = (func, delay = 0) => {
   let timer;
 
-  return function () {
+  return function (...args) {
     clearTimeout(timer);
-    timer = setTimeout(func, delay);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
   };
 };
 
-export const fetchData = async (url) => {
-  return await fetch(url).then((res) => res.json());
+export const fetchData = async (url, callback) => {
+  return await fetch(url)
+    .then((res) => res.json())
+    .then((json) => {
+      if (!callback) return json;
+      return callback(json);
+    });
 };
 
 export const setDisplayBlock = (element) => {
@@ -22,7 +29,10 @@ export const setDisplayNone = (element) => {
   element.style.display = "none";
 };
 
-export const isEmpty = (target) => {
+export const isEmpty = (target, key) => {
+  if (key) {
+    return target[key].length === 0;
+  }
   return target.length === 0;
 };
 

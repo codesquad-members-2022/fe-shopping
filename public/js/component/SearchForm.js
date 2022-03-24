@@ -1,4 +1,4 @@
-import constants from "../common/constants.js";
+import option from "../common/option.js";
 import {
   isEmpty,
   setDisplayNone,
@@ -163,7 +163,7 @@ export default class {
         return;
       }
 
-      if (isEmpty(this.$input)) {
+      if (isEmpty(this.$input.value)) {
         this.initSelectedIdx();
         // TODO: 최근검색어가 표시되도록
         this.showDropdown();
@@ -186,7 +186,7 @@ export default class {
       return;
     }
 
-    const keyName = constants.recentSearchKeyName;
+    const keyName = option.recentSearchKeyName;
     const inputTxt = this.$input.value;
     this.storeItemLocalStorage(keyName, inputTxt);
 
@@ -195,9 +195,7 @@ export default class {
   }
 
   onSubmit() {
-    this.$form.addEventListener("submit", (e) => {
-      this.handleSubmitForm(e);
-    });
+    this.$form.addEventListener("submit", (e) => this.handleSubmitForm(e));
   }
 
   /* MOUSE DOWN EVENT */
@@ -217,9 +215,9 @@ export default class {
   }
 
   onMouseDown() {
-    this.$searchFormArea.addEventListener("mousedown", (e) => {
-      this.handleSearchFormMousedown(e);
-    });
+    this.$searchFormArea.addEventListener("mousedown", (e) =>
+      this.handleSearchFormMousedown(e)
+    );
   }
 
   onEvent() {
