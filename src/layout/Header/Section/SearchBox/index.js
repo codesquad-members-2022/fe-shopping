@@ -1,5 +1,5 @@
 import HtmlElement from '../../../../utils/HtmlElement.js';
-import AutoComplete from './AutoComplete.js';
+import AutoComplete from './AutoComplete/index.js';
 import HistoryList from './History/index.js';
 import ScopeSelector from './ScopeSelector/index.js';
 import { myLocalStorage } from '../../../../utils/mockDB.js';
