@@ -1,32 +1,38 @@
-export const $ = (selected) => document.querySelector(selected);
+export const $ = (selected) => document.body.querySelector(selected);
 
-export const addEvent = (selected, eventName, callback) =>
-  selected.addEventListener(eventName, callback);
+export const $$ = (selected) => document.body.querySelectorAll(selected);
 
-export const fetchData = async (url) => {
+export async function fetchData(url) {
   const successData = await fetch(url);
-  return successData.json();
-};
-
-export async function getCompleteData(name) {
-  const completeData = await fetchData(
-    `./public/data/auto-complete/${name}.json`
-  );
-  return completeData.data;
+  const json = await successData.json();
+  return json;
 }
 
-export function makeImageSlide(list) {
-  return `
-  <li class="image-element">
-    <img src="${list.imgURL}" / alt="${list.imgTitle} 이미지" width = "950" height = "400">
-    </li>
-  `;
+export async function getCompleteData(consonant) {
+  const jsonData = await fetchData('/completeData');
+  const completeData = jsonData[`${consonant}data`];
+  return completeData;
 }
 
-export function makeSideTeb(list) {
-  return `
-  <li class="side-teb-element">
-    <img src="${list.subImgURL}" / alt="${list.imgTitle} 이미지" width = "200" height = "55">
-    </li>
-  `;
+export function throttle(callback, wait) {
+  let waiting = true;
+  return function (...args) {
+    if (waiting) {
+      callback(...args);
+      waiting = false;
+      setTimeout(() => {
+        waiting = true;
+      }, wait);
+    }
+  };
+}
+
+export function debounce(callback, wait) {
+  let waiting;
+  return function (...args) {
+    clearTimeout(waiting);
+    waiting = setTimeout(() => {
+      callback(args);
+    }, wait);
+  };
 }

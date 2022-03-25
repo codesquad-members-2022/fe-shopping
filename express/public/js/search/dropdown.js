@@ -1,17 +1,18 @@
 import { $ } from '../utility/util.js';
-import { addEvent } from '../utility/util.js';
-import { categoryData } from '../../data/search-category/category.js';
+import { categoryData } from '../../data/search-category/search-category.js';
+
 export default class Dropdown {
   addBtnEvent() {
     const $dropdownBtn = $('.search-category-dropdown');
-    addEvent($dropdownBtn, 'click', this.changeArrowKey);
+    $dropdownBtn.addEventListener('click', this.dropdownArrowBtn);
   }
 
-  changeArrowKey = ({ target }) => {
+  dropdownArrowBtn = ({ target }) => {
     const $optionMenu = $('.option-menu');
 
     if (target.closest('button')) {
-      target.classList.toggle('opened-option-menu');
+      target.classList.toggle('change-option-key-btn');
+      $optionMenu.classList.toggle('show');
     }
 
     if (target.classList.value === 'search-category-dropdown') {
@@ -38,7 +39,7 @@ export default class Dropdown {
 
   addClickEvent() {
     const $dropdownMenus = $('.dropdown-menus');
-    addEvent($dropdownMenus, 'click', this.changeOption);
+    $dropdownMenus.addEventListener('click', this.changeOption);
   }
 
   changeOption({ target }) {
