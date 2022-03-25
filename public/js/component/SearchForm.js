@@ -24,15 +24,6 @@ export default class {
     this.selectedIdxClassName = selectedIdxClassName;
   }
 
-  // initSelectedIdx() {
-  //   const initialIdx = -1;
-  //   this.selectedIdx = initialIdx;
-  // }
-
-  // setListItemsCnt(data) {
-  //   this.listItemsCnt = data.length;
-  // }
-
   getElFromArea(selector) {
     return this.$searchFormArea.querySelector(selector);
   }
@@ -80,10 +71,6 @@ export default class {
   }
 
   /* KEY UP EVENT */
-  // handleEscKeyUp() {
-  //   this.hideDropDown();
-  // }
-
   addClassSelectedIdx(selectedIdx) {
     const itemsSelector = `[data-${this.datasetName}]`;
     const items = [...$$(itemsSelector)];
@@ -125,58 +112,25 @@ export default class {
   }
 
   // /* SUBMIT EVENT */
-
-  // storeItemLocalStorage(key, val) {
-  //   this.localStorage.storeItem(key, val);
-  // }
-
-  // handleSubmitForm(e) {
-  //   // 현재 검색 기능이 동작하지 않으므로 preventDefault() 적용
-  //   e.preventDefault();
-
-  //   if (isEmpty(this.$input.value)) {
-  //     return;
-  //   }
-
-  //   const keyName = option.recentSearchKeyName;
-  //   const inputTxt = this.$input.value;
-  //   this.storeItemLocalStorage(keyName, inputTxt);
-
-  //   this.clearInput();
-  //   this.fillDropdownList();
-  // }
-
   onSubmit() {
     this.$form.addEventListener("submit", this.handleSubmit);
   }
 
   // /* MOUSE DOWN EVENT */
-  // handleSearchFormItems(target) {
-  //   const selectedText = target.innerText;
-  //   this.$input.value = selectedText;
-  // }
+  inputSelectedTxt(target) {
+    const selectedTxt = target.innerText;
+    this.$input.value = selectedTxt;
+  }
 
-  // handleSearchFormMousedown(e) {
-  //   const { target } = e;
-  //   if (target.closest(".search-area-dropdown")) {
-  //     if (target.classList.contains("link")) {
-  //       this.handleSearchFormItems(target);
-  //       return;
-  //     }
-  //   }
-  // }
-
-  // onMouseDown() {
-  //   this.$searchFormArea.addEventListener("mousedown", (e) =>
-  //     this.handleSearchFormMousedown(e)
-  //   );
-  // }
+  onMouseDown() {
+    this.$searchFormArea.addEventListener("mousedown", this.handleMouseDown);
+  }
 
   onEvent() {
     this.onFocusInOut();
     this.onKeyUp();
     this.onSubmit();
-    // this.onMouseDown();
+    this.onMouseDown();
   }
 
   init() {

@@ -1,4 +1,3 @@
-// import option from "../common/options.js";
 import SearchForm from "../component/SearchForm.js";
 import { setDisplayBlock } from "../util/util.js";
 
@@ -71,30 +70,6 @@ export default class extends SearchForm {
     };
     return template[state];
   }
-  // handleRemoveRecentSearch(e) {
-  //   e.preventDefault();
-  //   const { confirmMsg, completeMsg, cancelMsg } = this.message;
-
-  //   if (!confirm(confirmMsg)) {
-  //     alert(cancelMsg);
-  //     return;
-  //   }
-  //   storage.removeFromLocalStorage(option.recentSearchKeyName);
-  //   this.fillDropdownList();
-  //   alert(completeMsg);
-  // }
-
-  // handleSearchFormMousedown(e) {
-  //   super.handleSearchFormMousedown(e);
-  //   const { target } = e;
-
-  //   if (target.closest(".search-area-dropdown")) {
-  //     if (target.classList.contains("remove-all")) {
-  //       this.handleRemoveRecentSearch(e);
-  //       return;
-  //     }
-  //   }
-  // }
 
   onKeyUp() {
     super.onKeyUp();
@@ -109,9 +84,4 @@ export default class extends SearchForm {
       this.getSuggestionWord(this.$input.value);
     });
   }
-
-  // handleSubmitForm(e) {
-  //   super.handleSubmitForm(e);
-  //   this.setStateInit();
-  // }
 }

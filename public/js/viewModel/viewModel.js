@@ -35,6 +35,7 @@ export const viewModel = {
     this.searchView.handleSubmit = this.handleSubmit.bind(this);
     this.setGetSuggestionWordFunc();
     this.searchView.getSuggestionWord = this.getSuggestionWord.bind(this);
+    this.searchView.handleMouseDown = this.handleMouseDown.bind(this);
   },
 
   setGetSuggestionWordFunc() {
@@ -155,5 +156,33 @@ export const viewModel = {
 
     this.localStorage.storeItem(this.recentSearchKeyName, inputTxt);
     this.resetInput();
+  },
+
+  handleMouseDown(e) {
+    const { target } = e;
+    if (!target.closest(".search-area-dropdown")) {
+      return;
+    }
+    if (target.classList.contains("link")) {
+      this.searchView.inputSelectedTxt(target);
+      return;
+    }
+    if (target.closest(".search-area-dropdown")) {
+      this.handleRemoveRecentSearch(e);
+    }
+  },
+
+  handleRemoveRecentSearch(e) {
+    e.preventDefault();
+    const { confirmMsg, completeMsg, cancelMsg } = this.message;
+
+    if (!confirm(confirmMsg)) {
+      alert(cancelMsg);
+      return;
+    }
+
+    storage.removeFromLocalStorage(this.recentSearchKeyName);
+    this.handleFocusInput();
+    alert(completeMsg);
   },
 };
