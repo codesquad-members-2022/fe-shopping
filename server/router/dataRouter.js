@@ -10,7 +10,7 @@ router.get('/searchCategories', (req, res) => res.json(getSearchCategories().cat
 router.get('/autoComplete', (req, res) => {
   const category = req.query.category;
   const inputValue = req.query.keyword;
-  const words = getAutoCompleteWords()[inputValue];
+  const words = getAutoCompleteWords()[inputValue] || ['자동완성없음'];
   res.json(words);
 });
 
