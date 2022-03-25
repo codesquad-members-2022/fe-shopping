@@ -1,7 +1,7 @@
-import HtmlElement from '../../../../utils/HtmlElement.js';
-import { moveToSearchTermPage } from '../../../../router.js';
-import { myLocalStorage } from '../../../../utils/mockDB.js';
-import { SEARCH_BOX } from '../../../../constant.js';
+import HtmlElement from '../../../../../utils/HtmlElement.js';
+import { moveToSearchTermPage } from '../../../../../router.js';
+import { myLocalStorage } from '../../../../../utils/mockDB.js';
+import { SEARCH_BOX } from '../../../../../constant.js';
 
 const {
   HISTORY: {
@@ -12,23 +12,23 @@ const {
   },
 } = SEARCH_BOX;
 
-export default function RecentSearchList($element, args) {
+export default function HistoryList($element, args) {
   HtmlElement.call(this, $element, args);
 }
 
-RecentSearchList.prototype = Object.create(HtmlElement.prototype);
-RecentSearchList.prototype.constructor = RecentSearchList;
+HistoryList.prototype = Object.create(HtmlElement.prototype);
+HistoryList.prototype.constructor = HistoryList;
 
-RecentSearchList.prototype.setTemplate = function () {
-  const { recentSearchList, activeHistory } = this.state;
+HistoryList.prototype.setTemplate = function () {
+  const { histroyList, activeHistory } = this.state;
   const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
   return `
 <h5>최근 검색어</h5>
-<ul id="recentSearchList">
+<ul id="histroyList">
     ${
-      recentSearchList.length === 0
+      histroyList.length === 0
         ? `<span>최근검색어가 없습니다.</span>`
-        : recentSearchList
+        : histroyList
             .map(
               (term, idx) =>
                 `<li class="${isActive(idx)}"
@@ -45,7 +45,7 @@ RecentSearchList.prototype.setTemplate = function () {
 </div>`;
 };
 
-RecentSearchList.prototype.setEvent = function () {
+HistoryList.prototype.setEvent = function () {
   this.$element.addEventListener('click', handleClick.bind(this));
 };
 
@@ -69,15 +69,15 @@ function handleClick({ target }) {
 
 function deleteAllTerm() {
   myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, []);
-  this.setState({ recentSearchList: [] });
+  this.setState({ histroyList: [] });
 }
 
 function deleteTargetTerm(target) {
-  const updatedRecentSearchList = [...this.state.recentSearchList];
+  const updatedHistroyList = [...this.state.histroyList];
   const {
     dataset: { termId: targetTermId },
   } = target.closest('li');
-  updatedRecentSearchList.splice(targetTermId, 1);
-  myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedRecentSearchList);
-  this.setState({ recentSearchList: updatedRecentSearchList });
+  updatedHistroyList.splice(targetTermId, 1);
+  myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedHistroyList);
+  this.setState({ histroyList: updatedHistroyList });
 }

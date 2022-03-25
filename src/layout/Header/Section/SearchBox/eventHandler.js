@@ -17,15 +17,12 @@ const eventHandler = {
     event.preventDefault();
     const { option, inputValue } = this.state;
     const searchTerm = inputValue;
-    const { recentSearchList } = this.$RecentSearchList.state;
-    const updatedRecentSearchList = handleRecentSearchList(
-      recentSearchList,
-      inputValue
-    );
-    myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedRecentSearchList);
+    const { histroyList } = this.$HistoryList.state;
+    const updatedHistroyList = handlehistroyList(histroyList, inputValue);
+    myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedHistroyList);
     this.setState({ inputValue: '' });
-    this.$RecentSearchList.setState({
-      recentSearchList: updatedRecentSearchList,
+    this.$HistoryList.setState({
+      histroyList: updatedHistroyList,
     });
     this.$input.value = '';
     moveToSearchTermPage(option, searchTerm);
@@ -58,7 +55,7 @@ const eventHandler = {
     }
   },
   async handleInput(event) {
-    const { inputValue: value, activeHistory, recentSearchList } = this.state;
+    const { inputValue: value, activeHistory, histroyList } = this.state;
     const inputValue = event ? event.target.value : value;
     if (inputValue !== '') {
       this.setState({ showHistroy: false });
@@ -67,9 +64,9 @@ const eventHandler = {
       // 백스페이스로 input이 비었을 때 최근검색어 목록에서 하이라이트 지우기
       changeActiveList.call(this, {
         newActiveTerm: INPUT_DEFAULT,
-        $targetChild: this.$RecentSearchList,
+        $targetChild: this.$HistoryList,
         activeTerm: { key: 'activeHistory', value: activeHistory },
-        activeList: recentSearchList,
+        activeList: histroyList,
       });
     }
     // 자동완성데이터를 받기 전에 handleSubmit이 실행될 수 있어서 미리 inputValue만 최신화
@@ -83,7 +80,7 @@ const eventHandler = {
   },
   changeSearchOption(option) {
     this.setState({ option });
-    this.$RecentSearchList.setState({ option });
+    this.$HistoryList.setState({ option });
     this.$Selector.setState({ option });
   },
 };
@@ -119,7 +116,7 @@ function handleArrowUp(activeElement) {
 
 function setActiveElement() {
   const {
-    recentSearchList,
+    histroyList,
     autoSearchList,
     activeAutoTerm,
     activeHistory,
@@ -127,9 +124,9 @@ function setActiveElement() {
   } = this.state;
   return showHistroy
     ? {
-        $targetChild: this.$RecentSearchList,
+        $targetChild: this.$HistoryList,
         activeTerm: { key: 'activeHistory', value: activeHistory },
-        activeList: recentSearchList,
+        activeList: histroyList,
       }
     : {
         $targetChild: this.$AutoComplete,
@@ -138,20 +135,20 @@ function setActiveElement() {
       };
 }
 
-function handleRecentSearchList(recentSearchList, inputValue) {
-  if (recentSearchList.length >= MAX_LOCAL_STORAGE) {
-    return [inputValue, ...recentSearchList.slice(0, -1)];
+function handlehistroyList(histroyList, inputValue) {
+  if (histroyList.length >= MAX_LOCAL_STORAGE) {
+    return [inputValue, ...histroyList.slice(0, -1)];
   }
-  return [inputValue, ...recentSearchList];
+  return [inputValue, ...histroyList];
 }
 
 function handlePopUpDisplay(inputValue, reponseTerms) {
   if (inputValue === '' || reponseTerms?.length === 0) {
     closePopUp(this.$AutoComplete.$element);
-    showPopUp(this.$RecentSearchList.$element);
+    showPopUp(this.$HistoryList.$element);
     this.setState({ showHistroy: true });
   } else {
-    closePopUp(this.$RecentSearchList.$element);
+    closePopUp(this.$HistoryList.$element);
     showPopUp(this.$AutoComplete.$element);
     this.setState({ showHistroy: false });
   }

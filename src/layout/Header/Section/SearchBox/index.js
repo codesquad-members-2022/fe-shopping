@@ -1,7 +1,7 @@
 import HtmlElement from '../../../../utils/HtmlElement.js';
 import AutoComplete from './AutoComplete.js';
-import RecentSearchList from './RecentSearchList.js';
-import Selector from './Selector.js';
+import HistoryList from './History/index.js';
+import ScopeSelector from './ScopeSelector/index.js';
 import { myLocalStorage } from '../../../../utils/mockDB.js';
 import {
   findTargetClassElement,
@@ -28,7 +28,7 @@ SearchBox.prototype.init = function () {
     showHistroy: true,
     option: '전체',
     inputValue: '',
-    recentSearchList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
+    histroyList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
     autoSearchList: [],
   };
   this.eventHandler = eventHandler;
@@ -41,23 +41,26 @@ SearchBox.prototype.setTemplate = function () {
 SearchBox.prototype.renderChild = function () {
   const {
     option,
-    recentSearchList,
+    histroyList,
     autoSearchList,
     inputValue,
     activeAutoTerm,
     activeHistory,
   } = this.state;
   const { changeSearchOption } = this.eventHandler;
-  const $selector = findTargetClassElement(this.$element, 'search__selector');
+  const $scopeSelector = findTargetClassElement(
+    this.$element,
+    'search__selector'
+  );
   const $searchRecord = findTargetClassElement(this.$element, 'search__record');
   const $searchAuto = findTargetClassElement(this.$element, 'search__auto');
-  this.$Selector = new Selector($selector, {
+  this.$ScopeSelector = new ScopeSelector($scopeSelector, {
     option,
     changeSearchOption: changeSearchOption.bind(this),
   });
-  this.$RecentSearchList = new RecentSearchList($searchRecord, {
+  this.$HistoryList = new HistoryList($searchRecord, {
     option,
-    recentSearchList,
+    histroyList,
     activeHistory,
   });
   this.$AutoComplete = new AutoComplete($searchAuto, {
