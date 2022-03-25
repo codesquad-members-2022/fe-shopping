@@ -56,4 +56,17 @@ export class HistorySearch {
     this.saveSearchHistory(searchObj);
     this.saveHistory();
   }
+
+  showInputSearch() {
+    searchList.style.visibility = "visible";
+  }
+
+  init() {
+    searchInputForm.addEventListener(
+      "submit",
+      this.inputSubmitHandler.bind(this)
+    );
+    searchInput.addEventListener("focus", this.showInputSearch);
+    this.addSearchList();
+  }
 }
