@@ -1,26 +1,26 @@
-import {SearchView} from './searchView.js'
-
-export class RelativeSearchView extends SearchView {
-  constructor() {
-    super();
-    this.$popupKeywords = document.querySelector('.popup-keywords');
-  }
-
-  createHighlightKeywordList(keywordList, searchKeyword) {
-    const highlightedKeywordList = keywordList.map((keyword) => {
+export class RelativeSearchView {
+  createRelativeKeywordList(keywordList, searchKeyword) {
+    let relativeKeywordTemplate = keywordList.reduce((highlightedKeyword, keyword) => {
       const highlightKeywordIndex = keyword.indexOf(searchKeyword);
       const leftKeyword = keyword.slice(0, highlightKeywordIndex);
       const rightKeyword = keyword.slice(highlightKeywordIndex + searchKeyword.length);
-      const highlightedKeyword = `${leftKeyword}<strong>${searchKeyword}</strong>${rightKeyword}`;
+      highlightedKeyword += `<li>${leftKeyword}<strong>${searchKeyword}</strong>${rightKeyword}</li>`;
       return highlightedKeyword;
-    });
-    return highlightedKeywordList;
+    }, `<ul class='relative-keyword-list'>`);
+    relativeKeywordTemplate += '</ul>';
+    return relativeKeywordTemplate;
   }
 
   renderRelativeSearch(keywordList, searchKeyword) {
+    const $popupKeywords = document.querySelector('.popup-keywords');
     const relativeKeywordsList = keywordList.map(({keyword}) => keyword);
-    const highlightedKeywordList = this.createHighlightKeywordList(relativeKeywordsList, searchKeyword);
-    const keywordsTemplate = super.createKeywordsTemplate(highlightedKeywordList, 'relative-keyword-list');
-    this.$popupKeywords.innerHTML = keywordsTemplate;
+    const relativeKeywordTemplate = this.createRelativeKeywordList(relativeKeywordsList, searchKeyword);
+    $popupKeywords.innerHTML = relativeKeywordTemplate;
+  }
+
+  getKeywordListText(keywordListNumber) {
+    const $selectedKeyword = document.querySelector(`.relative-keyword-list li:nth-child(${keywordListNumber}`);
+    const keywordListText = $selectedKeyword ? $selectedKeyword.innerText : null;
+    return keywordListText;
   }
 }
