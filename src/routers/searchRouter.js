@@ -1,11 +1,11 @@
 const express = require("express");
 const db = require("../fakeDB/db");
-const category = require("../fakeDB/category");
+const searchCategory = require("../fakeDB/searchCategory");
 
 const searchRouter = express.Router();
 
 searchRouter.get("/category", (req, res) => {
-  const results = category;
+  const results = searchCategory;
   res.json({ results });
 });
 searchRouter.get("/autoComplete", (req, res) => {

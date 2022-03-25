@@ -27,4 +27,21 @@ const request = async (url, options) => {
   }
 };
 
-export { delay, request };
+const debounce = ({ msTime, callback }) => {
+  const msDiffRange = 10;
+  const events = {};
+  return function (event) {
+    const { type } = event;
+    events[type] = new Date();
+    delay(msTime).then(() => {
+      const delayDate = new Date();
+      const diff = delayDate - events[type];
+      const isRangeIn = diff <= msTime + msDiffRange && diff >= msTime;
+      if (isRangeIn) {
+        callback(event);
+      }
+    });
+  };
+};
+
+export { delay, request, debounce };

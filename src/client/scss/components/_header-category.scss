@@ -1,0 +1,29 @@
+.header__category {
+  @include flex(center, center);
+  flex-direction: column;
+  height: 100px;
+  width: 100px;
+  background-color: $baseBlue;
+  color: $fontWhite;
+  position: relative;
+
+  .category__main {
+    @include flex();
+    @include boxShadow();
+    @include position-abs(0px, 100px);
+    flex-direction: column;
+    width: 130px;
+    background-color: $baseBgColor;
+    color: $baseBlack;
+    font-size: nth($fontSizes, 1);
+    border: 1px $baseLightGray solid;
+    li {
+      padding: 10px;
+    }
+    .list-over {
+      text-decoration: underline;
+      text-decoration-color: $baseBlue;
+      color: $baseBlue;
+    }
+  }
+}

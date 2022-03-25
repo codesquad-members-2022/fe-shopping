@@ -1,9 +1,11 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
+import { debounce } from "../../../../utils";
 import {
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
+  handleKeyDownWithFocus,
   handleSearchIconClick,
 } from "../controllers/searchInput";
 
@@ -13,10 +15,36 @@ function SearchInput(...params) {
 createExtendsRelation(SearchInput, Component);
 
 SearchInput.prototype.setEvent = function () {
-  this.addEvent("focusout", "input[type='text']", handleInputFocusOut);
-  this.addEvent("focusin", "input[type='text']", handleInputFocusIn);
-  this.addEvent("keyup", "input[type='text']", handleKeyupWithFocus);
-  this.addEvent("click", ".fa-search", handleSearchIconClick);
+  const KEYUP_DELAY_MS = 500;
+
+  this.addEvent({
+    eventType: "focusout",
+    selector: "input[type='text']",
+    callback: handleInputFocusOut,
+  });
+  this.addEvent({
+    eventType: "focusin",
+    selector: "input[type='text']",
+    callback: handleInputFocusIn,
+  });
+  this.addEvent({
+    eventType: "keyup",
+    selector: "input[type='text']",
+    callback: debounce({
+      msTime: KEYUP_DELAY_MS,
+      callback: handleKeyupWithFocus,
+    }),
+  });
+  this.addEvent({
+    eventType: "keydown",
+    selector: "input[type='text']",
+    callback: handleKeyDownWithFocus,
+  });
+  this.addEvent({
+    eventType: "click",
+    selector: ".fa-search",
+    callback: handleSearchIconClick,
+  });
 };
 
 SearchInput.prototype.template = function () {

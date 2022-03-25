@@ -33,7 +33,7 @@ const getSelectedData = (target) => {
   return $selected ? $selected.textContent : idxZeroString;
 };
 
-const handleKeyUpArrowUpDown = ({ target, key }) => {
+const handleKeyDownArrowUpDown = ({ target, key }) => {
   const {
     selectedInputIdx,
     suggestionDatas,
@@ -45,7 +45,9 @@ const handleKeyUpArrowUpDown = ({ target, key }) => {
     searchRecentDisplay === "flex"
       ? recentDatas.length
       : suggestionDatas.length;
-  const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== 0;
+  const START_IDX = 0;
+
+  const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== START_IDX;
   const possibleArrowdown =
     key === "ArrowDown" && selectedInputIdx !== MAX_SEARCH_DATA;
 
@@ -61,7 +63,7 @@ const handleKeyUpArrowUpDown = ({ target, key }) => {
   moveCursorToEnd(target, target.value.length);
 };
 
-const handleKeyUpEnter = ({ target }) => {
+const handleKeyDownEnter = ({ target }) => {
   if (target.value === "") return;
   const MAX_RECENT_DATA = 7;
   const { recentDatas } = store.state;
@@ -82,67 +84,71 @@ const handleKeyUpEnter = ({ target }) => {
 
 const handleSearchIconClick = ({ target }) => {
   const $input = target.parentNode.parentNode.querySelector("input");
-  handleKeyUpEnter({ target: $input });
+  handleKeyDownEnter({ target: $input });
+};
+
+const fetchSuggestionData = async (searchWord) => {
+  const requestOptions = {
+    query: {
+      keyword: searchWord,
+    },
+  };
+  const { results: suggestionDatas } = await request(
+    "search/autoComplete",
+    requestOptions
+  );
+  if (suggestionDatas?.length) {
+    store.setState({
+      suggestionDatas,
+      searchWord,
+      searchSuggestionDisplay: "flex",
+    });
+  } else {
+    store.setState({
+      searchSuggestionDisplay: "none",
+    });
+  }
 };
 
 const handleKeyupWithFocus = ({ target, key }) => {
-  if (key === "ArrowDown" || key === "ArrowUp") {
-    handleKeyUpArrowUpDown({ target, key });
-    return;
-  }
-  if (key === "Enter") {
-    handleKeyUpEnter({ target });
-    return;
-  }
+  const exceptKeys = ["ArrowDown", "ArrowUp", "Enter"];
+  const isException = exceptKeys.every((eKey) => eKey === key);
+  if (isException) return;
 
   const { recentDatas } = store.state;
+  const START_IDX = 0;
 
   if (target.value) {
     store.setState({
       searchRecentDisplay: "none",
-      selectedInputIdx: 0,
+      selectedInputIdx: START_IDX,
     });
   } else {
     store.setState({
       searchSuggestionDisplay: "none",
       searchRecentDisplay: recentDatas.length ? "flex" : "none",
-      selectedInputIdx: 0,
+      selectedInputIdx: START_IDX,
       searchWord: "",
     });
   }
-  /* 5초 뒤에도 같은 값인지 확인 하기위한 변수 */
-  const searchWord = target.value;
-  delay(500).then(async () => {
-    const isFinishInput = target.value === searchWord;
-    if (isFinishInput) {
-      const requestOptions = {
-        query: {
-          keyword: searchWord,
-        },
-      };
-      const { results: suggestionDatas } = await request(
-        "search/autoComplete",
-        requestOptions
-      );
-      if (suggestionDatas?.length) {
-        store.setState({
-          suggestionDatas,
-          searchWord,
-          searchSuggestionDisplay: "flex",
-        });
-      } else {
-        store.setState({
-          searchSuggestionDisplay: "none",
-        });
-      }
-    }
-  });
+  fetchSuggestionData(target.value);
+};
+
+const handleKeyDownWithFocus = (event) => {
+  const { key } = event;
+  if (key === "ArrowDown" || key === "ArrowUp") {
+    handleKeyDownArrowUpDown(event);
+    return;
+  }
+  if (key === "Enter") {
+    handleKeyDownEnter(event);
+  }
 };
 
 export {
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
-  handleKeyUpEnter,
+  handleKeyDownWithFocus,
   handleSearchIconClick,
 };

@@ -1,6 +1,5 @@
 import Component from "../../../core/Component";
 import { createExtendsRelation } from "../../../oop-utils";
-import { request } from "../../../utils";
 import SearchCategory from "./SearchUI/SearchCategory";
 import SearchCategoryList from "./SearchUI/SearchCategoryList";
 import SearchInput from "./SearchUI/SearchInput";
@@ -12,7 +11,6 @@ import {
   handleCListTransStart,
   handleCListTransEnd,
 } from "./controllers/search";
-import { store } from "../../../Store";
 
 function Search(...params) {
   Component.call(this, ...params);
@@ -21,16 +19,24 @@ createExtendsRelation(Search, Component);
 
 Search.prototype.setEvent = function () {
   document.body.addEventListener("click", handleBodyClick);
-  this.addEvent("click", ".search__category", handleSearchCategoryClick);
-  this.addEvent(
-    "transitionstart",
-    ".search__category-list",
-    handleCListTransStart
-  );
-  this.addEvent("transitionend", ".search__category-list", handleCListTransEnd);
+  this.addEvent({
+    eventType: "click",
+    selector: ".search__category",
+    callback: handleSearchCategoryClick,
+  });
+  this.addEvent({
+    eventType: "transitionstart",
+    selector: ".search__category-list",
+    callback: handleCListTransStart,
+  });
+  this.addEvent({
+    eventType: "transitionend",
+    selector: ".search__category-list",
+    callback: handleCListTransEnd,
+  });
 };
 
-Search.prototype.mount = async function () {
+Search.prototype.mount = function () {
   const $searchCategory = this.$target.querySelector(".search__category");
   const $searchCategoryList = this.$target.querySelector(
     ".search__category-list"
@@ -38,9 +44,6 @@ Search.prototype.mount = async function () {
   const $searchInput = this.$target.querySelector(".search__input");
   const $searchRecent = this.$target.querySelector(".search__recent");
   const $searchSuggestion = this.$target.querySelector(".search__suggestion");
-
-  const { results: categoryDatas } = await request("search/category");
-  store.setState({ categoryDatas });
 
   const searchCategory = new SearchCategory($searchCategory);
   const searchCategoryList = new SearchCategoryList($searchCategoryList);

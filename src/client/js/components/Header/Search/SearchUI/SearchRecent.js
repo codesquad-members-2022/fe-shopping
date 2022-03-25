@@ -14,11 +14,11 @@ SearchRecent.prototype.mount = function () {
 
 SearchRecent.prototype.template = function () {
   const { recentDatas, selectedInputIdx } = store.state;
-  const isSelectedIdx = (idx) =>
+  const insertSelectedClass = (idx) =>
     idx + 1 === selectedInputIdx ? "class='selected'" : "";
 
   const recents = recentDatas
-    ?.map((data, idx) => `<span ${isSelectedIdx(idx)}>${data}</span>`)
+    ?.map((data, idx) => `<span ${insertSelectedClass(idx)}>${data}</span>`)
     .join("");
 
   return `

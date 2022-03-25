@@ -1,66 +1,232 @@
 # fe-shopping
 
-## 1주차 - 3
+## 2주차 - 2
 
-task list
+### 저번 PR 리뷰
 
-- [x] +) 최근 검색어는 localStorage 에 저장해서 저장하고, 불러오기
-- [x] +) 키보드 위/아래 이동시 이동 -> Suggestion 과 Recent 가 동일한 Index 로
-- [x] 전체 를 클릭하면 하단에 카테고리 펼치기 - Visibility + delay 로직에서 overflow hidden 을 주어서 height 만을 이용해 transition 사용하는 것으로 변경..
-- [x] Store 분리
+- MV\* 를 구현하면서, View 에서는 render 만을 위한 로직을 실행해야하는걸까? 에 대한 고민이 있어서 render, mount 를 제외한 모든 로직을 분리할까 고민했었는데, 현재 컴포넌트를 사용하는 방식 자체가 View + a 이어서 View 에서 어떤 로직을 실행하는 것에 대해 너무 순수하게 생각하지 않아도 괜찮겠다는 생각으로 다시 <a href="https://github.com/codesquad-members-2022/fe-shopping/pull/69#discussion_r832888897">highlight</a> 함수를 View 로 옮겼습니다.
 
-## ✅ PR 리뷰에서 개선한 점
+- controllers 라고 분리해놓은 곳에는 이벤트 핸들링함수를 위한 로직만 포함하는 것으로 결정했습니다.
 
-### Store(Model) 를 분리해서 처리
+- 현재 Store의 State가 많이 복잡해지지는 않았지만, 결국에 복잡해지게 되면 Search 를 위한 Store 만을 사용하고, Search 처럼 다른 UI 들을 많이 포함하고 있는 컴포넌트가 있다면 그 컴포넌트를 위한 Store 를 사용하면 되겠다는 생각을 했습니다.
 
-- 기존의 각각의 컴포넌트들이 갖는 state 를 store 가 모두 갖도록 분리했습니다.
-- store 를 분리하고서 어떻게 store 가 notify 해야할 지 고민을 많이해보았는데 떠오르는 방법은 모두 실패해서 작성된 옵저버패턴을 참고해서 코드를 작성했습니다. (core/observer)
+### debounce 구현의 필요성?
 
-### Store 를 쓰면서 느낀 단점?
+- keyup 이벤트에서 target.value 를 특정 ms(500)을 기준으로 500ms 이전 target.value 와 이후 target.value 를 비교해서 같으면 입력이 끝났다고 판단하는 로직을 사용했었다.
 
-- store + observer 패턴 을 쓰면서 아쉬웠던 점은 `store 가 모든 state 를 갖게되어서 어느 Component 에서 쓰이는지 확인하기 어렵다` 는 것이었습니다.
-
-- 만약 store의 state 가 너무 커진다면 어떤 Component 에서 쓰는지 구분하기 어렵지 않을까? 란 생각을 했습니다.
-  - 그래서 state 안에 어느 Component 에서 쓰이는지 작성하는 식으로 하고 flat 시켜서 넣으면 되지않을까? 싶었는데 하나의 State 를 두 개의 Component 에서 쓰는 경우도 있을 것 같아 중복으로 보여져서 꺼려지게 되었습니다. Component 별 state 를 어떻게 명시적으로 보여줄 지를 좀 더 고민해봐야겠다는 생각을 했습니다.
+- keyup 이벤트 뿐아니라 스마트레이어(메가드롭다운)를 구현할 때에도 비슷한 debounce 로직이 필요하다고 생각이 들었고, 공통적으로 사용되는 로직을 분리해서 debounce 함수를 구현할 수 있겠다는 생각을 했다.
 
 ```js
-const initState = {
-  categoryTitle: "전체",
-  categoryDatas: [],
-  searchWord: "",
-  searchRecentDisplay: "none",
-  searchSuggestionDisplay: "none",
-  suggestionDatas: [],
-  recentDatas: JSON.parse(localStorage.getItem("recent")) || [],
-  selectedInputIdx: 0,
+const searchWord = target.value;
+delay(500).then(async () => {
+  const isFinishInput = target.value === searchWord;
+  if (isFinishInput) {
+    const requestOptions = {
+      query: {
+        keyword: searchWord,
+      },
+    };
+    const { results: suggestionDatas } = await request(
+      "search/autoComplete",
+      requestOptions
+    );
+    if (suggestionDatas?.length) {
+      store.setState({
+        suggestionDatas,
+        searchWord,
+        searchSuggestionDisplay: "flex",
+      });
+    } else {
+      store.setState({
+        searchSuggestionDisplay: "none",
+      });
+    }
+  }
+});
+```
+
+- 필요한것
+
+  - 기준이 될 baseTarget: 위에선 target.value, 500ms 전 후로 입력이 끝났는지 판단하는 baseTarget
+  - 얼마나 debouncing 할건지? msTimer
+  - baseTarget 이 ms 이전 이후 같다면 실행할 callback 함수
+
+- 이런 형태가 되지 않을까
+
+```js
+debounce({
+  baseTarget: target,
+  msTime: 500,
+  callback: fnFetchSuggestionData,
+});
+```
+
+```js
+const debounce = ({ baseTarget, msTime, callback }) => {
+  const baseValue = baseTarget.value;
+  delay(msTime).then(() => {
+    if (baseValue === baseTarget.value) {
+      callback();
+    }
+  });
 };
 
-// 생각해본 방법..
-const initState = {
-  categoryState: {
-    categoryTitle: "전체",
-    categoryDatas: [],
-  },
-  searchState: {
-    searchWord: "",
-    searchRecentDisplay: "none",
-    searchSuggestionDisplay: "none",
-  },
-  searchSuggestionState: {
-    suggestionDatas: [],
-    selectedInputIdx: 0,
-  },
-  searchRecentState: {
-    recentDatas: JSON.parse(localStorage.getItem("recent")) || [],
-    selectedInputIdx: 0, // 중복으로 쓰여짐, 의미없는 값이 되는데..?
-  },
+const fetchSuggestionData = async (searchWord) => {
+  const requestOptions = {
+    query: {
+      keyword: searchWord,
+    },
+  };
+  const { results: suggestionDatas } = await request(
+    "search/autoComplete",
+    requestOptions
+  );
+  if (suggestionDatas?.length) {
+    store.setState({
+      suggestionDatas,
+      searchWord,
+      searchSuggestionDisplay: "flex",
+    });
+  } else {
+    store.setState({
+      searchSuggestionDisplay: "none",
+    });
+  }
+};
+
+debounce({
+  baseTarget: target,
+  msTime: 500,
+  callback: fetchSuggestionData.bind(undefined, target.value),
+});
+```
+
+### debounce 2차 수정
+
+- target.value 는 input 에서만 유효한 비교값이 되었다.
+- target 어떤 property 로 비교값을 설정할 것인지도 넘겨준 것이 좀 더 범용적이게 될 것이라고 생각이 들었다.
+
+```js
+const debounce = ({ baseTarget, msTime, callback }) => {
+  const baseValue = baseTarget.value;
+  delay(msTime).then(() => {
+    if (baseValue === baseTarget.value) {
+      callback();
+    }
+  });
 };
 ```
 
-### Store 를 쓰면서 느낀 장점
+### debounce 3차 수정
 
-- `Component` 에서 분리된 `Store` 에서 `state` 를 가져오는 방식으로 하니 `$props` 를 통해서 전달하던 복잡한 로직에서 벗어날 수 있었고, `View` 간에 결합성이 떨어져 각각의 `Component` 를 작업하는 데 생기는 부수효과가 적어져서 유지보수가 용이해졌다는 생각이 들었습니다.
+- input 을 사용한 value 추적은 event의 target 이 input 으로 한정되어 있어서 전/후 비교가 수월했었는데, 마우스 이벤트의 이벤트를 동일한 방법으로 추적하는 것은 다르다는 것을 느꼈다.
 
-- 또한 하나의 state 에서 property 를 관리하다보니 뜻하지않게 변수명이 구체적이게 되어서 가독성이 더 좋아졌다는 느낌을 받았습니다.
+  - input 의 target.value 는 하나의 target 으로 추적할 수 있지만 마우스의 이벤트는 왼쪽에서 오른쪽으로 이동한다고 해서 동일한 target.value 와 같은 값(ex. clientX) 를 찾을 수 없었다.
 
-- 단점대비 장점이 훨씬 많은 느낌을 받아서, Store 를 쓰지않을 이유가 없다는 생각이 들었습니다.
+- 그렇다면 `기준이 되는 value 를 통해서 추적하는 방식`을 버리고, `특정 시간 내에 동일한 event 가 발생했는지`를 파악해보는 방식으로 변경해야 겠다는 생각이 들었다.
+
+- 어떤 이벤트를 발생하고 -> 이후 지정시간내에 동일한 이벤트를 발생했다는 것을 이전 이벤트가 어떻게 감지할 것인가?
+  - 감지를 해야 취소를 할텐데
+
+```js
+const debounce = ({ msTime, callback }) => {
+  const events = {};
+  return function (event) {
+    events[event.type] = {};
+    events[event.type].event = event;
+    delay(msTime).then(() => {
+      if (events[event.type].event === event) {
+        callback(event);
+      }
+    });
+  };
+};
+```
+
+- `events` 변수를 선언해서 클로져로 사용하도록 설정
+
+- 문제점: 마우스 이벤트는 각기 다른 이벤트로 파악을 하기때문에 마지막 이벤트가 실행되는데 이번엔 키보드 keyup 이벤트가 처음 입력된 `keyup 이벤트 === 마지막 입력된 keyup 이벤트` 가 되어버려서 keyup 이벤트 만큼 이벤트를 모두 실행하는 반대현상이 발생..
+
+<img width="501" alt="스크린샷 2022-03-25 오전 1 02 19" src="https://user-images.githubusercontent.com/58503584/159959075-3a5000a1-c985-4a2b-b1db-00a22e77da25.png">
+
+- `마지막 이벤트 이다` 라고 판단하는 로직을 어떻게 짜야할까?
+
+### debounce 4차 수정
+
+1. event 기억하는 방법 변경
+
+- event 객체를 그대로 저장하는 방식은 메모리적 효율이 많이 떨어짐
+- events 의 깊이를 깊게 저장할 필요가 없다고 생각함
+- events 의 key 를 type 으로, value 를 event 를 동작한 시간으로 하여 delay 이전 저장된 마지막 이벤트의 시간과 delay 이후 시간을 비교하는 식으로 `마지막 이벤트가 실행된 시점` 을 파악하도록 하였다.
+
+2. `keyup 이벤트 === 마지막 입력된 keyup 이벤트` ? ❌
+
+<img width="608" alt="스크린샷 2022-03-25 오전 11 03 16" src="https://user-images.githubusercontent.com/58503584/160040099-270c8e1c-5005-4b19-8bd5-960d65aa0f97.png">
+
+- 결론부터 말하면 완전히 잘못 테스트 하고 있었음
+- keyup 이벤트를 테스트 하고있었는데, Network 탭을 통해 확인해보니 request 를 keyup 이벤트 만큼 보내는걸 확인 -> debounce 가 안되고 있다.
+- mouse 이벤트는 클로져를 제대로 활용하고 있었는데, keyboard 이벤트에서는 keyup 안에서 분개해서 처리를 하려고 하다보니 클로져가 제대로 활용되고 있지 않아서 `마지막 이벤트인지 확인` 하는 로직이 제대로 동작하고 있지 않았다.
+
+```js
+this.addEvent({
+  eventType: "mouseover",
+  selector: ".category__main li",
+  callback: debounce({
+    msTime: 1000,
+    callback: ({ target }) => {
+      console.log(target);
+    },
+  }),
+});
+```
+
+```js
+// Search/SearchUI/SearchInput.js
+this.addEvent({
+  eventType: "keyup",
+  selector: "input[type='text']",
+  callback: handleKeyupWithFocus,
+});
+// Search/controllers/searchInput.js
+const handleKeyupWithFocus = (event) => {
+  ...
+  return debounce({
+    msTime: 500,
+    callback: handleKeyUpOthers,
+  }).call(undefined, event);
+};
+```
+
+- 동일한 환경으로 테스트를 해야한다고 뼈저리게 느낌.
+- 결국 event 객체 자체를 저장하는 방식으로하면 잘 동작할 것으로 예상되긴 하는데, 이벤트 객체 자체를 저장하는 방식은 메모리적효율이 좋지 않을 것이라고 생각되어 지금의 로직을 유지하기로 했다.
+- debounce 의 callback 에서 쓰여지는 함수는 event 객체 내부에서 어떤 값을 사용할 지 알 수 없으므로 범용성을 위해서 event 를 그대로 넘겨주도록 결정했다.
+
+- 위 잘못된 방식을 고치기 위해서 다시 `keyup` 과 `keydown` 이벤트를 분리하였다.
+  - 디바운싱이 필요없는 `ArrowDown`, `ArrowUp`, `Enter` 이벤트 들을 위해서 분리했는데, 하나의 이벤트 내부에서 처리할 수 있는 로직을 짤 수있을 것 같은데, 당장 떠오르는 아이디어가 없어서 천천히 고민해보려고 함.
+
+### mouseover, mouseout
+
+- mouseover 시 디바운스를 걸어서 100ms 동안 머물고 있는 경우에 text-decoration 을 주는 식으로 동작하게 했는데, mouseout 은 디바운스를 주지 않았었다.
+
+  - mouseout 까지 디바운스가 필요할 거란 생각은 안했다. 즉시 사라지면 되어도 되니까.
+
+- 그런데 마우스가 debounce 를 판단하고 callback 을 실행하는 시간 동안에 mouseout 을 해버리면 classList 가 add 되지도 않고 classList 를 remove 해버리는 현상이 발생했다.
+
+  - 생각한 로직 : mouseover -> 100ms 진행중 -> 100ms 이후 classList add -> mouseout (classList remove)
+  - 버그 로직 : mouseover -> 100ms 진행중 -> mouseout (classList remove) -> 100ms 이후 classList add
+
+- 간단히 mouseout 조건으로 contains 를 달아서 해결하는 법도 있을 것 같지만, debounce callback 이후 mouseout 이벤트가 발생되기 바라는 흐름을 고치는게 맞다고 생각하여 mouseout 에 mouseover 에서 쓰고있는 ms 만큼 delay 를 주는 식으로 변경하였다.
+
+```js
+// 전
+const handleListMouseOut = ({ target }) => {
+  target.classList.remove("list-over");
+};
+// 후
+const handleListMouseOut = ({ target }) => {
+  const MOUSEOVER_DELAY_MS = 100;
+  delay(MOUSEOVER_DELAY_MS).then(() => {
+    target.classList.remove("list-over");
+  });
+};
+```

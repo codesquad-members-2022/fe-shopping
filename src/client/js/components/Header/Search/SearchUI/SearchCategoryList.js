@@ -8,14 +8,18 @@ function SearchCategoryList(...params) {
 createExtendsRelation(SearchCategoryList, Component);
 
 SearchCategoryList.prototype.setEvent = function () {
-  this.addEvent("click", "li", ({ target }) => {
-    store.setState({ categoryTitle: target.textContent });
+  this.addEvent({
+    eventType: "click",
+    selector: "li",
+    callback: ({ target }) => {
+      store.setState({ categoryTitle: target.textContent });
+    },
   });
 };
 
 SearchCategoryList.prototype.template = function () {
-  const { categoryDatas } = store.state;
-  return categoryDatas.map((data) => `<li>${data}</li>`).join("");
+  const { searchCategoryDatas } = store.state;
+  return searchCategoryDatas.map((data) => `<li>${data}</li>`).join("");
 };
 
 export default SearchCategoryList;
