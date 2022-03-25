@@ -4,10 +4,12 @@ import SearchModel from './model/SearchModel.js';
 
 import CategoryView from './view/CategoryView.js';
 import HistoryView from './view/HistoryView.js';
+import AutoCompleteView from './view/AutoCompleteView.js';
 import InputView from './view/InputView.js';
 
 import CategoryController from './controller/CategoryController.js';
 import HistoryController from './controller/HistoryController.js';
+import AutoCompleteController from './controller/AutoCompleteController.js';
 import InputController from './controller/InputController.js';
 
 export async function initSearchForm() {
@@ -24,6 +26,7 @@ export async function initSearchForm() {
   const inputView = new InputView({ model: searchModel });
   const categoryView = new CategoryView({ model: searchModel });
   const historyView = new HistoryView({ model: searchModel });
+  const autoCompleteView = new AutoCompleteView({ model: searchModel });
 
   const inputController = new InputController({
     model: searchModel,
@@ -40,6 +43,11 @@ export async function initSearchForm() {
   });
 
   inputController.init();
+  const autoCompleteController = new AutoCompleteController({
+    model: searchModel,
+    view: autoCompleteView,
+  });
   categoryController.init();
   historyController.init();
+  autoCompleteController.init();
 }

@@ -133,11 +133,39 @@
     }
 
     &--hidden {
-      visibility: hidden;
+      content-visibility: hidden;
     }
 
     &--show {
-      visibility: visible;
+      content-visibility: visible;
+    }
+  }
+
+  &__autoComplete {
+    &-list {
+      padding: 8px;
+    }
+
+    &-item {
+      padding: 4px 0;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-inputWord {
+      font-weight: 700;
+      color: $blue;
+    }
+
+    &--hidden {
+      content-visibility: hidden;
+    }
+
+    &--show {
+      content-visibility: visible;
     }
   }
 }
