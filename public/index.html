@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="./style/style.css" rel="stylesheet" type="text/css" />
     <title>coupang-clone</title>
   </head>
   <body>
@@ -39,10 +39,33 @@
           <div class="header__choosecategory">
             <span class="header__categorytitle">전체</span>
             <span class="check"></span>
+            <ul class="header__categorylist">
+              <li>전체</li>
+              <li>여성패션</li>
+              <li>남성패션</li>
+              <li>남녀 공용 의류</li>
+              <li>유아동패션</li>
+              <li>뷰티</li>
+              <li>출산/유아동</li>
+            </ul>
           </div>
           <div class="header__searchkeyword">
-            <input type="text" placeholder="찾고 싶은 상품을 검색해보세요!" />
-            <span></span>
+            <form>
+              <input type="text" placeholder="찾고 싶은 상품을 검색해보세요!" />
+              <span class="icon"></span>
+              <div class="header__searchlist">
+                <div>
+                  <p>최근검색어</p>
+                  <ul class="searchlist__history">
+                    <li></li>
+                  </ul>
+                </div>
+                <div class="header__historyoff">
+                  <div class="removehistory">전체삭제</div>
+                  <div class="historyoff">최근검색어끄기</div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
         <div class="header__submenu">
@@ -82,6 +105,6 @@
         </ul>
       </div>
     </div>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="./js/script.js"></script>
   </body>
 </html>
