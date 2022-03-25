@@ -1,6 +1,3 @@
-export const $ = (selector) => document.querySelector(selector);
-export const $$ = (selector) => document.querySelectorAll(selector);
-
 export const debounce = (func, delay = 0) => {
   let timer;
 
@@ -20,14 +17,6 @@ export const fetchData = async (url, callback) => {
       if (!callback) return json;
       return callback(json);
     });
-};
-
-export const setDisplayBlock = (element) => {
-  element.style.display = "block";
-};
-
-export const setDisplayNone = (element) => {
-  element.style.display = "none";
 };
 
 export const isEmpty = (target, key) => {

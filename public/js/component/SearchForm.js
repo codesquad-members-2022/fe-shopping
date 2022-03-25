@@ -1,11 +1,5 @@
-import {
-  isEmpty,
-  setDisplayNone,
-  setDisplayBlock,
-  $,
-  $$,
-} from "../util/util.js";
-
+import { isEmpty } from "../util/util.js";
+import { $, $$, setDisplayNone, setDisplayBlock } from "../util/dom.js";
 export default class {
   constructor({
     searchFormArea,

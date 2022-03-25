@@ -1,5 +1,5 @@
 import { sliderData } from "../../data/data.js";
-import { $ } from "../util/util.js";
+import { $ } from "../util/dom.js";
 
 export const options = {
   mainBanner: {

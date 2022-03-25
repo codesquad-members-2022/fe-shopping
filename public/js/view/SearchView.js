@@ -1,5 +1,5 @@
 import SearchForm from "../component/SearchForm.js";
-import { setDisplayBlock } from "../util/util.js";
+import { setDisplayBlock } from "../util/dom.js";
 
 export default class extends SearchForm {
   constructor({ datasetName, recentSearchValueName, ...args }) {
