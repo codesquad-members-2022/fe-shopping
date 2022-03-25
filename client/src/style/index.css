@@ -285,7 +285,7 @@ table {
   color: #fff;
 }
 
-.category {
+.main-category {
   position: relative;
   width: 110px;
   height: 120px;
@@ -295,21 +295,21 @@ table {
   text-align: center;
   cursor: pointer;
 }
-.category-list {
+.main-category-list {
   width: 160px;
   position: absolute;
   top: 110px;
   border: 1px solid #f0f0f0;
   background-color: #fff;
 }
-.category-item {
+.main-category-item {
   position: relative;
 }
-.category-item:hover {
+.main-category-item:hover {
   color: #4285f4;
   text-decoration: underline;
 }
-.category-item:hover:after {
+.main-category-item:hover:after {
   content: "";
   width: 5px;
   height: 10px;
@@ -320,7 +320,7 @@ table {
   background-repeat: no-repeat;
   background-image: url("/img/pc_header_img_sprite.png");
 }
-.category-item__link {
+.main-category-item__link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -330,7 +330,7 @@ table {
   font-size: 12px;
   text-indent: 20px;
 }
-.category--text {
+.main-category--text {
   position: absolute;
   top: 75px;
   left: 28px;
@@ -340,7 +340,7 @@ table {
 .search {
   margin-bottom: 20px;
 }
-.search-keyword {
+.search-keywordBox {
   width: 100%;
   position: absolute;
   background-color: #fff;
