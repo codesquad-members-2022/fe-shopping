@@ -3,7 +3,7 @@ import {
   findTargetIdElement,
   handleDisplayElement,
 } from '../../../../utils/manuplateDOM.js';
-import { POP_UP } from '../../../../constant/htmlSelector.js';
+import { POP_UP } from '../../../../constant.js';
 
 export default function Selector($element, args) {
   HtmlElement.call(this, $element, args);

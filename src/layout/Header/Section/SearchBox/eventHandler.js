@@ -3,11 +3,14 @@ import {
   myLocalStorage,
   requestAutoCompleteTerms,
 } from '../../../../utils/mockDB.js';
-import { RECENT_SEARCH_LIST } from '../../../../constant/htmlSelector.js';
 import { showPopUp, closePopUp } from '../../../../utils/manuplateDOM.js';
+import { SEARCH_BOX } from '../../../../constant.js';
 
-const INPUT_DEFAULT = -1;
-const MAX_LOCAL_STORAGE = 10;
+const {
+  INPUT_DEFAULT,
+  MAX_LOCAL_STORAGE,
+  HISTORY: { HISTORY_LOCAL_STORAGE_KEY },
+} = SEARCH_BOX;
 
 const eventHandler = {
   handleSubmit(event) {
@@ -19,7 +22,7 @@ const eventHandler = {
       recentSearchList,
       inputValue
     );
-    myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
+    myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedRecentSearchList);
     this.setState({ inputValue: '' });
     this.$RecentSearchList.setState({
       recentSearchList: updatedRecentSearchList,
@@ -32,7 +35,6 @@ const eventHandler = {
     handlePopUpDisplay.call(this, inputValue);
   },
   handleInputKeyDown(event) {
-    event.preventDefault();
     const { key } = event;
     const activeElement = setActiveElement.apply(this);
     switch (key) {
@@ -44,6 +46,7 @@ const eventHandler = {
         });
         break;
       case 'ArrowUp':
+        event.preventDefault();
         const newArrowUpTerm = handleArrowUp(activeElement);
         changeActiveList.call(this, {
           ...activeElement,

@@ -7,13 +7,13 @@ import {
   findTargetClassElement,
   findTargetIdElement,
 } from '../../../../utils/manuplateDOM.js';
-import {
-  POP_UP,
-  RECENT_SEARCH_LIST,
-} from '../../../../constant/htmlSelector.js';
+import { POP_UP, SEARCH_BOX } from '../../../../constant.js';
 import eventHandler from './eventHandler.js';
 
-const INPUT_DEFAULT = -1;
+const {
+  INPUT_DEFAULT,
+  HISTORY: { HISTORY_LOCAL_STORAGE_KEY },
+} = SEARCH_BOX;
 
 export default function SearchBox($element) {
   HtmlElement.call(this, $element);
@@ -28,7 +28,7 @@ SearchBox.prototype.init = function () {
     showHistroy: true,
     option: '전체',
     inputValue: '',
-    recentSearchList: myLocalStorage.get(RECENT_SEARCH_LIST) || [],
+    recentSearchList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
     autoSearchList: [],
   };
   this.eventHandler = eventHandler;

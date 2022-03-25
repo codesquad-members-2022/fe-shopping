@@ -1,12 +1,16 @@
 import HtmlElement from '../../../../utils/HtmlElement.js';
 import { moveToSearchTermPage } from '../../../../router.js';
 import { myLocalStorage } from '../../../../utils/mockDB.js';
-import {
-  RECENT_SEARCH_LIST,
-  SEARCH_BOX,
-} from '../../../../constant/htmlSelector.js';
+import { SEARCH_BOX } from '../../../../constant.js';
 
-const { RECENT__DELETE, RECENT__TERM, RECENT__DELETE__ALL } = SEARCH_BOX;
+const {
+  HISTORY: {
+    HISTORY_DELETE,
+    HISTORY_ACTIVE,
+    HISTORY_DELETE__ALL,
+    HISTORY_LOCAL_STORAGE_KEY,
+  },
+} = SEARCH_BOX;
 
 export default function RecentSearchList($element, args) {
   HtmlElement.call(this, $element, args);
@@ -28,15 +32,15 @@ RecentSearchList.prototype.setTemplate = function () {
             .map(
               (term, idx) =>
                 `<li class="${isActive(idx)}"
-                  data-click=${RECENT__TERM} data-term-id=${idx}>${term}
-                  <span data-click=${RECENT__DELETE}>X</span>
+                  data-click-type=${HISTORY_ACTIVE} data-term-id=${idx}>${term}
+                  <span data-click-type=${HISTORY_DELETE}>X</span>
                  </li>`
             )
             .join('')
     }
   </ul>
 <div>
-  <button data-click=${RECENT__DELETE__ALL}>전체삭제</button>
+  <button data-click-type=${HISTORY_DELETE__ALL}>전체삭제</button>
   <button >최근 검색어 끄기</button>
 </div>`;
 };
@@ -47,16 +51,16 @@ RecentSearchList.prototype.setEvent = function () {
 
 function handleClick({ target }) {
   const {
-    dataset: { click: clickHandler },
+    dataset: { clickType },
   } = target;
-  switch (clickHandler) {
-    case RECENT__DELETE:
+  switch (clickType) {
+    case HISTORY_DELETE:
       deleteTargetTerm.call(this, target);
       break;
-    case RECENT__TERM:
+    case HISTORY_ACTIVE:
       moveToSearchTermPage(this.state.option, target.innerText.slice(0, -1));
       break;
-    case RECENT__DELETE__ALL:
+    case HISTORY_DELETE__ALL:
       deleteAllTerm.apply(this);
     default:
       break;
@@ -64,7 +68,7 @@ function handleClick({ target }) {
 }
 
 function deleteAllTerm() {
-  myLocalStorage.set(RECENT_SEARCH_LIST, []);
+  myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, []);
   this.setState({ recentSearchList: [] });
 }
 
@@ -74,6 +78,6 @@ function deleteTargetTerm(target) {
     dataset: { termId: targetTermId },
   } = target.closest('li');
   updatedRecentSearchList.splice(targetTermId, 1);
-  myLocalStorage.set(RECENT_SEARCH_LIST, updatedRecentSearchList);
+  myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedRecentSearchList);
   this.setState({ recentSearchList: updatedRecentSearchList });
 }
