@@ -1,9 +1,11 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
+import { debounce } from "../../../../utils";
 import {
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
+  handleKeyDownWithFocus,
   handleSearchIconClick,
 } from "../controllers/searchInput";
 
@@ -13,6 +15,8 @@ function SearchInput(...params) {
 createExtendsRelation(SearchInput, Component);
 
 SearchInput.prototype.setEvent = function () {
+  const KEYUP_DELAY_MS = 500;
+
   this.addEvent({
     eventType: "focusout",
     selector: "input[type='text']",
@@ -26,7 +30,15 @@ SearchInput.prototype.setEvent = function () {
   this.addEvent({
     eventType: "keyup",
     selector: "input[type='text']",
-    callback: handleKeyupWithFocus,
+    callback: debounce({
+      msTime: KEYUP_DELAY_MS,
+      callback: handleKeyupWithFocus,
+    }),
+  });
+  this.addEvent({
+    eventType: "keydown",
+    selector: "input[type='text']",
+    callback: handleKeyDownWithFocus,
   });
   this.addEvent({
     eventType: "click",

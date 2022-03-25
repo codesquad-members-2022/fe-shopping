@@ -150,3 +150,55 @@ const debounce = ({ msTime, callback }) => {
 <img width="501" alt="스크린샷 2022-03-25 오전 1 02 19" src="https://user-images.githubusercontent.com/58503584/159959075-3a5000a1-c985-4a2b-b1db-00a22e77da25.png">
 
 - `마지막 이벤트 이다` 라고 판단하는 로직을 어떻게 짜야할까?
+
+### debounce 4차 수정
+
+1. event 기억하는 방법 변경
+
+- event 객체를 그대로 저장하는 방식은 메모리적 효율이 많이 떨어짐
+- events 의 깊이를 깊게 저장할 필요가 없다고 생각함
+- events 의 key 를 type 으로, value 를 event 를 동작한 시간으로 하여 delay 이전 저장된 마지막 이벤트의 시간과 delay 이후 시간을 비교하는 식으로 `마지막 이벤트가 실행된 시점` 을 파악하도록 하였다.
+
+2. `keyup 이벤트 === 마지막 입력된 keyup 이벤트` ? ❌
+
+<img width="608" alt="스크린샷 2022-03-25 오전 11 03 16" src="https://user-images.githubusercontent.com/58503584/160040099-270c8e1c-5005-4b19-8bd5-960d65aa0f97.png">
+
+- 완전히 잘못 테스트 하고 있었음
+- mouse 이벤트는 클로져를 제대로 활용하고 있었는데, keyboard 이벤트에서는 keyup 안에서 분개해서 처리를 하려고 하다보니 클로져가 제대로 활용되고 있지 않았음
+
+```js
+this.addEvent({
+  eventType: "mouseover",
+  selector: ".category__main li",
+  callback: debounce({
+    msTime: 1000,
+    callback: ({ target }) => {
+      console.log(target);
+    },
+  }),
+});
+```
+
+```js
+// Search/SearchUI/SearchInput.js
+this.addEvent({
+  eventType: "keyup",
+  selector: "input[type='text']",
+  callback: handleKeyupWithFocus,
+});
+// Search/controllers/searchInput.js
+const handleKeyupWithFocus = (event) => {
+  ...
+  return debounce({
+    msTime: 500,
+    callback: handleKeyUpOthers,
+  }).call(undefined, event);
+};
+```
+
+- 동일한 환경으로 테스트를 해야한다고 뼈저리게 느낌.
+- 결국 event 객체 자체를 저장하는 방식으로하면 잘 동작할 것으로 예상되긴 하는데, 이벤트 객체 자체를 저장하는 방식은 메모리적효율이 좋지 않을 것이라고 생각되어 지금의 로직을 유지하기로 했다.
+- debounce 의 callback 에서 쓰여지는 함수는 event 객체 내부에서 어떤 값을 사용할 지 알 수 없으므로 범용성을 위해서 event 를 그대로 넘겨주도록 결정했다.
+
+- 위 잘못된 방식을 고치기 위해서 다시 `keyup` 과 `keydown` 이벤트를 분리하였다.
+  - 디바운싱이 필요없는 `ArrowDown`, `ArrowUp`, `Enter` 이벤트 들을 위해서 분리했는데, 하나의 이벤트 내부에서 처리할 수 있는 로직을 짤 수있을 것 같은데, 당장 떠오르는 아이디어가 없어서 천천히 고민해보려고 함.

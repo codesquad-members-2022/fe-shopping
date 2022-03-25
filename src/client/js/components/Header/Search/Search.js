@@ -1,6 +1,5 @@
 import Component from "../../../core/Component";
 import { createExtendsRelation } from "../../../oop-utils";
-import { request } from "../../../utils";
 import SearchCategory from "./SearchUI/SearchCategory";
 import SearchCategoryList from "./SearchUI/SearchCategoryList";
 import SearchInput from "./SearchUI/SearchInput";
@@ -12,7 +11,6 @@ import {
   handleCListTransStart,
   handleCListTransEnd,
 } from "./controllers/search";
-import { store } from "../../../Store";
 
 function Search(...params) {
   Component.call(this, ...params);

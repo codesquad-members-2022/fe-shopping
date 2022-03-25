@@ -1,4 +1,4 @@
-import { delay, request, debounce } from "../../../../utils";
+import { delay, request } from "../../../../utils";
 import { store } from "../../../../Store";
 
 const moveCursorToEnd = ($input, len) => {
@@ -33,7 +33,7 @@ const getSelectedData = (target) => {
   return $selected ? $selected.textContent : idxZeroString;
 };
 
-const handleKeyUpArrowUpDown = ({ target, key }) => {
+const handleKeyDownArrowUpDown = ({ target, key }) => {
   const {
     selectedInputIdx,
     suggestionDatas,
@@ -45,7 +45,9 @@ const handleKeyUpArrowUpDown = ({ target, key }) => {
     searchRecentDisplay === "flex"
       ? recentDatas.length
       : suggestionDatas.length;
-  const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== 0;
+  const START_IDX = 0;
+
+  const possibleArrowUp = key === "ArrowUp" && selectedInputIdx !== START_IDX;
   const possibleArrowdown =
     key === "ArrowDown" && selectedInputIdx !== MAX_SEARCH_DATA;
 
@@ -61,7 +63,7 @@ const handleKeyUpArrowUpDown = ({ target, key }) => {
   moveCursorToEnd(target, target.value.length);
 };
 
-const handleKeyUpEnter = ({ target }) => {
+const handleKeyDownEnter = ({ target }) => {
   if (target.value === "") return;
   const MAX_RECENT_DATA = 7;
   const { recentDatas } = store.state;
@@ -82,7 +84,7 @@ const handleKeyUpEnter = ({ target }) => {
 
 const handleSearchIconClick = ({ target }) => {
   const $input = target.parentNode.parentNode.querySelector("input");
-  handleKeyUpEnter({ target: $input });
+  handleKeyDownEnter({ target: $input });
 };
 
 const fetchSuggestionData = async (searchWord) => {
@@ -108,43 +110,45 @@ const fetchSuggestionData = async (searchWord) => {
   }
 };
 
-const handleKeyUpOthers = ({ target }) => {
+const handleKeyupWithFocus = ({ target, key }) => {
+  const exceptKeys = ["ArrowDown", "ArrowUp", "Enter"];
+  const isException = exceptKeys.every((eKey) => eKey === key);
+  if (isException) return;
+
   const { recentDatas } = store.state;
+  const START_IDX = 0;
 
   if (target.value) {
     store.setState({
       searchRecentDisplay: "none",
-      selectedInputIdx: 0,
+      selectedInputIdx: START_IDX,
     });
   } else {
     store.setState({
       searchSuggestionDisplay: "none",
       searchRecentDisplay: recentDatas.length ? "flex" : "none",
-      selectedInputIdx: 0,
+      selectedInputIdx: START_IDX,
       searchWord: "",
     });
   }
   fetchSuggestionData(target.value);
 };
 
-const handleKeyupWithFocus = (event) => {
+const handleKeyDownWithFocus = (event) => {
   const { key } = event;
   if (key === "ArrowDown" || key === "ArrowUp") {
-    return handleKeyUpArrowUpDown.call(undefined, event);
+    handleKeyDownArrowUpDown(event);
+    return;
   }
   if (key === "Enter") {
-    return handleKeyUpEnter.call(undefined, event);
+    handleKeyDownEnter(event);
   }
-  return debounce({
-    msTime: 500,
-    callback: handleKeyUpOthers,
-  }).call(undefined, event);
 };
 
 export {
   handleInputFocusIn,
   handleInputFocusOut,
   handleKeyupWithFocus,
-  handleKeyUpEnter,
+  handleKeyDownWithFocus,
   handleSearchIconClick,
 };

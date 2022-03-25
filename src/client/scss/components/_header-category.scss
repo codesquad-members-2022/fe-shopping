@@ -6,13 +6,6 @@
   background-color: $baseBlue;
   color: $fontWhite;
   position: relative;
-  div {
-    // margin: 3px 0px;
-  }
-
-  span {
-    // font-size: nth($fontSizes, 2);
-  }
 
   .category__main {
     @include flex();
@@ -26,6 +19,11 @@
     border: 1px $baseLightGray solid;
     li {
       padding: 10px;
+    }
+    .list-over {
+      text-decoration: underline;
+      text-decoration-color: $baseBlue;
+      color: $baseBlue;
     }
   }
 }
