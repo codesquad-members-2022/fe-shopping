@@ -50,7 +50,6 @@
 }
 
 .category-btn {
-  // position: absolute;
   width: 110px;
   height: 115px;
   top: 32px;
@@ -270,6 +269,18 @@ input {
       text-decoration: underline;
       color: #4285f4;
     }
+  }
+
+  span {
+    width: 364px;
+    height: 43px;
+    display: block;
+    margin: 12px 0;
+    text-align: center;
+    line-height: 43px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #666;
   }
 }
 
