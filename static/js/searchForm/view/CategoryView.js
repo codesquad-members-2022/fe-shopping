@@ -1,7 +1,7 @@
 import { dom } from '../../utils/dom.js';
 
 export default class CategoryView {
-  constructor(model) {
+  constructor({ model }) {
     this.model = model;
     this.currentEl = dom.select('.searchForm__current-category');
     this.listEl = dom.select('.searchForm__category-list');

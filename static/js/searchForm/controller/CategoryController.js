@@ -1,5 +1,5 @@
 export default class CategoryController {
-  constructor(model, view) {
+  constructor({ model, view }) {
     this.model = model;
     this.view = view;
     this.currentEl = view.currentEl;

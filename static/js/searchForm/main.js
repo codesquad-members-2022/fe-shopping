@@ -12,10 +12,13 @@ export async function initSearchForm() {
     categories: searchCategories,
     currentCategory: searchCategories[0],
   });
-  const categoryView = new CategoryView(searchModel);
   //ResultView
   //InputView
-  const categoryController = new CategoryController(searchModel, categoryView);
+  const categoryView = new CategoryView({ model: searchModel });
+  const categoryController = new CategoryController({
+    model: searchModel,
+    view: categoryView,
+  });
 
   categoryView.init();
 }
