@@ -1,10 +1,10 @@
 import storage from "./storage.js";
-import option from "../common/option.js";
 import { isEmpty, sortDesc } from "./util.js";
 
 export default class {
-  constructor({ dataSizeLimit }) {
+  constructor({ dataSizeLimit, options }) {
     this.dataSizeLimit = dataSizeLimit;
+    this.options = options;
     this.firstIdx = 0;
   }
 
@@ -18,13 +18,13 @@ export default class {
     }
 
     let idxChangedDatas = storedDatas.reduce((prev, cur) => {
-      if (cur[option.recentSearchValueName] === val) {
+      if (cur[options.recentSearchValueName] === val) {
         return prev;
       }
 
       const curData = {
         no: cur["no"] + 1,
-        [option.recentSearchValueName]: cur[option.recentSearchValueName],
+        [options.recentSearchValueName]: cur[options.recentSearchValueName],
       };
       return [...prev, curData];
     }, []);
@@ -43,7 +43,7 @@ export default class {
   storeItem(key, val) {
     const curInputData = {
       no: this.firstIdx,
-      [option.recentSearchValueName]: val,
+      [options.recentSearchValueName]: val,
     };
     const curInputDataCnt = [curInputData].length;
 

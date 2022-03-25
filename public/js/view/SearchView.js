@@ -1,4 +1,4 @@
-import option from "../common/option.js";
+import option from "../common/options.js";
 import SearchForm from "../component/SearchForm.js";
 import storage from "../util/storage.js";
 import { sortAsc, isEmpty, fetchData, debounce } from "../util/util.js";

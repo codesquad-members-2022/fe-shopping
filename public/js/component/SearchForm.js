@@ -1,4 +1,4 @@
-import option from "../common/option.js";
+import option from "../common/options.js";
 import {
   isEmpty,
   setDisplayNone,
