@@ -1,4 +1,4 @@
-import { makeImageSlide, makeSideTab } from '../utility/util.js';
+import { makeImageSlide, makeSideTab } from '../utility/template.js';
 
 export default class RenderCarousel {
   renderMainImage(carouselData, mainContainer) {

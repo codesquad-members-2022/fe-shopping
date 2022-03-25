@@ -1,4 +1,4 @@
-import { $, $$, fetchData } from '../utility/util.js';
+import { $, $$, fetchData, debounce, throttle } from '../utility/util.js';
 import RenderCarousel from './render-carousel.js';
 import SideMenu from './sub-menu.js';
 
@@ -20,10 +20,14 @@ export default class Carousel {
   }
 
   initCarouselInterval = () => {
-    this.intervalID = setInterval(() => this.translateContainer(), 2000);
+    this.intervalID = setInterval(() => {
+      this.translateContainer();
+    }, 2000);
   };
 
-  stopCarouselInterval = () => clearInterval(this.intervalID);
+  stopCarouselInterval = () => {
+    clearInterval(this.intervalID);
+  };
 
   translateContainer() {
     this.mainContainer.style.transitionDuration = '1ms';
