@@ -70,11 +70,17 @@ body { background: #fff; color: #212529; }
 
 .searchForm__category-item:hover { color: #4285f4; text-decoration: underline; }
 
-.searchForm__input-wrap { width: 446px; }
+.searchForm__input-wrap { position: relative; width: 446px; }
 
-.searchForm__input { padding: 0 0 0 8px; width: 390px; height: 36px; border: none; }
+.searchForm__input { padding: 0 0 0 8px; width: 390px; height: 36px; border: none; font-size: 0.875rem; }
 
-.searchForm__button { width: 51px; height: 36px; color: #4285f4; }
+.searchForm__submit { width: 51px; height: 36px; color: #4285f4; }
+
+.searchForm__result { position: absolute; top: 36px; width: 446px; font-size: 0.75rem; background-color: #fff; border: 1px solid #ced4da; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); z-index: 1100; }
+
+.searchForm__result--hidden { visibility: hidden; }
+
+.searchForm__result--show { visibility: visible; }
 
 .mainBanner { position: relative; height: 450px; background-color: #f1f3f5; border: 1px solid #dee2e6; }
 

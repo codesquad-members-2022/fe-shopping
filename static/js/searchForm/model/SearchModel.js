@@ -2,10 +2,8 @@ export default class SearchModel {
   constructor({
     mode = { history: true, autoComplete: true },
     categories = [],
-    inputValue = '',
     currentCategory = categories[0],
   }) {
-    this.inputValue = inputValue;
     this.historyMode = mode.history;
     this.autoCompleteMode = mode.autoComplete;
     this.categories = categories;
