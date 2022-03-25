@@ -10,7 +10,9 @@ export const model = {
 
   setSearchBarState({ state, callBackFn }) {
     this._searchBarState = state;
-    callBackFn(this.searchBarState);
+    if (callBackFn) {
+      callBackFn(this.searchBarState);
+    }
   },
 
   get searchBarState() {
@@ -45,8 +47,6 @@ export const model = {
 
   set searchWord(word) {
     this._searchWord = word;
-    console.log(this.searchWord);
-    console.log(this._searchWord);
   },
 
   get searchWord() {
@@ -55,7 +55,9 @@ export const model = {
 
   setSelectedIdx({ idx, callBackFn }) {
     this._selectedIdx = idx;
-    callBackFn(this.selectedIdx);
+    if (callBackFn) {
+      callBackFn(this.selectedIdx);
+    }
   },
 
   get selectedIdx() {

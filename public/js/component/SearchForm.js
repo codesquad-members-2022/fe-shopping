@@ -37,9 +37,9 @@ export default class {
     return this.$searchFormArea.querySelector(selector);
   }
 
-  // clearInput() {
-  //   this.$form.reset();
-  // }
+  clearInput() {
+    this.$form.reset();
+  }
 
   // /* CREATE ELEMENTS */
   createDropdownInner() {

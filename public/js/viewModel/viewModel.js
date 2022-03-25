@@ -2,7 +2,7 @@ import { model } from "../model/model.js";
 import storage from "../util/storage.js";
 import SearchView from "../view/SearchView.js";
 
-import { isEmpty, debounce, fetchData } from "../util/util.js";
+import { isEmpty, debounce, fetchData, sortAsc } from "../util/util.js";
 
 export const viewModel = {
   init({
@@ -25,13 +25,6 @@ export const viewModel = {
     model.init();
     this.handleSearchViewEvents();
     this.searchView.init();
-  },
-
-  getRecentSearchData() {
-    model.setRecentWordData({
-      data: storage.getLocalStorage(recentSearchKeyName),
-      callBackFn: this.searchView.fillDropdownList,
-    });
   },
 
   handleSearchViewEvents() {
@@ -64,6 +57,17 @@ export const viewModel = {
     }, this.suggestionDelay);
   },
 
+  getRecentWordData() {
+    const storedData = storage.getLocalStorage(this.recentSearchKeyName);
+    if (!storedData) {
+      return [];
+    }
+
+    const sortKey = "no";
+    const dataSortByAsc = sortAsc(storedData, sortKey);
+    return dataSortByAsc;
+  },
+
   handleFocusInput() {
     model.setSearchBarState({
       state: "recent-search",
@@ -71,7 +75,7 @@ export const viewModel = {
     });
 
     model.setRecentWordData({
-      data: storage.getLocalStorage(this.recentSearchKeyName),
+      data: this.getRecentWordData(),
       callBackFn: this.searchView.fillDropdownList.bind(this.searchView),
     });
   },
@@ -128,6 +132,18 @@ export const viewModel = {
     this.computeIdx(key, model.searchDataCnt);
   },
 
+  resetInput() {
+    const unselectedIdx = -1;
+    model.setSearchBarState({
+      state: "recent-search",
+      callBackFn: this.searchView.clearInput.bind(this.searchView),
+    });
+    model.setSelectedIdx({
+      idx: unselectedIdx,
+    });
+    this.handleFocusInput();
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     const inputTxt = this.searchView.$input.value;
@@ -136,7 +152,6 @@ export const viewModel = {
     }
 
     this.localStorage.storeItem(this.recentSearchKeyName, inputTxt);
-    // submit된 후에 새로 화면 보여주는 것도 구현해야함.
-    // 일단 원래 하던 방향키로 돌아가자
+    this.resetInput();
   },
 };
