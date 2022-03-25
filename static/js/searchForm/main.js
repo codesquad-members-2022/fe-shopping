@@ -23,8 +23,13 @@ export async function initSearchForm() {
 
   const inputView = new InputView({ model: searchModel });
   const categoryView = new CategoryView({ model: searchModel });
-  const inputController = new InputController({ model: searchModel, view: inputView });
   const historyView = new HistoryView({ model: searchModel });
+
+  const inputController = new InputController({
+    model: searchModel,
+    view: inputView,
+    historyView: historyView,
+  });
   const categoryController = new CategoryController({
     model: searchModel,
     view: categoryView,
