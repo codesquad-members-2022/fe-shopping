@@ -23,31 +23,35 @@ export async function initSearchForm() {
     currentCategory: searchCategories[0],
   });
 
-  const inputView = new InputView({ model: searchModel });
   const categoryView = new CategoryView({ model: searchModel });
   const historyView = new HistoryView({ model: searchModel });
   const autoCompleteView = new AutoCompleteView({ model: searchModel });
+  const inputView = new InputView({ model: searchModel });
 
-  const inputController = new InputController({
-    model: searchModel,
-    view: inputView,
-    historyView: historyView,
-  });
   const categoryController = new CategoryController({
     model: searchModel,
     view: categoryView,
   });
+
   const historyController = new HistoryController({
     model: searchModel,
     view: historyView,
   });
 
-  inputController.init();
   const autoCompleteController = new AutoCompleteController({
     model: searchModel,
     view: autoCompleteView,
   });
+
+  const inputController = new InputController({
+    model: searchModel,
+    view: inputView,
+    historyView: historyView,
+    autoCompleteView: autoCompleteView,
+  });
+
   categoryController.init();
   historyController.init();
   autoCompleteController.init();
+  inputController.init();
 }
