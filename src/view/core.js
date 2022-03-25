@@ -1,6 +1,6 @@
 export class Core {
-  render(template, element) {
-    const $element = document.querySelector(element);
-    $element.innerHTML += `${template}`;
+  render(child, parent) {
+    const $parent = document.querySelector(parent);
+    $parent.append(child);
   }
 }
