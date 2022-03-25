@@ -2,7 +2,7 @@ import { model } from "../model/model.js";
 import storage from "../util/storage.js";
 import SearchView from "../view/SearchView.js";
 
-import { getIdx, isEmpty } from "../util/util.js";
+import { isEmpty } from "../util/util.js";
 
 export const viewModel = {
   init({
@@ -77,13 +77,35 @@ export const viewModel = {
     const getPrevIdx = (idx) => idx - 1;
 
     if (key === "ArrowDown") {
+      let nextIdx = getNextIdx(model.selectedIdx);
+      if (isOverMaxIdx(nextIdx)) {
+        nextIdx = firstIdx;
+      }
+
+      model.setSelectedIdx({
+        idx: nextIdx,
+        callBackFn: this.searchView.addClassSelectedIdx.bind(this.searchView),
+      });
+
+      return;
     }
-    this.computePrevIdx();
+
+    if (key === "ArrowUp") {
+      let prevIdx = getPrevIdx(model.selectedIdx);
+      if (!isValidIdx(prevIdx)) {
+        prevIdx = lastIdx;
+      }
+
+      model.setSelectedIdx({
+        idx: prevIdx,
+        callBackFn: this.searchView.addClassSelectedIdx.bind(this.searchView),
+      });
+    }
+
     return;
   },
 
   handleArrowKeyUp(key) {
-    console.log(key);
     if (!model.searchDataCnt) return;
 
     this.computeIdx(key, model.searchDataCnt);

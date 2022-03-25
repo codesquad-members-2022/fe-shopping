@@ -19,6 +19,7 @@ export const options = {
     searchFormArea: $(".search-form-area"),
     recentSearchValueName: "recentSearchWord",
     datasetName: "idx",
+    selectedIdxClassName: "focus",
   },
   viewModel: {
     recentSearchKeyName: "recent-search",

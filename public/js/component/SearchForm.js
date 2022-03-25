@@ -7,7 +7,12 @@ import {
 } from "../util/util.js";
 
 export default class {
-  constructor({ searchFormArea, datasetName, localStorage }) {
+  constructor({
+    searchFormArea,
+    datasetName,
+    localStorage,
+    selectedIdxClassName,
+  }) {
     this.$searchFormArea = searchFormArea;
     this.$form = this.getElFromArea(".search-form");
     this.$input = this.getElFromArea(".search-input");
@@ -16,6 +21,7 @@ export default class {
     this.selectedIdx = -1;
     this.datasetName = datasetName;
     this.localStorage = localStorage;
+    this.selectedIdxClassName = selectedIdxClassName;
   }
 
   // initSelectedIdx() {
@@ -78,51 +84,52 @@ export default class {
   //   this.hideDropDown();
   // }
 
-  // computeIdx(key) {
-  //   const vaildIdx = 0;
-  //   const firstIdx = 0;
-  //   const lastIdx = this.listItemsCnt - 1;
+  computeIdx(key) {
+    const vaildIdx = 0;
+    const firstIdx = 0;
+    const lastIdx = this.listItemsCnt - 1;
 
-  //   const isValidIdx = (idx) => idx >= vaildIdx;
-  //   const isOverMaxIdx = (idx) => idx > lastIdx;
-  //   const getNextIdx = (idx) => idx + 1;
-  //   const getPrevIdx = (idx) => idx - 1;
+    const isValidIdx = (idx) => idx >= vaildIdx;
+    const isOverMaxIdx = (idx) => idx > lastIdx;
+    const getNextIdx = (idx) => idx + 1;
+    const getPrevIdx = (idx) => idx - 1;
 
-  //   const compute = {
-  //     ArrowDown() {
-  //       if (!isValidIdx(this.selectedIdx)) {
-  //         this.selectedIdx = firstIdx;
-  //         return;
-  //       }
+    const compute = {
+      ArrowDown() {
+        if (!isValidIdx(this.selectedIdx)) {
+          this.selectedIdx = firstIdx;
+          return;
+        }
 
-  //       this.selectedIdx = getNextIdx(this.selectedIdx);
-  //       if (isOverMaxIdx(this.selectedIdx)) {
-  //         this.selectedIdx = firstIdx;
-  //       }
-  //     },
-  //     ArrowUp() {
-  //       this.selectedIdx = getPrevIdx(this.selectedIdx);
-  //       if (!isValidIdx(this.selectedIdx)) {
-  //         this.selectedIdx = lastIdx;
-  //         return;
-  //       }
-  //     },
-  //   };
+        this.selectedIdx = getNextIdx(this.selectedIdx);
+        if (isOverMaxIdx(this.selectedIdx)) {
+          this.selectedIdx = firstIdx;
+        }
+      },
+      ArrowUp() {
+        this.selectedIdx = getPrevIdx(this.selectedIdx);
+        if (!isValidIdx(this.selectedIdx)) {
+          this.selectedIdx = lastIdx;
+          return;
+        }
+      },
+    };
 
-  //   return compute[key].bind(this);
-  // }
+    return compute[key].bind(this);
+  }
 
-  // addClassSelectedIdx(commonSelector, className) {
-  //   const items = [...$$(commonSelector)];
+  addClassSelectedIdx(selectedIdx) {
+    const itemsSelector = `[data-${this.datasetName}]`;
+    const items = [...$$(itemsSelector)];
 
-  //   items.forEach((item, idx) => {
-  //     if (idx === this.selectedIdx) {
-  //       item.classList.add(className);
-  //     } else {
-  //       item.classList.remove(className);
-  //     }
-  //   });
-  // }
+    items.forEach((item, idx) => {
+      if (idx === selectedIdx) {
+        item.classList.add(this.selectedIdxClassName);
+      } else {
+        item.classList.remove(this.selectedIdxClassName);
+      }
+    });
+  }
 
   // inputSelectedWord() {
   //   const selectedWord = $(

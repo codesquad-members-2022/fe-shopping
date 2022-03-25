@@ -81,31 +81,25 @@ export default class extends SearchForm {
   }
 
   fillDropdownList(data, state) {
-    console.log(data);
     const dropDownList = this.$dropdown.querySelector(".list");
     dropDownList.innerHTML = this.createLiElements(data, state);
   }
 
-  createLiElements(data, state) {
+  createLiElements({ data, state, searchWord }) {
     if (!data) return "";
 
     const tag = data.reduce((prev, cur, idx) => {
-      return prev + this.getLiTemplate({ cur, idx, state });
+      return prev + this.getLiTemplate({ cur, idx, state, searchWord });
     }, "");
 
     return tag;
   }
 
-  getLiTemplate({ cur, idx, state }) {
-    let item;
-    if (state === "recent-search") {
-      item = cur[this.recentSearchValueName];
-    }
-    if (state === "suggest-search") {
-      item = cur
-        .split(this.searchWord)
-        .join(`<strong>${this.searchWord}</strong>`);
-    }
+  getLiTemplate({ cur, idx, state, searchWord }) {
+    const item =
+      state === "recent-search"
+        ? cur[this.recentSearchValueName]
+        : cur.split(searchWord).join(`<strong>${searchWord}</strong>`);
 
     const template = {
       "recent-search": `

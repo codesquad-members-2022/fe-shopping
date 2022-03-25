@@ -20,7 +20,11 @@ export const model = {
   setRecentWordData({ data, callBackFn }) {
     this._recentWordData = data;
     this.searchDataCnt = data ? data.length : 0;
-    callBackFn(this.recentWordData, this.searchBarState);
+    callBackFn({
+      data: this.recentWordData,
+      state: this.searchBarState,
+      searchWord: this.searchWord,
+    });
   },
 
   get recentWordData() {
@@ -45,7 +49,7 @@ export const model = {
 
   setSelectedIdx({ idx, callBackFn }) {
     this._selectedIdx = idx;
-    callBackFn();
+    callBackFn(this.selectedIdx);
   },
 
   get selectedIdx() {
