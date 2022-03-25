@@ -39,10 +39,12 @@ export const viewModel = {
 
   setGetSuggestionWordFunc() {
     this.getSuggestionWord = debounce((inputTxt) => {
+      const invalidIdx = -1;
       const fetchUrl = this.suggestionUrl + inputTxt;
       const filterData = (json) => json["suggestions"].map((el) => el.value);
 
       fetchData(fetchUrl, filterData).then((json) => {
+        model.setSelectedIdx({ idx: invalidIdx });
         model.searchDataCnt = json.length;
         model.searchWord = inputTxt;
         model.setSearchBarState({

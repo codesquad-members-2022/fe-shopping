@@ -95,23 +95,16 @@ export default class {
         item.classList.remove(this.selectedIdxClassName);
       }
     });
+
+    this.inputSelectedWord(selectedIdx);
   }
 
-  // inputSelectedWord() {
-  //   const selectedWord = $(
-  //     `[data-${this.datasetName}="${this.selectedIdx}"]`
-  //   ).innerText;
-  //   this.$input.value = selectedWord;
-  // }
-
-  // handleArrowUpDownKeyUp(key) {
-  //   if (!this.listItemsCnt) return;
-  //   const className = "focus";
-
-  //   this.computeIdx(key)();
-  //   this.addClassSelectedIdx(`[data-${this.datasetName}]`, className);
-  //   this.inputSelectedWord();
-  // }
+  inputSelectedWord(selectedIdx) {
+    const selectedWord = $(
+      `[data-${this.datasetName}="${selectedIdx}"]`
+    ).innerText;
+    this.$input.value = selectedWord;
+  }
 
   onKeyUp() {
     this.$input.addEventListener("keyup", ({ key }) => {
