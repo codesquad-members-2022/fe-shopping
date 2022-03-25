@@ -42,4 +42,12 @@ export default class SearchModel {
   clearHistory() {
     this.history = [];
   }
+
+  getAutoCompleteWords() {
+    return this.autoCompleteWords;
+  }
+
+  setAutoCompleteWords(words) {
+    this.autoCompleteWords = words;
+  }
 }
