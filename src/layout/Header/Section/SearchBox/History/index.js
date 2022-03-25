@@ -13,7 +13,7 @@ export default function HistoryList($element, args) {
 HistoryList.prototype = Object.create(HtmlElement.prototype);
 HistoryList.prototype.constructor = HistoryList;
 
-HtmlElement.prototype.init = function () {
+HistoryList.prototype.init = function () {
   this.state = {
     ...this.args,
   };

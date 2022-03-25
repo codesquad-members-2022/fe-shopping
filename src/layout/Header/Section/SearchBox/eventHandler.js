@@ -81,7 +81,7 @@ const eventHandler = {
   changeSearchOption(option) {
     this.setState({ option });
     this.$HistoryList.setState({ option });
-    this.$Selector.setState({ option });
+    this.$ScopeSelector.setState({ option });
   },
 };
 
