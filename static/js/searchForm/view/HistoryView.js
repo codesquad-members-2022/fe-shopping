@@ -3,6 +3,7 @@ import { dom } from '../../utils/dom.js';
 export default class HistoryView {
   constructor({ model }) {
     this.model = model;
+    this.historyEl = dom.select('.searchForm__history');
     this.listEl = dom.select('.searchForm__history-list');
     this.buttonClearEl = dom.select('.searchForm__history-button--clear');
   }
