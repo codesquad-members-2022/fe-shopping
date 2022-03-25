@@ -1,7 +1,7 @@
 export default class InputController {
   constructor({ model, view, historyView }) {
     this.model = model;
-    this.view = view;
+    this.inputView = view;
     this.historyView = historyView;
     this.inputEl = view.inputEl;
     this.resultEl = view.resultEl;
@@ -10,10 +10,10 @@ export default class InputController {
   }
 
   init() {
-    this.view.init();
-    this.view.showResult = this.showResult.bind(this);
-    this.view.hideResult = this.hideResult.bind(this);
-    this.view.submitInputValue = this.submitInputValue.bind(this);
+    this.inputView.init();
+    this.inputView.showResult = this.showResult.bind(this);
+    this.inputView.hideResult = this.hideResult.bind(this);
+    this.inputView.submitInputValue = this.submitInputValue.bind(this);
   }
 
   showResult() {
@@ -35,7 +35,7 @@ export default class InputController {
 
     this.model.setHistory(inputValue);
     this.historyView.renderHistory();
-    this.view.clear();
+    this.inputView.clear();
     this.inputEl.blur();
   }
 }
