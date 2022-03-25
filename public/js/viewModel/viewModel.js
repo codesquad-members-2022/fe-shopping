@@ -33,31 +33,35 @@ export const viewModel = {
     this.searchView.handleEscKeyUp = this.handleEscKeyUp.bind(this);
     this.searchView.handleArrowKeyUp = this.handleArrowKeyUp.bind(this);
     this.searchView.handleSubmit = this.handleSubmit.bind(this);
-    this.setGetSuggestionWordFunc();
+    this.setFuncSuggestionWord();
     this.searchView.getSuggestionWord = this.getSuggestionWord.bind(this);
     this.searchView.handleMouseDown = this.handleMouseDown.bind(this);
   },
 
-  setGetSuggestionWordFunc() {
+  setFuncSuggestionWord() {
     this.getSuggestionWord = debounce((inputTxt) => {
-      const invalidIdx = -1;
       const fetchUrl = this.suggestionUrl + inputTxt;
       const filterData = (json) => json["suggestions"].map((el) => el.value);
 
-      fetchData(fetchUrl, filterData).then((json) => {
-        model.setSelectedIdx({ idx: invalidIdx });
-        model.searchDataCnt = json.length;
-        model.searchWord = inputTxt;
-        model.setSearchBarState({
-          state: "suggest-search",
-          callBackFn: this.searchView.renderDropdown.bind(this.searchView),
-        });
-        model.setSuggestWordData({
-          data: json,
-          callBackFn: this.searchView.fillDropdownList.bind(this.searchView),
-        });
-      });
+      fetchData(fetchUrl, filterData).then((json) =>
+        this.setSearchBarSuggestWord(json, inputTxt)
+      );
     }, this.suggestionDelay);
+  },
+
+  setSearchBarSuggestWord(jsonData, searchWord) {
+    const invalidIdx = -1;
+    model.setSelectedIdx({ idx: invalidIdx });
+    model.searchDataCnt = jsonData.length;
+    model.searchWord = searchWord;
+    model.setSearchBarState({
+      state: "suggest-search",
+      callBackFn: this.searchView.renderDropdown.bind(this.searchView),
+    });
+    model.setSuggestWordData({
+      data: jsonData,
+      callBackFn: this.searchView.fillDropdownList.bind(this.searchView),
+    });
   },
 
   getRecentWordData() {
