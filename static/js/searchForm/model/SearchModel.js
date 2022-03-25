@@ -37,8 +37,6 @@ export default class SearchModel {
     if (this.history.length >= maxLength) this.history.shift();
 
     this.history.push(inputValue);
-
-    console.log(this.history);
   }
 
   clearHistory() {
