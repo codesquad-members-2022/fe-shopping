@@ -7,12 +7,6 @@ export default class AutoCompleteView {
     this.listEl = dom.select('.searchForm__autoComplete-list');
   }
 
-  init() {
-    this.addHandler();
-  }
-
-  addHandler() {}
-
   createItem(value) {
     return `<li class="searchForm__autoComplete-item">${value}</li>`;
   }
@@ -22,8 +16,12 @@ export default class AutoCompleteView {
     return autoCompleteWords.reduce((acc, word) => acc + this.createItem(word), '');
   }
 
-  renderAutoComplete() {
+  async renderAutoComplete(category, inputValue) {
+    await this.requestAutoCompleteWords(category, inputValue);
+
     dom.initEl(this.listEl);
     this.listEl.insertAdjacentHTML('beforeend', this.createItems());
+
+    this.showAutoComplete();
   }
 }
