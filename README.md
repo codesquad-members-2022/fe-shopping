@@ -163,8 +163,9 @@ const debounce = ({ msTime, callback }) => {
 
 <img width="608" alt="스크린샷 2022-03-25 오전 11 03 16" src="https://user-images.githubusercontent.com/58503584/160040099-270c8e1c-5005-4b19-8bd5-960d65aa0f97.png">
 
-- 완전히 잘못 테스트 하고 있었음
-- mouse 이벤트는 클로져를 제대로 활용하고 있었는데, keyboard 이벤트에서는 keyup 안에서 분개해서 처리를 하려고 하다보니 클로져가 제대로 활용되고 있지 않았음
+- 결론부터 말하면 완전히 잘못 테스트 하고 있었음
+- keyup 이벤트를 테스트 하고있었는데, Network 탭을 통해 확인해보니 request 를 keyup 이벤트 만큼 보내는걸 확인 -> debounce 가 안되고 있다.
+- mouse 이벤트는 클로져를 제대로 활용하고 있었는데, keyboard 이벤트에서는 keyup 안에서 분개해서 처리를 하려고 하다보니 클로져가 제대로 활용되고 있지 않아서 `마지막 이벤트인지 확인` 하는 로직이 제대로 동작하고 있지 않았다.
 
 ```js
 this.addEvent({
