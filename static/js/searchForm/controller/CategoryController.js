@@ -12,7 +12,7 @@ export default class CategoryController {
     this.view.init();
 
     this.view.toggleList = this.toggleList.bind(this);
-    this.view.hiddenList = this.hiddenList.bind(this);
+    this.view.hideList = this.hideList.bind(this);
     this.view.selectCategory = this.selectCategory.bind(this);
   }
 
@@ -24,7 +24,7 @@ export default class CategoryController {
     this.listEl.classList.replace(this.hidden, this.show);
   }
 
-  hiddenList(eventTarget) {
+  hideList(eventTarget) {
     if (
       eventTarget === this.currentEl ||
       eventTarget.parentNode === this.listEl ||

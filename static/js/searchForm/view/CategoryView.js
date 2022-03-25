@@ -16,7 +16,7 @@ export default class CategoryView {
   addHandlers() {
     this.currentEl.addEventListener('click', () => this.toggleList());
     this.listEl.addEventListener('click', (event) => this.selectCategory(event.target));
-    dom.select('body').addEventListener('click', (event) => this.hiddenList(event.target));
+    dom.select('body').addEventListener('click', (event) => this.hideList(event.target));
   }
 
   createItem(category) {
