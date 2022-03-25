@@ -43,7 +43,7 @@ export class SearchInputController {
     }, autoCompleteDelay);
   }
 
-  toggleElementClassByKeyEvent = (elements, className) => {
+  toggleElementClass = (elements, className) => {
     elements.forEach(target => {
       parseInt(target.getAttribute('data-id')) === this.SearchInputModel.position
         ? target.classList.remove(className)
@@ -62,7 +62,7 @@ export class SearchInputController {
       if (this.SearchInputModel.position >= resultViewData) this.SearchInputModel.setPosition(0);
     }
 
-    this.toggleElementClassByKeyEvent($$('.search--link'), 'text-none');
+    this.toggleElementClass($$('.search--link'), 'text-none');
   }
 
   keyPressDataHandler({ key }) {

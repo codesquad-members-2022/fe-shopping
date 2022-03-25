@@ -2,7 +2,7 @@ import { MainCategoryView } from '../views/MainCategoryView.js';
 import { mainCategoryData } from '../constants/data.js';
 import { CategoryModel } from '../models/CategoryModel.js';
 
-export class CategoryController {
+export class MainCategoryController {
   constructor() {
     this.categoryView = new MainCategoryView();
     this.categoryModel = new CategoryModel();
@@ -11,7 +11,13 @@ export class CategoryController {
   }
 
   getCategoryDataHandler() {
+    if (this.categoryModel.open) {
+      return;
+    }
     this.categoryModel.save(mainCategoryData);
-    return this.categoryModel.getCategoryData();
+    this.categoryView.categoryElement.insertAdjacentHTML(
+      'beforeend',
+      this.categoryView.drawCategory(this.categoryModel.getCategoryData())
+    );
   }
 }

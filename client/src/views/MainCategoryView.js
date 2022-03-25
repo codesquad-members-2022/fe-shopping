@@ -1,9 +1,7 @@
 import { $ } from '../utils/util.js';
-import CategoryView from './CategoryView.js';
 
-export class MainCategoryView extends CategoryView {
+export class MainCategoryView {
   constructor() {
-    super();
     this.className = 'main-category';
     this.categoryElement = $('.main-category');
   }
@@ -23,16 +21,18 @@ export class MainCategoryView extends CategoryView {
   }
 
   #handleMouseOverEventListener() {
-    this.categoryElement.addEventListener('mouseover', () => {
-      const categoryListElement = $('.main-category-list');
-      if (categoryListElement) {
-        return;
-      }
-      this.categoryElement.insertAdjacentHTML('beforeend', this.drawCategory(this.getCategoryDataHandler()));
+    this.categoryElement.addEventListener('mouseenter', this.getCategoryDataHandler);
+  }
+
+  #handleMouseLeaveEventListener() {
+    this.categoryElement.addEventListener('mouseleave', () => {
+      const categoryListBox = $('.main-category-list');
+      categoryListBox?.remove();
     });
   }
 
   run() {
     this.#handleMouseOverEventListener();
+    this.#handleMouseLeaveEventListener();
   }
 }

@@ -1,4 +1,4 @@
-import { $, $$ } from '../../utils/util.js';
+import { $ } from '../../utils/util.js';
 
 export class SearchResultView {
   constructor() {

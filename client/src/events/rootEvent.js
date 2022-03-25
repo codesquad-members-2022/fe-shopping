@@ -33,19 +33,4 @@ export const rootEvent = () => {
       searchRecentBox?.remove();
     }
   });
-
-  document.body.addEventListener('mouseover', ({ target }) => {
-    const categoryListBox = $('.main-category-list');
-    if (
-      categoryListBox &&
-      checkElementClass({
-        target,
-        checkClasses: ['main-category', 'main-category-item', 'main-category-item__link', 'main-category--text'],
-      })
-    )
-      return;
-    else {
-      categoryListBox?.remove();
-    }
-  });
 };
