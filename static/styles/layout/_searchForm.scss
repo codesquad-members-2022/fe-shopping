@@ -91,4 +91,52 @@
     }
   }
 
+  &__history {
+    &-title {
+      margin: 0 auto;
+      padding: 12px 0 6px;
+      font-weight: 700;
+      width: calc(100% - 16px);
+      border-bottom: 1px solid $gray-5;
+      color: $gray-7;
+    }
+
+    &-list {
+      padding: 8px;
+    }
+
+    &-item {
+      padding: 4px 0;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+        color: $blue;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      background-color: $gray-2;
+      border-top: 1px solid $gray-4;
+    }
+
+    &-button {
+      color: $gray-7;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &--hidden {
+      visibility: hidden;
+    }
+
+    &--show {
+      visibility: visible;
+    }
+  }
 }
