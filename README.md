@@ -5,7 +5,8 @@
 - [x] prototype 기반 객체 활용
 - [ ] css preprocessor 중 sass 활용 (extension -> webpack)
 - [x] 서버 역할 결정 (검색사이트니까 ssr?)
-- [ ] 클라이언트 기능(검색창, 카테고리, 캐러샐..)마다 feature브랜치 만들어서 관리
+- [x] 클라이언트 기능(검색창, 카테고리, 캐러샐..)마다 feature브랜치 만들어서 관리
+- [ ] 서버사이드 렌더링
 
 # 목표
 
@@ -265,7 +266,6 @@ function showRecord(target) {}
 🤔 문제점
 
 - 컴포넌트 안에서 선언하니까 컴포넌트가 비대해짐
-- switch문을 안쓰려고 했는데 분기처리하려면 어차피 switch문처럼 만들어야함.
 
 ```js
 const getMethodName = (text) => 'on' + text[0].toUpperCase() + text.slice(1);
@@ -315,21 +315,4 @@ Main.prototype.EventHandler = {
 
 debounce과 throttling을 구현하려고 했는데 생각처럼 되지 않았다. mouse움직이나 input, change 이벤트가 발생할 때마다 특정 작업을 실행하지 않고 약간의 시간을 가졌다가 작업을 실행하게 할 생각이었다.
 
-🤔 문제점
-
-1. 이벤트핸들러로 함수 넘기기 (함수를 인자로 넘기기)
-
-- 함수를 인자로 넘길 때, `함수()`로 해야하는지 `함수`로 해야하는지 차이를 잘모르겠다.
-  `element.addEventListener(type, callback)` vs `element.addEventListener(type, (event) => callback(event, something))`
-- 넘기는 함수의 종류(화살표함수, 표현식, 선언문)에 따라 차이가 있는거 같아서 알아보는중
-
-```js
-// 1번
-$input.addEventListener('input', handleInput);
-function handleInput(event) {}
-// const handleInput = () => {};
-
-// 2번
-$input.addEventListener('input', (event) => handleInput(event, something));
-const handleInput = (event, something) => {};
-```
+[gist 정리 링크](https://gist.github.com/kimyouknow/004adaca72af78c883523f335d197efe)

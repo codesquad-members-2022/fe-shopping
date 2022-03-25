@@ -1,4 +1,4 @@
-import { POP_UP } from '../constant/htmlSelector.js';
+import { POP_UP } from '../constant.js';
 
 export function assignStyles($element, styleObj) {
   Object.assign($element.style, styleObj);

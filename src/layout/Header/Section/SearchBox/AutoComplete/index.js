@@ -1,4 +1,4 @@
-import HtmlElement from '../../../../utils/HtmlElement.js';
+import HtmlElement from '../../../../../utils/HtmlElement.js';
 
 export default function AutoComplete($element, args) {
   HtmlElement.call(this, $element, args);
@@ -12,8 +12,6 @@ AutoComplete.prototype.setTemplate = function () {
   const isActive = (idx) => (idx === activeAutoTerm ? 'active__term' : '');
   return template(isActive, autoSearchList, inputValue);
 };
-
-AutoComplete.prototype.setEvent = function () {};
 
 const template = (isActive, autoSearchList, inputValue) => {
   // console.log(inputValue);
