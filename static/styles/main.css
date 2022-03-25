@@ -76,15 +76,11 @@ body { background: #fff; color: #212529; }
 
 .searchForm__submit { width: 51px; height: 36px; color: #4285f4; }
 
-.searchForm__result { position: absolute; top: 36px; width: 446px; font-size: 0.75rem; background-color: #fff; border: 1px solid #ced4da; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); z-index: 1100; }
+.searchForm__result { position: absolute; top: 36px; left: -1px; width: 449px; font-size: 0.75rem; background-color: #fff; border: 1px solid #ced4da; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); z-index: 1100; }
 
 .searchForm__result--hidden { visibility: hidden; }
 
 .searchForm__result--show { visibility: visible; }
-
-.searchForm__history--hidden { visibility: hidden; }
-
-.searchForm__history--show { visibility: visible; }
 
 .searchForm__history-title { margin: 0 auto; padding: 12px 0 6px; font-weight: 700; width: calc(100% - 16px); border-bottom: 1px solid #adb5bd; color: #495057; }
 
@@ -99,6 +95,10 @@ body { background: #fff; color: #212529; }
 .searchForm__history-button { color: #495057; }
 
 .searchForm__history-button:hover { text-decoration: underline; }
+
+.searchForm__history--hidden { visibility: hidden; }
+
+.searchForm__history--show { visibility: visible; }
 
 .mainBanner { position: relative; height: 450px; background-color: #f1f3f5; border: 1px solid #dee2e6; }
 
