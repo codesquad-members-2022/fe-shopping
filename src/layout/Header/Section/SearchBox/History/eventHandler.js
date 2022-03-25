@@ -1,3 +1,4 @@
+import EventHandler from '../../../../../utils/EventHandler.js';
 import { SEARCH_BOX } from '../../../../../constant.js';
 import { moveToSearchTermPage } from '../../../../../router.js';
 import { myLocalStorage } from '../../../../../utils/mockDB.js';
@@ -11,25 +12,34 @@ const {
   },
 } = SEARCH_BOX;
 
-const eventHandler = {
-  handleClick({ target }) {
-    const {
-      dataset: { clickType },
-    } = target;
-    switch (clickType) {
-      case HISTORY_DELETE:
-        deleteTargetTerm.call(this, target);
-        break;
-      case HISTORY_ACTIVE:
-        moveToSearchTermPage(this.state.option, target.innerText.slice(0, -1));
-        break;
-      case HISTORY_DELETE__ALL:
-        deleteAllTerm.apply(this);
-      default:
-        break;
-    }
-  },
-};
+const eventHandler = new EventHandler();
+
+eventHandler.setSubLogic({
+  deleteAllTerm,
+  deleteTargetTerm,
+});
+
+eventHandler.setCoreHandler({
+  handleClick,
+});
+
+function handleClick({ target }) {
+  const {
+    dataset: { clickType },
+  } = target;
+  switch (clickType) {
+    case HISTORY_DELETE:
+      deleteTargetTerm.call(this, target);
+      break;
+    case HISTORY_ACTIVE:
+      moveToSearchTermPage(this.state.option, target.innerText.slice(0, -1));
+      break;
+    case HISTORY_DELETE__ALL:
+      deleteAllTerm.call(this);
+    default:
+      break;
+  }
+}
 
 function deleteAllTerm() {
   myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, []);

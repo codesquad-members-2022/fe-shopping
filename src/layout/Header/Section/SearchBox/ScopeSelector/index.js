@@ -22,7 +22,9 @@ ScopeSelector.prototype.setTemplate = function () {
 };
 
 ScopeSelector.prototype.setEvent = function () {
-  const { handleClick } = this.eventHandler;
+  const {
+    coreHandler: { handleClick },
+  } = this.eventHandler;
   this.$element.addEventListener('click', handleClick.bind(this));
 };
 

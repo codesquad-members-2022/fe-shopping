@@ -47,6 +47,8 @@ HistoryList.prototype.setTemplate = function () {
 };
 
 HistoryList.prototype.setEvent = function () {
-  const { handleClick } = this.eventHandler;
+  const {
+    coreHandler: { handleClick },
+  } = this.eventHandler;
   this.$element.addEventListener('click', handleClick.bind(this));
 };

@@ -47,7 +47,9 @@ SearchBox.prototype.renderChild = function () {
     activeAutoTerm,
     activeHistory,
   } = this.state;
-  const { changeSearchOption } = this.eventHandler;
+  const {
+    coreHandler: { changeSearchOption },
+  } = this.eventHandler;
   const $scopeSelector = findTargetClassElement(
     this.$element,
     'search__selector'
@@ -71,8 +73,14 @@ SearchBox.prototype.renderChild = function () {
 };
 
 SearchBox.prototype.setEvent = function () {
-  const { handleSubmit, handleInputClick, handleInputKeyDown, handleInput } =
-    this.eventHandler;
+  const {
+    coreHandler: {
+      handleSubmit,
+      handleInputClick,
+      handleInputKeyDown,
+      handleInput,
+    },
+  } = this.eventHandler;
   this.$form = findTargetIdElement(this.$element, 'searhForm');
   this.$input = findTargetIdElement(this.$form, 'searchInput');
   this.$form.addEventListener('submit', handleSubmit.bind(this));
