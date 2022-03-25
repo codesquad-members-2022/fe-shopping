@@ -66,18 +66,47 @@
 }
 
 .shopping-menu-list {
-  position: absolute;
-  width: 110px;
-  top: 115px;
-  background-color: $color-gray;
-  z-index: 1;
-  .shopping-popup-menu-list {
-    .shopping-popup-menu-item {
-      font-size: $font-size-12;
-      font-weight: $font-bold;
-      cursor: pointer;
-      padding: 10px 0 5px 5px;
+  font-size: $font-size-12;
+  font-weight: $font-bold;
+  .shopping-popup-first-list {
+    position: absolute;
+    background-color: $color-gray;
+    z-index: 1;
+    width: 110px;
+    cursor: pointer;
+    .firstContent {
       text-align: left;
+      width: 110px;
+      padding: 10px 0 5px 5px;
+      background-color: $color-gray;
+    }
+  }
+  .shopping-popup-second-list {
+    position: absolute;
+    background-color: $color-gray;
+    z-index: 1;
+    width: 110px;
+    left: 110px;
+    cursor: pointer;
+    .secondContent {
+      text-align: left;
+      width: 110px;
+      padding: 10px 0 5px 5px;
+      background-color: $color-gray;
+    }
+  }
+  .shopping-popup-third-list {
+    position: absolute;
+    background-color: $color-gray;
+    z-index: 1;
+    width: 110px;
+    left: 220px;
+    cursor: pointer;
+    .thirdContent {
+      text-align: left;
+      width: 110px;
+      padding: 10px 0 5px 5px;
+      background-color: $color-gray;
     }
   }
 }

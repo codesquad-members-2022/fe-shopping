@@ -118,19 +118,55 @@ input:focus {
 }
 
 .shopping-menu-list {
-  position: absolute;
-  width: 110px;
-  top: 115px;
-  background-color: #999;
-  z-index: 1;
-}
-
-.shopping-menu-list .shopping-popup-menu-list .shopping-popup-menu-item {
   font-size: 0.75rem;
   font-weight: 700;
+}
+
+.shopping-menu-list .shopping-popup-first-list {
+  position: absolute;
+  background-color: #999;
+  z-index: 1;
+  width: 110px;
   cursor: pointer;
-  padding: 10px 0 5px 5px;
+}
+
+.shopping-menu-list .shopping-popup-first-list .firstContent {
   text-align: left;
+  width: 110px;
+  padding: 10px 0 5px 5px;
+  background-color: #999;
+}
+
+.shopping-menu-list .shopping-popup-second-list {
+  position: absolute;
+  background-color: #999;
+  z-index: 1;
+  width: 110px;
+  left: 110px;
+  cursor: pointer;
+}
+
+.shopping-menu-list .shopping-popup-second-list .secondContent {
+  text-align: left;
+  width: 110px;
+  padding: 10px 0 5px 5px;
+  background-color: #999;
+}
+
+.shopping-menu-list .shopping-popup-third-list {
+  position: absolute;
+  background-color: #999;
+  z-index: 1;
+  width: 110px;
+  left: 220px;
+  cursor: pointer;
+}
+
+.shopping-menu-list .shopping-popup-third-list .thirdContent {
+  text-align: left;
+  width: 110px;
+  padding: 10px 0 5px 5px;
+  background-color: #999;
 }
 
 .logo {
