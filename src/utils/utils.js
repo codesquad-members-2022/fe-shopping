@@ -57,22 +57,6 @@ export const hasAscendant = ($ascendant, $element) => {
   return false;
 };
 
-// export const hasAscendant = (className, $element) => {
-//   if (!className) throw `Error: Unexpected className Argument ${className}`;
-//   if (!$element) throw `Error: Unexpected $element Argument ${$element}`;
-
-//   let $curElement = $element;
-
-//   while ($curElement !== document) {
-//     if ($curElement.classList.contains(className)) {
-//       return [true, $curElement];
-//     }
-
-//     $curElement = $curElement.parentNode;
-//   }
-//   return false;
-// };
-
 export const webStorage = {
   set(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
