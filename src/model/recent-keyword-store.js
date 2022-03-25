@@ -1,10 +1,10 @@
 export class RecentKeywordStore {
   constructor() {
-    this.getLocalStorage();
+    this.setLocalStorageArr();
     this.maxListNum = 8;
   }
 
-  getLocalStorage() {
+  setLocalStorageArr() {
     this.localStorageArr = [];
     const storage = [];
     for (let i = 0; i < localStorage.length; i++) {

@@ -1,9 +1,8 @@
 export class AutoCompleteStore {
   constructor() {
-    this.keywordData;
     this.maxListNum = 10;
   }
-  async getKeywordData(value) {
+  async setKeywordArr(value) {
     const data = await fetch("./data/fakeDB.json");
     const json = await data.json();
     let sorted = await json.products
