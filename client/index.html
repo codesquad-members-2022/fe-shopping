@@ -26,12 +26,12 @@
         </section>
         <section class="main-header__bottom">
             <div class="r-flex main-header__bottom-inner">
-                <div class="category">
-                    <span class="category--text">카테고리</span>
+                <div class="main-category">
+                    <span class="main-category--text">카테고리</span>
                 </div>
 
                 <div class="l-flex main-header__contents">
-                    <form class="main-header__form">
+                    <form class="main-header__form" onsubmit="return false">
                         <div class="r-flex search">
                             <a class="main-header__logo" href="#">
                                 <img class="main-header__logo--img" src="https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png" />
@@ -41,7 +41,8 @@
                                     <button class="search--allBtn" type="button">전체</button>
                                 </div>
                                 <div class="main-header__input-wrapper">
-                                    <input class="main-header__input" placeholder="찾고 싶은 상품을 검색해보세요!"/>
+                                    <input class="main-header__input" type="text" placeholder="찾고 싶은 상품을 검색해보세요!"/>
+                                    <div class="main-header__resultView"></div>
                                 </div>
                                 <a class="main-header__input--btn"></a>
                             </div>
