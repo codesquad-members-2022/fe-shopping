@@ -1,7 +1,7 @@
 import { RecentSearchList } from "./search-list/recent-search-list.js";
 import { RelatedSearchList } from "./search-list/related-search-list.js";
 import { SearchInput } from "./search-input.js";
-import { SearchCategory } from "./search-category.js";
+import { SearchCategory } from "./search-category/search-category.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchRecentList = document.querySelector(".search__recent-list");
@@ -14,8 +14,6 @@ const searchRelatedListContainer = document.querySelector(
 );
 const category = document.querySelector(".search__category");
 const categoryList = document.querySelector(".search__category-list");
-const arrowUp = document.querySelector(".arrow--up");
-const arrowDown = document.querySelector(".arrow--down");
 
 const DIRECTION_UP = "ArrowUp";
 const DIRECTION_DOWN = "ArrowDown";
@@ -31,21 +29,17 @@ const relatedSearchList = new RelatedSearchList(
     searchRelatedList,
     searchRelatedListContainer
 );
-const searchCategory = new SearchCategory(
-    category,
-    categoryList,
-    arrowUp,
-    arrowDown
-);
+const searchCategory = new SearchCategory(category, categoryList);
 
 const getRelatedWords = async () => {
     const word = searchInput.getInput();
+    const category = searchCategory.store.getSelectedCategory();
     try {
         const response = await fetch(
             "../search?" +
                 new URLSearchParams({
                     keyword: word,
-                    category: searchCategory.selectedCategory,
+                    category: category,
                 })
         );
 
@@ -144,25 +138,10 @@ const clearRecentSearchList = () => {
     }
 };
 
-const searchCategoryEventHandler = () => {
-    if (searchCategory.isVisible) {
-        searchCategory.hide();
-    } else {
-        searchCategory.show();
-    }
-};
-
 const hideLists = () => {
     recentSearchList.hide();
     relatedSearchList.hide();
     searchCategory.hide();
-};
-
-const searchCategoryListItemEventHandler = ({ target }) => {
-    if (target.classList.contains("search__category-list--item")) {
-        searchCategory.changeCategory(target);
-        searchCategory.hide();
-    }
 };
 
 const searchCategoryKeydownEventHandler = (event) => {
@@ -231,19 +210,11 @@ const onSearchEvent = () => {
         }
     });
     document.body.addEventListener("keydown", (event) => {
-        if (searchCategory.isVisible) {
+        const searchCategoryIsVisible = searchCategory.store.getVisibility();
+        if (searchCategoryIsVisible) {
             searchCategoryKeydownEventHandler(event);
         }
     });
-
-    searchCategory.category.addEventListener(
-        "click",
-        searchCategoryEventHandler
-    );
-    searchCategory.categoryList.addEventListener(
-        "click",
-        searchCategoryListItemEventHandler
-    );
 
     searchInput.searchInputNode.addEventListener("focus", () => {
         recentSearchList.show();
