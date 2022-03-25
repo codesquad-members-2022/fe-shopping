@@ -124,14 +124,10 @@ export default class {
         return;
       }
 
+      if (isEmpty(this.$input.value)) {
+        return;
+      }
       return;
-
-      // if (isEmpty(this.$input.value)) {
-      //   this.initSelectedIdx();
-      //   // TODO: 최근검색어가 표시되도록
-      //   this.showDropdown();
-      //   return;
-      // }
     });
   }
 

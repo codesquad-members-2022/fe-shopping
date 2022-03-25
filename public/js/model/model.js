@@ -30,7 +30,7 @@ export const model = {
     return this._recentWordData;
   },
 
-  setSuggestWordData({ data: data, callBackFn }) {
+  setSuggestWordData({ data, callBackFn }) {
     this._suggestWordData = data;
     callBackFn({
       data: this.suggestWordData,
@@ -45,6 +45,8 @@ export const model = {
 
   set searchWord(word) {
     this._searchWord = word;
+    console.log(this.searchWord);
+    console.log(this._searchWord);
   },
 
   get searchWord() {

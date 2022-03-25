@@ -80,9 +80,9 @@ export default class extends SearchForm {
     this.createDropdownInner(state);
   }
 
-  fillDropdownList(data, state) {
+  fillDropdownList({ data, state, searchWord }) {
     const dropDownList = this.$dropdown.querySelector(".list");
-    dropDownList.innerHTML = this.createLiElements(data, state);
+    dropDownList.innerHTML = this.createLiElements({ data, state, searchWord });
   }
 
   createLiElements({ data, state, searchWord }) {

@@ -50,6 +50,8 @@ export const viewModel = {
       const filterData = (json) => json["suggestions"].map((el) => el.value);
 
       fetchData(fetchUrl, filterData).then((json) => {
+        model.searchDataCnt = json.length;
+        model.searchWord = inputTxt;
         model.setSearchBarState({
           state: "suggest-search",
           callBackFn: this.searchView.renderDropdown.bind(this.searchView),
