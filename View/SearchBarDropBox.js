@@ -37,11 +37,30 @@ class SearchBarDropBox {
   }
 
   onClickDocumentWhenDropDown({ handleClickOutDropBox }) {
-    handleClickOutDropBox();
-  }
+    document.addEventListener("click", ({ target }) => {
+      const $search__delete = targetQuerySelector({
+        className: "search__delete",
+      });
 
-  onKeyupKeywords({ handleKeyupKeywords }) {
-    handleKeyupKeywords();
+      const $current__search__off = targetQuerySelector({
+        className: "current__search__off",
+      });
+
+      const $search = targetQuerySelector({
+        className: "search",
+      });
+
+      const isAreaNotHiddenDropBox =
+        target === $search ||
+        target === $search__delete ||
+        target === $current__search__off;
+
+      if (isAreaNotHiddenDropBox) {
+        return;
+      }
+
+      handleClickOutDropBox();
+    });
   }
 
   render({ isBarDropBoxVisible = null, keyupKeyword = null }) {

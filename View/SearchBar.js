@@ -17,6 +17,10 @@ class SearchBar {
     handleChangeInput();
   }
 
+  onKeyupKeywords({ handleKeyupKeywords }) {
+    handleKeyupKeywords();
+  }
+
   render({ keyword }) {
     this.$search.value = keyword;
   }

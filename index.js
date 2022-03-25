@@ -22,6 +22,28 @@ category.onClickSearchCategory({
 });
 categoriesDropBox.appendElement({ data: searchCategories, appendDropBox });
 
+const searchBar = new SearchBar();
+const searchBarDropBox = new SearchBarDropBox();
+searchBarDropBox.appendElement({ data: searchData, appendSearchBarDropBox });
+
+searchBarDropBox.onClickDocumentWhenDropDown({
+  handleClickOutDropBox,
+});
+
+searchBar.onKeyupKeywords({
+  handleKeyupKeywords,
+});
+
+searchBar.onFocusInput({
+  dropDown,
+});
+
+searchBar.onChangeInput({
+  handleChangeInput,
+});
+
+const inputDropBox = new SearchBarDropBox();
+
 function handleClickSearchCatgory(target) {
   const $search__category = targetQuerySelector({
     className: "search__category",
@@ -32,7 +54,7 @@ function handleClickSearchCatgory(target) {
       "hidden"
     )
   ) {
-    categoriesDropBox.render(state.isCategoryDropBoxVisible);
+    categoriesDropBox.render();
     const $currentCategory = target.closest("li");
     const selectedCategory = $currentCategory?.textContent;
     const isInCategoryDropBox =
@@ -50,28 +72,6 @@ function handleClickSearchCatgory(target) {
     categoriesDropBox.render();
   }
 }
-
-const searchBar = new SearchBar();
-const searchBarDropBox = new SearchBarDropBox();
-searchBarDropBox.appendElement({ data: searchData, appendSearchBarDropBox });
-
-searchBarDropBox.onClickDocumentWhenDropDown({
-  handleClickOutDropBox,
-});
-
-searchBarDropBox.onKeyupKeywords({
-  handleKeyupKeywords,
-});
-
-searchBar.onFocusInput({
-  dropDown,
-});
-
-searchBar.onChangeInput({
-  handleChangeInput,
-});
-
-const inputDropBox = new SearchBarDropBox();
 
 function appendDropBox(data) {
   const $categories = createLiListTemplate(data);
@@ -93,40 +93,16 @@ function appendDropBox(data) {
   categoriesDropBox.render(state.isCategoryDropBoxVisible);
 }
 
-function appendSearchBarDropBox(data) {
+function appendSearchBarDropBox() {
   store.setState({ ...store.state, isBarDropBoxVisible: false });
   const { isBarDropBoxVisible } = state;
   searchBarDropBox.render({ isBarDropBoxVisible });
 }
 
 function handleClickOutDropBox() {
-  document.addEventListener("click", ({ target }) => {
-    // Todo: 인자로
-    const $search__delete = targetQuerySelector({
-      className: "search__delete",
-    });
-
-    const $current__search__off = targetQuerySelector({
-      className: "current__search__off",
-    });
-
-    const $search = targetQuerySelector({
-      className: "search",
-    });
-
-    const isAreaNotHiddenDropBox =
-      target === $search ||
-      target === $search__delete ||
-      target === $current__search__off;
-
-    if (isAreaNotHiddenDropBox) {
-      return;
-    }
-
-    store.setState({ ...state, isBarDropBoxVisible: true });
-    const { isBarDropBoxVisible } = state;
-    searchBarDropBox.render(isBarDropBoxVisible);
-  });
+  store.setState({ ...state, isBarDropBoxVisible: true });
+  const { isBarDropBoxVisible } = state;
+  searchBarDropBox.render({ isBarDropBoxVisible });
 }
 
 function handleKeyupKeywords() {
