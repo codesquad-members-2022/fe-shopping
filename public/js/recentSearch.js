@@ -11,6 +11,15 @@ export class HistorySearch {
     this.storage = localStorage;
   }
 
+  deleteSearch(event) {
+    const deleteTarget = event.target.parentElement;
+    deleteTarget.remove();
+    this.historyList = this.historyList.filter(
+      (search) => search.id !== parseInt(deleteTarget.id)
+    );
+    this.saveHistory();
+  }
+
   saveSearchHistory(searchInputValue) {
     const { id, searchContent } = searchInputValue;
     const addSearchHistory = document.createElement("li");
@@ -20,6 +29,7 @@ export class HistorySearch {
     deleteBtn.innerText = "x";
     addSearchHistory.appendChild(deleteBtn);
     searchListHistory.appendChild(addSearchHistory);
+    deleteBtn.addEventListener("click", this.deleteSearch.bind(this));
   }
 
   inputSubmitHandler(event) {
