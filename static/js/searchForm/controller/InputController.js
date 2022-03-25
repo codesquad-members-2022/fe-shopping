@@ -24,6 +24,7 @@ export default class InputController {
   resetResult() {
     this.historyView.showHistory();
     this.autoCompleteView.hideAutoComplete();
+    this.autoCompleteView.clearAutoComplete();
   }
 
   showResult() {
@@ -40,11 +41,15 @@ export default class InputController {
 
   submitInputValue(event) {
     event.preventDefault();
+
+    this.clearAutoCompleteTimer();
     const inputValue = this.getInputValue();
     if (!inputValue) return;
 
     this.model.setHistory(inputValue);
     this.historyView.renderHistory();
+    this.resetResult();
+
     this.inputView.clear();
     this.inputEl.blur();
   }
