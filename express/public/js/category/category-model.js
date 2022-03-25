@@ -1,18 +1,13 @@
-import { fetchData } from '../utility/util.js';
-
-class Model {
+export default class ModelController {
   constructor() {
     this.categoryData;
   }
 
-  async makeData() {
-    const jsonData = await fetchData('/categoryData');
-    this.categoryData = jsonData.categoryData;
+  getData(categoryData) {
+    this.categoryData = categoryData;
   }
 
-  setData() {
+  printData() {
     return this.categoryData;
   }
 }
-
-export const model = new Model();
