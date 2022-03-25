@@ -285,6 +285,18 @@ nav {
   padding: 0 12px;
 }
 
+.nav-bottom .info-wrap-top .recent-search-btns > * {
+  cursor: pointer;
+}
+
+.nav-bottom .info-wrap-top .hide {
+  display: none;
+}
+
+.nav-bottom .info-wrap-top .inputValue {
+  color: #4285f4;
+}
+
 .nav-bottom .info-wrap-top .search-btn {
   width: 50px;
 }

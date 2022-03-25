@@ -1,50 +1,99 @@
 export default class SearchEngine {
   constructor($inputTag) {
-    this.inputTag = $inputTag;
-    this.dropbox = document.querySelector("#search-dropbox-id");
-    this.count = 0;
+    this.input = $inputTag;
+    this.$dropbox = document.querySelector("#search-dropbox-id");
+    this.recentSearchArr = [];
+    this.$recentSearch = document.querySelector("#recent-search-id");
+    this.$needtoHide = document.querySelectorAll(".need-to-Hide");
+    this.childNodesidx = 0;
+    this.$searchInput = document.querySelector("#search-keyboard-id");
   }
   saveSearchingValue() {
-    const inputValue = this.inputTag.value;
-    console.log(inputValue);
-    localStorage.setItem(`searchingValue${this.count}`, inputValue);
-    localStorage.getItem("searchingValue");
-    this.count++;
-  }
-  renderSearchingValue() {
-    const $recentSearch = document.querySelector("#recent-search-id");
-    const searchedValues = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const searchedValue = localStorage.getItem(`searchingValue${i}`);
-      searchedValues.push(searchedValue);
+    const inputValue = this.input.value;
+    if (localStorage.length !== 0) {
+      this.recentSearchArr = JSON.parse(localStorage.getItem("recentSearch"));
     }
-    const sortedValuesArr = [...new Set(searchedValues)];
-    console.log(sortedValuesArr);
-    sortedValuesArr.map((value) => {
-      const $searchedValue = document.createElement("div");
-      $searchedValue.innerHTML = value;
-      $recentSearch.appendChild($searchedValue);
-    });
+    this.recentSearchArr.push(inputValue);
+    localStorage.setItem("recentSearch", JSON.stringify(this.recentSearchArr));
   }
-  showDropbox() {
-    this.dropbox.style.display = "flex";
+  async getSearchResult() {
+    for (const content of this.$needtoHide) {
+      content.classList.add("hide");
+    }
+    const response = await fetch("/data");
+    const data = await response.json();
+    const inputValue = this.input.value;
+    for (const key in data) {
+      if (key === inputValue.replace(/ /g, "")) {
+        this.renderSearchResult(data[key]);
+      }
+    }
   }
-  hideDropbox() {
-    this.dropbox.style.display = "none";
+  renderSearchResult(data) {
+    this.removeRecentSearch();
+    data.map((value) => this.renderData(value));
   }
   renderRecentSearch() {
-    const recentSearch = `
-    <div class="recent-search-text height-sort">최근 검색어</div>
-    <div class="recent-search" id="recent-search-id"></div>
-    <div class="recent-search-btns height-sort">
-        <div class="all-clear">전체 삭제</div>
-        <div class="turnoff-recent-search">최근 검색어 끄기</div>
-    </div>`;
-    this.dropbox.insertAdjacentHTML("afterbegin", recentSearch);
+    for (const content of this.$needtoHide) {
+      content.classList.remove("hide");
+    }
+    let searchedValues;
+    localStorage.length === 0
+      ? (searchedValues = ["최근 검색어 기록이 없습니다."])
+      : (searchedValues = JSON.parse(localStorage.getItem("recentSearch")));
+    const sortedValuesArr = [...new Set(searchedValues)];
+    sortedValuesArr.map((value) => this.renderData(value));
   }
+  renderData(value) {
+    const $searchedValue = document.createElement("div");
+    if (typeof value === "string") {
+      $searchedValue.innerHTML = value;
+    } else {
+      const valueArr = value.keyword.replace(/ /g, "").split("");
+      const inputValue = this.input.value;
+      for (let i = 0; i < inputValue.replace(/ /g, "").length; i++) {
+        valueArr.shift();
+      }
+      const searchedValueText = `<span class="inputValue">${inputValue}</span>${valueArr.join(
+        ""
+      )}`;
+      $searchedValue.insertAdjacentHTML("afterbegin", searchedValueText);
+    }
+    this.$recentSearch.appendChild($searchedValue);
+  }
+  changeFocus(command) {
+    const focusedContent = this.$recentSearch.childNodes[this.childNodesidx];
+    if (
+      command === "down" &&
+      this.childNodesidx < this.$recentSearch.childNodes.length - 1
+    ) {
+      this.childNodesidx++;
+    } else if (command === "up" && this.childNodesidx !== 0) {
+      this.childNodesidx--;
+    }
+    for (const childNode of this.$recentSearch.childNodes) {
+      childNode.style.textDecoration = "none";
+    }
+    focusedContent.style.textDecoration = "underline";
+    this.$searchInput.value = focusedContent.innerText;
+  }
+  deleteAllRecentSearch() {
+    localStorage.clear();
+    this.recentSearchArr = [];
+    this.renderRecentSearch();
+    this.hideDropbox();
+  }
+
+  showDropbox() {
+    this.$dropbox.style.display = "flex";
+  }
+  hideDropbox() {
+    this.$dropbox.style.display = "none";
+  }
+
   removeRecentSearch() {
-    while (this.dropbox.hasChildNodes()) {
-      this.dropbox.removeChild(this.dropbox.firstChild);
+    while (this.$recentSearch.hasChildNodes()) {
+      this.$recentSearch.removeChild(this.$recentSearch.firstChild);
     }
   }
 }

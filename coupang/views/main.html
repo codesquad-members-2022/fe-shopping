@@ -89,8 +89,15 @@
                                 🔽
                             </button>
                         </div>
-                        <input class="search-keyboard" id="search-keyboard-id" placeholder="찾고 싶은 상품을 검색해보세요!">
-                        <div class="search-dropbox height-sort" id="search-dropbox-id"></div>
+                        <input class="search-keyboard" id="search-keyboard-id" placeholder="찾고 싶은 상품을 검색해보세요!" autocomplete="off">
+                        <div class="search-dropbox height-sort" id="search-dropbox-id">
+                            <div class="recent-search-text height-sort need-to-Hide">최근 검색어</div>
+                            <div class="recent-search" id="recent-search-id"></div>
+                            <div class="recent-search-btns height-sort need-to-Hide">
+                                <div class="all-clear" id="reset-recent-search">전체 삭제</div>
+                                <div class="turnoff-recent-search" >최근 검색어 끄기</div>
+                            </div>
+                        </div>
                         <div class="search-btn center-sort">🔍</div>
                     </div>
                     <div class="info-wrap-my-coupang">

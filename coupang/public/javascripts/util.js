@@ -28,22 +28,36 @@ export function categoryDropBoxEvent() {
   });
 }
 export function searchEngineEvent() {
-  const searchInput = document.querySelector("#search-keyboard-id");
-  const searchEngine = new SearchEngine(searchInput);
-  searchInput.addEventListener(
-    "keydown",
-    debounce(() => {
+  const $searchInput = document.querySelector("#search-keyboard-id");
+  const $resetRecentSearch = document.querySelector("#reset-recent-search");
+  const searchEngine = new SearchEngine($searchInput);
+  $searchInput.addEventListener("keydown", function () {
+    if (window.event.keyCode === 13) {
       searchEngine.saveSearchingValue();
-    }, 500)
-  );
-  searchInput.addEventListener("focus", function () {
+    } else if (window.event.keyCode === 38) {
+      searchEngine.changeFocus("up");
+    } else if (window.event.keyCode === 40) {
+      searchEngine.changeFocus("down");
+    } else {
+      debounce(() => {
+        searchEngine.getSearchResult();
+      }, 500)();
+    }
+  });
+
+  $searchInput.addEventListener("focus", function () {
     searchEngine.showDropbox();
     searchEngine.renderRecentSearch();
-    searchEngine.renderSearchingValue();
   });
-  searchInput.addEventListener("blur", function () {
+  $searchInput.addEventListener("blur", function () {
     searchEngine.removeRecentSearch();
     searchEngine.hideDropbox();
+  });
+  $resetRecentSearch.addEventListener("click", function () {
+    searchEngine.deleteAllRecentSearch();
+  });
+  $resetRecentSearch.addEventListener("mousedown", function (e) {
+    e.preventDefault(); // 나중에 관련내용 찾아서 정리하기!
   });
 }
 export function debounce(callback, delay) {

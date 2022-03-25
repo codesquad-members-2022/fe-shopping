@@ -33,7 +33,6 @@ body {
   align-items: center;
 }
 nav {
-  // width: $main-width;
   height: $nav-catogory-height + $nav-top-height;
 }
 .nav-top {
@@ -151,11 +150,9 @@ nav {
       box-sizing: border-box;
       padding: 10px 0 10px 10px;
       transition: 1s;
-      // max-height: 0;
     }
     .search-bar-dropbox-content,
     .search-bar-content {
-      // position: absolute;
       width: 80%;
       height: 30px;
       font-size: 11px;
@@ -215,6 +212,15 @@ nav {
       color: #888888;
       box-sizing: border-box;
       padding: 0 12px;
+    }
+    .recent-search-btns > * {
+      cursor: pointer;
+    }
+    .hide {
+      display: none;
+    }
+    .inputValue {
+      color: $dark-sky-blue;
     }
     .search-btn {
       width: 50px;
