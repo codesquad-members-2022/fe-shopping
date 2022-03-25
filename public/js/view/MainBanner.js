@@ -1,4 +1,4 @@
-import ImgSlider from "../core/ImgSlider.js";
+import ImgSlider from "../component/ImgSlider.js";
 
 export default function MainBanner({
   data,

@@ -85,12 +85,11 @@
   background-color: #fff;
   position: relative;
   z-index: 999;
-  border-top: color-line($color-lightgray);
   $item-height: 2.2rem;
   @include box-shadow;
 
-  .inner,
-  &.inner {
+  .inner {
+    border-top: color-line($color-lightgray);
     padding: 15px;
   }
 
@@ -108,11 +107,17 @@
   .link {
     line-height: $item-height;
     display: block;
+    @include ellipsis;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.focus {
       outline: none;
       @include hover-decoration;
+    }
+
+    strong {
+      color: $color-blue;
     }
   }
 }
@@ -143,6 +148,6 @@
   }
 }
 
-.recommend-search-area {
+.suggest-search-area {
   display: none;
 }

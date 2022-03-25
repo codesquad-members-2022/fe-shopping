@@ -1,19 +1,15 @@
-import { $ } from "./util/util.js";
-import { sliderData } from "../data/data.js";
-import MainBanner from "./component/MainBanner.js";
-import SearchForm from "./component/SearchForm.js";
+import MainBanner from "./view/MainBanner.js";
+import LocalStorage from "./util/LocalStorage.js";
+import { viewModel } from "./viewModel/viewModel.js";
+import { options } from "./common/options.js";
 
-const mainBanner = new MainBanner({
-  data: sliderData,
-  sec: 1.7,
-  slideUlElement: $(".carousel-items"),
-  imgAreaElement: $(".carousel-img-area"),
-});
+const mainBanner = new MainBanner(options.mainBanner);
+const storage = new LocalStorage(options.localStorage);
 
-const searchForm = new SearchForm({
-  searchFormArea: $(".search-form-area"),
-  localStorageDataSize: 10,
+viewModel.init({
+  localStorage: storage,
+  viewOptions: options.view,
+  viewModelOptions: options.viewModel,
 });
-searchForm.init();
 
 mainBanner.init();
