@@ -203,3 +203,30 @@ const handleKeyupWithFocus = (event) => {
 
 - 위 잘못된 방식을 고치기 위해서 다시 `keyup` 과 `keydown` 이벤트를 분리하였다.
   - 디바운싱이 필요없는 `ArrowDown`, `ArrowUp`, `Enter` 이벤트 들을 위해서 분리했는데, 하나의 이벤트 내부에서 처리할 수 있는 로직을 짤 수있을 것 같은데, 당장 떠오르는 아이디어가 없어서 천천히 고민해보려고 함.
+
+### mouseover, mouseout
+
+- mouseover 시 디바운스를 걸어서 100ms 동안 머물고 있는 경우에 text-decoration 을 주는 식으로 동작하게 했는데, mouseout 은 디바운스를 주지 않았었다.
+
+  - mouseout 까지 디바운스가 필요할 거란 생각은 안했다. 즉시 사라지면 되어도 되니까.
+
+- 그런데 마우스가 debounce 를 판단하고 callback 을 실행하는 시간 동안에 mouseout 을 해버리면 classList 가 add 되지도 않고 classList 를 remove 해버리는 현상이 발생했다.
+
+  - 생각한 로직 : mouseover -> 100ms 진행중 -> 100ms 이후 classList add -> mouseout (classList remove)
+  - 버그 로직 : mouseover -> 100ms 진행중 -> mouseout (classList remove) -> 100ms 이후 classList add
+
+- 간단히 mouseout 조건으로 contains 를 달아서 해결하는 법도 있을 것 같지만, debounce callback 이후 mouseout 이벤트가 발생되기 바라는 흐름을 고치는게 맞다고 생각하여 mouseout 에 mouseover 에서 쓰고있는 ms 만큼 delay 를 주는 식으로 변경하였다.
+
+```js
+// 전
+const handleListMouseOut = ({ target }) => {
+  target.classList.remove("list-over");
+};
+// 후
+const handleListMouseOut = ({ target }) => {
+  const MOUSEOVER_DELAY_MS = 100;
+  delay(MOUSEOVER_DELAY_MS).then(() => {
+    target.classList.remove("list-over");
+  });
+};
+```
