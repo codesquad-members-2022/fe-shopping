@@ -1,13 +1,12 @@
-import { getStyle, isHidden, selector } from "./util";
-import { searchFilterInterval } from "./constant";
+import { selector, getStyle, isHidden } from "../util";
+import { CenterFilterView } from "../views/centerFilterView";
+import { searchFilterInterval } from "../constant";
 
-class ClickEvent {
-  constructor(target, transformer, parentName) {
+class CenterFilterPresenter {
+  constructor(target, transformer) {
     this.target = target;
     this.transformer = transformer;
-    this.parentName = parentName;
-    this.originHeight = null;
-    this.lengthDirection = null;
+    this.view = new CenterFilterView(this);
   }
 
   activateRequestAF = (length) => {
@@ -47,31 +46,27 @@ class ClickEvent {
     this.resizeList(length);
   };
 
-  toggleIcon = ({ classList }) => {
-    classList.toggle("fa-chevron-down");
-    classList.toggle("fa-chevron-up");
-  };
-
   handleSearchFilterClick = () => {
-    const FilterMenu = this.target.parentNode;
-    const menuIcon = selector("i", FilterMenu);
-    this.toggleIcon(menuIcon);
+    const filterMenu = this.target.parentNode;
+    const menuIcon = selector("i", filterMenu);
+    this.view.toggleIcon(menuIcon);
     this.toggleList();
   };
 
-  changeTargetInnerText = ({ innerText }) => {
-    this.target.children[0].innerText = innerText;
-  };
-
   handleClickEvent = ({ target, target: { tagName } }) => {
-    const isTarget = target.closest(this.parentName);
-    if (isTarget || !isHidden(this.transformer)) this.handleSearchFilterClick();
-    if (tagName === "LI" && isTarget) this.changeTargetInnerText(target);
+    this.handleSearchFilterClick();
+    if (tagName === "LI") this.view.changeTargetInnerText(target);
   };
 
-  init = () => {
-    document.addEventListener("click", this.handleClickEvent);
+  checkListOpened = ({ target }) => {
+    const isListClicked = target.closest(`.${this.transformer.className}`);
+    if (!isListClicked && !isHidden(this.transformer))
+      this.handleSearchFilterClick();
+  };
+
+  activate = () => {
+    this.view.addEvent();
   };
 }
 
-export { ClickEvent };
+export { CenterFilterPresenter };

@@ -42,13 +42,13 @@ class MouseEvent {
     const { child } = !this.categorySecond
       ? this.categoryFirst
       : this.categorySecond;
-    if (!child) return;
 
-    const innerData = child.map(({ keyword }) => keyword);
+    const innerData = child ? child.map(({ keyword }) => keyword) : [];
     const innerList = drawListFromData(innerData);
     const listChildren = [...this.transformer.children];
     listChildren.forEach(({ classList }) => classList.remove("none"));
     listChildren[!this.categorySecond ? 1 : 2].innerHTML = innerList;
+    if (!this.categorySecond) listChildren[2].innerHTML = "";
     this.transformer.style.width = "288%";
   };
 

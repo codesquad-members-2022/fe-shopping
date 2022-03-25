@@ -2,10 +2,10 @@ import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
 import { selector, findRefinedData } from "./util.js";
 import { FocusBlurEvent } from "./FocusBlurEvent";
+import { ClickEvent } from "./ClickEvent";
 import { KeyupEvent } from "./KeyupEvent";
 import { MouseEvent } from "./MouseEvent";
 import { async } from "regenerator-runtime";
-import { CenterFilterPresenter } from "./presenters/centerFilterPresenter";
 
 const centerSearchInput = selector("input", selector(".center-search"));
 const centerRelativeInfo = selector(".center-relative-info");
@@ -23,10 +23,10 @@ const handleSearchBoxEvent = (target, transformer) => {
   searchBoxMouse.getListMarkEvent();
   searchBoxKeyup.init();
 };
-const handleCenterFilterEvent = (target, transformer) => {
+const handleCenterFilterEvent = (target, transformer, parentName) => {
+  const centerFilterclick = new ClickEvent(target, transformer, parentName);
   const centerFilterMouse = new MouseEvent(target, transformer);
-  const centerFilterPresenter = new CenterFilterPresenter(target, transformer);
-  centerFilterPresenter.activate();
+  centerFilterclick.init();
   centerFilterMouse.getListMarkEvent();
 };
 const handleCategoriesEvent = async (target, tranformer) => {
