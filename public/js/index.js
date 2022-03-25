@@ -1,5 +1,7 @@
 import { carouselData } from '../data/carouselData.js';
 import { delay, $ } from './util.js';
+import { AutoComplete } from './component/AutoComplete.js';
+import { History } from './component/History.js';
 
 /* 캐러셀 구현하려다가 첫 이미지만 넣고 검색 기능 구현 중 */
 const $carouselSection = $('.carousel-banner');
@@ -21,109 +23,18 @@ $selectCategory.addEventListener('click', ({ target }) => {
 
 /* 검색창 자동완성 */
 
-const getAutocomplete = (value) => {
-  return fetch(`/autocomplete?value=${value}`).then((res) => res.json());
-};
+const autocomplete = new AutoComplete();
 
-const showAutocomplete = (data, keyword) => {
-  const length = keyword.length;
-  let template = `<div> `;
-  data.forEach((element) => {
-    const matched = element.slice(0, length);
-    const notMatched = element.slice(length);
-    template += `<li>${matched}<span>${notMatched}</span></li>`;
-  });
-  template += `</div>`;
+autocomplete.setAutoCompleteListener();
 
-  $autocompleteBox.innerHTML = template;
-};
+/* 검색창 자동완성 */
 
-const $searchInput = $('.search-form-input');
-const $autocompleteBox = $('.autocomplete-popup');
+const history = new History();
+console.log(history);
+history.setHistoryListener();
 
-$searchInput.addEventListener('input', ({ target }) => {
-  const keyword = target.value;
-  $autocompleteBox.classList.add('showAutocomplete');
-  delay(500).then((res) => {
-    getAutocomplete(target.value).then((data) => {
-      showAutocomplete(data, keyword);
-    });
-  });
-});
-
-/* 최근 검색어 */
-
-const $historyPopupBox = $('.history-popup');
-const $historyPopupBtn = $('.history-popup-btn');
-const $deleteAllHistory = $('.delete-all-history');
-const $historyOnoff = $('.history-onoff');
-
-$searchInput.addEventListener('focus', ({ target }) => {
-  $historyPopupBox.classList.add('showHistoryPopup');
-  $historyPopupBtn.classList.add('showHistoryPopup');
-});
-
-const getInput = () => {
-  const currentInput = $searchInput.value;
-  return currentInput;
-};
-
-let historyList = new Array();
-
-const showHistory = (element) => {
-  const list = document.createElement('li');
-  list.innerText = element;
-  $historyPopupBox.appendChild(list);
-};
-
-const savedHistory = JSON.parse(localStorage.getItem('history'));
-
-const showInitialHistory = () => {
-  // localStorage에 있는 검색어를 띄운다
-  if (savedHistory !== null) {
-    historyList = savedHistory;
-    savedHistory.forEach((element) => showHistory(element));
-  }
-};
-
-showInitialHistory();
-
-const deleteHistory = () => {
-  localStorage.clear();
-};
-
-$deleteAllHistory.addEventListener('click', ({ target }) => {
-  console.log('delete');
-  deleteHistory();
-  $historyPopupBox.innerHTML = `<h3>최근 검색어</h3>`;
-});
-
-$historyOnoff.addEventListener('click', ({ target }) => {
-  $searchInput.classList.toggle('historyOn');
-  if (!$searchInput.classList.contains('historyOn')) {
-    $historyPopupBox.innerHTML = `<span>최근 검색어 저장 기능이 꺼져 있습니다.</span>`;
-    $historyOnoff.innerText = `최근검색어켜기`;
-  } else {
-    $historyPopupBox.innerHTML = `<h3>최근 검색어</h3>`;
-    showInitialHistory();
-    $historyOnoff.innerText = `최근검색어끄기`;
-  }
-});
-
-$searchInput.addEventListener('keypress', (key) => {
-  $autocompleteBox.classList.remove('showAutocomplete');
-  if (key.keyCode === 13) {
-    if (!$searchInput.classList.contains('historyOn')) return;
-
-    const input = getInput();
-    historyList.push(input);
-    localStorage.setItem('history', JSON.stringify(historyList));
-    showHistory(input);
-  }
-});
-
-$searchInput.addEventListener('blur', ({ target }) => {
-  // $autocompleteBox.classList.remove('showAutocomplete');
-  // $historyPopupBox.classList.remove('showHistoryPopup');
-  // $historyPopupBtn.classList.remove('showHistoryPopup');
-});
+// $searchInput.addEventListener('blur', ({ target }) => {
+//   // $autocompleteBox.classList.remove('showAutocomplete');
+//   // $historyPopupBox.classList.remove('showHistoryPopup');
+//   // $historyPopupBtn.classList.remove('showHistoryPopup');
+// });
