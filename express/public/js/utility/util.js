@@ -14,35 +14,11 @@ export async function getCompleteData(consonant) {
   return completeData;
 }
 
-export function makeImageSlide(list) {
-  return `
-  <li id= "${list.id}" class="image-element">
-    <img src="${list.imgURL}" / alt="${list.imgTitle} 이미지" width = "950" height = "400">
-    </li>
-  `;
-}
-
-export function makeSideTab(list) {
-  return `
-  <li id= "${list.id}" class="side-tab-element">
-    <img src="${list.subImgURL}" / alt="${list.imgTitle} 이미지" width = "200" height = "55">
-    </li>
-  `;
-}
-
-export function makeShoppingCategory(categoryData, step) {
-  return [...categoryData].reduce(
-    (pre, curContent) =>
-      (pre += `<li class = "shopping-popup-menu-item">${curContent[`${step}`]}</li>`),
-    ''
-  );
-}
-
 export function throttle(callback, wait) {
   let waiting = true;
   return function (...args) {
     if (waiting) {
-      callback.apply(this, args);
+      callback(...args);
       waiting = false;
       setTimeout(() => {
         waiting = true;
@@ -56,7 +32,7 @@ export function debounce(callback, wait) {
   return function (...args) {
     clearTimeout(waiting);
     waiting = setTimeout(() => {
-      callback.apply(this, args);
+      callback(args);
     }, wait);
   };
 }
