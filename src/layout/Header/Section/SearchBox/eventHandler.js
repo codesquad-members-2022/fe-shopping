@@ -54,6 +54,7 @@ function handleInputClick({ target }) {
   const { value: inputValue } = target;
   this.eventHandler.subLogic.handlePopUpDisplay.call(this, inputValue);
 }
+
 function handleInputKeyDown(event) {
   const { key } = event;
   const {
