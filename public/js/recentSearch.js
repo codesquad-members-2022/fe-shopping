@@ -11,6 +11,18 @@ export class HistorySearch {
     this.storage = localStorage;
   }
 
+  saveHistory() {
+    this.storage.setItem("search", JSON.stringify(this.historyList));
+  }
+
+  addSearchList() {
+    if (this.storage.getItem("search") !== null) {
+      const parsedList = JSON.parse(this.storage.getItem("search"));
+      this.historyList = parsedList;
+      parsedList.forEach((el) => this.saveSearchHistory(el));
+    }
+  }
+
   deleteSearch(event) {
     const deleteTarget = event.target.parentElement;
     deleteTarget.remove();
