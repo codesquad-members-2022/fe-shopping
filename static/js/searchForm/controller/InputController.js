@@ -8,6 +8,7 @@ export default class InputController {
     this.resultEl = view.resultEl;
     this.show = 'searchForm__result--show';
     this.hidden = 'searchForm__result--hidden';
+    this.autoCompleteTimerId;
   }
 
   init() {
@@ -15,6 +16,8 @@ export default class InputController {
     this.inputView.resetResult = this.resetResult.bind(this);
     this.inputView.showResult = this.showResult.bind(this);
     this.inputView.hideResult = this.hideResult.bind(this);
+    this.inputView.setAutoCompleteTimer = this.setAutoCompleteTimer.bind(this);
+    this.inputView.clearAutoCompleteTimer = this.clearAutoCompleteTimer.bind(this);
     this.inputView.submitInputValue = this.submitInputValue.bind(this);
   }
 
@@ -44,5 +47,22 @@ export default class InputController {
     this.historyView.renderHistory();
     this.inputView.clear();
     this.inputEl.blur();
+  }
+
+  setAutoCompleteTimer(event) {
+    this.clearAutoCompleteTimer();
+
+    this.autoCompleteTimerId = setTimeout(() => {
+      const category = this.model.getCurrentCategory();
+      const inputValue = event.target.value;
+      this.autoCompleteView.renderAutoComplete(category, inputValue);
+
+      this.showResult();
+      this.historyView.hideHistory();
+    }, 500);
+  }
+
+  clearAutoCompleteTimer() {
+    clearTimeout(this.autoCompleteTimerId);
   }
 }

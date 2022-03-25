@@ -13,13 +13,20 @@ export default class InputView {
   }
 
   addHandler() {
+    this.inputEl.addEventListener('input', (event) => {
+      if (event.target.value === '') {
+        this.clearAutoCompleteTimer();
+        this.resetResult();
+        this.hideResult();
+        return;
+      }
+      this.setAutoCompleteTimer(event);
+    });
     this.inputEl.addEventListener('focus', () => {
       if (this.model.getHistory().length === 0) return;
       this.showResult();
     });
-
     this.inputEl.addEventListener('blur', () => this.hideResult());
-
     this.submitButtonEl.addEventListener('click', (event) => this.submitInputValue(event));
   }
 
