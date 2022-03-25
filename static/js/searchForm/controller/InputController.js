@@ -1,8 +1,9 @@
 export default class InputController {
-  constructor({ model, view, historyView }) {
+  constructor({ model, view, historyView, autoCompleteView }) {
     this.model = model;
     this.inputView = view;
     this.historyView = historyView;
+    this.autoCompleteView = autoCompleteView;
     this.inputEl = view.inputEl;
     this.resultEl = view.resultEl;
     this.show = 'searchForm__result--show';
@@ -11,9 +12,15 @@ export default class InputController {
 
   init() {
     this.inputView.init();
+    this.inputView.resetResult = this.resetResult.bind(this);
     this.inputView.showResult = this.showResult.bind(this);
     this.inputView.hideResult = this.hideResult.bind(this);
     this.inputView.submitInputValue = this.submitInputValue.bind(this);
+  }
+
+  resetResult() {
+    this.historyView.showHistory();
+    this.autoCompleteView.hideAutoComplete();
   }
 
   showResult() {
