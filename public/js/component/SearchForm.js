@@ -32,7 +32,6 @@ export default class {
     this.$form.reset();
   }
 
-  // /* CREATE ELEMENTS */
   createDropdownInner() {
     this.$dropdown.innerHTML = `
     <div class="inner">
@@ -45,7 +44,6 @@ export default class {
     dropDownList.innerHTML = "";
   }
 
-  /* SHOW, HIDE ELEMENT */
   renderDropdown() {
     setDisplayBlock(this.$dropdown);
     this.createDropdownInner();
@@ -55,7 +53,6 @@ export default class {
   hideDropdown() {
     setDisplayNone(this.$dropdown);
   }
-  /* FOCUS EVENT */
 
   onFocus() {
     this.$input.addEventListener("focus", this.handleFocusInput);
@@ -70,7 +67,6 @@ export default class {
     this.onBlur();
   }
 
-  /* KEY UP EVENT */
   addClassSelectedIdx(selectedIdx) {
     const itemsSelector = `[data-${this.datasetName}]`;
     const items = [...$$(itemsSelector)];
@@ -111,12 +107,10 @@ export default class {
     });
   }
 
-  // /* SUBMIT EVENT */
   onSubmit() {
     this.$form.addEventListener("submit", this.handleSubmit);
   }
 
-  // /* MOUSE DOWN EVENT */
   inputSelectedTxt(target) {
     const selectedTxt = target.innerText;
     this.$input.value = selectedTxt;
