@@ -10,21 +10,6 @@ export default function SearchWord() {
   this.position = -1;
 }
 
-SearchWord.prototype.pushRecentWords = function () {
-  if (this.recentWords.includes(this.currentWord)) {
-    return;
-  }
-  this.recentWords.push(this.currentWord);
-};
-
-SearchWord.prototype.getCurrentWord = function () {
-  return this.currentWord;
-};
-
-SearchWord.prototype.setCurrentWord = function (currentWord) {
-  this.currentWord = currentWord;
-};
-
 SearchWord.prototype.turnOff = function () {
   this.turn = false;
 };
@@ -35,22 +20,6 @@ SearchWord.prototype.turnOn = function () {
 
 SearchWord.prototype.getTurn = function () {
   return this.turn;
-};
-
-SearchWord.prototype.setPosition = function (position) {
-  this.position = position;
-};
-
-SearchWord.prototype.addPosition = function () {
-  this.position++;
-};
-
-SearchWord.prototype.minusPosition = function () {
-  this.position--;
-};
-
-SearchWord.prototype.removeAll = function () {
-  this.recentWords = [];
 };
 
 SearchWord.prototype.offRecentComponent = function () {
