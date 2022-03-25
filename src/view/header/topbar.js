@@ -3,11 +3,13 @@ import { Core } from "../core.js";
 export class TopBar extends Core {
   constructor() {
     super();
-    this.template = this.getTemplate();
+    this.template = this.setTemplate();
   }
-  getTemplate() {
-    return `
-  <div class="top-bar">
+
+  setTemplate() {
+    const template = document.createElement("div");
+    template.className = "top-bar";
+    template.innerHTML = `
     <section>
       <ul class="subscribe">
         <li>즐겨찾기</li>
@@ -18,8 +20,8 @@ export class TopBar extends Core {
         <li>회원가입</li>
         <li>고객센터</li>
       </ul>
-    </section>
-  </div>
-    `;
+    </section>`;
+
+    return template;
   }
 }
