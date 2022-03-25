@@ -10,8 +10,6 @@ export default class RecentSearchList extends SearchList {
     setEventHandler() {
         this.view.clearRecentSearchList = this.clearRecentSearchList.bind(this);
         this.view.recordBtnClickEventHandler = this.toggleRecord.bind(this);
-
-        this.view.initEvent();
     }
 
     clearRecentSearchList() {

@@ -1,7 +1,7 @@
 import SearchCategoryView from "./search-category-view.js";
 import SearchCategoryStore from "./search-category-store.js";
 
-export class SearchCategory {
+export default class SearchCategory {
     constructor(category, categoryList) {
         this.view = new SearchCategoryView(category, categoryList);
         this.store = new SearchCategoryStore();

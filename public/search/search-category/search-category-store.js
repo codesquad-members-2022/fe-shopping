@@ -3,7 +3,7 @@ export default class SearchCategoryStore {
         this.selectedCategory = "all";
         this.selectedCategoryName = "전체";
         this.isVisible = false;
-        this.curIdx = -1;
+        this.curIdx = 0;
         this.CATEGORY_LENGTH = 31;
     }
 

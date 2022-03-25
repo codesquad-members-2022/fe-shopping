@@ -5,6 +5,13 @@ export default class RelatedSearchListView extends SearchListView {
         super(searchList, listContainer);
     }
 
+    initEvent() {
+        this.listContainer.addEventListener(
+            "click",
+            this.relatedSearchListClickEventHandler
+        );
+    }
+
     getItemTemplate(itemName, input) {
         let itemText = itemName;
         const inputRegex = new RegExp(`${input}`);

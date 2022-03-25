@@ -20,6 +20,11 @@ export default class RecentSearchListView extends SearchListView {
             "click",
             this.recordBtnClickEventHandler
         );
+
+        this.listContainer.addEventListener(
+            "click",
+            this.recentSearchListClickEventHandler
+        );
     }
 
     showRecordBlock(recordBlock) {
