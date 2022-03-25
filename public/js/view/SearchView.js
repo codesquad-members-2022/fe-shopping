@@ -1,50 +1,58 @@
-import option from "../common/options.js";
+// import option from "../common/options.js";
 import SearchForm from "../component/SearchForm.js";
 import storage from "../util/storage.js";
-import { sortAsc, isEmpty, fetchData, debounce } from "../util/util.js";
+import {
+  sortAsc,
+  isEmpty,
+  fetchData,
+  debounce,
+  setDisplayBlock,
+} from "../util/util.js";
 
 export default class extends SearchForm {
-  constructor(...args) {
-    super(...args);
-    this.message = option.message;
-    this.state = "recent-search";
+  constructor({ datasetName, recentSearchValueName, ...args }) {
+    super(args);
+    this.datasetName = datasetName;
+    this.recentSearchValueName = recentSearchValueName;
+    // this.message = option.message;
+    // this.state = "recent-search";
   }
 
-  setStateInit() {
-    this.state = "recent-search";
-    this.searchWord = "";
-  }
+  // setStateInit() {
+  //   this.state = "recent-search";
+  //   this.searchWord = "";
+  // }
 
-  setSearchData(data, key) {
-    if (key) {
-      this.searchData = data[key];
-      return;
-    }
-    this.searchData = data;
-  }
+  // setSearchData(data, key) {
+  //   if (key) {
+  //     this.searchData = data[key];
+  //     return;
+  //   }
+  //   this.searchData = data;
+  // }
 
-  setSearchStateSuggest(word) {
-    this.state = "suggest-search";
-    this.setListItemsCnt(this.searchData);
-    this.searchWord = word;
-  }
+  // setSearchStateSuggest(word) {
+  //   this.state = "suggest-search";
+  //   this.setListItemsCnt(this.searchData);
+  //   this.searchWord = word;
+  // }
 
-  getSuggestionWord = debounce(() => {
-    const searchWord = this.$input.value;
-    const fetchUrl = option.suggestionUrl + searchWord;
+  // getSuggestionWord = debounce(() => {
+  //   const searchWord = this.$input.value;
+  //   const fetchUrl = option.suggestionUrl + searchWord;
 
-    const getSuggestionData = (json) =>
-      json["suggestions"].map((el) => el.value);
-    this.initSelectedIdx();
+  //   const getSuggestionData = (json) =>
+  //     json["suggestions"].map((el) => el.value);
+  //   this.initSelectedIdx();
 
-    fetchData(fetchUrl, getSuggestionData)
-      .then((json) => this.setSearchData(json))
-      .then((res) => this.setSearchStateSuggest(searchWord))
-      .then((res) => this.showDropdown())
-      .catch((error) => console.error(error));
-  }, option.suggestionDelay);
+  //   fetchData(fetchUrl, getSuggestionData)
+  //     .then((json) => this.setSearchData(json))
+  //     .then((res) => this.setSearchStateSuggest(searchWord))
+  //     .then((res) => this.showDropdown())
+  //     .catch((error) => console.error(error));
+  // }, option.suggestionDelay);
 
-  createDropdownInner() {
+  createDropdownInner(state) {
     const innerTag = {
       "recent-search": `
         <div class="inner">
@@ -64,32 +72,36 @@ export default class extends SearchForm {
         </div>`,
     };
 
-    this.$dropdown.innerHTML = innerTag[this.state];
+    this.$dropdown.innerHTML = innerTag[state];
   }
 
-  getSearchData() {
-    if (this.state === "recent-search") {
-      const keyName = option.recentSearchKeyName;
-      const recentSearchData = storage.getLocalStorage(keyName);
-      if (!recentSearchData) {
-        return [];
-      }
-
-      const sortKey = "no";
-      const dataSortByAsc = sortAsc(recentSearchData, sortKey);
-      this.setListItemsCnt(dataSortByAsc);
-      this.setSearchData(dataSortByAsc);
-      return dataSortByAsc;
-    }
-    return this.searchData;
+  renderDropdown(state) {
+    setDisplayBlock(this.$dropdown);
+    this.createDropdownInner(state);
   }
 
-  getLiTemplate(cur, idx) {
+  fillDropdownList(data, state) {
+    console.log(data);
+    const dropDownList = this.$dropdown.querySelector(".list");
+    dropDownList.innerHTML = this.createLiElements(data, state);
+  }
+
+  createLiElements(data, state) {
+    if (!data) return "";
+
+    const tag = data.reduce((prev, cur, idx) => {
+      return prev + this.getLiTemplate({ cur, idx, state });
+    }, "");
+
+    return tag;
+  }
+
+  getLiTemplate({ cur, idx, state }) {
     let item;
-    if (this.state === "recent-search") {
-      item = cur[option.recentSearchValueName];
+    if (state === "recent-search") {
+      item = cur[this.recentSearchValueName];
     }
-    if (this.state === "suggest-search") {
+    if (state === "suggest-search") {
       item = cur
         .split(this.searchWord)
         .join(`<strong>${this.searchWord}</strong>`);
@@ -98,93 +110,80 @@ export default class extends SearchForm {
     const template = {
       "recent-search": `
         <li class="recent-search-item">
-          <a href="#" class="link" data-idx=${idx}>${item}</a>
+          <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
         </li>`,
       "suggest-search": `
         <li class="suggest-search-item">
-          <a href="#" class="link" data-idx=${idx}>${item}</a>
+          <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
         </li>
       `,
     };
-    return template[this.state];
+    return template[state];
   }
 
-  createLiElements() {
-    const data = this.getSearchData();
-    if (!data) return "";
+  // getSearchData() {
+  //   if (this.state === "recent-search") {
+  //     const keyName = option.recentSearchKeyName;
+  //     const recentSearchData = storage.getLocalStorage(keyName);
+  //     if (!recentSearchData) {
+  //       return [];
+  //     }
 
-    const tag = data.reduce((prev, cur, idx) => {
-      return prev + this.getLiTemplate(cur, idx);
-    }, "");
+  //     const sortKey = "no";
+  //     const dataSortByAsc = sortAsc(recentSearchData, sortKey);
+  //     this.setListItemsCnt(dataSortByAsc);
+  //     this.setSearchData(dataSortByAsc);
+  //     return dataSortByAsc;
+  //   }
+  //   return this.searchData;
+  // }
 
-    return tag;
-  }
+  // handleRemoveRecentSearch(e) {
+  //   e.preventDefault();
+  //   const { confirmMsg, completeMsg, cancelMsg } = this.message;
 
-  fillDropdownList() {
-    const dropDownList = this.$dropdown.querySelector(".list");
-    dropDownList.innerHTML = this.createLiElements();
-  }
+  //   if (!confirm(confirmMsg)) {
+  //     alert(cancelMsg);
+  //     return;
+  //   }
+  //   storage.removeFromLocalStorage(option.recentSearchKeyName);
+  //   this.fillDropdownList();
+  //   alert(completeMsg);
+  // }
 
-  handleRemoveRecentSearch(e) {
-    e.preventDefault();
-    const { confirmMsg, completeMsg, cancelMsg } = this.message;
+  // handleSearchFormMousedown(e) {
+  //   super.handleSearchFormMousedown(e);
+  //   const { target } = e;
 
-    if (!confirm(confirmMsg)) {
-      alert(cancelMsg);
-      return;
-    }
-    storage.removeFromLocalStorage(option.recentSearchKeyName);
-    this.fillDropdownList();
-    alert(completeMsg);
-  }
+  //   if (target.closest(".search-area-dropdown")) {
+  //     if (target.classList.contains("remove-all")) {
+  //       this.handleRemoveRecentSearch(e);
+  //       return;
+  //     }
+  //   }
+  // }
 
-  handleSearchFormMousedown(e) {
-    super.handleSearchFormMousedown(e);
-    const { target } = e;
+  // onKeyUp() {
+  //   super.onKeyUp();
+  //   this.$input.addEventListener("keyup", ({ key }) => {
+  //     if (key === "Escape") {
+  //       return;
+  //     }
+  //     if (key === "ArrowDown" || key === "ArrowUp") {
+  //       return;
+  //     }
 
-    if (target.closest(".search-area-dropdown")) {
-      if (target.classList.contains("remove-all")) {
-        this.handleRemoveRecentSearch(e);
-        return;
-      }
-    }
-  }
+  //     if (isEmpty(this.$input.value)) {
+  //       this.setStateInit();
+  //       return;
+  //     }
 
-  onKeyUp() {
-    super.onKeyUp();
-    this.$input.addEventListener("keyup", ({ key }) => {
-      if (key === "Escape") {
-        return;
-      }
-      if (key === "ArrowDown" || key === "ArrowUp") {
-        return;
-      }
+  //     this.getSuggestionWord();
+  //   });
+  // }
 
-      if (isEmpty(this.$input.value)) {
-        this.setStateInit();
-        return;
-      }
-
-      this.getSuggestionWord();
-    });
-  }
-
-  handleSubmitForm(e) {
-    super.handleSubmitForm(e);
-    this.setStateInit();
-  }
-
-  onFocus() {
-    super.onFocus();
-    this.$input.addEventListener("focus", () => {
-      this.setStateInit();
-    });
-  }
-
-  onBlur() {
-    super.onBlur();
-    this.$input.addEventListener("blur", () => {
-      this.setStateInit();
-    });
-  }
+  // handleSubmitForm(e) {
+  //   super.handleSubmitForm(e);
+  //   this.setStateInit();
+  // }
 }

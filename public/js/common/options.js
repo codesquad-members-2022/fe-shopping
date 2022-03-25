@@ -1,5 +1,5 @@
-import { sliderData } from "../data/data.js";
-import { $ } from "./util/util.js";
+import { sliderData } from "../../data/data.js";
+import { $ } from "../util/util.js";
 
 export const options = {
   mainBanner: {
@@ -17,9 +17,11 @@ export const options = {
   },
   view: {
     searchFormArea: $(".search-form-area"),
+    recentSearchValueName: "recentSearchWord",
     datasetName: "idx",
   },
   viewModel: {
+    recentSearchKeyName: "recent-search",
     suggestionUrl: `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=`,
     suggestionDelay: 140,
     message: {

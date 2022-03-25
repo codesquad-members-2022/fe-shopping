@@ -1,4 +1,3 @@
-import option from "../common/options.js";
 import {
   isEmpty,
   setDisplayNone,
@@ -19,34 +18,29 @@ export default class {
     this.localStorage = localStorage;
   }
 
-  initSelectedIdx() {
-    const initialIdx = -1;
-    this.selectedIdx = initialIdx;
-  }
+  // initSelectedIdx() {
+  //   const initialIdx = -1;
+  //   this.selectedIdx = initialIdx;
+  // }
 
-  setListItemsCnt(data) {
-    this.listItemsCnt = data.length;
-  }
+  // setListItemsCnt(data) {
+  //   this.listItemsCnt = data.length;
+  // }
 
   getElFromArea(selector) {
     return this.$searchFormArea.querySelector(selector);
   }
 
-  clearInput() {
-    this.$form.reset();
-  }
+  // clearInput() {
+  //   this.$form.reset();
+  // }
 
-  /* CREATE ELEMENTS */
+  // /* CREATE ELEMENTS */
   createDropdownInner() {
     this.$dropdown.innerHTML = `
     <div class="inner">
       <ul class="list"></ul>
     </div>`;
-  }
-
-  createLiElements() {
-    const tag = `<li></li>`;
-    return tag;
   }
 
   fillDropdownList() {
@@ -55,28 +49,23 @@ export default class {
   }
 
   /* SHOW, HIDE ELEMENT */
-  showDropdown() {
+  renderDropdown() {
     setDisplayBlock(this.$dropdown);
     this.createDropdownInner();
     this.fillDropdownList();
   }
 
-  hideDropDown() {
-    this.initSelectedIdx();
+  hideDropdown() {
     setDisplayNone(this.$dropdown);
   }
   /* FOCUS EVENT */
 
   onFocus() {
-    this.$input.addEventListener("focus", () => {
-      this.showDropdown();
-    });
+    this.$input.addEventListener("focus", this.handleFocusInput);
   }
 
   onBlur() {
-    this.$input.addEventListener("blur", () => {
-      this.hideDropDown();
-    });
+    this.$input.addEventListener("blur", this.handleBlurInput);
   }
 
   onFocusInOut() {
@@ -85,71 +74,71 @@ export default class {
   }
 
   /* KEY UP EVENT */
-  handleEscKeyUp() {
-    this.hideDropDown();
-  }
+  // handleEscKeyUp() {
+  //   this.hideDropDown();
+  // }
 
-  computeIdx(key) {
-    const vaildIdx = 0;
-    const firstIdx = 0;
-    const lastIdx = this.listItemsCnt - 1;
+  // computeIdx(key) {
+  //   const vaildIdx = 0;
+  //   const firstIdx = 0;
+  //   const lastIdx = this.listItemsCnt - 1;
 
-    const isValidIdx = (idx) => idx >= vaildIdx;
-    const isOverMaxIdx = (idx) => idx > lastIdx;
-    const getNextIdx = (idx) => idx + 1;
-    const getPrevIdx = (idx) => idx - 1;
+  //   const isValidIdx = (idx) => idx >= vaildIdx;
+  //   const isOverMaxIdx = (idx) => idx > lastIdx;
+  //   const getNextIdx = (idx) => idx + 1;
+  //   const getPrevIdx = (idx) => idx - 1;
 
-    const compute = {
-      ArrowDown() {
-        if (!isValidIdx(this.selectedIdx)) {
-          this.selectedIdx = firstIdx;
-          return;
-        }
+  //   const compute = {
+  //     ArrowDown() {
+  //       if (!isValidIdx(this.selectedIdx)) {
+  //         this.selectedIdx = firstIdx;
+  //         return;
+  //       }
 
-        this.selectedIdx = getNextIdx(this.selectedIdx);
-        if (isOverMaxIdx(this.selectedIdx)) {
-          this.selectedIdx = firstIdx;
-        }
-      },
-      ArrowUp() {
-        this.selectedIdx = getPrevIdx(this.selectedIdx);
-        if (!isValidIdx(this.selectedIdx)) {
-          this.selectedIdx = lastIdx;
-          return;
-        }
-      },
-    };
+  //       this.selectedIdx = getNextIdx(this.selectedIdx);
+  //       if (isOverMaxIdx(this.selectedIdx)) {
+  //         this.selectedIdx = firstIdx;
+  //       }
+  //     },
+  //     ArrowUp() {
+  //       this.selectedIdx = getPrevIdx(this.selectedIdx);
+  //       if (!isValidIdx(this.selectedIdx)) {
+  //         this.selectedIdx = lastIdx;
+  //         return;
+  //       }
+  //     },
+  //   };
 
-    return compute[key].bind(this);
-  }
+  //   return compute[key].bind(this);
+  // }
 
-  addClassSelectedIdx(commonSelector, className) {
-    const items = [...$$(commonSelector)];
+  // addClassSelectedIdx(commonSelector, className) {
+  //   const items = [...$$(commonSelector)];
 
-    items.forEach((item, idx) => {
-      if (idx === this.selectedIdx) {
-        item.classList.add(className);
-      } else {
-        item.classList.remove(className);
-      }
-    });
-  }
+  //   items.forEach((item, idx) => {
+  //     if (idx === this.selectedIdx) {
+  //       item.classList.add(className);
+  //     } else {
+  //       item.classList.remove(className);
+  //     }
+  //   });
+  // }
 
-  inputSelectedWord() {
-    const selectedWord = $(
-      `[data-${this.datasetName}="${this.selectedIdx}"]`
-    ).innerText;
-    this.$input.value = selectedWord;
-  }
+  // inputSelectedWord() {
+  //   const selectedWord = $(
+  //     `[data-${this.datasetName}="${this.selectedIdx}"]`
+  //   ).innerText;
+  //   this.$input.value = selectedWord;
+  // }
 
-  handleArrowUpDownKeyUp(key) {
-    if (!this.listItemsCnt) return;
-    const className = "focus";
+  // handleArrowUpDownKeyUp(key) {
+  //   if (!this.listItemsCnt) return;
+  //   const className = "focus";
 
-    this.computeIdx(key)();
-    this.addClassSelectedIdx(`[data-${this.datasetName}]`, className);
-    this.inputSelectedWord();
-  }
+  //   this.computeIdx(key)();
+  //   this.addClassSelectedIdx(`[data-${this.datasetName}]`, className);
+  //   this.inputSelectedWord();
+  // }
 
   onKeyUp() {
     this.$input.addEventListener("keyup", ({ key }) => {
@@ -157,74 +146,72 @@ export default class {
         this.handleEscKeyUp();
         return;
       }
-
       if (key === "ArrowDown" || key === "ArrowUp") {
-        this.handleArrowUpDownKeyUp(key);
+        this.handleArrowKeyUp(key);
         return;
       }
-
-      if (isEmpty(this.$input.value)) {
-        this.initSelectedIdx();
-        // TODO: 최근검색어가 표시되도록
-        this.showDropdown();
-        return;
-      }
+      // if (isEmpty(this.$input.value)) {
+      //   this.initSelectedIdx();
+      //   // TODO: 최근검색어가 표시되도록
+      //   this.showDropdown();
+      //   return;
+      // }
     });
   }
 
-  /* SUBMIT EVENT */
+  // /* SUBMIT EVENT */
 
-  storeItemLocalStorage(key, val) {
-    this.localStorage.storeItem(key, val);
-  }
+  // storeItemLocalStorage(key, val) {
+  //   this.localStorage.storeItem(key, val);
+  // }
 
-  handleSubmitForm(e) {
-    // 현재 검색 기능이 동작하지 않으므로 preventDefault() 적용
-    e.preventDefault();
+  // handleSubmitForm(e) {
+  //   // 현재 검색 기능이 동작하지 않으므로 preventDefault() 적용
+  //   e.preventDefault();
 
-    if (isEmpty(this.$input.value)) {
-      return;
-    }
+  //   if (isEmpty(this.$input.value)) {
+  //     return;
+  //   }
 
-    const keyName = option.recentSearchKeyName;
-    const inputTxt = this.$input.value;
-    this.storeItemLocalStorage(keyName, inputTxt);
+  //   const keyName = option.recentSearchKeyName;
+  //   const inputTxt = this.$input.value;
+  //   this.storeItemLocalStorage(keyName, inputTxt);
 
-    this.clearInput();
-    this.fillDropdownList();
-  }
+  //   this.clearInput();
+  //   this.fillDropdownList();
+  // }
 
   onSubmit() {
-    this.$form.addEventListener("submit", (e) => this.handleSubmitForm(e));
+    this.$form.addEventListener("submit", this.handleSubmit);
   }
 
-  /* MOUSE DOWN EVENT */
-  handleSearchFormItems(target) {
-    const selectedText = target.innerText;
-    this.$input.value = selectedText;
-  }
+  // /* MOUSE DOWN EVENT */
+  // handleSearchFormItems(target) {
+  //   const selectedText = target.innerText;
+  //   this.$input.value = selectedText;
+  // }
 
-  handleSearchFormMousedown(e) {
-    const { target } = e;
-    if (target.closest(".search-area-dropdown")) {
-      if (target.classList.contains("link")) {
-        this.handleSearchFormItems(target);
-        return;
-      }
-    }
-  }
+  // handleSearchFormMousedown(e) {
+  //   const { target } = e;
+  //   if (target.closest(".search-area-dropdown")) {
+  //     if (target.classList.contains("link")) {
+  //       this.handleSearchFormItems(target);
+  //       return;
+  //     }
+  //   }
+  // }
 
-  onMouseDown() {
-    this.$searchFormArea.addEventListener("mousedown", (e) =>
-      this.handleSearchFormMousedown(e)
-    );
-  }
+  // onMouseDown() {
+  //   this.$searchFormArea.addEventListener("mousedown", (e) =>
+  //     this.handleSearchFormMousedown(e)
+  //   );
+  // }
 
   onEvent() {
     this.onFocusInOut();
     this.onKeyUp();
     this.onSubmit();
-    this.onMouseDown();
+    // this.onMouseDown();
   }
 
   init() {

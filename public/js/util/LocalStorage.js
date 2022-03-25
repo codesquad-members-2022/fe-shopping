@@ -18,13 +18,14 @@ export default class {
     }
 
     let idxChangedDatas = storedDatas.reduce((prev, cur) => {
-      if (cur[options.recentSearchValueName] === val) {
+      if (cur[this.options.recentSearchValueName] === val) {
         return prev;
       }
 
       const curData = {
         no: cur["no"] + 1,
-        [options.recentSearchValueName]: cur[options.recentSearchValueName],
+        [this.options.recentSearchValueName]:
+          cur[this.options.recentSearchValueName],
       };
       return [...prev, curData];
     }, []);
@@ -43,7 +44,7 @@ export default class {
   storeItem(key, val) {
     const curInputData = {
       no: this.firstIdx,
-      [options.recentSearchValueName]: val,
+      [this.options.recentSearchValueName]: val,
     };
     const curInputDataCnt = [curInputData].length;
 
