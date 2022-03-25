@@ -29,10 +29,23 @@ Category.prototype.setEvent = function () {
     callback: handleListMouseOut,
   });
 };
-Category.prototype.mount = function () {};
+Category.prototype.mount = function () {
+  const { categoryDatas, subCategoryDatas } = store.state;
+  const $categoryMain = this.$target.querySelector(".category__main");
+  const $categorySub = this.$target.querySelector(".category__sub");
+  $categoryMain.style.boxShadow = categoryDatas.length
+    ? "0 4px 5px rgb(0 0 0 / 30%)"
+    : "none";
+  $categorySub.style.boxShadow = subCategoryDatas.length
+    ? "0 4px 5px rgb(0 0 0 / 30%)"
+    : "none";
+  $categorySub.style.height = subCategoryDatas.length
+    ? $categoryMain.offsetHeight + "px"
+    : 0;
+};
 
 Category.prototype.template = function () {
-  const { categoryDatas } = store.state;
+  const { categoryDatas, subCategoryDatas } = store.state;
   return `
     <div class="category__icon">
         <i class="fas fa-bars"></i>
@@ -41,9 +54,11 @@ Category.prototype.template = function () {
         <span>카테고리</span>
     </div>
     <ul class="category__main">
-        ${categoryDatas.map(({ name }) => `<li>${name}</li>`).join("")}
+      ${categoryDatas.map(({ name }) => `<li>${name}</li>`).join("")}
     </ul>
-    <ul class="category__sub"></ul>
+    <ul class="category__sub">
+      ${subCategoryDatas.map(({ name }) => `<li>${name}</li>`).join("")}
+    </ul>
     <ul class="category__third"></ul>
   `;
 };
