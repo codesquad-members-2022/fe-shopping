@@ -31,8 +31,11 @@ export default class InputController {
   submitInputValue(event) {
     event.preventDefault();
     const inputValue = this.getInputValue();
+    if (!inputValue) return;
+
     this.model.setHistory(inputValue);
     this.historyView.renderHistory();
     this.view.clear();
+    this.inputEl.blur();
   }
 }
