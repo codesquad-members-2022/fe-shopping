@@ -1,19 +1,40 @@
+import { SearchCategory } from "../../view/header/search.-category.js";
+
 export class SearchCategoryController {
   constructor() {
-    this.$selectCategoryWrap = document.querySelector(".select-category-wrap");
-    this.$selectCategoryList = document.querySelector(".select-category-list");
-    this.$selectToggle = document.querySelector(".select-toggle");
-    this.$selectCategory = document.querySelector(".select-category");
-    this.dropdownToggle = false;
+    this.view = new SearchCategory();
+  }
+
+  init() {
+    this.view.render(this.view.template, ".search-wrap");
+    this.setElements();
+    this.bindEvents();
+    this.view.on();
+  }
+
+  setElements() {
+    this.view.$selectCategoryWrap = document.querySelector(
+      ".select-category-wrap"
+    );
+    this.view.$selectCategoryList = document.querySelector(
+      ".select-category-list"
+    );
+    this.view.$selectToggle = document.querySelector(".select-toggle");
+    this.view.$selectCategory = document.querySelector(".select-category");
+    this.view.dropdownToggle = false;
+  }
+
+  bindEvents() {
+    this.view.categoryDropdownHandler = this.categoryDropdownHandler.bind(this);
+    this.view.textContentHandler = this.textContentHandler.bind(this);
+    this.view.otherClickHandler = this.otherClickHandler.bind(this);
   }
 
   categoryDropdownHandler(argArr) {
     argArr.forEach((v) => v.classList.toggle("is-opened"));
-    if (this.dropdownToggle) {
-      this.dropdownToggle = false;
-    } else {
-      this.dropdownToggle = true;
-    }
+    this.dropdownToggle
+      ? (this.dropdownToggle = false)
+      : (this.dropdownToggle = true);
   }
 
   textContentHandler(e, tagname, changed) {
@@ -29,27 +50,5 @@ export class SearchCategoryController {
         this.dropdownToggle = false;
       }
     }
-  }
-
-  addEvents() {
-    this.$selectCategoryWrap.addEventListener("click", () =>
-      this.categoryDropdownHandler([
-        this.$selectCategoryWrap,
-        this.$selectToggle,
-        this.$selectCategoryList,
-      ])
-    );
-
-    this.$selectCategoryList.addEventListener("click", (e) =>
-      this.textContentHandler(e, "LI", this.$selectCategory)
-    );
-
-    document.addEventListener("click", (e) =>
-      this.otherClickHandler(e, [
-        this.$selectCategoryWrap,
-        this.$selectToggle,
-        this.$selectCategoryList,
-      ])
-    );
   }
 }

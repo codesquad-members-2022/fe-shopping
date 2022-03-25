@@ -4,11 +4,12 @@ export class SearchCategory extends Core {
   constructor() {
     super();
     this.template = this.getTemplate();
-    this.categoryPop = false;
   }
+
   getTemplate() {
-    return `
-  <div class="select-category-wrap">
+    const template = document.createElement("div");
+    template.className = "select-category-wrap";
+    template.innerHTML = `
     <button class="select-category">전체</button>
     <button class="select-toggle">
       <img
@@ -25,8 +26,30 @@ export class SearchCategory extends Core {
       <li>뷰티</li>
       <li>출산/유아동</li>
       <li>식품</li>
-    </ul>
-  </div>
-    `;
+    </ul>`;
+
+    return template;
+  }
+
+  on() {
+    this.$selectCategoryWrap.addEventListener("click", () =>
+      this.categoryDropdownHandler([
+        this.$selectCategoryWrap,
+        this.$selectToggle,
+        this.$selectCategoryList,
+      ])
+    );
+
+    this.$selectCategoryList.addEventListener("click", (e) =>
+      this.textContentHandler(e, "LI", this.$selectCategory)
+    );
+
+    document.addEventListener("click", (e) =>
+      this.otherClickHandler(e, [
+        this.$selectCategoryWrap,
+        this.$selectToggle,
+        this.$selectCategoryList,
+      ])
+    );
   }
 }
