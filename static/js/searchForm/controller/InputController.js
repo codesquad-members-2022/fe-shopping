@@ -1,7 +1,8 @@
 export default class InputController {
-  constructor({ model, view }) {
+  constructor({ model, view, historyView }) {
     this.model = model;
     this.view = view;
+    this.historyView = historyView;
     this.inputEl = view.inputEl;
     this.resultEl = view.resultEl;
     this.show = 'searchForm__result--show';
@@ -11,7 +12,7 @@ export default class InputController {
   init() {
     this.view.init();
     this.view.toggleResult = this.toggleResult.bind(this);
-    this.view.getInputValue = this.getInputValue.bind(this);
+    this.view.submitInputValue = this.submitInputValue.bind(this);
   }
 
   toggleResult() {
@@ -24,5 +25,13 @@ export default class InputController {
 
   getInputValue() {
     return this.inputEl.value;
+  }
+
+  submitInputValue(event) {
+    event.preventDefault();
+    const inputValue = this.getInputValue();
+    this.model.setHistory(inputValue);
+    this.historyView.renderHistory();
+    this.view.clear();
   }
 }
