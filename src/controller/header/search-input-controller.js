@@ -1,106 +1,97 @@
 import { AutoCompleteStore } from "../../model/autocomplete-store.js";
 import { RecentKeywordStore } from "../../model/recent-keyword-store.js";
-import { debounce } from "../../utils/utils.js";
+import { SearchInput } from "../../view/header/search-input.js";
 
 export class SearchInputController {
   constructor() {
-    this.$searchInput = document.querySelector(".search-input");
-    this.$searchList = document.querySelector(".search-list");
-    this.$searchBtn = document.querySelector(".search-btn");
+    this.view = new SearchInput();
+
     this.recentKeywordStore = new RecentKeywordStore();
     this.autoKeywordStore = new AutoCompleteStore();
-    this.toggle = false;
+
+    this.keywordDisplayToggle = false;
   }
 
-  addEvents() {
-    this.$searchInput.addEventListener("keyup", (e) =>
-      this.inputEnterHandler(e)
-    );
-    this.$searchInput.addEventListener("click", () => this.inputClickHandler());
-    document.addEventListener("click", (e) => this.otherClickHandler(e));
-    this.$searchBtn.addEventListener("click", () => this.storageClear());
-    this.$searchInput.addEventListener(
-      "keyup",
-      debounce(() => this.autoCompleteHandler(), 500)
-    );
+  init() {
+    this.view.render(this.view.template, ".search-wrap");
+    this.setElements();
+    this.bindEvents();
+    this.view.on();
+  }
+
+  setElements() {
+    this.view.$searchInput = document.querySelector(".search-input");
+    this.view.$searchList = document.querySelector(".search-list");
+    this.view.$searchListUl = document.querySelector(".search-list__contents");
+    this.view.$searchHelper = document.querySelector(".search-helper");
+    this.view.$deleteBtn = document.querySelector(".search-helper__delete");
+  }
+
+  bindEvents() {
+    this.view.inputEnterHandler = this.inputEnterHandler.bind(this);
+    this.view.inputClickHandler = this.inputClickHandler.bind(this);
+    this.view.otherClickHandler = this.otherClickHandler.bind(this);
+    this.view.storageClear = this.storageClear.bind(this);
+    this.view.autoCompleteHandler = this.autoCompleteHandler.bind(this);
   }
 
   inputEnterHandler(e) {
     if (e.key === "Enter") {
-      localStorage.setItem(`${Date.now()}`, `${this.$searchInput.value}`);
-      this.recentKeywordStore.localStorageArr.unshift(this.$searchInput.value);
-      this.$searchInput.value = "";
+      localStorage.setItem(`${Date.now()}`, `${this.view.$searchInput.value}`);
+      this.recentKeywordStore.localStorageArr.unshift(
+        this.view.$searchInput.value
+      );
+      this.view.$searchInput.value = "";
     }
   }
 
   inputClickHandler() {
-    this.toggleOn();
+    this.keywordDisplayToggleOn();
 
-    if (!this.$searchInput.value) {
+    if (!this.view.$searchInput.value) {
       if (this.recentKeywordStore.localStorageArr.length === 0) {
-        this.toggleOff();
+        this.keywordDisplayToggleOff();
         return;
       }
-      this.reRenderRecentKeyword();
+      this.recentKeywordStore.setLocalStorageArr();
+      this.view.reRenderRecentKeyword(this.recentKeywordStore.localStorageArr);
     }
-  }
-
-  reRenderRecentKeyword() {
-    this.recentKeywordStore.getLocalStorage();
-
-    this.$searchList.innerHTML = "";
-    this.$searchList.innerHTML += `<div class="search-list__auto">최근 검색어</div>`;
-    this.recentKeywordStore.localStorageArr.forEach((recentKeyword) => {
-      const keyword = document.createElement("li");
-      keyword.textContent = recentKeyword;
-      this.$searchList.appendChild(keyword);
-    });
   }
 
   storageClear() {
     localStorage.clear();
     this.recentKeywordStore.localStorageArr = [];
-    this.toggleOff();
-    this.$searchList.innerHTML = "";
+    this.keywordDisplayToggleOff();
+    this.view.$searchListUl.innerHTML = "";
   }
 
-  autoCompleteHandler() {
-    this.toggleOn();
+  async autoCompleteHandler() {
+    this.keywordDisplayToggleOn();
 
-    if (!this.$searchInput.value) {
+    if (!this.view.$searchInput.value) {
       this.inputClickHandler();
     } else {
-      this.reRenderAutoComplete();
+      await this.autoKeywordStore.setKeywordArr(this.view.$searchInput.value);
+      this.view.reRenderAutoComplete(this.autoKeywordStore.keywordData);
     }
-  }
-
-  reRenderAutoComplete() {
-    this.$searchList.innerHTML = "";
-    this.autoKeywordStore.getKeywordData(this.$searchInput.value).then(() => {
-      this.autoKeywordStore.keywordData.forEach((keyword) => {
-        const content = document.createElement("li");
-        content.textContent = keyword;
-        this.$searchList.appendChild(content);
-      });
-    });
   }
 
   otherClickHandler(e) {
     if (e.target.className === "search-input") return;
-    if (!e.target.parentNode.classList.contains("is-opened")) {
-      if (this.toggle) {
-        this.toggleOff();
+    if (!e.target.parentNode.classList.contains("search-list is-opened")) {
+      if (this.keywordDisplayToggle) {
+        this.keywordDisplayToggleOff();
       }
     }
   }
 
-  toggleOn() {
-    this.$searchList.classList.add("is-opened");
-    this.toggle = true;
+  keywordDisplayToggleOn() {
+    this.view.$searchList.classList.add("is-opened");
+    this.keywordDisplayToggle = true;
   }
 
-  toggleOff() {
-    this.$searchList.classList.remove("is-opened");
-    this.toggle = false;
+  keywordDisplayToggleOff() {
+    this.view.$searchList.classList.remove("is-opened");
+    this.keywordDisplayToggle = false;
   }
 }
