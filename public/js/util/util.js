@@ -49,3 +49,12 @@ export const sortDesc = (arr, key) => {
   }
   return arr.sort((a, b) => b - a);
 };
+
+export const getIdx = (length) => {
+  const validIdxStart = 0;
+  const lastIdx = length - 1;
+  const isValidIdx = (idx) => idx >= validIdxStart;
+  const isOverMaxIdx = (idx) => idx > lastIdx;
+  const getNextIdx = (idx) => idx + 1;
+  const getPrevIdx = (idx) => idx - 1;
+};
