@@ -14,6 +14,15 @@ export class Autocompletekeyword {
       .then((data) => this.compareKeyword(data));
   }
 
+  compareKeyword(data) {
+    const fatchedData = data.suggestions.map((v) => v.value);
+    searchList.innerHTML = this.makeAutoSearchList(fatchedData);
+  }
+
+  makeAutoSearchList(data) {
+    return data.reduce((acc, cur) => acc + `<div>${cur}</div>`, "");
+  }
+
   getDebounce() {
     let _this = this;
     searchInput.addEventListener("input", function (event) {
