@@ -84,40 +84,6 @@ export default class {
   //   this.hideDropDown();
   // }
 
-  computeIdx(key) {
-    const vaildIdx = 0;
-    const firstIdx = 0;
-    const lastIdx = this.listItemsCnt - 1;
-
-    const isValidIdx = (idx) => idx >= vaildIdx;
-    const isOverMaxIdx = (idx) => idx > lastIdx;
-    const getNextIdx = (idx) => idx + 1;
-    const getPrevIdx = (idx) => idx - 1;
-
-    const compute = {
-      ArrowDown() {
-        if (!isValidIdx(this.selectedIdx)) {
-          this.selectedIdx = firstIdx;
-          return;
-        }
-
-        this.selectedIdx = getNextIdx(this.selectedIdx);
-        if (isOverMaxIdx(this.selectedIdx)) {
-          this.selectedIdx = firstIdx;
-        }
-      },
-      ArrowUp() {
-        this.selectedIdx = getPrevIdx(this.selectedIdx);
-        if (!isValidIdx(this.selectedIdx)) {
-          this.selectedIdx = lastIdx;
-          return;
-        }
-      },
-    };
-
-    return compute[key].bind(this);
-  }
-
   addClassSelectedIdx(selectedIdx) {
     const itemsSelector = `[data-${this.datasetName}]`;
     const items = [...$$(itemsSelector)];
@@ -157,6 +123,9 @@ export default class {
         this.handleArrowKeyUp(key);
         return;
       }
+
+      return;
+
       // if (isEmpty(this.$input.value)) {
       //   this.initSelectedIdx();
       //   // TODO: 최근검색어가 표시되도록

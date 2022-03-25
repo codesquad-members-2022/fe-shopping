@@ -23,7 +23,6 @@ export const model = {
     callBackFn({
       data: this.recentWordData,
       state: this.searchBarState,
-      searchWord: this.searchWord,
     });
   },
 
@@ -31,8 +30,13 @@ export const model = {
     return this._recentWordData;
   },
 
-  set suggestWordData(data) {
+  setSuggestWordData({ data: data, callBackFn }) {
     this._suggestWordData = data;
+    callBackFn({
+      data: this.suggestWordData,
+      state: this.searchBarState,
+      searchWord: this.searchWord,
+    });
   },
 
   get suggestWordData() {

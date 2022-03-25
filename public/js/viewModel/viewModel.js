@@ -2,7 +2,7 @@ import { model } from "../model/model.js";
 import storage from "../util/storage.js";
 import SearchView from "../view/SearchView.js";
 
-import { isEmpty } from "../util/util.js";
+import { isEmpty, debounce, fetchData } from "../util/util.js";
 
 export const viewModel = {
   init({
@@ -40,6 +40,26 @@ export const viewModel = {
     this.searchView.handleEscKeyUp = this.handleEscKeyUp.bind(this);
     this.searchView.handleArrowKeyUp = this.handleArrowKeyUp.bind(this);
     this.searchView.handleSubmit = this.handleSubmit.bind(this);
+    this.setGetSuggestionWordFunc();
+    this.searchView.getSuggestionWord = this.getSuggestionWord.bind(this);
+  },
+
+  setGetSuggestionWordFunc() {
+    this.getSuggestionWord = debounce((inputTxt) => {
+      const fetchUrl = this.suggestionUrl + inputTxt;
+      const filterData = (json) => json["suggestions"].map((el) => el.value);
+
+      fetchData(fetchUrl, filterData).then((json) => {
+        model.setSearchBarState({
+          state: "suggest-search",
+          callBackFn: this.searchView.renderDropdown.bind(this.searchView),
+        });
+        model.setSuggestWordData({
+          data: json,
+          callBackFn: this.searchView.fillDropdownList.bind(this.searchView),
+        });
+      });
+    }, this.suggestionDelay);
   },
 
   handleFocusInput() {
@@ -70,24 +90,18 @@ export const viewModel = {
     const validIdxStart = 0;
     const firstIdx = 0;
     const lastIdx = dataCnt - 1;
-
     const isValidIdx = (idx) => idx >= validIdxStart;
     const isOverMaxIdx = (idx) => idx > lastIdx;
     const getNextIdx = (idx) => idx + 1;
     const getPrevIdx = (idx) => idx - 1;
+    let resultIdx;
 
     if (key === "ArrowDown") {
       let nextIdx = getNextIdx(model.selectedIdx);
       if (isOverMaxIdx(nextIdx)) {
         nextIdx = firstIdx;
       }
-
-      model.setSelectedIdx({
-        idx: nextIdx,
-        callBackFn: this.searchView.addClassSelectedIdx.bind(this.searchView),
-      });
-
-      return;
+      resultIdx = nextIdx;
     }
 
     if (key === "ArrowUp") {
@@ -95,18 +109,19 @@ export const viewModel = {
       if (!isValidIdx(prevIdx)) {
         prevIdx = lastIdx;
       }
-
-      model.setSelectedIdx({
-        idx: prevIdx,
-        callBackFn: this.searchView.addClassSelectedIdx.bind(this.searchView),
-      });
+      resultIdx = prevIdx;
     }
 
-    return;
+    model.setSelectedIdx({
+      idx: resultIdx,
+      callBackFn: this.searchView.addClassSelectedIdx.bind(this.searchView),
+    });
   },
 
   handleArrowKeyUp(key) {
-    if (!model.searchDataCnt) return;
+    if (!model.searchDataCnt) {
+      return;
+    }
 
     this.computeIdx(key, model.searchDataCnt);
   },
@@ -114,7 +129,9 @@ export const viewModel = {
   handleSubmit(e) {
     e.preventDefault();
     const inputTxt = this.searchView.$input.value;
-    if (isEmpty(inputTxt)) return;
+    if (isEmpty(inputTxt)) {
+      return;
+    }
 
     this.localStorage.storeItem(this.recentSearchKeyName, inputTxt);
     // submit된 후에 새로 화면 보여주는 것도 구현해야함.

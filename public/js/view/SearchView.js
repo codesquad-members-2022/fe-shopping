@@ -157,24 +157,19 @@ export default class extends SearchForm {
   //   }
   // }
 
-  // onKeyUp() {
-  //   super.onKeyUp();
-  //   this.$input.addEventListener("keyup", ({ key }) => {
-  //     if (key === "Escape") {
-  //       return;
-  //     }
-  //     if (key === "ArrowDown" || key === "ArrowUp") {
-  //       return;
-  //     }
+  onKeyUp() {
+    super.onKeyUp();
+    this.$input.addEventListener("keyup", ({ key }) => {
+      if (key === "Escape") {
+        return;
+      }
+      if (key === "ArrowDown" || key === "ArrowUp") {
+        return;
+      }
 
-  //     if (isEmpty(this.$input.value)) {
-  //       this.setStateInit();
-  //       return;
-  //     }
-
-  //     this.getSuggestionWord();
-  //   });
-  // }
+      this.getSuggestionWord(this.$input.value);
+    });
+  }
 
   // handleSubmitForm(e) {
   //   super.handleSubmitForm(e);
