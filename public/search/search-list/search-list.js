@@ -1,71 +1,45 @@
-class SearchList {
-    MAX_ITEM = 9;
-
-    constructor(searchList, listContainer) {
-        this.searchListNode = searchList;
-        this.listContainer = listContainer;
-        this.searchItems = [];
-        this.isVisible = false;
-        this.curIdx = -1;
+export default class SearchList {
+    constructor(view, store) {
+        this.view = view;
+        this.store = store;
     }
 
     show() {
-        this.isVisible = true;
-        this.searchListNode.style.display = "block";
+        this.view.show();
+        this.store.setVisibility(true);
     }
 
     hide() {
-        this.isVisible = false;
-        this.searchListNode.style.display = "none";
-        this.curIdx = -1;
+        this.view.hide();
+        this.store.setVisibility(false);
+        this.store.initCurIdx();
     }
 
     reset() {
-        this.searchItems = [];
+        this.store.initSearchItems();
     }
 
     focusItem() {
-        const listItems = this.listContainer.querySelectorAll(
-            ".search__list--item"
-        );
-        let focusingItem;
-
-        listItems.forEach((item) => {
-            const itemText = item.querySelector(".search__list--item-text");
-            itemText.classList.remove("focus--underline");
-            if (item.dataset.idx === this.curIdx.toString()) {
-                focusingItem = item;
-                itemText.classList.toggle("focus--underline");
-            }
-        });
+        const selectedItemIdx = this.store.getCurIdx();
+        const focusingItem = this.view.focusListItem(selectedItemIdx);
 
         return focusingItem;
     }
 
     focusNextItem() {
-        this.curIdx += 1;
-        if (this.curIdx >= this.searchItems.length) {
-            this.curIdx = 0;
-        }
-
+        this.store.setCurIdxNext();
         const focusingItem = this.focusItem();
-
         return focusingItem;
     }
 
     focusPreviousItem() {
-        this.curIdx -= 1;
-        if (this.curIdx < 0) {
-            this.curIdx = this.searchItems.length - 1;
-        }
-
+        this.store.setCurIdxPrevious();
         const focusingItem = this.focusItem();
-
         return focusingItem;
     }
 
     removeFocus() {
-        this.curIdx = -1;
+        this.store.initCurIdx();
         this.focusItem();
     }
 }

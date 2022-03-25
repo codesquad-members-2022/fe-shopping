@@ -1,7 +1,11 @@
-import { RecentSearchList } from "./search-list/recent-search-list.js";
-import { RelatedSearchList } from "./search-list/related-search-list.js";
 import { SearchInput } from "./search-input.js";
 import { SearchCategory } from "./search-category/search-category.js";
+import SearchListStore from "./search-list/search-list-store.js";
+import RecentSearchList from "./search-list/recent-search-list/recent-search-list.js";
+import RecentSearchListView from "./search-list/recent-search-list/recent-search-list-view.js";
+import RecentSearchListStore from "./search-list/recent-search-list/recent-search-list-store.js";
+import RelatedSearchList from "./search-list/related-search-list/related-search-list.js";
+import RelatedSearchListView from "./search-list/related-search-list/related-search-list-view.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchRecentList = document.querySelector(".search__recent-list");
@@ -21,14 +25,26 @@ const ENTER = "Enter";
 
 const searchInput = new SearchInput(searchbar);
 
-const recentSearchList = new RecentSearchList(
+const recentSearchListView = new RecentSearchListView(
     searchRecentList,
     searchRecentListContainer
 );
-const relatedSearchList = new RelatedSearchList(
+const recentSearchListStore = new RecentSearchListStore();
+const recentSearchList = new RecentSearchList(
+    recentSearchListView,
+    recentSearchListStore
+);
+
+const relatedSearchListView = new RelatedSearchListView(
     searchRelatedList,
     searchRelatedListContainer
 );
+const relatedSearchListStore = new SearchListStore();
+const relatedSearchList = new RelatedSearchList(
+    relatedSearchListView,
+    relatedSearchListStore
+);
+
 const searchCategory = new SearchCategory(category, categoryList);
 
 const getRelatedWords = async () => {
@@ -48,8 +64,9 @@ const getRelatedWords = async () => {
             throw Error(error);
         }
 
-        const searchItems = await response.json();
-        relatedSearchList.searchItems = searchItems.map((it) => it.keyword);
+        const searchItemsJSON = await response.json();
+        const searchItems = searchItemsJSON.map((it) => it.keyword);
+        relatedSearchList.store.setSearchItems(searchItems);
     } catch (error) {
         return;
     }
@@ -113,7 +130,8 @@ const focusItem = (direction, searchList) => {
 };
 
 const executeArrowKey = (direction) => {
-    relatedSearchList.isVisible
+    const relatedSearchListIsVisible = relatedSearchList.store.getVisibility();
+    relatedSearchListIsVisible
         ? focusItem(direction, relatedSearchList)
         : focusItem(direction, recentSearchList);
 };
@@ -128,13 +146,6 @@ const searchInputkeyDownEventHandler = (event) => {
 
     if (event.key === DIRECTION_UP || event.key == DIRECTION_DOWN) {
         executeArrowKey(event.key);
-    }
-};
-
-const clearRecentSearchList = () => {
-    if (recentSearchList.isRecording) {
-        recentSearchList.reset();
-        recentSearchList.renderSearchList();
     }
 };
 
@@ -162,15 +173,16 @@ const searchCategoryKeydownEventHandler = (event) => {
 
 const deleteRecentItem = (target) => {
     const listItem = target.closest(".search__list--item");
-    const idx2Delete = listItem.dataset.idx;
+    const idx2Delete = Number(listItem.dataset.idx);
+    const curFocusingItemIdx = recentSearchList.store.getCurIdx();
 
-    recentSearchList.searchItems.splice(idx2Delete, 1);
+    recentSearchList.store.deleteSearchWord(idx2Delete);
 
-    if (idx2Delete === recentSearchList.curIdx.toString()) {
-        recentSearchList.curIdx = -1;
+    if (idx2Delete === curFocusingItemIdx) {
+        recentSearchList.store.initCurIdx();
         searchInput.clearSearchInput();
-    } else if (idx2Delete < recentSearchList.curIdx.toString()) {
-        recentSearchList.curIdx -= 1;
+    } else if (idx2Delete < curFocusingItemIdx) {
+        recentSearchList.store.setCurIdxPrevious();
         recentSearchList.focusItem();
     }
 
@@ -197,9 +209,11 @@ const relatedSearchListClickEventHandler = (event) => {
 
     if (target.classList.contains("search__list--item-text")) {
         const clickedItem = target.closest(".search__list--item");
+        const clickedWord = clickedItem.dataset.name;
+
         relatedSearchList.hide();
         searchInput.clearSearchInput();
-        recentSearchList.addSearchWord(clickedItem.dataset.name);
+        recentSearchList.addSearchWord(clickedWord);
     }
 };
 
@@ -225,21 +239,12 @@ const onSearchEvent = () => {
     );
     searchInput.searchInputNode.addEventListener("input", inputEventHandler);
 
-    recentSearchList.searchListNode
-        .querySelector(".clear-all")
-        .addEventListener("click", clearRecentSearchList);
-    recentSearchList.searchListNode
-        .querySelector(".record-btn")
-        .addEventListener(
-            "click",
-            recentSearchList.toggleRecord.bind(recentSearchList)
-        );
-    recentSearchList.listContainer.addEventListener(
+    recentSearchList.view.listContainer.addEventListener(
         "click",
         recentSearchListClickEventHandler
     );
 
-    relatedSearchList.listContainer.addEventListener(
+    relatedSearchList.view.listContainer.addEventListener(
         "click",
         relatedSearchListClickEventHandler
     );

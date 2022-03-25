@@ -15,10 +15,6 @@ export default class SearchCategoryStore {
         return this.isVisible;
     }
 
-    initCurIdx() {
-        this.curIdx = -1;
-    }
-
     setCurIdx(selectedCategory) {
         this.curIdx = Number(selectedCategory.dataset.idx);
     }
