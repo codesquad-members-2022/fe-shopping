@@ -3,7 +3,7 @@ export const $$ = className => document.querySelectorAll(className);
 const deploy = 'PROD';
 const serverURL = deploy === 'DEV' ? 'http://localhost:3000' : 'https://mupang.herokuapp.com';
 
-export const fetchPostData = (path, keyword) => {
+export const fetchGetData = (path, keyword) => {
   const url = `${serverURL}/${path}/${keyword}`;
 
   return fetch(url)

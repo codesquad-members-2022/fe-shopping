@@ -35,12 +35,12 @@ export const rootEvent = () => {
   });
 
   document.body.addEventListener('mouseover', ({ target }) => {
-    const categoryListBox = $('.category-list');
+    const categoryListBox = $('.main-category-list');
     if (
       categoryListBox &&
       checkElementClass({
         target,
-        checkClasses: ['category', 'category-item', 'category-item__link', 'category--text'],
+        checkClasses: ['main-category', 'main-category-item', 'main-category-item__link', 'main-category--text'],
       })
     )
       return;
