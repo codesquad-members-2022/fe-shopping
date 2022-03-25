@@ -1,41 +1,26 @@
-import { selector } from '../../utils/utils.js';
+import { selector, removeClass, addClass } from '../../utils/utils.js';
+import { autoCompleteStore } from './autoCompleteStore.js';
 
-const dev = true;
-const apiURL = dev ? 'http://localhost:3000/api/autoComplete' : '';
+const DISPLAY_NONE = 'hidden';
+
+const AUTO_COMPLETE_BOX = 'auto-complete';
+const AUTO_COMPLETE_LIST = 'auto-complete-list';
+const ROTATION_LIST = 'rotation-list';
 
 export class AutoComplete {
-  constructor({ AUTO_COMPLETE_LIST }) {
-    this.AUTO_COMPLETE_LIST = AUTO_COMPLETE_LIST;
-  }
-
-  async requestACKeywords(inputKeyword) {
-    try {
-      const response = await fetch(`${apiURL}?q=${inputKeyword}`);
-
-      if (!response.ok) {
-        const bodyText = await response.text();
-        throw new Error(
-          `${response.status} ${response.statusText} ${bodyText}`
-        );
-      }
-
-      const bodyJSON = await response.json();
-      const ACKeywords = Object.values(bodyJSON).map(({ keyword }) => keyword);
-
-      return ACKeywords;
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
+  constructor() {
+    this.$autoCompleteList = selector(`.${AUTO_COMPLETE_LIST}`);
+    this.$autoCompleteBox = selector(`.${AUTO_COMPLETE_BOX}`);
   }
 
   async renderACKeywords(inputKeyword) {
-    const ACKeywords = await this.requestACKeywords(inputKeyword);
+    if (inputKeyword.length === 0) return;
+
+    const ACKeywords = await autoCompleteStore.requestACKeywords(inputKeyword);
     if (!ACKeywords) return;
 
     const ACKeywordsHTML = this.getACKeywordsHTML({ ACKeywords, inputKeyword });
-    const $autoCompleteList = selector(`.${this.AUTO_COMPLETE_LIST}`);
-    $autoCompleteList.innerHTML = ACKeywordsHTML;
+    this.$autoCompleteList.innerHTML = ACKeywordsHTML;
   }
 
   getACKeywordsHTML({ ACKeywords, inputKeyword }) {
@@ -55,5 +40,15 @@ export class AutoComplete {
     }, '');
 
     return ACKeywordsHTML;
+  }
+
+  closeAutoComplete() {
+    addClass(DISPLAY_NONE, this.$autoCompleteBox);
+    removeClass(ROTATION_LIST, this.$autoCompleteList);
+  }
+
+  openAutoComplete() {
+    removeClass(DISPLAY_NONE, this.$autoCompleteBox);
+    addClass(ROTATION_LIST, this.$autoCompleteList);
   }
 }

@@ -21,13 +21,12 @@ export const toggleClass = (className, element) => {
   element.classList.toggle(className);
 };
 
-export const createElement = (tagName, className, textContent, attrs = {}) => {
+export const createElement = (tagName, className, attrs = {}) => {
   const element = document.createElement(tagName);
   if (className) {
     if (Array.isArray(className)) element.className = className.join(' ');
     else element.className = className;
   }
-  if (textContent) element.textContent = textContent;
   Object.entries(attrs).forEach(([key, value]) => {
     element.setAttribute(key, value);
   });
@@ -57,22 +56,6 @@ export const hasAscendant = ($ascendant, $element) => {
   }
   return false;
 };
-
-// export const hasAscendant = (className, $element) => {
-//   if (!className) throw `Error: Unexpected className Argument ${className}`;
-//   if (!$element) throw `Error: Unexpected $element Argument ${$element}`;
-
-//   let $curElement = $element;
-
-//   while ($curElement !== document) {
-//     if ($curElement.classList.contains(className)) {
-//       return [true, $curElement];
-//     }
-
-//     $curElement = $curElement.parentNode;
-//   }
-//   return false;
-// };
 
 export const webStorage = {
   set(key, value) {
