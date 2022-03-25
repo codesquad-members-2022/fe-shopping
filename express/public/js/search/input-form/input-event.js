@@ -1,11 +1,11 @@
 import { $ } from '../../utility/util.js';
-import RecentWord from './recent-words.js';
-import Autocomplete from './autocomplete.js';
-import AutoKeyword from './auto-keyword.js';
+import RecentWordController from './recent/recent-words.js';
+import Autocomplete from './autocomplete/autocomplete.js';
+import AutoKeyword from './autocomplete/auto-keyword.js';
 
 export default class InputEvent {
   constructor() {
-    this.recentWords = new RecentWord();
+    this.recentWords = new RecentWordController();
     this.autoComplete = new Autocomplete();
     this.autoKeyword = new AutoKeyword();
   }
@@ -31,7 +31,6 @@ export default class InputEvent {
   };
 
   nodrawHistoryContents = (relatedTarget) => {
-    console.log(relatedTarget);
     this.recentWords.noShowRecentSearches(relatedTarget);
   };
 
