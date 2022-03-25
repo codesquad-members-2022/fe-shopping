@@ -3,9 +3,11 @@ import { getData } from '../utils/getData.js';
 import SearchModel from './model/SearchModel.js';
 
 import CategoryView from './view/CategoryView.js';
+import HistoryView from './view/HistoryView.js';
 import InputView from './view/InputView.js';
 
 import CategoryController from './controller/CategoryController.js';
+import HistoryController from './controller/HistoryController.js';
 import InputController from './controller/InputController.js';
 
 export async function initSearchForm() {
@@ -14,6 +16,7 @@ export async function initSearchForm() {
 
   const searchModel = new SearchModel({
     mode: user.mode,
+    history: user.history,
     categories: searchCategories,
     currentCategory: searchCategories[0],
   });
@@ -21,11 +24,17 @@ export async function initSearchForm() {
   const inputView = new InputView({ model: searchModel });
   const categoryView = new CategoryView({ model: searchModel });
   const inputController = new InputController({ model: searchModel, view: inputView });
+  const historyView = new HistoryView({ model: searchModel });
   const categoryController = new CategoryController({
     model: searchModel,
     view: categoryView,
   });
+  const historyController = new HistoryController({
+    model: searchModel,
+    view: historyView,
+  });
 
   inputController.init();
   categoryController.init();
+  historyController.init();
 }

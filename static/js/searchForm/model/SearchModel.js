@@ -1,5 +1,6 @@
 export default class SearchModel {
   constructor({
+    history = [],
     mode = { history: true, autoComplete: true },
     categories = [],
     currentCategory = categories[0],
@@ -8,7 +9,7 @@ export default class SearchModel {
     this.autoCompleteMode = mode.autoComplete;
     this.categories = categories;
     this.currentCategory = currentCategory;
-    this.history = [];
+    this.history = history;
     this.autoCompleteWords = [];
   }
 
@@ -22,5 +23,25 @@ export default class SearchModel {
 
   setCurrentCategory(category) {
     this.currentCategory = category;
+  }
+
+  getHistory() {
+    return this.history;
+  }
+
+  setHistory(inputValue) {
+    const isDuplicated = this.history.find((value) => value === inputValue);
+    if (isDuplicated) return;
+
+    const maxLength = 9;
+    if (this.history.length >= maxLength) this.history.shift();
+
+    this.history.push(inputValue);
+
+    console.log(this.history);
+  }
+
+  clearHistory() {
+    this.history = [];
   }
 }
