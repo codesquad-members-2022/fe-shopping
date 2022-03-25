@@ -2,7 +2,7 @@ import { model } from "../model/model.js";
 import storage from "../util/storage.js";
 import SearchView from "../view/SearchView.js";
 
-import { isEmpty } from "../util/util.js";
+import { getIdx, isEmpty } from "../util/util.js";
 
 export const viewModel = {
   init({
@@ -66,10 +66,27 @@ export const viewModel = {
     this.handleBlurInput();
   },
 
+  computeIdx(key, dataCnt) {
+    const validIdxStart = 0;
+    const firstIdx = 0;
+    const lastIdx = dataCnt - 1;
+
+    const isValidIdx = (idx) => idx >= validIdxStart;
+    const isOverMaxIdx = (idx) => idx > lastIdx;
+    const getNextIdx = (idx) => idx + 1;
+    const getPrevIdx = (idx) => idx - 1;
+
+    if (key === "ArrowDown") {
+    }
+    this.computePrevIdx();
+    return;
+  },
+
   handleArrowKeyUp(key) {
     console.log(key);
     if (!model.searchDataCnt) return;
-    // 여기 작성 계속해야함, 저장된 데이터가 없어서 확인불가. 로컬스토리지 저장부터 다시
+
+    this.computeIdx(key, model.searchDataCnt);
   },
 
   handleSubmit(e) {
@@ -78,5 +95,7 @@ export const viewModel = {
     if (isEmpty(inputTxt)) return;
 
     this.localStorage.storeItem(this.recentSearchKeyName, inputTxt);
+    // submit된 후에 새로 화면 보여주는 것도 구현해야함.
+    // 일단 원래 하던 방향키로 돌아가자
   },
 };
