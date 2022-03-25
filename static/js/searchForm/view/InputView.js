@@ -13,8 +13,8 @@ export default class InputView {
   }
 
   addHandler() {
-    this.inputEl.addEventListener('focus', () => this.toggleResult());
-    this.inputEl.addEventListener('blur', () => this.toggleResult());
+    this.inputEl.addEventListener('focus', () => this.showResult());
+    this.inputEl.addEventListener('blur', () => this.hideResult());
     this.submitButtonEl.addEventListener('click', (event) => this.submitInputValue(event));
   }
 

@@ -11,16 +11,17 @@ export default class InputController {
 
   init() {
     this.view.init();
-    this.view.toggleResult = this.toggleResult.bind(this);
+    this.view.showResult = this.showResult.bind(this);
+    this.view.hideResult = this.hideResult.bind(this);
     this.view.submitInputValue = this.submitInputValue.bind(this);
   }
 
-  toggleResult() {
-    if (this.resultEl.classList.contains(this.show)) {
-      this.resultEl.classList.replace(this.show, this.hidden);
-      return;
-    }
+  showResult() {
     this.resultEl.classList.replace(this.hidden, this.show);
+  }
+
+  hideResult() {
+    this.resultEl.classList.replace(this.show, this.hidden);
   }
 
   getInputValue() {
