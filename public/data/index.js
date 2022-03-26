@@ -1,3 +1,3 @@
-import category from './category.js';
+import categories from './category.js';
 
-export { category };
+export { categories };

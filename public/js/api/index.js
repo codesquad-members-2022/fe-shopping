@@ -6,7 +6,7 @@ const request = (url) => {
     return fetch(url, { signal }).then((res) => res.json())
 };
 
-export const getAutocompleteData = async (url) => {
+export const getSuggestions = async (url) => {
   const { suggestions } = await request(url);
   if (abortController.signal.aborted) return null;
   else return suggestions.map(item => {return { item: item.value, link: '#' };});

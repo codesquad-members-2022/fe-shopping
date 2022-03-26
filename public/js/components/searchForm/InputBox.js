@@ -1,8 +1,11 @@
 import Component from '../../core/Component.js';
 import SearchHistoryStore from '../../store/searchHistoryStore.js';
-import { getAutocompleteData } from '../../api/index.js';
+import { getSuggestions } from '../../api/index.js';
+import KeywordList from './KeywordList.js';
 
 class InputBox extends Component {
+
+  keywordList;
 
   setup() {
     this.$state = {
@@ -17,19 +20,19 @@ class InputBox extends Component {
   template() {
     return `<input type="text" placeholder="찾고 싶은 상품을 검색해보세요!" title="쿠팡 상품 검색" class="input" />
             <button type="submit" class="search-btn">검색하기</button>
-            <div class="bottom-window"></div>`;
+            <div class="bottom-ui"></div>`;
   }
 
   setEvent() {
     this.addEvent('click', '.input', () => {
       if (!this.$state.searchHistory.length) return;
-      this.$props.renderBottomWindow('.bottom-window', {
+      this.renderKeywordList({
         isSearchHistory: true,
       });
     }, true);
 
     this.addEvent('blur', '.input', () => {
-      this.$props.removeBottomWindow('.bottom-window');
+      this.removeKeywordList();
     }, true);
 
     this.addEvent('input', '.input', (event) => {
@@ -49,36 +52,45 @@ class InputBox extends Component {
     this.$target.querySelector('.input').focus();
   }
 
+  renderKeywordList(props) {
+    if (this.keywordList) this.keywordList.destroy();
+    this.keywordList = new KeywordList(this.$target.querySelector('.bottom-ui'), props);
+  }
+
+  removeKeywordList() {
+    if (this.keywordList) this.keywordList.destroy();
+    const $keywordList = this.$target.querySelector('.bottom-ui');
+    $keywordList.classList.remove('open');
+  }
+
   async timerCallback({ target: { value } }) {
     if (!value && !this.$state.searchHistory.length) {
-      this.$props.removeBottomWindow('.bottom-window');
+      this.removeKeywordList();
       return;
     }
 
     if (!value && this.$state.searchHistory.length) {
-      this.$props.removeBottomWindow('.bottom-window');
-      this.$props.renderBottomWindow('.bottom-window', {
+      this.renderKeywordList({
         isSearchHistory: true,
       });
       return;
     }
 
-    const autocompleteList = await getAutocompleteData(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${value}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`);
-    if (autocompleteList) {
-      this.$props.removeBottomWindow('.bottom-window');
-      this.$props.renderBottomWindow('.bottom-window', {
+    const suggestions = await getSuggestions(`https://completion.amazon.com/api/2017/suggestions?session-id=133-4736477-7395454&customer-id=&request-id=4YM3EXKRH1QJB16MSJGT&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=71&prefix=${value}&event=onKeyPress&limit=11&fb=1&suggestion-type=KEYWORD`);
+    if (suggestions) {
+      this.renderKeywordList({
         isSearchHistory: false,
-        windowList: this.highlight(value, autocompleteList),
+        suggestions: this.highlight(value, suggestions),
         input: value,
       });
     }
   }
 
-  highlight(value, keywordList) {
-    return keywordList.map(keyword => {
+  highlight(value, suggestions) {
+    return suggestions.map(suggestion => {
       return {
-        item: keyword.item.replace(value, `<b class="highlight">${value}</b>`),
-        link: keyword.link,
+        item: suggestion.item.replace(value, `<b class="highlight">${value}</b>`),
+        link: suggestion.link,
       };
     });
   }
@@ -93,7 +105,7 @@ class InputBox extends Component {
 
     if (key === 'ArrowDown') {
       if ($focused && $focused.nextElementSibling) $toBeFocused = $focused.nextElementSibling;
-      else $toBeFocused = this.$target.querySelector('.list-item');
+      else $toBeFocused = this.$target.querySelector('.bottom-ui-list-item');
     }
 
     if (key === 'ArrowUp' && $focused && $focused.previousElementSibling) $toBeFocused = $focused.previousElementSibling;

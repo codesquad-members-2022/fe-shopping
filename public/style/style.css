@@ -143,8 +143,10 @@ body {
         background-image: url("https://img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
         background-position: 6px -165px;
         background-repeat: no-repeat; }
-    .main-header .search-form .select-box.opened .select-btn::after {
-      background-position: 6px -142px; }
+      .main-header .search-form .select-box .select-btn.selected::after {
+        background-position: 6px -142px; }
+    .main-header .search-form .select-box select {
+      display: none; }
   .main-header .search-form .input-box {
     position: relative;
     display: flex;
@@ -278,8 +280,8 @@ body {
         height: 60px;
         z-index: 2; }
 
-/* Bottom Window */
-.bottom-window {
+/* Bottom UI */
+.bottom-ui {
   position: absolute;
   top: 100%;
   left: 0;
@@ -292,44 +294,44 @@ body {
   visibility: hidden;
   overflow: hidden;
   transition: all 250ms ease; }
-  .bottom-window.open {
+  .bottom-ui.open {
     visibility: visible;
     min-height: 100px;
     max-height: 1500px; }
-    .bottom-window.open strong {
+    .bottom-ui.open strong {
       display: block;
       height: 50px;
       text-align: center;
       line-height: 5; }
-  .bottom-window .window-contents {
+  .bottom-ui-contents {
     padding: 10px; }
-  .bottom-window .window-list {
+  .bottom-ui-list {
     padding-top: 5px; }
-    .bottom-window .window-list .list-item {
+    .bottom-ui-list-item {
       margin-bottom: 15px; }
-      .bottom-window .window-list .list-item .highlight {
+      .bottom-ui-list-item .highlight {
         color: #008cff; }
-      .bottom-window .window-list .list-item:is(:last-child) {
+      .bottom-ui-list-item:is(:last-child) {
         margin-bottom: 5px; }
-      .bottom-window .window-list .list-item a:hover {
+      .bottom-ui-list-item a:hover {
         color: #008cff;
         text-decoration: underline; }
 
-/* InputBox Bottom Window */
-.input-box .bottom-window {
+/* InputBox Bottom UI */
+.input-box .bottom-ui {
   overflow: visible; }
-  .input-box .bottom-window .window-title {
+  .input-box .bottom-ui-title {
     border-bottom: 1px solid #ddd;
     padding: 2px 0 10px;
     margin-bottom: 10px; }
-  .input-box .bottom-window .window-list {
+  .input-box .bottom-ui-list {
     min-height: 250px; }
-  .input-box .bottom-window .list-item:last-child {
+  .input-box .bottom-ui-list-item:last-child {
     margin-bottom: 15px; }
-  .input-box .bottom-window .list-item.focus a {
+  .input-box .bottom-ui-list-item.focus a {
     color: #008cff;
     text-decoration: underline; }
-  .input-box .bottom-window .search-history-btn-group {
+  .input-box .bottom-ui .search-history-btn-group {
     position: absolute;
     bottom: -25px;
     left: -1px;

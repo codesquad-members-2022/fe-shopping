@@ -1,7 +1,6 @@
 import Component from '../../core/Component.js';
 import SelectBox from './SelectBox.js';
 import InputBox from './InputBox.js';
-import BottomWindow from '../common/BottomWindow.js';
 import SearchHistoryStore from '../../store/searchHistoryStore.js';
 import { abortController } from '../../api/index.js';
 
@@ -10,7 +9,7 @@ class SearchForm extends Component {
   setup() {
     this.$state = {
       isSaveHistoryOn: SearchHistoryStore.isSaveHistoryOn(),
-    }
+    };
     SearchHistoryStore.subscribe('isSaveHistoryOn', this);
   }
 
@@ -23,19 +22,15 @@ class SearchForm extends Component {
     this.addEvent('submit', '.search-form', (event) => {
       event.preventDefault();
       abortController && abortController.abort();
-      const input = event.target.querySelector('.input');
-      if (this.$state.isSaveHistoryOn && input.value) {
+      const selectedCategory = this.getSelectedCategory(event.target);
+      const $input = event.target.querySelector('.input');
+      if (this.$state.isSaveHistoryOn && $input.value) {
         SearchHistoryStore.addHistory({
-          item: input.value,
+          item: $input.value,
           link: '#',
         });
       }
-      else {
-        this.renderBottomWindow.call(this.$target.querySelector('.input-box'), '.bottom-window', {
-          isSearchHistory: true,
-        })
-      }
-      input.value = '';
+      $input.value = '';
     });
   }
 
@@ -43,24 +38,14 @@ class SearchForm extends Component {
     const $selectBox = this.$target.querySelector('.select-box');
     const $inputBox = this.$target.querySelector('.input-box');
 
-    new SelectBox($selectBox, {
-      renderBottomWindow: this.renderBottomWindow.bind($selectBox),
-      removeBottomWindow: this.removeBottomWindow.bind($selectBox),
-    });
-    new InputBox($inputBox, {
-      renderBottomWindow: this.renderBottomWindow.bind($inputBox),
-      removeBottomWindow: this.removeBottomWindow.bind($inputBox),
-    });
+    new SelectBox($selectBox);
+    new InputBox($inputBox);
   }
 
-  renderBottomWindow(containerClass, props) {
-    if (!this.querySelector(containerClass)) this.insertAdjacentHTML('beforeend', `<div class="bottom-window"></div>`)
-    new BottomWindow(this.querySelector(containerClass), props);
-  }
-
-  removeBottomWindow(containerClass) {
-    const $bottomWindow = this.querySelector(containerClass);
-    this.removeChild($bottomWindow);
+  getSelectedCategory(target) {
+    const $select = target.querySelector('#category');
+    const selectedIndex = target.querySelector('#category').options.selectedIndex;
+    return $select.options[selectedIndex].value;
   }
 }
 

@@ -13,12 +13,12 @@ class SearchHistoryStore extends Store {
   }
 
   addHistory(value) {
-    const values = this.getState(this.#key);
+    const values = this.getState(this.#key).filter(state => state.item !== value.item);
 
     if (values) values.length === MAX_RECENT_SEARCH_SIZE && values.pop();
 
     localStorage.setItem(this.#key, JSON.stringify([value, ...values]));
-    this.setState(this.#key, value);
+    this.setState(this.#key, [value, ...values]);
   }
 
   getHistory() {

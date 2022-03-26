@@ -1,40 +1,55 @@
 import Component from '../../core/Component.js';
-import { category } from '../../../data/index.js';
+import CategoryList from './CategoryList.js';
+import CategoryStore from '../../store/CategoryStore.js';
 
 class SelectBox extends Component {
 
+  categoryList;
+
   setup() {
     this.$state = {
-      value: '',
-      category: category,
-      autoComplete: [],
+      categories: CategoryStore.getCategories(),
     };
+    CategoryStore.subscribe('categories', this);
   }
 
   template() {
-    return `<button type="button" class="select-btn">전체</button>
-            <div class="bottom-window"></div>`;
+    return `<button type="button" class="select-btn">${this.getSelectedCategory()}</button>
+            <select id="category">
+              ${this.$state.categories
+                .map((category) => `<option value="${category.item}" ${this.getSelectedCategory() === category.item ? 'selected': ''}></option>`)
+                .join('')}
+            </select>
+            <div class="bottom-ui"></div>`;
   }
 
   setEvent() {
     this.addEvent('click', '.select-btn', () => {
-      const $bottomWindow = this.$target.querySelector('.bottom-window');
+      const $bottomUI = this.$target.querySelector('.bottom-ui');
 
-      if ($bottomWindow.classList.contains('open')) {
-        $bottomWindow.classList.remove('open');
-        setTimeout(() => $bottomWindow.innerHTML = '', 250)
-      }
-
-      else {
-        this.$props.renderBottomWindow('.bottom-window', {
-          windowList: this.$state.category,
-        });
-      }
+      if ($bottomUI.classList.contains('open')) this.removeCategoryList();
+      else this.renderCategoryList({ categories: this.$state.categories });
     });
 
     this.addEvent('blur', '.select-box', () => {
-      this.$props.removeBottomWindow('.bottom-window');
+      this.removeCategoryList();
     }, true);
+  }
+
+  renderCategoryList(props) {
+    if (this.categoryList) this.categoryList.destroy();
+    this.categoryList = new CategoryList(this.$target.querySelector('.bottom-ui'), props);
+    this.$target.querySelector('.select-btn').classList.add('selected');
+  }
+
+  removeCategoryList() {
+    this.$target.querySelector('.bottom-ui').classList.remove('open');
+    this.$target.querySelector('.select-btn').classList.remove('selected');
+    setTimeout(() => this.categoryList.destroy(), 250);
+  }
+
+  getSelectedCategory() {
+    return this.$state.categories.find(category => category.isSelected).item;
   }
 
 }
