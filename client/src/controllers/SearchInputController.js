@@ -26,6 +26,8 @@ export class SearchInputController {
         this.SearchInputModel.turnOff();
       }
 
+      this.SearchResultView.clearView();
+
       if (value) {
         // 만약 이미 한 번 요청한 데이터 일시엔? 또 fetch를 보낼 필요가 없도록 수정 필요
         const responseData = await fetchGetData('search', value);
@@ -39,6 +41,11 @@ export class SearchInputController {
             responseData.map(element => element.keyword)
           )
         );
+      } else {
+        // 검색어가 입력이 없다면 ?
+        this.SearchInputModel.getRecentWords()
+          ? this.SearchResultView.showRecentView(this.SearchInputModel.getRecentWords(), true)
+          : '';
       }
     }, autoCompleteDelay);
   }
