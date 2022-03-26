@@ -12,10 +12,6 @@ const isHidden = (target) => {
   return target.classList.contains("hidden");
 };
 
-const addHighlight = (value) => {
-  return "<span class='highlight'>" + value + "</span>";
-};
-
 const drawListFromData = (data) => {
   return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
 };
@@ -70,5 +66,4 @@ export {
   intervalDelay,
   isHidden,
   drawListFromData,
-  addHighlight,
 };

@@ -70,4 +70,4 @@ class CenterFilterPresenter {
   };
 }
 
-export { CenterFilterPresenter };
+export default CenterFilterPresenter;

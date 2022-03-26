@@ -2,11 +2,11 @@ import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
 import { async } from "regenerator-runtime";
 import { selector, findRefinedData } from "./util.js";
-import { KeyupEvent } from "./KeyupEvent";
 import { MouseEvent } from "./MouseEvent";
-import { CenterFilterPresenter } from "./presenters/CenterFilterPresenter";
 import CenterFilterView from "./views/CenterFilterView";
 import SearchBoxView from "./views/searchBoxView";
+import DataModel from "./models/DataModel";
+import CenterFilterPresenter from "./presenters/CenterFilterPresenter";
 import SearchBoxPresenter from "./presenters/SearchBoxPresenter";
 
 const centerSearchInput = selector(".center-search-input");
@@ -17,11 +17,10 @@ const categoriesBtn = selector(".categories-btn");
 const categoriesList = selector(".categories-list");
 
 const handleSearchBox = (target, transformer) => {
-  const searchBoxKeyup = new KeyupEvent(target, transformer);
-  searchBoxKeyup.init();
-
   const searchBoxView = new SearchBoxView(target, transformer);
+  const dataModel = new DataModel();
   const searchBoxPresenter = new SearchBoxPresenter(searchBoxView);
+  searchBoxPresenter.setModel(dataModel);
   searchBoxView.registerWith(searchBoxPresenter);
   searchBoxView.addEventHandler();
 };
