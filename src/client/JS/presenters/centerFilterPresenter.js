@@ -4,9 +4,10 @@ import { ListMark } from "./ListMark";
 
 class CenterFilterPresenter {
   constructor(view) {
+    const { target, transformer } = view;
     this.view = view;
-    this.target = view.target;
-    this.transformer = view.transformer;
+    this.target = target;
+    this.transformer = transformer;
     this.listMark = new ListMark(view);
   }
 

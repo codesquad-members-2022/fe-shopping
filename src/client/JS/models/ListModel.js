@@ -1,4 +1,4 @@
-class DataModel {
+class ListModel {
   constructor(data) {
     this.data = data;
   }
@@ -11,6 +11,10 @@ class DataModel {
     return this.data;
   }
 
+  getListFormFromData = (data) => {
+    return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
+  };
+
   findData = async (address, value = "") => {
     const dataAddress = `data/${address}`;
     const data = await fetch(dataAddress, {
@@ -21,8 +25,9 @@ class DataModel {
       body: JSON.stringify({ value }),
     });
     const resultData = await data.json();
-    this.setData(resultData);
+    const listData = this.getListFormFromData(resultData);
+    this.setData(listData);
   };
 }
 
-export default DataModel;
+export default ListModel;

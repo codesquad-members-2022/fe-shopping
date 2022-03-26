@@ -5,13 +5,15 @@ import { addHighlight } from "../util";
 
 class SearchBoxPresenter {
   constructor(view) {
+    const { target, transformer, relativeList, relativeTitle, relativeOption } =
+      view;
     this.view = view;
     this.model = null;
-    this.target = view.target;
-    this.transformer = view.transformer;
-    this.relativeList = view.relativeList;
-    this.relativeTitle = view.relativeTitle;
-    this.relativeOption = view.relativeOption;
+    this.target = target;
+    this.transformer = transformer;
+    this.relativeList = relativeList;
+    this.relativeTitle = relativeTitle;
+    this.relativeOption = relativeOption;
     this.listMark = new ListMark(view);
     this.inputDelay = new IntervalDelay(inputDelayTime);
   }
@@ -66,19 +68,14 @@ class SearchBoxPresenter {
     this.view.changeSearchKeyword(selectedKeyword);
   };
 
-  getListFormFromData = (data) => {
-    return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
-  };
-
   getHighLightList = (list, value) => {
     const regex = new RegExp(value, "g");
     return list.replace(regex, addHighlight(value));
   };
 
   changeRelativeList = (data, value) => {
-    let innerList = this.getListFormFromData(data);
-    if (value) innerList = this.getHighLightList(innerList, value);
-    this.view.changeRelativeListContent(innerList);
+    if (value) data = this.getHighLightList(data, value);
+    this.view.changeRelativeListContent(data);
   };
 
   showRecentList = async () => {

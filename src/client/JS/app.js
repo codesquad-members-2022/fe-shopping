@@ -5,7 +5,7 @@ import { selector, findRefinedData } from "./util.js";
 import { MouseEvent } from "./MouseEvent";
 import CenterFilterView from "./views/CenterFilterView";
 import SearchBoxView from "./views/searchBoxView";
-import DataModel from "./models/DataModel";
+import ListModel from "./models/ListModel";
 import CenterFilterPresenter from "./presenters/CenterFilterPresenter";
 import SearchBoxPresenter from "./presenters/SearchBoxPresenter";
 
@@ -18,9 +18,9 @@ const categoriesList = selector(".categories-list");
 
 const handleSearchBox = (target, transformer) => {
   const searchBoxView = new SearchBoxView(target, transformer);
-  const dataModel = new DataModel();
+  const listModel = new ListModel();
   const searchBoxPresenter = new SearchBoxPresenter(searchBoxView);
-  searchBoxPresenter.setModel(dataModel);
+  searchBoxPresenter.setModel(listModel);
   searchBoxView.registerWith(searchBoxPresenter);
   searchBoxView.addEventHandler();
 };
