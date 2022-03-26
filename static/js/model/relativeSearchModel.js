@@ -1,6 +1,6 @@
 export class RelativeSearchModel {
-  constructor(data) {
-    this.data = data;
+  constructor() {
+    this.data = [];
     this.keywordList = [];
   }
 
@@ -12,5 +12,9 @@ export class RelativeSearchModel {
     const keywordList = this.data.filter(({keyword}) => keyword.includes(searchKeyword));
     this.keywordList = keywordList;
     return keywordList;
+  }
+
+  setData(data) {
+    this.data = data;
   }
 }
