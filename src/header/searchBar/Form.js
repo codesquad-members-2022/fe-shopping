@@ -123,22 +123,18 @@ export class SearchBarForm {
   }
 
   isKeyCodeArrow(code) {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) return true;
-    return false;
+    return ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code);
   }
 
   isKeyCodeArrowUpOrDown(code) {
-    if (code === 'ArrowUp' || code === 'ArrowDown') return true;
-    return false;
+    return ['ArrowUp', 'ArrowDown'].includes(code);
   }
 
   isKeyCodeArrowUp(code) {
-    if (code === 'ArrowUp') return true;
-    return false;
+    return code === 'ArrowUp';
   }
 
   isKeyCodeArrowDown(code) {
-    if (code === 'ArrowDown') return true;
-    return false;
+    return code === 'ArrowDown';
   }
 }
