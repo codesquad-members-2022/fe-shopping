@@ -65,6 +65,7 @@ export class SearchBarForm {
   };
 
   handleKeywordRotation = (e) => {
+    // keyCode 229: 한글의 초성/중성/종성 조합이 완료되지 않았을 때 입력됨
     if (e.isComposing || e.keyCode === 229) return;
 
     if (!this.isKeyCodeArrowUpOrDown(e.code)) return;
