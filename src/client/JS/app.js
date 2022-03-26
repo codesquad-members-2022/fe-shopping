@@ -1,30 +1,31 @@
 import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
+import { async } from "regenerator-runtime";
 import { selector, findRefinedData } from "./util.js";
-import { FocusBlurEvent } from "./FocusBlurEvent";
 import { KeyupEvent } from "./KeyupEvent";
 import { MouseEvent } from "./MouseEvent";
-import { async } from "regenerator-runtime";
-import { CenterFilterPresenter } from "./presenters/centerFilterPresenter";
-import { CenterFilterView } from "./views/centerFilterView";
+import { CenterFilterPresenter } from "./presenters/CenterFilterPresenter";
+import CenterFilterView from "./views/CenterFilterView";
+import SearchBoxView from "./views/searchBoxView";
+import SearchBoxPresenter from "./presenters/SearchBoxPresenter";
 
-const centerSearchInput = selector("input", selector(".center-search"));
+const centerSearchInput = selector(".center-search-input");
 const centerRelativeInfo = selector(".center-relative-info");
 const centerFilterBtn = selector(".center-filter-btn");
 const centerFilterList = selector(".center-filter-list");
-const centerFilterParentName = ".center-filter";
 const categoriesBtn = selector(".categories-btn");
 const categoriesList = selector(".categories-list");
 
-const handleSearchBoxEvent = (target, transformer) => {
-  const searchBoxFocusBlur = new FocusBlurEvent(target, transformer);
+const handleSearchBox = (target, transformer) => {
   const searchBoxKeyup = new KeyupEvent(target, transformer);
-  const searchBoxMouse = new MouseEvent(target, transformer);
-  searchBoxFocusBlur.init();
-  searchBoxMouse.getListMarkEvent();
   searchBoxKeyup.init();
+
+  const searchBoxView = new SearchBoxView(target, transformer);
+  const searchBoxPresenter = new SearchBoxPresenter(searchBoxView);
+  searchBoxView.registerWith(searchBoxPresenter);
+  searchBoxView.addEventHandler();
 };
-const handleCenterFilterEvent = (target, transformer) => {
+const handleCenterFilter = (target, transformer) => {
   const centerFilterView = new CenterFilterView(target, transformer);
   const centerFilterPresenter = new CenterFilterPresenter(centerFilterView);
   centerFilterView.registerWith(centerFilterPresenter);
@@ -38,12 +39,9 @@ const handleCategoriesEvent = async (target, tranformer) => {
 };
 
 const init = async () => {
-  handleSearchBoxEvent(centerSearchInput, centerRelativeInfo);
-  handleCenterFilterEvent(
-    centerFilterBtn,
-    centerFilterList,
-    centerFilterParentName
-  );
+  handleSearchBox(centerSearchInput, centerRelativeInfo);
+  handleCenterFilter(centerFilterBtn, centerFilterList);
   await handleCategoriesEvent(categoriesBtn, categoriesList);
 };
+
 init();

@@ -1,14 +1,12 @@
-class CenterFilterView {
+import { CommonView } from "./CommonView";
+
+class CenterFilterView extends CommonView {
   constructor(target, transformer) {
-    this.presenter = null;
+    super();
     this.target = target;
     this.transformer = transformer;
     this.parentNode = target.parentNode;
   }
-
-  registerWith = (presenter) => {
-    this.presenter = presenter;
-  };
 
   changeTargetInnerText = ({ innerText }) => {
     const filterBox = this.target.children[0];
@@ -18,10 +16,6 @@ class CenterFilterView {
   toggleIcon = ({ classList }) => {
     classList.toggle("fa-chevron-down");
     classList.toggle("fa-chevron-up");
-  };
-
-  changeOptionSelected = (target, option) => {
-    target.classList[option]("selected");
   };
 
   addEventHandler = () => {
@@ -38,4 +32,4 @@ class CenterFilterView {
   };
 }
 
-export { CenterFilterView };
+export default CenterFilterView;
