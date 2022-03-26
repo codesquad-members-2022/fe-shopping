@@ -11,15 +11,13 @@ export class SearchCategoryController {
   }
 
   async clickedAnimation({ target }) {
-    // 아래 코드 수정 필요.
-    const selectListUlBox = $('.search-list');
-    if (target.classList.contains('search-item')) {
-      const dataId = target.getAttribute('data-id');
+    const dataId = target.getAttribute('data-category-id');
+    if (dataId) {
       const allBtn = $('.search--allBtn');
       allBtn.innerText = searchCategoryData[dataId];
-      return;
     }
 
+    const selectListUlBox = $('.search-list');
     if (selectListUlBox === null) {
       this.SearchCategoryView.searchCategoryElement.insertAdjacentHTML(
         'beforeend',
