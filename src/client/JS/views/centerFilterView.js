@@ -1,11 +1,17 @@
 class CenterFilterView {
-  constructor(presenter) {
-    this.presenter = presenter;
-    this.parentNode = presenter.target.parentNode;
+  constructor(target, transformer) {
+    this.presenter = null;
+    this.target = target;
+    this.transformer = transformer;
+    this.parentNode = target.parentNode;
   }
 
+  registerWith = (presenter) => {
+    this.presenter = presenter;
+  };
+
   changeTargetInnerText = ({ innerText }) => {
-    const filterBox = this.presenter.target.children[0];
+    const filterBox = this.target.children[0];
     filterBox.innerText = innerText;
   };
 
@@ -14,7 +20,19 @@ class CenterFilterView {
     classList.toggle("fa-chevron-up");
   };
 
-  addEvent = () => {
+  changeOptionSelected = (target, option) => {
+    target.classList[option]("selected");
+  };
+
+  addEventHandler = () => {
+    this.transformer.addEventListener(
+      "mouseover",
+      this.presenter.listMark.handleListMarkEvent
+    );
+    this.transformer.addEventListener(
+      "mouseout",
+      this.presenter.listMark.handleListMarkEvent
+    );
     this.parentNode.addEventListener("click", this.presenter.handleClickEvent);
     document.addEventListener("click", this.presenter.checkListOpened);
   };

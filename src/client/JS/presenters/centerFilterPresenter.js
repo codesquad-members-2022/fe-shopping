@@ -1,12 +1,13 @@
 import { selector, getStyle, isHidden } from "../util";
-import { CenterFilterView } from "../views/centerFilterView";
 import { searchFilterInterval } from "../constant";
+import { ListMark } from "./ListMark";
 
 class CenterFilterPresenter {
-  constructor(target, transformer) {
-    this.target = target;
-    this.transformer = transformer;
-    this.view = new CenterFilterView(this);
+  constructor(view) {
+    this.view = view;
+    this.target = view.target;
+    this.transformer = view.transformer;
+    this.listMark = new ListMark(view);
   }
 
   activateRequestAF = (length) => {

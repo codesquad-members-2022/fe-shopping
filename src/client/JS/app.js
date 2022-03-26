@@ -6,6 +6,7 @@ import { KeyupEvent } from "./KeyupEvent";
 import { MouseEvent } from "./MouseEvent";
 import { async } from "regenerator-runtime";
 import { CenterFilterPresenter } from "./presenters/centerFilterPresenter";
+import { CenterFilterView } from "./views/centerFilterView";
 
 const centerSearchInput = selector("input", selector(".center-search"));
 const centerRelativeInfo = selector(".center-relative-info");
@@ -24,10 +25,10 @@ const handleSearchBoxEvent = (target, transformer) => {
   searchBoxKeyup.init();
 };
 const handleCenterFilterEvent = (target, transformer) => {
-  const centerFilterMouse = new MouseEvent(target, transformer);
-  const centerFilterPresenter = new CenterFilterPresenter(target, transformer);
-  centerFilterPresenter.activate();
-  centerFilterMouse.getListMarkEvent();
+  const centerFilterView = new CenterFilterView(target, transformer);
+  const centerFilterPresenter = new CenterFilterPresenter(centerFilterView);
+  centerFilterView.registerWith(centerFilterPresenter);
+  centerFilterView.addEventHandler();
 };
 const handleCategoriesEvent = async (target, tranformer) => {
   const categoriesData = await findRefinedData("categories");

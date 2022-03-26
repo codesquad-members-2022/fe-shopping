@@ -1,8 +1,6 @@
 import { selector, drawListFromData, intervalDelay } from "./util";
 import { showDelayTime } from "./constant";
 
-const showListDelay = new intervalDelay(showDelayTime);
-
 class MouseEvent {
   constructor(target, transformer, data) {
     this.target = target;
@@ -11,15 +9,16 @@ class MouseEvent {
     this.categoryFirst = null;
     this.categorySecond = null;
     this.relativeList = selector("ul", transformer);
+    this.listDelay = new intervalDelay(showDelayTime);
   }
 
-  findSelectedInChildren = () => {
+  getSelectedInChildren = () => {
     const childLists = [...this.relativeList.children];
     const selectedListIndex = childLists.findIndex((list) =>
       list.classList.contains("selected")
     );
     const selectedList = childLists[selectedListIndex];
-    return { childLists, selectedListIndex, selectedList };
+    return selectedList;
   };
 
   assignCategory = ({ innerText, parentNode: { classList } }) => {
@@ -64,7 +63,7 @@ class MouseEvent {
   };
 
   handleListMarkEvent = ({ target: { tagName }, target }) => {
-    const { selectedList } = this.findSelectedInChildren();
+    const selectedList = this.getSelectedInChildren();
     if (tagName !== "LI") return;
     if (selectedList && selectedList !== target)
       selectedList.classList.remove("selected");
@@ -72,7 +71,7 @@ class MouseEvent {
   };
 
   handleShowListEvent = async (target) => {
-    await showListDelay.waitDelay();
+    await this.listDelay.waitDelay();
     this.assignCategory(target);
     this.showChildList(target);
   };
@@ -83,7 +82,7 @@ class MouseEvent {
   };
 
   handleHideEvent = () => {
-    if (showListDelay.delayController) showListDelay.abortDelay();
+    if (this.listDelay.delayController) this.listDelay.abortDelay();
     this.hideChildList();
     this.transformer.classList.add("hidden");
   };
