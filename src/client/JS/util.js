@@ -16,6 +16,10 @@ const drawListFromData = (data) => {
   return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
 };
 
+const addHighlight = (value) => {
+  return "<span class='highlight'>" + value + "</span>";
+};
+
 const findRefinedData = async (address, value = "") => {
   const dataAddress = `data/${address}`;
   const data = await fetch(dataAddress, {
@@ -66,4 +70,5 @@ export {
   intervalDelay,
   isHidden,
   drawListFromData,
+  addHighlight,
 };

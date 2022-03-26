@@ -1,6 +1,7 @@
 import { ListMark } from "./ListMark";
 import { IntervalDelay } from "./IntervalDelay";
 import { inputDelayTime } from "../constant";
+import { addHighlight } from "../util";
 
 class SearchBoxPresenter {
   constructor(view) {
@@ -69,13 +70,9 @@ class SearchBoxPresenter {
     return data.reduce((pre, post) => pre + `<li>${post}</li>`, "");
   };
 
-  addHighlight = (value) => {
-    return "<span class='highlight'>" + value + "</span>";
-  };
-
   getHighLightList = (list, value) => {
     const regex = new RegExp(value, "g");
-    return list.replace(regex, this.addHighlight(value));
+    return list.replace(regex, addHighlight(value));
   };
 
   changeRelativeList = (data, value) => {
