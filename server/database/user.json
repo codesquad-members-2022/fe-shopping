@@ -1,7 +1,7 @@
 {
   "user": {
     "name": "yellow",
-    "searchHistory": ["코드스쿼드", "MV이누"],
+    "history": ["코드스쿼드", "MV이누"],
     "mode": {
       "autoComplete": true,
       "history": true

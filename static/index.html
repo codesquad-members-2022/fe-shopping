@@ -31,12 +31,22 @@
         <div class="searchForm__input-wrap">
           <input class="searchForm__input" type="text" required minlength="1" />
           <button class="searchForm__submit" type="submit">검색</button>
-          <div class="searchForm__result">
-            <div class="searchForm__"></div>
-            <ul class="searchForm__result-list">
-              <li class="searchForm__result-item">최근검색어1</li>
-            </ul>
-            <div class="searchForm__buttons"></div>
+          <div class="searchForm__result searchForm__result--hidden">
+            <div class="searchForm__history searchForm__history--show">
+              <div class="searchForm__history-title">최근 검색어</div>
+              <ul class="searchForm__history-list"></ul>
+              <div class="searchForm__history-buttons">
+                <button
+                  class="searchForm__history-button searchForm__history-button--clear"
+                  type="button"
+                >
+                  전체삭제
+                </button>
+              </div>
+            </div>
+            <div class="searchForm__autoComplete searchForm__autoComplete--hidden">
+              <ul class="searchForm__autoComplete-list"></ul>
+            </div>
           </div>
         </div>
       </form>
