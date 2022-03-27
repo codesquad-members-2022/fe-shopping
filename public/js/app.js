@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const searchCategory = document.querySelector('.search-category');
   searchCategory.insertAdjacentHTML('beforeend', category);
+
   const searchForm = document.querySelector('.search-form');
   searchForm.insertAdjacentHTML('beforeend', recentSearch);
   searchForm.insertAdjacentHTML('beforeend', autoSearch);

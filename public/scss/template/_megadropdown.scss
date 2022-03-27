@@ -2,17 +2,16 @@
 @import '../utils';
 
 .header-lnb {
-  font-size: 12px;
+  background-color: $white;
   position: absolute;
   top: 115px;
   z-index: 999999999;
-  background-color: $white;
 }
 
 .header-lnb-first {
   &__list {
     border: 1px solid $search-category-border;
-    height: 550px;
+    font-size: 12px;
     width: 165px;
   }
 
@@ -36,21 +35,49 @@
 
 .header-lnb-second {
   &__list {
+    background-color: $white;
     border: 1px solid $search-category-border;
-    height: 550px;
+    font-size: 11px;
     left: 165px;
     position: absolute;
     top: 0;
+    width: 165px;
+  }
+
+  &__item {
+    text-align: center;
+  }
+
+  &__link {
+    padding: 10px 8px;
+    display: block;
+  }
+
+  &__link:hover {
+    @include link-hover;
+  }
+
+  &__hr {
+    margin: 0;
+  }
+}
+
+.header-lnb-third {
+  &__list {
+    border: 1px solid $search-category-border;
+    left: 164px;
+    position: absolute;
+    top: -1px;
     width: 165px;
     background-color: $white;
   }
 
   &__item {
-    padding: 10px 8px;
     text-align: center;
   }
 
   &__link {
+    padding: 10px 8px;
     display: block;
   }
 

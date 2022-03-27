@@ -13,6 +13,14 @@ function checkCarouselLast() {
 
   if (slideIndex === carouselNum.length - 1) {
     slideIndex = 0;
+  }
+}
+
+function checkCarousel() {
+  const carouselNum = document.querySelectorAll('.carousel-inner__item');
+
+  if (slideIndex === carouselNum.length - 1) {
+    slideIndex = 0;
     xCoordi = 0;
     return true;
   }
@@ -34,7 +42,7 @@ export function moveCarousel(timestamp) {
     xCoordi -= carouselElWidth.offsetWidth;
     carousel.style.transform = `translateX(${xCoordi}px)`;
     cntCarousel();
-    if (checkCarouselLast()) setBackCarousel();
+    if (checkCarousel()) setBackCarousel();
     start = null;
   }
 
