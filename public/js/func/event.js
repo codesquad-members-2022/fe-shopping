@@ -1,11 +1,11 @@
-import { moveCarousel } from './carousel.js';
+// import { moveCarousel } from './carousel.js';
 
 import { toggleDropdown, chooseCategory } from './input-category.js';
 import { RecentSearch } from './search-recent.js';
 import { AutoComplete } from './search-auto.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  moveCarousel();
+  // moveCarousel();
   toggleDropdown();
   chooseCategory();
 

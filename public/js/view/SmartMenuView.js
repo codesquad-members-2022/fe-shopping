@@ -1,6 +1,4 @@
 export default class SmartMenuView {
-  constructor() {}
-
   init(el) {
     this.el = document.querySelector(el);
     this.lnbFirstList = this.el.querySelector('.header-lnb-first__list');
