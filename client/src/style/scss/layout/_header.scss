@@ -161,7 +161,7 @@
   }
 }
 
-.category {
+.main-category {
   position: relative;
   width: 110px;
   height: 120px;
@@ -180,10 +180,35 @@
   }
 
   &-item {
-    padding: 10px;
+    position: relative;
     &:hover {
       color: $color-blue-light;
       text-decoration: underline;
+      &:after {
+        content: '';
+        width: 5px;
+        height: 10px;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        background-position: -156px -20px;
+        background-repeat: no-repeat;
+        background-image: url('/img/pc_header_img_sprite.png');
+      }
+    }
+
+    &--text {
+    }
+
+    &__link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      height: 36px;
+      background: url('https://static.coupangcdn.com/image/coupang/common/pc_gnb_icon_ver10.png') -8px -25px no-repeat;
+      font-size: $font-12;
+      text-indent: 20px;
     }
   }
 

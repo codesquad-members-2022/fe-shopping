@@ -1,11 +1,14 @@
 import { rootEvent } from './events/rootEvent.js';
-import { selectCategoryEvent } from './events/selectCategoryEvent.js';
-import { inputKeyWordEvent } from './events/inputKeyWordEvent.js';
+import { MainCategoryController } from './controllers/MainCategoryController.js';
+import { SearchCategoryController } from './controllers/SearchCategoryController.js';
+import { SearchInputController } from './controllers/SearchInputController.js';
 
 const init = () => {
   rootEvent();
-  selectCategoryEvent();
-  inputKeyWordEvent();
+
+  new MainCategoryController();
+  new SearchCategoryController();
+  new SearchInputController();
 };
 
 init();

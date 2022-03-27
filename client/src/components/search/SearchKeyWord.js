@@ -15,7 +15,7 @@ const Keyword = (currentWord, keyword, id) => {
 
 export const SearchKeyWord = (currentWord, data) => {
   return /* html */ `
-    <div class="l-flex search-keyword">
+    <div class="l-flex search-keywordBox">
         ${data.reduce((prev, cur, index) => {
           return (prev += Keyword(currentWord, cur, index));
         }, '')}

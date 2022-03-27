@@ -1,22 +1,38 @@
-export const mainCategoryData = [
-  '패션의류/잡화',
-  '뷰티',
-  '출산/유아동',
-  '식품',
-  '주방용품',
-  '생활용품',
-  '홈인테리어',
-  '가전디지털',
-  '스포츠/레저',
-  '자동차용품',
-  '도서/음반/DVD',
-  '완구/취미',
-  '문구/오피스',
-  '반려동물용품',
-  '헬스/건강식품',
-  '여행/티켓',
-  '테마관',
-];
+export const mainCategoryImgUrl = 'https://static.coupangcdn.com/image/coupang/common/pc_gnb_icon_ver10.png';
+
+export const thirdCategory = {
+  womenFashion: ['의류', '속옷/잠옷', '신발', '가방/잡화'],
+  menFashion: ['의류, 속옷/잠옷', '신발', '가방 잡화'],
+};
+
+export const secondCategory = {
+  fashion: {
+    여성패션: { id: 1, childsMenu: thirdCategory.womenFashion },
+    남성패션: { id: 2, childsMenu: thirdCategory.menFashion },
+    남녀공용의류: ['티셔츠', '맨투맨', '셔츠', ' 바지'],
+    유아동패션: ['베이비', '여아', '남아'],
+  },
+};
+
+export const mainCategoryData = {
+  fashion: { id: 1, name: '패션의류/잡화', childsMenu: secondCategory },
+  beauty: { id: 2, name: '뷰티', childsMenu: secondCategory },
+  childBirth: { id: 3, name: '출산/유아동', childsMenu: secondCategory },
+  food: { id: 4, name: '식품' },
+  kitchen: { id: 5, name: '주방용품' },
+  life: { id: 6, name: '생활용품' },
+  homeDecoration: { id: 7, name: '홈인테리어' },
+  appliancesDigital: { id: 8, name: '가전디지털' },
+  sports: { id: 9, name: '스포츠/레저' },
+  car: { id: 10, name: '자동차용품' },
+  book: { id: 11, name: '도서/음반/DVD' },
+  hobby: { id: 12, name: '완구/취미' },
+  office: { id: 13, name: '문구/오피스' },
+  pet: { id: 14, name: '반려동물용품' },
+  health: { id: 15, name: '헬스/건강식품' },
+  ticket: { id: 16, name: '여행/티켓' },
+  theme: { id: 17, name: '테마관' },
+};
 
 export const searchCategoryData = [
   '전체',
