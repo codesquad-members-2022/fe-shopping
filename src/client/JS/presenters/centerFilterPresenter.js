@@ -1,73 +1,32 @@
-import { selector, getStyle, isHidden } from "../util";
-import { searchFilterInterval } from "../constant";
+import { selector, isHidden } from "../util";
 import { ListMark } from "./ListMark";
 
 class CenterFilterPresenter {
   constructor(view) {
-    const { target, transformer } = view;
+    const { target, transformer, parentNode } = view;
     this.view = view;
     this.target = target;
     this.transformer = transformer;
+    this.parentNode = parentNode;
     this.listMark = new ListMark(view);
   }
 
-  activateRequestAF = (length) => {
-    const changeLength = {
-      plus: () => (length += searchFilterInterval),
-      minus: () => (length -= searchFilterInterval),
-    };
-    changeLength[this.lengthDirection]();
-    window.requestAnimationFrame(() => {
-      this.resizeList(length);
-    });
-  };
-
-  resizeList = (length) => {
-    const { style, classList } = this.transformer;
-    const compareLength = {
-      plus: () =>
-        length < this.originHeight ? this.activateRequestAF(length) : null,
-      minus: () =>
-        length > 0 ? this.activateRequestAF(length) : classList.add("hidden"),
-    };
-    style.height = `${length}px`;
-    compareLength[this.lengthDirection]();
-  };
-
-  toggleList = () => {
-    const { classList } = this.transformer;
-    let length = Number(getStyle(this.transformer, "height").replace("px", ""));
-
-    if (!this.originHeight) {
-      this.originHeight = length; // set default tranformer length
-      classList.remove("hidden");
-      length = length % searchFilterInterval;
-    }
-    this.lengthDirection = length > searchFilterInterval ? "minus" : "plus";
-    if (this.lengthDirection === "plus") classList.remove("hidden");
-    this.resizeList(length);
-  };
-
   handleSearchFilterClick = () => {
-    const filterMenu = this.target.parentNode;
-    const menuIcon = selector("i", filterMenu);
-    this.view.toggleIcon(menuIcon);
-    this.toggleList();
+    this.view.toggleIcon();
+    this.view.toggleList();
   };
 
-  handleClickEvent = ({ target, target: { tagName } }) => {
+  handleClickEvent = ({ target }) => {
+    const { tagName } = target;
     this.handleSearchFilterClick();
     if (tagName === "LI") this.view.changeTargetInnerText(target);
   };
 
   checkListOpened = ({ target }) => {
-    const isListClicked = target.closest(`.${this.transformer.className}`);
-    if (!isListClicked && !isHidden(this.transformer))
+    const isListClicked = target.closest(`.${this.parentNode.className}`);
+    if (!isListClicked && !isHidden(this.transformer)) {
       this.handleSearchFilterClick();
-  };
-
-  activate = () => {
-    this.view.addEvent();
+    }
   };
 }
 
