@@ -1,14 +1,22 @@
-import { SearchList } from "./search-list.js";
+import SearchListView from "../search-list-view.js";
 
-class RelatedSearchList extends SearchList {
+export default class RelatedSearchListView extends SearchListView {
     constructor(searchList, listContainer) {
         super(searchList, listContainer);
     }
 
-    getItemText(itemName, input) {
+    initEvent() {
+        this.listContainer.addEventListener(
+            "click",
+            this.relatedSearchListClickEventHandler
+        );
+    }
+
+    getItemTemplate(itemName, input) {
         let itemText = itemName;
         const inputRegex = new RegExp(`${input}`);
         const matchWord = inputRegex.exec(itemName);
+
         if (matchWord) {
             itemText =
                 itemName.slice(0, matchWord.index) +
@@ -19,8 +27,9 @@ class RelatedSearchList extends SearchList {
         return itemText;
     }
 
-    getSearchListItem(itemName, idx, input) {
-        const itemText = this.getItemText(itemName, input);
+    getSearchListItemTemplate(itemName, idx, input) {
+        const itemText = this.getItemTemplate(itemName, input);
+
         return `<li 
                     class="search__list--item" 
                     data-idx="${idx}" 
@@ -28,6 +37,13 @@ class RelatedSearchList extends SearchList {
                         <p class="search__list--item-text">${itemText}</p>
                 </li>`;
     }
-}
 
-export { RelatedSearchList };
+    renderSearchList(input, searchItems) {
+        const searchList = searchItems.reduce(
+            (acc, itemName, idx) =>
+                acc + this.getSearchListItemTemplate(itemName, idx, input),
+            ""
+        );
+        this.listContainer.innerHTML = searchList;
+    }
+}
