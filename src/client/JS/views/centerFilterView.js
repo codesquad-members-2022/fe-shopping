@@ -21,11 +21,11 @@ class CenterFilterView extends CommonView {
   addEventHandler = () => {
     this.transformer.addEventListener(
       "mouseover",
-      this.presenter.listMark.handleListMarkEvent
+      this.presenter.listMark.showListMark
     );
     this.transformer.addEventListener(
       "mouseout",
-      this.presenter.listMark.handleListMarkEvent
+      this.presenter.listMark.showListMark
     );
     this.parentNode.addEventListener("click", this.presenter.handleClickEvent);
     document.addEventListener("click", this.presenter.checkListOpened);

@@ -1,13 +1,16 @@
 import "../SCSS/style.scss";
 import regeneratorRuntime from "regenerator-runtime";
 import { async } from "regenerator-runtime";
-import { selector, findRefinedData } from "./util.js";
-import { MouseEvent } from "./MouseEvent";
+import { selector } from "./util.js";
+
 import CenterFilterView from "./views/CenterFilterView";
 import SearchBoxView from "./views/searchBoxView";
+import CategoriesView from "./views/CategoriesView";
 import ListModel from "./models/ListModel";
+import CategoriesModel from "./models/categoriesModel";
 import CenterFilterPresenter from "./presenters/CenterFilterPresenter";
 import SearchBoxPresenter from "./presenters/SearchBoxPresenter";
+import CategoriesPresenter from "./presenters/CategoriesPresenter";
 
 const centerSearchInput = selector(".center-search-input");
 const centerRelativeInfo = selector(".center-relative-info");
@@ -30,17 +33,20 @@ const handleCenterFilter = (target, transformer) => {
   centerFilterView.registerWith(centerFilterPresenter);
   centerFilterView.addEventHandler();
 };
-const handleCategoriesEvent = async (target, tranformer) => {
-  const categoriesData = await findRefinedData("categories");
-  const categoriesMouse = new MouseEvent(target, tranformer, categoriesData);
-  categoriesMouse.getShowEvent();
-  categoriesMouse.getListMarkEvent();
+const handleCategoriesEvent = async (target, transformer) => {
+  const categoriesView = new CategoriesView(target, transformer);
+  const categoriesModel = new CategoriesModel();
+  const categoriesPresenter = new CategoriesPresenter(categoriesView);
+  await categoriesModel.findData("categories");
+  categoriesPresenter.setModel(categoriesModel);
+  categoriesView.registerWith(categoriesPresenter);
+  categoriesView.addEventHandler();
 };
 
 const init = async () => {
   handleSearchBox(centerSearchInput, centerRelativeInfo);
   handleCenterFilter(centerFilterBtn, centerFilterList);
-  await handleCategoriesEvent(categoriesBtn, categoriesList);
+  handleCategoriesEvent(categoriesBtn, categoriesList);
 };
 
 init();

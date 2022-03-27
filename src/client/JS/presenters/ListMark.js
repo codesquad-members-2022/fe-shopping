@@ -17,13 +17,22 @@ class ListMark {
     return selectedList;
   };
 
-  handleListMarkEvent = ({ target: { tagName }, target }) => {
-    const selectedList = this.getSelectedInChildren();
+  showListMark = ({ target }) => {
+    const { tagName } = target;
     if (tagName !== "LI") return;
+    this.view.changeOptionSelected(target, "toggle");
+
+    const selectedList = this.getSelectedInChildren();
     if (selectedList && selectedList !== target) {
       this.view.changeOptionSelected(selectedList, "remove");
     }
-    this.view.changeOptionSelected(target, "toggle");
+  };
+
+  hideListMark = ({ target }) => {
+    const selectedList = this.getSelectedInChildren();
+    if (selectedList && selectedList !== target) {
+      this.view.changeOptionSelected(selectedList, "remove");
+    }
   };
 }
 

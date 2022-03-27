@@ -47,11 +47,11 @@ class SearchBoxView extends CommonView {
     this.target.addEventListener("keyup", this.presenter.handleKeyupEvent);
     this.transformer.addEventListener(
       "mouseover",
-      this.presenter.listMark.handleListMarkEvent
+      this.presenter.listMark.showListMark
     );
     this.transformer.addEventListener(
       "mouseout",
-      this.presenter.listMark.handleListMarkEvent
+      this.presenter.listMark.showListMark
     );
   };
 }
