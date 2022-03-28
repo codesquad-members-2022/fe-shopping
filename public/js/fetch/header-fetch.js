@@ -1,5 +1,5 @@
 export function fetchHeaderData() {
-  fetch('http://localhost:3000/header/data')
+  fetch('/header/data')
     .then((res) => res.json())
     .then((json) => parseHeaderImg(json));
 }
