@@ -4,20 +4,11 @@ import {
   removeClass,
   throttle,
   debounce,
-  computeGrad,
 } from '../../utils/utils.js';
 import { globalCategoryStore as gCategoryStore } from './globalCategoryStore.js';
 
 const DISPLAY_NONE = 'hidden';
 const LAYER_OPEN = 'is-open';
-
-const DIRECTION = {
-  UP: 'UP',
-  DOWN: 'DOWN',
-  RIGHT: 'RIGHT',
-  LEFT: 'LEFT',
-  DEFAULT: false,
-};
 
 const G_CATEGORY_BTN = 'category-btn';
 const CATEGORY_LAYER = 'category-layer';
@@ -33,7 +24,6 @@ export class GlobalCategory {
     this.$categoryList = selector(`.${CATEGORY_LIST}`);
     this.$selectedCategoryItem = null;
 
-    this.mouseMoveDirection = null;
     this.isMouseEnterGCategory = null;
 
     this.init();
