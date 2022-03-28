@@ -285,6 +285,7 @@ table {
 }
 
 .carousel {
+  box-sizing: content-box;
   margin: 0 auto;
   position: relative;
   width: 1920px;

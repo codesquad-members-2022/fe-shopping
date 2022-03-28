@@ -823,7 +823,7 @@ export const header = `
                             <a href="#" class="header-lnb-third__link">망고/체리/아보카도/기타</a>
                           </li>
                           <li class="header-lnb-third__item">
-                            <a href="#" class="header-lnb-third__link">냉동과일/간편과일/a>
+                            <a href="#" class="header-lnb-third__link">냉동과일/간편과일</a>
                           </li>
                           <li class="header-lnb-third__item">
                             <a href="#" class="header-lnb-third__link">과일선물세트</a>

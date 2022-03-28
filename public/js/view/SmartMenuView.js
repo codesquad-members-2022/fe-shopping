@@ -1,6 +1,8 @@
-export default class SmartMenuView {
+import View from './view.js';
+
+export default class SmartMenuView extends View {
   init(el) {
-    this.el = document.querySelector(el);
+    super.init(el);
     this.lnbFirstList = this.el.querySelector('.header-lnb-first__list');
     this.lnbSecondListAll = this.el.querySelectorAll(
       '.header-lnb-second__list'
@@ -25,7 +27,7 @@ export default class SmartMenuView {
 
     this.el.addEventListener('mouseleave', () => {
       this.debounce(this.hideFirstLnb.bind(this), DEBOUNCE_TIME);
-      this.lnbSecondListAll.forEach((e) => this.hide(e));
+      this.debounce(this.hideSecondLnb.bind(this), DEBOUNCE_TIME);
     });
 
     this.lnbFirstList.addEventListener('mouseover', ({ target }) => {
@@ -60,6 +62,10 @@ export default class SmartMenuView {
     }
   }
 
+  hideSecondLnb() {
+    this.lnbSecondListAll.forEach((e) => this.hide(e));
+  }
+
   showThirdLnb(target) {
     if (target.classList.contains('header-lnb-second__link')) {
       this.lnbThirdListAll.forEach((el) => {
@@ -73,25 +79,5 @@ export default class SmartMenuView {
     this.lnbThirdListAll.forEach((e) => {
       this.hide(e);
     });
-  }
-
-  debounce(func, time, target = false) {
-    let debounceTimer;
-
-    return (() => {
-      if (debounceTimer) clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        if (!target) func();
-        else func(target);
-      }, time);
-    })();
-  }
-
-  show(el) {
-    Object.assign(el.style, { display: 'block' });
-  }
-
-  hide(el) {
-    Object.assign(el.style, { display: 'none' });
   }
 }

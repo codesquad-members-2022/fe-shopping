@@ -40,6 +40,11 @@ export const carousel = `
         <ul class="carousel-lnb__list">
           <li class="carousel-lnb__item carousel-lnb__item--active">
             <a href="#" class="carousel-lnb__link">
+              <img src="#" alt="#" class="carousel-lnb__img" data-num="0"/>
+            </a>
+          </li>
+          <li class="carousel-lnb__item">
+            <a href="#" class="carousel-lnb__link">
               <img src="#" alt="#" class="carousel-lnb__img" data-num="1"/>
             </a>
           </li>
@@ -61,11 +66,6 @@ export const carousel = `
           <li class="carousel-lnb__item">
             <a href="#" class="carousel-lnb__link">
               <img src="#" alt="#" class="carousel-lnb__img" data-num="5"/>
-            </a>
-          </li>
-          <li class="carousel-lnb__item">
-            <a href="#" class="carousel-lnb__link">
-              <img src="#" alt="#" class="carousel-lnb__img" data-num="6"/>
             </a>
           </li>
         </ul>
