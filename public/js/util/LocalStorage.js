@@ -34,7 +34,7 @@ export default class {
   }
 
   sortDataDesc(data, sortKey) {
-    return data((a, b) => b[sortKey] - a[sortKey]);
+    return data.sort((a, b) => b[sortKey] - a[sortKey]);
   }
 
   removeLeastUsedData(curData, key, newDataSize) {
