@@ -1,5 +1,5 @@
 import storage from "./storage.js";
-import { isEmpty, sortDesc } from "./util.js";
+import { isEmpty } from "./util.js";
 
 export default class {
   constructor({ dataSizeLimit, options }) {
@@ -33,10 +33,14 @@ export default class {
     return idxChangedDatas;
   }
 
+  sortDataDesc(data, sortKey) {
+    return data((a, b) => b[sortKey] - a[sortKey]);
+  }
+
   removeLeastUsedData(curData, key, newDataSize) {
     const requiredSize = this.dataSizeLimit - newDataSize;
     if (curData.length > requiredSize) {
-      return sortDesc(curData, key).slice(newDataSize);
+      return this.sortDataDesc(curData, key).slice(newDataSize);
     }
     return curData;
   }

@@ -2,7 +2,7 @@ import { model } from "../model/model.js";
 import storage from "../util/storage.js";
 import SearchView from "../view/SearchView.js";
 
-import { isEmpty, debounce, fetchData, sortAsc } from "../util/util.js";
+import { isEmpty, debounce, fetchData } from "../util/util.js";
 
 export const viewModel = {
   init({
@@ -64,6 +64,10 @@ export const viewModel = {
     });
   },
 
+  sortDataAsc(data, sortKey) {
+    return data.sort((a, b) => a[sortKey] - b[sortKey]);
+  },
+
   getRecentWordData() {
     const storedData = storage.getLocalStorage(this.recentSearchKeyName);
     if (!storedData) {
@@ -71,7 +75,7 @@ export const viewModel = {
     }
 
     const sortKey = "no";
-    const dataSortByAsc = sortAsc(storedData, sortKey);
+    const dataSortByAsc = this.sortDataAsc(storedData, sortKey);
     return dataSortByAsc;
   },
 

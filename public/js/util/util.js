@@ -25,17 +25,3 @@ export const isEmpty = (target, key) => {
   }
   return target.length === 0;
 };
-
-export const sortAsc = (arr, key) => {
-  if (key) {
-    return arr.sort((a, b) => a[key] - b[key]);
-  }
-  return arr.sort((a, b) => a - b);
-};
-
-export const sortDesc = (arr, key) => {
-  if (key) {
-    return arr.sort((a, b) => b[key] - a[key]);
-  }
-  return arr.sort((a, b) => b - a);
-};
