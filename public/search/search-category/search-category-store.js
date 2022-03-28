@@ -20,13 +20,15 @@ export default class SearchCategoryStore {
     }
 
     setCurIdxNext() {
-        this.curIdx =
-            this.curIdx + 1 >= this.CATEGORY_LENGTH ? 0 : this.curIdx + 1;
+        this.curIdx = this.curIdx + 1 >= this.CATEGORY_LENGTH 
+                    ? 0 
+                    : this.curIdx + 1;
     }
 
     setCurIdxPrevious() {
-        this.curIdx =
-            this.curIdx - 1 < 0 ? this.CATEGORY_LENGTH - 1 : this.curIdx - 1;
+        this.curIdx = this.curIdx - 1 < 0 
+                    ? this.CATEGORY_LENGTH - 1 
+                    : this.curIdx - 1;
     }
 
     getCurIdx() {

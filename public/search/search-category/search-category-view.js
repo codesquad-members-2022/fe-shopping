@@ -21,6 +21,11 @@ export default class SearchCategoryView {
             "click",
             this.searchCategoryListItemClickEventHandler
         );
+
+        document.body.addEventListener(
+            "keydown",
+            this.searchCategoryKeydownEventHandler
+        );
     }
 
     showArrow(arrow) {
@@ -47,16 +52,21 @@ export default class SearchCategoryView {
         this.categorySelected.textContent = selectedCategory;
     }
 
-    focusCategoryItem(selectedIdx) {
-        let focusingItem;
+    resetFocus() {
+        this.categoryListItems.forEach((item) =>
+            item.classList.remove("focus")
+        );
+    }
 
-        this.categoryListItems.forEach((item) => {
-            item.classList.remove("focus");
-            if (item.dataset.idx === selectedIdx.toString()) {
-                focusingItem = item;
-                item.classList.toggle("focus");
-            }
-        });
+    focusCategoryItem(selectedIdx) {
+        this.resetFocus();
+        const focusingItem = [...this.categoryListItems].find(
+            (item) => item.dataset.idx === selectedIdx.toString()
+        );
+
+        if (focusingItem) {
+            focusingItem.classList.add("focus");
+        }
 
         return focusingItem;
     }

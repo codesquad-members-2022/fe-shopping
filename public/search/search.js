@@ -26,6 +26,8 @@ export default class Search {
             this.searchbarkeyDownEventHandler.bind(this);
         this.searchInput.view.inputEventHandler =
             this.inputEventHandler.bind(this);
+        this.searchInput.view.noneSearchbarClickEventHandler =
+            this.noneSearchbarClickEventHandler.bind(this);
     }
 
     initEvents() {
@@ -34,6 +36,14 @@ export default class Search {
         this.recentSearchList.view.initEvent();
         this.relatedSearchList.view.initEvent();
         this.searchInput.view.initEvent();
+    }
+
+    noneSearchbarClickEventHandler({ target }) {
+        if (!target.closest(".search")) {
+            this.recentSearchList.hide();
+            this.relatedSearchList.hide();
+            this.searchCategory.hide();
+        }
     }
 
     async getRelatedWords() {
@@ -106,7 +116,7 @@ export default class Search {
 
     focusItem(direction, searchList) {
         const focusingItem =
-            direction === this.DIRECTION_UP
+            direction === DIRECTION_UP
                 ? searchList.focusPreviousItem()
                 : searchList.focusNextItem();
         this.searchInput.changeInput(focusingItem);

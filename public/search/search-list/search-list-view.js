@@ -12,20 +12,25 @@ export default class SearhListView {
         this.searchList.style.display = "none";
     }
 
+    resetFocus(listItems) {
+        listItems.forEach((item) => {
+            item.classList.remove("focus--underline");
+        });
+    }
+
     focusListItem(selectedIdx) {
         const listItems = this.listContainer.querySelectorAll(
             ".search__list--item"
         );
-        let focusingItem;
+        this.resetFocus(listItems);
 
-        listItems.forEach((item) => {
-            const itemText = item.querySelector(".search__list--item-text");
-            itemText.classList.remove("focus--underline");
-            if (item.dataset.idx === selectedIdx.toString()) {
-                focusingItem = item;
-                itemText.classList.add("focus--underline");
-            }
-        });
+        const focusingItem = [...listItems].find(
+            (item) => item.dataset.idx === selectedIdx.toString()
+        );
+
+        if (focusingItem) {
+            focusingItem.classList.add("focus--underline");
+        }
 
         return focusingItem;
     }

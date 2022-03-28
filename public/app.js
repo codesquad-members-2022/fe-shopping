@@ -7,7 +7,6 @@ import RecentSearchListView from "./search/search-list/recent-search-list/recent
 import RecentSearchListStore from "./search/search-list/recent-search-list/recent-search-list-store.js";
 import RelatedSearchList from "./search/search-list/related-search-list/related-search-list.js";
 import RelatedSearchListView from "./search/search-list/related-search-list/related-search-list-view.js";
-import { DIRECTION_UP, DIRECTION_DOWN, ENTER } from "./utils.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchInput = new SearchInput(searchbar);
@@ -52,37 +51,3 @@ const search = new Search(
 );
 
 search.initEvents();
-
-const hideLists = () => {
-    recentSearchList.hide();
-    relatedSearchList.hide();
-    searchCategory.hide();
-};
-
-const searchCategoryKeydownEventHandler = (event) => {
-    event.preventDefault();
-
-    if (event.key === DIRECTION_DOWN) {
-        searchCategory.focusNextItem();
-    }
-
-    if (event.key === DIRECTION_UP) {
-        searchCategory.focusPreviousItem();
-    }
-
-    if (event.key === ENTER) {
-        searchCategory.hide();
-    }
-};
-
-document.body.addEventListener("click", ({ target }) => {
-    if (!target.closest(".search")) {
-        hideLists();
-    }
-});
-document.body.addEventListener("keydown", (event) => {
-    const searchCategoryIsVisible = searchCategory.store.getVisibility();
-    if (searchCategoryIsVisible) {
-        searchCategoryKeydownEventHandler(event);
-    }
-});

@@ -13,6 +13,11 @@ export default class SearchInputView {
             this.searchbarKeyDownEventHandler
         );
         this.searchbar.addEventListener("input", this.inputEventHandler);
+
+        document.body.addEventListener(
+            "click",
+            this.noneSearchbarClickEventHandler
+        );
     }
 
     clearSearchBar() {
