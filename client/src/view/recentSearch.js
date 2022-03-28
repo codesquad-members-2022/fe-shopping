@@ -1,8 +1,21 @@
-import { SearchInput } from './searchInput.js';
-export class RecentSearch extends SearchInput {
-  constructor(data) {
-    super();
-    super.renderSearchInput(data);
+export class RecentSearch {
+  constructor(inputDropDown, dropDownList) {
+    this.$inputDropDown = inputDropDown;
+    this.$dropDownList = dropDownList;
+  }
+
+  templateDropDownItems(recentKeyword) {
+    return recentKeyword.reduce(
+      (acc, cur) =>
+        acc +
+        `
+        <li data-value="${cur}">
+          <a href="#">${cur}</a>
+          <button type="button" class="delete__btn">삭제</button>
+        </li>
+        `,
+      ''
+    );
   }
 
   templateRecentSearchElement() {
@@ -29,7 +42,7 @@ export class RecentSearch extends SearchInput {
     this.resetRecentSearchList();
   }
 
-  updateRecentSearchList(data) {
+  updateRecentSearchList(recentKeyword) {
     if (this.$inputDropDown.classList.contains('auto-complete')) {
       this.$inputDropDown.classList.replace('auto-complete', 'recent-search');
 
@@ -38,7 +51,7 @@ export class RecentSearch extends SearchInput {
       this.$inputDropDown.insertAdjacentHTML('beforeend', recentElements.optionBtns);
     }
 
-    this.$dropDownList.innerHTML = super.templateDropDownItem(data);
+    this.$dropDownList.innerHTML = this.templateDropDownItems(recentKeyword);
   }
 
   resetRecentSearchList() {
