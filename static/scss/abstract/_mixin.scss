@@ -4,6 +4,17 @@
   align-items: $horizontal-align;
 }
 
-@mixin button-background($positionX: 0, $positionY: 0) {
-  background: $url $positionX $positionY no-repeat;
+@mixin button-background($position-x: 0, $position-y: 0) {
+  background: $url $position-x $position-y no-repeat;
+}
+
+@mixin absolute-top-left($top: inherit, $left: inherit) {
+  position: absolute;
+  top: $top;
+  left: $left;
+}
+
+@mixin border-box-shadow($blur-radius: 0, $spread-radius: 0, $color: $color-gray) {
+  border: 1px solid $color;
+  box-shadow: 0 $blur-radius $spread-radius $color;
 }
