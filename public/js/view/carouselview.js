@@ -4,10 +4,6 @@ export default class CarouselView extends View {
   init(el) {
     super.init(el);
     this.carousel = this.el.querySelector('.carousel-inner__list');
-    // this.carouselWidth = this.carousel.querySelector(
-    //   '.carousel-inner__item'
-    // ).offsetWidth;
-    // console.log(this.carouselWidth);
     this.carouselElWidth = this.carousel.offsetWidth;
     this.carouselLnb = this.el.querySelector('.carousel-lnb');
     this.carouselLnbEls = this.carouselLnb.querySelectorAll(
