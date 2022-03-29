@@ -8,29 +8,35 @@ export default class {
     this.firstIdx = 0;
   }
 
-  setStoredDatasIdx(key, val) {
+  filterData(data, item) {
+    return data.filter((el) => el[this.options.dataName] !== item);
+  }
+
+  increaseDataNo(data) {
+    if (!data) {
+      return [];
+    }
+    const numName = "no";
+    const dataName = this.options.dataName;
+
+    return data.map((el) => {
+      return {
+        [numName]: el[numName] + 1,
+        [dataName]: el[dataName],
+      };
+    });
+  }
+
+  getFilteredData(key, item) {
     const storedDatas = storage.getLocalStorage(key)
       ? storage.getLocalStorage(key)
       : [];
-
     if (isEmpty(storedDatas)) {
-      return storedDatas;
+      return [];
     }
 
-    let idxChangedDatas = storedDatas.reduce((prev, cur) => {
-      if (cur[this.options.recentSearchValueName] === val) {
-        return prev;
-      }
-
-      const curData = {
-        no: cur["no"] + 1,
-        [this.options.recentSearchValueName]:
-          cur[this.options.recentSearchValueName],
-      };
-      return [...prev, curData];
-    }, []);
-
-    return idxChangedDatas;
+    const filteredData = this.filterData(storedDatas, item);
+    return this.increaseDataNo(filteredData);
   }
 
   sortDataDesc(data, sortKey) {
@@ -48,18 +54,23 @@ export default class {
   storeItem(key, val) {
     const curInputData = {
       no: this.firstIdx,
-      [this.options.recentSearchValueName]: val,
+      [this.options.dataName]: val,
     };
-    const curInputDataCnt = [curInputData].length;
 
-    let storedDatas = this.setStoredDatasIdx(key, val);
-    const sortByKey = "no";
-    storedDatas = this.removeLeastUsedData(
+    let storedDatas = this.getFilteredData(key, val);
+    if (isEmpty(storedDatas)) {
+      storage.setLocalStorage(key, [curInputData]);
+      return;
+    }
+
+    const sortByKey = this.numName;
+    const curInputDataCnt = [curInputData].length;
+    const dataRemovedLeastUsed = this.removeLeastUsedData(
       storedDatas,
       sortByKey,
       curInputDataCnt
     );
 
-    storage.setLocalStorage(key, [...storedDatas, curInputData]);
+    storage.setLocalStorage(key, [...dataRemovedLeastUsed, curInputData]);
   }
 }

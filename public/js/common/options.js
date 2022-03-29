@@ -12,12 +12,12 @@ export const options = {
     dataSizeLimit: 10,
     options: {
       recentSearchKeyName: "recent-search",
-      recentSearchValueName: "recentSearchWord",
+      dataName: "recentSearchWord",
     },
   },
   view: {
     searchFormArea: $(".search-form-area"),
-    recentSearchValueName: "recentSearchWord",
+    dataName: "recentSearchWord",
     datasetName: "idx",
     selectedIdxClassName: "focus",
   },

@@ -2,10 +2,10 @@ import SearchForm from "../component/SearchForm.js";
 import { setDisplayBlock } from "../util/dom.js";
 
 export default class extends SearchForm {
-  constructor({ datasetName, recentSearchValueName, ...args }) {
+  constructor({ datasetName, dataName, ...args }) {
     super(args);
     this.datasetName = datasetName;
-    this.recentSearchValueName = recentSearchValueName;
+    this.localStorageDataName = dataName;
   }
 
   createDropdownInner(state) {
@@ -54,7 +54,7 @@ export default class extends SearchForm {
   getLiTemplate({ cur, idx, state, searchWord }) {
     const item =
       state === "recent-search"
-        ? cur[this.recentSearchValueName]
+        ? cur[this.localStorageDataName]
         : cur.split(searchWord).join(`<strong>${searchWord}</strong>`);
 
     const template = {
