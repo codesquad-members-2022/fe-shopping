@@ -9,6 +9,7 @@ export const globalCategoryStore = {
     DEFAULT: false,
   },
   mouseMoveDirection: null,
+  mouseEntersCategory: null,
 
   setMouseMoveDirection(oldX, oldY, x, y) {
     this.mouseMoveDirection = this.computeMouseMoveDirection(oldX, oldY, x, y);
@@ -22,5 +23,9 @@ export const globalCategoryStore = {
     const grad = computeGrad(oldX, oldY, x, y);
     if (-2 < grad && grad < 2 && oldX < x) return this.DIRECTION.RIGHT;
     return this.DIRECTION.DEFAULT;
+  },
+
+  isMouseOnCategory() {
+    return this.mouseEntersCategory;
   },
 };
