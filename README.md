@@ -2,11 +2,20 @@
 
 ## 3주차 - 1
 
-- mouseover가 계속 찍힌다?
+## 스마트 레이어
 
-  - mouseover 가 되면 `한번` 만 찍혀야 하는데, 여러번 찍힌다.
-  - 아마도 setState 를 하면서 해당 li 태그가 re-rendering 되면서 새로 생긴 li 태그라고 인식해서 계속찍히는 것으로 생각된다.
-    - ?) 마우스를 올렸을 때 Element 가 사라지게 하면 mouseout 이벤트가 발생하지 않는건가?
+- 대각선이동 어떻게 처리할 지 시나리오
+
+-
+
+## 버그 픽스 과정
+
+### mouseover가 계속 찍힌다?
+
+- mouseover 가 되면 `한번` 만 찍혀야 하는데, 여러번 찍힌다.
+- 아마도 setState 를 하면서 해당 li 태그가 re-rendering 되면서 새로 생긴 li 태그라고 인식해서 계속찍히는 것으로 생각된다.
+
+  - ?) 마우스를 올렸을 때 Element 가 사라지게 하면 mouseout 이벤트가 발생하지 않는건가?
 
 - 어떻게 해결할까?
   - mainCategory 를 render 하는 로직에 subCategory 와 연결이 되어 있는 부분을 끊어줘야 옵저버가 mainCategory 를 re-rendering 하지 않겠다는 생각을 했다.
