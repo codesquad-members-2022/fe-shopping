@@ -1,24 +1,38 @@
 .banner {
+  $banner-height: 450px;
+
   position: relative;
+  height: $banner-height;
   min-width: 1020px;
 
-  &-list {
+  &-main {
     position: absolute;
     width: 100%;
-    height: 450px;
+    height: $banner-height;
+  }
+
+  &-imagelist {
+    position: absolute;
+    width: 100%;
+    height: $banner-height;
   }
 
   &-image {
     position: absolute;
     top: 0;
     left: 50%;
+    display: none;
     transform: translate3d(-960px, 0, 0);
+
+    &.is-selected {
+      display: block;
+    }
   }
 
-  &-tablist-wrapper {
+  &-etc {
     position: relative;
     width: 1020px;
-    height: 450px;
+    height: $banner-height;
     margin: 0 auto;
   }
 
@@ -43,6 +57,24 @@
       button {
         border-color: $border;
       }
+    }
+  }
+
+  &-linklist {
+    position: absolute;
+  }
+
+  &-link {
+    display: none;
+
+    a {
+      display: block;
+      width: 1020px;
+      height: $banner-height;
+    }
+
+    &.is-selected {
+      display: block;
     }
   }
 }
