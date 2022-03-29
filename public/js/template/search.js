@@ -9,9 +9,6 @@ export const search = `
   <button class="btn search-btn"><i class="fa-solid fa-magnifying-glass fa-1x"></i></button>
   <div class="search-auto">
     <ul class="search-auto__list">
-      <li class="search-auto__item">
-        <a href="#" class="search-auto__link">딸기라떼</a>
-      </li>
     </ul>
   </div>
   <div class="search-recent">
