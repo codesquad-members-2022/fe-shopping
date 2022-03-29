@@ -4,16 +4,11 @@ import SearchView from "../view/SearchView.js";
 
 import { isEmpty, debounce, fetchData } from "../util/util.js";
 
-export const viewModel = {
+export const controller = {
   init({
     localStorage,
     viewOptions,
-    viewModelOptions: {
-      recentSearchKeyName,
-      suggestionUrl,
-      suggestionDelay,
-      message,
-    },
+    options: { recentSearchKeyName, suggestionUrl, suggestionDelay, message },
   }) {
     this.localStorage = localStorage;
     this.message = message;

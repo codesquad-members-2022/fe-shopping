@@ -21,7 +21,7 @@ export const options = {
     datasetName: "idx",
     selectedIdxClassName: "focus",
   },
-  viewModel: {
+  controller: {
     recentSearchKeyName: "recent-search",
     suggestionUrl: `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=`,
     suggestionDelay: 120,
