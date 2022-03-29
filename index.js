@@ -8,122 +8,112 @@ import SearchBarDropBox from "./View/SearchBarDropBox.js";
 import carousel from "./carousel.js";
 import ViewModel from "./ViewModel/ViewModel.js";
 
-const store = new Store();
+const controller = {
+  init({
+    store,
+    category,
+    categoriesDropBox,
+    inputDropBox,
+    searchBar,
+    searchBarDropBox,
+  }) {
+    this.store = store;
+    this.category = category;
+    this.categoriesDropBox = categoriesDropBox;
+    this.searchBar = searchBar;
+    this.searchBarDropBox = searchBarDropBox;
+    this.viewModel = new ViewModel({
+      store,
+      category,
+      categoriesDropBox,
+      inputDropBox,
+      searchBar,
+      searchBarDropBox,
+    });
 
-const views = createViews({
+    this.appendDropBoxes({
+      categoriesDropBoxArgs: {
+        targetView: this.categoriesDropBox,
+        source: {
+          data: searchCategories,
+          appendDropBox: this.viewModel.appendDropBox.bind(this.viewModel),
+        },
+      },
+      searchBarDropBoxArgs: {
+        targetView: this.searchBarDropBox,
+        source: {
+          data: searchData,
+          appendSearchBarDropBox: this.viewModel.appendSearchBarDropBox.bind(
+            this.viewModel
+          ),
+        },
+      },
+    });
+
+    this.onDropDown({
+      onCategoryDropDown: this.category.onClickSearchCategory,
+      handleClickSearchCatgory: this.viewModel.handleClickSearchCatgory.bind(
+        this.viewModel
+      ),
+      onSearchBarDropDown: this.searchBarDropBox.onClickDocumentWhenDropDown,
+      handleClickOutDropBox: this.viewModel.handleClickOutDropBox.bind(
+        this.viewModel
+      ),
+    });
+
+    this.onSearchBarChange({
+      onKeyupKeywords: this.searchBar.onKeyupKeywords.bind(searchBar),
+      handleKeyupKeywords: this.viewModel.handleKeyupKeywords.bind(
+        this.viewModel
+      ),
+      onFocusInput: this.searchBar.onFocusInput.bind(searchBar),
+      handleFocusInput: this.viewModel.handleFocusInput.bind(this.viewModel),
+      onChangeInput: this.searchBar.onChangeInput.bind(searchBar),
+      handleChangeInput: this.viewModel.handleChangeInput.bind(this.viewModel),
+    });
+  },
+
+  appendElement({ targetView, source }) {
+    targetView.appendElement(source);
+  },
+
+  appendDropBoxes({ categoriesDropBoxArgs, searchBarDropBoxArgs }) {
+    this.appendElement(categoriesDropBoxArgs);
+    this.appendElement(searchBarDropBoxArgs);
+  },
+
+  onDropDown({
+    onCategoryDropDown,
+    handleClickSearchCatgory,
+    onSearchBarDropDown,
+    handleClickOutDropBox,
+  }) {
+    onCategoryDropDown({ handleClickSearchCatgory });
+    onSearchBarDropDown({ handleClickOutDropBox });
+  },
+
+  onSearchBarChange({
+    onKeyupKeywords,
+    handleKeyupKeywords,
+    onFocusInput,
+    handleFocusInput,
+    onChangeInput,
+    handleChangeInput,
+  }) {
+    onKeyupKeywords({ handleKeyupKeywords });
+    onFocusInput({ handleFocusInput });
+    onChangeInput({ handleChangeInput });
+  },
+};
+
+controller.init({
+  store: new Store(),
   category: new SearchCategory(),
   categoriesDropBox: new SearchCategoryDropBox(),
   inputDropBox: new SearchBarDropBox(),
   searchBar: new SearchBar(),
   searchBarDropBox: new SearchBarDropBox(),
 });
-
-const {
-  category,
-  categoriesDropBox,
-  inputDropBox,
-  searchBar,
-  searchBarDropBox,
-} = views;
-
-const viewModel = new ViewModel({
-  categoriesDropBox,
-  store,
-  category,
-  searchBarDropBox,
-  searchBar,
-  inputDropBox,
-});
-
-appendDropBoxes({
-  appendElement,
-  categoriesDropBoxArgs: {
-    targetView: categoriesDropBox,
-    source: {
-      data: searchCategories,
-      appendDropBox: viewModel.appendDropBox.bind(viewModel),
-    },
-  },
-  searchBarDropBoxArgs: {
-    targetView: searchBarDropBox,
-    source: {
-      data: searchData,
-      appendSearchBarDropBox: viewModel.appendSearchBarDropBox.bind(viewModel),
-    },
-  },
-});
-
-onDropDown({
-  onCategoryDropDown: category.onClickSearchCategory,
-  handleClickSearchCatgory: viewModel.handleClickSearchCatgory.bind(viewModel),
-  onSearchBarDropDown: searchBarDropBox.onClickDocumentWhenDropDown,
-  handleClickOutDropBox: viewModel.handleClickOutDropBox.bind(viewModel),
-});
-
-onSearchBarChange({
-  onKeyupKeywords: searchBar.onKeyupKeywords.bind(searchBar),
-  handleKeyupKeywords: viewModel.handleKeyupKeywords.bind(viewModel),
-  onFocusInput: searchBar.onFocusInput.bind(searchBar),
-  handleFocusInput: viewModel.handleFocusInput.bind(viewModel),
-  onChangeInput: searchBar.onChangeInput.bind(searchBar),
-  handleChangeInput: viewModel.handleChangeInput.bind(viewModel),
-});
-
-function createViews({
-  category,
-  categoriesDropBox,
-  inputDropBox,
-  searchBar,
-  searchBarDropBox,
-}) {
-  const views = {
-    category,
-    categoriesDropBox,
-    inputDropBox,
-    searchBar,
-    searchBarDropBox,
-  };
-
-  return views;
-}
-
-function appendElement({ targetView, source }) {
-  targetView.appendElement(source);
-}
-
-function appendDropBoxes({
-  appendElement,
-  categoriesDropBoxArgs,
-  searchBarDropBoxArgs,
-}) {
-  appendElement(categoriesDropBoxArgs);
-  appendElement(searchBarDropBoxArgs);
-}
-
-function onDropDown({
-  onCategoryDropDown,
-  handleClickSearchCatgory,
-  onSearchBarDropDown,
-  handleClickOutDropBox,
-}) {
-  onCategoryDropDown({ handleClickSearchCatgory });
-  onSearchBarDropDown({ handleClickOutDropBox });
-}
-
-function onSearchBarChange({
-  onKeyupKeywords,
-  handleKeyupKeywords,
-  onFocusInput,
-  handleFocusInput,
-  onChangeInput,
-  handleChangeInput,
-}) {
-  onKeyupKeywords({ handleKeyupKeywords });
-  onFocusInput({ handleFocusInput });
-  onChangeInput({ handleChangeInput });
-}
-
-viewModel.handleClickSearchCatgory();
 
 carousel({
   slides: document.querySelector(".slide__list"),
