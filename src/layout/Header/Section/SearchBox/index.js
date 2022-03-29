@@ -3,10 +3,6 @@ import AutoComplete from './AutoComplete/index.js';
 import HistoryList from './History/index.js';
 import ScopeSelector from './ScopeSelector/index.js';
 import { myLocalStorage } from '../../../../utils/mockDB.js';
-import {
-  findTargetClassElement,
-  findTargetIdElement,
-} from '../../../../utils/manuplateDOM.js';
 import { POP_UP, SEARCH_BOX } from '../../../../constant.js';
 import {
   handleSubmit,
@@ -52,12 +48,9 @@ SearchBox.prototype.renderChild = function () {
     activeAutoTerm,
     activeHistory,
   } = this.state;
-  const $scopeSelector = findTargetClassElement(
-    this.$element,
-    'search__selector'
-  );
-  const $searchRecord = findTargetClassElement(this.$element, 'search__record');
-  const $searchAuto = findTargetClassElement(this.$element, 'search__auto');
+  const $scopeSelector = this.$element.querySelector('.search__selector');
+  const $searchRecord = this.$element.querySelector('.search__record');
+  const $searchAuto = this.$element.querySelector('.search__auto');
   this.$ScopeSelector = new ScopeSelector($scopeSelector, {
     option,
     changeSearchOption: changeSearchOption.bind(this),
@@ -75,16 +68,8 @@ SearchBox.prototype.renderChild = function () {
 };
 
 SearchBox.prototype.setEvent = function () {
-  // const {
-  //   coreHandler: {
-  //     handleSubmit,
-  //     handleInputClick,
-  //     handleInputKeyDown,
-  //     handleInput,
-  //   },
-  // } = this.eventHandler;
-  this.$form = findTargetIdElement(this.$element, 'searhForm');
-  this.$input = findTargetIdElement(this.$form, 'searchInput');
+  this.$form = this.$element.querySelector('#searhForm');
+  this.$input = this.$element.querySelector('#searchInput');
   this.$form.addEventListener('submit', handleSubmit.bind(this));
   this.$input.addEventListener('click', handleInputClick.bind(this));
   this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));

@@ -1,5 +1,5 @@
 import HtmlElement from '../utils/HtmlElement.js';
-import { findTargetIdElement, hideAllPopUp } from '../utils/manuplateDOM.js';
+import { hideAllPopUp } from '../utils/manuplateDOM.js';
 import Header from './Header/index.js';
 import Main from './Main/index.js';
 
@@ -18,8 +18,8 @@ Root.prototype.setTemplate = function () {
 };
 
 Root.prototype.renderChild = function () {
-  const $header = findTargetIdElement(this.$element, 'header');
-  const $main = findTargetIdElement(this.$element, 'main');
+  const $header = this.$element.querySelector('#header');
+  const $main = this.$element.querySelector('#main');
   new Header($header);
   new Main($main);
 };

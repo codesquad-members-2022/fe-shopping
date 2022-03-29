@@ -1,7 +1,4 @@
-import {
-  findTargetIdElement,
-  handleDisplayElement,
-} from '../../../../../utils/manuplateDOM.js';
+import { handleDisplayElement } from '../../../../../utils/manuplateDOM.js';
 
 export function handleClick({ target }) {
   const $searchSelector = target.closest('#searchSelector');
@@ -11,6 +8,6 @@ export function handleClick({ target }) {
 }
 
 function showCategory() {
-  const $options = findTargetIdElement(this.$element, 'searchOptions');
+  const $options = this.$element.querySelector('#searchOptions');
   handleDisplayElement($options);
 }

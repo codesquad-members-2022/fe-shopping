@@ -1,7 +1,6 @@
 import Root from './layout/root.js';
-import { findTargetIdElement } from './utils/manuplateDOM.js';
 
-const $root = findTargetIdElement(document, 'root');
+const $root = document.getElementById('root');
 
 function init() {
   new Root($root);

@@ -1,7 +1,4 @@
-import {
-  findTargetIdElement,
-  handleDisplayElement,
-} from '../../../utils/manuplateDOM.js';
+import { handleDisplayElement } from '../../../utils/manuplateDOM.js';
 
 export function handleClick({ target }) {
   const $categoryButton = target.closest('.category__button');
@@ -11,6 +8,6 @@ export function handleClick({ target }) {
 }
 
 function handleCategoryButton() {
-  const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
+  const $categoryLayer = this.$element.querySelector('#category-layer');
   handleDisplayElement($categoryLayer);
 }

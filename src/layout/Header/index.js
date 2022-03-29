@@ -1,5 +1,4 @@
 import HtmlElement from '../../utils/HtmlElement.js';
-import { findTargetClassElement } from '../../utils/manuplateDOM.js';
 import Category from './Category/index.js';
 import Section from './Section/index.js';
 
@@ -18,8 +17,8 @@ Header.prototype.setTemplate = function () {
 };
 
 Header.prototype.renderChild = function () {
-  const $category = findTargetClassElement(this.$element, 'category');
-  const $section = findTargetClassElement(this.$element, 'section');
+  const $category = this.$element.querySelector('.category');
+  const $section = this.$element.querySelector('.section');
   new Category($category);
   new Section($section);
 };

@@ -1,8 +1,4 @@
 import HtmlElement from '../../../utils/HtmlElement.js';
-import {
-  findTargetClassElement,
-  findTargetIdElement,
-} from '../../../utils/manuplateDOM.js';
 import Navigation from './Navigation/index.js';
 import SearchBox from './SearchBox/index.js';
 
@@ -25,14 +21,14 @@ Section.prototype.setTemplate = function () {
 };
 
 Section.prototype.renderChild = function () {
-  const $gnb = findTargetClassElement(this.$element, 'gnb');
-  const $searchBox = findTargetClassElement(this.$element, 'search');
+  const $gnb = this.$element.querySelector('.gnb');
+  const $searchBox = this.$element.querySelector('.search');
   new SearchBox($searchBox);
   new Navigation($gnb);
 };
 
 Section.prototype.setEvent = function () {
-  const $logo = findTargetIdElement(this.$element, 'main-logo');
+  const $logo = this.$element.querySelector('#main-logo');
   $logo.addEventListener('click', BackToHome);
 };
 
