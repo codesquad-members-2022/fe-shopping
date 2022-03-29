@@ -6,16 +6,19 @@ export default class AutoCompleteController {
     this.view = view;
     this.autoCompleteEl = view.autoCompleteEl;
     this.listEl = view.listEl;
-    this.state = this.model.autoComplete;
     this.show = 'searchForm__autoComplete--show';
     this.hidden = 'searchForm__autoComplete--hidden';
   }
 
   init() {
-    this.view.requestAutoCompleteWords = this.requestAutoCompleteWords.bind(this);
-    this.view.clearAutoComplete = this.clearAutoComplete.bind(this);
-    this.view.showAutoComplete = this.showAutoComplete.bind(this);
-    this.view.hideAutoComplete = this.hideAutoComplete.bind(this);
+    this.bindMethods();
+  }
+
+  bindMethods() {
+    this.view.bound.requestAutoCompleteWords = this.requestAutoCompleteWords.bind(this);
+    this.view.bound.clearAutoComplete = this.clearAutoComplete.bind(this);
+    this.view.bound.showAutoComplete = this.showAutoComplete.bind(this);
+    this.view.bound.hideAutoComplete = this.hideAutoComplete.bind(this);
   }
 
   async requestAutoCompleteWords(category, inputValue) {
@@ -24,8 +27,8 @@ export default class AutoCompleteController {
       'data',
       `autoComplete?category=${category}&keyword=${inputValue}`
     );
-
     this.model.setAutoCompleteWords(words);
+    return this.model.getAutoCompleteWords();
   }
 
   clearAutoComplete() {

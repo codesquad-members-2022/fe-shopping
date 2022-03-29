@@ -1,8 +1,8 @@
 import { dom } from '../../utils/dom.js';
 
 export default class AutoCompleteView {
-  constructor({ model }) {
-    this.model = model;
+  constructor() {
+    this.bound = {};
     this.autoCompleteEl = dom.select('.searchForm__autoComplete');
     this.listEl = dom.select('.searchForm__autoComplete-list');
   }
@@ -11,17 +11,14 @@ export default class AutoCompleteView {
     return `<li class="searchForm__autoComplete-item">${value}</li>`;
   }
 
-  createItems() {
-    const autoCompleteWords = this.model.getAutoCompleteWords();
+  createItems(autoCompleteWords) {
     return autoCompleteWords.reduce((acc, word) => acc + this.createItem(word), '');
   }
 
   async renderAutoComplete(category, inputValue) {
-    await this.requestAutoCompleteWords(category, inputValue);
-
+    const words = await this.bound.requestAutoCompleteWords(category, inputValue);
     dom.initEl(this.listEl);
-    this.listEl.insertAdjacentHTML('beforeend', this.createItems());
-
-    this.showAutoComplete();
+    this.listEl.insertAdjacentHTML('beforeend', this.createItems(words));
+    this.bound.showAutoComplete();
   }
 }
