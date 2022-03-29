@@ -1,13 +1,12 @@
 import HtmlElement from '../../utils/HtmlElement.js';
+import { setInheritance } from '../../utils/manuplateDOM.js';
 import Category from './Category/index.js';
 import Section from './Section/index.js';
 
 export default function Header($element) {
   HtmlElement.call(this, $element);
 }
-
-Header.prototype = Object.create(HtmlElement.prototype);
-Header.prototype.constructor = Header;
+setInheritance({ parent: HtmlElement, child: Header });
 
 Header.prototype.setTemplate = function () {
   return `

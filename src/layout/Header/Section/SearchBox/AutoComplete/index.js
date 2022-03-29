@@ -1,11 +1,11 @@
 import HtmlElement from '../../../../../utils/HtmlElement.js';
+import { setInheritance } from '../../../../../utils/manuplateDOM.js';
 
 export default function AutoComplete($element, args) {
   HtmlElement.call(this, $element, args);
 }
 
-AutoComplete.prototype = Object.create(HtmlElement.prototype);
-AutoComplete.prototype.constructor = AutoComplete;
+setInheritance({ parent: HtmlElement, child: AutoComplete });
 
 AutoComplete.prototype.setTemplate = function () {
   const { autoSearchList, inputValue, activeAutoTerm } = this.state;

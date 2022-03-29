@@ -1,13 +1,13 @@
 import HtmlElement from '../../../../../utils/HtmlElement.js';
 import { POP_UP } from '../../../../../constant.js';
 import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../../../../utils/manuplateDOM.js';
 
 export default function ScopeSelector($element, args) {
   HtmlElement.call(this, $element, args);
 }
 
-ScopeSelector.prototype = Object.create(HtmlElement.prototype);
-ScopeSelector.prototype.constructor = ScopeSelector;
+setInheritance({ parent: HtmlElement, child: ScopeSelector });
 
 ScopeSelector.prototype.init = function () {
   this.state = {

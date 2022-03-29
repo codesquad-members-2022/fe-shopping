@@ -11,6 +11,7 @@ import {
   handleInput,
   changeSearchOption,
 } from './eventHandler.js';
+import { setInheritance } from '../../../../utils/manuplateDOM.js';
 
 const {
   INPUT_DEFAULT,
@@ -20,8 +21,8 @@ const {
 export default function SearchBox($element) {
   HtmlElement.call(this, $element);
 }
-SearchBox.prototype = Object.create(HtmlElement.prototype);
-SearchBox.prototype.constructor = SearchBox;
+
+setInheritance({ parent: HtmlElement, child: SearchBox });
 
 SearchBox.prototype.init = function () {
   this.state = {

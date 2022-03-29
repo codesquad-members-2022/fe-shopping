@@ -1,6 +1,7 @@
 import HtmlElement from '../../../../../utils/HtmlElement.js';
 import { SEARCH_BOX } from '../../../../../constant.js';
 import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../../../../utils/manuplateDOM.js';
 
 const {
   HISTORY: { HISTORY_DELETE, HISTORY_ACTIVE, HISTORY_DELETE__ALL },
@@ -10,8 +11,7 @@ export default function HistoryList($element, args) {
   HtmlElement.call(this, $element, args);
 }
 
-HistoryList.prototype = Object.create(HtmlElement.prototype);
-HistoryList.prototype.constructor = HistoryList;
+setInheritance({ parent: HtmlElement, child: HistoryList });
 
 HistoryList.prototype.init = function () {
   this.state = {

@@ -1,4 +1,5 @@
 import HtmlElement from '../../../utils/HtmlElement.js';
+import { setInheritance } from '../../../utils/manuplateDOM.js';
 import Navigation from './Navigation/index.js';
 import SearchBox from './SearchBox/index.js';
 
@@ -6,8 +7,7 @@ export default function Section($element) {
   HtmlElement.call(this, $element);
 }
 
-Section.prototype = Object.create(HtmlElement.prototype);
-Section.prototype.constructor = Section;
+setInheritance({ parent: HtmlElement, child: Section });
 
 Section.prototype.setTemplate = function () {
   return `

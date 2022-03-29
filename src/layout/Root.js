@@ -1,5 +1,5 @@
 import HtmlElement from '../utils/HtmlElement.js';
-import { hideAllPopUp } from '../utils/manuplateDOM.js';
+import { hideAllPopUp, setInheritance } from '../utils/manuplateDOM.js';
 import Header from './Header/index.js';
 import Main from './Main/index.js';
 
@@ -7,8 +7,7 @@ export default function Root($element) {
   HtmlElement.call(this, $element);
 }
 
-Root.prototype = Object.create(HtmlElement.prototype);
-Root.prototype.constructor = Root;
+setInheritance({ parent: HtmlElement, child: Root });
 
 Root.prototype.setTemplate = function () {
   return `

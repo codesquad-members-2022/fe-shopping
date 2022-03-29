@@ -1,13 +1,13 @@
 import HtmlElement from '../../../utils/HtmlElement.js';
 import { POP_UP } from '../../../constant.js';
 import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../../utils/manuplateDOM.js';
 
 export default function Category($element) {
   HtmlElement.call(this, $element);
 }
 
-Category.prototype = Object.create(HtmlElement.prototype);
-Category.prototype.constructor = Category;
+setInheritance({ parent: HtmlElement, child: Category });
 
 Category.prototype.setTemplate = function () {
   return template;

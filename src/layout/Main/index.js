@@ -1,11 +1,11 @@
 import HtmlElement from '../../utils/HtmlElement.js';
+import { setInheritance } from '../../utils/manuplateDOM.js';
 
 export default function Main($element) {
   HtmlElement.call(this, $element);
 }
 
-Main.prototype = Object.create(HtmlElement.prototype);
-Main.prototype.constructor = Main;
+setInheritance({ parent: HtmlElement, child: Main });
 
 Main.prototype.setTemplate = function () {
   return `
