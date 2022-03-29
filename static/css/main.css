@@ -150,6 +150,7 @@ header .category-button span {
   border: 1px solid #ddd;
   -webkit-box-shadow: 0 2px 3px #ddd;
           box-shadow: 0 2px 3px #ddd;
+  line-height: 1.3;
 }
 
 .search-bar .popup-keywords .recent-search-text {
