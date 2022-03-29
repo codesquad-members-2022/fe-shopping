@@ -7,9 +7,9 @@ class SearchBar {
     });
   }
 
-  onFocusInput({ dropDown }) {
+  onFocusInput({ handleFocusInput }) {
     this.$search.addEventListener("focus", (event) => {
-      dropDown();
+      handleFocusInput();
     });
   }
 
