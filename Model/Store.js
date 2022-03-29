@@ -8,10 +8,6 @@ class Store {
     };
   }
 
-  getState() {
-    return this.state;
-  }
-
   setState(newState) {
     this.state = newState;
   }

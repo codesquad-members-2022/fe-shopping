@@ -1,5 +1,4 @@
 import { searchCategories, searchData } from "./data/data.js";
-import carousel from "./carousel.js";
 import {
   targetQuerySelector,
   createLiListTemplate,
@@ -12,37 +11,89 @@ import SearchCategory from "./View/SearchCategory.js";
 import SearchCategoryDropBox from "./View/SearchCategoryDropBox.js";
 import SearchBar from "./View/SearchBar.js";
 import SearchBarDropBox from "./View/SearchBarDropBox.js";
+import carousel from "./carousel.js";
 
 const store = new Store();
-const state = store.getState();
-const category = new SearchCategory();
-const categoriesDropBox = new SearchCategoryDropBox();
-category.onClickSearchCategory({
-  handleClickSearchCatgory,
-});
-categoriesDropBox.appendElement({ data: searchCategories, appendDropBox });
 
-const searchBar = new SearchBar();
-const searchBarDropBox = new SearchBarDropBox();
-searchBarDropBox.appendElement({ data: searchData, appendSearchBarDropBox });
+const views = createViews();
 
-searchBarDropBox.onClickDocumentWhenDropDown({
-  handleClickOutDropBox,
-});
+const {
+  category,
+  categoriesDropBox,
+  inputDropBox,
+  searchBar,
+  searchBarDropBox,
+} = views;
 
-searchBar.onKeyupKeywords({
-  handleKeyupKeywords,
-});
-
-searchBar.onFocusInput({
-  dropDown,
+appendDropBoxes({
+  appendCategoriesDropBox: appendElement({
+    targetView: categoriesDropBox,
+    source: { data: searchCategories, appendDropBox },
+  }),
+  appendSearchBarDropBox: appendElement({
+    targetView: searchBarDropBox,
+    source: { data: searchData, appendSearchBarDropBox },
+  }),
 });
 
-searchBar.onChangeInput({
-  handleChangeInput,
+onDropDown({
+  onCategoryDropDown: category.onClickSearchCategory({
+    handleClickSearchCatgory,
+  }),
+  onSearchBarDropDown: searchBarDropBox.onClickDocumentWhenDropDown({
+    handleClickOutDropBox,
+  }),
 });
 
-const inputDropBox = new SearchBarDropBox();
+onSearchBarChange({
+  onKeyupKeyword: searchBar.onKeyupKeywords({
+    handleKeyupKeywords,
+  }),
+  onFocusInput: searchBar.onFocusInput({
+    dropDown,
+  }),
+  onChangeInput: searchBar.onChangeInput({
+    handleChangeInput,
+  }),
+});
+
+function createViews() {
+  const category = new SearchCategory();
+  const categoriesDropBox = new SearchCategoryDropBox();
+  const inputDropBox = new SearchBarDropBox();
+  const searchBar = new SearchBar();
+  const searchBarDropBox = new SearchBarDropBox();
+
+  const views = {
+    category,
+    categoriesDropBox,
+    inputDropBox,
+    searchBar,
+    searchBarDropBox,
+  };
+
+  return views;
+}
+
+function appendElement({ targetView, source }) {
+  targetView.appendElement(source);
+}
+
+function appendDropBoxes({ appendCategoriesDropBox, appendSearchBarDropBox }) {
+  appendCategoriesDropBox();
+  appendSearchBarDropBox();
+}
+
+function onDropDown({ onCategoryDropDown, onSearchBarDropDown }) {
+  onCategoryDropDown();
+  onSearchBarDropDown();
+}
+
+function onSearchBarChange({ onKeyupKeyword, onFocusInput, onChangeInput }) {
+  onKeyupKeyword();
+  onFocusInput();
+  onChangeInput();
+}
 
 function handleClickSearchCatgory(target) {
   const $search__category = targetQuerySelector({
@@ -90,18 +141,18 @@ function appendDropBox(data) {
     categoriesDropBox.$search__categories__container
   );
 
-  categoriesDropBox.render(state.isCategoryDropBoxVisible);
+  categoriesDropBox.render(store.state.isCategoryDropBoxVisible);
 }
 
 function appendSearchBarDropBox() {
   store.setState({ ...store.state, isBarDropBoxVisible: false });
-  const { isBarDropBoxVisible } = state;
+  const { isBarDropBoxVisible } = store.state;
   searchBarDropBox.render({ isBarDropBoxVisible });
 }
 
 function handleClickOutDropBox() {
-  store.setState({ ...state, isBarDropBoxVisible: true });
-  const { isBarDropBoxVisible } = state;
+  store.setState({ ...store.state, isBarDropBoxVisible: true });
+  const { isBarDropBoxVisible } = store.state;
   searchBarDropBox.render({ isBarDropBoxVisible });
 }
 
