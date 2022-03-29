@@ -9,11 +9,22 @@ export default class CategoryController {
   }
 
   init() {
-    this.view.init();
+    this.initView();
+    this.bindMethods();
+    this.view.addHandlers();
+  }
 
-    this.view.toggleList = this.toggleList.bind(this);
-    this.view.hideList = this.hideList.bind(this);
-    this.view.selectCategory = this.selectCategory.bind(this);
+  initView() {
+    const categories = this.model.getCategories();
+    const currentCategory = this.model.getCurrentCategory();
+    this.view.renderCategories(categories);
+    this.view.renderCurrentCategory(currentCategory);
+  }
+
+  bindMethods() {
+    this.view.bound.toggleList = this.toggleList.bind(this);
+    this.view.bound.hideList = this.hideList.bind(this);
+    this.view.bound.selectCategory = this.selectCategory.bind(this);
   }
 
   toggleList() {
@@ -47,7 +58,7 @@ export default class CategoryController {
     }
 
     this.model.setCurrentCategory(selectedCategory);
-    this.view.renderCurrentCategory();
+    this.view.renderCurrentCategory(selectedCategory);
     this.toggleList();
   }
 }

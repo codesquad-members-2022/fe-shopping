@@ -2,12 +2,12 @@ import { getData } from '../utils/getData.js';
 
 import SearchModel from './model/SearchModel.js';
 
-import CategoryView from './view/CategoryView.js';
+import initCategory from './category/main.js';
+
 import HistoryView from './view/HistoryView.js';
 import AutoCompleteView from './view/AutoCompleteView.js';
 import InputView from './view/InputView.js';
 
-import CategoryController from './controller/CategoryController.js';
 import HistoryController from './controller/HistoryController.js';
 import AutoCompleteController from './controller/AutoCompleteController.js';
 import InputController from './controller/InputController.js';
@@ -23,15 +23,11 @@ export async function initSearchForm() {
     currentCategory: searchCategories[0],
   });
 
-  const categoryView = new CategoryView({ model: searchModel });
+  initCategory(searchModel);
+
   const historyView = new HistoryView({ model: searchModel });
   const autoCompleteView = new AutoCompleteView({ model: searchModel });
   const inputView = new InputView({ model: searchModel });
-
-  const categoryController = new CategoryController({
-    model: searchModel,
-    view: categoryView,
-  });
 
   const historyController = new HistoryController({
     model: searchModel,
@@ -50,7 +46,6 @@ export async function initSearchForm() {
     autoCompleteView: autoCompleteView,
   });
 
-  categoryController.init();
   historyController.init();
   autoCompleteController.init();
   inputController.init();
