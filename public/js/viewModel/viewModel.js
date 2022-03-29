@@ -66,8 +66,8 @@ export const viewModel = {
     });
   },
 
-  sortDataAsc(data, sortKey) {
-    return data.sort((a, b) => a[sortKey] - b[sortKey]);
+  _sortDataAsc(data1, data2) {
+    return data1.no - data2.no;
   },
 
   getRecentWordData() {
@@ -76,8 +76,7 @@ export const viewModel = {
       return [];
     }
 
-    const sortKey = "no";
-    const dataSortByAsc = this.sortDataAsc(storedData, sortKey);
+    const dataSortByAsc = storedData.sort(this._sortDataAsc);
     return dataSortByAsc;
   },
 
