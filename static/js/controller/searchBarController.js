@@ -93,8 +93,8 @@ export class SearchBarController {
     }
   }
 
-  handlePopupKeywordsClickEvent(event) {
-    const $recentKeyword = event.target.closest('li');
+  handlePopupKeywordsClickEvent({target}) {
+    const $recentKeyword = target.closest('li');
     if ($recentKeyword) {
       const $keywordSpan = $recentKeyword.querySelector('span');
       const selectedKeyword = $keywordSpan.innerText;

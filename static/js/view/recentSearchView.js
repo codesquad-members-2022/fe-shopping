@@ -16,7 +16,7 @@ export class RecentSearchView {
   }
 
   renderRecentSearch(keywordList) {
-    const textTemplate = '<h3 class="recent-search-text">최근 검색어</h3>';
+    const textTemplate = '<h4 class="recent-search-text">최근 검색어</h4>';
     const keywordsTemplate = this.createKeywordsTemplate(keywordList, 'recent-search-list');
     const popupKeywordsTemplate = textTemplate + keywordsTemplate;
     this.$popupKeywords.innerHTML = popupKeywordsTemplate;
