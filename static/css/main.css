@@ -28,6 +28,11 @@ ol, ul {
   display: none;
 }
 
+.active {
+  color: #4285f4;
+  text-decoration: underline;
+}
+
 header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -96,7 +101,8 @@ header .category-button span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 150px;
+  width: 180px;
+  border-right: 1px solid #ddd;
 }
 
 .search-category span {
@@ -108,9 +114,31 @@ header .category-button span {
 .search-category .search-category-button {
   background: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png) 6px -165px no-repeat;
   display: block;
-  width: 30px;
+  width: 22px;
   height: 30px;
   border: 0;
+}
+
+.search-category .is-clicked {
+  background: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png) 6px -142px no-repeat;
+}
+
+.search-category-list {
+  position: absolute;
+  top: 70px;
+  left: inherit;
+  border: 1px solid #ddd;
+  -webkit-box-shadow: 0 2px 3px #ddd;
+          box-shadow: 0 2px 3px #ddd;
+  width: 130px;
+  height: 350px;
+  padding-top: 3px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 3px #ddd;
+  overflow-y: auto;
+  font-size: 12px;
+  text-indent: 10px;
+  line-height: 1.5;
 }
 
 .search-bar {
@@ -126,7 +154,7 @@ header .category-button span {
 }
 
 .search-bar .search-bar-input {
-  width: 350px;
+  width: 330px;
   height: 37px;
   padding: 0 10px;
   border: 0;
@@ -134,23 +162,24 @@ header .category-button span {
 
 .search-bar .search-bar-button {
   background: url(https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png) -112px -71px no-repeat;
-  width: 50px;
-  height: 39px;
+  width: 40px;
+  height: 40px;
   border: 0;
 }
 
 .search-bar .popup-keywords {
   position: absolute;
   top: 70px;
-  left: 438px;
-  width: 401px;
-  height: auto;
-  padding: 10px;
-  margin: 0 auto;
+  left: 470px;
   border: 1px solid #ddd;
   -webkit-box-shadow: 0 2px 3px #ddd;
           box-shadow: 0 2px 3px #ddd;
-  line-height: 1.3;
+  width: 370px;
+  height: auto;
+  padding: 10px;
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .search-bar .popup-keywords .recent-search-text {
@@ -160,7 +189,6 @@ header .category-button span {
   margin: 6px;
   border-bottom: 1px solid #ddd;
   line-height: 0;
-  font-size: 14px;
 }
 
 .search-bar .popup-keywords .recent-search-list {

@@ -1,6 +1,7 @@
 .search-category {
   @include flexbox(space-between, center);
-  width: 150px;
+  width: 180px;
+  border-right: 1px solid $color-gray;
 
   span {
     font-size: 12px;
@@ -11,8 +12,25 @@
   .search-category-button {
     @include button-background(6px, -165px);
     display: block;
-    width: 30px;
+    width: 22px;
     height: 30px;
     border: 0;
   }
+  .is-clicked {
+    @include button-background(6px, -142px);
+  }
+}
+
+.search-category-list {
+  @include absolute-top-left(70px);
+  @include border-box-shadow(2px, 3px);
+  width: 130px;
+  height: 350px;
+  padding-top: 3px;
+  border: 1px solid $color-gray;
+  box-shadow: 0 2px 3px $color-gray;;
+  overflow-y: auto;
+  font-size: 12px;
+  text-indent: 10px;
+  line-height: 1.5;
 }
