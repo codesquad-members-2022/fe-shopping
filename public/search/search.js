@@ -1,4 +1,4 @@
-import { DIRECTION_UP, DIRECTION_DOWN, ENTER, delay, timer } from "../utils.js";
+import { DIRECTION_UP, DIRECTION_DOWN, ENTER, debounce } from "../utils.js";
 
 export default class Search {
     constructor(
@@ -11,6 +11,8 @@ export default class Search {
         this.recentSearchList = recentSearchList;
         this.relatedSearchList = relatedSearchList;
         this.searchCategory = searchCategory;
+
+        this.debounce = this.initDebounce();
     }
 
     setEventHandler() {
@@ -38,6 +40,11 @@ export default class Search {
         this.searchInput.view.initEvent();
     }
 
+    initDebounce() {
+        const DELAY = 500;
+        return debounce(DELAY);
+    }
+
     noneSearchbarClickEventHandler({ target }) {
         if (!target.closest(".search")) {
             this.recentSearchList.hide();
@@ -47,6 +54,13 @@ export default class Search {
     }
 
     async getRelatedWords() {
+        // 연관 검색어 목록을 키보드로 이동했을 때 요청하지 않도록 처리
+        const relatedSearchListCurIdx =
+            this.relatedSearchList.store.getCurIdx();
+        if (relatedSearchListCurIdx !== -1) {
+            return;
+        }
+
         const word = this.searchInput.getInput();
         const category = this.searchCategory.store.getSelectedCategory();
         try {
@@ -74,14 +88,6 @@ export default class Search {
         this.relatedSearchList.renderSearchList(word);
     }
 
-    requestRelatedWordsNoMoreInput() {
-        if (timer) {
-            clearTimeout(timer);
-        }
-
-        delay(500).then(() => this.getRelatedWords());
-    }
-
     removeFocusOnSearchList() {
         this.recentSearchList.removeFocus();
         this.relatedSearchList.removeFocus();
@@ -97,7 +103,7 @@ export default class Search {
             this.relatedSearchList.hide();
         }
 
-        this.requestRelatedWordsNoMoreInput();
+        this.debounce().then(() => this.getRelatedWords());
     }
 
     updateRecentSearchList() {
@@ -108,8 +114,6 @@ export default class Search {
 
     reRenderSearchList() {
         this.updateRecentSearchList();
-
-        clearTimeout(timer);
         this.relatedSearchList.reset();
         this.relatedSearchList.hide();
     }
