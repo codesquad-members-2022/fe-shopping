@@ -244,8 +244,8 @@ table {
   margin-left: 15px;
 }
 .search-form .search-category {
-  width: 125px;
   border-right: 1px solid #ddd;
+  width: 125px;
 }
 .search-form .search-category__link {
   display: block;
@@ -322,26 +322,26 @@ table {
 }
 
 .category {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   display: none;
+  left: 34;
   position: absolute;
   top: 110;
-  left: 34;
-  z-index: 99999999999;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   transition: all 1s;
+  z-index: 99999999999;
 }
 .category__list {
   background-color: #fff;
 }
 .category__item {
-  width: 110px;
   height: 34px;
-  padding-left: 10px;
   line-height: 34px;
+  padding-left: 10px;
+  width: 110px;
 }
 .category__link {
-  display: block;
   cursor: pointer;
+  display: block;
 }
 .category__link:hover {
   color: #9cf;
@@ -372,8 +372,8 @@ table {
   text-decoration: underline;
 }
 .search-auto__link--active {
-  font-size: 14px;
   color: #4285f4;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -388,11 +388,11 @@ table {
   z-index: 99999999999;
 }
 .search-recent__title {
+  border-bottom: 1px solid #ddd;
+  color: #333;
   font-size: 13px;
   font-weight: bold;
-  color: #333;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
 }
 .search-recent__list {
   padding: 0 10px;
@@ -405,11 +405,11 @@ table {
   text-decoration: underline;
 }
 .search-recent__footer {
-  font-size: 12px;
-  color: #888;
   background-color: #f0f0f0;
   border-top: 1px solid #ddd;
+  color: #888;
   display: flex;
+  font-size: 12px;
   justify-content: space-between;
   padding: 8px 10px;
 }
@@ -467,8 +467,8 @@ table {
   text-align: center;
 }
 .header-lnb-second__link {
-  padding: 10px 8px;
   display: block;
+  padding: 10px 8px;
 }
 .header-lnb-second__link:hover {
   color: #9cf;
@@ -479,19 +479,19 @@ table {
 }
 
 .header-lnb-third__list {
+  background-color: #fff;
   border: 1px solid #ddd;
   left: 164px;
   position: absolute;
   top: -1px;
   width: 165px;
-  background-color: #fff;
 }
 .header-lnb-third__item {
   text-align: center;
 }
 .header-lnb-third__link {
-  padding: 10px 8px;
   display: block;
+  padding: 10px 8px;
 }
 .header-lnb-third__link:hover {
   color: #9cf;

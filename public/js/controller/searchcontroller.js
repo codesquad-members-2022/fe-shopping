@@ -1,3 +1,6 @@
+import SearchModel from '../model/searchmodel.js';
+import SearchView from '../view/searchview.js';
+
 export default class SearchController {
   constructor() {
     // 카테고리 인스턴스 생성

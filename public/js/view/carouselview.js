@@ -104,12 +104,16 @@ export default class CarouselView extends View {
   }
 
   raiseCarouselIndex() {
-    if (this.checkCarouselLastCnt()) this.carouselIndex = 0;
+    const CAROUSEL_FIRST_INDEX = 1;
+
+    if (this.checkCarouselLastCnt()) this.carouselIndex = CAROUSEL_FIRST_INDEX;
     else this.carouselIndex++;
   }
 
   checkCarouselLastCnt() {
-    if (this.carouselIndex === 5) return true;
+    const CAROUSEL_LAST_INDEX = this.carouselLnbEls.length - 1;
+
+    if (this.carouselIndex === CAROUSEL_LAST_INDEX) return true;
   }
 
   parseCarouselImg(data) {

@@ -1,5 +1,5 @@
 @import '../colors';
-@import '../utils';
+@import '../utility';
 
 .header-lnb {
   background-color: $white;
@@ -49,8 +49,8 @@
   }
 
   &__link {
-    padding: 10px 8px;
     display: block;
+    padding: 10px 8px;
   }
 
   &__link:hover {
@@ -64,12 +64,12 @@
 
 .header-lnb-third {
   &__list {
+    background-color: $white;
     border: 1px solid $search-category-border;
     left: 164px;
     position: absolute;
     top: -1px;
     width: 165px;
-    background-color: $white;
   }
 
   &__item {
@@ -77,8 +77,8 @@
   }
 
   &__link {
-    padding: 10px 8px;
     display: block;
+    padding: 10px 8px;
   }
 
   &__link:hover {
