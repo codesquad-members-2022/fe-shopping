@@ -1,6 +1,6 @@
 import HtmlElement from '../../../../../utils/HtmlElement.js';
 import { POP_UP } from '../../../../../constant.js';
-import eventHandler from './eventHandler.js';
+import { handleClick } from './eventHandler.js';
 
 export default function ScopeSelector($element, args) {
   HtmlElement.call(this, $element, args);
@@ -13,7 +13,6 @@ ScopeSelector.prototype.init = function () {
   this.state = {
     ...this.args,
   };
-  this.eventHandler = eventHandler;
 };
 
 ScopeSelector.prototype.setTemplate = function () {
@@ -22,9 +21,6 @@ ScopeSelector.prototype.setTemplate = function () {
 };
 
 ScopeSelector.prototype.setEvent = function () {
-  const {
-    coreHandler: { handleClick },
-  } = this.eventHandler;
   this.$element.addEventListener('click', handleClick.bind(this));
 };
 

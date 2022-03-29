@@ -1,5 +1,4 @@
 import { moveToSearchTermPage } from '../../../../router.js';
-import EventHandler from '../../../../utils/EventHandler.js';
 import {
   myLocalStorage,
   requestAutoCompleteTerms,
@@ -13,31 +12,9 @@ const {
   HISTORY: { HISTORY_LOCAL_STORAGE_KEY },
 } = SEARCH_BOX;
 
-const eventHandler = new EventHandler();
-
-eventHandler.setSubLogic({
-  changeActiveList,
-  handleArrowDown,
-  handleArrowUp,
-  setActiveElement,
-  handlehistroyList,
-  handlePopUpDisplay,
-});
-
-eventHandler.setCoreHandler({
-  handleSubmit,
-  handleInputClick,
-  handleInputKeyDown,
-  handleInput,
-  changeSearchOption,
-});
-
-function handleSubmit(event) {
+export function handleSubmit(event) {
   event.preventDefault();
   const { option, inputValue } = this.state;
-  const {
-    subLogic: { handlehistroyList },
-  } = this.eventHandler;
   const searchTerm = inputValue;
   const { histroyList } = this.$HistoryList.state;
   const updatedHistroyList = handlehistroyList(histroyList, inputValue);
@@ -50,16 +27,13 @@ function handleSubmit(event) {
   moveToSearchTermPage(option, searchTerm);
 }
 
-function handleInputClick({ target }) {
+export function handleInputClick({ target }) {
   const { value: inputValue } = target;
-  this.eventHandler.subLogic.handlePopUpDisplay.call(this, inputValue);
+  handlePopUpDisplay.call(this, inputValue);
 }
 
-function handleInputKeyDown(event) {
+export function handleInputKeyDown(event) {
   const { key } = event;
-  const {
-    subLogic: { setActiveElement, changeActiveList },
-  } = this.eventHandler;
   const activeElement = setActiveElement.call(this);
   switch (key) {
     case 'ArrowDown':
@@ -82,11 +56,8 @@ function handleInputKeyDown(event) {
   }
 }
 
-async function handleInput(event) {
+export async function handleInput(event) {
   const { inputValue: value, activeHistory, histroyList } = this.state;
-  const {
-    subLogic: { changeActiveList, handlePopUpDisplay },
-  } = this.eventHandler;
   const inputValue = event ? event.target.value : value;
   if (inputValue !== '') {
     this.setState({ showHistroy: false });
@@ -108,7 +79,7 @@ async function handleInput(event) {
   this.setState({ autoSearchList: reponseTerms });
 }
 
-function changeSearchOption(option) {
+export function changeSearchOption(option) {
   this.setState({ option });
   this.$HistoryList.setState({ option });
   this.$ScopeSelector.setState({ option });
@@ -182,5 +153,3 @@ function handlePopUpDisplay(inputValue, reponseTerms) {
     this.setState({ showHistroy: false });
   }
 }
-
-export default eventHandler;

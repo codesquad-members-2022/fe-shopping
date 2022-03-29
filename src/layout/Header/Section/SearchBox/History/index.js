@@ -1,6 +1,6 @@
 import HtmlElement from '../../../../../utils/HtmlElement.js';
 import { SEARCH_BOX } from '../../../../../constant.js';
-import eventHandler from './eventHandler.js';
+import { handleClick } from './eventHandler.js';
 
 const {
   HISTORY: { HISTORY_DELETE, HISTORY_ACTIVE, HISTORY_DELETE__ALL },
@@ -17,7 +17,6 @@ HistoryList.prototype.init = function () {
   this.state = {
     ...this.args,
   };
-  this.eventHandler = eventHandler;
 };
 
 HistoryList.prototype.setTemplate = function () {
@@ -47,8 +46,5 @@ HistoryList.prototype.setTemplate = function () {
 };
 
 HistoryList.prototype.setEvent = function () {
-  const {
-    coreHandler: { handleClick },
-  } = this.eventHandler;
   this.$element.addEventListener('click', handleClick.bind(this));
 };

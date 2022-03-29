@@ -8,7 +8,13 @@ import {
   findTargetIdElement,
 } from '../../../../utils/manuplateDOM.js';
 import { POP_UP, SEARCH_BOX } from '../../../../constant.js';
-import eventHandler from './eventHandler.js';
+import {
+  handleSubmit,
+  handleInputClick,
+  handleInputKeyDown,
+  handleInput,
+  changeSearchOption,
+} from './eventHandler.js';
 
 const {
   INPUT_DEFAULT,
@@ -31,7 +37,6 @@ SearchBox.prototype.init = function () {
     histroyList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
     autoSearchList: [],
   };
-  this.eventHandler = eventHandler;
 };
 
 SearchBox.prototype.setTemplate = function () {
@@ -47,9 +52,6 @@ SearchBox.prototype.renderChild = function () {
     activeAutoTerm,
     activeHistory,
   } = this.state;
-  const {
-    coreHandler: { changeSearchOption },
-  } = this.eventHandler;
   const $scopeSelector = findTargetClassElement(
     this.$element,
     'search__selector'
@@ -73,14 +75,14 @@ SearchBox.prototype.renderChild = function () {
 };
 
 SearchBox.prototype.setEvent = function () {
-  const {
-    coreHandler: {
-      handleSubmit,
-      handleInputClick,
-      handleInputKeyDown,
-      handleInput,
-    },
-  } = this.eventHandler;
+  // const {
+  //   coreHandler: {
+  //     handleSubmit,
+  //     handleInputClick,
+  //     handleInputKeyDown,
+  //     handleInput,
+  //   },
+  // } = this.eventHandler;
   this.$form = findTargetIdElement(this.$element, 'searhForm');
   this.$input = findTargetIdElement(this.$form, 'searchInput');
   this.$form.addEventListener('submit', handleSubmit.bind(this));
