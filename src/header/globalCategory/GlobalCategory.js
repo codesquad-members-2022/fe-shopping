@@ -24,8 +24,6 @@ export class GlobalCategory {
     this.$categoryList = selector(`.${CATEGORY_LIST}`);
     this.$selectedCategoryItem = null;
 
-    this.isMouseEnterGCategory = null;
-
     this.init();
   }
 
@@ -35,12 +33,12 @@ export class GlobalCategory {
     const categoryItemOpenDelay = 20;
 
     this.$gCategory.addEventListener('mouseenter', () => {
-      this.isMouseEnterGCategory = true;
+      gCategoryStore.setMouseInGlobalCategory(true);
       removeClass(DISPLAY_NONE, this.$categoryLayer);
     });
 
     this.$gCategory.addEventListener('mouseleave', () => {
-      this.isMouseEnterGCategory = false;
+      gCategoryStore.setMouseInGlobalCategory(false);
     });
 
     this.$gCategory.addEventListener(
@@ -75,7 +73,7 @@ export class GlobalCategory {
   }
 
   closeGCategoryLayer = () => {
-    if (this.isMouseEnterGCategory) return;
+    if (gCategoryStore.isMouseInGlobalCategory()) return;
     const $selectedItem = selector(`.${LAYER_OPEN}`, this.$categoryLayer);
     addClass(DISPLAY_NONE, this.$categoryLayer);
     removeClass(LAYER_OPEN, $selectedItem);
