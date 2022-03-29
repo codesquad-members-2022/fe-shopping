@@ -1,5 +1,6 @@
 import Component from '../../core/Component.js';
 import FirstDepthList from './FirstDepthList.js';
+import withEventHandling from '../../hoc/WithEventHandling.js';
 
 class CategoryArea extends Component {
 
@@ -25,7 +26,7 @@ class CategoryArea extends Component {
   renderAllCategory() {
     if (this.allCategory) this.allCategory.destroy();
     const $categoryContainer = this.$target.querySelector('.bottom-ui');
-    this.allCategory = new FirstDepthList($categoryContainer);
+    this.allCategory = withEventHandling(FirstDepthList, $categoryContainer);
   }
 
   removeAllCategory() {

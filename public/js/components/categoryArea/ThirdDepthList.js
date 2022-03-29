@@ -24,20 +24,6 @@ class ThirdDepthList extends Component {
       this.changeFocusedItem(event.target, 'third');
     })
   }
-
-  isCorrectEventTarget(target, depth) {
-    const container = target.parentNode.parentNode;
-    return container.classList.contains(`${depth}-content`);
-  }
-
-  changeFocusedItem(target, depth) {
-    const container = target.parentNode.parentNode;
-    if (!container.classList.contains(`${depth}-content`)) return;
-    [...container.children].forEach((child) => {
-      if (child === target.parentNode) child.classList.add('focus');
-      else child.classList.remove('focus');
-    })
-  }
 }
 
 export default ThirdDepthList;
