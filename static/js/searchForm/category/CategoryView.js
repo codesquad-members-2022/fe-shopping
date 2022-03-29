@@ -7,7 +7,7 @@ export default class CategoryView {
     this.listEl = dom.select('.searchForm__category-list');
   }
 
-  addHandlers() {
+  addHandler() {
     this.currentEl.addEventListener('click', () => this.bound.toggleList());
     this.listEl.addEventListener('click', (event) => this.bound.selectCategory(event.target));
     dom.select('body').addEventListener('click', (event) => this.bound.hideList(event.target));

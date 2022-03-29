@@ -11,7 +11,7 @@ export default class CategoryController {
   init() {
     this.initView();
     this.bindMethods();
-    this.view.addHandlers();
+    this.view.addHandler();
   }
 
   initView() {
