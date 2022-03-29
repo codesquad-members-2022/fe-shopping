@@ -9,10 +9,14 @@ export default class CarouselController {
 
   init() {
     this.carouselView.init('.carousel');
-    this.deliverData();
+    this.setUp();
   }
 
-  async deliverData() {
+  setUp() {
+    this.deliverCarouselData();
+  }
+
+  async deliverCarouselData() {
     const data = await this.carouselModel.fetchCarouselData();
     await this.carouselView.parseCarouselImg(data.carousel);
     await this.carouselView.parseCarouselLnbImg(data.carouselLnb);

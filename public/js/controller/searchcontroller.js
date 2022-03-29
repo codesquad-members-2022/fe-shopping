@@ -1,14 +1,23 @@
 import SearchModel from '../model/searchmodel.js';
-import SearchView from '../view/searchview.js';
+import SearchCategoryView from '../view/searchcategoryview.js';
 
 export default class SearchController {
   constructor() {
-    // 카테고리 인스턴스 생성
-    // input 인스턴스 생성
+    this.searchModel = new SearchModel();
+    this.searchCategoryView = new SearchCategoryView();
   }
 
   init() {
-    // 카테고리 init
-    // 서치 init
+    this.searchCategoryView.init('.search-category');
+    this.setUp();
+  }
+
+  setUp() {
+    this.deliverSearchCategoryData();
+  }
+
+  async deliverSearchCategoryData() {
+    const data = await this.searchModel.fetchSearchData('category/data');
+    this.searchCategoryView.parseSearchCategoryData(data);
   }
 }

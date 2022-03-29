@@ -5,7 +5,7 @@ export const header = `
         <div class="header-left">
           <div class="header-gnb">
             <a href="#" class="header-gnb__link">
-              <img src="#" alt="#" class="header-gnb__img">
+              <img src="./img/header/menu.png" alt="메뉴" class="header-gnb__img">
               <span class="header-gnb__text absolute-width-center">카테고리</span>
             </a>
               <div class="header-lnb">
@@ -3343,7 +3343,7 @@ export const header = `
         <div class="header-right">
           <div class="header-top">
             <div class="header-logo">
-            <a href="#"><img src="#" alt="#" width="174" height="41" class="header-logo__img"/></a>
+            <a href="#"><img src="./img/header/logo_coupang_w350.png" alt="로고" width="174" height="41" class="header-logo__img"/></a>
             </div>
             <div class="search-form">
             </div>
