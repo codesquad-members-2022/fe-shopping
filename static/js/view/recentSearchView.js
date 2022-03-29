@@ -3,10 +3,10 @@ export class RecentSearchView {
     this.$popupKeywords = document.querySelector('.popup-keywords');
   }
 
-  createKeywordsTemplate(keywordList, keywordIndexList, listClassName) {
-    let keywordsTemplate = keywordList.reduce((template, keyword, index) => {
-      template += `<li data-index=${keywordIndexList[index]}>
-      ${keyword}
+  createKeywordsTemplate(keywordList, listClassName) {
+    let keywordsTemplate = keywordList.reduce((template, keyword) => {
+      template += `<li>
+      <span>${keyword}</span>
       <button type='button' class='recent-keyword-button'>X</button>
       </li>`;
       return template;
@@ -15,9 +15,9 @@ export class RecentSearchView {
     return keywordsTemplate;
   }
 
-  renderRecentSearch(keywordList, keywordIndexList) {
+  renderRecentSearch(keywordList) {
     const textTemplate = '<h3 class="recent-search-text">최근 검색어</h3>';
-    const keywordsTemplate = this.createKeywordsTemplate(keywordList, keywordIndexList, 'recent-search-list');
+    const keywordsTemplate = this.createKeywordsTemplate(keywordList, 'recent-search-list');
     const popupKeywordsTemplate = textTemplate + keywordsTemplate;
     this.$popupKeywords.innerHTML = popupKeywordsTemplate;
   }

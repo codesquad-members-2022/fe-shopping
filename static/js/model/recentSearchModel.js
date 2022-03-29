@@ -1,12 +1,19 @@
 export class RecentSearchModel {
-  constructor(localStorage) {
-    this.storage = localStorage;
-    this.keywordIndexList = [];
+  constructor(sessionStorage) {
+    this.storage = sessionStorage;
     this.keywordList = [];
   }
 
+  setState() {
+    if (this.isEmpty) {
+      this.storage.setItem('keyword', []);
+      return;
+    }
+    this.keywordList = JSON.parse(this.storage['keyword']);
+  }
+
   isEmpty() {
-    return this.storage.length === 0;
+    return !!(this.storage['keyword']);
   }
 
   addKeyword(keyword) {
@@ -15,30 +22,15 @@ export class RecentSearchModel {
       return;
     }
     if (this.keywordList.length >= keywordListMaxLength) {
-      const oldestKeywordIndex = this.keywordIndexList[0];
-      this.storage.removeItem(oldestKeywordIndex);
-      this.keywordIndexList.splice(0, 1);
-      this.keywordList.splice(0, 1);
+      this.keywordList.shift();
     }
-    const keywordIndex = Date.now();
-    this.storage.setItem(keywordIndex, keyword);
-    this.keywordIndexList.push(keywordIndex);
     this.keywordList.push(keyword);
+    this.storage['keyword'] = JSON.stringify(this.keywordList);
   }
 
-  updateKeywordList() {
-    const localStorageKeys = Object.keys(this.storage)
-      .map((storageKey) => Number(storageKey))
-      .filter((storageKey) => storageKey)
-      .sort();
-    const keywordList = localStorageKeys.map((storageKey) => this.storage[storageKey]);
-    this.keywordIndexList = localStorageKeys;
-    this.keywordList = keywordList;
-  }
-
-  deleteKeyword(selectedKeywordIndex) {
-    this.keywordIndexList = this.keywordIndexList.filter((keywordIndex) => keywordIndex !== selectedKeywordIndex);
-    this.keywordList = this.keywordList.filter((keyword) => keyword !== this.storage[selectedKeywordIndex]);
-    this.storage.removeItem(selectedKeywordIndex);
+  deleteKeyword(keyword) {
+    const keywordIndex = this.keywordList.indexOf(keyword);
+    this.keywordList.splice(keywordIndex, 1);
+    this.storage['keyword'] = JSON.stringify(this.keywordList);
   }
 }

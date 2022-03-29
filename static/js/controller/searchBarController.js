@@ -16,12 +16,13 @@ export class SearchBarController {
   }
 
   init() {
-    this.setRecentSearchModelData();
+    this.recentSearchModel.setState();
+    this.setRelativeSearchModelData();
     this.bindViewMethod();
     this.attachEventListener();
   }
 
-  async setRecentSearchModelData() {
+  async setRelativeSearchModelData() {
     const goodsData = await fetchData('goodsData');
     const firstKeyword = '아';
     const keywordsData = goodsData[firstKeyword];
@@ -44,15 +45,12 @@ export class SearchBarController {
     if (!this.recentSearchModel.isEmpty()) {
       this.searchBarView.hidePopupKeywords();
     }
-    this.recentSearchModel.updateKeywordList();
     const keywordList = this.recentSearchModel.keywordList;
-    const keywordIndexList = this.recentSearchModel.keywordIndexList;
-    this.recentSearchView.renderRecentSearch(keywordList, keywordIndexList);
+    this.recentSearchView.renderRecentSearch(keywordList);
   }
 
   handleInputKeyDownEvent(event) {
     const keywordListLength = this.relativeSearchModel.keywordList.length;
-    let keywordListText;
     switch(event.key) {
       case 'Enter':
         this.recentSearchModel.addKeyword(event.target.value);
@@ -63,42 +61,46 @@ export class SearchBarController {
         if (this.keywordListNumber > keywordListLength) {
           this.keywordListNumber = 1;
         }
-        keywordListText = this.relativeSearchView.getKeywordListText(this.keywordListNumber);
-        event.target.value = keywordListText;
+        const nextKeywordListText = this.relativeSearchView.getKeywordListText(this.keywordListNumber);
+        event.target.value = nextKeywordListText;
         break;
       case 'ArrowUp':
         this.keywordListNumber--;
         if (this.keywordListNumber < 1) {
           this.keywordListNumber = keywordListLength;
         }
-        keywordListText = this.relativeSearchView.getKeywordListText(this.keywordListNumber);
-        event.target.value = keywordListText;
+        const prevKeywordListText = this.relativeSearchView.getKeywordListText(this.keywordListNumber);
+        event.target.value = prevKeywordListText;
         break;
     }
   }
 
   handleInputKeyUpEvent(event) {
-    const delayTime = 500;
-    (debounce((event) => {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Backspace') {
-        return;
-      }
-      const searchKeyword = event.target.value;
-      if (searchKeyword !== '') {
-        this.keywordListNumber = 0;
-        this.updatePopupKeyword(searchKeyword);
-      }
-    }, delayTime))(event);
+    const delayTime = 1000;
+    let timeoutId;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(this.findRelativeKeywords.bind(this), delayTime, event);
   }
 
-  handlePopupKeywordsClickEvent({target}) {
-    const $recentKeyword = target.closest('li');
+  findRelativeKeywords({key, target}) {
+    if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'Backspace') {
+      return;
+    }
+    const searchKeyword = target.value;
+    if (searchKeyword !== '') {
+      this.keywordListNumber = 0;
+      this.updatePopupKeyword(searchKeyword);
+    }
+  }
+
+  handlePopupKeywordsClickEvent(event) {
+    const $recentKeyword = event.target.closest('li');
     if ($recentKeyword) {
-      const selectedKeywordIndex =  Number($recentKeyword.dataset.index);
-      this.recentSearchModel.deleteKeyword(selectedKeywordIndex);
+      const $keywordSpan = $recentKeyword.querySelector('span');
+      const selectedKeyword = $keywordSpan.innerText;
+      this.recentSearchModel.deleteKeyword(selectedKeyword);
       const keywordList = this.recentSearchModel.keywordList;
-      const keywordIndexList = this.recentSearchModel.keywordIndexList;
-      this.recentSearchView.renderRecentSearch(keywordList, keywordIndexList);
+      this.recentSearchView.renderRecentSearch(keywordList);
     }
   }
 
