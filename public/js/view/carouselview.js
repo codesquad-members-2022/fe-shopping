@@ -66,7 +66,7 @@ export default class CarouselView extends View {
 
   startLnb(target) {
     this.stopCarousel();
-    if (target.dataset.num) this.chooseLnb(target.dataset.num);
+    if (target.dataset.num) this.renderChoiceLnb(target.dataset.num);
   }
 
   moveLnb(carouselIndex) {
@@ -91,7 +91,7 @@ export default class CarouselView extends View {
     });
   }
 
-  chooseLnb(lnbIndex) {
+  renderChoiceLnb(lnbIndex) {
     this.disableLnbEls();
     this.moveCarouselEl(lnbIndex);
     this.addClassActive(lnbIndex);

@@ -3,6 +3,6 @@ export default class SearchModel {
     const res = await fetch(`/search/${state}`);
     const data = await res.json();
 
-    return data;
+    return data.category;
   }
 }

@@ -2,29 +2,6 @@ export const search = `
   <div class="search-category">
     <a href="#" class="search-category__link">전체</a>
     <div class="category">
-      <ul class="category__list">
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-        <li class="category__item">
-          <a href="#" class="category__link"></a>
-        </li>
-      </ul>
     </div>
   </div>
   <input type="text" class="search-text" placeholder="찾고 싶은 상품을 검색해보세요!">
