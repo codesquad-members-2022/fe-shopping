@@ -43,9 +43,11 @@ export const viewModel = {
       const fetchUrl = this.suggestionUrl + inputTxt;
       const filterData = (json) => json["suggestions"].map((el) => el.value);
 
-      fetchData(fetchUrl, filterData).then((json) =>
-        this.setSearchBarSuggestWord(json, inputTxt)
-      );
+      fetchData(fetchUrl)
+        .then((json) => filterData(json))
+        .then((filteredData) => {
+          this.setSearchBarSuggestWord(filteredData, inputTxt);
+        });
     }, this.suggestionDelay);
   },
 

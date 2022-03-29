@@ -10,13 +10,8 @@ export const debounce = (func, delay = 0) => {
   };
 };
 
-export const fetchData = async (url, callback) => {
-  return await fetch(url)
-    .then((res) => res.json())
-    .then((json) => {
-      if (!callback) return json;
-      return callback(json);
-    });
+export const fetchData = async (url) => {
+  return await fetch(url).then((res) => res.json());
 };
 
 export const isEmpty = (target, key) => {
