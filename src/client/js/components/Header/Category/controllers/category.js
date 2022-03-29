@@ -2,6 +2,7 @@ import { store } from "../../../../Store";
 import { delay } from "../../../../utils";
 
 const handleListMouseOver = ({ target }) => {
+  console.log("오버오버");
   target.classList.add("list-over");
   const cName = target.textContent;
   const { categoryDatas } = store.state;
