@@ -3346,12 +3346,6 @@ export const header = `
             <a href="#"><img src="#" alt="#" width="174" height="41" class="header-logo__img"/></a>
             </div>
             <div class="search-form">
-              <div class="search-category">
-                <a href="#" class="search-category__link">전체</a>
-              </div>
-              <input type="text" class="search-text" placeholder="찾고 싶은 상품을 검색해보세요!">
-              <button class="btn search-mic"><i class="fa-solid fa-microphone fa-1x"></i></button>
-              <button class="btn search-btn"><i class="fa-solid fa-magnifying-glass fa-1x"></i></button>
             </div>
             <div class="header-top-gnb">
               <ul class="header-top-gnb__list">

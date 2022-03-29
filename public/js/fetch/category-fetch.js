@@ -1,5 +1,5 @@
 export function fetchCategoryData() {
-  fetch('/category/data')
+  fetch('/search/category/data')
     .then((res) => res.json())
     .then((json) => {
       parseCategoryTitle(json.category);
