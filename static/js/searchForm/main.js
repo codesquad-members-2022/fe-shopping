@@ -5,9 +5,7 @@ import SearchModel from './model/SearchModel.js';
 import initCategory from './category/main.js';
 import initHistory from './history/main.js';
 import initAutoComplete from './autoComplete/main.js';
-
-import InputView from './view/InputView.js';
-import InputController from './controller/InputController.js';
+import initInput from './input/main.js';
 
 export async function initSearchForm() {
   const user = await getData('http://127.0.0.1:3000/', 'data', 'user');
@@ -23,15 +21,5 @@ export async function initSearchForm() {
   initCategory(searchModel);
   initHistory(searchModel);
   initAutoComplete(searchModel);
-
-  const inputView = new InputView({ model: searchModel });
-
-  const inputController = new InputController({
-    model: searchModel,
-    view: inputView,
-    //historyView: historyView,
-    //autoCompleteView: autoCompleteView,
-  });
-
-  inputController.init();
+  initInput(searchModel);
 }
