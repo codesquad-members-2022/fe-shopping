@@ -31,9 +31,10 @@ export default class extends SearchForm {
     this.$dropdown.innerHTML = innerTag[state];
   }
 
-  renderDropdown(state) {
+  renderDropdown({ state, data, searchWord }) {
     setDisplayBlock(this.$dropdown);
     this.createDropdownInner(state);
+    this.fillDropdownList({ data, state, searchWord });
   }
 
   fillDropdownList({ data, state, searchWord }) {
