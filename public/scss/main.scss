@@ -1,12 +1,7 @@
 @import 'reset';
-@import 'utils';
 @import './template/header';
 @import './template/carousel';
-@import './template/category';
-
-@import './template/search-recent';
-@import './template/search-auto';
-
+@import './template/search';
 @import './template/smartmenu';
 
 .container {
