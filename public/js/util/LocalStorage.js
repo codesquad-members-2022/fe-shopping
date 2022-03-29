@@ -39,14 +39,14 @@ export default class {
     return this.increaseDataNo(filteredData);
   }
 
-  sortDataDesc(data, sortKey) {
-    return data.sort((a, b) => b[sortKey] - a[sortKey]);
+  _sortDataDesc(data1, data2) {
+    return data2.no - data1.no;
   }
 
   removeLeastUsedData(curData, key, newDataSize) {
     const requiredSize = this.dataSizeLimit - newDataSize;
     if (curData.length > requiredSize) {
-      return this.sortDataDesc(curData, key).slice(newDataSize);
+      return curData.sort(this._sortDataDesc).slice(newDataSize);
     }
     return curData;
   }
