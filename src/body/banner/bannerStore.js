@@ -2,12 +2,26 @@ export const bannerStore = {
   observers: [],
   state: {
     tabNum: 0,
+    tabLength: null,
+    carouselIntervalId: null,
   },
 
   setTabNum(num) {
     if (num === this.state.tabNum) return;
     this.state.tabNum = num;
     this.notifyUpdatedTabNum(this.state.tabNum);
+  },
+
+  setTabLength(length) {
+    this.state.tabLength = length;
+  },
+
+  getTabNum() {
+    return this.state.tabNum;
+  },
+
+  getTabLength() {
+    return this.state.tabLength;
   },
 
   register(observer) {
@@ -23,5 +37,13 @@ export const bannerStore = {
       if (!observer.update) return;
       observer.update(tabNum);
     });
+  },
+
+  setCarouselInterval(ms) {
+    if (this.state.carouselIntervalId) clearInterval(this.state.carouselIntervalId);
+    this.state.carouselIntervalId = setInterval(() => {
+      const nextTabNum = (this.getTabNum() + 1) % this.getTabLength();
+      this.setTabNum(nextTabNum);
+    }, ms);
   },
 };
