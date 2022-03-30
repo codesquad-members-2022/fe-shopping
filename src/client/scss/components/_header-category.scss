@@ -15,6 +15,7 @@
     font-size: nth($fontSizes, 1);
     border: 1px $baseLightGray solid;
     li {
+      cursor: pointer;
       padding: 10px;
     }
     .list-over {

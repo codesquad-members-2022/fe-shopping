@@ -65,12 +65,20 @@ const debounceForSmartLayer = ({ callback, mouseOn }) => {
 ### mouseover 가 계속 찍힌다?
 
 - mouseover 가 되면 `한번` 만 찍혀야 하는데, 여러번 찍힌다.
+
+![mouseover](https://user-images.githubusercontent.com/58503584/160739843-c0036f8b-bf31-4875-8e54-80d03615e0fa.gif)
+
 - 아마도 setState 를 하면서 해당 li 태그가 re-rendering 되면서 새로 생긴 li 태그라고 인식해서 계속찍히는 것으로 생각된다.
 
   - ?) 마우스를 올렸을 때 Element 가 사라지게 하면 mouseout 이벤트가 발생하지 않는건가?
 
 - 어떻게 해결할까?
+
   - mainCategory 를 render 하는 로직에 subCategory 와 연결이 되어 있는 부분을 끊어줘야 옵저버가 mainCategory 를 re-rendering 하지 않겠다는 생각을 했다.
+  - 현재 Category 컴포넌트를 렌더링 할 때, store 에서 categoryDatas 와 subCategoryDatas 를 모두 get 하기 때문에 옵저버가 sub 를 렌더링할 때 main 의 렌더링 로직도 기억하고 있다.
+
+  <img width="257" alt="스크린샷 2022-03-29 오전 11 22 44" src="https://user-images.githubusercontent.com/58503584/160740117-98d6b661-34f5-4c6d-a5d1-45cfa73230d5.png">
+
   - Category 에서 두 컴포넌트 모두 렌더링 하던 로직에서 mainCategory 와 subCategory 를 분리해야겠다고 생각을 했고, Category 컴포넌트에서는 해당 데이터를 get 하지 않도록 해서 observer 가 참고하지 않도록 해야겠다고 생각했다.
 
 ```js
@@ -166,6 +174,9 @@ CategorySub.prototype.mount = function () {
 
 - 여러번 mouseover 가 되던 상황을 수정하였다.
   - 뷰의 렌더링 과정을 상상하면서 어떻게 분리를 해야하는지를 좀 더 깨달았다.
+
+![mouseover-fix](https://user-images.githubusercontent.com/58503584/
+160740156-c02581cb-bc49-4d4f-98e5-59dff39d9536.gif)
 
 ### ul - mouseover, mouseenter
 
