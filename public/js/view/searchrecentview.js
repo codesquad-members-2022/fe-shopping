@@ -15,7 +15,7 @@ export default class SearchRecentView extends View {
   }
 
   setUp() {
-    this.myLocalStorage.setItem('search-keyword-cnt', 0);
+    this.clearRecentList();
     this.hide(this.el);
     this.bindEvents();
   }
@@ -38,23 +38,25 @@ export default class SearchRecentView extends View {
 
     this.searchText.addEventListener('keydown', ({ key }) => {
       if (key === 'Enter') {
-        this.saveRecentCntToRocalstorage();
         this.saveRecentSearchWordToRocalstorage(this.searchText.value);
+        this.loadRecentSearchWordAtRocalstorage();
+        this.saveRecentCntToRocalstorage();
+        this.clearSearchWord();
       }
     });
 
-    this.recentDeletion.addEventListener('click', () => {});
-
-    this.recentOff.addEventListener('click', ({ target }) => {
-      if (target.dataset.off) {
-        if (this.recentFlag === false) this.showRecent();
-        else if (this.recentFlag === true) this.hideRecent();
-      } else if (target.dataset.deletion) {
-        // localstorage.clear
-        // localstoragecnt.set = 0
-        // 최근검색어 리스트 innerHTML 비워주기
-      }
+    this.recentDeletion.addEventListener('click', () => {
+      this.clearRecentList();
     });
+
+    this.recentOff.addEventListener('click', () => {
+      if (this.recentFlag === false) this.showRecent();
+      else if (this.recentFlag === true) this.hideRecent();
+    });
+  }
+
+  clearSearchWord() {
+    this.searchText.value = '';
   }
 
   saveRecentCntToRocalstorage() {
@@ -70,20 +72,47 @@ export default class SearchRecentView extends View {
 
   saveRecentSearchWordToRocalstorage(searchWord) {
     this.myLocalStorage.setItem(
-      `search-keyword-${this.myLocalStorage.getItem('search-keyword-cnt')}`,
+      `search-keyword-${parseInt(
+        this.myLocalStorage.getItem('search-keyword-cnt')
+      )}`,
       searchWord
     );
   }
 
   loadRecentSearchWordAtRocalstorage() {
-    // const arr = [];
-    // rocalstorage 크기 만큼 반복문
-    // createRecentList()
-    // 배열 리버스해서 반환
+    const localStorageDataList = [];
+
+    for (let i = 0, length = this.myLocalStorage.length; i < length; i++) {
+      if (!this.myLocalStorage.getItem(`search-keyword-${i}`)) continue;
+
+      localStorageDataList.push(
+        this.myLocalStorage.getItem(`search-keyword-${i}`)
+      );
+    }
+
+    localStorageDataList.reverse();
+    this.insertRecentList(localStorageDataList);
   }
 
-  createRecentList() {
-    // li 태그 에 rocalstorage 데이터 파싱
+  insertRecentList(localStorageDataList) {
+    this.recentList.innerHTML = this.createRecentList(localStorageDataList);
+  }
+
+  createRecentList(localStorageDataList) {
+    return localStorageDataList.reduce((acc, cur) => {
+      return (
+        acc +
+        `<li class="search-recent__item">
+          <a href="#" class="search-recent__link">${cur}</a>
+         </li>`
+      );
+    }, '');
+  }
+
+  clearRecentList() {
+    this.recentList.innerHTML = '';
+    this.myLocalStorage.clear();
+    this.myLocalStorage.setItem('search-keyword-cnt', 0);
   }
 
   showRecent() {
@@ -98,14 +127,5 @@ export default class SearchRecentView extends View {
     this.hide(this.recentDisable);
     this.recentOff.textContent = '최근검색어끄기';
     this.recentFlag = false;
-  }
-
-  showRecentSearchWord() {
-    // loadRecentSearchWordAtRocalstorage()
-    // showRecent()
-  }
-
-  raiseLocalStorageIndex() {
-    this.localStroageIndex++;
   }
 }

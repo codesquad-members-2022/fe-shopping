@@ -22,10 +22,10 @@ export const search = `
     </div>
     <div class="search-recent__footer">
       <div class="search-recent__deletion">
-        <a href="#" class="search-recent__link" data-deletion="1">전체삭제</a>
+        <a href="#" class="search-recent__link">전체삭제</a>
       </div>
       <div class="search-recent__off">
-        <a href="#" class="search-recent__link" data-off="1">최근검색어끄기</a>
+        <a href="#" class="search-recent__link">최근검색어끄기</a>
       </div>
     </div>
   </div>`;
