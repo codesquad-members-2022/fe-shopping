@@ -7,7 +7,6 @@ export const bannerStore = {
   },
 
   setTabNum(num) {
-    if (num === this.state.tabNum) return;
     this.state.tabNum = num;
     this.notifyUpdatedTabNum(this.state.tabNum);
   },

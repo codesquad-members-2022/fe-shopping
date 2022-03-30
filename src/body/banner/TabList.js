@@ -31,6 +31,7 @@ export class TabList {
       $bannerTab
     );
 
+    if (selectedTabNum === bannerStore.getTabNum()) return;
     bannerStore.setTabNum(selectedTabNum);
   };
 }
