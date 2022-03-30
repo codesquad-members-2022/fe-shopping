@@ -138,7 +138,7 @@ export const controller = {
     model.searchBarState = "recent-search";
     model.selectedIdx = unselectedIdx;
     this.searchView.clearInput();
-    this.handleFocusInput();
+    this.searchView.handleFocusInput();
   },
 
   handleSubmit(e) {
@@ -176,7 +176,7 @@ export const controller = {
     }
 
     storage.removeFromLocalStorage(this.recentSearchKeyName);
-    this.handleFocusInput();
+    this.searchView.handleFocusInput();
     alert(completeMsg);
   },
 };
