@@ -1,0 +1,121 @@
+{
+  "패션의류/잡화" : {
+    "imageURL" : "https://image7.coupangcdn.com/image/displayitem/displayitem_8e8d405d-0065-49e2-84c9-02d212d875b2.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-27px"
+  },
+  "뷰티" : {
+    "imageURL" : "https://image6.coupangcdn.com/image/displayitem/displayitem_200718fb-4027-48c7-a896-cb08e3164557.png",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-111px"
+  },
+  "출산/유아동" : {
+    "imageURL" : "https://image9.coupangcdn.com/image/displayitem/displayitem_6ae74ebb-169d-459a-98d3-7eb8990da9ab.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-153px"
+  },
+  "식품" : {
+    "imageURL" : "https://image7.coupangcdn.com/image/displayitem/displayitem_96ace47f-0079-4436-9cf0-25a43ac75517.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-195px"
+  },
+  "주방용품" : {
+    "imageURL" : "https://image6.coupangcdn.com/image/displayitem/displayitem_41e6f550-2b22-4af9-8ee0-48d8a43c6a64.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-279px"
+  },
+  "생활용품" : {
+    "imageURL" : "https://image10.coupangcdn.com/image/displayitem/displayitem_411fecca-6524-494b-9dc1-94654644bb12.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-321px"
+  },
+  "홈인테리어" : {
+    "imageURL" : "https://image6.coupangcdn.com/image/displayitem/displayitem_29258120-0af0-4891-a5de-3d6c5f0d30de.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-363px"
+  },
+  "가전디지털" : {
+    "imageURL" : "https://image6.coupangcdn.com/image/displayitem/displayitem_248e20ee-5bc9-4381-adb7-5d912b6e2487.png",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-405px"
+  },
+  "스포츠/레저" : {
+    "imageURL" : "https://image7.coupangcdn.com/image/displayitem/displayitem_482303d8-85f0-4ea1-9d36-57a2704f20ba.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-447px"
+  },
+  "자동차용품" : {
+    "imageURL" : "https://image7.coupangcdn.com/image/displayitem/displayitem_ecab18ca-217c-4619-9a9b-7109c53d3a07.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-783px"
+  },
+  "도서/음반/DVD" : {
+    "imageURL" : "https://image8.coupangcdn.com/image/displayitem/displayitem_713a5242-a57c-41e4-be0c-6103a8125ac6.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-573px"
+  },
+  "완구/취미" : {
+    "imageURL" : "https://image10.coupangcdn.com/image/displayitem/displayitem_5c2eaa30-b050-48be-a218-6b15e9daa98b.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-741px"
+  },
+  "문구/오피스" : {
+    "imageURL" : "https://image7.coupangcdn.com/image/displayitem/displayitem_97762dd0-95f0-4fee-b3da-03dd3c9952b9.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-489px"
+  },
+  "반려동물용품" : {
+    "imageURL" : "https://image6.coupangcdn.com/image/displayitem/displayitem_3108d6fc-83cd-482a-afdd-bf77d9c89eda.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-531px"
+  },
+  "헬스/건강식품" : {
+    "imageURL" : "https://image10.coupangcdn.com/image/displayitem/displayitem_595e990e-a619-4b1c-8b89-d3fbc0fd981a.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-876px"
+  },
+  "여행/티켓" : {
+    "imageURL" : "https://image6.coupangcdn.com/image/displayitem/displayitem_0dd3c384-c16d-4c26-a2d7-1f2552246650.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-615px"
+  },
+  "테마관" : {
+    "imageURL" : "https://image7.coupangcdn.com/image/displayitem/displayitem_cb706040-306d-44b5-aedb-cff724d90163.jpg",
+    "iconBackgroundPositionX" : "12px",
+    "iconBackgroundPositionY" : "1px",
+    "activeIconBackgroundPositionX" : "-8px",
+    "activeIconBackgroundPositionY" : "-909px"
+  }
+}
