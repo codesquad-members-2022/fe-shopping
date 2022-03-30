@@ -1,7 +1,8 @@
-export class RecentSearch {
-  constructor(inputDropDown, dropDownList) {
-    this.$inputDropDown = inputDropDown;
-    this.$dropDownList = dropDownList;
+import { SearchInput } from './searchInput.js';
+
+export class RecentSearch extends SearchInput {
+  constructor() {
+    super();
   }
 
   templateDropDownItems(recentKeyword) {

@@ -1,7 +1,8 @@
-export class AutoComplete {
-  constructor(inputDropDown, dropDownList) {
-    this.$inputDropDown = inputDropDown;
-    this.$dropDownList = dropDownList;
+import { SearchInput } from './searchInput.js';
+
+export class AutoComplete extends SearchInput {
+  constructor() {
+    super();
   }
 
   templateDropDownItem(autoCompleteData) {
@@ -36,6 +37,6 @@ export class AutoComplete {
 
   setAutoCompleteInputClass() {
     this.$inputDropDown.classList.replace('recent-search', 'auto-complete');
-    this.$inputDropDown.classList.add('focus');
+    this.addFocusClass();
   }
 }

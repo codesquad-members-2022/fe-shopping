@@ -1,15 +1,9 @@
-import { AutoComplete } from './autoComplete.js';
-import { RecentSearch } from './recentSearch.js';
-
 export class SearchInput {
   constructor() {
     this.$input = document.querySelector('.search__input');
     this.$form = document.querySelector('.search__form');
     this.$inputDropDown = document.querySelector('.input__drop-down');
     this.$dropDownList = document.querySelector('.drop-down__list');
-
-    this.recentSearch = new RecentSearch(this.$inputDropDown, this.$dropDownList);
-    this.autoComplete = new AutoComplete(this.$inputDropDown, this.$dropDownList);
   }
 
   setEvents() {

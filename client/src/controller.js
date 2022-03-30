@@ -1,5 +1,7 @@
 import { SelectCategory } from './view/selectCategory.js';
 import { SearchInput } from './view/searchInput.js';
+import { AutoComplete } from './view/autoComplete.js';
+import { RecentSearch } from './view/recentSearch.js';
 import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
 import { getAutoCompleteData } from './model/autoCompleteData.js';
 import { debounce, throttle } from './util.js';
@@ -8,6 +10,8 @@ export class Controller {
   constructor() {
     this.selectCategoryView = new SelectCategory();
     this.searchInputView = new SearchInput();
+    this.recentSearchView = new RecentSearch();
+    this.autoCompleteView = new AutoComplete();
     this.KeywordLocalStorage = new KeywordLocalStorage();
   }
 
@@ -45,7 +49,7 @@ export class Controller {
     if (!this.searchInputView.$input.value && !this.KeywordLocalStorage.keywordList.length) return;
 
     if (!this.searchInputView.$input.value) {
-      this.searchInputView.recentSearch.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
       this.searchInputView.addFocusClass();
     } else {
       this.changeAutoCompleteView(this.searchInputView.$input.value);
@@ -56,11 +60,11 @@ export class Controller {
     if (!this.searchInputView.$input.value) return;
 
     const autoCompleteData = await getAutoCompleteData(inputValue);
-    this.searchInputView.recentSearch.removeRecentSearchChildNodes();
+    this.recentSearchView.removeRecentSearchChildNodes();
 
     !autoCompleteData.length
-      ? this.searchInputView.autoComplete.emptyAutoComplete()
-      : this.searchInputView.autoComplete.updateAutoComplete(autoCompleteData, inputValue);
+      ? this.autoCompleteView.emptyAutoComplete()
+      : this.autoCompleteView.updateAutoComplete(autoCompleteData, inputValue);
   }
 
   typingInputHandle = () => {
@@ -82,12 +86,12 @@ export class Controller {
     if (e.target.classList.contains('delete__btn')) {
       const keyword = e.target.parentNode.dataset.value;
       this.KeywordLocalStorage.removeKeywordList(keyword);
-      this.searchInputView.recentSearch.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
     }
 
     if (e.target.classList.contains('options--clear-keyword')) {
       this.KeywordLocalStorage.clearKeywordList();
-      this.searchInputView.recentSearch.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
+      this.recentSearchView.updateRecentSearchList(this.KeywordLocalStorage.keywordList);
     }
   };
 
