@@ -6,4 +6,5 @@ function init() {
   const $root = new Root({ $element: $rootWrapper });
   $root.init();
 }
-window.addEventListener('DOMContentLoaded', init);
+// window.addEventListener('DOMContentLoaded', init);
+init();

@@ -1,4 +1,4 @@
-export default function HtmlElement({ $element, isDirect }) {
+export default function HtmlElement({ $element }) {
   this.$element = $element;
 }
 

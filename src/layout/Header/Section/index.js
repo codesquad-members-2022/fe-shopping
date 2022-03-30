@@ -1,5 +1,4 @@
 import searchBoxStore from './SearchBox/store.js';
-import ConnectInterface from '../../../core/connectInterface.js';
 import HtmlElement from '../../../core/HtmlElement.js';
 import { initInferface, setInheritance } from '../../../utils/manuplateDOM.js';
 import Navigation from './Navigation/index.js';

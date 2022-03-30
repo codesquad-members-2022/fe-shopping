@@ -18,7 +18,7 @@ function handlelocalStorage() {
 
 export const myLocalStorage = handlelocalStorage();
 
-async function fetchData(url) {
+export async function fetchData(url) {
   try {
     const data = await fetch(url);
     return data.json();

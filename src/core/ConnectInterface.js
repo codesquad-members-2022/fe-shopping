@@ -24,10 +24,7 @@ ConnectInterface.prototype.getStatefromStore = function (keysObj) {
   return this.store.getState(keysObj);
 };
 
-ConnectInterface.prototype.setStateToStore = function ({
-  elementID,
-  newState,
-}) {
+ConnectInterface.prototype.setStateToStore = function ({ newState }) {
   const updatedState = this.store.setState(newState);
   this.reRenderHtmlElement({
     newState: updatedState,
@@ -42,7 +39,4 @@ ConnectInterface.prototype.reRenderHtmlElement = function ({ newState }) {
       }
     });
   });
-  // if (targetHtmlElement) {
-
-  // }
 };

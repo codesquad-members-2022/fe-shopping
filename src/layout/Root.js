@@ -1,7 +1,12 @@
 import HtmlElement from '../core/HtmlElement.js';
-import { hideAllPopUp, setInheritance } from '../utils/manuplateDOM.js';
+import {
+  hideAllPopUp,
+  initInferface,
+  setInheritance,
+} from '../utils/manuplateDOM.js';
 import Header from './Header/index.js';
 import Main from './Main/index.js';
+import mainStore from './Main/store.js';
 
 export default function Root({ $element }) {
   HtmlElement.call(this, { $element });
@@ -22,7 +27,7 @@ Root.prototype.renderChild = function () {
   const $header = new Header({ $element: $headerWrapper });
   const $main = new Main({ $element: $mainWrapper });
   $header.init();
-  $main.init();
+  initInferface({ elements: { $main }, store: mainStore });
 };
 
 Root.prototype.setEvent = function () {

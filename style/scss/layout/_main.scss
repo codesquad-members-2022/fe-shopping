@@ -1,5 +1,11 @@
+@import '../components/clickBox';
+
 main {
   width: $main-width;
   height: 100vh;
   margin: 0 auto;
+  padding: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 50px;
 }

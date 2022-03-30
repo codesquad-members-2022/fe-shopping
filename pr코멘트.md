@@ -1,4 +1,4 @@
-# 관심사를 분리하기
+# 관심사 분리하기
 
 > view, store, eventHandler, view와 store를 독립적으로 연결하는 interface
 
@@ -34,6 +34,14 @@
 1번에서처럼 store와 view를 분리했어도 아래와 같이 별도의 객체가 아닌 view에서 store를 연결하니까 독립적이지 못하다고 생각했습니다.
 
 ```js
+// 수정전
+// utils.js
+function connectStore({ element, store }) {
+  element.store = store;
+  store.targeComponent = { ...store.targeComponent, element };
+}
+
+//Main
 export default function Main({ $element, isDirect }) {
   HtmlElement.call(this, { $element, isDirect });
 }
@@ -47,6 +55,7 @@ Main.prototype.initStore = function () {
 - store와 view는 서로를 모르게 하기 위해 connectInterface 객체를 만들어서 `view와 store가 서로 직접 접근할 수 없게 만들었습니다.`
 
 ```js
+// 수정후
 export function ConnectInterface({ elements, store }) {
   this.elements = { ...elements };
   this.store = store;

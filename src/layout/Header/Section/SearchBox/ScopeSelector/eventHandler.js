@@ -14,7 +14,6 @@ function showCategory() {
 
 function changeSearchOption(targetOption) {
   this.interface.setStateToStore({
-    elementID: '$scopeSelector',
     newState: { option: targetOption },
   });
 }
