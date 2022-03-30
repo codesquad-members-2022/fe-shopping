@@ -5,12 +5,14 @@ export default class CategoryView {
     this.bound = {};
     this.currentEl = dom.select(".searchForm__current-category");
     this.listEl = dom.select(".searchForm__category-list");
+    this.show = "searchForm__category-list--show";
+    this.hidden = "searchForm__category-list--hidden";
   }
 
   addHandler() {
     this.currentEl.addEventListener("click", () => this.bound.toggleList());
     this.listEl.addEventListener("click", (event) => this.bound.selectCategory(event.target));
-    dom.select("body").addEventListener("click", (event) => this.bound.hideList(event.target));
+    dom.select("body").addEventListener("click", (event) => this.bound.hideListFromEventTarget(event.target));
   }
 
   createItem(category) {
@@ -27,5 +29,13 @@ export default class CategoryView {
 
   renderCurrentCategory(currentCategory) {
     this.currentEl.textContent = currentCategory;
+  }
+
+  showList() {
+    this.listEl.classList.replace(this.hidden, this.show);
+  }
+
+  hideList() {
+    this.listEl.classList.replace(this.show, this.hidden);
   }
 }

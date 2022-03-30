@@ -4,8 +4,6 @@ export default class CategoryController {
     this.view = view;
     this.currentEl = view.currentEl;
     this.listEl = view.listEl;
-    this.show = "searchForm__category-list--show";
-    this.hidden = "searchForm__category-list--hidden";
   }
 
   init() {
@@ -23,27 +21,27 @@ export default class CategoryController {
 
   bindMethods() {
     this.view.bound.toggleList = this.toggleList.bind(this);
-    this.view.bound.hideList = this.hideList.bind(this);
+    this.view.bound.hideListFromEventTarget = this.hideListFromEventTarget.bind(this);
     this.view.bound.selectCategory = this.selectCategory.bind(this);
   }
 
   toggleList() {
-    if (this.listEl.classList.contains(this.show)) {
-      this.listEl.classList.replace(this.show, this.hidden);
+    if (this.listEl.classList.contains(this.view.show)) {
+      this.view.hideList();
       return;
     }
-    this.listEl.classList.replace(this.hidden, this.show);
+    this.view.showList();
   }
 
-  hideList(eventTarget) {
+  hideListFromEventTarget(eventTarget) {
     if (
       eventTarget === this.currentEl ||
       eventTarget.parentNode === this.listEl ||
-      this.listEl.classList.contains(this.hidden)
+      this.listEl.classList.contains(this.view.hidden)
     )
       return;
 
-    this.listEl.classList.replace(this.show, this.hidden);
+    this.view.hideList();
   }
 
   selectCategory(eventTarget) {
