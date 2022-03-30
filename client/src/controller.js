@@ -29,6 +29,7 @@ export class Controller {
 
     this.searchInputView.focusInputHandle = this.focusInputHandle;
     this.searchInputView.typingInputHandle = debounce(this.typingInputHandle, delay.focus);
+    this.searchInputView.arrowKeyupHandle = throttle(this.arrowKeyupHandle, 100);
     this.searchInputView.submitFormHandle = this.submitFormHandle;
     this.searchInputView.mouseleaveListHandle = throttle(this.mouseleaveListHandle, delay.mouseleave);
     this.searchInputView.clickDropDownBtnHandle = this.clickDropDownBtnHandle;
@@ -74,7 +75,9 @@ export class Controller {
       : this.autoCompleteView.updateAutoComplete(autoCompleteData, inputValue);
   }
 
-  typingInputHandle = () => {
+  typingInputHandle = (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') return;
+
     !this.searchInputView.$input.value
       ? this.searchInputView.removeFocusClass()
       : this.changeAutoCompleteView(this.searchInputView.$input.value);
@@ -104,5 +107,13 @@ export class Controller {
 
   mouseleaveListHandle = () => {
     this.searchInputView.removeFocusClass();
+  };
+
+  arrowKeyupHandle = (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (e.isComposing) return;
+      e.preventDefault();
+      this.searchInputView.navigateList(e.key);
+    }
   };
 }
