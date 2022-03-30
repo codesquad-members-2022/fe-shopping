@@ -25,12 +25,10 @@ export class AutoComplete extends SearchInput {
   }
 
   updateAutoComplete(autoCompleteData, inputValue) {
-    this.setAutoCompleteInputClass();
     this.$dropDownList.innerHTML = this.templateDropDownList(autoCompleteData, inputValue);
   }
 
   emptyAutoComplete() {
-    this.setAutoCompleteInputClass();
     const emptyTemplate = `<li data-value="null"><span>일치하는 데이터가 없습니다.</span></li>`;
     this.$dropDownList.innerHTML = emptyTemplate;
   }

@@ -61,6 +61,7 @@ export class Controller {
 
     const autoCompleteData = await getAutoCompleteData(inputValue);
     this.recentSearchView.removeRecentSearchChildNodes();
+    this.autoCompleteView.setAutoCompleteInputClass();
 
     !autoCompleteData.length
       ? this.autoCompleteView.emptyAutoComplete()
