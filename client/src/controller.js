@@ -3,7 +3,6 @@ import { SearchInput } from './view/searchInput.js';
 import { AutoComplete } from './view/autoComplete.js';
 import { RecentSearch } from './view/recentSearch.js';
 import { KeywordLocalStorage } from './model/keywordLocalStorage.js';
-import { getAutoCompleteData } from './model/autoCompleteData.js';
 import { debounce, throttle } from './util.js';
 
 export class Controller {
@@ -56,10 +55,17 @@ export class Controller {
     }
   };
 
+  async getAutoCompleteData(keyword) {
+    const url = `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${keyword}&`;
+    const res = await fetch(url);
+    const jsonData = await res.json();
+    return jsonData.suggestions;
+  }
+
   async changeAutoCompleteView(inputValue) {
     if (!this.searchInputView.$input.value) return;
 
-    const autoCompleteData = await getAutoCompleteData(inputValue);
+    const autoCompleteData = await this.getAutoCompleteData(inputValue);
     this.recentSearchView.removeRecentSearchChildNodes();
     this.autoCompleteView.setAutoCompleteInputClass();
 
