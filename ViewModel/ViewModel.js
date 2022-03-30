@@ -172,6 +172,7 @@ class ViewModel {
     this.searchBarDropBox.render({ isBarDropBoxVisible });
   }
 
+  // Todo: arrowDown인 경우와 arrowUp인 경우를 각각 함수화 하거나 전체 로직 다시 작성하기
   handleChangeInput() {
     this.searchBar.$search.addEventListener("keyup", (event) => {
       const word = event.target.value;
