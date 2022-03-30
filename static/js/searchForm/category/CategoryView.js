@@ -1,12 +1,12 @@
 import { dom } from "../../utils/dom.js";
 
 export default class CategoryView {
-  constructor() {
+  constructor({ currentCategoryEl, categoryListEl }) {
     this.bound = {};
-    this.currentEl = dom.select(".searchForm__current-category");
-    this.listEl = dom.select(".searchForm__category-list");
     this.show = "searchForm__category-list--show";
     this.hidden = "searchForm__category-list--hidden";
+    this.currentEl = currentCategoryEl;
+    this.listEl = categoryListEl;
   }
 
   addHandler() {

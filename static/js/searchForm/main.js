@@ -25,7 +25,16 @@ export async function initSearchForm() {
 
   const searchModel = new SearchModel(initialModelState);
 
-  const categoryView = new CategoryView();
+  const el = {
+    currentCategory: dom.select(".searchForm__current-category"),
+    categoryList: dom.select(".searchForm__category-list"),
+  };
+
+  const categoryView = new CategoryView({
+    currentCategoryEl: el.currentCategory,
+    categoryListEl: el.categoryList,
+  });
+
   const historyView = new HistoryView();
   const autoCompleteView = new AutoCompleteView();
   const inputView = new InputView();
