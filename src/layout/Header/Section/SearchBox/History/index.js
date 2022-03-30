@@ -1,5 +1,5 @@
 import HtmlElement from '../../../../../core/HtmlElement.js';
-import { SEARCH_BOX } from '../../../../../constant.js';
+import { POP_UP, SEARCH_BOX } from '../../../../../constant.js';
 import { handleClick } from './eventHandler.js';
 import { setInheritance } from '../../../../../utils/manuplateDOM.js';
 
@@ -13,15 +13,17 @@ export default function HistoryList({ $element }) {
 
 setInheritance({ parent: HtmlElement, child: HistoryList });
 
-HistoryList.prototype.init = function () {
-  this.state = {
-    ...this.args,
-  };
-};
-
 HistoryList.prototype.setTemplate = function () {
-  const { histroyList, activeHistory } = this.state;
+  const { histroyList, activeHistory, showHistroy } =
+    this.interface.getStatefromStore({
+      histroyList: null,
+      activeHistory: null,
+      showHistroy: null,
+    });
   const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
+  showHistroy
+    ? this.$element.classList.add(POP_UP.show)
+    : this.$element.classList.add(POP_UP.hidden);
   return `
 <h5>최근 검색어</h5>
 <ul id="histroyList">

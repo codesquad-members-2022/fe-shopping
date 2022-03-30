@@ -16,6 +16,7 @@ const searchBoxState = {
   activeHistory: INPUT_DEFAULT,
   activeAutoTerm: INPUT_DEFAULT,
   showHistroy: true,
+  showAutoComplete: false,
   option: '전체',
   inputValue: '',
   histroyList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],

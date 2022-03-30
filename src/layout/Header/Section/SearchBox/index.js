@@ -33,44 +33,25 @@ SearchBox.prototype.setTemplate = function () {
 };
 
 SearchBox.prototype.renderChild = function () {
-  // const {
-  //   option,
-  //   histroyList,
-  //   autoSearchList,
-  //   inputValue,
-  //   activeAutoTerm,
-  //   activeHistory,
-  // } = this.state;
-  // const $searchAuto = this.$element.querySelector('.search__auto');
-  // this.$ScopeSelector = new ScopeSelector($scopeSelector, {
-  //   option,
-  //   changeSearchOption: changeSearchOption.bind(this),
-  // });
-  // this.$HistoryList = new HistoryList($searchRecord, {
-  //   option,
-  //   histroyList,
-  //   activeHistory,
-  // });
-  // this.$AutoComplete = new AutoComplete($searchAuto, {
-  //   autoSearchList,
-  //   inputValue,
-  //   activeAutoTerm,
-  // });
   const $scopeSelectorWrapper =
     this.$element.querySelector('.search__selector');
   const $historyWrapper = this.$element.querySelector('.search__record');
+  const $autoWrapper = this.$element.querySelector('.search__auto');
   const $scopeSelector = new ScopeSelector({ $element: $scopeSelectorWrapper });
   const $historyList = new HistoryList({ $element: $historyWrapper });
-  this.interface.addElement({ newElements: { $scopeSelector } });
+  const $autoComplete = new AutoComplete({ $element: $autoWrapper });
+  this.interface.addElement({
+    newElements: { $scopeSelector, $historyList, $autoComplete },
+  });
 };
 
 SearchBox.prototype.setEvent = function () {
-  // this.$form = this.$element.querySelector('#searhForm');
-  // this.$input = this.$element.querySelector('#searchInput');
-  // this.$form.addEventListener('submit', handleSubmit.bind(this));
-  // this.$input.addEventListener('click', handleInputClick.bind(this));
-  // this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));
-  // this.$input.addEventListener('input', handleInput.bind(this));
+  this.$form = this.$element.querySelector('#searhForm');
+  this.$input = this.$element.querySelector('#searchInput');
+  this.$form.addEventListener('submit', handleSubmit.bind(this));
+  this.$input.addEventListener('click', handleInputClick.bind(this));
+  this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));
+  this.$input.addEventListener('input', handleInput.bind(this));
 };
 
 const template = ` <div class="search__selector pop-up-container"></div>
