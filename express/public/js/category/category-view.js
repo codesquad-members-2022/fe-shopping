@@ -63,7 +63,6 @@ export default class ViewController {
 
   showThirdContent(thirdContentTemplate) {
     const $thirdMenu = $('.shopping-popup-third-list');
-    console.log($thirdMenu);
     $thirdMenu.innerHTML = thirdContentTemplate;
   }
 
