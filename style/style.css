@@ -1,0 +1,11 @@
+@import './header.css';
+@import './search-bar.css';
+
+body{
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+main{
+    margin-left: 20px;
+}
