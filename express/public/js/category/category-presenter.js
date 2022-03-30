@@ -22,7 +22,7 @@ export default class CategoryPresenter {
   }
 
   makeFirstContents = ({ target }) => {
-    if (!target.closest('div')) return;
+    if (!target.className === 'category') return;
     const categoryData = this.model.printData();
 
     const firstContentTemplate = makeShoppingCategory(categoryData, 'firstContent');
@@ -50,11 +50,11 @@ export default class CategoryPresenter {
     const categoryData = this.model.printData();
     let curTarget = null;
 
-    for (const value of categoryData) {
-      for (const el of value.child) {
+    outerFor: for (const value of categoryData) {
+      innerFor: for (const el of value.child) {
         if (target.textContent === el.secondContent) {
           curTarget = el.child;
-          break;
+          break outerFor;
         }
       }
     }
