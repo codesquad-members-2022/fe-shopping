@@ -1,4 +1,5 @@
 const dataOfTshirt = require("./data/tshirt.js");
+const dataOfBanner = require("./data/banner.js");
 const path = require("path");
 const express = require("express");
 const app = express();
@@ -12,6 +13,10 @@ app.get("/search", (req, res) => {
     } else {
         res.json(dataOfTshirt.all[req.query.keyword]);
     }
+});
+
+app.get("/banner", (req, res) => {
+    res.json(dataOfBanner);
 });
 
 app.listen(port, () => {

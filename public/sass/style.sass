@@ -137,9 +137,19 @@
     margin-bottom: 20px
 
 .banner
-    background-color: $main-gray
-    height: 450px
+    position: relative
+    &__imgs
+        height: 450px
+        background-color: $main-gray
+        overflow: hidden
+    &__img-container
+        height: 100%
+    &__img
+        width: inherit
     &__menu
+        position: absolute
+        top: 10%
+        right: 20%
         @include box-shadow
         background-color: $main-white
         width: 200px

@@ -324,11 +324,27 @@ h2 {
 }
 
 .banner {
-  background-color: #e9ecef;
+  position: relative;
+}
+
+.banner__imgs {
   height: 450px;
+  background-color: #e9ecef;
+  overflow: hidden;
+}
+
+.banner__img-container {
+  height: 100%;
+}
+
+.banner__img {
+  width: inherit;
 }
 
 .banner__menu {
+  position: absolute;
+  top: 10%;
+  right: 20%;
   -webkit-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
   background-color: #fff;

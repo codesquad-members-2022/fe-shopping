@@ -7,6 +7,7 @@ import RecentSearchListView from "./search/search-list/recent-search-list/recent
 import RecentSearchListStore from "./search/search-list/recent-search-list/recent-search-list-store.js";
 import RelatedSearchList from "./search/search-list/related-search-list/related-search-list.js";
 import RelatedSearchListView from "./search/search-list/related-search-list/related-search-list-view.js";
+import Banner from "./banner/banner.js";
 
 const searchbar = document.querySelector(".search__input");
 const searchInput = new SearchInput(searchbar);
@@ -50,4 +51,10 @@ const search = new Search(
     searchCategory
 );
 
+const bannerImgs = document.querySelector(".banner__imgs");
+const bannerMenu = document.querySelector(".banner__menu");
+
+const banner = new Banner(bannerImgs, bannerMenu);
+
 search.initEvents();
+banner.initBanner();
