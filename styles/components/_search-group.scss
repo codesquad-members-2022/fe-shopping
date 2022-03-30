@@ -2,6 +2,7 @@ $category-width: 25%;
 
 .search-group {
   @include flexbox(center, start);
+  z-index: $search-bar-z;
 
   .search-bar {
     @include flexbox(start);
@@ -111,7 +112,6 @@ $category-width: 25%;
       position: absolute;
       top: 35px;
       left: -2px;
-      z-index: $search-form-popupbox-z;
       width: 101%;
       height: 300px;
       background-color: $white;

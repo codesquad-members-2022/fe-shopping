@@ -487,6 +487,7 @@ template {
   display: flex;
   align-items: start;
   justify-content: center;
+  z-index: 90;
 }
 .search-group .search-bar {
   display: flex;
@@ -593,7 +594,6 @@ template {
   position: absolute;
   top: 35px;
   left: -2px;
-  z-index: 90;
   width: 101%;
   height: 300px;
   background-color: #fff;
