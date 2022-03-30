@@ -3,30 +3,23 @@ import {RecentSearchView} from '../view/recentSearchView.js';
 import {SearchBarView} from '../view/searchBarView.js';
 import {RelativeSearchModel} from '../model/relativeSearchModel.js';
 import {RelativeSearchView} from '../view/relativeSearchView.js';
-import {fetchData, debounce} from '../util/util.js';
 
 export class SearchBarController {
-  constructor() {
+  constructor(goodsKeywordData) {
     this.recentSearchModel = new RecentSearchModel(window.sessionStorage);
     this.recentSearchView = new RecentSearchView();
     this.relativeSearchModel = new RelativeSearchModel();
     this.relativeSearchView = new RelativeSearchView();
     this.searchBarView = new SearchBarView();
+    this.goodsKeywordData = goodsKeywordData;
     this.keywordListNumber = 0;
   }
 
   init() {
+    this.relativeSearchModel.setData(this.goodsKeywordData);
     this.recentSearchModel.setState();
-    this.setRelativeSearchModelData();
     this.bindViewMethod();
     this.attachEventListener();
-  }
-
-  async setRelativeSearchModelData() {
-    const goodsData = await fetchData('goodsData');
-    const firstKeyword = '아';
-    const keywordsData = goodsData[firstKeyword];
-    this.relativeSearchModel.setData(keywordsData);
   }
 
   bindViewMethod() {
