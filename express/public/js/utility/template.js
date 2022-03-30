@@ -20,3 +20,11 @@ export function makeShoppingCategory(categoryData, step) {
     ''
   );
 }
+
+export function makeBasicColorWord(curList) {
+  return `<li class = "input-popup-menu-item"><span>${curList.keyword}</span></li>`;
+}
+
+export function makeBlueColorWord(compareWord, remainWord) {
+  return `<li class = "input-popup-menu-item"><strong class="color-blue">${compareWord}</strong>${remainWord}</li>`;
+}
