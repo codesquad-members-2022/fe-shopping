@@ -20,17 +20,8 @@ export default class CategoryController {
   }
 
   bindMethods() {
-    this.view.bound.toggleList = this.toggleList.bind(this);
     this.view.bound.hideListFromEventTarget = this.hideListFromEventTarget.bind(this);
     this.view.bound.selectCategory = this.selectCategory.bind(this);
-  }
-
-  toggleList() {
-    if (this.listEl.classList.contains(this.view.show)) {
-      this.view.hideList();
-      return;
-    }
-    this.view.showList();
   }
 
   hideListFromEventTarget(eventTarget) {
@@ -57,6 +48,6 @@ export default class CategoryController {
 
     this.model.setCurrentCategory(selectedCategory);
     this.view.renderCurrentCategory(selectedCategory);
-    this.toggleList();
+    this.view.toggleList();
   }
 }

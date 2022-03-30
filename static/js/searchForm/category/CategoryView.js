@@ -12,9 +12,11 @@ export default class CategoryView {
   }
 
   addHandler() {
-    this.currentEl.addEventListener("click", () => this.bound.toggleList());
+    this.currentEl.addEventListener("click", () => this.toggleList());
     this.listEl.addEventListener("click", (event) => this.bound.selectCategory(event.target));
-    dom.select("body").addEventListener("click", (event) => this.bound.hideListFromEventTarget(event.target));
+    dom
+      .select("body")
+      .addEventListener("click", (event) => this.bound.hideListFromEventTarget(event.target));
   }
 
   createItem(category) {
@@ -39,5 +41,13 @@ export default class CategoryView {
 
   hideList() {
     this.listEl.classList.replace(this.className.show, this.className.hidden);
+  }
+
+  toggleList() {
+    if (this.listEl.classList.contains(this.className.show)) {
+      this.hideList();
+      return;
+    }
+    this.showList();
   }
 }
