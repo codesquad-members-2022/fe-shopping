@@ -41,7 +41,7 @@ header {
   height: 115px;
 }
 
-header .category-button {
+header .main-category-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,25 +57,37 @@ header .category-button {
   margin-right: 30px;
 }
 
-header .category-button span {
+header .main-category-button span {
   margin-top: 73px;
   font-size: 13px;
   color: #fff;
 }
 
-.main-menu {
+header .main-category-button .main-category-layer {
+  position: absolute;
+  top: 114px;
+  left: 0;
+  border: 1px solid #ddd;
+  -webkit-box-shadow: 0 2px 3px #ddd;
+          box-shadow: 0 2px 3px #ddd;
+  width: auto;
+  height: auto;
+  min-height: 450px;
+}
+
+.menu-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-top: 25px;
 }
 
-.main-menu .coupang-logo {
+.menu-container .coupang-logo {
   width: 174px;
   height: 41px;
 }
 
-.main-menu .search-box {
+.menu-container .search-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
