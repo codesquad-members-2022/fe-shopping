@@ -1,11 +1,11 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
 import { store } from "../../../../Store";
-import { debounce } from "../../../../utils";
+import { debounceForSmartLayer } from "../controllers/category";
 import {
-  handleListMouseOut,
-  handleListMouseOver,
-} from "../controllers/category";
+  handleCMainMouseOut,
+  handleCMainMouseOver,
+} from "../controllers/categoryMain";
 
 function CategoryMain(...params) {
   Component.call(this, ...params);
@@ -13,21 +13,21 @@ function CategoryMain(...params) {
 createExtendsRelation(CategoryMain, Component);
 
 CategoryMain.prototype.setEvent = function () {
-  const MOUSEOVER_DELAY_MS = 100;
   this.addEvent({
     eventType: "mouseover",
     selector: "li",
-    callback: debounce({
-      msTime: MOUSEOVER_DELAY_MS,
-      callback: handleListMouseOver,
+    callback: debounceForSmartLayer({
+      callback: handleCMainMouseOver,
+      mouseOn: "main",
     }),
   });
   this.addEvent({
     eventType: "mouseout",
     selector: "li",
-    callback: handleListMouseOut,
+    callback: handleCMainMouseOut,
   });
 };
+
 CategoryMain.prototype.mount = function () {
   const { categoryDatas } = store.state;
   this.$target.style.boxShadow = categoryDatas.length

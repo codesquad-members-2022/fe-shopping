@@ -1,5 +1,7 @@
 import Component from "../../../core/Component";
 import { createExtendsRelation } from "../../../oop-utils";
+import { store } from "../../../Store";
+import { delay } from "../../../utils";
 import CategoryMain from "./CategoryUI/CategoryMain";
 import CategorySub from "./CategoryUI/CategorySub";
 
@@ -7,6 +9,34 @@ function Category(...params) {
   Component.call(this, ...params);
 }
 createExtendsRelation(Category, Component);
+
+Category.prototype.setEvent = function () {
+  const $categoryMain = this.$target.querySelector(".category__main");
+  const $categorySub = this.$target.querySelector(".category__sub");
+  $categoryMain.addEventListener("mouseenter", () => {
+    store.setState({ mouseOnCategory: "main" });
+  });
+  $categoryMain.addEventListener("mouseleave", () => {
+    store.setState({ mouseOnCategory: "" });
+    delay(0).then(() => {
+      if (store.state.mouseOnCategory === "") {
+        store.setState({ subCategoryDatas: [] });
+      }
+    });
+  });
+  $categorySub.addEventListener("mouseenter", () => {
+    store.setState({ mouseOnCategory: "sub" });
+  });
+  $categorySub.addEventListener("mouseleave", () => {
+    store.setState({ mouseOnCategory: "" });
+    delay(0).then(() => {
+      const { mouseOnCategory } = store.state;
+      if (mouseOnCategory === "") {
+        store.setState({ thirdCategoryDatas: [], subCategoryDatas: [] });
+      }
+    });
+  });
+};
 
 Category.prototype.mount = function () {
   const $categoryMain = this.$target.querySelector(".category__main");

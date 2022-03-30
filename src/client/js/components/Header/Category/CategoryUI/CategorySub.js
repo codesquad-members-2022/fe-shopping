@@ -1,6 +1,7 @@
 import Component from "../../../../core/Component";
 import { createExtendsRelation } from "../../../../oop-utils";
 import { store } from "../../../../Store";
+import { debounceForSmartLayer } from "../controllers/category";
 import {
   handleCSubMouseOut,
   handleCSubMouseOver,
@@ -15,7 +16,10 @@ CategorySub.prototype.setEvent = function () {
   this.addEvent({
     eventType: "mouseover",
     selector: "li",
-    callback: handleCSubMouseOver,
+    callback: debounceForSmartLayer({
+      callback: handleCSubMouseOver,
+      mouseOn: "sub",
+    }),
   });
   this.addEvent({
     eventType: "mouseout",
@@ -31,13 +35,11 @@ CategorySub.prototype.mount = function () {
   } = store.state;
 
   const subClientRect = this.$target.getBoundingClientRect();
-
   store.setState({
     subCategory: {
       clientRect: subClientRect,
     },
   });
-
   this.$target.style.boxShadow = subCategoryDatas.length
     ? "0 4px 5px rgb(0 0 0 / 30%)"
     : "none";
