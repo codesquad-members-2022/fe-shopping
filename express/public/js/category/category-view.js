@@ -31,7 +31,7 @@ export default class ViewController {
       return;
     }
 
-    this.hiddenSmartCategory('.shopping-popup-first-list', '.shopping-popup-second-list');
+    this.hideAllList();
   };
 
   showSecondContent(secondContentTemplate) {
@@ -54,11 +54,7 @@ export default class ViewController {
       this.hiddenSmartCategory('.shopping-popup-third-list');
       return;
     }
-    this.hiddenSmartCategory(
-      '.shopping-popup-first-list',
-      '.shopping-popup-second-list',
-      '.shopping-popup-third-list'
-    );
+    this.hideAllList();
   };
 
   showThirdContent(thirdContentTemplate) {
@@ -75,6 +71,10 @@ export default class ViewController {
     if (relatedTarget.className === 'secondContent' || relatedTarget.className === 'thirdContent')
       return;
 
+    this.hideAllList();
+  }
+
+  hideAllList() {
     this.hiddenSmartCategory(
       '.shopping-popup-first-list',
       '.shopping-popup-second-list',
@@ -84,7 +84,6 @@ export default class ViewController {
 
   hiddenSmartCategory(...args) {
     for (const classList of [...args]) {
-      console.log(classList);
       let list = $(classList);
       list.innerHTML = '';
     }
