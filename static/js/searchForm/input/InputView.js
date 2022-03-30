@@ -1,11 +1,11 @@
 import { dom } from "../../utils/dom.js";
 
 export default class InputView {
-  constructor() {
+  constructor({ inputEl, resultEl, submitButtonEl }) {
     this.bound = {};
-    this.inputEl = dom.select(".searchForm__input");
-    this.resultEl = dom.select(".searchForm__result");
-    this.submitButtonEl = dom.select(".searchForm__submit");
+    this.inputEl = inputEl;
+    this.resultEl = resultEl;
+    this.submitButtonEl = submitButtonEl;
     this.className = {
       show: "show",
       hidden: "hidden",

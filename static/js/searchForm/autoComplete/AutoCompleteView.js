@@ -1,10 +1,10 @@
 import { dom } from "../../utils/dom.js";
 
 export default class AutoCompleteView {
-  constructor() {
+  constructor({ autoCompleteEl, autoCompleteListEl }) {
     this.bound = {};
-    this.autoCompleteEl = dom.select(".searchForm__autoComplete");
-    this.listEl = dom.select(".searchForm__autoComplete-list");
+    this.autoCompleteEl = autoCompleteEl;
+    this.listEl = autoCompleteListEl;
     this.className = {
       show: "show",
       hidden: "hidden",

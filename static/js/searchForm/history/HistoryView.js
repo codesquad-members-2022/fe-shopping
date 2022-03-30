@@ -1,11 +1,11 @@
 import { dom } from "../../utils/dom.js";
 
 export default class HistoryView {
-  constructor() {
+  constructor({ historyEl, historyListEl, clearButtonEl }) {
     this.bound = {};
-    this.historyEl = dom.select(".searchForm__history");
-    this.listEl = dom.select(".searchForm__history-list");
-    this.buttonClearEl = dom.select(".searchForm__history-button--clear");
+    this.historyEl = historyEl;
+    this.listEl = historyListEl;
+    this.clearButtonEl = clearButtonEl;
     this.className = {
       show: "show",
       hidden: "hidden",
@@ -13,7 +13,7 @@ export default class HistoryView {
   }
 
   addHandler() {
-    this.buttonClearEl.addEventListener("mousedown", () => this.bound.clearHistory());
+    this.clearButtonEl.addEventListener("mousedown", () => this.bound.clearHistory());
   }
 
   createItem(value) {
