@@ -175,8 +175,7 @@ CategorySub.prototype.mount = function () {
 - 여러번 mouseover 가 되던 상황을 수정하였다.
   - 뷰의 렌더링 과정을 상상하면서 어떻게 분리를 해야하는지를 좀 더 깨달았다.
 
-![mouseover-fix](https://user-images.githubusercontent.com/58503584/
-160740156-c02581cb-bc49-4d4f-98e5-59dff39d9536.gif)
+![mouseover-fix](https://user-images.githubusercontent.com/58503584/160741592-93f92abf-fe01-4c47-950f-6c6f9baa96e9.gif)
 
 ### ul - mouseover, mouseenter
 
