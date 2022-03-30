@@ -58,18 +58,10 @@ export default class extends SearchForm {
         ? cur[this.localStorageDataName]
         : cur.split(searchWord).join(`<strong>${searchWord}</strong>`);
 
-    const template = {
-      "recent-search": `
-        <li class="recent-search-item">
-          <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
-        </li>`,
-      "suggest-search": `
-        <li class="suggest-search-item">
-          <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
-        </li>
-      `,
-    };
-    return template[state];
+    const template = `<li class="${state}-item">
+                        <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
+                      </li>`;
+    return template;
   }
 
   onKeyUp() {
