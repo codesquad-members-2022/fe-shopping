@@ -3,10 +3,12 @@ import { dom } from "../../utils/dom.js";
 export default class CategoryView {
   constructor({ currentCategoryEl, categoryListEl }) {
     this.bound = {};
-    this.show = "searchForm__category-list--show";
-    this.hidden = "searchForm__category-list--hidden";
     this.currentEl = currentCategoryEl;
     this.listEl = categoryListEl;
+    this.className = {
+      show: "show",
+      hidden: "hidden",
+    };
   }
 
   addHandler() {
@@ -32,10 +34,10 @@ export default class CategoryView {
   }
 
   showList() {
-    this.listEl.classList.replace(this.hidden, this.show);
+    this.listEl.classList.replace(this.className.hidden, this.className.show);
   }
 
   hideList() {
-    this.listEl.classList.replace(this.show, this.hidden);
+    this.listEl.classList.replace(this.className.show, this.className.hidden);
   }
 }
