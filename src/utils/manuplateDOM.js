@@ -1,4 +1,5 @@
 import { POP_UP } from '../constant.js';
+import ConnectInterface from '../core/connectInterface.js';
 
 export function closePopUp($element) {
   $element.classList.remove(POP_UP.show);
@@ -29,4 +30,9 @@ export function hideAllPopUp({ target }) {
 export function setInheritance({ parent, child }) {
   child.prototype = Object.create(parent.prototype);
   child.prototype.constructor = child;
+}
+
+export function initInferface({ elements, store }) {
+  const connectInterface = new ConnectInterface({ elements, store });
+  connectInterface.init();
 }

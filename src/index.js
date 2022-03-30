@@ -1,8 +1,9 @@
 import Root from './layout/root.js';
 
-const $root = document.getElementById('root');
+const $rootWrapper = document.getElementById('root');
 
 function init() {
-  new Root($root);
+  const $root = new Root({ $element: $rootWrapper });
+  $root.init();
 }
 window.addEventListener('DOMContentLoaded', init);

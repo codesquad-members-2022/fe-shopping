@@ -1,4 +1,4 @@
-import HtmlElement from '../utils/HtmlElement.js';
+import HtmlElement from '../core/HtmlElement.js';
 import { hideAllPopUp, setInheritance } from '../utils/manuplateDOM.js';
 import Header from './Header/index.js';
 import Main from './Main/index.js';
@@ -17,10 +17,12 @@ Root.prototype.setTemplate = function () {
 };
 
 Root.prototype.renderChild = function () {
-  const $header = this.$element.querySelector('#header');
-  const $main = this.$element.querySelector('#main');
-  new Header($header);
-  new Main($main);
+  const $headerWrapper = this.$element.querySelector('#header');
+  const $mainWrapper = this.$element.querySelector('#main');
+  const $header = new Header({ $element: $headerWrapper });
+  const $main = new Main({ $element: $mainWrapper });
+  $header.init();
+  $main.init();
 };
 
 Root.prototype.setEvent = function () {

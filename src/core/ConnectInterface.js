@@ -8,18 +8,16 @@ ConnectInterface.prototype.init = function () {
   Object.values(this.elements).map((element) => element.init());
 };
 
-ConnectInterface.prototype.connectStore = function () {
-  Object.values(this.elements).map((element) => {
-    element.interface = this;
-    element.getState = this.getStatefromStore.bind(this);
-    element.setState = this.setStateToStore.bind(this);
-  });
-};
-
 ConnectInterface.prototype.addElement = function ({ newElements }) {
   this.elements = { ...this.elements, ...newElements };
   this.connectStore();
   Object.values(newElements).map((element) => element.init());
+};
+
+ConnectInterface.prototype.connectStore = function () {
+  Object.values(this.elements).map((element) => {
+    element.interface = this;
+  });
 };
 
 ConnectInterface.prototype.getStatefromStore = function (keysObj) {
@@ -42,10 +40,12 @@ ConnectInterface.prototype.reRenderHtmlElement = function ({
   newState,
 }) {
   if (targetHtmlElement) {
-    Object.keys(newState).map((key) => {
-      if (targetHtmlElement.getState().hasOwnProperty(key)) {
-        targetHtmlElement.render();
-      }
+    Object.values(this.elements).map((element) => {
+      Object.keys(newState).map((key) => {
+        if (element.interface.getStatefromStore().hasOwnProperty(key)) {
+          element.render();
+        }
+      });
     });
   }
 };

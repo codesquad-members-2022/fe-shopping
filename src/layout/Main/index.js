@@ -1,4 +1,4 @@
-import HtmlElement from '../../utils/HtmlElement.js';
+import HtmlElement from '../../core/HtmlElement.js';
 import { setInheritance } from '../../utils/manuplateDOM.js';
 
 export default function Main($element) {
@@ -9,5 +9,5 @@ setInheritance({ parent: HtmlElement, child: Main });
 
 Main.prototype.setTemplate = function () {
   return `
-      <h1>메인</h1>`;
+      <div>메인</div>`;
 };
