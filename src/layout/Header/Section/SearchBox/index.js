@@ -2,25 +2,14 @@ import HtmlElement from '../../../../core/HtmlElement.js';
 import AutoComplete from './AutoComplete/index.js';
 import HistoryList from './History/index.js';
 import ScopeSelector from './ScopeSelector/index.js';
-import { myLocalStorage } from '../../../../utils/mockDB.js';
-import { POP_UP, SEARCH_BOX } from '../../../../constant.js';
+import { POP_UP } from '../../../../constant.js';
 import {
   handleSubmit,
   handleInputClick,
   handleInputKeyDown,
   handleInput,
-  changeSearchOption,
 } from './eventHandler.js';
-import {
-  initInferface,
-  setInheritance,
-} from '../../../../utils/manuplateDOM.js';
-import searchBoxStore from './store.js';
-
-const {
-  INPUT_DEFAULT,
-  HISTORY: { HISTORY_LOCAL_STORAGE_KEY },
-} = SEARCH_BOX;
+import { setInheritance } from '../../../../utils/manuplateDOM.js';
 
 export default function SearchBox({ $element }) {
   HtmlElement.call(this, { $element });

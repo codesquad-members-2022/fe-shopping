@@ -4,6 +4,7 @@ export default function HtmlElement({ $element, isDirect }) {
 
 HtmlElement.prototype.init = function () {
   this.render();
+  this.renderChild();
   this.setEvent();
 };
 
@@ -15,9 +16,13 @@ HtmlElement.prototype.setTemplate = function () {
 
 HtmlElement.prototype.renderChild = function () {};
 
+HtmlElement.prototype.beforeRender = function () {
+  this.state = {};
+};
+
 HtmlElement.prototype.render = function () {
+  this.beforeRender();
   this.$element.innerHTML = this.setTemplate();
-  this.renderChild();
 };
 
 HtmlElement.prototype.setEvent = function () {};

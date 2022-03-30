@@ -13,17 +13,21 @@ export default function HistoryList({ $element }) {
 
 setInheritance({ parent: HtmlElement, child: HistoryList });
 
-HistoryList.prototype.setTemplate = function () {
-  const { histroyList, activeHistory, showHistroy } =
-    this.interface.getStatefromStore({
+HistoryList.prototype.beforeRender = function () {
+  this.state = {
+    ...this.interface.getStatefromStore({
       histroyList: null,
       activeHistory: null,
       showHistroy: null,
-    });
+    }),
+  };
+};
+
+HistoryList.prototype.setTemplate = function () {
+  const { histroyList, activeHistory, showHistroy } = this.state;
   const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
-  showHistroy
-    ? this.$element.classList.add(POP_UP.show)
-    : this.$element.classList.add(POP_UP.hidden);
+  this.$element.classList.remove(!showHistroy ? POP_UP.show : POP_UP.hidden);
+  this.$element.classList.add(showHistroy ? POP_UP.show : POP_UP.hidden);
   return `
 <h5>최근 검색어</h5>
 <ul id="histroyList">

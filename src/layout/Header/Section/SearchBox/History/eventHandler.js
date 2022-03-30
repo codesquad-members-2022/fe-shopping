@@ -31,7 +31,9 @@ export function handleClick({ target }) {
 
 function deleteAllTerm() {
   myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, []);
-  this.setState({ histroyList: [] });
+  this.interface.setStateToStore({
+    newState: { histroyList: [] },
+  });
 }
 
 function deleteTargetTerm(target) {
@@ -41,5 +43,7 @@ function deleteTargetTerm(target) {
   } = target.closest('li');
   updatedHistroyList.splice(targetTermId, 1);
   myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedHistroyList);
-  this.setState({ histroyList: updatedHistroyList });
+  this.interface.setStateToStore({
+    newState: { histroyList: updatedHistroyList },
+  });
 }

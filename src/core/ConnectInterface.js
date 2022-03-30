@@ -30,22 +30,19 @@ ConnectInterface.prototype.setStateToStore = function ({
 }) {
   const updatedState = this.store.setState(newState);
   this.reRenderHtmlElement({
-    targetHtmlElement: this.elements[elementID],
     newState: updatedState,
   });
 };
 
-ConnectInterface.prototype.reRenderHtmlElement = function ({
-  targetHtmlElement,
-  newState,
-}) {
-  if (targetHtmlElement) {
-    Object.values(this.elements).map((element) => {
-      Object.keys(newState).map((key) => {
-        if (element.interface.getStatefromStore().hasOwnProperty(key)) {
-          element.render();
-        }
-      });
+ConnectInterface.prototype.reRenderHtmlElement = function ({ newState }) {
+  Object.values(this.elements).map((element) => {
+    Object.keys(newState).map((key) => {
+      if (element.state.hasOwnProperty(key)) {
+        element.render();
+      }
     });
-  }
+  });
+  // if (targetHtmlElement) {
+
+  // }
 };

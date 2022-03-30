@@ -15,8 +15,7 @@ Store.prototype.requestDataToServer = async function () {
 const searchBoxState = {
   activeHistory: INPUT_DEFAULT,
   activeAutoTerm: INPUT_DEFAULT,
-  showHistroy: true,
-  showAutoComplete: false,
+  showHistroy: false,
   option: '전체',
   inputValue: '',
   histroyList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
