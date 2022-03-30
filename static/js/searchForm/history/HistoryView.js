@@ -6,8 +6,10 @@ export default class HistoryView {
     this.historyEl = dom.select(".searchForm__history");
     this.listEl = dom.select(".searchForm__history-list");
     this.buttonClearEl = dom.select(".searchForm__history-button--clear");
-    this.show = "searchForm__history--show";
-    this.hidden = "searchForm__history--hidden";
+    this.className = {
+      show: "show",
+      hidden: "hidden",
+    };
   }
 
   addHandler() {
@@ -28,10 +30,10 @@ export default class HistoryView {
   }
 
   showHistory() {
-    this.historyEl.classList.replace(this.hidden, this.show);
+    this.historyEl.classList.replace(this.className.hidden, this.className.show);
   }
 
   hideHistory() {
-    this.historyEl.classList.replace(this.show, this.hidden);
+    this.historyEl.classList.replace(this.className.show, this.className.hidden);
   }
 }

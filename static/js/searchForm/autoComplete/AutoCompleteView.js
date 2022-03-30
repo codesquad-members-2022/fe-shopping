@@ -5,8 +5,10 @@ export default class AutoCompleteView {
     this.bound = {};
     this.autoCompleteEl = dom.select(".searchForm__autoComplete");
     this.listEl = dom.select(".searchForm__autoComplete-list");
-    this.show = "searchForm__autoComplete--show";
-    this.hidden = "searchForm__autoComplete--hidden";
+    this.className = {
+      show: "show",
+      hidden: "hidden",
+    };
   }
 
   createItem(value) {
@@ -25,10 +27,10 @@ export default class AutoCompleteView {
   }
 
   showAutoComplete() {
-    this.autoCompleteEl.classList.replace(this.hidden, this.show);
+    this.autoCompleteEl.classList.replace(this.className.hidden, this.className.show);
   }
 
   hideAutoComplete() {
-    this.autoCompleteEl.classList.replace(this.show, this.hidden);
+    this.autoCompleteEl.classList.replace(this.className.show, this.className.hidden);
   }
 }

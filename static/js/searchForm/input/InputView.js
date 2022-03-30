@@ -6,8 +6,10 @@ export default class InputView {
     this.inputEl = dom.select(".searchForm__input");
     this.resultEl = dom.select(".searchForm__result");
     this.submitButtonEl = dom.select(".searchForm__submit");
-    this.show = "searchForm__result--show";
-    this.hidden = "searchForm__result--hidden";
+    this.className = {
+      show: "show",
+      hidden: "hidden",
+    };
   }
 
   addHandler() {
@@ -35,10 +37,10 @@ export default class InputView {
   }
 
   showResult() {
-    this.resultEl.classList.replace(this.hidden, this.show);
+    this.resultEl.classList.replace(this.className.hidden, this.className.show);
   }
 
   hideResult() {
-    this.resultEl.classList.replace(this.show, this.hidden);
+    this.resultEl.classList.replace(this.className.show, this.className.hidden);
   }
 }

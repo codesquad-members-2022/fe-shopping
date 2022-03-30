@@ -52,9 +52,9 @@ body { background: #fff; color: #212529; }
 
 .header { margin: 0 auto; width: 800px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; z-index: 1100; }
 
-.hidden { visibility: hidden; }
+.hidden { display: none; }
 
-.show { visibility: visible; }
+.show { display: block; }
 
 .categoryMenu { width: 80px; height: 80px; line-height: 80px; font-size: 0.875rem; text-align: center; color: #fff; background-color: #4285f4; cursor: pointer; }
 
@@ -78,10 +78,6 @@ body { background: #fff; color: #212529; }
 
 .searchForm__result { position: absolute; top: 36px; left: -1px; width: 449px; font-size: 0.75rem; background-color: #fff; border: 1px solid #ced4da; -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); z-index: 1100; }
 
-.searchForm__result--hidden { visibility: hidden; }
-
-.searchForm__result--show { visibility: visible; }
-
 .searchForm__history-title { margin: 0 auto; padding: 12px 0 6px; font-weight: 700; width: calc(100% - 16px); border-bottom: 1px solid #adb5bd; color: #495057; }
 
 .searchForm__history-list { padding: 8px; }
@@ -96,10 +92,6 @@ body { background: #fff; color: #212529; }
 
 .searchForm__history-button:hover { text-decoration: underline; }
 
-.searchForm__history--hidden { content-visibility: hidden; }
-
-.searchForm__history--show { content-visibility: visible; }
-
 .searchForm__autoComplete-list { padding: 8px; }
 
 .searchForm__autoComplete-item { padding: 4px 0; cursor: pointer; }
@@ -107,10 +99,6 @@ body { background: #fff; color: #212529; }
 .searchForm__autoComplete-item:hover { text-decoration: underline; }
 
 .searchForm__autoComplete-inputWord { font-weight: 700; color: #4285f4; }
-
-.searchForm__autoComplete--hidden { content-visibility: hidden; }
-
-.searchForm__autoComplete--show { content-visibility: visible; }
 
 .mainBanner { position: relative; height: 450px; background-color: #f1f3f5; border: 1px solid #dee2e6; }
 
