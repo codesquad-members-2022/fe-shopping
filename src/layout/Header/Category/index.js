@@ -1,4 +1,4 @@
-import HtmlElement from '../../../utils/HtmlElement.js';
+import HtmlElement from '../../../core/HtmlElement.js';
 import { POP_UP } from '../../../constant.js';
 import { handleClick } from './eventHandler.js';
 import { setInheritance } from '../../../utils/manuplateDOM.js';

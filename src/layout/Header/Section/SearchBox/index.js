@@ -1,4 +1,4 @@
-import HtmlElement from '../../../../utils/HtmlElement.js';
+import HtmlElement from '../../../../core/HtmlElement.js';
 import AutoComplete from './AutoComplete/index.js';
 import HistoryList from './History/index.js';
 import ScopeSelector from './ScopeSelector/index.js';
@@ -11,7 +11,11 @@ import {
   handleInput,
   changeSearchOption,
 } from './eventHandler.js';
-import { setInheritance } from '../../../../utils/manuplateDOM.js';
+import {
+  initInferface,
+  setInheritance,
+} from '../../../../utils/manuplateDOM.js';
+import searchBoxStore from './store.js';
 
 const {
   INPUT_DEFAULT,
@@ -24,63 +28,48 @@ export default function SearchBox($element) {
 
 setInheritance({ parent: HtmlElement, child: SearchBox });
 
-SearchBox.prototype.init = function () {
-  this.state = {
-    activeHistory: INPUT_DEFAULT,
-    activeAutoTerm: INPUT_DEFAULT,
-    showHistroy: true,
-    option: '전체',
-    inputValue: '',
-    histroyList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
-    autoSearchList: [],
-  };
-};
-
 SearchBox.prototype.setTemplate = function () {
   return template;
 };
 
 SearchBox.prototype.renderChild = function () {
-  const {
-    option,
-    histroyList,
-    autoSearchList,
-    inputValue,
-    activeAutoTerm,
-    activeHistory,
-  } = this.state;
-  const $scopeSelector = this.$element.querySelector('.search__selector');
-  const $searchRecord = this.$element.querySelector('.search__record');
-  const $searchAuto = this.$element.querySelector('.search__auto');
-  this.$ScopeSelector = new ScopeSelector($scopeSelector, {
-    option,
-    changeSearchOption: changeSearchOption.bind(this),
-  });
-  this.$HistoryList = new HistoryList($searchRecord, {
-    option,
-    histroyList,
-    activeHistory,
-  });
-  this.$AutoComplete = new AutoComplete($searchAuto, {
-    autoSearchList,
-    inputValue,
-    activeAutoTerm,
-  });
+  // const {
+  //   option,
+  //   histroyList,
+  //   autoSearchList,
+  //   inputValue,
+  //   activeAutoTerm,
+  //   activeHistory,
+  // } = this.state;
+  // const $searchRecord = this.$element.querySelector('.search__record');
+  // const $searchAuto = this.$element.querySelector('.search__auto');
+  // this.$ScopeSelector = new ScopeSelector($scopeSelector, {
+  //   option,
+  //   changeSearchOption: changeSearchOption.bind(this),
+  // });
+  // this.$HistoryList = new HistoryList($searchRecord, {
+  //   option,
+  //   histroyList,
+  //   activeHistory,
+  // });
+  // this.$AutoComplete = new AutoComplete($searchAuto, {
+  //   autoSearchList,
+  //   inputValue,
+  //   activeAutoTerm,
+  // });
+  const $scopeSelectorWrapper =
+    this.$element.querySelector('.search__selector');
+  const $scopeSelector = new ScopeSelector({ $element: $scopeSelectorWrapper });
+  this.interface.addElement({ newElements: { $scopeSelector } });
 };
 
 SearchBox.prototype.setEvent = function () {
-  this.$form = this.$element.querySelector('#searhForm');
-  this.$input = this.$element.querySelector('#searchInput');
-  this.$form.addEventListener('submit', handleSubmit.bind(this));
-  this.$input.addEventListener('click', handleInputClick.bind(this));
-  this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));
-  this.$input.addEventListener('input', handleInput.bind(this));
-};
-
-SearchBox.prototype.setState = function (newState) {
-  this.state = { ...this.state, ...newState };
-  //값이 바뀔 때마다 자식 전체를 리렌더링하지 않고 바뀐 값을 쓰는 자식만 리렌더링하기
-  // this.renderChild();
+  // this.$form = this.$element.querySelector('#searhForm');
+  // this.$input = this.$element.querySelector('#searchInput');
+  // this.$form.addEventListener('submit', handleSubmit.bind(this));
+  // this.$input.addEventListener('click', handleInputClick.bind(this));
+  // this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));
+  // this.$input.addEventListener('input', handleInput.bind(this));
 };
 
 const template = ` <div class="search__selector pop-up-container"></div>

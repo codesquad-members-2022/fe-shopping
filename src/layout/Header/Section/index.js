@@ -1,5 +1,7 @@
-import HtmlElement from '../../../utils/HtmlElement.js';
-import { setInheritance } from '../../../utils/manuplateDOM.js';
+import searchBoxStore from './SearchBox/store.js';
+import ConnectInterface from '../../../core/connectInterface.js';
+import HtmlElement from '../../../core/HtmlElement.js';
+import { initInferface, setInheritance } from '../../../utils/manuplateDOM.js';
 import Navigation from './Navigation/index.js';
 import SearchBox from './SearchBox/index.js';
 
@@ -21,10 +23,12 @@ Section.prototype.setTemplate = function () {
 };
 
 Section.prototype.renderChild = function () {
-  const $gnb = this.$element.querySelector('.gnb');
-  const $searchBox = this.$element.querySelector('.search');
-  new SearchBox($searchBox);
-  new Navigation($gnb);
+  const $gnbWrapper = this.$element.querySelector('.gnb');
+  const $searchBoxWrapper = this.$element.querySelector('.search');
+  const $gnb = new Navigation({ $element: $gnbWrapper });
+  const $searchBox = new SearchBox({ $element: $searchBoxWrapper });
+  $gnb.init();
+  initInferface({ elements: { $searchBox }, store: searchBoxStore });
 };
 
 Section.prototype.setEvent = function () {

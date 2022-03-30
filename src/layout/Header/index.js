@@ -1,4 +1,4 @@
-import HtmlElement from '../../utils/HtmlElement.js';
+import HtmlElement from '../../core/HtmlElement.js';
 import { setInheritance } from '../../utils/manuplateDOM.js';
 import Category from './Category/index.js';
 import Section from './Section/index.js';
@@ -16,8 +16,10 @@ Header.prototype.setTemplate = function () {
 };
 
 Header.prototype.renderChild = function () {
-  const $category = this.$element.querySelector('.category');
-  const $section = this.$element.querySelector('.section');
-  new Category($category);
-  new Section($section);
+  const $categoryWrapper = this.$element.querySelector('.category');
+  const $sectionWrapper = this.$element.querySelector('.section');
+  const $category = new Category({ $element: $categoryWrapper });
+  const $section = new Section({ $element: $sectionWrapper });
+  $category.init();
+  $section.init();
 };
