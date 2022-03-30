@@ -105,6 +105,12 @@ class SearchBoxPresenter {
       : await this.showRelativeList(value);
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { value } = this.target;
+    this.model.findData("recent", value, true);
+  };
+
   handleKeyupEvent = ({ target: { value }, key }) => {
     const isUpDown = ["ArrowDown", "ArrowUp"].includes(key);
     isUpDown ? this.moveWithUpDown(key) : this.showDataByInput(value);

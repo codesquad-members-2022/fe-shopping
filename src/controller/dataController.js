@@ -2,6 +2,7 @@ import items from "../data/items.json";
 import recent from "../data/recent.json";
 import categories from "../data/categories.json";
 import { koreanMatcher } from "./util";
+import fs from "fs";
 import { async } from "regenerator-runtime";
 
 const getItemsWithValue = (value) => {
@@ -19,7 +20,21 @@ const searchWithKeyword = async (req, res) => {
   res.json(getItemsWithValue(value));
 };
 
+const editRecent = (value) => {
+  recent.push({ keyword: value });
+  fs.writeFile(
+    __dirname + "/../data/recent.json",
+    JSON.stringify(recent),
+    (err) => {
+      if (err) return console.log(err);
+    }
+  );
+};
+
 const searchRecent = (req, res) => {
+  const { value } = req.body;
+  if (value) editRecent(value);
+
   const filteredData = recent.map(({ keyword }) => keyword);
   res.json(filteredData);
 };

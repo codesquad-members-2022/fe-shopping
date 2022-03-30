@@ -6,6 +6,7 @@ class SearchBoxView extends CommonView {
     super();
     this.target = target;
     this.transformer = transformer;
+    this.form = target.closest("form");
     this.relativeList = selector("ul", transformer);
     this.relativeTitle = selector("h3", transformer);
     this.relativeOption = selector("div", transformer);
@@ -45,6 +46,7 @@ class SearchBoxView extends CommonView {
       this.presenter.toggleTransformerHidden
     );
     this.target.addEventListener("keyup", this.presenter.handleKeyupEvent);
+    this.form.addEventListener("submit", this.presenter.handleSubmit);
     this.transformer.addEventListener(
       "mouseover",
       this.presenter.listMark.showListMark
