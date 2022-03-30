@@ -6,6 +6,8 @@ export default class HistoryView {
     this.historyEl = dom.select(".searchForm__history");
     this.listEl = dom.select(".searchForm__history-list");
     this.buttonClearEl = dom.select(".searchForm__history-button--clear");
+    this.show = "searchForm__history--show";
+    this.hidden = "searchForm__history--hidden";
   }
 
   addHandler() {
@@ -23,5 +25,13 @@ export default class HistoryView {
   renderHistory(history) {
     dom.initEl(this.listEl);
     this.listEl.insertAdjacentHTML("beforeend", this.createItems(history));
+  }
+
+  showHistory() {
+    this.historyEl.classList.replace(this.hidden, this.show);
+  }
+
+  hideHistory() {
+    this.historyEl.classList.replace(this.show, this.hidden);
   }
 }

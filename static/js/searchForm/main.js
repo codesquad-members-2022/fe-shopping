@@ -40,8 +40,8 @@ export async function initSearchForm() {
     autoCompleteView: autoCompleteView,
   });
 
-  inputController.init();
   categoryController.init();
   historyController.init();
   autoCompleteController.init();
+  inputController.init();
 }

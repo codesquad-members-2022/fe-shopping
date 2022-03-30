@@ -5,6 +5,8 @@ export default class AutoCompleteView {
     this.bound = {};
     this.autoCompleteEl = dom.select(".searchForm__autoComplete");
     this.listEl = dom.select(".searchForm__autoComplete-list");
+    this.show = "searchForm__autoComplete--show";
+    this.hidden = "searchForm__autoComplete--hidden";
   }
 
   createItem(value) {
@@ -19,6 +21,14 @@ export default class AutoCompleteView {
     const words = await this.bound.requestAutoCompleteWords(category, inputValue);
     dom.initEl(this.listEl);
     this.listEl.insertAdjacentHTML("beforeend", this.createItems(words));
-    this.bound.showAutoComplete();
+    this.showAutoComplete();
+  }
+
+  showAutoComplete() {
+    this.autoCompleteEl.classList.replace(this.hidden, this.show);
+  }
+
+  hideAutoComplete() {
+    this.autoCompleteEl.classList.replace(this.show, this.hidden);
   }
 }

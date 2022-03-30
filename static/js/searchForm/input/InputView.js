@@ -6,6 +6,8 @@ export default class InputView {
     this.inputEl = dom.select(".searchForm__input");
     this.resultEl = dom.select(".searchForm__result");
     this.submitButtonEl = dom.select(".searchForm__submit");
+    this.show = "searchForm__result--show";
+    this.hidden = "searchForm__result--hidden";
   }
 
   addHandler() {
@@ -13,7 +15,7 @@ export default class InputView {
       if (event.target.value === "") {
         this.bound.clearAutoCompleteTimer();
         this.bound.resetResult();
-        this.bound.hideResult();
+        this.hideResult();
         return;
       }
       this.bound.setAutoCompleteTimer(event);
@@ -21,14 +23,22 @@ export default class InputView {
 
     this.inputEl.addEventListener("focus", () => {
       if (this.bound.isHistoryEmpty()) return;
-      this.bound.showResult();
+      this.showResult();
     });
 
-    this.inputEl.addEventListener("blur", () => this.bound.hideResult());
+    this.inputEl.addEventListener("blur", () => this.hideResult());
     this.submitButtonEl.addEventListener("click", (event) => this.bound.submitInputValue(event));
   }
 
   clear() {
     this.inputEl.value = "";
+  }
+
+  showResult() {
+    this.resultEl.classList.replace(this.hidden, this.show);
+  }
+
+  hideResult() {
+    this.resultEl.classList.replace(this.show, this.hidden);
   }
 }
