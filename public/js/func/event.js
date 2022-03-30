@@ -1,4 +1,3 @@
-import { RecentSearch } from './search-recent.js';
 import { AutoComplete } from './search-auto.js';
 
 document.addEventListener('DOMContentLoaded', () => {
