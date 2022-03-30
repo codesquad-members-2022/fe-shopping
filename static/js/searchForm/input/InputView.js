@@ -15,7 +15,7 @@ export default class InputView {
       if (event.target.value === "") {
         this.bound.clearAutoCompleteTimer();
         this.bound.resetResult();
-        this.hideResult();
+        this.bound.isHistoryEmpty() && this.hideResult();
         return;
       }
       this.bound.setAutoCompleteTimer(event);
