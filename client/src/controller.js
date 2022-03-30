@@ -25,11 +25,11 @@ export class Controller {
   }
 
   setSearchInputViewEvents() {
-    const delay = { focus: 500, mouseleave: 500 };
+    const delay = { focus: 500, mouseleave: 500, keyup: 200 };
 
     this.searchInputView.focusInputHandle = this.focusInputHandle;
     this.searchInputView.typingInputHandle = debounce(this.typingInputHandle, delay.focus);
-    this.searchInputView.arrowKeyupHandle = throttle(this.arrowKeyupHandle, 100);
+    this.searchInputView.arrowKeyupHandle = throttle(this.arrowKeyupHandle, delay.keyup);
     this.searchInputView.submitFormHandle = this.submitFormHandle;
     this.searchInputView.mouseleaveListHandle = throttle(this.mouseleaveListHandle, delay.mouseleave);
     this.searchInputView.clickDropDownBtnHandle = this.clickDropDownBtnHandle;
