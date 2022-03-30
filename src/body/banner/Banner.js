@@ -8,7 +8,6 @@ export class Banner {
     this.imageList = new ImageList();
     this.linkList = new LinkList();
     this.tabList = new TabList();
-    this.init();
   }
 
   init() {
