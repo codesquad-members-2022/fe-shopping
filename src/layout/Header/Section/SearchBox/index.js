@@ -22,8 +22,8 @@ const {
   HISTORY: { HISTORY_LOCAL_STORAGE_KEY },
 } = SEARCH_BOX;
 
-export default function SearchBox($element) {
-  HtmlElement.call(this, $element);
+export default function SearchBox({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
 setInheritance({ parent: HtmlElement, child: SearchBox });
@@ -41,7 +41,6 @@ SearchBox.prototype.renderChild = function () {
   //   activeAutoTerm,
   //   activeHistory,
   // } = this.state;
-  // const $searchRecord = this.$element.querySelector('.search__record');
   // const $searchAuto = this.$element.querySelector('.search__auto');
   // this.$ScopeSelector = new ScopeSelector($scopeSelector, {
   //   option,
@@ -59,7 +58,9 @@ SearchBox.prototype.renderChild = function () {
   // });
   const $scopeSelectorWrapper =
     this.$element.querySelector('.search__selector');
+  const $historyWrapper = this.$element.querySelector('.search__record');
   const $scopeSelector = new ScopeSelector({ $element: $scopeSelectorWrapper });
+  const $historyList = new HistoryList({ $element: $historyWrapper });
   this.interface.addElement({ newElements: { $scopeSelector } });
 };
 

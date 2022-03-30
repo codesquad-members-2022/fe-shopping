@@ -1,4 +1,4 @@
-import HtmlElement from '../../../../../utils/HtmlElement.js';
+import HtmlElement from '../../../../../core/HtmlElement.js';
 import { SEARCH_BOX } from '../../../../../constant.js';
 import { handleClick } from './eventHandler.js';
 import { setInheritance } from '../../../../../utils/manuplateDOM.js';
@@ -7,8 +7,8 @@ const {
   HISTORY: { HISTORY_DELETE, HISTORY_ACTIVE, HISTORY_DELETE__ALL },
 } = SEARCH_BOX;
 
-export default function HistoryList($element, args) {
-  HtmlElement.call(this, $element, args);
+export default function HistoryList({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
 setInheritance({ parent: HtmlElement, child: HistoryList });

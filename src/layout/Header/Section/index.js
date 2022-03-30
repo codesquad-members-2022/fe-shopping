@@ -5,8 +5,8 @@ import { initInferface, setInheritance } from '../../../utils/manuplateDOM.js';
 import Navigation from './Navigation/index.js';
 import SearchBox from './SearchBox/index.js';
 
-export default function Section($element) {
-  HtmlElement.call(this, $element);
+export default function Section({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
 setInheritance({ parent: HtmlElement, child: Section });

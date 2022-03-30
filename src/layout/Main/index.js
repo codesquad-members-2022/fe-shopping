@@ -1,8 +1,8 @@
 import HtmlElement from '../../core/HtmlElement.js';
 import { setInheritance } from '../../utils/manuplateDOM.js';
 
-export default function Main($element) {
-  HtmlElement.call(this, $element);
+export default function Main({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
 setInheritance({ parent: HtmlElement, child: Main });

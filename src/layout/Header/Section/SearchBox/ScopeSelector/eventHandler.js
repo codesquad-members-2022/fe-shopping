@@ -13,13 +13,8 @@ function showCategory() {
 }
 
 function changeSearchOption(targetOption) {
-  console.log(targetOption);
-  debugger;
   this.interface.setStateToStore({
     elementID: '$scopeSelector',
     newState: { option: targetOption },
   });
-  // this.setState({ option });
-  // this.$HistoryList.setState({ option });
-  // this.$ScopeSelector.setState({ option });
 }

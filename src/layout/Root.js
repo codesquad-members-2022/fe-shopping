@@ -3,8 +3,8 @@ import { hideAllPopUp, setInheritance } from '../utils/manuplateDOM.js';
 import Header from './Header/index.js';
 import Main from './Main/index.js';
 
-export default function Root($element) {
-  HtmlElement.call(this, $element);
+export default function Root({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
 setInheritance({ parent: HtmlElement, child: Root });

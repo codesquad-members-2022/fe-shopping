@@ -3,8 +3,8 @@ import { POP_UP } from '../../../constant.js';
 import { handleClick } from './eventHandler.js';
 import { setInheritance } from '../../../utils/manuplateDOM.js';
 
-export default function Category($element) {
-  HtmlElement.call(this, $element);
+export default function Category({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
 setInheritance({ parent: HtmlElement, child: Category });

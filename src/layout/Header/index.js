@@ -3,8 +3,8 @@ import { setInheritance } from '../../utils/manuplateDOM.js';
 import Category from './Category/index.js';
 import Section from './Section/index.js';
 
-export default function Header($element) {
-  HtmlElement.call(this, $element);
+export default function Header({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 setInheritance({ parent: HtmlElement, child: Header });
 
