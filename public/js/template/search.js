@@ -12,15 +12,20 @@ export const search = `
     </ul>
   </div>
   <div class="search-recent">
-    <h3 class="search-recent__title">최근 검색어</h3>
-    <ul class="search-recent__list">
-    </ul>
+    <div class="search-recent--active">
+      <h3 class="search-recent__title">최근 검색어</h3>
+      <ul class="search-recent__list">
+      </ul>
+    </div>
+    <div class="search-recent--disable">
+      <h3 class="search-recent__title">최근 검색어 저장 기능이 꺼져 있습니다.</h3>
+    </div>
     <div class="search-recent__footer">
       <div class="search-recent__deletion">
-        <a href="#" class="search-recent__link">전체삭제</a>
+        <a href="#" class="search-recent__link" data-deletion="1">전체삭제</a>
       </div>
       <div class="search-recent__off">
-        <a href="#" class="search-recent__link">최근검색어끄기</a>
+        <a href="#" class="search-recent__link" data-off="1">최근검색어끄기</a>
       </div>
     </div>
   </div>`;

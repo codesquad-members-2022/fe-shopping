@@ -3,8 +3,8 @@ import View from './view.js';
 export default class SearchCategoryView extends View {
   init(el) {
     super.init(el);
-    this.categoryList = this.el.querySelector('.category');
-    this.searchCategoryLink = this.el.querySelector('.search-category__link');
+    this.category = this.el.querySelector('.category');
+    this.categoryLink = this.el.querySelector('.search-category__link');
     this.categoryFlag = false;
     this.setUp();
   }
@@ -15,37 +15,34 @@ export default class SearchCategoryView extends View {
 
   bindEvents() {
     this.el.addEventListener('click', ({ target }) => {
-      const categoryLists = this.el.querySelector('.category__list');
-
+      const categoryList = this.el.querySelector('.category__list');
       this.renderChoiceCategory(target);
-      if (!this.categoryFlag) {
-        this.showCategoryList(categoryLists);
-      } else {
-        this.hideCategoryList(categoryLists);
-      }
+
+      if (!this.categoryFlag) this.showCategoryList(categoryList);
+      else this.hideCategoryList(categoryList);
     });
   }
 
   renderChoiceCategory(target) {
     if (target.classList.contains('category__link')) {
-      this.searchCategoryLink.textContent = target.textContent;
+      this.categoryLink.textContent = target.textContent;
     }
   }
 
   parseSearchCategoryData(data) {
     const categoryEls = this.createCategoryList(data);
-    this.categoryList.insertAdjacentHTML('afterbegin', categoryEls);
+    this.category.insertAdjacentHTML('afterbegin', categoryEls);
   }
 
   createCategoryList(data) {
     return (
       data.reduce((acc, cur) => {
-        return acc + this.createCategoryLink(cur.title);
+        return acc + this.createCategoryItem(cur.title);
       }, '<ul class="category__list">') + '</ul>'
     );
   }
 
-  createCategoryLink(title) {
+  createCategoryItem(title) {
     return `<li class="category__item">
       <a href="#" class="category__link">${title}</a>
     </li>`;

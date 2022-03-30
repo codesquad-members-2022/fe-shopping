@@ -104,7 +104,7 @@ export default class CarouselView extends View {
   }
 
   raiseCarouselIndex() {
-    const CAROUSEL_FIRST_INDEX = 1;
+    const CAROUSEL_FIRST_INDEX = 0;
 
     if (this.checkCarouselLastCnt()) this.carouselIndex = CAROUSEL_FIRST_INDEX;
     else this.carouselIndex++;

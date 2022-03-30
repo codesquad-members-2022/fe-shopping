@@ -63,22 +63,23 @@
 .search-recent {
   background-color: $white;
   box-shadow: 0 4px 5px rgb(0 0 0 / 30%);
+  display: block;
   position: absolute;
   right: 0;
   top: 34px;
-  visibility: hidden;
   width: 365.5px;
   z-index: 99999999999;
 
   &__title {
     border-bottom: 1px solid $search-category-border;
     color: $search-recent-text;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     padding: 10px;
   }
 
   &__list {
+    font-size: 11px;
     padding: 0 10px;
   }
 
@@ -98,5 +99,14 @@
     font-size: 12px;
     justify-content: space-between;
     padding: 8px 10px;
+  }
+
+  &--disable {
+    display: none;
+    text-align: center;
+
+    .search-recent__title {
+      padding: 30px;
+    }
   }
 }

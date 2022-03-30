@@ -373,21 +373,22 @@ table {
 .search-recent {
   background-color: #fff;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  display: block;
   position: absolute;
   right: 0;
   top: 34px;
-  visibility: hidden;
   width: 365.5px;
   z-index: 99999999999;
 }
 .search-recent__title {
   border-bottom: 1px solid #ddd;
   color: #333;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   padding: 10px;
 }
 .search-recent__list {
+  font-size: 11px;
   padding: 0 10px;
 }
 .search-recent__item {
@@ -405,6 +406,13 @@ table {
   font-size: 12px;
   justify-content: space-between;
   padding: 8px 10px;
+}
+.search-recent--disable {
+  display: none;
+  text-align: center;
+}
+.search-recent--disable .search-recent__title {
+  padding: 30px;
 }
 
 .btn {
