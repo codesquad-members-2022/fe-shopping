@@ -5,6 +5,7 @@ export const bannerStore = {
   },
 
   setTabNum(num) {
+    if (num === this.state.tabNum) return;
     this.state.tabNum = num;
     this.notifyUpdatedTabNum(this.state.tabNum);
   },
@@ -19,8 +20,8 @@ export const bannerStore = {
 
   notifyUpdatedTabNum(tabNum) {
     this.observers.forEach((observer) => {
-      if (!observer.updateList) return;
-      observer.updateList(tabNum);
+      if (!observer.update) return;
+      observer.update(tabNum);
     });
   },
 };
