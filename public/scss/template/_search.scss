@@ -104,9 +104,9 @@
   &--disable {
     display: none;
     text-align: center;
-
-    .search-recent__title {
-      padding: 30px;
-    }
   }
+}
+
+.title__disable {
+  padding: 30px;
 }

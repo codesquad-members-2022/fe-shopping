@@ -18,7 +18,7 @@ export const search = `
       </ul>
     </div>
     <div class="search-recent--disable">
-      <h3 class="search-recent__title">최근 검색어 저장 기능이 꺼져 있습니다.</h3>
+      <h3 class="search-recent__title title__disable">최근 검색어 저장 기능이 꺼져 있습니다.</h3>
     </div>
     <div class="search-recent__footer">
       <div class="search-recent__deletion">

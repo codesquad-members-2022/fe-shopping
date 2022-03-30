@@ -411,7 +411,8 @@ table {
   display: none;
   text-align: center;
 }
-.search-recent--disable .search-recent__title {
+
+.title__disable {
   padding: 30px;
 }
 
