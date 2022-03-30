@@ -3,8 +3,8 @@ export default class HistoryController {
     this.model = model;
     this.view = view;
     this.historyEl = view.historyEl;
-    this.show = 'searchForm__history--show';
-    this.hidden = 'searchForm__history--hidden';
+    this.show = "searchForm__history--show";
+    this.hidden = "searchForm__history--hidden";
   }
 
   init() {

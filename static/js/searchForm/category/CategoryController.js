@@ -4,8 +4,8 @@ export default class CategoryController {
     this.view = view;
     this.currentEl = view.currentEl;
     this.listEl = view.listEl;
-    this.show = 'searchForm__category-list--show';
-    this.hidden = 'searchForm__category-list--hidden';
+    this.show = "searchForm__category-list--show";
+    this.hidden = "searchForm__category-list--hidden";
   }
 
   init() {

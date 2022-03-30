@@ -1,4 +1,4 @@
-import { getData } from '../../utils/getData.js';
+import { getData } from "../../utils/getData.js";
 
 export default class AutoCompleteController {
   constructor({ model, view }) {
@@ -6,8 +6,8 @@ export default class AutoCompleteController {
     this.view = view;
     this.autoCompleteEl = view.autoCompleteEl;
     this.listEl = view.listEl;
-    this.show = 'searchForm__autoComplete--show';
-    this.hidden = 'searchForm__autoComplete--hidden';
+    this.show = "searchForm__autoComplete--show";
+    this.hidden = "searchForm__autoComplete--hidden";
   }
 
   init() {
@@ -23,8 +23,8 @@ export default class AutoCompleteController {
 
   async requestAutoCompleteWords(category, inputValue) {
     const words = await getData(
-      'http://127.0.0.1:3000/',
-      'data',
+      "http://127.0.0.1:3000/",
+      "data",
       `autoComplete?category=${category}&keyword=${inputValue}`
     );
     this.model.setAutoCompleteWords(words);
@@ -32,7 +32,7 @@ export default class AutoCompleteController {
   }
 
   clearAutoComplete() {
-    this.listEl.innerHTML = '';
+    this.listEl.innerHTML = "";
   }
 
   showAutoComplete() {
