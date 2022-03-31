@@ -1,25 +1,10 @@
-import * as domUtil from "../util/domutil.js";
+import * as domUtil from "../../util/domutil.js";
 function ToggleView(parentDom) {
-  this.parentDom = domUtil.$(parentDom);
+  // this.parentDom = domUtil.$(parentDom);
 }
 
-ToggleView.prototype.renderToggle = function (childDom) {
-  // if (!childDom.hasChildNodes()) {
-  //   return;
-  // } // 수정필요
-
-  if (this.parentDom.children[1]) {
-    this.parentDom.children[1].remove();
-    // return;
-  }
-
-  this.parentDom.appendChild(childDom);
-};
-
 ToggleView.prototype.isEmptyArr = function (arr) {
-  if (arr.length <= 0) {
-    return true;
-  }
+  return arr.length <= 0;
 };
 
 ToggleView.prototype.removePrevView = function (prevClassName) {

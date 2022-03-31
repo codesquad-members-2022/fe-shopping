@@ -1,10 +1,18 @@
 import * as domutil from "../../util/domutil.js";
 
-class HeaderKeyboadManager {
-  constructor(searchInputView, searchMenuView) {
-    this.searchInputView = searchInputView;
-    this.searchMenuView = searchMenuView;
+class KeyboadManager {
+  constructor() {
     this.arrowCount = -1;
+  }
+
+  getIdxCount(key) {
+    if (key === "ArrowUp") {
+      return -1;
+    }
+
+    if (key === "ArrowDown") {
+      return 1;
+    }
   }
 
   searchInputArrow(key) {
@@ -44,4 +52,4 @@ class HeaderKeyboadManager {
   }
 }
 
-export { HeaderKeyboadManager };
+export { KeyboadManager };

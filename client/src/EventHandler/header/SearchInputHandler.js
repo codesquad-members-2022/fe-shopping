@@ -1,59 +1,63 @@
+import { FetchDataManager } from "../managers/DataManager.js";
+import { HistoryManager } from "../managers/HistoryManager.js";
+import { KeyboadManager } from "../managers/KeyboardManager.js";
+
 class SearchInputEventHandler {
-  constructor(dom, router, historyManager, keyboardManager) {
-    this.targetDom = dom;
-    this.router = router;
-    this.historyManager = historyManager;
-    this.keyboardManager = keyboardManager;
+  constructor(store, observer) {
+    this.store = store;
+    this.inputObserver = observer;
+    this.dataManager = new FetchDataManager();
+    this.historyManager = new HistoryManager();
+    this.keyboardManager = new KeyboadManager();
   }
 
   init() {
-    this.addFocusEvent();
-    this.addInputEvent();
-    this.addSpecialKeyEvent();
+    this.store.searchView.focusSearchZone = this.focusSearchZone.bind(this);
+    this.store.searchView.inputSearchZone = this.inputSearchZone.bind(this);
+    this.store.searchView.inputSpecialKey = this.inputSpecialKey.bind(this);
+    this.store.searchView.init();
   }
 
-  addFocusEvent() {
-    this.targetDom.addEventListener("focus", () => this.onFocusEvent());
-  }
-
-  addInputEvent() {
-    this.targetDom.addEventListener("input", (event) =>
-      this.onInputEvent(event)
-    );
-  }
-
-  addSpecialKeyEvent() {
-    this.targetDom.addEventListener("keydown", (event) => {
-      const {
-        key,
-        target: { value },
-      } = event;
-
-      if (key === "Enter") {
-        event.preventDefault();
-        const localData = this.historyManager.addData2localStorage(value);
-        const fitData = this.historyManager.fitHistorySize(localData);
-        this.historyManager.observer.notify(fitData);
-        return;
-      }
-
-      if (key === "ArrowUp" || key === "ArrowDown") {
-        this.keyboardManager.searchInputArrow(key);
-      }
-    });
-  }
-
-  async onInputEvent({ target: { value } }) {
-    const uri = `search/${value}`; // 추후 util폴더 constants로 추가할 예정
-    const autoCompleteData = await this.router.setAutoCompleteData(uri);
-    this.router.observer.notify(autoCompleteData);
-  }
-
-  onFocusEvent() {
+  focusSearchZone() {
     const localdata = this.historyManager.getLocalHistory();
-    const fitData = this.historyManager.fitHistorySize(localdata);
-    this.historyManager.observer.notify(fitData);
-    // controller에 옵저버를 등록하고 사용할지(보기 편할것같아) historyManager에 등록하고 사용할지 고민하다 Data변화를 관측한다는 의미에서 historyManager에 observer를 등록했습니다.
+    this.inputObserver.notify("incomeWholeSearchHistoryData", localdata);
+  }
+
+  async inputSearchZone({ target: { value } }) {
+    if (!value) return;
+    const autoCompleteUri = `search/${value}`; // 추후 util폴더 constants로 추가할 예정
+    const autoCompleteData = await this.dataManager.getFetchData(
+      autoCompleteUri
+    );
+
+    if (autoCompleteData.length === 0) {
+      return;
+    }
+
+    this.inputObserver.notify("incomeAutoCompleteData", autoCompleteData);
+  }
+
+  inputSpecialKey({ event, toggleList }) {
+    const {
+      key,
+      target: { value },
+    } = event;
+
+    if (key === "Enter") {
+      event.preventDefault();
+      this.historyManager.addData2localStorage(value);
+      const newHistory = this.historyManager.getLocalHistory();
+      this.inputObserver.notify("incomeNewHistory", newHistory);
+      return;
+    }
+
+    if (key === "ArrowUp" || key === "ArrowDown") {
+      const plusOrMinus = this.keyboardManager.getIdxCount(key);
+      this.inputObserver.notify("incomeHilightCount", {
+        plusOrMinus,
+        toggleList,
+      });
+    }
   }
 }
 

@@ -1,13 +1,12 @@
-class HeaderHistoryPatcher {
-  constructor(observer) {
+class HistoryManager {
+  constructor() {
     this.historyStorage = new Set(
       JSON.parse(localStorage.getItem("localSearchHistory")) // 로컬스토리지 볐다 할수있음
     );
-    this.observer = observer;
   }
 
   getLocalHistory() {
-    return this.historyStorage;
+    return [...this.historyStorage];
   }
 
   addData2localStorage(data) {
@@ -15,12 +14,8 @@ class HeaderHistoryPatcher {
       return;
     }
     this.historyStorage.add(data);
-
-    localStorage.setItem(
-      "localSearchHistory",
-      JSON.stringify([...this.historyStorage])
-    );
-    return this.historyStorage;
+    const fitData = this.fitHistorySize(this.historyStorage);
+    localStorage.setItem("localSearchHistory", JSON.stringify([...fitData]));
   }
 
   fitHistorySize(data) {
@@ -39,4 +34,4 @@ class HeaderHistoryPatcher {
   }
 }
 
-export { HeaderHistoryPatcher };
+export { HistoryManager };
