@@ -273,8 +273,9 @@ body {
         display: block;
         width: 180px;
         height: 60px;
+        font-size: 0;
         z-index: 3; }
-        .main-banner .banner-category .category-item .category-link:hover {
+        .main-banner .banner-category .category-item .category-link.focus {
           border: 2px solid #4285f4; }
       .main-banner .banner-category .category-item img {
         position: absolute;

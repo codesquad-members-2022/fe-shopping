@@ -304,9 +304,10 @@ body {
         display: block;
         width: 180px;
         height: 60px;
+        font-size: 0;
         z-index: 3;
 
-        &:hover {
+        &.focus {
           border: 2px solid $bg-highlight;
         }
       }
