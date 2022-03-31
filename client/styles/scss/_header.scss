@@ -16,7 +16,7 @@
   }
 
   span {
-    font-size: $font-size-14;
+    font-size: $font-size-small;
   }
 }
 
@@ -28,7 +28,7 @@
     @extend %flex-row;
 
     justify-content: flex-start;
-    font-size: $font-size-14;
+    font-size: $font-size-small;
   
     li {
       padding: 7px 14px;
@@ -81,7 +81,7 @@
   li {
     @extend %flex-col;
     padding: 0 14px;
-    font-size: $font-size-12;
+    font-size: $font-size-tiny;
     cursor: pointer;
 
     .material-icons {
@@ -101,7 +101,7 @@
 
     margin-right: 20px;
     border: 3px solid $point-color; 
-    font-size: $font-size-14;
+    font-size: $font-size-small;
   }
 }
 
@@ -153,7 +153,7 @@
   display: none;
   
   li {
-    font-size: $font-size-12;
+    font-size: $font-size-tiny;
   }
   
   a:hover {
@@ -184,7 +184,7 @@
     padding: $list-padding;
     border-bottom: 1px solid $gray-color;
     font-weight: 600;
-    font-size: $font-size-12;
+    font-size: $font-size-tiny;
   }
 
   ul {
@@ -198,7 +198,7 @@
     @extend %flex-row;
     width: 100%;
     padding-bottom: $list-padding;
-    font-size: $font-size-12;
+    font-size: $font-size-tiny;
 
     a {
       width: 90%;
