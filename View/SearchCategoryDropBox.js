@@ -1,8 +1,5 @@
-import Element from "./Element.js";
-
-class SearchCategoryDropBox extends Element {
+class SearchCategoryDropBox {
   constructor() {
-    super();
     this.$search__categories__container = null;
   }
 
@@ -11,7 +8,7 @@ class SearchCategoryDropBox extends Element {
   }
 
   render() {
-    this.$search__categories__container.style.visibility = "hidden";
+    this.$search__categories__container.classList.toggle("hidden");
   }
 }
 

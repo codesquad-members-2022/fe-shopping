@@ -1,3 +1,4 @@
+// Todo: 추후 MV패턴 적용하기
 export default function carousel({ slides, selector }) {
   const liCount = slides.childElementCount;
   let slideOrder = 1;

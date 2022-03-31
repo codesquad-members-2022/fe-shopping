@@ -1,20 +1,20 @@
-import Element from "./Element.js";
 import { targetQuerySelector } from "../util/util.js";
 
-class SearchCategory extends Element {
+class SearchCategory {
   constructor() {
-    super();
     this.$selected__category = targetQuerySelector({
       className: "selected__category",
     });
   }
 
   onClickSearchCategory({ handleClickSearchCatgory }) {
-    handleClickSearchCatgory();
+    document.addEventListener("click", ({ target }) => {
+      handleClickSearchCatgory(target);
+    });
   }
 
-  render() {
-    this.$selected__category.innerText = this.state;
+  render(selectedCategory) {
+    this.$selected__category.innerText = selectedCategory;
   }
 }
 

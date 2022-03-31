@@ -1,18 +1,15 @@
-import Element from "./Element.js";
 import { targetQuerySelector } from "../util/util.js";
 
-class SearchBar extends Element {
+class SearchBar {
   constructor() {
-    super();
     this.$search = targetQuerySelector({
       className: "search",
     });
   }
 
-  onFocusInput({ dropDown }) {
+  onFocusInput({ handleFocusInput }) {
     this.$search.addEventListener("focus", (event) => {
-      const hasDropBox = true;
-      dropDown(hasDropBox);
+      handleFocusInput();
     });
   }
 
@@ -20,8 +17,11 @@ class SearchBar extends Element {
     handleChangeInput();
   }
 
-  render() {
-    const { keyword } = this.state;
+  onKeyupKeywords({ handleKeyupKeywords }) {
+    handleKeyupKeywords();
+  }
+
+  render({ keyword }) {
     this.$search.value = keyword;
   }
 }
