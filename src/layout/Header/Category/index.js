@@ -1,16 +1,13 @@
-import HtmlElement from '../../../utils/HtmlElement.js';
-import {
-  findTargetIdElement,
-  handleDisplayElement,
-} from '../../../utils/manuplateDOM.js';
+import HtmlElement from '../../../core/HtmlElement.js';
 import { POP_UP } from '../../../constant.js';
+import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../../utils/manuplateDOM.js';
 
-export default function Category($element) {
-  HtmlElement.call(this, $element);
+export default function Category({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
-Category.prototype = Object.create(HtmlElement.prototype);
-Category.prototype.constructor = Category;
+setInheritance({ parent: HtmlElement, child: Category });
 
 Category.prototype.setTemplate = function () {
   return template;
@@ -19,18 +16,6 @@ Category.prototype.setTemplate = function () {
 Category.prototype.setEvent = function () {
   this.$element.addEventListener('click', handleClick.bind(this));
 };
-
-function handleClick({ target }) {
-  const $categoryButton = target.closest('.category__button');
-  if ($categoryButton) {
-    handleCategoryButton.apply(this);
-  }
-}
-
-function handleCategoryButton() {
-  const $categoryLayer = findTargetIdElement(this.$element, 'category-layer');
-  handleDisplayElement($categoryLayer);
-}
 
 const mainCategoryList = [
   '패션의류/잡화',

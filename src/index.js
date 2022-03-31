@@ -1,9 +1,10 @@
 import Root from './layout/root.js';
-import { findTargetIdElement } from './utils/manuplateDOM.js';
 
-const $root = findTargetIdElement(document, 'root');
+const $rootWrapper = document.getElementById('root');
 
 function init() {
-  new Root($root);
+  const $root = new Root({ $element: $rootWrapper });
+  $root.init();
 }
-window.addEventListener('DOMContentLoaded', init);
+// window.addEventListener('DOMContentLoaded', init);
+init();

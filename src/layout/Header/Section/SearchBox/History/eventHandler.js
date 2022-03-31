@@ -1,4 +1,3 @@
-import EventHandler from '../../../../../utils/EventHandler.js';
 import { SEARCH_BOX } from '../../../../../constant.js';
 import { moveToSearchTermPage } from '../../../../../router.js';
 import { myLocalStorage } from '../../../../../utils/mockDB.js';
@@ -12,18 +11,7 @@ const {
   },
 } = SEARCH_BOX;
 
-const eventHandler = new EventHandler();
-
-eventHandler.setSubLogic({
-  deleteAllTerm,
-  deleteTargetTerm,
-});
-
-eventHandler.setCoreHandler({
-  handleClick,
-});
-
-function handleClick({ target }) {
+export function handleClick({ target }) {
   const {
     dataset: { clickType },
   } = target;
@@ -43,7 +31,9 @@ function handleClick({ target }) {
 
 function deleteAllTerm() {
   myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, []);
-  this.setState({ histroyList: [] });
+  this.interface.setStateToStore({
+    newState: { histroyList: [] },
+  });
 }
 
 function deleteTargetTerm(target) {
@@ -53,7 +43,7 @@ function deleteTargetTerm(target) {
   } = target.closest('li');
   updatedHistroyList.splice(targetTermId, 1);
   myLocalStorage.set(HISTORY_LOCAL_STORAGE_KEY, updatedHistroyList);
-  this.setState({ histroyList: updatedHistroyList });
+  this.interface.setStateToStore({
+    newState: { histroyList: updatedHistroyList },
+  });
 }
-
-export default eventHandler;

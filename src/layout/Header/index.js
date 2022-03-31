@@ -1,14 +1,12 @@
-import HtmlElement from '../../utils/HtmlElement.js';
-import { findTargetClassElement } from '../../utils/manuplateDOM.js';
+import HtmlElement from '../../core/HtmlElement.js';
+import { setInheritance } from '../../utils/manuplateDOM.js';
 import Category from './Category/index.js';
 import Section from './Section/index.js';
 
-export default function Header($element) {
-  HtmlElement.call(this, $element);
+export default function Header({ $element }) {
+  HtmlElement.call(this, { $element });
 }
-
-Header.prototype = Object.create(HtmlElement.prototype);
-Header.prototype.constructor = Header;
+setInheritance({ parent: HtmlElement, child: Header });
 
 Header.prototype.setTemplate = function () {
   return `
@@ -18,8 +16,10 @@ Header.prototype.setTemplate = function () {
 };
 
 Header.prototype.renderChild = function () {
-  const $category = findTargetClassElement(this.$element, 'category');
-  const $section = findTargetClassElement(this.$element, 'section');
-  new Category($category);
-  new Section($section);
+  const $categoryWrapper = this.$element.querySelector('.category');
+  const $sectionWrapper = this.$element.querySelector('.section');
+  const $category = new Category({ $element: $categoryWrapper });
+  const $section = new Section({ $element: $sectionWrapper });
+  $category.init();
+  $section.init();
 };

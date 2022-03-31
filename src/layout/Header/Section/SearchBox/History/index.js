@@ -1,28 +1,33 @@
-import HtmlElement from '../../../../../utils/HtmlElement.js';
-import { SEARCH_BOX } from '../../../../../constant.js';
-import eventHandler from './eventHandler.js';
+import HtmlElement from '../../../../../core/HtmlElement.js';
+import { POP_UP, SEARCH_BOX } from '../../../../../constant.js';
+import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../../../../utils/manuplateDOM.js';
 
 const {
   HISTORY: { HISTORY_DELETE, HISTORY_ACTIVE, HISTORY_DELETE__ALL },
 } = SEARCH_BOX;
 
-export default function HistoryList($element, args) {
-  HtmlElement.call(this, $element, args);
+export default function HistoryList({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
-HistoryList.prototype = Object.create(HtmlElement.prototype);
-HistoryList.prototype.constructor = HistoryList;
+setInheritance({ parent: HtmlElement, child: HistoryList });
 
-HistoryList.prototype.init = function () {
+HistoryList.prototype.beforeRender = function () {
   this.state = {
-    ...this.args,
+    ...this.interface.getStatefromStore({
+      histroyList: null,
+      activeHistory: null,
+      showHistroy: null,
+    }),
   };
-  this.eventHandler = eventHandler;
 };
 
 HistoryList.prototype.setTemplate = function () {
-  const { histroyList, activeHistory } = this.state;
+  const { histroyList, activeHistory, showHistroy } = this.state;
   const isActive = (idx) => (idx === activeHistory ? 'active__term' : '');
+  this.$element.classList.remove(!showHistroy ? POP_UP.show : POP_UP.hidden);
+  this.$element.classList.add(showHistroy ? POP_UP.show : POP_UP.hidden);
   return `
 <h5>최근 검색어</h5>
 <ul id="histroyList">
@@ -47,8 +52,5 @@ HistoryList.prototype.setTemplate = function () {
 };
 
 HistoryList.prototype.setEvent = function () {
-  const {
-    coreHandler: { handleClick },
-  } = this.eventHandler;
   this.$element.addEventListener('click', handleClick.bind(this));
 };

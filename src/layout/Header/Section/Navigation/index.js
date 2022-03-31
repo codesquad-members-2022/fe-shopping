@@ -1,10 +1,10 @@
-import HtmlElement from '../../../../utils/HtmlElement.js';
+import HtmlElement from '../../../../core/HtmlElement.js';
+import { setInheritance } from '../../../../utils/manuplateDOM.js';
 
-export default function Navigation(htmlTag, $parent) {
-  HtmlElement.call(this, htmlTag, $parent);
+export default function Navigation({ $element }) {
+  HtmlElement.call(this, { $element });
 }
-Navigation.prototype = Object.create(HtmlElement.prototype);
-Navigation.prototype.constructor = Navigation;
+setInheritance({ parent: HtmlElement, child: Navigation });
 
 Navigation.prototype.setTemplate = function () {
   return template;

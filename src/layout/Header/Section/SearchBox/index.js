@@ -1,98 +1,46 @@
-import HtmlElement from '../../../../utils/HtmlElement.js';
+import HtmlElement from '../../../../core/HtmlElement.js';
 import AutoComplete from './AutoComplete/index.js';
 import HistoryList from './History/index.js';
 import ScopeSelector from './ScopeSelector/index.js';
-import { myLocalStorage } from '../../../../utils/mockDB.js';
+import { POP_UP } from '../../../../constant.js';
 import {
-  findTargetClassElement,
-  findTargetIdElement,
-} from '../../../../utils/manuplateDOM.js';
-import { POP_UP, SEARCH_BOX } from '../../../../constant.js';
-import eventHandler from './eventHandler.js';
+  handleSubmit,
+  handleInputClick,
+  handleInputKeyDown,
+  handleInput,
+} from './eventHandler.js';
+import { setInheritance } from '../../../../utils/manuplateDOM.js';
 
-const {
-  INPUT_DEFAULT,
-  HISTORY: { HISTORY_LOCAL_STORAGE_KEY },
-} = SEARCH_BOX;
-
-export default function SearchBox($element) {
-  HtmlElement.call(this, $element);
+export default function SearchBox({ $element }) {
+  HtmlElement.call(this, { $element });
 }
-SearchBox.prototype = Object.create(HtmlElement.prototype);
-SearchBox.prototype.constructor = SearchBox;
 
-SearchBox.prototype.init = function () {
-  this.state = {
-    activeHistory: INPUT_DEFAULT,
-    activeAutoTerm: INPUT_DEFAULT,
-    showHistroy: true,
-    option: '전체',
-    inputValue: '',
-    histroyList: myLocalStorage.get(HISTORY_LOCAL_STORAGE_KEY) || [],
-    autoSearchList: [],
-  };
-  this.eventHandler = eventHandler;
-};
+setInheritance({ parent: HtmlElement, child: SearchBox });
 
 SearchBox.prototype.setTemplate = function () {
   return template;
 };
 
 SearchBox.prototype.renderChild = function () {
-  const {
-    option,
-    histroyList,
-    autoSearchList,
-    inputValue,
-    activeAutoTerm,
-    activeHistory,
-  } = this.state;
-  const {
-    coreHandler: { changeSearchOption },
-  } = this.eventHandler;
-  const $scopeSelector = findTargetClassElement(
-    this.$element,
-    'search__selector'
-  );
-  const $searchRecord = findTargetClassElement(this.$element, 'search__record');
-  const $searchAuto = findTargetClassElement(this.$element, 'search__auto');
-  this.$ScopeSelector = new ScopeSelector($scopeSelector, {
-    option,
-    changeSearchOption: changeSearchOption.bind(this),
-  });
-  this.$HistoryList = new HistoryList($searchRecord, {
-    option,
-    histroyList,
-    activeHistory,
-  });
-  this.$AutoComplete = new AutoComplete($searchAuto, {
-    autoSearchList,
-    inputValue,
-    activeAutoTerm,
+  const $scopeSelectorWrapper =
+    this.$element.querySelector('.search__selector');
+  const $historyWrapper = this.$element.querySelector('.search__record');
+  const $autoWrapper = this.$element.querySelector('.search__auto');
+  const $scopeSelector = new ScopeSelector({ $element: $scopeSelectorWrapper });
+  const $historyList = new HistoryList({ $element: $historyWrapper });
+  const $autoComplete = new AutoComplete({ $element: $autoWrapper });
+  this.interface.addElement({
+    newElements: { $scopeSelector, $historyList, $autoComplete },
   });
 };
 
 SearchBox.prototype.setEvent = function () {
-  const {
-    coreHandler: {
-      handleSubmit,
-      handleInputClick,
-      handleInputKeyDown,
-      handleInput,
-    },
-  } = this.eventHandler;
-  this.$form = findTargetIdElement(this.$element, 'searhForm');
-  this.$input = findTargetIdElement(this.$form, 'searchInput');
+  this.$form = this.$element.querySelector('#searhForm');
+  this.$input = this.$element.querySelector('#searchInput');
   this.$form.addEventListener('submit', handleSubmit.bind(this));
   this.$input.addEventListener('click', handleInputClick.bind(this));
   this.$input.addEventListener('keydown', handleInputKeyDown.bind(this));
   this.$input.addEventListener('input', handleInput.bind(this));
-};
-
-SearchBox.prototype.setState = function (newState) {
-  this.state = { ...this.state, ...newState };
-  //값이 바뀔 때마다 자식 전체를 리렌더링하지 않고 바뀐 값을 쓰는 자식만 리렌더링하기
-  // this.renderChild();
 };
 
 const template = ` <div class="search__selector pop-up-container"></div>

@@ -1,17 +1,14 @@
-import HtmlElement from '../../../utils/HtmlElement.js';
-import {
-  findTargetClassElement,
-  findTargetIdElement,
-} from '../../../utils/manuplateDOM.js';
+import searchBoxStore from './SearchBox/store.js';
+import HtmlElement from '../../../core/HtmlElement.js';
+import { initInferface, setInheritance } from '../../../utils/manuplateDOM.js';
 import Navigation from './Navigation/index.js';
 import SearchBox from './SearchBox/index.js';
 
-export default function Section($element) {
-  HtmlElement.call(this, $element);
+export default function Section({ $element }) {
+  HtmlElement.call(this, { $element });
 }
 
-Section.prototype = Object.create(HtmlElement.prototype);
-Section.prototype.constructor = Section;
+setInheritance({ parent: HtmlElement, child: Section });
 
 Section.prototype.setTemplate = function () {
   return `
@@ -25,14 +22,16 @@ Section.prototype.setTemplate = function () {
 };
 
 Section.prototype.renderChild = function () {
-  const $gnb = findTargetClassElement(this.$element, 'gnb');
-  const $searchBox = findTargetClassElement(this.$element, 'search');
-  new SearchBox($searchBox);
-  new Navigation($gnb);
+  const $gnbWrapper = this.$element.querySelector('.gnb');
+  const $searchBoxWrapper = this.$element.querySelector('.search');
+  const $gnb = new Navigation({ $element: $gnbWrapper });
+  const $searchBox = new SearchBox({ $element: $searchBoxWrapper });
+  $gnb.init();
+  initInferface({ elements: { $searchBox }, store: searchBoxStore });
 };
 
 Section.prototype.setEvent = function () {
-  const $logo = findTargetIdElement(this.$element, 'main-logo');
+  const $logo = this.$element.querySelector('#main-logo');
   $logo.addEventListener('click', BackToHome);
 };
 

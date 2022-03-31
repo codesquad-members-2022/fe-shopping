@@ -1,30 +1,20 @@
-import HtmlElement from '../../../../../utils/HtmlElement.js';
+import HtmlElement from '../../../../../core/HtmlElement.js';
 import { POP_UP } from '../../../../../constant.js';
-import eventHandler from './eventHandler.js';
+import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../../../../utils/manuplateDOM.js';
 
-export default function ScopeSelector($element, args) {
-  HtmlElement.call(this, $element, args);
+export default function ScopeSelector($element) {
+  HtmlElement.call(this, $element);
 }
 
-ScopeSelector.prototype = Object.create(HtmlElement.prototype);
-ScopeSelector.prototype.constructor = ScopeSelector;
-
-ScopeSelector.prototype.init = function () {
-  this.state = {
-    ...this.args,
-  };
-  this.eventHandler = eventHandler;
-};
+setInheritance({ parent: HtmlElement, child: ScopeSelector });
 
 ScopeSelector.prototype.setTemplate = function () {
-  const { option } = this.state;
+  const { option } = this.interface.getStatefromStore({ option: null });
   return template(option);
 };
 
 ScopeSelector.prototype.setEvent = function () {
-  const {
-    coreHandler: { handleClick },
-  } = this.eventHandler;
   this.$element.addEventListener('click', handleClick.bind(this));
 };
 
