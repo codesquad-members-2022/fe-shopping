@@ -222,6 +222,7 @@ h2 {
   background-color: #fff;
   left: 130px;
   width: 370px;
+  z-index: 1;
 }
 
 .search__recent-list--name {
@@ -268,6 +269,7 @@ h2 {
   width: 370px;
   height: 330px;
   font-size: 1.3rem;
+  z-index: 1;
 }
 
 .arrow--up {

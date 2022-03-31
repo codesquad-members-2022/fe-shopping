@@ -12,7 +12,7 @@ export default class Search {
         this.relatedSearchList = relatedSearchList;
         this.searchCategory = searchCategory;
 
-        this.debounce = this.initDebounce();
+        this.inputDebounce = this.initDebounce({ delay: 500 });
     }
 
     setEventHandler() {
@@ -40,9 +40,8 @@ export default class Search {
         this.searchInput.view.initEvent();
     }
 
-    initDebounce() {
-        const DELAY = 500;
-        return debounce(DELAY);
+    initDebounce({ delay }) {
+        return debounce(delay);
     }
 
     noneSearchbarClickEventHandler({ target }) {
@@ -103,7 +102,7 @@ export default class Search {
             this.relatedSearchList.hide();
         }
 
-        this.debounce().then(() => this.getRelatedWords());
+        this.inputDebounce().then(() => this.getRelatedWords());
     }
 
     updateRecentSearchList() {
