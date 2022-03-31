@@ -1,16 +1,13 @@
-import SmartMenuView from '../view/SmartMenuView.js';
-import SmartMenuModel from '../model/SmartMenuModel.js';
+import SmartMenuView from '../view/smartmenuview.js';
+import SmartMenuModel from '../model/smartmenumodel.js';
 
 export default class SmartMenuController {
   constructor() {
-    this.smartMenuView = new SmartMenuView();
-    this.smartMenuModel = new SmartMenuModel();
+    this.smartmenuView = new SmartMenuView();
+    this.smartmenuModel = new SmartMenuModel();
   }
 
   init() {
-    this.smartMenuView.init('.header-gnb');
-    // Array.from(document.querySelectorAll('.header-lnb-first__link')).forEach(
-    //   (e) => console.log(e.dataset.secondList)
-    // );
+    this.smartmenuView.init('.header-gnb');
   }
 }

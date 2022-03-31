@@ -1,12 +1,8 @@
 @import 'reset';
-@import 'utils';
-@import './template/bar';
 @import './template/header';
 @import './template/carousel';
-@import './template/category';
-@import './template/search-recent';
-@import './template/search-auto';
-@import './template/megadropdown';
+@import './template/search';
+@import './template/smartmenu';
 
 .container {
   margin: 0 auto;

@@ -1,71 +1,83 @@
-export default class SmartMenuView {
-  constructor() {}
+import View from './view.js';
 
+export default class SmartMenuView extends View {
   init(el) {
-    this.el = document.querySelector(el);
+    super.init(el);
     this.lnbFirstList = this.el.querySelector('.header-lnb-first__list');
-    this.lnbSecondList = this.el.querySelectorAll('.header-lnb-second__list');
+    this.lnbSecondListAll = this.el.querySelectorAll(
+      '.header-lnb-second__list'
+    );
+    this.lnbThirdListAll = this.el.querySelectorAll('.header-lnb-third__list');
     this.setUp();
   }
 
   setUp() {
     this.hide(this.lnbFirstList);
-    this.lnbSecondList.forEach((e) => this.hide(e));
+    this.lnbSecondListAll.forEach((e) => this.hide(e));
+    this.lnbThirdListAll.forEach((e) => this.hide(e));
     this.bindEvents();
   }
 
   bindEvents() {
-    this.el.addEventListener('mouseover', ({ target }) => {
-      this.debounce(this.showFirstLnb.bind(this), 100, target);
+    const DEBOUNCE_TIME = 50;
+
+    this.el.addEventListener('mouseenter', () => {
+      this.debounce(this.showFirstLnb.bind(this), DEBOUNCE_TIME);
     });
 
-    // this.el.addEventListener('mouseout', ({ target }) => {
-    //   this.debounce(this.hideFirstLnb.bind(this), 100, target);
-    // });
+    this.el.addEventListener('mouseleave', () => {
+      this.debounce(this.hideFirstLnb.bind(this), DEBOUNCE_TIME);
+      this.debounce(this.hideSecondLnb.bind(this), DEBOUNCE_TIME);
+    });
 
-    // this.lnbFirstList.addEventListener('mouseover', (e) => {
-    //   this.debounce(this.checkMouseOverEl.bind(this), 100, e.target);
-    // });
+    this.lnbFirstList.addEventListener('mouseover', ({ target }) => {
+      this.debounce(this.showSecondLnb.bind(this), DEBOUNCE_TIME, target);
+    });
+
+    this.lnbSecondListAll.forEach((e) => {
+      e.addEventListener('mouseover', ({ target }) => {
+        this.debounce(this.showThirdLnb.bind(this), DEBOUNCE_TIME, target);
+      });
+
+      e.addEventListener('mouseleave', () => {
+        this.debounce(this.hideThirdLnb.bind(this), DEBOUNCE_TIME);
+      });
+    });
   }
 
-  showFirstLnb(target) {
+  showFirstLnb() {
     this.show(this.lnbFirstList);
-    this.checkMouseOverEl(target);
-  }
-
-  checkMouseOverEl(target) {
-    // this.lnbSecondList.forEach((e) => this.hide(e));
-    const lnbSecondEl = Array.from(this.lnbSecondList).filter((e) => {
-      if (e.dataset.secondList === target.dataset.secondList) return e;
-    });
-    if (lnbSecondEl.length) this.show(...lnbSecondEl);
   }
 
   hideFirstLnb() {
     this.hide(this.lnbFirstList);
   }
 
-  showSecondLnb() {
-    this.show(this.lnbFirstList);
+  showSecondLnb(target) {
+    if (target.classList.contains('header-lnb-first__link')) {
+      this.lnbSecondListAll.forEach((e) => {
+        if (e.dataset.secondList === target.dataset.secondList) this.show(e);
+        else this.hide(e);
+      });
+    }
   }
 
-  debounce(func, time, target = false) {
-    let debounceTimer;
-
-    return (() => {
-      if (debounceTimer) clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        if (!target) func();
-        else func(target);
-      }, time);
-    })();
+  hideSecondLnb() {
+    this.lnbSecondListAll.forEach((e) => this.hide(e));
   }
 
-  show(el) {
-    Object.assign(el.style, { display: 'block' });
+  showThirdLnb(target) {
+    if (target.classList.contains('header-lnb-second__link')) {
+      this.lnbThirdListAll.forEach((el) => {
+        if (el.dataset.thirdList === target.dataset.thirdList) this.show(el);
+        else this.hide(el);
+      });
+    }
   }
 
-  hide(el) {
-    Object.assign(el.style, { display: 'none' });
+  hideThirdLnb() {
+    this.lnbThirdListAll.forEach((e) => {
+      this.hide(e);
+    });
   }
 }

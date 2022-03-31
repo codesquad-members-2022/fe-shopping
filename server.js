@@ -12,24 +12,16 @@ app.get('/carousel/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/carousel.json'));
 });
 
-app.get('/category/data', (req, res) => {
+app.get('/search/category/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/category.json'));
 });
 
-app.get('/search/data', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/json/search.json'));
-});
-
-app.get('/search/eeung/data', (req, res) => {
+app.get('/search/input/eeung/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/search-eeung.json'));
 });
 
-app.get('/search/ah/data', (req, res) => {
+app.get('/search/input/ah/data', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/json/search-ah.json'));
-});
-
-app.get('/menu/data', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/json/SmartMenu.json'));
 });
 
 const port = 3000;
