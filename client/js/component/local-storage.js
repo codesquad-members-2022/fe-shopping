@@ -4,11 +4,7 @@ export const getLocalStorageForArray = (key) => {
 };
 
 export const setLocalStorageForArray = (key, value) => {
-  const curLocalStorage = getLocalStorageForArray(key);
-
-  if (curLocalStorage.includes(value)) {
-    return;
-  }
+  const curLocalStorage = getLocalStorageForArray(key).filter((history) => history !== value);
   if (curLocalStorage.length >= 10) {
     curLocalStorage.shift();
   }

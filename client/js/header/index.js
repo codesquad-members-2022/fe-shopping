@@ -1,11 +1,7 @@
-import { HeaderMain } from "./header-main.js";
-import { TopBar } from "./top-bar.js";
+import Controller from "./Controller.js";
 
 const header = () => {
-  const topBar = new TopBar();
-  const headerMain = new HeaderMain();
-  topBar.render();
-  headerMain.render();
+  new Controller();
 };
 
 export { header };
