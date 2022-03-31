@@ -14,25 +14,23 @@ export async function getCompleteData(consonant) {
   return completeData;
 }
 
-export function throttle(callback, wait) {
-  let waiting = true;
-  return function (...args) {
-    if (waiting) {
-      callback(...args);
-      waiting = false;
-      setTimeout(() => {
-        waiting = true;
-      }, wait);
-    }
-  };
-}
-
-export function debounce(callback, wait) {
+export const throttle = (callback, wait) => {
   let waiting;
-  return function (...args) {
-    clearTimeout(waiting);
+  return (event) => {
+    if (waiting) return;
     waiting = setTimeout(() => {
-      callback(args);
+      callback(event);
+      waiting = null;
     }, wait);
   };
-}
+};
+
+export const debounce = (callback, wait) => {
+  let waiting;
+  return (event) => {
+    if (waiting) {
+      clearTimeout(waiting);
+    }
+    waiting = setTimeout(callback, wait, event);
+  };
+};

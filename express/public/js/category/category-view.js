@@ -1,4 +1,4 @@
-import { $, $$ } from '../utility/util.js';
+import { $, debounce } from '../utility/util.js';
 
 export default class ViewController {
   constructor() {
@@ -11,7 +11,7 @@ export default class ViewController {
 
   addCategoryMouseEvent() {
     const $category = $('.category');
-    $category.addEventListener('mouseenter', this.presenter.makeFirstContents);
+    $category.addEventListener('mouseenter', debounce(this.presenter.makeFirstContents, 300));
   }
 
   showFirstContent(firstContentTemplate) {
@@ -21,40 +21,71 @@ export default class ViewController {
   }
 
   addFirstContentMouseEvent() {
-    const firstLists = $$('.firstContent');
-
-    firstLists.forEach((list) => {
-      list.addEventListener('mouseenter', this.presenter.makeSecondContents);
-      list.addEventListener('mouseleave', this.noShowFirstMenu);
-    });
+    const $firstMenu = $('.shopping-popup-first-list');
+    $firstMenu.addEventListener('mouseover', debounce(this.presenter.makeSecondContents, 300));
+    $firstMenu.addEventListener('mouseout', this.noShowFirstMenu);
   }
 
   noShowFirstMenu = ({ relatedTarget }) => {
-    if (relatedTarget.tagName === 'BUTTON') {
-      this.addSecondContentMouseEvent();
+    if (relatedTarget.className === 'firstContent' || relatedTarget.className === 'secondContent') {
       return;
     }
-    $('.shopping-popup-second-list').innerHTML = '';
-    $('.shopping-popup-first-list').innerHTML = '';
+
+    this.hideAllList();
   };
 
   showSecondContent(secondContentTemplate) {
     const $secondMenu = $('.shopping-popup-second-list');
     $secondMenu.innerHTML = secondContentTemplate;
-    $('.shopping-popup-third-list').innerHTML = '';
     this.addSecondContentMouseEvent();
   }
 
   addSecondContentMouseEvent() {
-    const secondLists = $$('.secondContent');
-
-    secondLists.forEach((list) => {
-      list.addEventListener('mouseenter', this.presenter.makeThirdContents);
-    });
+    const $secondMenu = $('.shopping-popup-second-list');
+    $secondMenu.addEventListener('mouseover', debounce(this.presenter.makeThirdContents, 300));
+    $secondMenu.addEventListener('mouseout', this.noShowSecondMenu);
   }
+
+  noShowSecondMenu = ({ relatedTarget }) => {
+    if (relatedTarget.className === 'secondContent' || relatedTarget.className === 'thirdContent')
+      return;
+
+    if (relatedTarget.className === 'firstContent') {
+      this.hiddenSmartCategory('.shopping-popup-third-list');
+      return;
+    }
+    this.hideAllList();
+  };
 
   showThirdContent(thirdContentTemplate) {
     const $thirdMenu = $('.shopping-popup-third-list');
     $thirdMenu.innerHTML = thirdContentTemplate;
+  }
+
+  addThirdContentMouseEvent() {
+    const thirdMenu = $('.shopping-popup-third-list');
+    thirdMenu.addEventListener('mouseout', this.noShowThirdMenu);
+  }
+
+  noShowThirdMenu({ relatedTarget }) {
+    if (relatedTarget.className === 'secondContent' || relatedTarget.className === 'thirdContent')
+      return;
+
+    this.hideAllList();
+  }
+
+  hideAllList() {
+    this.hiddenSmartCategory(
+      '.shopping-popup-first-list',
+      '.shopping-popup-second-list',
+      '.shopping-popup-third-list'
+    );
+  }
+
+  hiddenSmartCategory(...args) {
+    for (const classList of [...args]) {
+      let list = $(classList);
+      list.innerHTML = '';
+    }
   }
 }

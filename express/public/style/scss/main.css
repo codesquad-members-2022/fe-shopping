@@ -135,6 +135,7 @@ input:focus {
   width: 110px;
   padding: 10px 0 5px 5px;
   background-color: #999;
+  border-bottom: 1px solid red;
 }
 
 .shopping-menu-list .shopping-popup-second-list {
@@ -151,6 +152,7 @@ input:focus {
   width: 110px;
   padding: 10px 0 5px 5px;
   background-color: #999;
+  border-bottom: 1px solid red;
 }
 
 .shopping-menu-list .shopping-popup-third-list {
@@ -167,6 +169,7 @@ input:focus {
   width: 110px;
   padding: 10px 0 5px 5px;
   background-color: #999;
+  border-bottom: 1px solid red;
 }
 
 .logo {
@@ -409,7 +412,6 @@ input:focus {
 
 .slide-section .image-box .image-container {
   position: absolute;
-  top: -400px;
 }
 
 .slide-section .image-box .image-container .image-element {

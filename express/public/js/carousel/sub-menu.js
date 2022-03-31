@@ -13,10 +13,6 @@ export default class SideMenu {
   };
 
   changeImage(selectNode) {
-    if (selectNode === this.container.firstElementChild) {
-      this.container.appendChild(selectNode);
-    }
-
-    this.container.insertBefore(selectNode, this.container.firstElementChild.nextElementSibling);
+    this.container.insertBefore(selectNode, this.container.firstElementChild);
   }
 }
