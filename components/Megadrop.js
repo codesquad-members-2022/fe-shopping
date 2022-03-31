@@ -14,10 +14,10 @@ export class Megadrop extends View {
   //3단 객체
   //
   template() {
-    const { layers, layerSelected, firstIdx, secondIdx } = this.state;
+    const { layers, layerSelected, firstIdx, secondIdx } = this.store.state;
     return `
         <h3></h3>
-        <ul class="shopping-layer" style=${
+        <ul class="shopping-list" style=${
           layerSelected ? "display:block" : "display:none"
         }>
         ${Object.entries(layers)
@@ -47,7 +47,7 @@ export class Megadrop extends View {
       ".layer.first",
       ({ target }) => {
         const idx = parseInt(target.closest("li[data-idx]").dataset.idx);
-        this.throttle(() => this.setState({ firstIdx: idx }), 100);
+        this.store.setState({ firstIdx: idx });
       },
       true
     );
@@ -56,7 +56,7 @@ export class Megadrop extends View {
       ".layer.second",
       ({ target }) => {
         const idx = parseInt(target.closest("li[data-idx]").dataset.idx);
-        this.throttle(() => this.setState({ secondIdx: idx }), 100);
+        this.store.setState({ secondIdx: idx });
       },
       true
     );
@@ -65,7 +65,7 @@ export class Megadrop extends View {
       ".layer.first",
       ({ relatedTarget }) => {
         if (relatedTarget.closest(".layer.first")) return false;
-        this.setState({ firstIdx: -1 });
+        this.store.setState({ firstIdx: -1 });
       },
       true
     );
@@ -74,7 +74,7 @@ export class Megadrop extends View {
       ".layer.second",
       ({ relatedTarget }) => {
         if (relatedTarget.closest(".layer.second")) return false;
-        this.setState({ secondIdx: -1 });
+        this.store.setState({ secondIdx: -1 });
       },
       true
     );

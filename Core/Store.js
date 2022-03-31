@@ -1,48 +1,45 @@
-import View from "./View";
-import { stateObj } from "../util";
+import {ModelVisitor} from "./Visitor.js";
+import {App} from "../app.js";
+import {EventHandler} from "./EventHandler.js";
 
-export class Store extends Map<string | symbol, Set<View>> {
-  static #state: stateObj;
-  state: stateObj;
-  static #storageKey: string = Symbol().toString();
-  static get storageKey(): string {
+export class Store extends Map {
+  #state = {};
+  state;
+  static #storageKey = Symbol().toString()
+  static get storageKey() {
     return this.#storageKey;
   }
 
   constructor(state = {}) {
     super();
-    Store.#state = this.observe(state);
-    this.state = new Proxy(state, {
-      get: (target, name) => Store.#state[name],
-    });
+    this.#state = this.observe(this.#state);
+    this.state = new Proxy(state, {get: (target, name) => this.#state[name]});
   }
 
-  addView(view: View) {
+  addView(view) {
     Object.entries(view.initState()).forEach(([key, value]) => {
-      Store.#state[key] = value;
+      this.#state[key] = value;
       this.subscribe(key, view);
     });
   }
 
-  subscribe(key: string | symbol, view: View) {
+  subscribe(key, view) {
     super.has(key)
-      ? // @ts-ignore
-        super.get(key).add(view)
-      : super.set(key, new Set<View>().add(view));
+        ? super.get(key).add(view)
+        : super.set(key, new Set().add(view));
   }
 
-  unsubscribe(key: string | symbol, view: View) {
+  unsubscribe(key, view) {
     if (!super.has(key)) return;
-    // @ts-ignore
     super.get(key).delete(view);
   }
 
-  observe(state: stateObj) {
+  observe(state) {
     // const isProxy = Symbol("isProxy");
     // if (name === isProxy) return true;
     // if (!prop.isProxy && typeof prop == "object")
     //   return new Proxy(prop, handler);
-    const handler: ProxyHandler<any> = {
+    const handler = {
       get: (target, name, receiver) => {
         const prop = Reflect.get(target, name, receiver);
         if (typeof prop === "undefined") return;
@@ -51,22 +48,20 @@ export class Store extends Map<string | symbol, Set<View>> {
       set: (target, name, value) => {
         if (target[name] == value) return true;
         Reflect.set(target, name, value);
-        if (super.has(name)) {
-          // @ts-ignore
+        if (super.has(name))
           super.get(name).forEach((view) => {
-            view.render();
+            view.setState({[name]: target[name]});
           });
-        }
         return true;
       },
     };
     return new Proxy(state, handler);
   }
 
-  setState(newState: stateObj) {
+  setState(newState) {
     for (const [key, value] of Object.entries(newState)) {
-      if (!(key in Store.#state)) continue;
-      Store.#state[key] = value;
+      if (!key in this.#state) continue;
+      this.#state[key] = value;
     }
   }
 }

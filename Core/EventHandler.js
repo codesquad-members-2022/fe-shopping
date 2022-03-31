@@ -1,11 +1,11 @@
 import { delay } from "../util.js";
 
 export class EventHandler {
-  #throttle: boolean = false;
+  #throttle;
   #autoCallback = -1;
   #prev = performance.now();
 
-  debounce(fn: () => void) {
+  debounce(fn) {
     let currentCallback = -1;
     return (() => {
       cancelAnimationFrame(currentCallback);
@@ -13,21 +13,21 @@ export class EventHandler {
     })();
   }
 
-  throttle(fn: () => void, time: number) {
-    if (this.#throttle) return false;
+  throttle(fn, time) {
+    if (this.#throttle === true) return false;
     this.#throttle = true;
     fn();
     delay(time).then(() => (this.#throttle = false));
   }
 
-  startAuto(fn: () => void, delay: number) {
+  startAuto(fn, delay) {
     cancelAnimationFrame(this.#autoCallback);
     this.#autoCallback = requestAnimationFrame((time) =>
       this.autoInterrupt(time, fn, delay)
     );
   }
 
-  autoInterrupt(time: number, fn: () => void, delay: number) {
+  autoInterrupt(time, fn, delay) {
     if (time - this.#prev >= delay) {
       this.#prev = time;
       fn();

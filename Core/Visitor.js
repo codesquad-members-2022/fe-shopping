@@ -1,4 +1,4 @@
-export class Visitor {
+class Visitor {
   visit(action, target) {
     throw "Override";
   }
