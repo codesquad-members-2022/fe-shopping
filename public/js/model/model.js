@@ -8,37 +8,25 @@ export const model = {
     this._selectedIdx = -1;
   },
 
-  setSearchBarState({ state, callBackFn }) {
+  set searchBarState(state) {
     this._searchBarState = state;
-    if (callBackFn) {
-      callBackFn(this.searchBarState);
-    }
   },
 
   get searchBarState() {
     return this._searchBarState;
   },
 
-  setRecentWordData({ data, callBackFn }) {
+  set recentWordData(data) {
     this._recentWordData = data;
     this.searchDataCnt = data ? data.length : 0;
-    callBackFn({
-      data: this.recentWordData,
-      state: this.searchBarState,
-    });
   },
 
   get recentWordData() {
     return this._recentWordData;
   },
 
-  setSuggestWordData({ data, callBackFn }) {
+  set suggestWordData(data) {
     this._suggestWordData = data;
-    callBackFn({
-      data: this.suggestWordData,
-      state: this.searchBarState,
-      searchWord: this.searchWord,
-    });
   },
 
   get suggestWordData() {
@@ -53,11 +41,8 @@ export const model = {
     return this._searchWord;
   },
 
-  setSelectedIdx({ idx, callBackFn }) {
+  set selectedIdx(idx) {
     this._selectedIdx = idx;
-    if (callBackFn) {
-      callBackFn(this.selectedIdx);
-    }
   },
 
   get selectedIdx() {

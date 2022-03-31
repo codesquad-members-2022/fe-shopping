@@ -2,18 +2,13 @@ import { model } from "../model/model.js";
 import storage from "../util/storage.js";
 import SearchView from "../view/SearchView.js";
 
-import { isEmpty, debounce, fetchData, sortAsc } from "../util/util.js";
+import { isEmpty, debounce, fetchData } from "../util/util.js";
 
-export const viewModel = {
+export const controller = {
   init({
     localStorage,
     viewOptions,
-    viewModelOptions: {
-      recentSearchKeyName,
-      suggestionUrl,
-      suggestionDelay,
-      message,
-    },
+    options: { recentSearchKeyName, suggestionUrl, suggestionDelay, message },
   }) {
     this.localStorage = localStorage;
     this.message = message;
@@ -43,25 +38,31 @@ export const viewModel = {
       const fetchUrl = this.suggestionUrl + inputTxt;
       const filterData = (json) => json["suggestions"].map((el) => el.value);
 
-      fetchData(fetchUrl, filterData).then((json) =>
-        this.setSearchBarSuggestWord(json, inputTxt)
-      );
+      fetchData(fetchUrl)
+        .then((json) => filterData(json))
+        .then((filteredData) => {
+          this.setSearchBarSuggestWord(filteredData, inputTxt);
+        });
     }, this.suggestionDelay);
   },
 
   setSearchBarSuggestWord(jsonData, searchWord) {
     const invalidIdx = -1;
-    model.setSelectedIdx({ idx: invalidIdx });
+    model.selectedIdx = invalidIdx;
+    model.suggestWordData = jsonData;
     model.searchDataCnt = jsonData.length;
     model.searchWord = searchWord;
-    model.setSearchBarState({
-      state: "suggest-search",
-      callBackFn: this.searchView.renderDropdown.bind(this.searchView),
+    model.searchBarState = "suggest-search";
+
+    this.searchView.renderDropdown({
+      data: model.suggestWordData,
+      state: model.searchBarState,
+      searchWord: model.searchWord,
     });
-    model.setSuggestWordData({
-      data: jsonData,
-      callBackFn: this.searchView.fillDropdownList.bind(this.searchView),
-    });
+  },
+
+  _sortDataAsc(data1, data2) {
+    return data1.no - data2.no;
   },
 
   getRecentWordData() {
@@ -70,29 +71,24 @@ export const viewModel = {
       return [];
     }
 
-    const sortKey = "no";
-    const dataSortByAsc = sortAsc(storedData, sortKey);
+    const dataSortByAsc = storedData.sort(this._sortDataAsc);
     return dataSortByAsc;
   },
 
   handleFocusInput() {
-    model.setSearchBarState({
-      state: "recent-search",
-      callBackFn: this.searchView.renderDropdown.bind(this.searchView),
-    });
+    model.searchBarState = "recent-search";
+    model.recentWordData = this.getRecentWordData();
 
-    model.setRecentWordData({
-      data: this.getRecentWordData(),
-      callBackFn: this.searchView.fillDropdownList.bind(this.searchView),
+    this.searchView.renderDropdown({
+      data: model.recentWordData,
+      state: model.searchBarState,
     });
   },
 
   handleBlurInput() {
     const unselectedIdx = -1;
-    model.setSelectedIdx({
-      idx: unselectedIdx,
-      callBackFn: this.searchView.hideDropdown.bind(this.searchView),
-    });
+    model.selectedIdx = unselectedIdx;
+    this.searchView.hideDropdown();
   },
 
   handleEscKeyUp() {
@@ -125,10 +121,8 @@ export const viewModel = {
       resultIdx = prevIdx;
     }
 
-    model.setSelectedIdx({
-      idx: resultIdx,
-      callBackFn: this.searchView.addClassSelectedIdx.bind(this.searchView),
-    });
+    model.selectedIdx = resultIdx;
+    this.searchView.addClassSelectedIdx(model.selectedIdx);
   },
 
   handleArrowKeyUp(key) {
@@ -141,14 +135,10 @@ export const viewModel = {
 
   resetInput() {
     const unselectedIdx = -1;
-    model.setSearchBarState({
-      state: "recent-search",
-      callBackFn: this.searchView.clearInput.bind(this.searchView),
-    });
-    model.setSelectedIdx({
-      idx: unselectedIdx,
-    });
-    this.handleFocusInput();
+    model.searchBarState = "recent-search";
+    model.selectedIdx = unselectedIdx;
+    this.searchView.clearInput();
+    this.searchView.handleFocusInput();
   },
 
   handleSubmit(e) {
@@ -186,7 +176,7 @@ export const viewModel = {
     }
 
     storage.removeFromLocalStorage(this.recentSearchKeyName);
-    this.handleFocusInput();
+    this.searchView.handleFocusInput();
     alert(completeMsg);
   },
 };

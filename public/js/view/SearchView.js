@@ -2,10 +2,10 @@ import SearchForm from "../component/SearchForm.js";
 import { setDisplayBlock } from "../util/dom.js";
 
 export default class extends SearchForm {
-  constructor({ datasetName, recentSearchValueName, ...args }) {
+  constructor({ datasetName, dataName, ...args }) {
     super(args);
     this.datasetName = datasetName;
-    this.recentSearchValueName = recentSearchValueName;
+    this.localStorageDataName = dataName;
   }
 
   createDropdownInner(state) {
@@ -31,9 +31,10 @@ export default class extends SearchForm {
     this.$dropdown.innerHTML = innerTag[state];
   }
 
-  renderDropdown(state) {
+  renderDropdown({ state, data, searchWord }) {
     setDisplayBlock(this.$dropdown);
     this.createDropdownInner(state);
+    this.fillDropdownList({ data, state, searchWord });
   }
 
   fillDropdownList({ data, state, searchWord }) {
@@ -54,21 +55,13 @@ export default class extends SearchForm {
   getLiTemplate({ cur, idx, state, searchWord }) {
     const item =
       state === "recent-search"
-        ? cur[this.recentSearchValueName]
+        ? cur[this.localStorageDataName]
         : cur.split(searchWord).join(`<strong>${searchWord}</strong>`);
 
-    const template = {
-      "recent-search": `
-        <li class="recent-search-item">
-          <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
-        </li>`,
-      "suggest-search": `
-        <li class="suggest-search-item">
-          <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
-        </li>
-      `,
-    };
-    return template[state];
+    const template = `<li class="${state}-item">
+                        <a href="#" class="link" data-${this.datasetName}=${idx}>${item}</a>
+                      </li>`;
+    return template;
   }
 
   onKeyUp() {

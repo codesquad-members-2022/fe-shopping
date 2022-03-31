@@ -12,16 +12,16 @@ export const options = {
     dataSizeLimit: 10,
     options: {
       recentSearchKeyName: "recent-search",
-      recentSearchValueName: "recentSearchWord",
+      dataName: "recentSearchWord",
     },
   },
   view: {
     searchFormArea: $(".search-form-area"),
-    recentSearchValueName: "recentSearchWord",
+    dataName: "recentSearchWord",
     datasetName: "idx",
     selectedIdxClassName: "focus",
   },
-  viewModel: {
+  controller: {
     recentSearchKeyName: "recent-search",
     suggestionUrl: `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=`,
     suggestionDelay: 120,
