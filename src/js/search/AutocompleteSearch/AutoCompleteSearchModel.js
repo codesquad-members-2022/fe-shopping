@@ -1,6 +1,6 @@
-import { Model } from '../../core/core.js';
+import { SearchModel } from '../../search/Search/SearchModel.js';
 
-class AutoCompleteSearchModel extends Model {
+class AutoCompleteSearchModel extends SearchModel {
   constructor() {
     super();
     this.setUp();
@@ -11,7 +11,19 @@ class AutoCompleteSearchModel extends Model {
       promistAutoCompleteLists: null,
       isDisplayed: false,
       searchInputValue: null,
+      arrowEventCounter: -1,
     };
+
+    Object.defineProperty(this.state, 'isDisplayed', {
+      get() {
+        return this._isDisplayed;
+      },
+
+      set(value) {
+        this.arrowEventCounter = -1;
+        this._isDisplayed = value;
+      },
+    });
   };
 
   getPromiseAutoCompleteLists = async (prefix) => {

@@ -1,13 +1,13 @@
-import { View } from '../../core/core.js';
-import { selector, debounce } from '../../utils/utils.js';
+import { SearchView } from '../../search/Search/SearchView.js';
+import { selector, hasValue, debounce } from '../../utils/utils.js';
 
-class AutoCompleteSearchView extends View {
+class AutoCompleteSearchView extends SearchView {
   constructor() {
     super();
     this.searchInputEl = selector('.search-bar');
     this.autoSearchWrapperEl = selector('.auto-search-wrapper');
-    this.renderAutoCompleteLists();
-    this.onOffAutoCompleteDisplay();
+    this.autoSearchListsEl = selector('.auto-search-lists');
+    this.setEvents();
   }
 
   template = (state) => {
@@ -23,7 +23,7 @@ class AutoCompleteSearchView extends View {
       autoSuggestions,
       this.searchInputEl.value
     );
-    selector('.auto-search-lists').innerHTML = this.template(highLightedLists);
+    this.autoSearchListsEl.innerHTML = this.template(highLightedLists);
   };
 
   highLightList = (autoCompletsLists, targetValue) => {
@@ -33,26 +33,19 @@ class AutoCompleteSearchView extends View {
     );
   };
 
-  onOffView = (state) => {
-    state
-      ? (this.autoSearchWrapperEl.style.display = 'block')
-      : (this.autoSearchWrapperEl.style.display = 'none');
-  };
-
-  onOffAutoCompleteDisplay = () => {
-    this.searchInputEl.addEventListener('keyup', (e) =>
-      this.keyUpEventHandlerForDisplayOnOff(e)
-    );
-
-    document.addEventListener('click', (e) =>
-      this.clickEventHandlerForDisplayOff(e, this.autoSearchWrapperEl)
-    );
+  setEvents = () => {
+    this.renderAutoCompleteLists();
+    this.onOffDisplay(this.autoSearchWrapperEl);
+    this.foucsList(this.autoSearchListsEl);
   };
 
   renderAutoCompleteLists = () => {
     this.searchInputEl.addEventListener(
       'keyup',
-      debounce(() => this.renderAutoCompleteListsHandler(), 500)
+      debounce(
+        () => this.renderAutoCompleteListsHandler(this.searchInputEl.value),
+        500
+      )
     );
   };
 }
