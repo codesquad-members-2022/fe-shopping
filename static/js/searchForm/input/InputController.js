@@ -4,35 +4,32 @@ export default class InputController {
     this.inputView = view;
     this.historyView = historyView;
     this.autoCompleteView = autoCompleteView;
+
     this.inputEl = view.inputEl;
     this.resultEl = view.resultEl;
-    this.show = 'searchForm__result--show';
-    this.hidden = 'searchForm__result--hidden';
     this.autoCompleteTimerId;
   }
 
   init() {
-    this.inputView.init();
-    this.inputView.resetResult = this.resetResult.bind(this);
-    this.inputView.showResult = this.showResult.bind(this);
-    this.inputView.hideResult = this.hideResult.bind(this);
-    this.inputView.setAutoCompleteTimer = this.setAutoCompleteTimer.bind(this);
-    this.inputView.clearAutoCompleteTimer = this.clearAutoCompleteTimer.bind(this);
-    this.inputView.submitInputValue = this.submitInputValue.bind(this);
+    this.inputView.addHandler();
+    this.bindMethods();
+  }
+
+  bindMethods() {
+    this.inputView.bound.isHistoryEmpty = this.isHistoryEmpty.bind(this);
+    this.inputView.bound.resetResult = this.resetResult.bind(this);
+    this.inputView.bound.setAutoCompleteTimer = this.setAutoCompleteTimer.bind(this);
+    this.inputView.bound.clearAutoCompleteTimer = this.clearAutoCompleteTimer.bind(this);
+    this.inputView.bound.submitInputValue = this.submitInputValue.bind(this);
   }
 
   resetResult() {
     this.historyView.showHistory();
     this.autoCompleteView.hideAutoComplete();
-    this.autoCompleteView.clearAutoComplete();
+    this.autoCompleteView.bound.clearAutoComplete();
   }
-
-  showResult() {
-    this.resultEl.classList.replace(this.hidden, this.show);
-  }
-
-  hideResult() {
-    this.resultEl.classList.replace(this.show, this.hidden);
+  isHistoryEmpty() {
+    return this.model.getHistory().length === 0;
   }
 
   getInputValue() {
@@ -47,7 +44,7 @@ export default class InputController {
     if (!inputValue) return;
 
     this.model.setHistory(inputValue);
-    this.historyView.renderHistory();
+    this.historyView.renderHistory(this.model.getHistory());
     this.resetResult();
 
     this.inputView.clear();
@@ -62,7 +59,7 @@ export default class InputController {
       const inputValue = event.target.value;
       this.autoCompleteView.renderAutoComplete(category, inputValue);
 
-      this.showResult();
+      this.inputView.showResult();
       this.historyView.hideHistory();
     }, 500);
   }

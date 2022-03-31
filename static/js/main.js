@@ -1,4 +1,4 @@
-import { initSearchForm } from './searchForm/main.js';
+import { initSearchForm } from "./searchForm/main.js";
 
 initSearchForm();
 //initMainBanner();
