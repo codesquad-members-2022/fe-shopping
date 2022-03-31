@@ -29,13 +29,13 @@ const request = async (url, options) => {
 
 const debounce = ({ msTime, callback }) => {
   const msDiffRange = 10;
-  const events = {};
+  const eventTypes = {};
   return function (event) {
     const { type } = event;
-    events[type] = new Date();
+    eventTypes[type] = new Date();
     delay(msTime).then(() => {
       const delayDate = new Date();
-      const diff = delayDate - events[type];
+      const diff = delayDate - eventTypes[type];
       const isRangeIn = diff <= msTime + msDiffRange && diff >= msTime;
       if (isRangeIn) {
         callback(event);

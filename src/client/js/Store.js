@@ -3,6 +3,11 @@ import { observable } from "./core/observer";
 const initState = {
   categoryTitle: "전체",
   categoryDatas: [],
+  baseRect: {},
+  mouseOnCategory: "Main",
+  mainCategory: {},
+  subCategory: {},
+  subCategoryDatas: [],
   searchCategoryDatas: [],
   searchWord: "",
   searchRecentDisplay: "none",
