@@ -11,8 +11,11 @@ export class Banner {
   }
 
   init() {
+    const defaultInterval = 2000;
     bannerStore.register(this.imageList);
     bannerStore.register(this.linkList);
     bannerStore.register(this.tabList);
+    bannerStore.setTabLength(this.tabList.$bannerTabList.children.length);
+    bannerStore.setCarouselInterval(defaultInterval);
   }
 }
