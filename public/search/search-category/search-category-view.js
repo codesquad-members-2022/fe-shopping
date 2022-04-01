@@ -70,4 +70,32 @@ export default class SearchCategoryView {
 
         return focusingItem;
     }
+
+    autoScrollDown(curIdx) {
+        const LIST_ITEM_HEIGHT = 32;
+        const clientHeight = this.categoryList.clientHeight;
+        const numOfItemsDisplayed = Math.ceil(clientHeight / LIST_ITEM_HEIGHT);
+        const halfNumOfItemsDisplayed = Math.ceil(numOfItemsDisplayed / 2);
+
+        if (curIdx === 0) {
+            this.categoryList.scrollTop = 0;
+        } else if (
+            curIdx >= numOfItemsDisplayed &&
+            (curIdx - numOfItemsDisplayed) % halfNumOfItemsDisplayed === 0
+        ) {
+            this.categoryList.scrollTop += clientHeight / 2;
+        }
+    }
+
+    autoScrollUp(curIdx, lastIdx) {
+        const LIST_ITEM_HEIGHT = 32;
+        const clientHeight = this.categoryList.clientHeight;
+        const numOfItemsDisplayed = Math.ceil(clientHeight / LIST_ITEM_HEIGHT);
+        const halfNumOfItemsDisplayed = Math.ceil(numOfItemsDisplayed / 2);
+
+        if (curIdx === lastIdx) {
+            this.categoryList.scrollTop = this.categoryList.scrollHeight;
+        }
+        // 나머지 조건 추가해야함
+    }
 }

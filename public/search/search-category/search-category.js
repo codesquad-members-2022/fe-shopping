@@ -28,10 +28,15 @@ export default class SearchCategory {
 
             if (event.key === DIRECTION_DOWN) {
                 this.focusNextItem();
+                const curIdx = this.store.getCurIdx();
+                this.view.autoScrollDown(curIdx);
             }
 
             if (event.key === DIRECTION_UP) {
                 this.focusPreviousItem();
+                const curIdx = this.store.getCurIdx();
+                const lastIdx = this.store.getLastIdx();
+                this.view.autoScrollUp(curIdx, lastIdx);
             }
 
             if (event.key === ENTER) {
