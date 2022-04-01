@@ -1,4 +1,4 @@
-import { allCategories } from '../../../data';
+import { allCategories } from '../../../data/index.js';
 import Component from '../../core/Component.js';
 import SecondDepthList from './SecondDepthList.js';
 

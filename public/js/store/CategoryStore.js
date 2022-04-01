@@ -1,5 +1,5 @@
 import Store from './store.js';
-import { categories } from '../../data';
+import { categories } from '../../data/index.js';
 
 class CategoryStore extends Store {
 
