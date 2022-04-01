@@ -13,15 +13,15 @@ const getItemsWithValue = (value) => {
   return filteredData;
 };
 
-const searchWithKeyword = async (req, res) => {
-  const {
-    body: { value },
-  } = req;
+const searchWithKeyword = async ({ body: { value } }, res) => {
   res.json(getItemsWithValue(value));
 };
 
 const editRecentData = (value) => {
   value ? recent.push({ keyword: value }) : (recent.length = 0);
+};
+
+const saveRecentData = () => {
   fs.writeFile(
     __dirname + "/../data/recent.json",
     JSON.stringify(recent),
@@ -31,20 +31,22 @@ const editRecentData = (value) => {
   );
 };
 
-const searchRecent = (req, res) => {
-  const { value } = req.body;
-  if (value) editRecentData(value);
-
+const sendRecentData = (res) => {
   const filteredData = recent.map(({ keyword }) => keyword);
   res.json(filteredData);
 };
 
-const deleteRecent = () => {
-  editRecentData();
+const manageRecentData = ({ body: { value }, method }, res) => {
+  const isDelete = method === "DELETE";
+  if (value || isDelete) {
+    editRecentData(value);
+    saveRecentData(value);
+  }
+  if (!isDelete) sendRecentData(res);
 };
 
 const sendCategories = (req, res) => {
   res.json(categories);
 };
 
-export { searchWithKeyword, searchRecent, sendCategories, deleteRecent };
+export { searchWithKeyword, manageRecentData, sendCategories };

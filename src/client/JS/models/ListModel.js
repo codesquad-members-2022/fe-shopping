@@ -40,7 +40,6 @@ class ListModel {
       },
       body: null,
     });
-    console.log(data);
   };
 }
 
