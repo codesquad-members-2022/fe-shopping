@@ -1,6 +1,6 @@
 import BannerStore from "./banner-store.js";
 import BannerView from "./banner-view.js";
-import { initDebouncing } from "../utils.js";
+import { initDebouncing, delay } from "../utils.js";
 
 export default class Banner {
     constructor(bannerBlock, bannerMenu) {
@@ -16,25 +16,40 @@ export default class Banner {
             this.bannerMenuHoverEventHandler.bind(this);
 
         this.view.initEvent();
+        this.autoChangeBanner();
     }
 
     bannerMenuHoverEventHandler({ target }) {
         if (target.classList.contains("banner__menu--item")) {
-            this.mouseoverDebouncing().then(() => this.changeCurBanner(target));
+            const originIdx = this.store.getBannerIdx();
+            const nextIdx = target.dataset.idx;
+
+            if (originIdx === nextIdx) return;
+
+            this.mouseoverDebouncing().then(() =>
+                this.changeCurBanner(originIdx, nextIdx)
+            );
         }
     }
 
-    changeCurBanner(target) {
-        const originIdx = this.store.getBannerIdx();
-        const curIdx = target.dataset.idx;
-
-        if (originIdx === curIdx) return;
-
-        this.store.setBannerIdx(curIdx);
+    changeCurBanner(originIdx, nextIdx) {
+        this.store.setBannerIdx(nextIdx);
 
         const bannerImg = this.store.getCurBannerImg();
         this.view.renderImg(bannerImg);
-        this.view.changeBorder(originIdx, curIdx);
+        this.view.changeBorder(originIdx, nextIdx);
+    }
+
+    autoChangeBanner() {
+        delay({ delay: 1500 }).then(() => {
+            const bannerCount = this.store.getBannerCount();
+
+            const originIdx = this.store.getBannerIdx();
+            const nextIdx = originIdx + 1 === bannerCount ? 0 : originIdx + 1;
+
+            this.changeCurBanner(originIdx, nextIdx);
+            this.autoChangeBanner();
+        });
     }
 
     async initBanner() {

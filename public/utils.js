@@ -20,4 +20,10 @@ const initDebouncing = ({ delay }) => {
     return debouncing(delay);
 };
 
-export { DIRECTION_UP, DIRECTION_DOWN, ENTER, initDebouncing, throttling };
+const delay = ({ delay }) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
+};
+
+export { DIRECTION_UP, DIRECTION_DOWN, ENTER, initDebouncing, delay };

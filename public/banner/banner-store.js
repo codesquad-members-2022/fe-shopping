@@ -1,6 +1,7 @@
 export default class BannerStore {
     constructor() {
         this.curIdx = 0;
+        this.bannerCount = 0;
     }
 
     setBannerIdx(idx) {
@@ -13,6 +14,11 @@ export default class BannerStore {
 
     setBannerData(bannerData) {
         this.bannerData = bannerData;
+        this.bannerCount = bannerData.length;
+    }
+
+    getBannerCount() {
+        return this.bannerCount;
     }
 
     getBannerData() {
