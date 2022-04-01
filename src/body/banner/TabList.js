@@ -24,6 +24,10 @@ export class TabList {
   }
 
   handleMouseOver = (e) => {
+    e.stopPropagation();
+    const longInterval = 5000;
+    bannerStore.setCarouselInterval(longInterval);
+
     const $bannerTab = e.target.closest(`.${BANNER_TAB}`);
     if (!$bannerTab) return;
     const selectedTabNum = Array.prototype.indexOf.call(
