@@ -16,7 +16,7 @@ export default class CategoryView {
     this.listEl.addEventListener("click", (event) => this.bound.selectCategory(event.target));
     dom
       .select("body")
-      .addEventListener("click", (event) => this.bound.hideListFromEventTarget(event.target));
+      .addEventListener("click", (event) => this.hideListFromEventTarget(event.target));
   }
 
   createItem(category) {
@@ -41,6 +41,17 @@ export default class CategoryView {
 
   hideList() {
     this.listEl.classList.replace(this.className.show, this.className.hidden);
+  }
+
+  hideListFromEventTarget(eventTarget) {
+    if (
+      eventTarget === this.currentEl ||
+      eventTarget.parentNode === this.listEl ||
+      this.listEl.classList.contains(this.className.hidden)
+    )
+      return;
+
+    this.hideList();
   }
 
   toggleList() {

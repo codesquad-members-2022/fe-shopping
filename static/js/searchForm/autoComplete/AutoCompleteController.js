@@ -4,8 +4,6 @@ export default class AutoCompleteController {
   constructor({ model, view }) {
     this.model = model;
     this.view = view;
-    this.autoCompleteEl = view.autoCompleteEl;
-    this.listEl = view.listEl;
   }
 
   init() {
@@ -14,7 +12,6 @@ export default class AutoCompleteController {
 
   bindMethods() {
     this.view.bound.requestAutoCompleteWords = this.requestAutoCompleteWords.bind(this);
-    this.view.bound.clearAutoComplete = this.clearAutoComplete.bind(this);
   }
 
   async requestAutoCompleteWords(category, inputValue) {
@@ -25,9 +22,5 @@ export default class AutoCompleteController {
     );
     this.model.setAutoCompleteWords(words);
     return this.model.getAutoCompleteWords();
-  }
-
-  clearAutoComplete() {
-    this.listEl.innerHTML = "";
   }
 }

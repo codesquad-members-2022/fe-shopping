@@ -20,7 +20,7 @@ export default class InputView {
         this.bound.isHistoryEmpty() && this.hideResult();
         return;
       }
-      this.bound.setAutoCompleteTimer(event);
+      this.bound.setAutoCompleteTimer(500);
     });
 
     this.inputEl.addEventListener("focus", () => {
@@ -36,11 +36,19 @@ export default class InputView {
     this.inputEl.value = "";
   }
 
+  blur() {
+    this.inputEl.blur();
+  }
+
   showResult() {
     this.resultEl.classList.replace(this.className.hidden, this.className.show);
   }
 
   hideResult() {
     this.resultEl.classList.replace(this.className.show, this.className.hidden);
+  }
+
+  getInputValue() {
+    return this.inputEl.value;
   }
 }

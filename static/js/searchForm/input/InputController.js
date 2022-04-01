@@ -4,9 +4,6 @@ export default class InputController {
     this.inputView = view;
     this.historyView = historyView;
     this.autoCompleteView = autoCompleteView;
-
-    this.inputEl = view.inputEl;
-    this.resultEl = view.resultEl;
     this.autoCompleteTimerId;
   }
 
@@ -26,21 +23,17 @@ export default class InputController {
   resetResult() {
     this.historyView.showHistory();
     this.autoCompleteView.hideAutoComplete();
-    this.autoCompleteView.bound.clearAutoComplete();
+    this.autoCompleteView.clearAutoComplete();
   }
   isHistoryEmpty() {
     return this.model.getHistory().length === 0;
-  }
-
-  getInputValue() {
-    return this.inputEl.value;
   }
 
   submitInputValue(event) {
     event.preventDefault();
 
     this.clearAutoCompleteTimer();
-    const inputValue = this.getInputValue();
+    const inputValue = this.inputView.getInputValue();
     if (!inputValue) return;
 
     this.model.setHistory(inputValue);
@@ -48,20 +41,20 @@ export default class InputController {
     this.resetResult();
 
     this.inputView.clear();
-    this.inputEl.blur();
+    this.inputView.blur();
   }
 
-  setAutoCompleteTimer(event) {
+  setAutoCompleteTimer(ms) {
     this.clearAutoCompleteTimer();
 
     this.autoCompleteTimerId = setTimeout(() => {
       const category = this.model.getCurrentCategory();
-      const inputValue = event.target.value;
+      const inputValue = this.inputView.getInputValue();
       this.autoCompleteView.renderAutoComplete(category, inputValue);
 
       this.inputView.showResult();
       this.historyView.hideHistory();
-    }, 500);
+    }, ms);
   }
 
   clearAutoCompleteTimer() {
