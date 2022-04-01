@@ -81,7 +81,10 @@ class SearchBoxPresenter {
   showRecentList = async () => {
     const address = "recent";
     await this.model.findData(address);
+
     const data = this.model.getData();
+    if (!data.length) return console.log("NO RECENT DATA");
+
     this.changeRelativeList(data);
     this.view.drawRecentListForm();
   };
@@ -105,10 +108,15 @@ class SearchBoxPresenter {
       : await this.showRelativeList(value);
   };
 
+  deleteAllRecentData = async () => {
+    await this.model.deleteData("recent");
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     const { value } = this.target;
-    this.model.findData("recent", value, true);
+    this.model.findData("recent", value);
+    this.target.value = "";
   };
 
   handleKeyupEvent = ({ target: { value }, key }) => {
@@ -116,8 +124,10 @@ class SearchBoxPresenter {
     isUpDown ? this.moveWithUpDown(key) : this.showDataByInput(value);
   };
 
-  toggleTransformerHidden = () => {
-    this.view.changeOptionHidden(this.transformer, "toggle");
+  hideTransformer = ({ target }) => {
+    const isTargetClicked = this.target === target;
+    if (isTargetClicked) return;
+    this.view.changeOptionHidden(this.transformer, "add");
   };
 }
 

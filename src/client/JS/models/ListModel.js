@@ -1,3 +1,5 @@
+import { async } from "regenerator-runtime";
+
 class ListModel {
   constructor(data) {
     this.data = data;
@@ -27,6 +29,18 @@ class ListModel {
     const resultData = await data.json();
     const listData = this.getListFormFromData(resultData);
     this.setData(listData);
+  };
+
+  deleteData = async (address) => {
+    const dataAddress = `data/${address}/delete`;
+    const data = await fetch(dataAddress, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: null,
+    });
+    console.log(data);
   };
 }
 

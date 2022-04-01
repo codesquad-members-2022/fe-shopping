@@ -156,7 +156,7 @@ header {
     }
     &-option {
       @include info-padding-margin;
-      @include divideFlex(1, 1);
+      @include divideFlex(1, 1, 1, 1);
       margin: 0;
       padding: 0.5rem;
       background-color: $gray;

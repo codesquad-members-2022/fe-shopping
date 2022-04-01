@@ -3,12 +3,14 @@ import {
   searchWithKeyword,
   searchRecent,
   sendCategories,
+  deleteRecent,
 } from "../controller/dataController";
 
 const dataRouter = express.Router();
 
-dataRouter.post("/keyword", searchWithKeyword);
-dataRouter.post("/recent", searchRecent);
-dataRouter.post("/categories", sendCategories);
+dataRouter.route("/keyword").post(searchWithKeyword);
+dataRouter.route("/categories").post(sendCategories);
+dataRouter.route("/recent").post(searchRecent);
+dataRouter.route("/recent/delete").delete(deleteRecent);
 
 export default dataRouter;

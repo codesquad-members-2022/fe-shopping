@@ -10,6 +10,7 @@ class SearchBoxView extends CommonView {
     this.relativeList = selector("ul", transformer);
     this.relativeTitle = selector("h3", transformer);
     this.relativeOption = selector("div", transformer);
+    this.relativeDeleteBtn = selector("div", transformer).children[0];
   }
 
   changeSearchKeyword = (selectedKeyword) => {
@@ -37,14 +38,7 @@ class SearchBoxView extends CommonView {
   };
 
   addEventHandler = () => {
-    this.target.addEventListener(
-      "focus",
-      this.presenter.toggleTransformerHidden
-    );
-    this.target.addEventListener(
-      "blur",
-      this.presenter.toggleTransformerHidden
-    );
+    this.target.addEventListener("focus", this.presenter.showRecentList);
     this.target.addEventListener("keyup", this.presenter.handleKeyupEvent);
     this.form.addEventListener("submit", this.presenter.handleSubmit);
     this.transformer.addEventListener(
@@ -55,6 +49,11 @@ class SearchBoxView extends CommonView {
       "mouseout",
       this.presenter.listMark.showListMark
     );
+    this.relativeDeleteBtn.addEventListener(
+      "click",
+      this.presenter.deleteAllRecentData
+    );
+    document.addEventListener("click", this.presenter.hideTransformer);
   };
 }
 

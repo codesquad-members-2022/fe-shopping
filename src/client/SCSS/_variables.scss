@@ -8,7 +8,7 @@ $white: #ffffff;
 $border-main: 0.25rem;
 $width-main: 1020px;
 
-@mixin divideFlex($first: 0, $second: 0, $third: 0) {
+@mixin divideFlex($first: 0, $second: 0, $third: 0, $fourth: 0) {
   :nth-child(1) {
     flex: $first;
   }
@@ -17,5 +17,8 @@ $width-main: 1020px;
   }
   :nth-child(3) {
     flex: $third;
+  }
+  :nth-child(4) {
+    flex: $fourth;
   }
 }

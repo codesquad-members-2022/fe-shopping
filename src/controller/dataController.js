@@ -20,8 +20,8 @@ const searchWithKeyword = async (req, res) => {
   res.json(getItemsWithValue(value));
 };
 
-const editRecent = (value) => {
-  recent.push({ keyword: value });
+const editRecentData = (value) => {
+  value ? recent.push({ keyword: value }) : (recent.length = 0);
   fs.writeFile(
     __dirname + "/../data/recent.json",
     JSON.stringify(recent),
@@ -33,14 +33,18 @@ const editRecent = (value) => {
 
 const searchRecent = (req, res) => {
   const { value } = req.body;
-  if (value) editRecent(value);
+  if (value) editRecentData(value);
 
   const filteredData = recent.map(({ keyword }) => keyword);
   res.json(filteredData);
+};
+
+const deleteRecent = () => {
+  editRecentData();
 };
 
 const sendCategories = (req, res) => {
   res.json(categories);
 };
 
-export { searchWithKeyword, searchRecent, sendCategories };
+export { searchWithKeyword, searchRecent, sendCategories, deleteRecent };
