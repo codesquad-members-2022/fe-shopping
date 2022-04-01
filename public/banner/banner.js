@@ -26,9 +26,10 @@ export default class Banner {
 
             if (originIdx === nextIdx) return;
 
-            this.mouseoverDebouncing().then(() =>
-                this.changeCurBanner(originIdx, nextIdx)
-            );
+            this.mouseoverDebouncing().then(() => {
+                this.changeCurBanner(originIdx, nextIdx);
+                this.autoChangeBanner();
+            });
         }
     }
 
@@ -41,11 +42,17 @@ export default class Banner {
     }
 
     autoChangeBanner() {
-        delay({ delay: 1500 }).then(() => {
+        const beforeIdx = this.store.getBannerIdx();
+
+        delay({ delay: 5000 }).then(() => {
             const bannerCount = this.store.getBannerCount();
 
             const originIdx = this.store.getBannerIdx();
             const nextIdx = originIdx + 1 === bannerCount ? 0 : originIdx + 1;
+
+            if (beforeIdx !== originIdx) {
+                return;
+            }
 
             this.changeCurBanner(originIdx, nextIdx);
             this.autoChangeBanner();
