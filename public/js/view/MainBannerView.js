@@ -1,5 +1,6 @@
 import Component from '../core/Component.js';
 import MainBannerViewModel from '../viewModel/MainBannerViewModel.js';
+import { myInterval, throttle } from '../utils/index.js';
 
 class MainBannerView extends Component {
 
@@ -26,10 +27,11 @@ class MainBannerView extends Component {
   }
 
   setEvent() {
-    this.addEvent('mouseover', '.banner-category', ({ target }) => {
-      this.stopBannerChanging();
-      this.viewModel.changeSelectedBanner(target.innerText);
-    });
+    this.addEvent('mouseover', '.banner-category',
+      throttle(({ target }) => {
+        this.stopBannerChanging();
+        this.viewModel.changeSelectedBanner(target.innerText);
+      }, 50));
   }
 
   mounted() {
@@ -37,13 +39,10 @@ class MainBannerView extends Component {
   }
 
   changeBanner() {
-    let flag = true;
-    setTimeout(() => {
-      if (!flag) return;
+    return myInterval(() => {
       const nextBanner = this.getNextBanner();
       this.viewModel.changeSelectedBanner(nextBanner);
     }, 2000);
-    return () => { flag = false };
   }
 
   getNextBanner() {

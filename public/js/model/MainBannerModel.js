@@ -1,4 +1,4 @@
-import { banners } from '../../data';
+import { banners } from '../../data/index.js';
 
 class MainBannerModel {
 
