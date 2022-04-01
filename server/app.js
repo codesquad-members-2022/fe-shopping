@@ -12,8 +12,30 @@ app.use(function(req, res, next) {
 });
 
 app.get('/goodsData', function(req, res) {
-  const goodsData = fs.readFileSync(path.join(__dirname, '/data/goodsData.json'), 'utf-8');
-  res.send(goodsData);
+  fs.readFile(path.join(__dirname, '/data/goodsData.json'), (error, data) => {
+    if (error) {
+      throw error;
+    }
+    res.send(data);
+  });
+});
+
+app.get('/categoryListData', function(req, res) {
+  fs.readFile(path.join(__dirname, '/data/categoryListData.json'), (error, data) => {
+    if (error) {
+      throw error;
+    }
+    res.send(data);
+  });
+});
+
+app.get('/categoryImageData', function(req, res) {
+  fs.readFile(path.join(__dirname, '/data/categoryImageData.json'), (error, data) => {
+    if (error) {
+      throw error;
+    }
+    res.send(data);
+  });
 });
 
 app.listen(port, (error) => {

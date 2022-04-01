@@ -1,11 +1,11 @@
 export class SearchBarView {
   constructor(searchBarController) {
     this.controller = searchBarController;
+    this.$input = document.querySelector('.search-bar-input');
+    this.$popupKeywords = document.querySelector('.popup-keywords');
     this.handleInputFocusEvent;
     this.handleInputKeyDownEvent;
     this.handlePopupKeywordsClickEvent;
-    this.$input = document.querySelector('.search-bar-input');
-    this.$popupKeywords = document.querySelector('.popup-keywords');
   }
 
   addInputEvent() {

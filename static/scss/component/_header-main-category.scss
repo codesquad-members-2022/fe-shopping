@@ -3,7 +3,7 @@ header {
   width: 1020px;
   height: 115px;
 
-  .category-button {
+  .main-category-button {
     @include flexbox;
     @include button-background;
     width: 110px;
@@ -14,6 +14,14 @@ header {
       margin-top: 73px;
       font-size: 13px;
       color: $color-white;
+    }
+
+    .main-category-layer {
+      @include absolute-top-left(114px, 0);
+      @include border-box-shadow(2px, 3px);
+      width: auto;
+      height: auto;
+      min-height: 450px;
     }
   }
 }
