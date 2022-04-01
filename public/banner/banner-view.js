@@ -1,36 +1,25 @@
 export default class BannerView {
-    constructor(bannerImgs, bannerMenu) {
-        this.bannerImgs = bannerImgs;
+    constructor(bannerBlock, bannerMenu) {
+        this.bannerBlock = bannerBlock;
         this.bannerMenu = bannerMenu;
     }
 
-    getBannerImg(bannerData) {
-        return `<li class="banner__img-container">
-                    <img 
-                        class="banner__img" 
-                        src="${bannerData.img}" 
-                        alt="${bannerData.title}" 
-                    />
-                </li>`;
-    }
-
-    getBannerImgs(bannerData) {
-        const bannerImgs = bannerData.reduce(
-            (acc, cur) => acc + this.getBannerImg(cur),
-            ""
+    initEvent() {
+        this.bannerMenu.addEventListener(
+            "mouseover",
+            this.bannerMenuHoverEventHandler
         );
-        return bannerImgs;
     }
 
-    renderImgs(bannerData) {
-        const bannerImgs = this.getBannerImgs(bannerData);
-        this.bannerImgs.innerHTML = bannerImgs;
+    renderImg(bannerImgData) {
+        this.bannerBlock.style.backgroundImage = `url(${bannerImgData})`;
     }
 
-    getBannerMenuItem(bannerData) {
+    getBannerMenuItem(bannerData, idx) {
         return `<p class="banner__menu--item 
                     l--flex 
                     l--vertical-center"
+                    data-idx="${idx}"
                 >
                     ${bannerData}
                 </p>`;
@@ -38,7 +27,7 @@ export default class BannerView {
 
     getBannerMenu(bannerData) {
         const bannerMenu = bannerData.reduce(
-            (acc, cur) => acc + this.getBannerMenuItem(cur),
+            (acc, cur, idx) => acc + this.getBannerMenuItem(cur, idx),
             ""
         );
         return bannerMenu;

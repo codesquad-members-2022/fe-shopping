@@ -51,10 +51,10 @@ const search = new Search(
     searchCategory
 );
 
-const bannerImgs = document.querySelector(".banner__imgs");
+const bannerBlock = document.querySelector(".banner");
 const bannerMenu = document.querySelector(".banner__menu");
 
-const banner = new Banner(bannerImgs, bannerMenu);
+const banner = new Banner(bannerBlock, bannerMenu);
 
 search.initEvents();
 banner.initBanner();

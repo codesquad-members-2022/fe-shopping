@@ -2,9 +2,31 @@ import BannerStore from "./banner-store.js";
 import BannerView from "./banner-view.js";
 
 export default class Banner {
-    constructor(bannerImgs, bannerMenu) {
-        this.view = new BannerView(bannerImgs, bannerMenu);
+    constructor(bannerBlock, bannerMenu) {
+        this.view = new BannerView(bannerBlock, bannerMenu);
         this.store = new BannerStore();
+
+        this.setEventHandler();
+    }
+
+    setEventHandler() {
+        this.view.bannerMenuHoverEventHandler =
+            this.bannerMenuHoverEventHandler.bind(this);
+
+        this.view.initEvent();
+    }
+
+    bannerMenuHoverEventHandler({ target }) {
+        if (target.classList.contains("banner__menu--item")) {
+            const originIdx = this.store.getBannerIdx();
+            const curIdx = target.dataset.idx;
+
+            if (originIdx === curIdx) return;
+
+            this.store.setBannerIdx(curIdx);
+            const bannerImg = this.store.getCurBannerImg();
+            this.view.renderImg(bannerImg);
+        }
     }
 
     async initBanner() {
@@ -32,15 +54,15 @@ export default class Banner {
     }
 
     renderBanner() {
-        const bannerData = this.store.getBannerData();
+        const curBannerImg = this.store.getCurBannerImg();
         const bannerTitleData = this.store.getBannerTitleData();
 
-        if (!bannerData || !bannerTitleData) {
+        if (!curBannerImg) {
             console.error("There is no banner data");
             return;
         }
 
-        this.view.renderImgs(bannerData);
+        this.view.renderImg(curBannerImg);
         this.view.renderMenu(bannerTitleData);
     }
 }

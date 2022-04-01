@@ -1,4 +1,16 @@
 export default class BannerStore {
+    constructor() {
+        this.curIdx = 0;
+    }
+
+    setBannerIdx(idx) {
+        this.curIdx = Number(idx);
+    }
+
+    getBannerIdx() {
+        return this.curIdx;
+    }
+
     setBannerData(bannerData) {
         this.bannerData = bannerData;
     }
@@ -13,5 +25,9 @@ export default class BannerStore {
 
     getBannerTitleData() {
         return this.bannerData.map((it) => it.title);
+    }
+
+    getCurBannerImg() {
+        return this.bannerData[this.curIdx].img;
     }
 }

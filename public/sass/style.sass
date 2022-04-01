@@ -119,12 +119,6 @@
         text-align: center
         color: #495057
 
-.focus
-    color: $main-blue
-    &--underline
-        color: $main-blue
-        text-decoration: underline
-
 .delete-btn
     opacity: 0
     &:hover
@@ -139,22 +133,13 @@
     margin-bottom: 20px
 
 .banner
-    position: relative
-    &__imgs
-        height: 450px
-        background-color: $main-gray
-        overflow: hidden
-    &__img-container
-        height: 100%
-    &__img
-        width: inherit
+    height: 450px
     &__menu
-        position: absolute
-        top: 10%
-        right: 20%
         @include box-shadow
         background-color: $main-white
         width: 200px
+        &-container
+            height: inherit
         &--item
             @include border($main-gray, 1px)
             padding: 15px
