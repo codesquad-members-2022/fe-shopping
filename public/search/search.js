@@ -1,4 +1,9 @@
-import { DIRECTION_UP, DIRECTION_DOWN, ENTER, debounce } from "../utils.js";
+import {
+    DIRECTION_UP,
+    DIRECTION_DOWN,
+    ENTER,
+    initDebouncing,
+} from "../utils.js";
 
 export default class Search {
     constructor(
@@ -12,7 +17,7 @@ export default class Search {
         this.relatedSearchList = relatedSearchList;
         this.searchCategory = searchCategory;
 
-        this.inputDebounce = this.initDebounce({ delay: 500 });
+        this.inputDebouncing = initDebouncing({ delay: 500 });
     }
 
     setEventHandler() {
@@ -38,10 +43,6 @@ export default class Search {
         this.recentSearchList.view.initEvent();
         this.relatedSearchList.view.initEvent();
         this.searchInput.view.initEvent();
-    }
-
-    initDebounce({ delay }) {
-        return debounce(delay);
     }
 
     noneSearchbarClickEventHandler({ target }) {
@@ -102,7 +103,7 @@ export default class Search {
             this.relatedSearchList.hide();
         }
 
-        this.inputDebounce().then(() => this.getRelatedWords());
+        this.inputDebouncing().then(() => this.getRelatedWords());
     }
 
     updateRecentSearchList() {

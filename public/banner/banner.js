@@ -1,10 +1,12 @@
 import BannerStore from "./banner-store.js";
 import BannerView from "./banner-view.js";
+import { initDebouncing } from "../utils.js";
 
 export default class Banner {
     constructor(bannerBlock, bannerMenu) {
         this.view = new BannerView(bannerBlock, bannerMenu);
         this.store = new BannerStore();
+        this.mouseoverDebouncing = initDebouncing({ delay: 50 });
 
         this.setEventHandler();
     }
@@ -18,17 +20,21 @@ export default class Banner {
 
     bannerMenuHoverEventHandler({ target }) {
         if (target.classList.contains("banner__menu--item")) {
-            const originIdx = this.store.getBannerIdx();
-            const curIdx = target.dataset.idx;
-
-            if (originIdx === curIdx) return;
-
-            this.store.setBannerIdx(curIdx);
-
-            const bannerImg = this.store.getCurBannerImg();
-            this.view.renderImg(bannerImg);
-            this.view.changeBorder(originIdx, curIdx);
+            this.mouseoverDebouncing().then(() => this.changeCurBanner(target));
         }
+    }
+
+    changeCurBanner(target) {
+        const originIdx = this.store.getBannerIdx();
+        const curIdx = target.dataset.idx;
+
+        if (originIdx === curIdx) return;
+
+        this.store.setBannerIdx(curIdx);
+
+        const bannerImg = this.store.getCurBannerImg();
+        this.view.renderImg(bannerImg);
+        this.view.changeBorder(originIdx, curIdx);
     }
 
     async initBanner() {
