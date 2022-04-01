@@ -2,7 +2,6 @@ import { selector, toggleClass } from '../../utils/utils.js';
 import { bannerStore } from './bannerStore.js';
 
 const BANNER_LINKLIST = 'banner-linklist';
-const BANNER_LINK = 'banner-link';
 const SELECTED = 'is-selected';
 
 export class LinkList {

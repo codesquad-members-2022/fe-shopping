@@ -1,7 +1,6 @@
 import { selector, toggleClass } from '../../utils/utils.js';
 
 const BANNER_IMAGELIST = 'banner-imagelist';
-const BANNER_IMAGE = 'banner-image';
 const SELECTED = 'is-selected';
 
 export class ImageList {
