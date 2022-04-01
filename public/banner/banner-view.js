@@ -19,6 +19,7 @@ export default class BannerView {
         return `<p class="banner__menu--item 
                     l--flex 
                     l--vertical-center"
+                    ${idx === 0 ? "id=focus--border" : ""}
                     data-idx="${idx}"
                 >
                     ${bannerData}
@@ -36,5 +37,14 @@ export default class BannerView {
     renderMenu(bannerData) {
         const bannerMenu = this.getBannerMenu(bannerData);
         this.bannerMenu.innerHTML = bannerMenu;
+    }
+
+    changeBorder(originIdx, curIdx) {
+        const bannerMenuList = this.bannerMenu.querySelectorAll(
+            ".banner__menu--item"
+        );
+
+        bannerMenuList[originIdx].id = "";
+        bannerMenuList[curIdx].id = "focus--border";
     }
 }

@@ -24,8 +24,10 @@ export default class Banner {
             if (originIdx === curIdx) return;
 
             this.store.setBannerIdx(curIdx);
+
             const bannerImg = this.store.getCurBannerImg();
             this.view.renderImg(bannerImg);
+            this.view.changeBorder(originIdx, curIdx);
         }
     }
 
