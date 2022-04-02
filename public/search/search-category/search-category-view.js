@@ -92,10 +92,15 @@ export default class SearchCategoryView {
         const clientHeight = this.categoryList.clientHeight;
         const numOfItemsDisplayed = Math.ceil(clientHeight / LIST_ITEM_HEIGHT);
         const halfNumOfItemsDisplayed = Math.ceil(numOfItemsDisplayed / 2);
+        const scrollStandardIdx = lastIdx - numOfItemsDisplayed;
 
         if (curIdx === lastIdx) {
             this.categoryList.scrollTop = this.categoryList.scrollHeight;
+        } else if (
+            curIdx <= scrollStandardIdx &&
+            (curIdx - scrollStandardIdx) % halfNumOfItemsDisplayed === 0
+        ) {
+            this.categoryList.scrollTop -= clientHeight / 2;
         }
-        // 나머지 조건 추가해야함
     }
 }
