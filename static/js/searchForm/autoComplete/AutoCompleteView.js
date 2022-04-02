@@ -33,4 +33,8 @@ export default class AutoCompleteView {
   hideAutoComplete() {
     this.autoCompleteEl.classList.replace(this.className.show, this.className.hidden);
   }
+
+  clearAutoComplete() {
+    this.listEl.innerHTML = "";
+  }
 }

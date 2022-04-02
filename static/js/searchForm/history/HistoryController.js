@@ -2,7 +2,6 @@ export default class HistoryController {
   constructor({ model, view }) {
     this.model = model;
     this.view = view;
-    this.historyEl = view.historyEl;
   }
 
   init() {
