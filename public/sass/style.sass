@@ -70,6 +70,7 @@
             outline: none
     &__recent-list
         @include search-list
+        z-index: 1
         &--name
             padding: 6px 0px 10px 0px 
             border-bottom: 1px solid $main-dark-gray 
@@ -95,6 +96,7 @@
         @include search-list
         height: 330px
         font-size: 1.3rem
+        z-index: 1
 
 .arrow--up
     display: none
@@ -117,12 +119,6 @@
         text-align: center
         color: #495057
 
-.focus
-    color: $main-blue
-    &--underline
-        color: $main-blue
-        text-decoration: underline
-
 .delete-btn
     opacity: 0
     &:hover
@@ -137,12 +133,13 @@
     margin-bottom: 20px
 
 .banner
-    background-color: $main-gray
     height: 450px
     &__menu
         @include box-shadow
         background-color: $main-white
         width: 200px
+        &-container
+            height: inherit
         &--item
             @include border($main-gray, 1px)
             padding: 15px

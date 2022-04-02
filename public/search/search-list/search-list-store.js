@@ -19,6 +19,7 @@ export default class SearchListStore {
 
     setSearchItems(searchItems) {
         this.searchItems = searchItems;
+        this.curIdx = -1;
     }
 
     getSearchItems() {
@@ -30,13 +31,15 @@ export default class SearchListStore {
     }
 
     setCurIdxNext() {
-        this.curIdx =
-            this.curIdx + 1 >= this.searchItems.length ? 0 : this.curIdx + 1;
+        this.curIdx = this.curIdx + 1 >= this.searchItems.length 
+                    ? 0 
+                    : this.curIdx + 1;
     }
 
     setCurIdxPrevious() {
-        this.curIdx =
-            this.curIdx - 1 < 0 ? this.searchItems.length - 1 : this.curIdx - 1;
+        this.curIdx = this.curIdx - 1 < 0 
+                    ? this.searchItems.length - 1 
+                    : this.curIdx - 1;
     }
 
     getCurIdx() {

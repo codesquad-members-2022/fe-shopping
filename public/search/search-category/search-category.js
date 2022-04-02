@@ -1,5 +1,6 @@
 import SearchCategoryView from "./search-category-view.js";
 import SearchCategoryStore from "./search-category-store.js";
+import { DIRECTION_DOWN, DIRECTION_UP, ENTER } from "../../utils.js";
 
 export default class SearchCategory {
     constructor(category, categoryList) {
@@ -14,8 +15,34 @@ export default class SearchCategory {
             this.searchCategoryClickEventHandler.bind(this);
         this.view.searchCategoryListItemClickEventHandler =
             this.searchCategoryListItemClickEventHandler.bind(this);
+        this.view.searchCategoryKeydownEventHandler =
+            this.searchCategoryKeydownEventHandler.bind(this);
 
         this.view.initEvent();
+    }
+
+    searchCategoryKeydownEventHandler(event) {
+        const isVisible = this.store.getVisibility();
+        if (isVisible) {
+            event.preventDefault();
+
+            if (event.key === DIRECTION_DOWN) {
+                this.focusNextItem();
+                const curIdx = this.store.getCurIdx();
+                this.view.autoScrollDown(curIdx);
+            }
+
+            if (event.key === DIRECTION_UP) {
+                this.focusPreviousItem();
+                const curIdx = this.store.getCurIdx();
+                const lastIdx = this.store.getLastIdx();
+                this.view.autoScrollUp(curIdx, lastIdx);
+            }
+
+            if (event.key === ENTER) {
+                this.hide();
+            }
+        }
     }
 
     searchCategoryClickEventHandler() {

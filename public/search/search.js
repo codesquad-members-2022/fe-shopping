@@ -1,4 +1,9 @@
-import { DIRECTION_UP, DIRECTION_DOWN, ENTER, delay, timer } from "../utils.js";
+import {
+    DIRECTION_UP,
+    DIRECTION_DOWN,
+    ENTER,
+    initDebouncing,
+} from "../utils.js";
 
 export default class Search {
     constructor(
@@ -11,6 +16,8 @@ export default class Search {
         this.recentSearchList = recentSearchList;
         this.relatedSearchList = relatedSearchList;
         this.searchCategory = searchCategory;
+
+        this.inputDebouncing = initDebouncing({ delay: 500 });
     }
 
     setEventHandler() {
@@ -26,6 +33,8 @@ export default class Search {
             this.searchbarkeyDownEventHandler.bind(this);
         this.searchInput.view.inputEventHandler =
             this.inputEventHandler.bind(this);
+        this.searchInput.view.noneSearchbarClickEventHandler =
+            this.noneSearchbarClickEventHandler.bind(this);
     }
 
     initEvents() {
@@ -36,7 +45,22 @@ export default class Search {
         this.searchInput.view.initEvent();
     }
 
+    noneSearchbarClickEventHandler({ target }) {
+        if (!target.closest(".search")) {
+            this.recentSearchList.hide();
+            this.relatedSearchList.hide();
+            this.searchCategory.hide();
+        }
+    }
+
     async getRelatedWords() {
+        // 연관 검색어 목록을 키보드로 이동했을 때 요청하지 않도록 처리
+        const relatedSearchListCurIdx =
+            this.relatedSearchList.store.getCurIdx();
+        if (relatedSearchListCurIdx !== -1) {
+            return;
+        }
+
         const word = this.searchInput.getInput();
         const category = this.searchCategory.store.getSelectedCategory();
         try {
@@ -64,14 +88,6 @@ export default class Search {
         this.relatedSearchList.renderSearchList(word);
     }
 
-    requestRelatedWordsNoMoreInput() {
-        if (timer) {
-            clearTimeout(timer);
-        }
-
-        delay(500).then(() => this.getRelatedWords());
-    }
-
     removeFocusOnSearchList() {
         this.recentSearchList.removeFocus();
         this.relatedSearchList.removeFocus();
@@ -87,7 +103,7 @@ export default class Search {
             this.relatedSearchList.hide();
         }
 
-        this.requestRelatedWordsNoMoreInput();
+        this.inputDebouncing().then(() => this.getRelatedWords());
     }
 
     updateRecentSearchList() {
@@ -98,15 +114,13 @@ export default class Search {
 
     reRenderSearchList() {
         this.updateRecentSearchList();
-
-        clearTimeout(timer);
         this.relatedSearchList.reset();
         this.relatedSearchList.hide();
     }
 
     focusItem(direction, searchList) {
         const focusingItem =
-            direction === this.DIRECTION_UP
+            direction === DIRECTION_UP
                 ? searchList.focusPreviousItem()
                 : searchList.focusNextItem();
         this.searchInput.changeInput(focusingItem);

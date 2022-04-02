@@ -16,10 +16,7 @@ export default class RecentSearchListStore extends SearchListStore {
 
     addSearchWord(word) {
         this.searchItems.unshift(word);
-
-        if (this.searchItems.length > this.MAX_ITEMS) {
-            this.searchItems = this.searchItems.slice(0, this.MAX_ITEMS);
-        }
+        this.searchItems = this.searchItems.slice(0, this.MAX_ITEMS);
     }
 
     deleteSearchWord(idx2Delete) {

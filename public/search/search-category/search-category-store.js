@@ -7,6 +7,10 @@ export default class SearchCategoryStore {
         this.CATEGORY_LENGTH = 31;
     }
 
+    getLastIdx() {
+        return this.CATEGORY_LENGTH - 1;
+    }
+
     setVisibility(booleanValue) {
         this.isVisible = booleanValue;
     }

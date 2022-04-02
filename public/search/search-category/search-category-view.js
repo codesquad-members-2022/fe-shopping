@@ -21,6 +21,11 @@ export default class SearchCategoryView {
             "click",
             this.searchCategoryListItemClickEventHandler
         );
+
+        document.body.addEventListener(
+            "keydown",
+            this.searchCategoryKeydownEventHandler
+        );
     }
 
     showArrow(arrow) {
@@ -47,17 +52,55 @@ export default class SearchCategoryView {
         this.categorySelected.textContent = selectedCategory;
     }
 
-    focusCategoryItem(selectedIdx) {
-        let focusingItem;
+    resetFocus() {
+        this.categoryListItems.forEach((item) =>
+            item.classList.remove("focus")
+        );
+    }
 
-        this.categoryListItems.forEach((item) => {
-            item.classList.remove("focus");
-            if (item.dataset.idx === selectedIdx.toString()) {
-                focusingItem = item;
-                item.classList.toggle("focus");
-            }
-        });
+    focusCategoryItem(selectedIdx) {
+        this.resetFocus();
+        const focusingItem = [...this.categoryListItems].find(
+            (item) => item.dataset.idx === selectedIdx.toString()
+        );
+
+        if (focusingItem) {
+            focusingItem.classList.add("focus");
+        }
 
         return focusingItem;
+    }
+
+    autoScrollDown(curIdx) {
+        const LIST_ITEM_HEIGHT = 32;
+        const clientHeight = this.categoryList.clientHeight;
+        const numOfItemsDisplayed = Math.ceil(clientHeight / LIST_ITEM_HEIGHT);
+        const halfNumOfItemsDisplayed = Math.ceil(numOfItemsDisplayed / 2);
+
+        if (curIdx === 0) {
+            this.categoryList.scrollTop = 0;
+        } else if (
+            curIdx >= numOfItemsDisplayed &&
+            (curIdx - numOfItemsDisplayed) % halfNumOfItemsDisplayed === 0
+        ) {
+            this.categoryList.scrollTop += clientHeight / 2;
+        }
+    }
+
+    autoScrollUp(curIdx, lastIdx) {
+        const LIST_ITEM_HEIGHT = 32;
+        const clientHeight = this.categoryList.clientHeight;
+        const numOfItemsDisplayed = Math.ceil(clientHeight / LIST_ITEM_HEIGHT);
+        const halfNumOfItemsDisplayed = Math.ceil(numOfItemsDisplayed / 2);
+        const scrollStandardIdx = lastIdx - numOfItemsDisplayed;
+
+        if (curIdx === lastIdx) {
+            this.categoryList.scrollTop = this.categoryList.scrollHeight;
+        } else if (
+            curIdx <= scrollStandardIdx &&
+            (curIdx - scrollStandardIdx) % halfNumOfItemsDisplayed === 0
+        ) {
+            this.categoryList.scrollTop -= clientHeight / 2;
+        }
     }
 }
