@@ -96,6 +96,9 @@ body {
 .main-header .wrapper {
   display: flex; }
 
+.main-header .category-area {
+  position: relative; }
+
 .main-header .category-btn {
   width: 110px;
   height: 115px;
@@ -270,8 +273,9 @@ body {
         display: block;
         width: 180px;
         height: 60px;
+        font-size: 0;
         z-index: 3; }
-        .main-banner .banner-category .category-item .category-link:hover {
+        .main-banner .banner-category .category-item .category-link.focus {
           border: 2px solid #4285f4; }
       .main-banner .banner-category .category-item img {
         position: absolute;
@@ -344,5 +348,71 @@ body {
     background-color: #f5f5f5;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
     padding: 10px; }
+
+/* Category Area Bottom UI */
+.category-area .bottom-ui {
+  display: none;
+  min-width: 150%;
+  width: fit-content;
+  height: 550px;
+  visibility: visible;
+  min-height: 100px;
+  max-height: 1500px;
+  overflow: visible; }
+  .category-area .bottom-ui.open {
+    display: flex; }
+  .category-area .bottom-ui-contents {
+    width: 165px;
+    z-index: 3; }
+  .category-area .bottom-ui-contents.second-depth {
+    position: relative;
+    display: none;
+    flex-grow: 1;
+    width: 600px;
+    background-color: #fff;
+    z-index: 2;
+    padding: 0; }
+    .category-area .bottom-ui-contents.second-depth.open {
+      display: flex; }
+    .category-area .bottom-ui-contents.second-depth .bottom-ui-list {
+      width: 165px;
+      height: 100%;
+      padding: 15px 10px 10px; }
+      .category-area .bottom-ui-contents.second-depth .bottom-ui-list:first-of-type {
+        border-left: 1px solid #ddd; }
+      .category-area .bottom-ui-contents.second-depth .bottom-ui-list:last-of-type .bottom-ui-list-item.focus::after {
+        display: none; }
+      .category-area .bottom-ui-contents.second-depth .bottom-ui-list.open {
+        border-left: 1px solid #ddd; }
+    .category-area .bottom-ui-contents.second-depth .background-image {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: -1; }
+  .category-area .bottom-ui-list-item {
+    position: relative;
+    margin-bottom: 0; }
+    .category-area .bottom-ui-list-item a {
+      display: block;
+      width: 100%;
+      padding-bottom: 15px; }
+      .category-area .bottom-ui-list-item a:hover {
+        text-decoration: none;
+        color: inherit; }
+    .category-area .bottom-ui-list-item.focus::after {
+      content: '';
+      position: absolute;
+      top: 21%;
+      right: 0;
+      display: block;
+      width: 5px;
+      height: 9px;
+      transform: translateY(-50%);
+      background-image: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png");
+      background-position: -156px -20px;
+      background-repeat: no-repeat; }
+    .category-area .bottom-ui-list-item.focus a {
+      color: #008cff;
+      font-weight: 600; }
 
 /*# sourceMappingURL=style.css.map */
