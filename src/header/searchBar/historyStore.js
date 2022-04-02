@@ -9,14 +9,16 @@ export const historyStore = {
     if (!this.isHistoryActive()) return;
 
     const prevItems = this.getAllItems();
-    const prevIds = Object.keys(prevItems).filter((_id) => {
+
+    const prevIds = Object.keys(prevItems);
+    const filteredPrevIds = prevIds.filter((_id) => {
       if (prevItems[_id] !== value) return true;
       delete prevItems[_id];
       return false;
     });
 
-    if (prevIds.length === this.maxHistoryLength) {
-      const firstId = prevIds[0];
+    if (filteredPrevIds.length === this.maxHistoryLength) {
+      const firstId = filteredPrevIds[0];
       delete prevItems[firstId];
     }
 

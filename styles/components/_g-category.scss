@@ -1,5 +1,6 @@
 .g-category {
   position: relative;
+  z-index: $category-list-z;
 
   .category-layer {
     position: absolute;
@@ -8,7 +9,7 @@
 
     &-depth-1 {
       position: absolute;
-      top: 0%;
+      top: -0.4%;
       left: 100%;
       display: none;
       width: 300%;
@@ -21,7 +22,7 @@
 
   .category-list {
     position: relative;
-    z-index: $category-list-z;
+
     width: 170px;
     padding: 8px 0;
     border: 1px solid $gray-dark;
