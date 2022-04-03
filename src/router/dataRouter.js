@@ -1,14 +1,15 @@
 import express from "express";
 import {
   searchWithKeyword,
-  searchRecent,
+  manageRecentData,
   sendCategories,
 } from "../controller/dataController";
 
 const dataRouter = express.Router();
 
-dataRouter.post("/keyword", searchWithKeyword);
-dataRouter.post("/recent", searchRecent);
-dataRouter.post("/categories", sendCategories);
+dataRouter.route("/keyword").post(searchWithKeyword);
+dataRouter.route("/categories").post(sendCategories);
+dataRouter.route("/recent").post(manageRecentData);
+dataRouter.route("/recent/delete").delete(manageRecentData);
 
 export default dataRouter;
