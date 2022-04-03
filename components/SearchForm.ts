@@ -2,7 +2,7 @@ import View from "../Core/View.js";
 
 import { SearchPopup } from "./SearchPopup.js";
 import { SearchCategory } from "./SearchCategory.js";
-import { Store } from "../Core/Store";
+import { Store } from "../Core/Store.js";
 
 export class SearchForm extends View {
   #popupWords = () => this.select("#popupWords"); //필드 바인딩 문제 때문에 람다로 사용했습니다.
@@ -15,6 +15,7 @@ export class SearchForm extends View {
                     <legend>상품검색</legend>
                     <div class="searchForm">  
                         <div class="select-category">
+
                         </div>
                         <label for="searchKeyword"><input id="searchKeyword" placeholder="찾고 싶은 상품을 검색해보세요!" autoComplete="off"/></label>
                         <a class="speech-mic"></a>
@@ -34,8 +35,12 @@ export class SearchForm extends View {
   }
 
   mount() {
-    new SearchPopup(this.store, this.select("#popupWords"), this);
-    new SearchCategory(this.store, this.select(".select-category"), this);
+    new SearchPopup(this.store, <HTMLElement>this.select("#popupWords"), this);
+    new SearchCategory(
+      this.store,
+      <HTMLElement>this.select(".select-category"),
+      this
+    );
   }
 
   setEvent() {
@@ -43,43 +48,51 @@ export class SearchForm extends View {
       "focus",
       "#searchKeyword",
       (e) => {
-        this.#popupWords().style.display = "block";
+        (<HTMLElement>this.#popupWords()).style.display = "block";
       },
       true
     );
     this.addEvent("click", ".select-category", (e) => {
-      const { isOpened } = this.store.state;
-      this.store.setState({ isOpened: !isOpened });
-    });
-    this.addEvent("keyup", "#searchKeyword", (e) => {
-      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return false;
-      const { selected } = this.store.state;
-      const items = [...this.selectAll("a[data-idx]")];
-      this.store.setState({ isArrowKey: true });
-      return e.key === "ArrowUp"
-        ? selected === -1
-          ? false
-          : ((e.target.value = items[selected - 1].textContent),
-            this.store.setState({ selected: selected - 1, isArrowKey: false }))
-        : selected === items.length - 1
-        ? false
-        : ((e.target.value = items[selected + 1].textContent),
-          this.store.setState({ selected: selected + 1, isArrowKey: false }));
+      const { isOpened } = this.state;
+      this.setState({ isOpened: !isOpened });
     });
 
-    this.addEvent("input", "#searchKeyword", ({ target: { value } }) => {
-      const autoComplete = this.#autoComplete();
-      this.store.setState({ currentInput: value });
-      autoComplete.className = value.length ? "auto" : null;
+    this.addEvent("keyup", "#searchKeyword", (e) => {
+      const { selected } = this.state;
+      const items = [...this.selectAll("a[data-idx]")];
+      if (
+        (e.key !== "ArrowDown" && e.key !== "ArrowUp") ||
+        (e.key === "ArrowUp" && selected === 0) ||
+        (e.key === "ArrowDown" && selected === items.length - 1)
+      )
+        return;
+      this.setState({ isArrowKey: true });
+      if (e.key === "ArrowUp") {
+        (<HTMLInputElement>e.target).value = <string>(
+          items[selected - 1].textContent
+        );
+        this.setState({ selected: selected - 1, isArrowKey: false });
+      } else {
+        (<HTMLInputElement>e.target).value = <string>(
+          items[selected + 1].textContent
+        );
+        this.setState({ selected: selected + 1, isArrowKey: false });
+      }
+    });
+    this.addEvent("input", "#searchKeyword", ({ target }) => {
+      const value = (<HTMLInputElement>target).value;
+      const autoComplete = <HTMLElement>this.#autoComplete();
+      this.setState({ currentInput: value });
+      autoComplete.className = value.length ? "auto" : "";
     });
 
     this.addEvent("submit", "#searchForm", (e) => {
       e.preventDefault();
-      const { recentItems, currentInput } = this.store.state;
-      if (!currentInput) return false;
+      const { recentItems, currentInput } = this.state;
+      if (!currentInput) return;
       const newItems = [...recentItems];
       newItems.unshift(currentInput);
-      this.store.setState({ recentItems: newItems });
+      this.setState({ recentItems: newItems });
       localStorage.setItem(Store.storageKey, JSON.stringify(newItems));
     });
   }
